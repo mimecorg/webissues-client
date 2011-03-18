@@ -1,0 +1,72 @@
+<xmlui>
+  <strip id="stripMain">
+    <section id="sectionAdd">
+      <action id="addIssue"/>
+    </section>
+    <section id="sectionFolder">
+      <action id="updateFolder"/>
+      <action id="popupMarkAll"/>
+    </section>
+    <section id="sectionIssue">
+      <action id="editIssue"/>
+      <grid>
+        <action id="moveIssue"/>
+        <action id="deleteIssue"/>
+      </grid>
+      <action id="markAsRead"/>
+    </section>
+    <section id="sectionViews">
+      <action id="manageViews"/>
+      <grid>
+        <action id="addView"/>
+        <action id="modifyView"/>
+      </grid>
+    </section>
+    <section id="sectionReport">
+      <grid>
+        <action id="printReport"/>
+        <action id="popupExport"/>
+      </grid>
+    </section>
+  </strip>
+  <menu id="menuNull">
+    <action id="addIssue"/>
+    <separator/>
+    <action id="markAllAsRead"/>
+    <action id="markAllAsUnread"/>
+    <separator/>
+    <action id="updateFolder"/>
+  </menu>
+  <menu id="menuIssue">
+    <action id="openIssue"/>
+    <separator/>
+    <action id="editIssue"/>
+    <action id="moveIssue"/>
+    <action id="deleteIssue"/>
+    <separator/>
+    <action id="markAsRead"/>
+    <separator/>
+    <action id="addIssue"/>
+    <separator/>
+    <action id="markAllAsRead"/>
+    <action id="markAllAsUnread"/>
+    <separator/>
+    <action id="updateFolder"/>
+  </menu>
+  <menu id="menuHeader">
+    <action id="addView"/>
+    <action id="modifyView"/>
+    <separator/>
+    <action id="manageViews"/>
+  </menu>
+  <menu id="menuExport">
+    <action id="exportPdf"/>
+    <action id="exportHtml"/>
+    <separator/>
+    <action id="exportCsv"/>
+  </menu>
+  <menu id="menuMarkAll">
+    <action id="markAllAsRead"/>
+    <action id="markAllAsUnread"/>
+  </menu>
+</xmlui>

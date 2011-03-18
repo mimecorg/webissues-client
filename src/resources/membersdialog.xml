@@ -1,0 +1,16 @@
+<xmlui>
+  <strip id="stripMembers">
+    <action id="addMember"/>
+    <action id="changeAccess"/>
+    <action id="removeMember"/>
+  </strip>
+  <menu id="menuNull">
+    <action id="addMember"/>
+  </menu>
+  <menu id="menuMember">
+    <action id="changeAccess"/>
+    <action id="removeMember"/>
+    <separator/>
+    <action id="addMember"/>
+  </menu>
+</xmlui>

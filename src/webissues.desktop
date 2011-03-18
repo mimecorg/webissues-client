@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=WebIssues
+GenericName=Issue Tracker
+Comment=Desktop Client for the WebIssues team collaboration system
+Icon=webissues
+Exec=webissues
+Categories=Qt;Office;ProjectManagement;

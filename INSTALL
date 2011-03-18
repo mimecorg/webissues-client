@@ -1,0 +1,120 @@
+Requirements
+============
+
+ * Qt framework, version 4.4.2 or newer (http://qt.nokia.com/products)
+
+ * Optional: OpenSLL toolkit (http://www.openssl.org/)
+
+The program can be built using the standard 'qmake' tool from Qt. Simple configure
+scripts are available for both Linux and Windows which create a configuration file
+and run qmake with appropriate parameters. See detailed instructions below.
+
+In order to support secure connections over HTTPS, Qt must be built with OpenSSL
+support enabled.
+
+
+Linux
+=====
+
+To compile the program you will need a C++ compiler (preferably gcc) and headers
+for the Qt library (if you use binary packages, make sure you have the appropriate
+'devel' package installed).
+
+The typical procedure of building and installing the program is:
+
+    $ ./configure
+    $ make
+    # make install
+
+Additional options that can be passed to the configure script:
+
+    -prefix DIR
+
+        Location where the package will be installed (default is '/usr/local').
+
+    -qmake PATH
+
+        Full path to the 'qmake' tool (required if it cannot be found
+        automatically).
+
+    -debug
+
+        Build with debugging symbols.
+
+
+Windows
+=======
+
+You must have the open source edition of Qt installed. The program can be compiled
+using either the MinGW compiler or Microsoft Visual C++.
+
+If you are using MinGW, open the Qt Command Prompt. Go to the directory where
+you have unpacked WebIssues and run:
+
+    > configure.bat
+    > mingw32-make
+
+If you are using Microsoft Visual C++, open the Visual Studio Command Prompt.
+Make sure that QTDIR is set to the path where Qt was installed. Go to the directory
+where you have unpacked WebIssues and run:
+
+    > set QTDIR=C:\path\to\qt4
+    > configure.bat
+    > nmake
+
+Additional options that can be passed to the configure script:
+
+    -prefix DIR
+
+        The location where the package will be installed (default is
+        'C:\Program Files\WebIssues').
+
+    -debug
+
+        Build with debugging symbols.
+
+    -msvc
+
+        Generate a solution for Microsoft Visual Studio instead of Makefiles.
+
+        
+Mac OS X
+========
+
+To compile the program you will need a C++ compiler and headers for the Qt library.
+The typical procedure of building the program is:
+
+    $ ./configure
+    $ make
+
+To create the binary package run the attached script:
+
+    $ cd packages/osx
+    $ ./osx-package.sh ../../release/webissues
+
+Additional options that can be passed to the configure script:
+
+    -prefix DIR
+
+        Location where the package will be installed (default is '/usr/local').
+
+    -qmake PATH
+
+        Full path to the 'qmake' tool (required if it cannot be found
+        automatically).
+
+    -debug
+
+        Build with debugging symbols.
+
+    -universal
+
+        Build both the x86 and PPC version.
+
+    -target VERSION
+
+        Set OS X deployment target (default target is 10.3).
+
+    -sdk PATH
+
+        Set OS X SDK (default is /Developer/SDKs/MacOSX10.4u.sdk).

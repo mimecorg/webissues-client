@@ -1,0 +1,40 @@
+<xmlui>
+  <strip id="stripMain">
+    <section id="sectionAdd">
+      <action id="addType"/>
+      <action id="addAttribute"/>
+    </section>
+    <section id="sectionTypes">
+      <action id="updateTypes"/>
+      <action id="editModify"/>
+      <grid>
+        <action id="editRename"/>
+        <action id="editDelete"/>
+      </grid>
+      <action id="viewSettings"/>
+    </section>
+  </strip>
+  <menu id="menuNull">
+    <action id="addType"/>
+    <separator/>
+    <action id="updateTypes"/>
+  </menu>
+  <menu id="menuType">
+    <action id="addAttribute"/>
+    <separator/>
+    <action id="editRename"/>
+    <action id="editDelete"/>
+    <separator/>
+    <action id="viewSettings"/>
+    <separator/>
+    <action id="updateTypes"/>
+  </menu>
+  <menu id="menuAttribute">
+    <action id="editModify"/>
+    <separator/>
+    <action id="editRename"/>
+    <action id="editDelete"/>
+    <separator/>
+    <action id="updateTypes"/>
+  </menu>
+</xmlui>

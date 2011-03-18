@@ -1,0 +1,90 @@
+WebIssues Desktop Client
+Version 1.0-alpha4 (2011-03-15)
+
+Desktop Client for the WebIssues team collaboration system.
+
+WebIssues is an open source, multi-platform system for issue tracking
+and team collaboration. It can be used to store, share and track issues
+with various attributes, comments and file attachments. The system
+is easy to install and use but has many capabilities and is highly
+customizable.
+
+NOTE: THIS IS AN ALPHA RELEASE, USE IT FOR TESTING PURPOSES ONLY.
+THIS VERSION OF THE CLIENT APPLICATION CAN ONLY CONNECT TO THE 1.0-alpha1
+VERSION OF THE SERVER, IT WILL NOT WORK WITH OTHER VERSIONS.
+
+
+Copyrights
+==========
+
+Copyright (C) 2006 Michał Męciński
+Copyright (C) 2007-2011 WebIssues Team
+
+Icons based on the KDE Crystal theme copyright (C) 2002 and following
+years KDE Artists
+
+This product includes software developed by the OpenSSL Project for use
+in the OpenSSL Toolkit (http://www.openssl.org/)
+
+
+License
+=======
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+In addition, as a special exception, the WebIssues Team gives
+permission to link the code of this program with the OpenSSL library
+and distribute linked combinations including the two. You must obey
+the GNU General Public License in all respects for all of the code
+used other than OpenSSL. You may extend this exception to your version
+of the program, but you are not obligated to do so. If you do not wish
+to do so, delete this exception statement from your version.
+
+
+WebIssues Team
+==============
+
+Authors:
+ * Michał Męciński (mimec at mimec org)
+
+Contributors:
+ * Francine LAI DOO WOO (fldw.fladsc at orange fr)
+    - Supporting Web Client developer, French translation
+ * Patrick Matthäi (patrick.matthaei at web de)
+    - Debian packaging, patches
+ * Azevedo Filipe (pasnox at gmail com)
+    - OS X packaging, patches
+ * Alex Bekhtin (alexbekhtin at gmail com)
+    - Firebird database engine
+ * Flávio Veras (flaviove at gmail com)
+    - Portuguese translation
+
+
+Resources
+=========
+
+Website
+    http://webissues.mimec.org/
+
+Online Documentation
+    http://doc.mimec.org/webissues/client/
+
+Forum
+    http://webissues.mimec.org/forum/general
+
+Bugs & Requests
+    http://webissues.mimec.org/forum/tracker
+
+Development
+    http://wiki.mimec.org/wiki/WebIssues

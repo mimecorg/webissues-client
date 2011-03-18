@@ -1,0 +1,16 @@
+<RCC version="1.0">
+<qresource prefix="/resources">
+  <file>commentview.xml</file>
+  <file>folderview.xml</file>
+  <file>issueview.xml</file>
+  <file>mainwindow.xml</file>
+  <file>managealertsdialog.xml</file>
+  <file>membersdialog.xml</file>
+  <file>projectsview.xml</file>
+  <file>startview.xml</file>
+  <file>typesview.xml</file>
+  <file>usersview.xml</file>
+  <file>viewerwindow.xml</file>
+  <file>viewsettingsdialog.xml</file>
+</qresource>
+</RCC>

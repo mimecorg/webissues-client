@@ -1,0 +1,56 @@
+<xmlui>
+  <strip id="stripMain">
+    <section id="sectionAdd">
+      <action id="addProject"/>
+      <action id="addFolder"/>
+    </section>
+    <section id="sectionProjects">
+      <action id="updateProjects"/>
+      <grid>
+        <action id="editRename"/>
+        <action id="moveFolder"/>
+        <action id="editDelete"/>
+        <action id="showMembers"/>
+      </grid>
+      <action id="manageAlerts"/>
+    </section>
+  </strip>
+  <menu id="menuNull">
+    <action id="addProject"/>
+    <separator/>
+    <action id="updateProjects"/>
+  </menu>
+  <menu id="menuProject">
+    <action id="addFolder"/>
+    <separator/>
+    <action id="showMembers"/>
+    <separator/>
+    <action id="updateProjects"/>
+  </menu>
+  <menu id="menuProjectAdmin">
+    <action id="addFolder"/>
+    <separator/>
+    <action id="editRename"/>
+    <action id="editDelete"/>
+    <separator/>
+    <action id="showMembers"/>
+    <separator/>
+    <action id="updateProjects"/>
+  </menu>
+  <menu id="menuFolder">
+    <action id="openFolder"/>
+    <separator/>
+    <action id="editRename"/>
+    <action id="moveFolder"/>
+    <action id="editDelete"/>
+    <separator/>
+    <action id="manageAlerts"/>
+    <separator/>
+    <action id="updateProjects"/>
+  </menu>
+  <menu id="menuAlert">
+    <action id="manageAlerts"/>
+    <separator/>
+    <action id="updateProjects"/>
+  </menu>
+</xmlui>

@@ -1,0 +1,32 @@
+<xmlui>
+  <strip id="stripMain">
+    <section id="sectionAdd">
+      <action id="addUser"/>
+    </section>
+    <section id="sectionUsers">
+      <action id="updateUsers"/>
+      <grid>
+        <action id="changeAccess"/>
+        <action id="changePassword"/>
+        <action id="editRename"/>
+        <action id="userPreferences"/>
+      </grid>
+    </section>
+  </strip>
+  <menu id="menuNull">
+    <action id="addUser"/>
+    <separator/>
+    <action id="updateUsers"/>
+  </menu>
+  <menu id="menuUser">
+    <action id="changeAccess"/>
+    <action id="changePassword"/>
+    <separator/>
+    <action id="editRename"/>
+    <action id="userPreferences"/>
+    <separator/>
+    <action id="addUser"/>
+    <separator/>
+    <action id="updateUsers"/>
+  </menu>
+</xmlui>

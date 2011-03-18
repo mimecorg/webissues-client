@@ -1,0 +1,572 @@
+/**************************************************************************
+* This file is part of the WebIssues Desktop Client program
+* Copyright (C) 2006 Michał Męciński
+* Copyright (C) 2007-2011 WebIssues Team
+*
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program.  If not, see <http://www.gnu.org/licenses/>.
+**************************************************************************/
+
+#include "userdialogs.h"
+
+#include "data/datamanager.h"
+#include "commands/usersbatch.h"
+#include "rdb/utilities.h"
+#include "utils/errorhelper.h"
+#include "utils/iconloader.h"
+#include "widgets/inputlineedit.h"
+
+#include <QLayout>
+#include <QLabel>
+#include <QButtonGroup>
+#include <QRadioButton>
+#include <QListWidget>
+#include <QCheckBox>
+
+AddUserDialog::AddUserDialog( QWidget* parent ) : CommandDialog( parent )
+{
+    setWindowTitle( tr( "Add User" ) );
+    setPrompt( tr( "Create a new user:" ) );
+    setPromptPixmap( IconLoader::pixmap( "user-new", 22 ) );
+
+    QGridLayout* layout = new QGridLayout();
+
+    QLabel* loginLabel = new QLabel( tr( "&Login:" ), this );
+    layout->addWidget( loginLabel, 0, 0 );
+
+    m_loginEdit = new InputLineEdit( this );
+    m_loginEdit->setMaxLength( 40 );
+    m_loginEdit->setRequired( true );
+    layout->addWidget( m_loginEdit, 0, 1 );
+
+    loginLabel->setBuddy( m_loginEdit );
+
+    QLabel* nameLabel = new QLabel( tr( "&Name:" ), this );
+    layout->addWidget( nameLabel, 1, 0 );
+
+    m_nameEdit = new InputLineEdit( this );
+    m_nameEdit->setMaxLength( 40 );
+    m_nameEdit->setRequired( true );
+    layout->addWidget( m_nameEdit, 1, 1 );
+
+    nameLabel->setBuddy( m_nameEdit );
+
+    QLabel* passwordLabel = new QLabel( tr( "&Password:" ), this );
+    layout->addWidget( passwordLabel, 2, 0 );
+
+    m_passwordEdit = new InputLineEdit( this );
+    m_passwordEdit->setEchoMode( QLineEdit::Password );
+    m_passwordEdit->setMaxLength( 40 );
+    m_passwordEdit->setRequired( true );
+    layout->addWidget( m_passwordEdit, 2, 1 );
+
+    passwordLabel->setBuddy( m_passwordEdit );
+
+    QLabel* password2Label = new QLabel( tr( "Con&firm:" ), this );
+    layout->addWidget( password2Label, 3, 0 );
+
+    m_passwordEdit2 = new InputLineEdit( this );
+    m_passwordEdit2->setEchoMode( QLineEdit::Password );
+    m_passwordEdit2->setMaxLength( 40 );
+    m_passwordEdit2->setRequired( true );
+    layout->addWidget( m_passwordEdit2, 3, 1 );
+
+    password2Label->setBuddy( m_passwordEdit2 );
+
+    m_tempCheck = new QCheckBox( tr( "&User must change password at next logon" ), this );
+    layout->addWidget( m_tempCheck, 4, 1 );
+
+    setContentLayout( layout, true );
+
+    m_loginEdit->setFocus();
+}
+
+AddUserDialog::~AddUserDialog()
+{
+}
+
+void AddUserDialog::accept()
+{
+    if ( !validate() )
+        return;
+
+    QString login = m_loginEdit->inputValue();
+    QString name = m_nameEdit->inputValue();
+
+    RDB::IndexConstIterator<UserRow> it( dataManager->users()->index() );
+    if ( RDB::findRow( it, &UserRow::login, login ) ) {
+        showWarning( ErrorHelper::statusMessage( ErrorHelper::UserAlreadyExists ) );
+        return;
+    }
+
+    it = RDB::IndexConstIterator<UserRow>( dataManager->users()->index() );
+    if ( RDB::findRow( it, &UserRow::name, name) ) {
+        showWarning( ErrorHelper::statusMessage( ErrorHelper::UserAlreadyExists ) );
+        return;
+    }
+
+    QString password = m_passwordEdit->inputValue();
+    QString password2 = m_passwordEdit2->inputValue();
+
+    if ( password != password2 ) {
+        showWarning( ErrorHelper::statusMessage( ErrorHelper::PasswordNotMatching ) );
+        return;
+    }
+
+    UsersBatch* batch = new UsersBatch();
+    batch->addUser( login, name, password, m_tempCheck->isChecked() );
+
+    executeBatch( batch );
+}
+
+SetPasswordDialog::SetPasswordDialog( int userId, QWidget* parent ) : CommandDialog( parent ),
+    m_userId( userId ),
+    m_passwordEdit( NULL ),
+    m_tempCheck( NULL )
+{
+    const UserRow* user = dataManager->users()->find( userId );
+    QString name = user ? user->name() : QString();
+
+    setWindowTitle( tr( "Change Password" ) );
+    if ( userId == dataManager->currentUserId() )
+        setPrompt( tr( "Enter your new password:" ) );
+    else
+        setPrompt( tr( "Enter the new password for user <b>%1</b>:" ).arg( name ) );
+    setPromptPixmap( IconLoader::pixmap( "edit-password", 22 ) );
+
+    QGridLayout* layout = new QGridLayout();
+
+    int row = 0;
+
+    if ( userId == dataManager->currentUserId() ) {
+        QLabel* passwordLabel = new QLabel( tr( "Current &Password:" ), this );
+        layout->addWidget( passwordLabel, row, 0 );
+
+        m_passwordEdit = new InputLineEdit( this );
+        m_passwordEdit->setEchoMode( QLineEdit::Password );
+        m_passwordEdit->setMaxLength( 40 );
+        m_passwordEdit->setRequired( true );
+        layout->addWidget( m_passwordEdit, row++, 1 );
+
+        passwordLabel->setBuddy( m_passwordEdit );
+    }
+
+    QLabel* newPasswordLabel = new QLabel( tr( "&New Password:" ), this );
+    layout->addWidget( newPasswordLabel, row, 0 );
+
+    m_newPasswordEdit = new InputLineEdit( this );
+    m_newPasswordEdit->setEchoMode( QLineEdit::Password );
+    m_newPasswordEdit->setMaxLength( 40 );
+    m_newPasswordEdit->setRequired( true );
+    layout->addWidget( m_newPasswordEdit, row++, 1 );
+
+    newPasswordLabel->setBuddy( m_newPasswordEdit );
+
+    QLabel* newPassword2Label = new QLabel( tr( "Con&firm:" ), this );
+    layout->addWidget( newPassword2Label, row, 0 );
+
+    m_newPasswordEdit2 = new InputLineEdit( this );
+    m_newPasswordEdit2->setEchoMode( QLineEdit::Password );
+    m_newPasswordEdit2->setMaxLength( 40 );
+    m_newPasswordEdit2->setRequired( true );
+    layout->addWidget( m_newPasswordEdit2, row++, 1 );
+
+    newPassword2Label->setBuddy( m_newPasswordEdit2 );
+
+    if ( userId != dataManager->currentUserId() ) {
+        m_tempCheck = new QCheckBox( tr( "&User must change password at next logon" ), this );
+        layout->addWidget( m_tempCheck, row++, 1 );
+    }
+
+    setContentLayout( layout, true );
+
+    if ( m_passwordEdit )
+        m_passwordEdit->setFocus();
+    else
+        m_newPasswordEdit->setFocus();
+}
+
+SetPasswordDialog::~SetPasswordDialog()
+{
+}
+
+void SetPasswordDialog::accept()
+{
+    if ( !validate() )
+        return;
+
+    QString newPassword = m_newPasswordEdit->inputValue();
+    QString newPassword2 = m_newPasswordEdit2->inputValue();
+
+    if ( newPassword != newPassword2 ) {
+        showWarning( ErrorHelper::statusMessage( ErrorHelper::PasswordNotMatching ) );
+        return;
+    }
+
+    if ( m_userId == dataManager->currentUserId() ) {
+        QString password = m_passwordEdit->inputValue();
+    
+        if ( password == newPassword ) {
+            showWarning( ErrorHelper::statusMessage( ErrorHelper::CannotReusePassword ) );
+            return;
+        }
+
+        UsersBatch* batch = new UsersBatch();
+        batch->changePassword( password, newPassword );
+
+        executeBatch( batch );
+    } else {
+        UsersBatch* batch = new UsersBatch();
+        batch->setPassword( m_userId, newPassword, m_tempCheck->isChecked() );
+
+        executeBatch( batch );
+    }
+}
+
+ChangeUserAccessDialog::ChangeUserAccessDialog( int userId, QWidget* parent ) : CommandDialog( parent ),
+    m_userId( userId )
+{
+    const UserRow* user = dataManager->users()->find( userId );
+    QString name = user ? user->name() : QString();
+    m_oldAccess = user ? user->access() : NoAccess;
+
+    setWindowTitle( tr( "Change Access" ) );
+    setPrompt( tr( "Set new access level for user <b>%1</b>:" ).arg( name ) );
+    setPromptPixmap( IconLoader::pixmap( "edit-access", 22 ) );
+
+    QHBoxLayout* layout = new QHBoxLayout();
+
+    QLabel* label = new QLabel( tr( "Access:" ), this );
+    layout->addWidget( label );
+
+    QHBoxLayout* buttonsLayout = new QHBoxLayout();
+    layout->addLayout( buttonsLayout );
+
+    m_accessGroup = new QButtonGroup( this );
+
+    QRadioButton* noneButton = new QRadioButton( tr( "&Disabled" ), this );
+    m_accessGroup->addButton( noneButton, NoAccess );
+    buttonsLayout->addWidget( noneButton );
+
+    QRadioButton* normalButton = new QRadioButton( tr( "&Regular user" ), this );
+    m_accessGroup->addButton( normalButton, NormalAccess );
+    buttonsLayout->addWidget( normalButton );
+
+    QRadioButton* adminButton = new QRadioButton( tr( "&System administrator" ), this );
+    m_accessGroup->addButton( adminButton, AdminAccess );
+    buttonsLayout->addWidget( adminButton );
+
+    buttonsLayout->addStretch( 1 );
+
+    m_accessGroup->button( m_oldAccess )->setChecked( true );
+
+    setContentLayout( layout, true );
+
+    m_accessGroup->checkedButton()->setFocus();
+}
+
+ChangeUserAccessDialog::~ChangeUserAccessDialog()
+{
+}
+
+void ChangeUserAccessDialog::accept()
+{
+    int access = m_accessGroup->checkedId();
+
+    if ( access == m_oldAccess ) {
+        QDialog::accept();
+        return;
+    }
+
+    UsersBatch* batch = new UsersBatch();
+    batch->grantUser( m_userId, (Access)access );
+
+    executeBatch( batch );
+}
+
+RenameUserDialog::RenameUserDialog( int userId, QWidget* parent ) : CommandDialog( parent ),
+    m_userId( userId )
+{
+    const UserRow* user = dataManager->users()->find( userId );
+    m_oldName = user ? user->name() : QString();
+
+    setWindowTitle( tr( "Rename User" ) );
+    setPrompt( tr( "Enter the new name of user <b>%1</b>:" ).arg( m_oldName ) );
+    setPromptPixmap( IconLoader::pixmap( "edit-rename", 22 ) );
+
+    QHBoxLayout* layout = new QHBoxLayout();
+
+    QLabel* label = new QLabel( tr( "&Name:" ), this );
+    layout->addWidget( label, 0 );
+
+    m_nameEdit = new InputLineEdit( this );
+    m_nameEdit->setMaxLength( 40 );
+    m_nameEdit->setRequired( true );
+    m_nameEdit->setInputValue( m_oldName );
+    layout->addWidget( m_nameEdit, 1 );
+
+    label->setBuddy( m_nameEdit );
+
+    setContentLayout( layout, true );
+
+    m_nameEdit->setFocus();
+}
+
+RenameUserDialog::~RenameUserDialog()
+{
+}
+
+void RenameUserDialog::accept()
+{
+    if ( !validate() )
+        return;
+
+    QString name = m_nameEdit->inputValue();
+
+    if ( name == m_oldName ) {
+        QDialog::accept();
+        return;
+    }
+
+    RDB::IndexConstIterator<UserRow> it( dataManager->users()->index() );
+    if ( RDB::findRow( it, &UserRow::name, name) ) {
+        showWarning( ErrorHelper::statusMessage( ErrorHelper::UserAlreadyExists ) );
+        return;
+    }
+
+    UsersBatch* batch = new UsersBatch();
+    batch->renameUser( m_userId, name );
+
+    executeBatch( batch );
+}
+
+AddMemberDialog::AddMemberDialog( int projectId, QWidget* parent ) : CommandDialog( parent ),
+    m_projectId( projectId ),
+    m_list( NULL ),
+    m_accessGroup( NULL )
+{
+    const ProjectRow* project = dataManager->projects()->find( projectId );
+    QString projectName = project ? project->name() : QString();
+
+    setWindowTitle( tr( "Add Members" ) );
+    setPrompt( tr( "Add new members to project <b>%1</b>:" ).arg( projectName ) );
+    setPromptPixmap( IconLoader::pixmap( "user-new", 22 ) );
+
+    RDB::IndexConstIterator<UserRow> it( dataManager->users()->index() );
+    QList<const UserRow*> users = localeAwareSortRows( it, &UserRow::name );
+    QList<const UserRow*> available;
+
+    for ( int i = 0; i < users.count(); i++ ) {
+        const UserRow* user = users.at( i );
+        if ( user->access() == NoAccess )
+            continue;
+        if ( dataManager->members()->find( user->userId(), projectId ) )
+            continue;
+        available.append( user );
+    }
+
+    if ( available.empty() ) {
+        showWarning( tr( "There are no more available users to add." ) );
+        showCloseButton();
+        setContentLayout( NULL, true );
+        return;
+    }
+
+    QGridLayout* layout = new QGridLayout();
+
+    QLabel* userLabel = new QLabel( tr( "&Users:" ), this );
+    layout->addWidget( userLabel, 0, 0 );
+
+    m_list = new QListWidget( this );
+    layout->addWidget( m_list, 0, 1 );
+
+    userLabel->setBuddy( m_list );
+
+    foreach ( const UserRow* user, available ) {
+        QListWidgetItem* item = new QListWidgetItem( m_list );
+        item->setText( user->name() );
+        item->setData( Qt::UserRole, user->userId() );
+        item->setCheckState( Qt::Unchecked );
+    }
+
+    QLabel* accessLabel = new QLabel( tr( "Access:" ), this );
+    layout->addWidget( accessLabel, 1, 0 );
+
+    QHBoxLayout* buttonsLayout = new QHBoxLayout();
+    layout->addLayout( buttonsLayout, 1, 1 );
+
+    m_accessGroup = new QButtonGroup( this );
+
+    QRadioButton* normalButton = new QRadioButton( tr( "&Regular member" ), this );
+    m_accessGroup->addButton( normalButton, NormalAccess );
+    buttonsLayout->addWidget( normalButton );
+
+    QRadioButton* adminButton = new QRadioButton( tr( "&Project administrator" ), this );
+    m_accessGroup->addButton( adminButton, AdminAccess );
+    buttonsLayout->addWidget( adminButton );
+
+    buttonsLayout->addStretch( 1 );
+
+    m_accessGroup->button( NormalAccess )->setChecked( true );
+
+    setContentLayout( layout, false );
+
+    m_list->setFocus();
+}
+
+AddMemberDialog::~AddMemberDialog()
+{
+}
+
+void AddMemberDialog::accept()
+{
+    QList<int> users;
+
+    for ( int i = 0; i < m_list->count(); i++ ) {
+        if ( m_list->item( i )->checkState() == Qt::Checked ) {
+            int userId = m_list->item( i )->data( Qt::UserRole ).toInt();
+            users.append( userId );
+        }
+    }
+
+    if ( users.isEmpty() ) {
+        showWarning( tr( "No user selected." ) );
+        return;
+    }
+
+    int access = m_accessGroup->checkedId();
+
+    UsersBatch* batch = new UsersBatch();
+    for ( int i = 0; i < users.count(); i++ )
+        batch->grantMember( users.at( i ), m_projectId, (Access)access );
+
+    executeBatch( batch );
+}
+
+ChangeMemberAccessDialog::ChangeMemberAccessDialog( const QList<int>& users, int projectId, QWidget* parent ) :
+    CommandDialog( parent ),
+    m_users( users ),
+    m_projectId( projectId )
+{
+    const UserRow* user = dataManager->users()->find( users.first() );
+    QString userName = user ? user->name() : QString();
+
+    const ProjectRow* project = dataManager->projects()->find( projectId );
+    QString projectName = project ? project->name() : QString();
+
+    const MemberRow* member = dataManager->members()->find( users.first(), projectId );
+    Access oldAccess = member ? member->access() : NoAccess;
+
+    setWindowTitle( tr( "Change Access" ) );
+    if ( users.count() == 1 )
+        setPrompt( tr( "Set new access level to project <b>%1</b> for user <b>%2</b>:" ).arg( projectName, userName ) );
+    else
+        setPrompt( tr( "Set new access level to project <b>%1</b> for %2 selected users:" ).arg( projectName ).arg( users.count() ) );
+    setPromptPixmap( IconLoader::pixmap( "edit-access", 22 ) );
+
+    QHBoxLayout* layout = new QHBoxLayout();
+
+    QLabel* label = new QLabel( tr( "Access:" ), this );
+    layout->addWidget( label );
+
+    QHBoxLayout* buttonsLayout = new QHBoxLayout();
+    layout->addLayout( buttonsLayout );
+
+    m_accessGroup = new QButtonGroup( this );
+
+    QRadioButton* normalButton = new QRadioButton( tr( "&Regular member" ), this );
+    m_accessGroup->addButton( normalButton, NormalAccess );
+    buttonsLayout->addWidget( normalButton );
+
+    QRadioButton* adminButton = new QRadioButton( tr( "&Project administrator" ), this );
+    m_accessGroup->addButton( adminButton, AdminAccess );
+    buttonsLayout->addWidget( adminButton );
+
+    buttonsLayout->addStretch( 1 );
+
+    m_accessGroup->button( oldAccess )->setChecked( true );
+
+    setContentLayout( layout, true );
+
+    m_accessGroup->checkedButton()->setFocus();
+}
+
+ChangeMemberAccessDialog::~ChangeMemberAccessDialog()
+{
+}
+
+void ChangeMemberAccessDialog::accept()
+{
+    int access = m_accessGroup->checkedId();
+
+    QList<int> changed;
+
+    for ( int i = 0; i < m_users.count(); i++ ) {    
+        int userId = m_users.at( i );
+        const MemberRow* member = dataManager->members()->find( userId, m_projectId );
+        Access oldAccess = member ? member->access() : NoAccess;
+        if ( oldAccess != access )
+            changed.append( userId );
+    }
+
+    if ( changed.isEmpty() ) {
+        QDialog::accept();
+        return;
+    }
+
+    UsersBatch* batch = new UsersBatch();
+    for ( int i = 0; i < changed.count(); i++ ) {
+        int userId = changed.at( i );
+        batch->grantMember( userId, m_projectId, (Access)access );
+    }
+
+    executeBatch( batch );
+}
+
+RemoveMemberDialog::RemoveMemberDialog( const QList<int>& users, int projectId, QWidget* parent ) : CommandDialog( parent ),
+    m_users( users ),
+    m_projectId( projectId )
+{
+    const UserRow* user = dataManager->users()->find( users.first() );
+    QString userName = user ? user->name() : QString();
+
+    const ProjectRow* project = dataManager->projects()->find( projectId );
+    QString projectName = project ? project->name() : QString();
+
+    if ( users.count() == 1 ) {
+        setWindowTitle( tr( "Remove Member" ) );
+        setPrompt( tr( "Do you want to remove user <b>%1</b> from project <b>%2</b>?" ).arg( userName, projectName ) );
+    } else {
+        setWindowTitle( tr( "Remove Members" ) );
+        setPrompt( tr( "Do you want to remove %1 selected users from project <b>%2</b>?" ).arg( users.count() ).arg( projectName ) );
+    }
+    setPromptPixmap( IconLoader::pixmap( "edit-delete", 22 ) );
+
+    setContentLayout( NULL, true );
+}
+
+RemoveMemberDialog::~RemoveMemberDialog()
+{
+}
+
+void RemoveMemberDialog::accept()
+{
+    UsersBatch* batch = new UsersBatch();
+
+    for ( int i = 0; i < m_users.count(); i++ ) {
+        int userId = m_users.at( i );
+        batch->grantMember( userId, m_projectId, NoAccess );
+    }
+
+    executeBatch( batch );
+}

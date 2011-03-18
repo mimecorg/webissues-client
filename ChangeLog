@@ -1,0 +1,229 @@
+1.0-alpha4 (2011-03-15)
+    * moving and deleting issues
+    * editing and deleting comments and attachments
+    * deleting non-empty projects and folders
+    * allow expressions in initial values of attributes
+    * improved performance of populating issue history
+    * user friendly error messages (task #393)
+    * fixed a problem with tray icon menu (bug #503)
+    
+1.0-alpha3 (2010-12-14)
+    * tracking read state of issues
+    * alerts and email notifications
+    * storing position of viewer windows (bug #363)
+    * fixed handling links to files (bug #455)
+
+1.0-alpha2 (2010-08-26)
+    * configuration of views and view settings
+    * filtering issue history (task #385)
+    * storing column widths and expanded nodes locally (task #388)
+    * fixed wrong sorting by non-unique column (bug #375)
+    * fixed default data paths on Mac OS X (bug #440)
+
+1.0-alpha1 (2010-05-28)
+    * redesigned the issue details view
+    * redesigned the dialog for adding and editing issues
+    * redesigned the start page and login dialogs
+    * replaced obsolete QHttp with QNetworkAccessManager
+    * changed the location of data and cache files to make it version dependent
+    * fixed a problem with invisible contextual menu when switching active view (bug #257)
+    * added support for 64-bit Windows platforms
+    * disabled watches and notifications
+    * changed required version of Qt to 4.4
+    * changed license to GNU GPL version 3.0
+
+0.9.6 (2009-11-25)
+    * added: support for Mac OS X
+    * added: creating bookmarks for the same server with different logins (task #235)
+    * added: simple support for HTTP authentication (task #255)
+    * fixed: behavior in single-window mode under KDE4 (bug #208)
+    * fixed: truncate file name to 40 characters and make it editable (bug #221)
+    * fixed: authentication of HTTP proxy (bug #227)
+
+0.9.5 (2009-08-05)
+    * updated Czech, German, Polish, Portuguese, Russian and Spanish translations
+    * updated the user's manual
+    * fixed a few minor UI issues
+
+0.9.5-rc1 (2009-07-02)
+    * added: new improved dashboard view
+    * added: adding and navigating to issues directly in main window (tasks #106, #176)
+    * added: improved keyboard handling in search boxes (task #168)
+    * fixed: compilation error with Qt 4.4 or older (bug #153)
+    * fixed: updating state of watched folders and issues (bug #123)
+    * fixed: title bar of some windows (bugs #97, #161)
+    * fixed: increased default sizes of some windows (bug #163)
+
+0.9.5-beta2 (2009-05-27)
+    * added: selecting and copying text in issue details view (task #5)
+    * added: changing the default sort order for issues of given type (task #9)
+    * added: more operators for non-editable drop down attributes in filters (task #79)
+    * added: drop down calendar for editing date/time attributes (task #92)
+    * added: possibility to change layout of the issue details view (task #118)
+    * fixed: support for cookies (bug #1)
+
+0.9.5-beta1 (2009-04-24)
+    * added: three-pane user interface
+    * added: Portuguese (Brazil) and Czech translations
+    * fixed: crash when deleting an attribute (bug #73)
+
+0.9.4 (2009-03-11)
+    * fixed: compilation with static libraries
+    * fixed: marking state of watched folders and issues
+    * Windows installer includes statically linked and packed executable
+    * Windows installer can be run by non-administrator user
+    * updated German, Russian and Polish translations
+    * updated user's manual and created new style
+    * added OpenSLL exception to the license
+
+0.9.4-rc1 (2009-02-03)
+    * added: portable installer and launcher for Windows
+    * added: marking issues as read / unread
+    * added: limit of comment length
+    * added: language setting
+    * fixed: behavior of right click on lists
+
+0.9.4-beta2 (2009-01-10)
+    * added: command line options for overriding file locations
+    * added: automatic notification settings for folders
+    * added: permanently ignoring errors for selected certificates
+    * fixed: ignoring already reported SSL errors
+    * fixed: updating data when server reply is empty
+    * fixed: possible race condition when sending requests to server
+
+0.9.4-beta1 (2008-11-18)
+    * added: detecting server features
+    * added: editing user preferences
+    * added: server-side notifications
+    * added: Windows installer sources to the package
+
+0.9.3 (2008-10-20)
+    * added: German translation
+    * updated: Spanish, Russian and Polish translations
+    * updated: user's manual
+
+0.9.3-rc1 (2008-10-09)
+    * added: version information for Windows executable
+    * fixed: compilation error because of missing include
+    * fixed: compilation warnings
+    * fixed: added missing API documentation
+    * fixed: improved string handling performance
+
+0.9.3-beta2 (2008-09-10)
+    * added: print preview available with all versions of Qt
+    * added: SSL information in connection information dialog
+    * added: simple man page
+    * added: DESTDIR support
+    * fixed: better appearance of reports with Qt 4.3 and earlier
+    * fixed: manual installation directory
+
+0.9.3-beta1 (2008-08-15)
+    * added: support for SSL connections
+    * added: printing and exporting reports
+    * fixed: crash on closing connection / exit
+    * fixed: better handling of connection errors
+    * refactored: rewritten core RDB classes and model adapter
+    * refactored: replaced DotNetStyle with WindowsModernStyle
+    * relicensed common components to BSD-syle license
+
+0.9.2 (2008-01-07)
+    * added: Spanish, Russian and Polish translations
+    * fixed: compilation with Qt 4.2
+    * fixed: compilation with GCC 4.3-snapshot
+    * fixed: error handling in the command manager
+    * fixed: some shortcuts and mnemonics
+
+0.9.2-rc1 (2007-11-27)
+    * changed build system to qmake
+    * added: modern UI style for Windows (a'la Office 2003)
+    * added: improved quick search in folder view
+    * added: improved find bar in issue history
+    * added: manage filters dialog
+    * fixed: attribute order in issue tool tip
+    * fixed: removed deprecated encoding key from desktop file
+
+0.9.2-beta3 (2007-10-16)
+    * added: proxy support for connections
+    * added: handling ENTER key in all lists
+    * added: repositioning the ID and Name columns in the issues list
+    * added: expanding tree node after adding a child node
+    * fixed: clearing the required flag and def. value in attribute definition
+    * fixed: filtering and sorting the list when an issue was modified
+    * fixed: command objects not being deleted
+    * fixed: accessing freed memory when updating the UI
+    * fixed: aborting commands before closing the connection
+
+0.9.2-beta2 (2007-09-05)
+    * added: support for the MS Visual C++ compiler
+    * added: creating filters directly from the folder watches dialog
+    * fixed: operation on freed memory when formatting requests sent to server
+    * fixed: possible crash and incorrect behavior when hiding project actions
+    * fixed: a few minor layout bugs
+
+0.9.2-beta1 (2007-08-27)
+    * added: folder watches and dashboard view
+    * added: marking new and modified issues
+    * added: importing/exporting client configuration
+
+0.9.1 (2007-08-08)
+    * added: hide or show actions depending on user's permissions
+    * added: indicate access level for projects and users with icons
+    * added: save and restore expanded nodes in tree views
+    * added: start page with a list of bookmarks
+    * added: caching downloaded attachments
+    * added: opening attachments
+    * added: more configuration options
+    * added: changing order of attributes in the issue details view
+    * added: adding, removing and changing access for multiple members
+    * added: connection information dialog
+    * fixed: some problems with Qt 4.3
+
+0.9.0 (2007-05-29)
+    * ported to Qt4 and CMake
+    * added: the user's manual
+    * added: API documentation
+    * added: support for Windows
+    * added: various visual improvements
+    * added: storing column widths
+
+0.8.4 (2007-02-12)
+    * added: new combined issue history view
+    * added: improved attachment dialogs with progress bar
+    * added: handling remote files, opening attachments
+    * added: improved comment editor in a separate window
+    * added: context menus for links
+    * added: completion in the login dialog URL field
+    * fixed: don't recreate details panels if not necessary
+    * fixed: default sizes of windows
+
+0.8.3 (2007-01-16)
+    * added: filters and quick search in the folder view
+    * added: disable members, folder and issue view when data is not available
+    * added: 'Type' column in types and projects views
+    * added: auto-adjust list columns width
+    * fixed: possible endless loop in command manager
+    * fixed: prevent creating duplicated issues when reading folder cache
+    * fixed: handling the '302 Found' redirection
+    * fixed: corrected the behavior of the 'Find Item' dialog
+    * refactored: updating view configuration using asynchronous events
+    * refactored: column list configuration
+
+0.8.2 (2006-11-30)
+    * added: configuring folder list columns, displaying attribute values
+    * added: caching folder data
+    * added: settings dialog with some options
+    * added: docking the main window in system tray
+    * added: storing the password optionally
+    * added: restoring connection at startup and restoring session
+
+0.8.1 (2006-10-23)
+    * added: attribute definition editors
+    * added: the find item dialog
+    * added: handling links in attribute values and comments
+    * refactored: divided command dialogs into separate classes
+
+0.8.0 (2006-09-19)
+    * first alpha release
+
+0.1.1 (2005-11-08)
+    * initial, unofficial prototype version

@@ -1,0 +1,22 @@
+<xmlui>
+  <strip id="stripViews">
+    <action id="addView"/>
+    <action id="editModify"/>
+    <action id="editRename"/>
+    <action id="editDelete"/>
+    <action id="editPublish"/>
+  </strip>
+  <menu id="menuNull">
+    <action id="addView"/>
+  </menu>
+  <menu id="menuView">
+    <action id="editModify"/>
+    <separator/>
+    <action id="editRename"/>
+    <action id="editDelete"/>
+    <separator/>
+    <action id="editPublish"/>
+    <separator/>
+    <action id="addView"/>
+  </menu>
+</xmlui>

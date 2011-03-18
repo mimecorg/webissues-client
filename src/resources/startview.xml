@@ -1,0 +1,12 @@
+<xmlui>
+  <menu id="menuConnection">
+    <action id="openConnectionAs1"/>
+    <action id="openConnectionAs2"/>
+    <action id="openConnectionAs3"/>
+    <action id="openConnectionAs4"/>
+    <action id="openConnectionAs5"/>
+    <action id="openConnection"/>
+    <separator/>
+    <action id="removeConnection"/>
+  </menu>
+</xmlui>

@@ -1,0 +1,31 @@
+<xmlui>
+  <strip id="stripMain">
+    <merge/>
+    <section id="sectionTools">
+      <action id="gotoItem"/>
+      <grid>
+        <action id="changePassword"/>
+        <action id="userPreferences"/>
+      </grid>
+    </section>
+    <section id="sectionManage">
+      <grid>
+        <action id="showUsers"/>
+        <action id="showTypes"/>
+      </grid>
+    </section>
+    <section id="sectionConnection">
+      <grid>
+        <action id="closeConnection"/>
+        <action id="connectionInfo"/>
+      </grid>
+    </section>
+  </strip>
+  <menu id="menuTray">
+    <action id="gotoItem"/>
+    <separator/>
+    <action id="closeConnection"/>
+    <separator/>
+    <action id="quit"/>
+  </menu>
+</xmlui>

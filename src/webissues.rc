@@ -1,0 +1,35 @@
+#include <winver.h>
+
+IDI_ICON1 ICON DISCARDABLE "webissues.ico"
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,4091
+ PRODUCTVERSION 1,0,0,4091
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904b0"
+        BEGIN
+            VALUE "CompanyName", "WebIssues Team"
+            VALUE "FileDescription", "WebIssues Desktop Client"
+            VALUE "FileVersion", "1.0-alpha4"
+            VALUE "LegalCopyright", "Copyright (C) 2007-2011 WebIssues Team"
+            VALUE "OriginalFilename", "webissues.exe"
+            VALUE "ProductName", "WebIssues Desktop Client"
+            VALUE "ProductVersion", "1.0-alpha4"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END
