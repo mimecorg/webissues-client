@@ -4,7 +4,7 @@ TEMPLATE = app
 TARGET   = webissues
 
 CONFIG  += qt
-QT      += network xml
+QT      += network xml sql
 
 HEADERS += application.h \
            mainwindow.h
@@ -22,6 +22,7 @@ include( data/data.pri )
 include( dialogs/dialogs.pri )
 include( models/models.pri )
 include( rdb/rdb.pri )
+include( sqlite/sqlite.pri )
 include( utils/utils.pri )
 include( views/views.pri )
 include( widgets/widgets.pri )

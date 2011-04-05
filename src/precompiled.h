@@ -24,5 +24,6 @@
 #include <QtGui>
 #include <QtNetwork>
 #include <QtXml>
+#include <QtSql>
 
 #endif
