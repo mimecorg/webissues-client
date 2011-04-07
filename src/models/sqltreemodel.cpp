@@ -20,6 +20,8 @@
 #include "sqltreemodel.h"
 
 #include <QSqlQueryModel>
+#include <QVector>
+#include <QHash>
 
 class SqlTreeModelNode
 {

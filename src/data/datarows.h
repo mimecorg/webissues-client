@@ -524,12 +524,12 @@ public:
     /**
     * Return the identifier of the source folder.
     */
-    const int fromFolder() const { return m_fromFolder; }
+    int fromFolder() const { return m_fromFolder; }
 
     /**
     * Return the identifier of the target folder.
     */
-    const int toFolder() const { return m_toFolder; }
+    int toFolder() const { return m_toFolder; }
 
 private:
     int m_changeId;
