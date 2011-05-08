@@ -484,33 +484,16 @@ bool SQLiteDriver::hasFeature(DriverFeature f) const
    SQLite dbs have no user name, passwords, hosts or ports.
    just file names.
 */
-bool SQLiteDriver::open(const QString & db, const QString &, const QString &, const QString &, int, const QString &conOpts)
+bool SQLiteDriver::open(const QString & db, const QString &, const QString &, const QString &, int, const QString &)
 {
     if (isOpen())
         close();
 
     if (db.isEmpty())
         return false;
-    bool sharedCache = false;
-    int openMode = SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE, timeOut=5000;
-    QStringList opts=QString(conOpts).remove(QLatin1Char(' ')).split(QLatin1Char(';'));
-    foreach(const QString &option, opts) {
-        if (option.startsWith(QLatin1String("SQLite_BUSY_TIMEOUT="))) {
-            bool ok;
-            int nt = option.mid(21).toInt(&ok);
-            if (ok)
-                timeOut = nt;
-        }
-        if (option == QLatin1String("SQLite_OPEN_READONLY"))
-            openMode = SQLITE_OPEN_READONLY;
-        if (option == QLatin1String("SQLite_ENABLE_SHARED_CACHE"))
-            sharedCache = true;
-    }
 
-    sqlite3_enable_shared_cache(sharedCache);
-
-    if (sqlite3_open_v2(db.toUtf8().constData(), &d->access, openMode, NULL) == SQLITE_OK) {
-        sqlite3_busy_timeout(d->access, timeOut);
+    if (sqlite3_open16(db.utf16(), &d->access) == SQLITE_OK) {
+        sqlite3_busy_timeout(d->access, 5000);
         setOpen(true);
         setOpenError(false);
         return true;
