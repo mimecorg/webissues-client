@@ -20,7 +20,7 @@
 #ifndef PREFERENCESDIALOG_H
 #define PREFERENCESDIALOG_H
 
-#include "commanddialog.h"
+#include "dialogs/commanddialog.h"
 
 #include <QMap>
 

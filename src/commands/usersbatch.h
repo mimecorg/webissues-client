@@ -20,10 +20,9 @@
 #ifndef USERSBATCH_H
 #define USERSBATCH_H
 
-#include "abstractbatch.h"
-#include "batchjob.h"
-
-#include "data/datarows.h"
+#include "commands/abstractbatch.h"
+#include "commands/batchjob.h"
+#include "data/datamanager.h"
 
 /**
 * Batch for operations on users.

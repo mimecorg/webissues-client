@@ -20,7 +20,7 @@
 #ifndef SETTINGSDIALOG_H
 #define SETTINGSDIALOG_H
 
-#include "commanddialog.h"
+#include "dialogs/commanddialog.h"
 
 class SeparatorComboBox;
 class InputLineEdit;

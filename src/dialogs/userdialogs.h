@@ -20,7 +20,7 @@
 #ifndef USERDIALOGS_H
 #define USERDIALOGS_H
 
-#include "commanddialog.h"
+#include "dialogs/commanddialog.h"
 
 class InputLineEdit;
 

@@ -20,7 +20,7 @@
 #ifndef STATEDIALOGS_H
 #define STATEDIALOGS_H
 
-#include "commanddialog.h"
+#include "dialogs/commanddialog.h"
 
 /**
 * Dialog for executing the <tt>SET ISSUE READ</tt> command.

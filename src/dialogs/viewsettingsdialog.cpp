@@ -18,13 +18,14 @@
 **************************************************************************/
 
 #include "viewsettingsdialog.h"
-#include "viewdialogs.h"
 
 #include "application.h"
 #include "data/datamanager.h"
+#include "data/entities.h"
+#include "data/issuetypecache.h"
 #include "data/localsettings.h"
-#include "models/tablemodels.h"
-#include "models/rowfilters.h"
+#include "dialogs/viewdialogs.h"
+#include "models/viewsmodel.h"
 #include "utils/treeviewhelper.h"
 #include "utils/viewsettingshelper.h"
 #include "utils/iconloader.h"
@@ -89,24 +90,22 @@ ViewSettingsDialog::ViewSettingsDialog( int typeId, bool isPublic, QWidget* pare
     XmlUi::Builder* builder = new XmlUi::Builder( this );
     builder->addClient( this );
 
-    const TypeRow* type = dataManager->types()->find( typeId );
-    QString name = type ? type->name() : QString();
+    TypeEntity type = TypeEntity::find( typeId );
 
     setPromptPixmap( IconLoader::pixmap( "configure-views", 22 ) );
 
     if ( isPublic ) {
         setWindowTitle( tr( "View Settings" ) );
-        setPrompt( tr( "Edit public view settings for type <b>%1</b>:" ).arg( name ) );
+        setPrompt( tr( "Edit public view settings for type <b>%1</b>:" ).arg( type.name() ) );
     } else {
         setWindowTitle( tr( "Manage Views" ) );
-        setPrompt( tr( "Edit personal view settings for type <b>%1</b>:" ).arg( name ) );
+        setPrompt( tr( "Edit personal view settings for type <b>%1</b>:" ).arg( type.name() ) );
     }
 
     QVBoxLayout* layout = new QVBoxLayout();
 
     if ( isPublic ) {
-        RDB::ForeignConstIterator<AttributeRow> it( dataManager->attributes()->parentIndex(), typeId );
-        if ( it.next() ) {
+        if ( !type.attributes().isEmpty() ) {
             QGroupBox* orderGroup = new QGroupBox( tr( "Order of Attributes" ), this );
             layout->addWidget( orderGroup );
 
@@ -162,27 +161,15 @@ ViewSettingsDialog::ViewSettingsDialog( int typeId, bool isPublic, QWidget* pare
     viewsLayout->addWidget( strip );
 
     m_list = new QTreeView( this );
-    TreeViewHelper::initializeView( m_list );
     viewsLayout->addWidget( m_list );
 
-    ViewRowFilter* filter = new ViewRowFilter( isPublic, this );
+    TreeViewHelper helper( m_list );
+    helper.initializeView( TreeViewHelper::NotSortable );
 
-    m_model = new RDB::TableItemModel( this );
-    m_model->setRowFilter( filter );
-    m_model->setRootTableModel( new ViewsTableModel( m_typeId, m_model ),
-        dataManager->views()->index(), dataManager->views()->parentIndex(), m_typeId );
-
-    QList<int> columns;
-    columns.append( Column_Name );
-    columns.append( Column_Columns );
-    columns.append( Column_SortBy );
-    columns.append( Column_Filter );
-    m_model->setColumns( columns );
-
+    m_model = new ViewsModel( typeId, isPublic, this );
     m_list->setModel( m_model );
 
-    TreeViewHelper::setSortOrder( m_list, qMakePair( (int)Column_Name, Qt::AscendingOrder ) );
-    TreeViewHelper::loadColumnWidths( m_list, "ViewSettingsDialog" );
+    helper.loadColumnWidths( "ViewSettingsDialogWidths", QList<int>() << 150 << 300 << 150 << 300 );
 
     connect( m_list->selectionModel(), SIGNAL( selectionChanged( const QItemSelection&, const QItemSelection& ) ),
         this, SLOT( updateActions() ) );
@@ -223,7 +210,8 @@ ViewSettingsDialog::~ViewSettingsDialog()
     else
         application->applicationSettings()->setValue( "ViewSettingsDialogSizePersonal", size() );
 
-    TreeViewHelper::saveColumnWidths( m_list, "ViewSettingsDialog" );
+    TreeViewHelper helper( m_list );
+    helper.saveColumnWidths( "ViewSettingsDialogWidths" );
 
     dataManager->removeObserver( this );
 }
@@ -294,29 +282,31 @@ void ViewSettingsDialog::customEvent( QEvent* e )
 
 void ViewSettingsDialog::updateViewSettings()
 {
-    if ( m_orderEdit ) {
-        QString attributes = dataManager->viewSetting( m_typeId, "attribute_order" );
-        m_orderEdit->setText( ViewSettingsHelper::attributeNames( ViewSettingsHelper::attributeOrder( m_typeId, attributes ) ) );
-    }
+    IssueTypeCache* cache = dataManager->issueTypeCache( m_typeId );
+    ViewSettingsHelper helper( m_typeId );
+
+    if ( m_orderEdit )
+        m_orderEdit->setText( helper.attributeNames( cache->attributes() ) );
 
     if ( m_isPublic ) {
-        DefinitionInfo info = DefinitionInfo::fromString( dataManager->viewSetting( m_typeId, "default_view" ) );
-        m_columnsEdit->setText( ViewSettingsHelper::columnNames( ViewSettingsHelper::viewColumns( m_typeId, info ) ) );
-        m_sortByEdit->setText( ViewSettingsHelper::sortOrderInfo( ViewSettingsHelper::viewSortOrder( m_typeId, info ) ) );
+        m_columnsEdit->setText( helper.columnNames( cache->viewColumns( cache->defaultView() ) ) );
+        m_sortByEdit->setText( helper.sortOrderInfo( cache->viewSortOrder( cache->defaultView() ) ) );
     }
 }
 
 void ViewSettingsDialog::updateActions()
 {
-    const TypeRow* type = dataManager->types()->find( m_typeId );
+    TypeEntity type = TypeEntity::find( m_typeId );
 
-    action( "addView" )->setEnabled( type != NULL );
+    action( "addView" )->setEnabled( type.isValid() );
 
     m_selectedViewId = 0;
 
-    QModelIndex index = TreeViewHelper::selectedIndex( m_list );
+    TreeViewHelper helper( m_list );
+    QModelIndex index = helper.selectedIndex();
+
     if ( index.isValid() )
-        m_selectedViewId = m_model->data( index, RDB::TableItemModel::RowIdRole ).toInt();
+        m_selectedViewId = m_model->rowId( index );
 
     action( "editRename" )->setEnabled( m_selectedViewId != 0 );
     action( "editDelete" )->setEnabled( m_selectedViewId != 0 );
@@ -328,7 +318,7 @@ void ViewSettingsDialog::updateActions()
 void ViewSettingsDialog::doubleClicked( const QModelIndex& index )
 {
     if ( index.isValid() ) {
-        int viewId = m_model->data( index, RDB::TableItemModel::RowIdRole ).toInt();
+        int viewId = m_model->rowId( index );
         ModifyViewDialog dialog( viewId, this );
         dialog.exec();
     }

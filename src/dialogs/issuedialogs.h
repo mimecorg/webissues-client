@@ -20,7 +20,7 @@
 #ifndef ISSUEDIALOGS_H
 #define ISSUEDIALOGS_H
 
-#include "commanddialog.h"
+#include "dialogs/commanddialog.h"
 
 #include <QMap>
 

@@ -20,7 +20,7 @@
 #ifndef ATTRIBUTEHELPER_H
 #define ATTRIBUTEHELPER_H
 
-#include <QList>
+#include <QObject>
 
 class DefinitionInfo;
 
@@ -47,15 +47,27 @@ enum AttributeType
 };
 
 /**
-* Functions providing attribute type names and metadata details.
+* Helper object providing attribute type names and metadata details.
 *
-* These functions return information used by the UI to display user friendly
+* Its functions return information used by the UI to display user friendly
 * attribute type names and metadata details.
 *
 * @see DefinitionInfo
 */
-class AttributeHelper
+class AttributeHelper : public QObject
 {
+    Q_OBJECT
+public:
+    /**
+    * Default constructor.
+    */
+    AttributeHelper();
+
+    /**
+    * Destructor.
+    */
+    ~AttributeHelper();
+
 public:
     /**
     * Return the attribute type from its definition.
@@ -67,50 +79,48 @@ public:
     */
     static DefinitionInfo fromAttributeType( AttributeType type );
 
+public:
     /**
     * Convert expression in initial value of an attribute to actual value.
     * @param info Definition of the attribute type.
     * @param value The initial value of the attribute type.
     * @return The converted value.
     */
-    static QString convertInitialValue( const DefinitionInfo& info, const QString& value );
+    QString convertInitialValue( const DefinitionInfo& info, const QString& value ) const;
 
     /**
     * Format a value or expression.
-    * @param info Parsed definition of the attribute.
-    * @param definition Definition of the attribute.
+    * @param info Definition of the attribute.
     * @param value The standardized value to format.
     * @return The formatted value.
     */
-    static QString formatExpression( const DefinitionInfo& info, const QString& definition, const QString& value );
+    QString formatExpression( const DefinitionInfo& info, const QString& value ) const;
 
     /**
     * Return the name of an attribute type.
     * @param type The attribute type.
     * @return A user friendly name of the type.
     */
-    static QString typeName( AttributeType type );
+    QString typeName( AttributeType type ) const;
 
     /**
     * Return the details of an attribute definition.
     * @param info The attribute definition.
     * @return User friendly information about the attribute definition metadata.
     */
-    static QString metadataDetails( const DefinitionInfo& info );
+    QString metadataDetails( const DefinitionInfo& info ) const;
 
     /**
     * Return a list of attribute types compatible with given type.
     */
-    static QList<AttributeType> compatibleTypes( AttributeType type );
+    QList<AttributeType> compatibleTypes( AttributeType type ) const;
 
 private:
-    static QString textMetadataDetails( const DefinitionInfo& info );
-    static QString enumMetadataDetails( const DefinitionInfo& info );
-    static QString numericMetadataDetails( const DefinitionInfo& info );
-    static QString dateTimeMetadataDetails( const DefinitionInfo& info );
-    static QString userMetadataDetails( const DefinitionInfo& info );
-
-    static QString tr( const char* text );
+    QString textMetadataDetails( const DefinitionInfo& info ) const;
+    QString enumMetadataDetails( const DefinitionInfo& info ) const;
+    QString numericMetadataDetails( const DefinitionInfo& info ) const;
+    QString dateTimeMetadataDetails( const DefinitionInfo& info ) const;
+    QString userMetadataDetails( const DefinitionInfo& info ) const;
 };
 
 #endif

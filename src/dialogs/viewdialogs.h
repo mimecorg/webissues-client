@@ -20,7 +20,7 @@
 #ifndef VIEWDIALOGS_H
 #define VIEWDIALOGS_H
 
-#include "commanddialog.h"
+#include "dialogs/commanddialog.h"
 
 #include <QMap>
 
@@ -91,6 +91,8 @@ private:
     void updateFiltersLayout();
 
 private:
+    int m_typeId;
+
     InputLineEdit* m_nameEdit;
 
     QWidget* m_columnsPanel;
@@ -182,8 +184,6 @@ public: // overrides
 
 private:
     int m_viewId;
-
-    QString m_oldDefinition;
 };
 
 /**
@@ -210,8 +210,6 @@ public: // overrides
 
 private:
     int m_typeId;
-
-    QString m_oldDefinition;
 };
 
 /**

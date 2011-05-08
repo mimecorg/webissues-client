@@ -20,8 +20,8 @@
 #include "userdialogs.h"
 
 #include "data/datamanager.h"
+#include "data/entities.h"
 #include "commands/usersbatch.h"
-#include "rdb/utilities.h"
 #include "utils/errorhelper.h"
 #include "utils/iconloader.h"
 #include "widgets/inputlineedit.h"
@@ -103,15 +103,8 @@ void AddUserDialog::accept()
     QString login = m_loginEdit->inputValue();
     QString name = m_nameEdit->inputValue();
 
-    RDB::IndexConstIterator<UserRow> it( dataManager->users()->index() );
-    if ( RDB::findRow( it, &UserRow::login, login ) ) {
-        showWarning( ErrorHelper::statusMessage( ErrorHelper::UserAlreadyExists ) );
-        return;
-    }
-
-    it = RDB::IndexConstIterator<UserRow>( dataManager->users()->index() );
-    if ( RDB::findRow( it, &UserRow::name, name) ) {
-        showWarning( ErrorHelper::statusMessage( ErrorHelper::UserAlreadyExists ) );
+    if ( UserEntity::exists( login, name ) ) {
+        showWarning( ErrorHelper::UserAlreadyExists );
         return;
     }
 
@@ -119,7 +112,7 @@ void AddUserDialog::accept()
     QString password2 = m_passwordEdit2->inputValue();
 
     if ( password != password2 ) {
-        showWarning( ErrorHelper::statusMessage( ErrorHelper::PasswordNotMatching ) );
+        showWarning( ErrorHelper::PasswordNotMatching );
         return;
     }
 
@@ -134,14 +127,13 @@ SetPasswordDialog::SetPasswordDialog( int userId, QWidget* parent ) : CommandDia
     m_passwordEdit( NULL ),
     m_tempCheck( NULL )
 {
-    const UserRow* user = dataManager->users()->find( userId );
-    QString name = user ? user->name() : QString();
+    UserEntity user = UserEntity::find( userId );
 
     setWindowTitle( tr( "Change Password" ) );
     if ( userId == dataManager->currentUserId() )
         setPrompt( tr( "Enter your new password:" ) );
     else
-        setPrompt( tr( "Enter the new password for user <b>%1</b>:" ).arg( name ) );
+        setPrompt( tr( "Enter the new password for user <b>%1</b>:" ).arg( user.name() ) );
     setPromptPixmap( IconLoader::pixmap( "edit-password", 22 ) );
 
     QGridLayout* layout = new QGridLayout();
@@ -209,7 +201,7 @@ void SetPasswordDialog::accept()
     QString newPassword2 = m_newPasswordEdit2->inputValue();
 
     if ( newPassword != newPassword2 ) {
-        showWarning( ErrorHelper::statusMessage( ErrorHelper::PasswordNotMatching ) );
+        showWarning( ErrorHelper::PasswordNotMatching );
         return;
     }
 
@@ -217,7 +209,7 @@ void SetPasswordDialog::accept()
         QString password = m_passwordEdit->inputValue();
     
         if ( password == newPassword ) {
-            showWarning( ErrorHelper::statusMessage( ErrorHelper::CannotReusePassword ) );
+            showWarning( ErrorHelper::CannotReusePassword );
             return;
         }
 
@@ -236,12 +228,11 @@ void SetPasswordDialog::accept()
 ChangeUserAccessDialog::ChangeUserAccessDialog( int userId, QWidget* parent ) : CommandDialog( parent ),
     m_userId( userId )
 {
-    const UserRow* user = dataManager->users()->find( userId );
-    QString name = user ? user->name() : QString();
-    m_oldAccess = user ? user->access() : NoAccess;
+    UserEntity user = UserEntity::find( userId );
+    m_oldAccess = user.access();
 
     setWindowTitle( tr( "Change Access" ) );
-    setPrompt( tr( "Set new access level for user <b>%1</b>:" ).arg( name ) );
+    setPrompt( tr( "Set new access level for user <b>%1</b>:" ).arg( user.name() ) );
     setPromptPixmap( IconLoader::pixmap( "edit-access", 22 ) );
 
     QHBoxLayout* layout = new QHBoxLayout();
@@ -297,8 +288,8 @@ void ChangeUserAccessDialog::accept()
 RenameUserDialog::RenameUserDialog( int userId, QWidget* parent ) : CommandDialog( parent ),
     m_userId( userId )
 {
-    const UserRow* user = dataManager->users()->find( userId );
-    m_oldName = user ? user->name() : QString();
+    UserEntity user = UserEntity::find( userId );
+    m_oldName = user.name();
 
     setWindowTitle( tr( "Rename User" ) );
     setPrompt( tr( "Enter the new name of user <b>%1</b>:" ).arg( m_oldName ) );
@@ -338,9 +329,8 @@ void RenameUserDialog::accept()
         return;
     }
 
-    RDB::IndexConstIterator<UserRow> it( dataManager->users()->index() );
-    if ( RDB::findRow( it, &UserRow::name, name) ) {
-        showWarning( ErrorHelper::statusMessage( ErrorHelper::UserAlreadyExists ) );
+    if ( UserEntity::exists( QString(), name ) ) {
+        showWarning( ErrorHelper::UserAlreadyExists );
         return;
     }
 
@@ -355,22 +345,22 @@ AddMemberDialog::AddMemberDialog( int projectId, QWidget* parent ) : CommandDial
     m_list( NULL ),
     m_accessGroup( NULL )
 {
-    const ProjectRow* project = dataManager->projects()->find( projectId );
-    QString projectName = project ? project->name() : QString();
+    ProjectEntity project = ProjectEntity::find( projectId );
 
     setWindowTitle( tr( "Add Members" ) );
-    setPrompt( tr( "Add new members to project <b>%1</b>:" ).arg( projectName ) );
+    setPrompt( tr( "Add new members to project <b>%1</b>:" ).arg( project.name() ) );
     setPromptPixmap( IconLoader::pixmap( "user-new", 22 ) );
 
-    RDB::IndexConstIterator<UserRow> it( dataManager->users()->index() );
-    QList<const UserRow*> users = localeAwareSortRows( it, &UserRow::name );
-    QList<const UserRow*> available;
+    QList<int> members;
+    foreach ( const UserEntity& member, project.members() )
+        members.append( member.id() );
 
-    for ( int i = 0; i < users.count(); i++ ) {
-        const UserRow* user = users.at( i );
-        if ( user->access() == NoAccess )
+    QList<UserEntity> available;
+
+    foreach ( const UserEntity& user, UserEntity::list() ) {
+        if ( user.access() == NoAccess )
             continue;
-        if ( dataManager->members()->find( user->userId(), projectId ) )
+        if ( members.contains( user.id() ) )
             continue;
         available.append( user );
     }
@@ -392,10 +382,10 @@ AddMemberDialog::AddMemberDialog( int projectId, QWidget* parent ) : CommandDial
 
     userLabel->setBuddy( m_list );
 
-    foreach ( const UserRow* user, available ) {
+    foreach ( const UserEntity& user, available ) {
         QListWidgetItem* item = new QListWidgetItem( m_list );
-        item->setText( user->name() );
-        item->setData( Qt::UserRole, user->userId() );
+        item->setText( user.name() );
+        item->setData( Qt::UserRole, user.id() );
         item->setCheckState( Qt::Unchecked );
     }
 
@@ -458,20 +448,14 @@ ChangeMemberAccessDialog::ChangeMemberAccessDialog( const QList<int>& users, int
     m_users( users ),
     m_projectId( projectId )
 {
-    const UserRow* user = dataManager->users()->find( users.first() );
-    QString userName = user ? user->name() : QString();
-
-    const ProjectRow* project = dataManager->projects()->find( projectId );
-    QString projectName = project ? project->name() : QString();
-
-    const MemberRow* member = dataManager->members()->find( users.first(), projectId );
-    Access oldAccess = member ? member->access() : NoAccess;
+    ProjectEntity project = ProjectEntity::find( projectId );
+    MemberEntity member = MemberEntity::find( projectId, users.first() );
 
     setWindowTitle( tr( "Change Access" ) );
     if ( users.count() == 1 )
-        setPrompt( tr( "Set new access level to project <b>%1</b> for user <b>%2</b>:" ).arg( projectName, userName ) );
+        setPrompt( tr( "Set new access level to project <b>%1</b> for user <b>%2</b>:" ).arg( project.name(), member.name() ) );
     else
-        setPrompt( tr( "Set new access level to project <b>%1</b> for %2 selected users:" ).arg( projectName ).arg( users.count() ) );
+        setPrompt( tr( "Set new access level to project <b>%1</b> for %2 selected users:" ).arg( project.name() ).arg( users.count() ) );
     setPromptPixmap( IconLoader::pixmap( "edit-access", 22 ) );
 
     QHBoxLayout* layout = new QHBoxLayout();
@@ -494,7 +478,7 @@ ChangeMemberAccessDialog::ChangeMemberAccessDialog( const QList<int>& users, int
 
     buttonsLayout->addStretch( 1 );
 
-    m_accessGroup->button( oldAccess )->setChecked( true );
+    m_accessGroup->button( member.access() )->setChecked( true );
 
     setContentLayout( layout, true );
 
@@ -513,9 +497,8 @@ void ChangeMemberAccessDialog::accept()
 
     for ( int i = 0; i < m_users.count(); i++ ) {    
         int userId = m_users.at( i );
-        const MemberRow* member = dataManager->members()->find( userId, m_projectId );
-        Access oldAccess = member ? member->access() : NoAccess;
-        if ( oldAccess != access )
+        MemberEntity member = MemberEntity::find( m_projectId, userId );
+        if ( member.access() != access )
             changed.append( userId );
     }
 
@@ -537,18 +520,15 @@ RemoveMemberDialog::RemoveMemberDialog( const QList<int>& users, int projectId, 
     m_users( users ),
     m_projectId( projectId )
 {
-    const UserRow* user = dataManager->users()->find( users.first() );
-    QString userName = user ? user->name() : QString();
-
-    const ProjectRow* project = dataManager->projects()->find( projectId );
-    QString projectName = project ? project->name() : QString();
+    ProjectEntity project = ProjectEntity::find( projectId );
+    MemberEntity member = MemberEntity::find( projectId, users.first() );
 
     if ( users.count() == 1 ) {
         setWindowTitle( tr( "Remove Member" ) );
-        setPrompt( tr( "Do you want to remove user <b>%1</b> from project <b>%2</b>?" ).arg( userName, projectName ) );
+        setPrompt( tr( "Do you want to remove user <b>%1</b> from project <b>%2</b>?" ).arg( member.name(), project.name() ) );
     } else {
         setWindowTitle( tr( "Remove Members" ) );
-        setPrompt( tr( "Do you want to remove %1 selected users from project <b>%2</b>?" ).arg( users.count() ).arg( projectName ) );
+        setPrompt( tr( "Do you want to remove %1 selected users from project <b>%2</b>?" ).arg( users.count() ).arg( project.name() ) );
     }
     setPromptPixmap( IconLoader::pixmap( "edit-delete", 22 ) );
 

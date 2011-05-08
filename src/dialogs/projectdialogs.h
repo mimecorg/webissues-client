@@ -20,7 +20,7 @@
 #ifndef PROJECTDIALOGS_H
 #define PROJECTDIALOGS_H
 
-#include "commanddialog.h"
+#include "dialogs/commanddialog.h"
 
 class InputLineEdit;
 class QComboBox;

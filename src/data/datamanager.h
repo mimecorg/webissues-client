@@ -20,102 +20,92 @@
 #ifndef DATAMANAGER_H
 #define DATAMANAGER_H
 
-#include "datarows.h"
-#include "staterows.h"
-#include "updateevent.h"
-
-#include "rdb/rdb.h"
+#include "data/updateevent.h"
+#include "utils/definitioninfo.h"
 
 #include <QObject>
-#include <QPair>
-#include <QMap>
 
 class Command;
 class Reply;
-class ReplyLine;
-class LocaleCache;
-class AttachmentsCache;
 class LocalSettings;
+class IssueTypeCache;
 
 /**
-* A table of users.
+* Access level for user or member.
 */
-typedef RDB::SimpleTable<UserRow> UsersTable;
+enum Access
+{
+    /**
+    * Data is unavailable and the access level is not known.
+    */
+    UnknownAccess = -1,
+    /**
+    * User has no access to the system or project.
+    */
+    NoAccess = 0,
+    /**
+    * User has normal access to the system or project.
+    */
+    NormalAccess = 1,
+    /**
+    * User is a system or project administrator.
+    */
+    AdminAccess = 2
+};
 
 /**
-* A table of project members.
+* Type of a change.
 */
-typedef RDB::CrossTable<MemberRow> MembersTable;
+enum ChangeType
+{
+    /**
+    * The issue was created with the given name.
+    */
+    IssueCreated = 0,
+    /**
+    * The issue was renamed.
+    */
+    IssueRenamed = 1,
+    /**
+    * The value of an attribute was changed.
+    */
+    ValueChanged = 2,
+    /**
+    * A comment was added.
+    */
+    CommentAdded = 3,
+    /**
+    * A file was added.
+    */
+    FileAdded = 4,
+    /**
+    * The issue was moved to another folder.
+    */
+    IssueMoved = 5
+};
 
 /**
-* A table of issue types.
+* Email setting for an alert.
 */
-typedef RDB::SimpleTable<TypeRow> TypesTable;
-
-/**
-* A table of attribute definitions.
-*/
-typedef RDB::ChildTable<AttributeRow> AttributesTable;
-
-/**
-* A table of projects.
-*/
-typedef RDB::SimpleTable<ProjectRow> ProjectsTable;
-
-/**
-* A table of folders.
-*/
-typedef RDB::ChildTable<FolderRow> FoldersTable;
-
-/**
-* A table of issues.
-*/
-typedef RDB::ChildTable<IssueRow> IssuesTable;
-
-/**
-* A table of attribute values.
-*/
-typedef RDB::CrossTable<ValueRow> ValuesTable;
-
-/**
-* A table of value changes.
-*/
-typedef RDB::ChildTable<ChangeRow> ChangesTable;
-
-/**
-* A table of comments.
-*/
-typedef RDB::SimpleTable<CommentRow> CommentsTable;
-
-/**
-* A table of files.
-*/
-typedef RDB::SimpleTable<FileRow> FilesTable;
-
-/**
-* A table of views.
-*/
-typedef RDB::ChildTable<ViewRow> ViewsTable;
-
-/**
-* A table of alerts.
-*/
-typedef RDB::ChildTable<AlertRow> AlertsTable;
-
-/**
-* An internal table storing the state of folders.
-*/
-typedef RDB::SimpleTable<FolderState> FolderStatesTable;
-
-/**
-* An internal table storing the state of issues.
-*/
-typedef RDB::SimpleTable<IssueState> IssueStatesTable;
-
-/**
-* An internal table storing the state of alerts.
-*/
-typedef RDB::SimpleTable<AlertState> AlertStatesTable;
+enum AlertEmail
+{
+    /**
+    * No emails are sent for the alert.
+    */
+    NoEmail = 0,
+    /**
+    * Immediate notifications are sent for the alert.
+    */
+    ImmediateNotificationEmail = 1,
+    /**
+    * Summary notifications are sent for the alert.
+    */
+    SummaryNotificationEmail = 2,
+    /**
+    * Summary reports are sent for the alert.
+    */
+    SummaryReportEmail = 3
+};
 
 /**
 * Class for storing data retrieved from the Webissues server.
@@ -136,9 +126,7 @@ typedef RDB::SimpleTable<AlertState> AlertStatesTable;
 * removed from memory when the limit is exceeded. To prevent an issue from being removed
 * you have to lock it and unlock it when you no longer need it.
 *
-* Folder units are cached in data files. When the folder is updated for the first time,
-* its previous contents is automatically read from the cache and only the changed issues
-* are retrieved from the server.
+* All data is cached in a SQLite database.
 *
 * The instance of this class is available using the dataManager global variable.
 * It is created and owned by the ConnectionManager.
@@ -159,6 +147,11 @@ public:
 
 public:
     /**
+    * Return @c true if the data is valid.
+    */
+    bool isValid() const { return m_valid; }
+
+    /**
     * Return the name of the server.
     */
     const QString& serverName() const { return m_serverName; }
@@ -170,7 +163,6 @@ public:
 
     /**
     * Return the version of the server.
-    * Before version 0.8.3 this string is empty.
     */
     const QString& serverVersion() const { return m_serverVersion; }
 
@@ -201,84 +193,38 @@ public:
     Access currentUserAccess() const { return m_currentUserAccess; }
 
     /**
-    * Return the table of users.
-    */
-    const UsersTable* users() const { return &m_users; }
-
-    /**
-    * Return the table of project members.
-    */
-    const MembersTable* members() const { return &m_members; }
-
-    /**
-    * Return the table of issue types.
-    */
-    const TypesTable* types() const { return &m_types; }
-
-    /**
-    * Return the table of attribute definitions.
-    */
-    const AttributesTable* attributes() const { return &m_attributes; }
-
-    /**
-    * Return the table of projects.
-    */
-    const ProjectsTable* projects() const { return &m_projects; }
-
-    /**
-    * Return the table of folders.
-    */
-    const FoldersTable* folders() const { return &m_folders; }
-
-    /**
-    * Return the table of issues.
-    */
-    const IssuesTable* issues() const { return &m_issues; }
-
-    /**
-    * Return the table of attribute values.
-    */
-    const ValuesTable* values() const { return &m_values; }
-
-    /**
-    * Return the table of comments.
-    */
-    const CommentsTable* comments() const { return &m_comments; }
-
-    /**
-    * Return the table of files.
-    */
-    const FilesTable* files() const { return &m_files; }
-
-    /**
-    * Return the table of value changes.
-    */
-    const ChangesTable* changes() const { return &m_changes; }
-
-    /**
-    * Return the table of views.
-    */
-    const ViewsTable* views() const { return &m_views; }
-
-    /**
-    * Return the table of alerts.
-    */
-    const AlertsTable* alerts() const { return &m_alerts; }
-
-    /**
-    * Return the locale cache.
-    */
-    LocaleCache* localeCache() const { return m_localeCache; }
-
-    /**
-    * Return the attachments cache.
-    */
-    AttachmentsCache* attachmentsCache() const { return m_attachmentsCache; }
-
-    /**
     * Return the local settings for the connection.
     */
     LocalSettings* connectionSettings() const { return m_connectionSettings; }
+
+    /**
+    * Return the value of a server setting.
+    * @param key The key of the setting.
+    * @return The value of the setting or an empty string if it doesn't exist.
+    */
+    QString setting( const QString& key ) const;
+
+    /**
+    * Return the definition of the number format.
+    */
+    const DefinitionInfo& numberFormat() const { return m_numberFormat; }
+
+    /**
+    * Return the definition of the number format.
+    */
+    const DefinitionInfo& dateFormat() const { return m_dateFormat; }
+
+    /**
+    * Return the definition of the number format.
+    */
+    const DefinitionInfo& timeFormat() const { return m_timeFormat; }
+
+    /**
+    * Get the cached information related to an issue type.
+    * @param Identifier of the issue type.
+    * @return The cached issue type information.
+    */
+    IssueTypeCache* issueTypeCache( int typeId );
 
     /**
     * Return the path of a data file.
@@ -306,13 +252,18 @@ public:
     void removeObserver( QObject* observer );
 
     /**
+    * Check if the locale information needs updating.
+    */
+    bool localeUpdateNeeded() const;
+
+    /**
     * Check if the folder needs updating.
     * This method compares the stamp of the last modification of the folder with
     * the stamp of the last update of its issues.
     * @param folderId Identifier of the folder.
     * @return @c True if the folder needs updating.
     */
-    bool folderUpdateNeeded( int folderId );
+    bool folderUpdateNeeded( int folderId ) const;
 
     /**
     * Check if the issue needs updating.
@@ -321,51 +272,7 @@ public:
     * @param issueId Identifier of the issue.
     * @return @c true if the issue needs updating.
     */
-    bool issueUpdateNeeded( int issueId );
-
-    /**
-    * Lock the issue to prevent removing it from the cache.
-    * @param issueId Identifier of the issue to lock.
-    */
-    void lockIssue( int issueId );
-
-    /**
-    * Release a previous issue lock.
-    * When the lock count of the issue is zero, it can be removed from memory.
-    * @param issueId Identifier of the issue to unlock.
-    */
-    void unlockIssue( int issueId );
-
-    /**
-    * Return the stamp of the issue when it was last read.
-    * @param issueId Identifier of the issue.
-    * @return The stamp of the issue.
-    */
-    int issueReadStamp( int issueId );
-
-    /**
-    * Return the statistics of the given alert.
-    * @param alertId Identifier of the alert.
-    * @param unread Pointer to variable which receives number of new issues.
-    * @param unread Pointer to variable which receives number of modified issues.
-    * @param unread Pointer to variable which receives total number of issues.
-    */
-    void getAlertIssuesCount( int alertId, int* unread, int* modified, int* total );
-
-    /**
-    * Return the value of a server setting.
-    * @param key The key of the setting.
-    * @return The value of the setting or an empty string if it doesn't exist.
-    */
-    QString setting( const QString& key ) const;
-
-    /**
-    * Return the value of a view setting.
-    * @param int Identifier of the issue type.
-    * @param key The key of the setting.
-    * @return The value of the setting or an empty string if it doesn't exist.
-    */
-    QString viewSetting( int typeId, const QString& key ) const;
+    bool issueUpdateNeeded( int issueId ) const;
 
     /**
     * Create a HELLO command.
@@ -391,6 +298,16 @@ public:
     * Create a command for retrieving settings from the server.
     */
     Command* updateSettings();
+
+    /**
+    * Create a command for retrieving locale information.
+    */
+    Command* updateLocale();
+
+    /**
+    * Create a command for retrieving preferences of the given user.
+    */
+    Command* updatePreferences( int userId );
 
     /**
     * Create a command for updating users and their membership.
@@ -423,16 +340,52 @@ public:
     Command* updateIssue( int issueId );
 
     /**
-    * Find the issue containing the given item.
-    * @param itemId Identifier of an issue, comment or file.
-    * @return Identifier of the issue or 0 if the item wasn't found.
+    * Lock the issue to prevent removing it from the cache.
+    * @param issueId Identifier of the issue to lock.
     */
-    int findItem( int itemId );
+    void lockIssue( int issueId );
+
+    /**
+    * Release a previous issue lock.
+    * When the lock count of the issue is zero, it can be removed from cache.
+    * @param issueId Identifier of the issue to unlock.
+    */
+    void unlockIssue( int issueId );
+
+    /**
+    * Locate a file in the cache.
+    * @param fileId Identifier of the file.
+    * @return Path of the file or empty string if it is not cached.
+    */
+    QString findFilePath( int fileId ) const;
+
+    /**
+    * Generate a unique path in the cache (the file is not created).
+    * @param fileId Identifier of the file.
+    * @return Path of the new file in the cache.
+    */
+    QString generateFilePath( const QString& name ) const;
+
+    /**
+    * Allocate space in the cache deleting old files if necessary.
+    * @param size Amount of space (in bytes) to allocate.
+    */
+    void allocFileSpace( int size );
+
+    /**
+    * Add the file to the cache.
+    * @param fileId Identifier of the file.
+    * @parm path Path of the file in the cache.
+    * @param size Size of the file in bytes.
+    */
+    void commitFile( int fileId, const QString& path, int size );
 
 private slots:
     void helloReply( const Reply& reply );
     void loginReply( const Reply& reply );
     void updateSettingsReply( const Reply& reply );
+    void updateLocaleReply( const Reply& reply );
+    void updatePreferencesReply( const Reply& reply );
     void updateUsersReply( const Reply& reply );
     void updateTypesReply( const Reply& reply );
     void updateProjectsReply( const Reply& reply );
@@ -443,39 +396,35 @@ private slots:
 private:
     void notifyObservers( UpdateEvent::Unit unit, int id = 0 );
 
-    FolderState* folderState( int folderId );
-    IssueState* issueState( int issueId );
-    AlertState* alertState( int alertId );
+    bool openDatabase();
+    bool installSchema( const QSqlDatabase& database );
+    void closeDatabase();
 
-    void flushIssueCache();
-    void removeIssueDetails( int issueId );
+    bool updateSettingsReply( const Reply& reply, const QSqlDatabase& database );
+    bool updateLocaleReply( const Reply& reply, const QSqlDatabase& database );
+    bool updatePreferencesReply( const Reply& reply, int userId, const QSqlDatabase& database );
+    bool updateUsersReply( const Reply& reply, const QSqlDatabase& database );
+    bool updateTypesReply( const Reply& reply, const QSqlDatabase& database );
+    bool updateProjectsReply( const Reply& reply, const QSqlDatabase& database );
+    bool updateStatesReply( const Reply& reply, int lastStateId, const QSqlDatabase& database );
+    bool updateFolderReply( const Reply& reply, const QSqlDatabase& database, QList<int>& updatedFolders );
+    bool updateIssueReply( const Reply& reply, const QSqlDatabase& database, QList<int>& updatedFolders, int& issueId );
 
-    void recalculateAllAlerts();
-    void recalculateAlerts( int folderId );
+    bool lockIssue( int issueId, const QSqlDatabase& database );
+    bool unlockIssue( int issueId, const QSqlDatabase& database );
+    bool clearIssueLocks( const QSqlDatabase& database );
+    bool flushIssueDetails( const QSqlDatabase& database );
+    bool removeIssueDetails( const QList<int>& issues, const QSqlDatabase& database );
 
-    UserRow* readUserRow( const ReplyLine& line );
-    MemberRow* readMemberRow( const ReplyLine& line );
-    TypeRow* readTypeRow( const ReplyLine& line );
-    AttributeRow* readAttributeRow( const ReplyLine& line );
-    ProjectRow* readProjectRow( const ReplyLine& line );
-    FolderRow* readFolderRow( const ReplyLine& line );
-    IssueRow* readIssueRow( const ReplyLine& line );
-    ValueRow* readValueRow( const ReplyLine& line );
-    ChangeRow* readChangeRow( const ReplyLine& line );
-    CommentRow* readCommentRow( const ReplyLine& line );
-    FileRow* readFileRow( const ReplyLine& line );
-    ViewRow* readViewRow( const ReplyLine& line );
-    AlertRow* readAlertRow( const ReplyLine& line );
+    bool flushFileCache( int allocatedSize, const QSqlDatabase& database );
 
-    void updateFolderCache( int folderId );
-    void readFolderCache( int folderId );
-    void saveFolderCache();
-    void writeFolderCache( int folderId );
-
-    void updateStateCache();
-    void saveStateCache();
+    bool recalculateAllAlerts( const QSqlDatabase& database );
+    bool recalculateAlerts( int folderId, const QSqlDatabase& database );
+    bool recalculateAlert( int alertId, int folderId, int viewId, const QSqlDatabase& database );
 
 private:
+    bool m_valid;
+
     QString m_serverName;
     QString m_serverUuid;
     QString m_serverVersion;
@@ -485,35 +434,19 @@ private:
     QString m_currentUserName;
     Access m_currentUserAccess;
 
-    UsersTable m_users;
-    MembersTable m_members;
-    TypesTable m_types;
-    AttributesTable m_attributes;
-    ProjectsTable m_projects;
-    FoldersTable m_folders;
-    IssuesTable m_issues;
-    ValuesTable m_values;
-    ChangesTable m_changes;
-    CommentsTable m_comments;
-    FilesTable m_files;
-    ViewsTable m_views;
-    AlertsTable m_alerts;
-
-    FolderStatesTable m_folderStates;
-    IssueStatesTable m_issueStates;
-    AlertStatesTable m_alertStates;
-
-    bool m_stateCached;
-    int m_lastStateId;
-
-    QMap<QString, QString> m_settings;
-    QMap<QPair<int, QString>, QString> m_viewSettings;
-
-    LocaleCache* m_localeCache;
-    AttachmentsCache* m_attachmentsCache;
     LocalSettings* m_connectionSettings;
 
+    QMap<QString, QString> m_settings;
+
+    QHash<int, IssueTypeCache*> m_issueTypesCache;
+
+    DefinitionInfo m_numberFormat;
+    DefinitionInfo m_dateFormat;
+    DefinitionInfo m_timeFormat;
+
     QList<QObject*> m_observers;
+
+    bool m_localeUpdated;
 };
 
 /**

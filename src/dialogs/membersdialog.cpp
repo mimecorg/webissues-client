@@ -18,14 +18,14 @@
 **************************************************************************/
 
 #include "membersdialog.h"
-#include "userdialogs.h"
 
 #include "application.h"
 #include "data/datamanager.h"
+#include "data/entities.h"
 #include "data/localsettings.h"
-#include "models/tablemodels.h"
+#include "dialogs/userdialogs.h"
+#include "models/membersmodel.h"
 #include "utils/treeviewhelper.h"
-#include "utils/tablemodelshelper.h"
 #include "utils/iconloader.h"
 #include "xmlui/builder.h"
 #include "xmlui/toolstrip.h"
@@ -39,8 +39,7 @@
 MembersDialog::MembersDialog( int projectId, QWidget* parent ) : InformationDialog( parent ),
     m_projectId( projectId )
 {
-    const ProjectRow* project = dataManager->projects()->find( projectId );
-    QString name = project ? project->name() : QString();
+    ProjectEntity project = ProjectEntity::find( projectId );
 
     QAction* action;
 
@@ -67,7 +66,7 @@ MembersDialog::MembersDialog( int projectId, QWidget* parent ) : InformationDial
 
     setWindowTitle( tr( "Project Members" ) );
     setPromptPixmap( IconLoader::pixmap( "view-members", 22 ) );
-    setPrompt( tr( "Members of project <b>%1</b>:" ).arg( name ) );
+    setPrompt( tr( "Members of project <b>%1</b>:" ).arg( project.name() ) );
 
     QVBoxLayout* layout = new QVBoxLayout();
     layout->setSpacing( 4 );
@@ -77,22 +76,17 @@ MembersDialog::MembersDialog( int projectId, QWidget* parent ) : InformationDial
     layout->addWidget( strip );
 
     m_list = new QTreeView( this );
-    TreeViewHelper::initializeView( m_list, TreeViewHelper::MultiSelect );
     layout->addWidget( m_list );
 
-    m_model = new RDB::TableItemModel( this );
-    m_model->setRootTableModel( new MembersTableModel( projectId, m_model ),
-        dataManager->members()->index().first(), dataManager->members()->index().second(), projectId );
+    TreeViewHelper helper( m_list );
+    helper.initializeView( TreeViewHelper::MultiSelect );
 
-    QList<int> columns;
-    columns.append( Column_Name );
-    columns.append( Column_Access );
-    m_model->setColumns( columns );
-
+    m_model = new MembersModel( projectId, this );
     m_list->setModel( m_model );
 
-    TreeViewHelper::setSortOrder( m_list, qMakePair( (int)Column_Name, Qt::AscendingOrder ) );
-    TreeViewHelper::loadColumnWidths( m_list, "MembersDialog" );
+    m_list->sortByColumn( 0, Qt::AscendingOrder );
+
+    helper.loadColumnWidths( "MembersDialogWidths", QList<int>() << 150 << 150 );
 
     connect( m_list->selectionModel(), SIGNAL( selectionChanged( const QItemSelection&, const QItemSelection& ) ),
         this, SLOT( updateActions() ) );
@@ -115,7 +109,8 @@ MembersDialog::~MembersDialog()
 {
     application->applicationSettings()->setValue( "MembersDialogSize", size() );
 
-    TreeViewHelper::saveColumnWidths( m_list, "MembersDialog" );
+    TreeViewHelper helper( m_list );
+    helper.saveColumnWidths( "MembersDialogWidths" );
 }
 
 void MembersDialog::addMember()
@@ -138,7 +133,7 @@ void MembersDialog::removeMember()
 
 void MembersDialog::updateActions()
 {
-    bool isAdmin = TableModelsHelper::isProjectAdmin( m_projectId );
+    bool isAdmin = ProjectEntity::isAdmin( m_projectId );
 
     action( "addMember" )->setEnabled( isAdmin );
 
@@ -149,7 +144,7 @@ void MembersDialog::updateActions()
         indexes = m_list->selectionModel()->selectedRows();
 
     for ( int i = 0; i < indexes.count(); i++ )
-        m_selectedUsers.append( m_model->data( indexes.at( i ), RDB::TableItemModel::RowIdRole ).toInt() );
+        m_selectedUsers.append( m_model->rowId( indexes.at( i ) ) );
 
     bool canChange = !m_selectedUsers.isEmpty();
 
@@ -163,7 +158,7 @@ void MembersDialog::updateActions()
 void MembersDialog::doubleClicked( const QModelIndex& index )
 {
     if ( index.isValid() ) {
-        int userId = m_model->data( index, RDB::TableItemModel::RowIdRole ).toInt();
+        int userId = m_model->rowId( index );
 
         if ( dataManager->currentUserAccess() == AdminAccess || userId != dataManager->currentUserId() ) {
             QList<int> users;

@@ -20,8 +20,7 @@
 #ifndef TYPEDIALOGS_H
 #define TYPEDIALOGS_H
 
-#include "commanddialog.h"
-
+#include "dialogs/commanddialog.h"
 #include "utils/definitioninfo.h"
 #include "utils/attributehelper.h"
 
@@ -228,8 +227,6 @@ public: // overrides
 
 private:
     int m_attributeId;
-
-    QString m_oldDefinition;
 };
 
 /**

@@ -18,11 +18,11 @@
 **************************************************************************/
 
 #include "formatter.h"
-#include "definitioninfo.h"
-#include "datetimehelper.h"
-#include "attributehelper.h"
 
 #include "data/datamanager.h"
+#include "utils/definitioninfo.h"
+#include "utils/datetimehelper.h"
+#include "utils/attributehelper.h"
 
 Formatter::Formatter()
 {
@@ -32,9 +32,9 @@ Formatter::~Formatter()
 {
 }
 
-QString Formatter::formatNumber( double number, int decimal, bool strip )
+QString Formatter::formatNumber( double number, int decimal, bool strip ) const
 {
-    DefinitionInfo info = DefinitionInfo::fromString( dataManager->setting( "number_format" ) );
+    DefinitionInfo info = dataManager->numberFormat();
 
     QString formatted;
     formatted.setNum( number, 'f', decimal );
@@ -71,7 +71,7 @@ QString Formatter::formatNumber( double number, int decimal, bool strip )
     return integerPart;
 }
 
-QString Formatter::convertNumber( const QString& value, int decimal, bool strip )
+QString Formatter::convertNumber( const QString& value, int decimal, bool strip ) const
 {
     bool ok;
     double number = value.toDouble( &ok );
@@ -82,12 +82,12 @@ QString Formatter::convertNumber( const QString& value, int decimal, bool strip 
     return formatNumber( number, decimal, strip );
 }
 
-QString Formatter::formatDate( const QDate& date )
+QString Formatter::formatDate( const QDate& date ) const
 {
     return date.toString( dateFormat() );
 }
 
-QString Formatter::convertDate( const QString& value )
+QString Formatter::convertDate( const QString& value ) const
 {
     QDate date = DateTimeHelper::parseDate( value );
 
@@ -97,7 +97,7 @@ QString Formatter::convertDate( const QString& value )
     return formatDate( date );
 }
 
-QString Formatter::formatDateTime( const QDateTime& dateTime, bool toLocal )
+QString Formatter::formatDateTime( const QDateTime& dateTime, bool toLocal ) const
 {
     if ( toLocal && dateTime.timeSpec() == Qt::UTC )
         return dateTime.toLocalTime().toString( dateTimeFormat() );
@@ -105,7 +105,7 @@ QString Formatter::formatDateTime( const QDateTime& dateTime, bool toLocal )
     return dateTime.toString( dateTimeFormat() );
 }
 
-QString Formatter::convertDateTime( const QString& value, bool toLocal )
+QString Formatter::convertDateTime( const QString& value, bool toLocal ) const
 {
     QDateTime dateTime = DateTimeHelper::parseDateTime( value );
 
@@ -117,14 +117,14 @@ QString Formatter::convertDateTime( const QString& value, bool toLocal )
     return formatDateTime( dateTime, toLocal );
 }
 
-QString Formatter::formatTime( const QTime& time )
+QString Formatter::formatTime( const QTime& time ) const
 {
     return time.toString( timeFormat() );
 }
 
-QString Formatter::dateFormat()
+QString Formatter::dateFormat() const
 {
-    DefinitionInfo info = DefinitionInfo::fromString( dataManager->setting( "date_format" ) );
+    DefinitionInfo info = dataManager->dateFormat();
 
     QMap<QChar, QString> parts;
     parts.insert( QChar( 'd' ), info.metadata( "pad-day" ).toBool() ? "dd" : "d" );
@@ -143,9 +143,9 @@ QString Formatter::dateFormat()
     return date;
 }
 
-QString Formatter::timeFormat()
+QString Formatter::timeFormat() const
 {
-    DefinitionInfo info = DefinitionInfo::fromString( dataManager->setting( "time_format" ) );
+    DefinitionInfo info = dataManager->timeFormat();
 
     int mode = info.metadata( "time-mode" ).toInt();
     QString time = ( mode == 12 ) ? "h" : "H";
@@ -159,17 +159,15 @@ QString Formatter::timeFormat()
     return time;
 }
 
-QString Formatter::dateTimeFormat()
+QString Formatter::dateTimeFormat() const
 {
     return dateFormat() + " " + timeFormat();
 }
 
-QString Formatter::convertAttributeValue( const QString& definition, const QString& value, bool multiLine )
+QString Formatter::convertAttributeValue( const DefinitionInfo& info, const QString& value, bool multiLine ) const
 {
     if ( value.isEmpty() )
         return QString();
-
-    DefinitionInfo info = DefinitionInfo::fromString( definition );
 
     switch ( AttributeHelper::toAttributeType( info ) ) {
         case TextAttribute:
@@ -197,4 +195,17 @@ QString Formatter::convertAttributeValue( const QString& definition, const QStri
         default:
             return QString();
     }
+}
+
+QString Formatter::formatSize( int size ) const
+{
+    if ( size >= 1048576 ) {
+        double mb = (double)size / 1048576.0;
+        return tr( "%1 MB" ).arg( formatNumber( mb, 1, true ) );
+    }
+    if ( size >= 1024 ) {
+        double kb = (double)size / 1024.0;
+        return tr( "%1 kB" ).arg( formatNumber( kb, 1, true ) );
+    }
+    return tr( "%1 bytes" ).arg( formatNumber( size, 0, false ) );
 }

@@ -18,13 +18,12 @@
 **************************************************************************/
 
 #include "issueview.h"
-#include "viewmanager.h"
 
 #include "application.h"
 #include "commands/updatebatch.h"
 #include "data/datamanager.h"
+#include "data/entities.h"
 #include "data/updateevent.h"
-#include "data/attachmentscache.h"
 #include "data/localsettings.h"
 #include "dialogs/issuedialogs.h"
 #include "dialogs/finditemdialog.h"
@@ -32,12 +31,12 @@
 #include "dialogs/reportdialog.h"
 #include "dialogs/statedialogs.h"
 #include "models/issuedetailsgenerator.h"
-#include "rdb/utilities.h"
 #include "utils/datetimehelper.h"
-#include "utils/tablemodelshelper.h"
 #include "utils/treeviewhelper.h"
 #include "utils/textwriter.h"
+#include "utils/formatter.h"
 #include "utils/iconloader.h"
+#include "views/viewmanager.h"
 #include "widgets/findbar.h"
 #include "xmlui/builder.h"
 
@@ -265,30 +264,29 @@ void IssueView::initialUpdate()
 
 Access IssueView::checkDataAccess()
 {
-    const IssueRow* issue = dataManager->issues()->find( id() );
-    if ( !issue )
+    IssueEntity issue = IssueEntity::find( id() );
+    if ( !issue.isValid() )
         return UnknownAccess;
 
-    m_folderId = issue->folderId();
+    m_folderId = issue.folderId();
 
-    const FolderRow* folder = dataManager->folders()->find( issue->folderId() );
-    if ( !folder )
+    FolderEntity folder = issue.folder();
+    if ( !folder.isValid() )
         return NoAccess;
 
     if ( dataManager->currentUserAccess() != AdminAccess ) {
-        int userId = dataManager->currentUserId();
-        const MemberRow* member = dataManager->members()->find( userId, folder->projectId() );
-        if ( !member )
+        MemberEntity member = MemberEntity::find( folder.projectId(), dataManager->currentUserId() );
+        if ( !member.isValid() )
             return NoAccess;
     }
 
-    m_typeId = folder->typeId();
-
-    const TypeRow* type = dataManager->types()->find( folder->typeId() );
-    if ( !type )
+    TypeEntity type = folder.type();
+    if ( !type.isValid() )
         return UnknownAccess;
 
-    if ( TableModelsHelper::isIssueAdmin( id() ) )
+    m_typeId = type.id();
+
+    if ( IssueEntity::isAdmin( id() ) )
         return AdminAccess;
 
     return NormalAccess;
@@ -324,7 +322,7 @@ void IssueView::gotoItem( int itemId )
     if ( isUpdating() )
         m_gotoItemId = itemId;
 
-    if ( dataManager->findItem( itemId ) == id() )
+    if ( IssueEntity::findItem( itemId ) == id() )
         m_browser->scrollToAnchor( QString( "id%1" ).arg( itemId ) );
 }
 
@@ -332,9 +330,9 @@ void IssueView::updateCaption()
 {
     QString name = tr( "Unknown Issue" ) ;
     if ( isEnabled() ) {
-        const IssueRow* row = dataManager->issues()->find( id() );
-        if ( row )
-            name = row->name();
+        IssueEntity issue = IssueEntity::find( id() );
+        if ( issue.isValid() )
+            name = issue.name();
     }
     setCaption( name );
 }
@@ -347,8 +345,8 @@ void IssueView::updateActions()
 
     bool linkNotEmpty = !m_actionLink.isEmpty();
 
-    const IssueRow* row = dataManager->issues()->find( id() );
-    m_isRead = row ? row->stamp() == dataManager->issueReadStamp( id() ) : false;
+    IssueEntity issue = IssueEntity::find( id() );
+    m_isRead = issue.isValid() ? issue.readId() == issue.stampId() : false;
 
     action( "editCopy" )->setEnabled( hasSelection );
     action( "findNext" )->setEnabled( m_isFindEnabled );
@@ -418,8 +416,9 @@ void IssueView::addAttachment()
             int maxSize = dataManager->setting( "file_max_size" ).toInt();
 
             if ( size > maxSize ) {
+                Formatter formatter;
                 QMessageBox::warning( mainWidget(), tr( "Warning" ),
-                    tr( "The selected file is bigger than the maximum allowed file size\non this server which is %1." ).arg( TableModelsHelper::formatSize( maxSize ) ) );
+                    tr( "The selected file is bigger than the maximum allowed file size\non this server which is %1." ).arg( formatter.formatSize( maxSize ) ) );
                 return;
             }
 
@@ -441,7 +440,7 @@ void IssueView::editIssue()
 
 void IssueView::moveIssue()
 {
-    if ( isEnabled() && TableModelsHelper::isIssueAdmin( id() ) ) {
+    if ( isEnabled() && IssueEntity::isAdmin( id() ) ) {
         MoveIssueDialog dialog( id(), mainWidget() );
         dialog.exec();
     }
@@ -449,7 +448,7 @@ void IssueView::moveIssue()
 
 void IssueView::deleteIssue()
 {
-    if ( isEnabled() && TableModelsHelper::isIssueAdmin( id() ) ) {
+    if ( isEnabled() && IssueEntity::isAdmin( id() ) ) {
         DeleteIssueDialog dialog( id(), mainWidget() );
         dialog.exec();
     }
@@ -788,7 +787,7 @@ void IssueView::handleCommand( const QString& command, int argument )
 
 void IssueView::findItem( int itemId )
 {
-    int issueId = dataManager->findItem( itemId );
+    int issueId = IssueEntity::findItem( itemId );
 
     if ( issueId == 0 ) {
         FindItemDialog dialog( mainWidget() );
@@ -815,16 +814,15 @@ void IssueView::handleAttachment( int fileId )
 
 void IssueView::handleAttachment( int fileId, AttachmentAction action )
 {
-    const FileRow* file = dataManager->files()->find( fileId );
-    QString name = file ? file->name() : QString();
-    int size = file ? file->size() : 0;
+    ChangeEntity change = ChangeEntity::findFile( fileId );
+    FileEntity file = change.file();
 
     if ( action == ActionAsk ) {
         CheckMessageBox box( mainWidget() );
 
         box.setIcon( QMessageBox::Question );
         box.setWindowTitle( tr( "Attachment" ) );
-        box.setText( tr( "Do you want to save or open attachment <b>%1</b>?" ).arg( name ) );
+        box.setText( tr( "Do you want to save or open attachment <b>%1</b>?" ).arg( file.name() ) );
         box.setCheckBoxText( tr( "Do this automatically for all attachments" ) );
         box.setStandardButtons( QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel );
 
@@ -855,7 +853,7 @@ void IssueView::handleAttachment( int fileId, AttachmentAction action )
         LocalSettings* settings = application->applicationSettings();
         QString dir = settings->value( "SaveAttachmentPath", QDir::homePath() ).toString();
 
-        QFileInfo fileInfo( QDir( dir ), name );
+        QFileInfo fileInfo( QDir( dir ), file.name() );
 
         path = QFileDialog::getSaveFileName( mainWidget(), tr( "Save Attachment" ), fileInfo.absoluteFilePath() );
         if ( path.isEmpty() )
@@ -865,10 +863,11 @@ void IssueView::handleAttachment( int fileId, AttachmentAction action )
         settings->setValue( "SaveAttachmentPath", fileInfo.absoluteDir().path() );
     }
 
-    QString cachePath = dataManager->attachmentsCache()->findAttachment( fileId );
+    QString cachePath = dataManager->findFilePath( fileId );
 
     if ( cachePath.isEmpty() ) {
-        cachePath = dataManager->attachmentsCache()->allocAttachment( fileId, name, size );
+        cachePath = dataManager->generateFilePath( file.name() );
+        dataManager->allocFileSpace( file.size() );
 
         GetAttachmentDialog dialog( fileId, cachePath, path, mainWidget() );
         dialog.download();
@@ -878,7 +877,7 @@ void IssueView::handleAttachment( int fileId, AttachmentAction action )
             return;
         }
 
-        dataManager->attachmentsCache()->commitAttachment();
+        dataManager->commitFile( fileId, cachePath, file.size() );
     }
 
     if ( action == ActionOpen ) {

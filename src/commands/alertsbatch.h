@@ -20,10 +20,9 @@
 #ifndef ALERTSBATCH_H
 #define ALERTSBATCH_H
 
-#include "abstractbatch.h"
-#include "batchjob.h"
-
-#include "data/datarows.h"
+#include "commands/abstractbatch.h"
+#include "commands/batchjob.h"
+#include "data/datamanager.h"
 
 class Reply;
 

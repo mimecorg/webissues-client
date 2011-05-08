@@ -20,7 +20,7 @@
 #ifndef ALERTDIALOGS_H
 #define ALERTDIALOGS_H
 
-#include "commanddialog.h"
+#include "dialogs/commanddialog.h"
 
 class SeparatorComboBox;
 

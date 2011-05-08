@@ -112,7 +112,7 @@ LoginDialog::~LoginDialog()
 
 void LoginDialog::showLoginError()
 {
-    showWarning( ErrorHelper::statusMessage( ErrorHelper::IncorrectLogin ) );
+    showWarning( ErrorHelper::IncorrectLogin );
 }
 
 void LoginDialog::accept()
@@ -200,12 +200,12 @@ void LoginNewDialog::accept()
     QString password2 = m_passwordEdit2->inputValue();
 
     if ( password != password2 ) {
-        showWarning( ErrorHelper::statusMessage( ErrorHelper::PasswordNotMatching ) );
+        showWarning( ErrorHelper::PasswordNotMatching );
         return;
     }
 
     if ( password == m_oldPassword ) {
-        showWarning( ErrorHelper::statusMessage( ErrorHelper::CannotReusePassword ) );
+        showWarning( ErrorHelper::CannotReusePassword );
         return;
     }
 

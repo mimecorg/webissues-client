@@ -23,7 +23,7 @@
 #include "data/datamanager.h"
 #include "dialogs/userdialogs.h"
 #include "dialogs/preferencesdialog.h"
-#include "models/tablemodels.h"
+#include "models/usersmodel.h"
 #include "utils/treeviewhelper.h"
 #include "utils/iconloader.h"
 #include "xmlui/builder.h"
@@ -75,7 +75,9 @@ UsersView::UsersView( QObject* parent, QWidget* parentWidget ) : View( parent )
     loadXmlUiFile( ":/resources/usersview.xml" );
 
     m_list = new QTreeView( parentWidget );
-    TreeViewHelper::initializeView( m_list );
+
+    TreeViewHelper helper( m_list );
+    helper.initializeView();
 
     connect( m_list, SIGNAL( customContextMenuRequested( const QPoint& ) ),
         this, SLOT( contextMenu( const QPoint& ) ) );
@@ -91,24 +93,19 @@ UsersView::UsersView( QObject* parent, QWidget* parentWidget ) : View( parent )
 
 UsersView::~UsersView()
 {
-    TreeViewHelper::saveColumnWidths( m_list, "UsersView" );
+    TreeViewHelper helper( m_list );
+    helper.saveColumnWidths( "UsersViewWidths" );
 }
 
 void UsersView::initialUpdate()
 {
-    m_model = new RDB::TableItemModel( this );
-    m_model->setRootTableModel( new UsersTableModel( m_model ), dataManager->users()->index() );
-
-    QList<int> columns;
-    columns.append( Column_Name );
-    columns.append( Column_Login );
-    columns.append( Column_Access );
-    m_model->setColumns( columns );
-
+    m_model = new UsersModel( this );
     m_list->setModel( m_model );
 
-    TreeViewHelper::setSortOrder( m_list, qMakePair( (int)Column_Name, Qt::AscendingOrder ) );
-    TreeViewHelper::loadColumnWidths( m_list, "UsersView" );
+    m_list->sortByColumn( 0, Qt::AscendingOrder );
+
+    TreeViewHelper helper( m_list );
+    helper.loadColumnWidths( "UsersViewWidths", QList<int>() << 150 << 100 << 150 );
 
     setCaption( tr( "User Accounts" ) );
 
@@ -123,9 +120,11 @@ void UsersView::updateActions()
 {
     m_selectedUserId = 0;
 
-    QModelIndex index = TreeViewHelper::selectedIndex( m_list );
+    TreeViewHelper helper( m_list );
+    QModelIndex index = helper.selectedIndex();
+
     if ( index.isValid() )
-        m_selectedUserId = m_model->data( index, RDB::TableItemModel::RowIdRole ).toInt();
+        m_selectedUserId = m_model->rowId( index );
 
     action( "editRename" )->setEnabled( m_selectedUserId != 0 );
     action( "changeAccess" )->setEnabled( m_selectedUserId != 0 && m_selectedUserId != dataManager->currentUserId() );
@@ -204,7 +203,7 @@ void UsersView::contextMenu( const QPoint& pos )
 void UsersView::doubleClicked( const QModelIndex& index )
 {
     if ( index.isValid() && m_systemAdmin ) {
-        int userId = m_model->data( index, RDB::TableItemModel::RowIdRole ).toInt();
+        int userId = m_model->rowId( index );
 
         if ( userId != dataManager->currentUserId() ) {
             ChangeUserAccessDialog dialog( userId, mainWidget() );

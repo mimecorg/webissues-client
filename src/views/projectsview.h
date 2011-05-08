@@ -20,9 +20,9 @@
 #ifndef PROJECTSVIEW_H
 #define PROJECTSVIEW_H
 
-#include "view.h"
+#include "views/view.h"
 
-#include "rdb/tableitemmodel.h"
+class ProjectsModel;
 
 class QTreeView;
 class QModelIndex;
@@ -97,7 +97,7 @@ private:
 
 private:
     QTreeView* m_list;
-    RDB::TableItemModel* m_model;
+    ProjectsModel* m_model;
 
     QTimer* m_timer;
 

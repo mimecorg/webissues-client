@@ -6,7 +6,6 @@ HEADERS += utils/attributehelper.h \
            utils/errorhelper.h \
            utils/formatter.h \
            utils/iconloader.h \
-           utils/tablemodelshelper.h \
            utils/textwithlinks.h \
            utils/textwriter.h \
            utils/treeviewhelper.h \
@@ -21,7 +20,6 @@ SOURCES += utils/attributehelper.cpp \
            utils/errorhelper.cpp \
            utils/formatter.cpp \
            utils/iconloader.cpp \
-           utils/tablemodelshelper.cpp \
            utils/textwithlinks.cpp \
            utils/textwriter.cpp \
            utils/treeviewhelper.cpp \

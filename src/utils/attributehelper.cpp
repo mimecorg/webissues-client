@@ -18,13 +18,21 @@
 **************************************************************************/
 
 #include "attributehelper.h"
-#include "definitioninfo.h"
-#include "formatter.h"
-#include "datetimehelper.h"
-#include "data/datamanager.h"
 
-#include <QApplication>
+#include "data/datamanager.h"
+#include "utils/definitioninfo.h"
+#include "utils/formatter.h"
+#include "utils/datetimehelper.h"
+
 #include <QStringList>
+
+AttributeHelper::AttributeHelper()
+{
+}
+
+AttributeHelper::~AttributeHelper()
+{
+}
 
 AttributeType AttributeHelper::toAttributeType( const DefinitionInfo& info )
 {
@@ -66,7 +74,7 @@ DefinitionInfo AttributeHelper::fromAttributeType( AttributeType type )
     return info;
 }
 
-QString AttributeHelper::convertInitialValue( const DefinitionInfo& info, const QString& value )
+QString AttributeHelper::convertInitialValue( const DefinitionInfo& info, const QString& value ) const
 {
     AttributeType type = toAttributeType( info );
 
@@ -93,7 +101,7 @@ QString AttributeHelper::convertInitialValue( const DefinitionInfo& info, const 
     return value;
 }
 
-QString AttributeHelper::formatExpression( const DefinitionInfo& info, const QString& definition, const QString& value )
+QString AttributeHelper::formatExpression( const DefinitionInfo& info, const QString& value ) const
 {
     AttributeType type = toAttributeType( info );
 
@@ -104,10 +112,10 @@ QString AttributeHelper::formatExpression( const DefinitionInfo& info, const QSt
         return QString( "[%1]%2" ).arg( tr( "Today" ), value.mid( 7 ) );
 
     Formatter formatter;
-    return formatter.convertAttributeValue( definition, value, false );
+    return formatter.convertAttributeValue( info, value, false );
 }
 
-QString AttributeHelper::typeName( AttributeType type )
+QString AttributeHelper::typeName( AttributeType type ) const
 {
     switch ( type ) {
         case TextAttribute:
@@ -125,7 +133,7 @@ QString AttributeHelper::typeName( AttributeType type )
     }
 }
 
-QString AttributeHelper::metadataDetails( const DefinitionInfo& info )
+QString AttributeHelper::metadataDetails( const DefinitionInfo& info ) const
 {
     switch ( toAttributeType( info ) ) {
         case TextAttribute:
@@ -143,7 +151,7 @@ QString AttributeHelper::metadataDetails( const DefinitionInfo& info )
     }
 }
 
-QString AttributeHelper::textMetadataDetails( const DefinitionInfo& info )
+QString AttributeHelper::textMetadataDetails( const DefinitionInfo& info ) const
 {
     QStringList details;
 
@@ -162,7 +170,7 @@ QString AttributeHelper::textMetadataDetails( const DefinitionInfo& info )
     return details.join( "; " );
 }
 
-QString AttributeHelper::enumMetadataDetails( const DefinitionInfo& info )
+QString AttributeHelper::enumMetadataDetails( const DefinitionInfo& info ) const
 {
     QStringList details;
 
@@ -187,7 +195,7 @@ QString AttributeHelper::enumMetadataDetails( const DefinitionInfo& info )
     return details.join( "; " );
 }
 
-QString AttributeHelper::numericMetadataDetails( const DefinitionInfo& info )
+QString AttributeHelper::numericMetadataDetails( const DefinitionInfo& info ) const
 {
     QStringList details;
 
@@ -213,7 +221,7 @@ QString AttributeHelper::numericMetadataDetails( const DefinitionInfo& info )
     return details.join( "; " );
 }
 
-QString AttributeHelper::dateTimeMetadataDetails( const DefinitionInfo& info )
+QString AttributeHelper::dateTimeMetadataDetails( const DefinitionInfo& info ) const
 {
     QStringList details;
 
@@ -228,7 +236,7 @@ QString AttributeHelper::dateTimeMetadataDetails( const DefinitionInfo& info )
     return details.join( "; " );
 }
 
-QString AttributeHelper::userMetadataDetails( const DefinitionInfo& info )
+QString AttributeHelper::userMetadataDetails( const DefinitionInfo& info ) const
 {
     QStringList details;
 
@@ -239,7 +247,7 @@ QString AttributeHelper::userMetadataDetails( const DefinitionInfo& info )
     return details.join( "; " );
 }
 
-QList<AttributeType> AttributeHelper::compatibleTypes( AttributeType type )
+QList<AttributeType> AttributeHelper::compatibleTypes( AttributeType type ) const
 {
     QList<AttributeType> compatible;
     compatible << TextAttribute << EnumAttribute << UserAttribute;
@@ -248,9 +256,4 @@ QList<AttributeType> AttributeHelper::compatibleTypes( AttributeType type )
         return compatible;
 
     return QList<AttributeType>() << type;
-}
-
-QString AttributeHelper::tr( const char* text )
-{
-    return qApp->translate( "AttributeHelper", text );
 }

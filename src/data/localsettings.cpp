@@ -24,8 +24,13 @@
 LocalSettings::LocalSettings( const QString& path, QObject* parent ) : QObject( parent ),
     m_path( path )
 {
-    qRegisterMetaTypeStreamOperators<IntList>( "LocalSettings::IntList" );
-    qRegisterMetaTypeStreamOperators<IntMap>( "LocalSettings::IntMap" );
+    static bool registered = false;
+
+    if ( !registered ) {
+        qRegisterMetaTypeStreamOperators<IntList>( "LocalSettings::IntList" );
+        qRegisterMetaTypeStreamOperators<IntMap>( "LocalSettings::IntMap" );
+        registered = true;
+    }
 
     load();
 }

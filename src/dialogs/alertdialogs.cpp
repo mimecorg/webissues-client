@@ -21,8 +21,7 @@
 
 #include "commands/alertsbatch.h"
 #include "data/datamanager.h"
-#include "rdb/utilities.h"
-#include "utils/tablemodelshelper.h"
+#include "data/entities.h"
 #include "utils/errorhelper.h"
 #include "utils/iconloader.h"
 #include "widgets/separatorcombobox.h"
@@ -37,31 +36,25 @@ AddAlertDialog::AddAlertDialog( int folderId, QWidget* parent ) : CommandDialog(
     m_viewCombo( NULL ),
     m_emailGroup( NULL )
 {
-    const FolderRow* folder = dataManager->folders()->find( folderId );
-    QString name = folder ? folder->name() : QString();
-    int typeId = folder ? folder->typeId() : 0;
+    FolderEntity folder = FolderEntity::find( folderId );
 
     setWindowTitle( tr( "Add Alert" ) );
-    setPrompt( tr( "Create a new alert for folder <b>%1</b>:" ).arg( name ) );
+    setPrompt( tr( "Create a new alert for folder <b>%1</b>:" ).arg( folder.name() ) );
     setPromptPixmap( IconLoader::pixmap( "alert-new", 22 ) );
 
     QList<int> used;
-    RDB::ForeignConstIterator<AlertRow> ita( dataManager->alerts()->parentIndex(), folderId );
-    while ( ita.next() )
-        used.append( ita.get()->viewId() );
+    foreach ( const AlertEntity& alert, folder.alerts() )
+        used.append( alert.viewId() );
 
-    RDB::ForeignConstIterator<ViewRow> itv( dataManager->views()->parentIndex(), typeId );
-    QList<const ViewRow*> views = RDB::localeAwareSortRows( itv, &ViewRow::name );
+    QList<ViewEntity> personalViews;
+    QList<ViewEntity> publicViews;
 
-    QList<const ViewRow*> personalViews;
-    QList<const ViewRow*> publicViews;
-
-    foreach ( const ViewRow* view, views ) {
-        if ( view->isPublic() ) {
-            if ( !used.contains( view->viewId() ) )
+    foreach ( const ViewEntity& view, folder.type().views() ) {
+        if ( view.isPublic() ) {
+            if ( !used.contains( view.id() ) )
                 publicViews.append( view );
         } else {
-            if ( !used.contains( view->viewId() ) )
+            if ( !used.contains( view.id() ) )
                 personalViews.append( view );
         }
     }
@@ -98,8 +91,8 @@ AddAlertDialog::AddAlertDialog( int folderId, QWidget* parent ) : CommandDialog(
         m_viewCombo->addParentItem( tr( "Personal Views" ) );
         separator = true;
 
-        foreach ( const ViewRow* view, personalViews ) {
-            m_viewCombo->addChildItem( view->name(), view->viewId() );
+        foreach ( const ViewEntity& view, personalViews ) {
+            m_viewCombo->addChildItem( view.name(), view.id() );
             if ( !select ) {
                 m_viewCombo->setCurrentIndex( m_viewCombo->count() - 1 );
                 select = true;
@@ -112,8 +105,8 @@ AddAlertDialog::AddAlertDialog( int folderId, QWidget* parent ) : CommandDialog(
             m_viewCombo->addSeparator();
         m_viewCombo->addParentItem( tr( "Public Views" ) );
 
-        foreach ( const ViewRow* view, publicViews ) {
-            m_viewCombo->addChildItem( view->name(), view->viewId() );
+        foreach ( const ViewEntity& view, publicViews ) {
+            m_viewCombo->addChildItem( view.name(), view.id() );
             if ( !select ) {
                 m_viewCombo->setCurrentIndex( m_viewCombo->count() - 1 );
                 select = true;
@@ -173,9 +166,9 @@ void AddAlertDialog::accept()
 ModifyAlertDialog::ModifyAlertDialog( int alertId, QWidget* parent ) : CommandDialog( parent ),
     m_alertId( alertId )
 {
-    const AlertRow* alert = dataManager->alerts()->find( alertId );
-    QString name = alert ? TableModelsHelper::viewName( alert->viewId() ) : QString();
-    m_oldAlertEmail = alert ? alert->alertEmail() : NoEmail;
+    AlertEntity alert = AlertEntity::find( alertId );
+    QString name = alert.viewId() ? alert.view().name() : tr( "All Issues" );
+    m_oldAlertEmail = alert.alertEmail();
 
     setWindowTitle( tr( "Modify Alert" ) );
     setPrompt( tr( "Modify alert <b>%1</b>:" ).arg( name ) );
@@ -233,8 +226,8 @@ void ModifyAlertDialog::accept()
 DeleteAlertDialog::DeleteAlertDialog( int alertId, QWidget* parent ) : CommandDialog( parent ),
     m_alertId( alertId )
 {
-    const AlertRow* alert = dataManager->alerts()->find( alertId );
-    QString name = alert ? TableModelsHelper::viewName( alert->viewId() ) : QString();
+    AlertEntity alert = AlertEntity::find( alertId );
+    QString name = alert.viewId() ? alert.view().name() : tr( "All Issues" );
 
     setWindowTitle( tr( "Delete Alert" ) );
     setPrompt( tr( "Are you sure you want to delete alert <b>%1</b>?" ).arg( name ) );

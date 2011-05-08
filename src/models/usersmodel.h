@@ -17,47 +17,42 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************/
 
-#include "locale.h"
+#ifndef USERSMODEL_H
+#define USERSMODEL_H
 
-LocaleLanguage::LocaleLanguage()
-{
-}
+#include "models/basemodel.h"
 
-LocaleLanguage::LocaleLanguage( const QString& code, const QString& name ) :
-    m_code( code ),
-    m_name( name )
+/**
+* Model for a list of users.
+*/
+class UsersModel : public BaseModel
 {
-}
+    Q_OBJECT
+public:
+    /**
+    * Constructor.
+    * @param parent The parent object.
+    */
+    UsersModel( QObject* parent );
 
-LocaleLanguage::~LocaleLanguage()
-{
-}
+    /**
+    * Destructor.
+    */
+    ~UsersModel();
 
-LocaleFormat::LocaleFormat()
-{
-}
+public: // overrides
+    QVariant data( const QModelIndex& index, int role = Qt::DisplayRole ) const;
 
-LocaleFormat::LocaleFormat( const QString& type, const QString& key, const QString& definition ) :
-    m_type( type ),
-    m_key( key ),
-    m_definition( definition )
-{
-}
+protected: // overrides
+    void updateQueries();
 
-LocaleFormat::~LocaleFormat()
-{
-}
+    void updateEvent( UpdateEvent* e );
 
-LocaleTimeZone::LocaleTimeZone()
-{
-}
+private:
+    void refresh();
 
-LocaleTimeZone::LocaleTimeZone( const QString& name, int offset ) :
-    m_name( name ),
-    m_offset( offset )
-{
-}
+private:
+    QString m_order;
+};
 
-LocaleTimeZone::~LocaleTimeZone()
-{
-}
+#endif

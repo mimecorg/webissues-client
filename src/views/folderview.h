@@ -20,10 +20,9 @@
 #ifndef FOLDERVIEW_H
 #define FOLDERVIEW_H
 
-#include "view.h"
+#include "views/view.h"
 
-#include "rdb/tableitemmodel.h"
-
+class FolderModel;
 class IssueRowFilter;
 class SearchEditBox;
 class SeparatorComboBox;
@@ -127,7 +126,6 @@ private slots:
     void doubleClicked( const QModelIndex& index );
 
     void quickSearchChanged( const QString& text );
-    void searchActionTriggered( QAction* action );
 
     void viewActivated( int index );
 
@@ -142,7 +140,6 @@ private:
     void updateCaption();
 
     void updateViews();
-    void updateSearchOptions();
 
     void markAllIssues( bool read );
 
@@ -152,19 +149,13 @@ private:
 
 private:
     QTreeView* m_list;
-    RDB::TableItemModel* m_model;
-
-    IssueRowFilter* m_filter;
+    FolderModel* m_model;
 
     SeparatorComboBox* m_viewCombo;
 
     SearchEditBox* m_searchBox;
 
-    QMenu* m_searchMenu;
-    QActionGroup* m_searchActionGroup;
-
     int m_currentViewId;
-    int m_searchColumn;
 
     int m_typeId;
     int m_projectId;

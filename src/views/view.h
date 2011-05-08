@@ -20,7 +20,7 @@
 #ifndef VIEW_H
 #define VIEW_H
 
-#include "data/datarows.h"
+#include "data/datamanager.h"
 #include "xmlui/client.h"
 
 #include <QWidget>

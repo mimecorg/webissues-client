@@ -74,6 +74,8 @@ private:
 
     void calculateLayout();
 
+    void setError( int code );
+
 private:
     EditToolButton* m_errorButton;
 

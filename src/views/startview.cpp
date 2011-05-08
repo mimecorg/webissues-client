@@ -27,8 +27,6 @@
 #include "data/credentialsstore.h"
 #include "data/bookmark.h"
 #include "dialogs/logindialog.h"
-#include "models/tablemodels.h"
-#include "rdb/tableitemmodel.h"
 #include "utils/treeviewhelper.h"
 #include "utils/errorhelper.h"
 #include "utils/iconloader.h"
@@ -123,9 +121,11 @@ StartView::StartView( QObject* parent, QWidget* parentWidget ) : View( parent ),
     innerLayout->addWidget( label2 );
 
     m_list = new QTreeWidget( mainWidget );
-    TreeViewHelper::initializeView( m_list, TreeViewHelper::NotSortable );
     m_list->setMinimumSize( QSize( 400, 200 ) );
     innerLayout->addWidget( m_list );
+
+    TreeViewHelper helper( m_list );
+    helper.initializeView( TreeViewHelper::NotSortable );
 
     connect( m_list, SIGNAL( customContextMenuRequested( const QPoint& ) ), this, SLOT( contextMenu( const QPoint& ) ) );
     connect( m_list, SIGNAL( doubleClicked( const QModelIndex& ) ), this, SLOT( doubleClicked( const QModelIndex& ) ) );
@@ -144,7 +144,8 @@ StartView::StartView( QObject* parent, QWidget* parentWidget ) : View( parent ),
 
 StartView::~StartView()
 {
-    TreeViewHelper::saveColumnWidths( m_list, "StartView" );
+    TreeViewHelper helper( m_list );
+    helper.saveColumnWidths( "StartViewWidths" );
 }
 
 void StartView::reconnect()
@@ -331,8 +332,6 @@ void StartView::initialUpdate()
     QTreeWidgetItem* header = new QTreeWidgetItem();
     header->setText( 0, tr( "Name" ) );
     header->setText( 1, tr( "Address" ) );
-    header->setData( 0, RDB::TableItemModel::ColumnRole, Column_Name );
-    header->setData( 1, RDB::TableItemModel::ColumnRole, Column_Address );
     m_list->setHeaderItem( header );
 
     QList<Bookmark> bookmarks = application->bookmarksStore()->bookmarks();
@@ -347,7 +346,8 @@ void StartView::initialUpdate()
         item->setData( 0, Qt::UserRole, QVariant::fromValue( bookmark ) );
     }
 
-    TreeViewHelper::loadColumnWidths( m_list, "StartView" );
+    TreeViewHelper helper( m_list );
+    helper.loadColumnWidths( "StartViewWidths", QList<int>() << 150 << 300 );
 
     setAccess( NormalAccess, true );
 }

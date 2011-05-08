@@ -78,7 +78,7 @@ bool InputLineEdit::validate()
     updateInput();
 
     if ( m_empty && !m_errorIfEmpty )
-        setError( ErrorHelper::errorMessage( ErrorHelper::EmptyValue ) );
+        setError( ErrorHelper::EmptyValue );
     m_errorIfEmpty = true;
 
     return !m_error;
@@ -191,6 +191,12 @@ void InputLineEdit::setError( const QString& error )
     calculateLayout();
 }
 
+void InputLineEdit::setError( int code )
+{
+    ErrorHelper helper;
+    setError( helper.errorMessage( (ErrorHelper::ErrorCode)code ) );
+}
+
 void InputLineEdit::clearError()
 {
     m_error = false;
@@ -229,7 +235,7 @@ QString InputLineEdit::textToValue( const QString& text )
     if ( value.isEmpty() ) {
         if ( m_required ) {
             if ( m_errorIfEmpty ) {
-                setError( ErrorHelper::errorMessage( ErrorHelper::EmptyValue ) );
+                setError( ErrorHelper::EmptyValue );
             } else {
                 m_errorButton->setToolTip( tr( "Field is required" ) );
                 m_empty = true;
@@ -240,7 +246,7 @@ QString InputLineEdit::textToValue( const QString& text )
     }
 
     if ( m_minLength > 0 && value.length() < m_minLength ) {
-        setError( ErrorHelper::errorMessage( ErrorHelper::StringTooShort ) );
+        setError( ErrorHelper::StringTooShort );
         return QString();
     }
 
@@ -274,7 +280,7 @@ QString InputLineEdit::textToValue( const QString& text )
         QString me = QString( "[%1]" ).arg( tr( "Me" ) );
         if ( value.startsWith( me, Qt::CaseInsensitive ) ) {
             if ( value.length() > me.length() ) {
-                setError( ErrorHelper::errorMessage( ErrorHelper::InvalidFormat ) );
+                setError( ErrorHelper::InvalidFormat );
                 return QString();
             }
             return "[Me]";
@@ -328,7 +334,7 @@ QString EnumLineEdit::textToValue( const QString& text )
         return value;
 
     if ( !m_editable && !m_items.contains( value ) ) {
-        setError( ErrorHelper::errorMessage( ErrorHelper::NoMatchingItem ) );
+        setError( ErrorHelper::NoMatchingItem );
         return QString();
     }
 
@@ -422,12 +428,12 @@ QString NumericLineEdit::textToValue( const QString& text )
     }
 
     if ( number < m_minValue ) {
-        setError( ErrorHelper::errorMessage( ErrorHelper::NumberTooLittle ) );
+        setError( ErrorHelper::NumberTooLittle );
         return QString();
     }
 
     if ( number > m_maxValue ) {
-        setError( ErrorHelper::errorMessage( ErrorHelper::NumberTooGreat ) );
+        setError( ErrorHelper::NumberTooGreat );
         return QString();
     }
 
@@ -525,7 +531,7 @@ QString DateTimeLineEdit::textToValue( const QString& text )
         bool ok;
         int offset = value.mid( today.length() + 1 ).toInt( &ok );
         if ( ( sign != '-' && sign != '+' ) || !ok || offset < 1 ) {
-            setError( ErrorHelper::errorMessage( ErrorHelper::InvalidFormat ) );
+            setError( ErrorHelper::InvalidFormat );
             return QString();
         }
         return QString( "[Today]%1%2" ).arg( sign ).arg( offset );

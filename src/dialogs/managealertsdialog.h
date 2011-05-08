@@ -20,10 +20,10 @@
 #ifndef MANAGEALERTSDIALOG_H
 #define MANAGEALERTSDIALOG_H
 
-#include "informationdialog.h"
-
-#include "rdb/tableitemmodel.h"
+#include "dialogs/informationdialog.h"
 #include "xmlui/client.h"
+
+class AlertsModel;
 
 class QTreeView;
 
@@ -60,7 +60,7 @@ private:
     int m_folderId;
 
     QTreeView* m_list;
-    RDB::TableItemModel* m_model;
+    AlertsModel* m_model;
 
     bool m_emailEnabled;
 

@@ -18,10 +18,10 @@
 **************************************************************************/
 
 #include "validator.h"
-#include "datetimehelper.h"
-#include "errorhelper.h"
 
 #include "data/datamanager.h"
+#include "utils/datetimehelper.h"
+#include "utils/errorhelper.h"
 
 #include <QRegExp>
 #include <QSet>
@@ -44,14 +44,14 @@ QString Validator::normalizeString( const QString& string, int maxLength )
         return QString();
 
     if ( result.length() > maxLength ) {
-        m_errors.append( ErrorHelper::errorMessage( ErrorHelper::StringTooLong ) );
+        appendError( ErrorHelper::StringTooLong );
         return QString();
     }
 
     QRegExp nonPrintableRegExp( "[\\x00-\\x1f\\x7f]" );
 
     if ( result.contains( nonPrintableRegExp ) ) {
-        m_errors.append( ErrorHelper::errorMessage( ErrorHelper::InvalidString ) );
+        appendError( ErrorHelper::InvalidString );
         return QString();
     }
 
@@ -73,7 +73,7 @@ QString Validator::normalizeMultiLineString( const QString& string )
     QRegExp nonPrintableRegExp( "[\\x00-\\x08\\x0b-\\x1f\\x7f]" );
 
     if ( result.contains( nonPrintableRegExp ) ) {
-        m_errors.append( ErrorHelper::errorMessage( ErrorHelper::InvalidString ) );
+        appendError( ErrorHelper::InvalidString );
         return QString();
     }
 
@@ -106,7 +106,7 @@ bool Validator::checkEmail( const QString& email )
         ")\\]))" );
 
     if ( !emailRegExp.exactMatch( email ) ) {
-        m_errors.append( ErrorHelper::errorMessage( ErrorHelper::InvalidEmail ) );
+        appendError( ErrorHelper::InvalidEmail );
         return false;
     }
 
@@ -132,14 +132,14 @@ DefinitionInfo Validator::createAttributeDefinition( AttributeType type, const Q
                 info.setMetadata( "editable", 1 );
             QStringList items = metadata.value( "items" ).toStringList();
             if ( items.isEmpty() ) {
-                m_errors.append( ErrorHelper::errorMessage( ErrorHelper::NoItems ) );
+                appendError( ErrorHelper::NoItems );
                 return DefinitionInfo();
             }
             QSet<QString> seen;
             seen.reserve( items.count() );
             for ( int i = 0; i < items.count(); i++ ) {
                 if ( seen.contains( items.at( i ) ) ) {
-                    m_errors.append( ErrorHelper::errorMessage( ErrorHelper::DuplicateItems ) );
+                    appendError( ErrorHelper::DuplicateItems );
                     return DefinitionInfo();
                 }
                 seen.insert( items.at( i ) );
@@ -170,7 +170,7 @@ DefinitionInfo Validator::createAttributeDefinition( AttributeType type, const Q
             if ( !maxValue.isNull() )
                 info.setMetadata( "max-value", maxValue.toString() );
             if ( !minValue.isNull() && !maxValue.isNull() && minValue.toDouble() > maxValue.toDouble() ) {
-                m_errors.append( ErrorHelper::errorMessage( ErrorHelper::InvalidLimits ) );
+                appendError( ErrorHelper::InvalidLimits );
                 return DefinitionInfo();
             }
             break;
@@ -201,12 +201,12 @@ DefinitionInfo Validator::createAttributeDefinition( AttributeType type, const Q
 bool Validator::checkInteger( int value, int minValue, int maxValue )
 {
     if ( value < minValue ) {
-        m_errors.append( ErrorHelper::errorMessage( ErrorHelper::NumberTooLittle ) );
+        appendError( ErrorHelper::NumberTooLittle );
         return false;
     }
 
     if ( value > maxValue ) {
-        m_errors.append( ErrorHelper::errorMessage( ErrorHelper::NumberTooGreat ) );
+        appendError( ErrorHelper::NumberTooGreat );
         return false;
     }
 
@@ -219,13 +219,13 @@ bool Validator::checkStringLength( const QString& string, const DefinitionInfo& 
 
     QVariant minLength = info.metadata( "min-length" );
     if ( !minLength.isNull() && length < minLength.toInt() ) {
-        m_errors.append( ErrorHelper::errorMessage( ErrorHelper::StringTooShort ) );
+        appendError( ErrorHelper::StringTooShort );
         return false;
     }
 
     QVariant maxLength = info.metadata( "max-length" );
     if ( !maxLength.isNull() && length > maxLength.toInt() ) {
-        m_errors.append( ErrorHelper::errorMessage( ErrorHelper::StringTooLong ) );
+        appendError( ErrorHelper::StringTooLong );
         return false;
     }
 
@@ -251,7 +251,7 @@ bool Validator::setMinMaxLength( DefinitionInfo& info, const QVariantMap& metada
     }
 
     if ( !minLength.isNull() && !maxLength.isNull() && minLength.toInt() > maxLength.toInt() ) {
-        m_errors.append( ErrorHelper::errorMessage( ErrorHelper::InvalidLimits ) );
+        appendError( ErrorHelper::InvalidLimits );
         return false;
     }
 
@@ -260,7 +260,7 @@ bool Validator::setMinMaxLength( DefinitionInfo& info, const QVariantMap& metada
 
 double Validator::parseNumber( const QString& value, int decimal )
 {
-    DefinitionInfo numberFormat = DefinitionInfo::fromString( dataManager->setting( "number_format" ) );
+    DefinitionInfo numberFormat = dataManager->numberFormat();
 
     QString pattern;
 
@@ -275,7 +275,7 @@ double Validator::parseNumber( const QString& value, int decimal )
     QRegExp patternRegExp( pattern );
 
     if ( !patternRegExp.exactMatch( value ) ) {
-        m_errors.append( ErrorHelper::errorMessage( ErrorHelper::InvalidFormat ) );
+        appendError( ErrorHelper::InvalidFormat );
         return 0.0;
     }
 
@@ -286,7 +286,7 @@ double Validator::parseNumber( const QString& value, int decimal )
     fractionPart.truncate( i );
 
     if ( i > decimal ) {
-        m_errors.append( ErrorHelper::errorMessage( ErrorHelper::TooManyDecimals ) );
+        appendError( ErrorHelper::TooManyDecimals );
         return 0.0;
     }
 
@@ -301,7 +301,7 @@ double Validator::parseNumber( const QString& value, int decimal )
         number = integerPart.toDouble();
 
     if ( fabs( number ) >= pow( 10.0, 14 - decimal ) ) {
-        m_errors.append( ErrorHelper::errorMessage( ErrorHelper::TooManyDigits ) );
+        appendError( ErrorHelper::TooManyDigits );
         return 0.0;
     }
 
@@ -316,7 +316,7 @@ QString Validator::convertNumber( const QString& value, int decimal )
 
 QDate Validator::parseDate( const QString& value )
 {
-    DefinitionInfo dateFormat = DefinitionInfo::fromString( dataManager->setting( "date_format" ) );
+    DefinitionInfo dateFormat = dataManager->dateFormat();
 
     QString dateSeparator = dateFormat.metadata( "date-separator" ).toString();
     QString order = dateFormat.metadata( "date-order" ).toString();
@@ -326,7 +326,7 @@ QDate Validator::parseDate( const QString& value )
     QRegExp patternRegExp( pattern );
 
     if ( !patternRegExp.exactMatch( value ) ) {
-        m_errors.append( ErrorHelper::errorMessage( ErrorHelper::InvalidFormat ) );
+        appendError( ErrorHelper::InvalidFormat );
         return QDate();
     }
 
@@ -337,7 +337,7 @@ QDate Validator::parseDate( const QString& value )
     QDate date( matches.value( 'y' ), matches.value( 'm' ), matches.value( 'd' ) );
 
     if ( !date.isValid() ) {
-        m_errors.append( ErrorHelper::errorMessage( ErrorHelper::InvalidDate ) );
+        appendError( ErrorHelper::InvalidDate );
         return QDate();
     }
 
@@ -352,14 +352,14 @@ QString Validator::convertDate( const QString& value )
 
 QDateTime Validator::parseDateTime( const QString& value, bool fromLocal )
 {
-    DefinitionInfo dateFormat = DefinitionInfo::fromString( dataManager->setting( "date_format" ) );
+    DefinitionInfo dateFormat = dataManager->dateFormat();
 
     QString dateSeparator = dateFormat.metadata( "date-separator" ).toString();
     QString order = dateFormat.metadata( "date-order" ).toString();
 
     QString pattern = buildDatePattern( dateSeparator, order );
 
-    DefinitionInfo timeFormat = DefinitionInfo::fromString( dataManager->setting( "time_format" ) );
+    DefinitionInfo timeFormat = dataManager->timeFormat();
 
     pattern += QLatin1String( " (\\d\\d?)" );
     pattern += QRegExp::escape( timeFormat.metadata( "time-separator" ).toString() );
@@ -372,7 +372,7 @@ QDateTime Validator::parseDateTime( const QString& value, bool fromLocal )
     QRegExp patternRegExp( pattern );
 
     if ( !patternRegExp.exactMatch( value ) ) {
-        m_errors.append( ErrorHelper::errorMessage( ErrorHelper::InvalidFormat ) );
+        appendError( ErrorHelper::InvalidFormat );
         return QDateTime();
     }
 
@@ -383,7 +383,7 @@ QDateTime Validator::parseDateTime( const QString& value, bool fromLocal )
     QDate date( matches.value( 'y' ), matches.value( 'm' ), matches.value( 'd' ) );
 
     if ( !date.isValid() ) {
-        m_errors.append( ErrorHelper::errorMessage( ErrorHelper::InvalidDate ) );
+        appendError( ErrorHelper::InvalidDate );
         return QDateTime();
     }
 
@@ -392,7 +392,7 @@ QDateTime Validator::parseDateTime( const QString& value, bool fromLocal )
 
     if ( mode == 12 && !patternRegExp.cap( 6 ).isEmpty() ) {
         if ( hours < 1 || hours > 12 ) {
-            m_errors.append( ErrorHelper::errorMessage( ErrorHelper::InvalidTime ) );
+            appendError( ErrorHelper::InvalidTime );
             return QDateTime();
         }
         if ( hours == 12 )
@@ -401,13 +401,13 @@ QDateTime Validator::parseDateTime( const QString& value, bool fromLocal )
             hours += 12;
     } else {
         if ( hours > 23 ) {
-            m_errors.append( ErrorHelper::errorMessage( ErrorHelper::InvalidTime ) );
+            appendError( ErrorHelper::InvalidTime );
             return QDateTime();
         }
     }
 
     if ( minutes > 59 ) {
-        m_errors.append( ErrorHelper::errorMessage( ErrorHelper::InvalidTime ) );
+        appendError( ErrorHelper::InvalidTime );
         return QDateTime();
     }
 
@@ -425,7 +425,7 @@ QString Validator::convertDateTime( const QString& value, bool fromLocal )
     return DateTimeHelper::formatDateTime( dateTime );
 }
 
-QString Validator::buildDatePattern( const QString& separator, const QString& order )
+QString Validator::buildDatePattern( const QString& separator, const QString& order ) const
 {
     QString escaped = QRegExp::escape( separator );
 
@@ -441,4 +441,10 @@ QString Validator::buildDatePattern( const QString& separator, const QString& or
     pattern += parts.value( order.at( 2 ) );
 
     return pattern;
+}
+
+void Validator::appendError( int code )
+{
+    ErrorHelper helper;
+    m_errors.append( helper.errorMessage( (ErrorHelper::ErrorCode)code ) );
 }

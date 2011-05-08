@@ -20,9 +20,9 @@
 #ifndef USERSVIEW_H
 #define USERSVIEW_H
 
-#include "view.h"
+#include "views/view.h"
 
-#include "rdb/tableitemmodel.h"
+class UsersModel;
 
 class QTreeView;
 class QModelIndex;
@@ -64,7 +64,7 @@ private slots:
 
 private:
     QTreeView* m_list;
-    RDB::TableItemModel* m_model;
+    UsersModel* m_model;
 
     int m_selectedUserId;
 

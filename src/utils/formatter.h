@@ -22,6 +22,8 @@
 
 #include <QObject>
 
+class DefinitionInfo;
+
 class QDate;
 class QTime;
 class QDateTime;
@@ -47,47 +49,52 @@ public:
     /**
     * Format number using localized format.
     */
-    QString formatNumber( double number, int decimal, bool strip );
+    QString formatNumber( double number, int decimal, bool strip ) const;
 
     /**
     * Convert number in internal representation to localized format.
     */
-    QString convertNumber( const QString& value, int decimal, bool strip );
+    QString convertNumber( const QString& value, int decimal, bool strip ) const;
 
     /**
     * Format date using localized format.
     */
-    QString formatDate( const QDate& date );
+    QString formatDate( const QDate& date ) const;
 
     /**
     * Convert date in internal representation to localized format.
     */
-    QString convertDate( const QString& value );
+    QString convertDate( const QString& value ) const;
 
     /**
     * Format date and time using localized format.
     */
-    QString formatDateTime( const QDateTime& dateTime, bool toLocal );
+    QString formatDateTime( const QDateTime& dateTime, bool toLocal ) const;
 
     /**
     * Convert date and time in internal representation to localized format.
     */
-    QString convertDateTime( const QString& value, bool toLocal );
+    QString convertDateTime( const QString& value, bool toLocal ) const;
 
     /**
     * Format an attribute value according to its definition.
     */
-    QString convertAttributeValue( const QString& definition, const QString& value, bool multiLine );
+    QString convertAttributeValue( const DefinitionInfo& info, const QString& value, bool multiLine ) const;
 
     /**
     * Format time using localized format.
     */
-    QString formatTime( const QTime& time );
+    QString formatTime( const QTime& time ) const;
+
+    /**
+    * Format the size of a file.
+    */
+    QString formatSize( int size ) const;
 
 private:
-    QString dateFormat();
-    QString timeFormat();
-    QString dateTimeFormat();
+    QString dateFormat() const;
+    QString timeFormat() const;
+    QString dateTimeFormat() const;
 };
 
 #endif

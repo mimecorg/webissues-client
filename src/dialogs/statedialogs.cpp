@@ -21,6 +21,7 @@
 
 #include "commands/statebatch.h"
 #include "data/datamanager.h"
+#include "data/entities.h"
 #include "utils/iconloader.h"
 
 #include <QLayout>
@@ -30,14 +31,13 @@ IssueStateDialog::IssueStateDialog( int issueId, bool isRead, QWidget* parent ) 
     m_issueId( issueId ),
     m_isRead( isRead )
 {
-    const IssueRow* issue = dataManager->issues()->find( issueId );
-    QString name = issue ? issue->name() : QString();
+    IssueEntity issue = IssueEntity::find( issueId );
 
     if ( isRead )
         setWindowTitle( tr( "Mark As Read" ) );
     else
         setWindowTitle( tr( "Mark As Unread" ) );
-    setPrompt( tr( "Updating the state of issue <b>%1</b>." ).arg( name ) );
+    setPrompt( tr( "Updating the state of issue <b>%1</b>." ).arg( issue.name() ) );
     setPromptPixmap( IconLoader::pixmap( isRead ? "issue" : "issue-unread", 22 ) );
 
     setContentLayout( NULL, true );
@@ -59,16 +59,15 @@ FolderStateDialog::FolderStateDialog( int folderId, bool isRead, QWidget* parent
     m_folderId( folderId ),
     m_isRead( isRead )
 {
-    const FolderRow* folder = dataManager->folders()->find( folderId );
-    QString name = folder ? folder->name() : QString();
+    FolderEntity folder = FolderEntity::find( folderId );
 
     if ( isRead ) {
         setWindowTitle( tr( "Mark All As Read" ) );
-        setPrompt( tr( "Are you sure you want to mark all issues in folder <b>%1</b> as read?" ).arg( name ) );
+        setPrompt( tr( "Are you sure you want to mark all issues in folder <b>%1</b> as read?" ).arg( folder.name() ) );
         setPromptPixmap( IconLoader::pixmap( "folder-read", 22 ) );
     } else {
         setWindowTitle( tr( "Mark All As Unread" ) );
-        setPrompt( tr( "Are you sure you want to mark all issues in folder <b>%1</b> as unread?" ).arg( name ) );
+        setPrompt( tr( "Are you sure you want to mark all issues in folder <b>%1</b> as unread?" ).arg( folder.name() ) );
         setPromptPixmap( IconLoader::pixmap( "folder-unread", 22 ) );
     }
 

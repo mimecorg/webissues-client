@@ -110,6 +110,12 @@ protected:
     void showWarning( const QString& text );
 
     /**
+    * Show a warning message based on the error code.
+    * @param code The error code.
+    */
+    void showWarning( int code );
+
+    /**
     * Show a message with an error icon.
     * @param text The warning text.
     */

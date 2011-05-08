@@ -17,39 +17,41 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************/
 
-#include "staterows.h"
+#ifndef ALERTSMODEL_H
+#define ALERTSMODEL_H
 
-FolderState::FolderState( int folderId ) :
-    m_folderId( folderId ),
-    m_listStamp( 0 ),
-    m_cached( false )
-{
-}
+#include "basemodel.h"
 
-FolderState::~FolderState()
+/**
+* Model for a list of alerts.
+*/
+class AlertsModel : public BaseModel
 {
-}
+    Q_OBJECT
+public:
+    /**
+    * Constructor.
+    * @param folderId Identifier of the folder.
+    * @param parent The parent object.
+    */
+    AlertsModel( int folderId, QObject* parent );
 
-IssueState::IssueState( int issueId ) :
-    m_issueId( issueId ),
-    m_detailsStamp( 0 ),
-    m_readStamp( 0 ),
-    m_lockCount( 0 )
-{
-}
+    /**
+    * Destructor.
+    */
+    ~AlertsModel();
 
-IssueState::~IssueState()
-{
-}
+public: // overrides
+    QVariant data( const QModelIndex& index, int role = Qt::DisplayRole ) const;
 
-AlertState::AlertState( int alertId ) :
-    m_alertId( alertId ),
-    m_unreadCount( 0 ),
-    m_modifiedCount( 0 ),
-    m_totalCount( 0 )
-{
-}
+protected: // overrides
+    void updateEvent( UpdateEvent* e );
 
-AlertState::~AlertState()
-{
-}
+private:
+    void refresh();
+
+private:
+    int m_folderId;
+};
+
+#endif

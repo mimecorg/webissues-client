@@ -20,13 +20,11 @@
 #ifndef ISSUEVIEW_H
 #define ISSUEVIEW_H
 
-#include <QTextDocument>
-
-#include "view.h"
-
+#include "views/view.h"
 #include "data/localsettings.h"
 #include "models/issuedetailsgenerator.h"
-#include "rdb/tableitemmodel.h"
+
+#include <QTextDocument>
 
 class PropertyPanel;
 class PopEditPanel;

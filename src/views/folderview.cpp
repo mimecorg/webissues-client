@@ -18,24 +18,23 @@
 **************************************************************************/
 
 #include "folderview.h"
-#include "viewmanager.h"
 
 #include "commands/updatebatch.h"
 #include "data/datamanager.h"
+#include "data/entities.h"
+#include "data/issuetypecache.h"
 #include "data/updateevent.h"
 #include "dialogs/issuedialogs.h"
 #include "dialogs/reportdialog.h"
 #include "dialogs/viewsettingsdialog.h"
 #include "dialogs/viewdialogs.h"
 #include "dialogs/statedialogs.h"
-#include "models/tablemodels.h"
-#include "models/rowfilters.h"
-#include "rdb/utilities.h"
+#include "models/foldermodel.h"
 #include "utils/definitioninfo.h"
 #include "utils/treeviewhelper.h"
-#include "utils/tablemodelshelper.h"
 #include "utils/viewsettingshelper.h"
 #include "utils/iconloader.h"
+#include "views/viewmanager.h"
 #include "widgets/searcheditbox.h"
 #include "widgets/separatorcombobox.h"
 #include "xmlui/builder.h"
@@ -51,9 +50,7 @@
 
 FolderView::FolderView( QObject* parent, QWidget* parentWidget ) : View( parent ),
     m_model( NULL ),
-    m_filter( NULL ),
     m_currentViewId( 0 ),
-    m_searchColumn( Column_Name ),
     m_gotoIssueId( 0 ),
     m_gotoItemId( 0 ),
     m_selectedIssueId( 0 ),
@@ -197,17 +194,11 @@ FolderView::FolderView( QObject* parent, QWidget* parentWidget ) : View( parent 
 
     searchLabel->setBuddy( m_searchBox );
 
-    m_searchMenu = new QMenu( m_searchBox );
-    m_searchBox->setOptionsMenu( m_searchMenu );
-
-    m_searchActionGroup = new QActionGroup( this );
-
-    connect( m_searchActionGroup, SIGNAL( triggered( QAction* ) ), this, SLOT( searchActionTriggered( QAction* ) ) );
-
     m_list = new QTreeView( main );
-    TreeViewHelper::initializeView( m_list );
-
     mainLayout->addWidget( m_list );
+
+    TreeViewHelper helper( m_list );
+    helper.initializeView();
 
     connect( m_list, SIGNAL( customContextMenuRequested( const QPoint& ) ),
         this, SLOT( listContextMenu( const QPoint& ) ) );
@@ -236,14 +227,13 @@ FolderView::~FolderView()
 
 void FolderView::cleanUp()
 {
-    if ( isEnabled() )
-        TreeViewHelper::saveColumnWidths( m_list, "FolderView", TreeViewHelper::UserColumns );
+    if ( isEnabled() ) {
+        TreeViewHelper helper( m_list );
+        helper.saveColumnWidths( "FolderViewWidths", m_model->columns() );
+    }
 
     m_searchBox->clear();
     m_currentViewId = 0;
-
-    delete m_filter;
-    m_filter = NULL;
 
     delete m_model;
     m_model = NULL;
@@ -253,12 +243,7 @@ void FolderView::initialUpdate()
 {
     cleanUp();
 
-    m_filter = new IssueRowFilter( this );
-
-    m_model = new RDB::TableItemModel( this );
-    m_model->setRowFilter( m_filter );
-    m_model->setRootTableModel( new IssuesTableModel( id(), m_model ),
-        dataManager->issues()->index(), dataManager->issues()->parentIndex(), id() );
+    m_model = new FolderModel( id(), this );
 
     connect( m_model, SIGNAL( layoutChanged() ), this, SLOT( updateActions() ) );
     connect( m_model, SIGNAL( layoutChanged() ), this, SLOT( updateSummary() ) );
@@ -272,25 +257,24 @@ void FolderView::initialUpdate()
 
 Access FolderView::checkDataAccess()
 {
-    const FolderRow* folder = dataManager->folders()->find( id() );
-    if ( !folder )
+    FolderEntity folder = FolderEntity::find( id() );
+    if ( !folder.isValid() )
         return NoAccess;
 
-    m_projectId = folder->projectId();
-    m_typeId = folder->typeId();
+    m_projectId = folder.projectId();
+    m_typeId = folder.typeId();
 
     if ( dataManager->currentUserAccess() != AdminAccess ) {
-        int userId = dataManager->currentUserId();
-        const MemberRow* member = dataManager->members()->find( userId, m_projectId );
-        if ( !member )
+        MemberEntity member = MemberEntity::find( m_projectId, dataManager->currentUserId() );
+        if ( !member.isValid() )
             return NoAccess;
     }
 
-    const TypeRow* type = dataManager->types()->find( m_typeId );
-    if ( !type )
+    TypeEntity type = folder.type();
+    if ( !type.isValid() )
         return UnknownAccess;
 
-    if ( TableModelsHelper::isFolderAdmin( id() ) )
+    if ( FolderEntity::isAdmin( id() ) )
         return AdminAccess;
 
     return NormalAccess;
@@ -298,17 +282,7 @@ Access FolderView::checkDataAccess()
 
 void FolderView::enableView()
 {
-    QList<int> columns;
-    columns.append( Column_ID );
-    columns.append( Column_Name );
-    columns.append( Column_ModifiedDate );
-    columns.append( Column_ModifiedBy );
-    m_model->setColumns( columns );
-
     m_list->setModel( m_model );
-
-    TreeViewHelper::setSortOrder( m_list, qMakePair( (int)Column_ID, Qt::AscendingOrder ) );
-    TreeViewHelper::loadColumnWidths( m_list, "FolderView", TreeViewHelper::WideName | TreeViewHelper::UserColumns );
 
     connect( m_list->selectionModel(), SIGNAL( selectionChanged( const QItemSelection&, const QItemSelection& ) ),
         this, SLOT( updateActions() ) );
@@ -324,6 +298,9 @@ void FolderView::disableView()
 {
     m_list->setModel( NULL );
 
+    disconnect( m_list->selectionModel(), SIGNAL( selectionChanged( const QItemSelection&, const QItemSelection& ) ),
+        this, SLOT( updateActions() ) );
+
     updateCaption();
 }
 
@@ -337,9 +314,9 @@ void FolderView::updateCaption()
 {
     QString name = tr( "Unknown Folder" );
     if ( isEnabled() ) {
-        const FolderRow* row = dataManager->folders()->find( id() );
-        if ( row )
-            name = row->name();
+    FolderEntity folder = FolderEntity::find( id() );
+        if ( folder.isValid() )
+            name = folder.name();
     }
     setCaption( name );
 }
@@ -349,12 +326,14 @@ void FolderView::updateActions()
     m_selectedIssueId = 0;
     m_isRead = true;
 
-    QModelIndex index = TreeViewHelper::selectedIndex( m_list );
+    TreeViewHelper helper( m_list );
+    QModelIndex index = helper.selectedIndex();
+
     if ( index.isValid() ) {
-        m_selectedIssueId = m_model->data( index, RDB::TableItemModel::RowIdRole ).toInt();
+        m_selectedIssueId = m_model->rowId( index );
         if ( m_selectedIssueId ) {
-            const IssueRow* row = dataManager->issues()->find( m_selectedIssueId );
-            m_isRead = row ? row->stamp() == dataManager->issueReadStamp( m_selectedIssueId ) : false;
+            IssueEntity issue = IssueEntity::find( m_selectedIssueId );
+            m_isRead = issue.isValid() ? issue.stampId() == issue.readId() : false;
         }
     }
 
@@ -371,9 +350,9 @@ void FolderView::updateActions()
     bool isPersonalView = false;
 
     if ( m_currentViewId != 0 ) {
-        const ViewRow* row = dataManager->views()->find( m_currentViewId );
-        if ( row )
-            isPersonalView = !row->isPublic();
+        ViewEntity view = ViewEntity::find( m_currentViewId );
+        if ( view.isValid() )
+            isPersonalView = !view.isPublic();
     }
 
     action( "modifyView" )->setEnabled( isPersonalView );
@@ -384,12 +363,7 @@ void FolderView::updateActions()
 void FolderView::updateSummary()
 {
     int items = m_model->rowCount();
-    int total = m_model->totalCount();
-
-    if ( items == total )
-        showSummary( QPixmap(), tr( "%1 issues" ).arg( items ) );
-    else
-        showSummary( QPixmap(), tr( "%1 issues (of %2 total)" ).arg( items ).arg( total ) );
+    showSummary( QPixmap(), tr( "%1 issues" ).arg( items ) );
 }
 
 void FolderView::initialUpdateFolder()
@@ -455,7 +429,7 @@ void FolderView::editIssue()
 
 void FolderView::moveIssue()
 {
-    if ( isEnabled() && TableModelsHelper::isFolderAdmin( id() ) ) {
+    if ( isEnabled() && FolderEntity::isAdmin( id() ) ) {
         MoveIssueDialog dialog( m_selectedIssueId, mainWidget() );
         dialog.exec();
     }
@@ -463,7 +437,7 @@ void FolderView::moveIssue()
 
 void FolderView::deleteIssue()
 {
-    if ( isEnabled() && TableModelsHelper::isFolderAdmin( id() ) ) {
+    if ( isEnabled() && FolderEntity::isAdmin( id() ) ) {
         DeleteIssueDialog dialog( m_selectedIssueId, mainWidget() );
         dialog.exec();
     }
@@ -496,33 +470,41 @@ void FolderView::markAllAsUnread()
 
 void FolderView::printReport()
 {
+    IssueTypeCache* cache = dataManager->issueTypeCache( m_typeId );
+
     ReportDialog dialog( ReportDialog::FolderSource, ReportDialog::Print, mainWidget() );
     dialog.setFolder( id(), visibleIssues() );
-    dialog.setColumns( m_model->columns(), ViewSettingsHelper::availableColumns( m_typeId ) );
+    dialog.setColumns( m_model->columns(), cache->availableColumns() );
     dialog.exec();
 }
 
 void FolderView::exportCsv()
 {
+    IssueTypeCache* cache = dataManager->issueTypeCache( m_typeId );
+
     ReportDialog dialog( ReportDialog::FolderSource, ReportDialog::ExportCsv, mainWidget() );
     dialog.setFolder( id(), visibleIssues() );
-    dialog.setColumns( m_model->columns(), ViewSettingsHelper::availableColumns( m_typeId ) );
+    dialog.setColumns( m_model->columns(), cache->availableColumns() );
     dialog.exec();
 }
 
 void FolderView::exportHtml()
 {
+    IssueTypeCache* cache = dataManager->issueTypeCache( m_typeId );
+
     ReportDialog dialog( ReportDialog::FolderSource, ReportDialog::ExportHtml, mainWidget() );
     dialog.setFolder( id(), visibleIssues() );
-    dialog.setColumns( m_model->columns(), ViewSettingsHelper::availableColumns( m_typeId ) );
+    dialog.setColumns( m_model->columns(), cache->availableColumns() );
     dialog.exec();
 }
 
 void FolderView::exportPdf()
 {
+    IssueTypeCache* cache = dataManager->issueTypeCache( m_typeId );
+
     ReportDialog dialog( ReportDialog::FolderSource, ReportDialog::ExportPdf, mainWidget() );
     dialog.setFolder( id(), visibleIssues() );
-    dialog.setColumns( m_model->columns(), ViewSettingsHelper::availableColumns( m_typeId ) );
+    dialog.setColumns( m_model->columns(), cache->availableColumns() );
     dialog.exec();
 }
 
@@ -613,7 +595,7 @@ void FolderView::listContextMenu( const QPoint& pos )
 void FolderView::doubleClicked( const QModelIndex& index )
 {
     if ( index.isValid() ) {
-        int issueId = m_model->data( index, RDB::TableItemModel::RowIdRole ).toInt();
+        int issueId = m_model->rowId( index );
         viewManager->openIssueView( issueId );
     }
 }
@@ -623,9 +605,7 @@ void FolderView::setSelectedIssueId( int issueId )
     if ( m_selectedIssueId == issueId )
         return;
 
-    QModelIndex index = m_model->findCell( 0, issueId, Column_Name );
-    if ( !index.isValid() )
-        index = m_model->findCell( 0, issueId, Column_Name );
+    QModelIndex index = m_model->findIndex( 0, issueId, 0 );
 
     if ( index.isValid() ) {
         m_list->selectionModel()->setCurrentIndex( index, QItemSelectionModel::Current );
@@ -648,46 +628,9 @@ void FolderView::gotoIssue( int issueId, int itemId )
         emit gotoItem( itemId );
 }
 
-void FolderView::updateSearchOptions()
-{
-    QList<int> columns = m_model->columns();
-
-    if ( !columns.contains( m_searchColumn ) ) {
-        m_searchColumn = Column_Name;
-        m_filter->setQuickSearch( m_searchColumn, m_searchBox->text() );
-    }
-
-    m_searchMenu->clear();
-
-    for ( int i = 0; i < columns.count(); i++ )
-    {
-        int column = columns.at( i );
-        QString name = TableModelsHelper::columnName( column );
-        QAction* action = m_searchMenu->addAction( name );
-        action->setData( column );
-        action->setCheckable( true );
-        if ( column == m_searchColumn )
-            action->setChecked( true );
-        action->setActionGroup( m_searchActionGroup );
-    }
-
-    QString prompt = TableModelsHelper::columnName( m_searchColumn );
-    m_searchBox->setPromptText( prompt );
-}
-
 void FolderView::quickSearchChanged( const QString& text )
 {
-    m_filter->setQuickSearch( m_searchColumn, text );
-}
-
-void FolderView::searchActionTriggered( QAction* action )
-{
-    m_searchColumn = (Column)action->data().toInt();
-
-    QString prompt = TableModelsHelper::columnName( m_searchColumn );
-    m_searchBox->setPromptText( prompt );
-
-    m_filter->setQuickSearch( m_searchColumn, m_searchBox->text() );
+    m_model->setSearchText( text );
 }
 
 bool FolderView::eventFilter( QObject* obj, QEvent* e )
@@ -714,25 +657,24 @@ void FolderView::updateViews()
 
     m_viewCombo->addItem( tr( "All Issues" ), 0 );
 
-    RDB::ForeignConstIterator<ViewRow> it( dataManager->views()->parentIndex(), m_typeId );
-    QList<const ViewRow*> list = RDB::localeAwareSortRows( it, &ViewRow::name );
+    TypeEntity type = TypeEntity::find( m_typeId );
 
-    QList<const ViewRow*> personalViews;
-    QList<const ViewRow*> publicViews;
+    QList<ViewEntity> personalViews;
+    QList<ViewEntity> publicViews;
 
-    for ( int i = 0; i < list.count(); i++ ) {
-        if ( list.at( i )->isPublic() )
-            publicViews.append( list.at( i ) );
+    foreach ( const ViewEntity& view, type.views() ) {
+        if ( view.isPublic() )
+            publicViews.append( view );
         else
-            personalViews.append( list.at( i ) );
+            personalViews.append( view );
     }
 
     if ( !personalViews.isEmpty() ) {
         m_viewCombo->addSeparator();
         m_viewCombo->addParentItem( tr( "Personal Views" ) );
-        for ( int i = 0; i < personalViews.count(); i++ ) {
-            m_viewCombo->addChildItem( personalViews.at( i )->name(), personalViews.at( i )->viewId() );
-            if ( personalViews.at( i )->viewId() == m_currentViewId )
+        foreach ( const ViewEntity& view, personalViews ) {
+            m_viewCombo->addChildItem( view.name(), view.id() );
+            if ( view.id() == m_currentViewId )
                 m_viewCombo->setCurrentIndex( m_viewCombo->count() - 1 );
         }
     }
@@ -740,9 +682,9 @@ void FolderView::updateViews()
     if ( !publicViews.isEmpty() ) {
         m_viewCombo->addSeparator();
         m_viewCombo->addParentItem( tr( "Public Views" ) );
-        for ( int i = 0; i < publicViews.count(); i++ ) {
-            m_viewCombo->addChildItem( publicViews.at( i )->name(), publicViews.at( i )->viewId() );
-            if ( publicViews.at( i )->viewId() == m_currentViewId )
+        foreach ( const ViewEntity& view, publicViews ) {
+            m_viewCombo->addChildItem( view.name(), view.id() );
+            if ( view.id() == m_currentViewId )
                 m_viewCombo->setCurrentIndex( m_viewCombo->count() - 1 );
         }
     }
@@ -778,38 +720,17 @@ void FolderView::setCurrentViewId( int viewId )
 
 void FolderView::loadCurrentView( bool resort )
 {
-    QString view;
+    TreeViewHelper helper( m_list );
+    helper.saveColumnWidths( "FolderViewWidths", m_model->columns() );
 
-    if ( m_currentViewId != 0 ) {
-        const ViewRow* row = dataManager->views()->find( m_currentViewId );
-        if ( row )
-            view = row->definition();
-    } else {
-        view = dataManager->viewSetting( m_typeId, "default_view" );
-    }
+    m_model->setView( m_currentViewId, resort );
 
-    DefinitionInfo info = DefinitionInfo::fromString( view );
-
-    QList<int> columns = ViewSettingsHelper::viewColumns( m_typeId, info );
-
-    QPair<int, Qt::SortOrder> sortOrder;
     if ( resort )
-        sortOrder = ViewSettingsHelper::viewSortOrder( m_typeId, info );
-    else
-        sortOrder = TreeViewHelper::sortOrder( m_list );
+        m_list->sortByColumn( m_model->sortColumn(), m_model->sortOrder() );
 
-    QList<DefinitionInfo> filters = ViewSettingsHelper::viewFilters( m_typeId, info );
+    IssueTypeCache* cache = dataManager->issueTypeCache( m_typeId );
 
-    TreeViewHelper::saveColumnWidths( m_list, "FolderView", TreeViewHelper::UserColumns );
-
-    m_model->setColumns( columns );
-
-    TreeViewHelper::setSortOrder( m_list, sortOrder );
-    TreeViewHelper::loadColumnWidths( m_list, "FolderView", TreeViewHelper::WideName | TreeViewHelper::UserColumns );
-
-    m_filter->setFilters( filters );
-
-    updateSearchOptions();
+    helper.loadColumnWidths( "FolderViewWidths", m_model->columns(), cache->defaultWidths() );
 
     if ( resort )
         emit currentViewChanged( m_currentViewId );
@@ -821,7 +742,7 @@ QList<int> FolderView::visibleIssues()
 
     int rows = m_model->rowCount();
     for ( int i = 0; i < rows; i++ ) {
-        int issueId = m_model->data( m_model->index( i, 0 ), RDB::TableItemModel::RowIdRole ).toInt();
+        int issueId = m_model->rowId( m_model->index( i, 0 ) );
         list.append( issueId );
     }
 

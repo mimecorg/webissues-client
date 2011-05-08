@@ -22,58 +22,27 @@
 #include "application.h"
 #include "commands/command.h"
 #include "commands/commandmanager.h"
-#include "data/localecache.h"
-#include "data/attachmentscache.h"
 #include "data/localsettings.h"
-#include "models/rowfilters.h"
-#include "utils/dataserializer.h"
-#include "utils/viewsettingshelper.h"
-
-#include <QApplication>
-#include <QFile>
+#include "data/issuetypecache.h"
+#include "models/querygenerator.h"
+#include "sqlite/sqlitedriver.h"
+#include "sqlite/sqliteextension.h"
 
 DataManager* dataManager = NULL;
 
 DataManager::DataManager() :
+    m_valid( false ),
     m_currentUserId( 0 ),
     m_currentUserAccess( NoAccess ),
-    m_stateCached( false ),
-    m_lastStateId( 0 ),
-    m_connectionSettings( NULL )
+    m_connectionSettings( NULL ),
+    m_localeUpdated( false )
 {
-    m_users.initIndex( 251, &UserRow::userId );
-    m_members.initFirstIndex( 251, &MemberRow::userId );
-    m_members.initSecondIndex( 31, &MemberRow::projectId );
-    m_types.initIndex( 31, &TypeRow::typeId );
-    m_attributes.initIndex( 251, &AttributeRow::attributeId );
-    m_attributes.initParentIndex( 31, &AttributeRow::typeId );
-    m_projects.initIndex( 31, &ProjectRow::projectId );
-    m_folders.initIndex( 127, &FolderRow::folderId );
-    m_folders.initParentIndex( 31, &FolderRow::projectId );
-    m_issues.initIndex( 8191, &IssueRow::issueId );
-    m_issues.initParentIndex( 1021, &IssueRow::folderId );
-    m_values.initFirstIndex( 251, &ValueRow::attributeId );
-    m_values.initSecondIndex( 8191, &ValueRow::issueId );
-    m_changes.initIndex( 1021, &ChangeRow::changeId );
-    m_changes.initParentIndex( 127, &ChangeRow::issueId );
-    m_comments.initIndex( 251, &CommentRow::commentId );
-    m_files.initIndex( 251, &FileRow::fileId );
-    m_views.initIndex( 251, &ViewRow::viewId );
-    m_views.initParentIndex( 31, &ViewRow::typeId );
-    m_alerts.initIndex( 251, &AlertRow::alertId );
-    m_alerts.initParentIndex( 31, &AlertRow::folderId );
-
-    m_folderStates.initIndex( 127, &FolderState::folderId );
-    m_issueStates.initIndex( 8191, &IssueState::issueId );
-    m_alertStates.initIndex( 251, &AlertState::alertId );
-
-    m_localeCache = new LocaleCache( this );
 }
 
 DataManager::~DataManager()
 {
-    saveFolderCache();
-    saveStateCache();
+    if ( m_valid )
+        closeDatabase();
 }
 
 static int parseVersion( const QString& version )
@@ -93,6 +62,21 @@ static int parseVersion( const QString& version )
 bool DataManager::checkServerVersion( const QString& version ) const
 {
     return parseVersion( m_serverVersion ) >= parseVersion( version );
+}
+
+QString DataManager::setting( const QString& key ) const
+{
+    return m_settings.value( key );
+}
+
+IssueTypeCache* DataManager::issueTypeCache( int typeId )
+{
+    IssueTypeCache* cache = m_issueTypesCache.value( typeId );
+    if ( !cache ) {
+        cache = new IssueTypeCache( typeId, this );
+        m_issueTypesCache.insert( typeId, cache );
+    }
+    return cache;
 }
 
 QString DataManager::locateDataFile( const QString& name )
@@ -123,211 +107,208 @@ void DataManager::notifyObservers( UpdateEvent::Unit unit, int id )
     }
 }
 
-IssueState* DataManager::issueState( int issueId )
+class AutoSqlQuery : public QSqlQuery
 {
-    IssueState* state = m_issueStates.find( issueId );
-    if ( !state ) {
-        state = new IssueState( issueId );
-        m_issueStates.insert( state );
+public:
+    AutoSqlQuery( const QString& sql, const QSqlDatabase& database ) : QSqlQuery( database ),
+        m_sql( sql ),
+        m_prepared( false )
+    {
     }
-    return state;
-}
 
-FolderState* DataManager::folderState( int folderId )
-{
-    FolderState* state = m_folderStates.find( folderId );
-    if ( !state ) {
-        state = new FolderState( folderId );
-        m_folderStates.insert( state );
+public: // overrides
+    void addBindValue( const QVariant& value, QSql::ParamType paramType = QSql::In )
+    {
+        ensurePrepared();
+        QSqlQuery::addBindValue( value, paramType );
     }
-    return state;
-}
 
-AlertState* DataManager::alertState( int alertId )
-{
-    AlertState* state = m_alertStates.find( alertId );
-    if ( !state ) {
-        state = new AlertState( alertId );
-        m_alertStates.insert( state );
+    bool exec()
+    {
+        ensurePrepared();
+        return QSqlQuery::exec();
     }
-    return state;
-}
 
-bool DataManager::folderUpdateNeeded( int folderId )
-{
-    updateFolderCache( folderId );
-
-    int folderStamp = 0;
-    int listStamp = 0;
-
-    FolderRow* row = m_folders.find( folderId );
-    if ( row )
-        folderStamp = row->stamp();
-
-    FolderState* state = m_folderStates.find( folderId );
-    if ( state )
-        listStamp = state->listStamp();
-
-    return ( folderStamp == 0 || folderStamp > listStamp );
-}
-
-bool DataManager::issueUpdateNeeded( int issueId )
-{
-    int issueStamp = 0;
-    int detailsStamp = 0;
-
-    IssueRow* row = m_issues.find( issueId );
-    if ( row )
-        issueStamp = row->stamp();
-
-    IssueState* state = m_issueStates.find( issueId );
-    if ( state )
-        detailsStamp = state->detailsStamp();
-
-    return ( issueStamp == 0 || issueStamp > detailsStamp );
-}
-
-void DataManager::lockIssue( int issueId )
-{
-    IssueState* state = issueState( issueId );
-
-    state->setLockCount( state->lockCount() + 1 );
-}
-
-void DataManager::unlockIssue( int issueId )
-{
-    IssueState* state = issueState( issueId );
-
-    state->setLockCount( state->lockCount() - 1 );
-    state->setTimeUsed( QDateTime::currentDateTime() );
-
-    flushIssueCache();
-}
-
-void DataManager::flushIssueCache()
-{
-    for ( ; ; ) {
-        int cacheSize = 0;
-
-        int oldestIssueId = 0;
-        QDateTime oldestTime = QDateTime::currentDateTime().addSecs( 1 );
-
-        RDB::IndexIterator<IssueState> it( m_issueStates.index() );
-        while ( it.next() ) {
-            IssueState* state = it.get();
-            if ( state->detailsStamp() != 0 ) {
-                cacheSize++;
-                if ( state->lockCount() == 0 ) {
-                    QDateTime time = state->timeUsed();
-                    if ( time.isNull() || time < oldestTime ) {
-                        oldestIssueId = state->issueId();
-                        oldestTime = time;
-                    }
-                }
-            }
+private:
+    void ensurePrepared()
+    {
+        if ( !m_prepared ) {
+            prepare( m_sql );
+            m_prepared = true;
         }
+    }
 
-        if ( cacheSize <= 20 || oldestIssueId == 0 )
+private:
+    QString m_sql;
+    bool m_prepared;
+};
+
+static bool execReply( const QString& sql, const char* keyword, const Reply& reply, const QSqlDatabase& database, int& i )
+{
+    AutoSqlQuery query( sql, database );
+
+    for ( ; i < reply.lines().count(); i++ ) {
+        const ReplyLine& line = reply.lines().at( i );
+
+        if ( line.keyword() != QLatin1String( keyword ) )
             break;
 
-        removeIssueDetails( oldestIssueId );
-    }
-}
+        foreach ( const QVariant& arg, line.args() )
+            query.addBindValue( arg );
 
-void DataManager::removeIssueDetails( int issueId )
-{
-    RDB::ForeignConstIterator<ChangeRow> itc( m_changes.parentIndex(), issueId );
-    while ( itc.next() ) {
-        const ChangeRow* change = itc.get();
-        if ( change->changeType() == CommentAdded )
-            m_comments.remove( change->changeId() );
-        else if ( change->changeType() == FileAdded )
-            m_files.remove( change->changeId() );
+        if ( !query.exec() )
+            return false;
     }
 
-    m_changes.removeChildren( issueId );
-
-    IssueState* state = issueState( issueId );
-    state->setDetailsStamp( 0 );
-
-    notifyObservers( UpdateEvent::Issue, issueId );
+    return true;
 }
 
-int DataManager::issueReadStamp( int issueId )
+static QVariant execScalar( const QString& sql, const QSqlDatabase& database, const QVariant& arg = QVariant() )
 {
-    return issueState( issueId )->readStamp();
+    QSqlQuery query( database );
+    query.prepare( sql );
+    if ( arg.isValid() )
+        query.addBindValue( arg );
+    query.exec();
+
+    if ( query.next() )
+        return query.value( 0 );
+
+    return QVariant();
 }
 
-QString DataManager::setting( const QString& key ) const
+bool DataManager::openDatabase()
 {
-    return m_settings.value( key );
+    SQLiteDriver* driver = new SQLiteDriver();
+    QSqlDatabase database = QSqlDatabase::addDatabase( driver );
+
+    database.setDatabaseName( locateCacheFile( "cache.db" ) );
+
+    if ( !database.open() )
+        return false;
+
+    installSQLiteExtension( driver->handle() );
+
+    database.transaction();
+
+    bool ok = installSchema( database );
+    if ( ok )
+        ok = clearIssueLocks( database );
+    if ( ok )
+        ok = flushFileCache( 0, database );
+    if ( ok )
+        ok = database.commit();
+
+    if ( !ok ) {
+        database.rollback();
+        database.close();
+    }
+
+    return ok;
 }
 
-QString DataManager::viewSetting( int typeId, const QString& key ) const
+bool DataManager::installSchema( const QSqlDatabase& database )
 {
-    return m_viewSettings.value( qMakePair( typeId, key ) );
-}
+    const int schemaVersion = 1;
 
-void DataManager::recalculateAllAlerts()
-{
-    RDB::IndexConstIterator<FolderRow> it( m_folders.index() );
-    while ( it.next() )
-        recalculateAlerts( it.key() );
-}
+    int currentVersion = execScalar( "PRAGMA user_version", database ).toInt();
 
-void DataManager::recalculateAlerts( int folderId )
-{
-    const FolderRow* folder = m_folders.find( folderId );
-    if ( !folder )
-        return;
+    if ( currentVersion == schemaVersion )
+        return true;
 
-    int typeId = folder->typeId();
+    if ( currentVersion > schemaVersion )
+        return false;
 
-    RDB::ForeignConstIterator<AlertRow> ita( m_alerts.parentIndex(), folderId );
-    while ( ita.next() ) {
-        int alertId = ita.key( 0 );
-        int viewId = ita.get()->viewId();
+    QSqlQuery query( database );
 
-        IssueRowFilter filter( this );
+    if ( currentVersion < 1 ) {
+        const char* schema[] = {
+            "CREATE TABLE alerts ( alert_id integer UNIQUE, folder_id integer, view_id integer, alert_email integer )",
+            "CREATE TABLE alerts_cache ( alert_id integer UNIQUE, total_count integer, modified_count integer, new_count integer )",
+            "CREATE TABLE attr_types ( attr_id integer UNIQUE, type_id integer, attr_name text, attr_def text )",
+            "CREATE TABLE attr_values ( attr_id integer, issue_id integer, attr_value text, UNIQUE ( attr_id, issue_id ) )",
+            "CREATE TABLE changes ( change_id integer UNIQUE, issue_id integer, change_type integer, stamp_id integer, created_time integer, created_user_id integer, "
+                "modified_time integer, modified_user_id integer, attr_id integer, old_value text, new_value text, from_folder_id integer, to_folder_id integer )",
+            "CREATE INDEX changes_issue_idx ON changes ( issue_id )",
+            "CREATE TABLE comments ( comment_id integer UNIQUE, comment_text text )",
+            "CREATE TABLE files ( file_id integer UNIQUE, file_name text, file_size integer, file_descr text )",
+            "CREATE TABLE files_cache ( file_id integer UNIQUE, file_path text, file_size integer, last_access integer )",
+            "CREATE TABLE folders ( folder_id integer UNIQUE, project_id integer, folder_name text, type_id integer, stamp_id integer )",
+            "CREATE TABLE folders_cache ( folder_id integer UNIQUE, list_id integer )",
+            "CREATE TABLE formats ( format_type text, format_key text, format_def text )",
+            "CREATE TABLE issue_locks ( issue_id integer UNIQUE, lock_count integer, last_access integer )",
+            "CREATE TABLE issue_states ( user_id integer, issue_id integer, read_id integer, UNIQUE ( user_id, issue_id ) )",
+            "CREATE TABLE issue_types ( type_id integer UNIQUE, type_name text )",
+            "CREATE TABLE issues ( issue_id integer UNIQUE, folder_id integer, issue_name text, stamp_id integer, created_time integer, created_user_id integer, "
+                "modified_time integer, modified_user_id integer )",
+            "CREATE INDEX issues_folder_idx ON issues ( folder_id )",
+            "CREATE TABLE issues_cache ( issue_id integer UNIQUE, details_id integer )",
+            "CREATE TABLE languages ( lang_code text, lang_name text )",
+            "CREATE TABLE preferences ( user_id integer, pref_key text, pref_value text, UNIQUE ( user_id, pref_key ) )",
+            "CREATE TABLE projects ( project_id integer UNIQUE, project_name text )",
+            "CREATE TABLE rights ( project_id integer, user_id integer, project_access integer, UNIQUE ( project_id, user_id ) )",
+            "CREATE TABLE settings ( set_key text UNIQUE, set_value text )",
+            "CREATE TABLE time_zones ( tz_name text, tz_offset integer )",
+            "CREATE TABLE users ( user_id integer UNIQUE, user_login text, user_name text, user_access integer )",
+            "CREATE TABLE users_cache ( user_id integer UNIQUE, state_id integer )",
+            "CREATE TABLE view_settings ( type_id integer, set_key text, set_value text, UNIQUE ( type_id, set_key ) )",
+            "CREATE TABLE views ( view_id integer UNIQUE, type_id integer, view_name text, view_def text, is_public integer )"
+        };
 
-        if ( viewId ) {
-            const ViewRow* view = m_views.find( viewId );
-            if ( view ) {
-                DefinitionInfo info = DefinitionInfo::fromString( view->definition() );
-                QList<DefinitionInfo> filters = ViewSettingsHelper::viewFilters( typeId, info );
-                filter.setFilters( filters );
-            }
+        for ( int i = 0; i < sizeof( schema ) / sizeof( schema[ 0 ] ); i++ ) {
+            if ( !query.exec( schema[ i ] ) )
+                return false;
         }
-
-        int unread = 0;
-        int modified = 0;
-        int total = 0;
-
-        RDB::ForeignConstIterator<IssueRow> iti( m_issues.parentIndex(), folderId );
-        while ( iti.next() ) {
-            if ( filter.filterRow( iti.key( 0 ) ) ) {
-                int readStamp = issueState( iti.key( 0 ) )->readStamp();
-                if ( readStamp == 0 )
-                    unread++;
-                else if ( readStamp < iti.get()->stamp() )
-                    modified++;
-                total++;
-            }
-        }
-
-        AlertState* state = alertState( alertId );
-        state->setUnreadCount( unread );
-        state->setModifiedCount( modified );
-        state->setTotalCount( total );
     }
+
+    QString sql = QString( "PRAGMA user_version = %1" ).arg( schemaVersion );
+
+    if ( !query.exec( sql ) )
+        return false;
+
+    return true;
 }
 
-void DataManager::getAlertIssuesCount( int alertId, int* unread, int* modified, int* total )
+void DataManager::closeDatabase()
 {
-    AlertState* state = alertState( alertId );
-    *unread = state->unreadCount();
-    *modified = state->modifiedCount();
-    *total = state->totalCount();
+    QSqlDatabase database = QSqlDatabase::database();
+    database.transaction();
+
+    bool ok = clearIssueLocks( database );
+    if ( ok )
+        ok = flushFileCache( 0, database );
+    if ( ok )
+        ok = database.commit();
+
+    if ( !ok )
+        database.rollback();
+
+    database.close();
+}
+
+bool DataManager::localeUpdateNeeded() const
+{
+    return !m_localeUpdated;
+}
+
+bool DataManager::folderUpdateNeeded( int folderId ) const
+{
+    QSqlDatabase database = QSqlDatabase::database();
+
+    int stampId = execScalar( "SELECT stamp_id FROM folders WHERE folder_id = ?", database, folderId ).toInt();
+    int lastStampId = execScalar( "SELECT list_id FROM folders_cache WHERE folder_id = ?", database, folderId ).toInt();
+
+    return ( stampId == 0 || stampId > lastStampId );
+}
+
+bool DataManager::issueUpdateNeeded( int issueId ) const
+{
+    QSqlDatabase database = QSqlDatabase::database();
+
+    int stampId = execScalar( "SELECT stamp_id FROM issues WHERE issue_id = ?", database, issueId ).toInt();
+    int lastStampId = execScalar( "SELECT details_id FROM issues_cache WHERE issue_id = ?", database, issueId ).toInt();
+
+    return ( stampId == 0 || stampId > lastStampId );
 }
 
 Command* DataManager::hello()
@@ -352,7 +333,8 @@ void DataManager::helloReply( const Reply& reply )
     m_serverVersion = line.argString( 2 );
 
     m_connectionSettings = new LocalSettings( locateDataFile( "connection.dat" ), this );
-    m_attachmentsCache = new AttachmentsCache( locateCacheFile( "attachments.cache" ), this );
+
+    m_valid = openDatabase();
 }
 
 Command* DataManager::login( const QString& login, const QString& password )
@@ -415,14 +397,155 @@ Command* DataManager::updateSettings()
 
 void DataManager::updateSettingsReply( const Reply& reply )
 {
+    QSqlDatabase database = QSqlDatabase::database();
+    database.transaction();
+
+    bool ok = updateSettingsReply( reply, database );
+    if ( ok )
+        ok = database.commit();
+
+    if ( !ok )
+        database.rollback();
+
+    if ( ok )
+        notifyObservers( UpdateEvent::Settings );
+}
+
+bool DataManager::updateSettingsReply( const Reply& reply, const QSqlDatabase& database )
+{
+    QSqlQuery query( database );
+    if ( !query.exec( "DELETE FROM settings" ) )
+        return false;
+
+    int i = 0;
+    if ( !execReply( "INSERT INTO settings VALUES ( ?, ? )", "S", reply, database, i ) )
+        return false;
+
     m_settings.clear();
 
-    for ( int i = 0; i < reply.lines().count(); i++ ) {
-        ReplyLine line = reply.lines().at( i );
+    for ( i = 0; i < reply.lines().count(); i++ ) {
+        const ReplyLine& line = reply.lines().at( i );
         m_settings.insert( line.argString( 0 ), line.argString( 1 ) );
     }
 
-    notifyObservers( UpdateEvent::Settings );
+    m_numberFormat = DefinitionInfo::fromString( m_settings.value( "number_format" ) );
+    m_dateFormat = DefinitionInfo::fromString( m_settings.value( "date_format" ) );
+    m_timeFormat = DefinitionInfo::fromString( m_settings.value( "time_format" ) );
+
+    return true;
+}
+
+Command* DataManager::updateLocale()
+{
+    Command* command = new Command();
+
+    command->setKeyword( "GET LOCALE" );
+
+    command->setAcceptNullReply( true );
+    command->addRule( "L ss", ReplyRule::ZeroOrMore );
+    command->addRule( "F sss", ReplyRule::ZeroOrMore );
+    command->addRule( "Z si", ReplyRule::ZeroOrMore );
+
+    connect( command, SIGNAL( commandReply( const Reply& ) ), this, SLOT( updateLocaleReply( const Reply& ) ) );
+
+    return command;
+}
+
+void DataManager::updateLocaleReply( const Reply& reply )
+{
+    QSqlDatabase database = QSqlDatabase::database();
+    database.transaction();
+
+    bool ok = updateLocaleReply( reply, database );
+    if ( ok )
+        ok = database.commit();
+
+    if ( !ok )
+        database.rollback();
+}
+
+bool DataManager::updateLocaleReply( const Reply& reply, const QSqlDatabase& database )
+{
+    QSqlQuery query( database );
+    if ( !query.exec( "DELETE FROM languages" ) )
+        return false;
+
+    int i = 0;
+    if ( !execReply( "INSERT INTO languages VALUES ( ?, ? )", "L", reply, database, i ) )
+        return false;
+
+    if ( !query.exec( "DELETE FROM formats" ) )
+        return false;
+
+    if ( !execReply( "INSERT INTO formats VALUES ( ?, ?, ? )", "F", reply, database, i ) )
+        return false;
+
+    if ( !query.exec( "DELETE FROM time_zones" ) )
+        return false;
+
+    if ( !execReply( "INSERT INTO time_zones VALUES ( ?, ? )", "Z", reply, database, i ) )
+        return false;
+
+    m_localeUpdated = true;
+
+    return true;
+}
+
+Command* DataManager::updatePreferences( int userId )
+{
+    Command* command = new Command();
+
+    command->setKeyword( "LIST PREFERENCES" );
+    command->addArg( userId );
+
+    command->setAcceptNullReply( true );
+    command->setReportNullReply( true );
+    command->addRule( "P ss", ReplyRule::ZeroOrMore );
+
+    connect( command, SIGNAL( commandReply( const Reply& ) ), this, SLOT( updatePreferencesReply( const Reply& ) ) );
+
+    return command;
+}
+
+void DataManager::updatePreferencesReply( const Reply& reply )
+{
+    Command* command = static_cast<Command*>( sender() );
+    int userId = command->args().at( 0 ).toInt();
+
+    QSqlDatabase database = QSqlDatabase::database();
+    database.transaction();
+
+    bool ok = updatePreferencesReply( reply, userId, database );
+    if ( ok )
+        ok = database.commit();
+
+    if ( !ok )
+        database.rollback();
+}
+
+bool DataManager::updatePreferencesReply( const Reply& reply, int userId, const QSqlDatabase& database )
+{
+    QSqlQuery query( database );
+
+    query.prepare( "DELETE FROM preferences WHERE user_id = ?" );
+    query.addBindValue( userId );
+    if ( !query.exec() )
+        return false;
+
+    AutoSqlQuery insertPreferencesQuery( "INSERT INTO preferences VALUES ( ?, ?, ? )", database );
+
+    for ( int i = 0; i < reply.lines().count(); i++ ) {
+        const ReplyLine& line = reply.lines().at( i );
+
+        query.addBindValue( userId );
+        foreach ( const QVariant& arg, line.args() )
+            query.addBindValue( arg );
+
+        if ( !query.exec() )
+            return false;
+    }
+
+    return true;
 }
 
 Command* DataManager::updateUsers()
@@ -442,21 +565,37 @@ Command* DataManager::updateUsers()
 
 void DataManager::updateUsersReply( const Reply& reply )
 {
-    m_users.clear();
-    m_members.clear();
+    QSqlDatabase database = QSqlDatabase::database();
+    database.transaction();
 
-    for ( int i = 0; i < reply.lines().count(); i++ ) {
-        ReplyLine line = reply.lines().at( i );
-        if ( line.keyword() == QLatin1String( "U" ) ) {
-            UserRow* user = readUserRow( line );
-            m_users.insert( user );
-        } else { // "M"
-            MemberRow* member = readMemberRow( line );
-            m_members.insert( member );
-        }
-    }
+    bool ok = updateUsersReply( reply, database );
+    if ( ok )
+        ok = database.commit();
 
-    notifyObservers( UpdateEvent::Users );
+    if ( !ok )
+        database.rollback();
+
+    if ( ok )
+        notifyObservers( UpdateEvent::Users );
+}
+
+bool DataManager::updateUsersReply( const Reply& reply, const QSqlDatabase& database )
+{
+    QSqlQuery query( database );
+    if ( !query.exec( "DELETE FROM users" ) )
+        return false;
+
+    int i = 0;
+    if ( !execReply( "INSERT INTO users VALUES ( ?, ?, ?, ? )", "U", reply, database, i ) )
+        return false;
+
+    if ( !query.exec( "DELETE FROM rights" ) )
+        return false;
+
+    if ( !execReply( "INSERT INTO rights VALUES ( ?, ?, ? )", "M", reply, database, i ) )
+        return false;
+
+    return true;
 }
 
 Command* DataManager::updateTypes()
@@ -479,30 +618,55 @@ Command* DataManager::updateTypes()
 
 void DataManager::updateTypesReply( const Reply& reply )
 {
-    m_types.clear();
-    m_attributes.clear();
-    m_views.clear();
-    m_viewSettings.clear();
+    QSqlDatabase database = QSqlDatabase::database();
+    database.transaction();
 
-    for ( int i = 0; i < reply.lines().count(); i++ ) {
-        ReplyLine line = reply.lines().at( i );
-        if ( line.keyword() == QLatin1String( "T" ) ) {
-            TypeRow* type = readTypeRow( line );
-            m_types.insert( type );
-        } else if ( line.keyword() == QLatin1String( "A" ) ) {
-            AttributeRow* attribute = readAttributeRow( line );
-            m_attributes.insert( attribute );
-        } else if ( line.keyword() == QLatin1String( "V" ) ) {
-            ViewRow* view = readViewRow( line );
-            m_views.insert( view );
-        } else { // "S"
-            m_viewSettings.insert( qMakePair( line.argInt( 0 ), line.argString( 1 ) ), line.argString( 2 ) );
-        }
-    }
+    bool ok = updateTypesReply( reply, database );
+    if ( ok )
+        ok = database.commit();
 
-    recalculateAllAlerts();
+    if ( !ok )
+        database.rollback();
 
-    notifyObservers( UpdateEvent::Types );
+    if ( ok )
+        notifyObservers( UpdateEvent::Types );
+}
+
+bool DataManager::updateTypesReply( const Reply& reply, const QSqlDatabase& database )
+{
+    QSqlQuery query( database );
+    if ( !query.exec( "DELETE FROM issue_types" ) )
+        return false;
+
+    int i = 0;
+    if ( !execReply( "INSERT INTO issue_types VALUES ( ?, ? )", "T", reply, database, i ) )
+        return false;
+
+    if ( !query.exec( "DELETE FROM attr_types" ) )
+        return false;
+
+    if ( !execReply( "INSERT INTO attr_types VALUES ( ?, ?, ?, ? )", "A", reply, database, i ) )
+        return false;
+
+    if ( !query.exec( "DELETE FROM views" ) )
+        return false;
+
+    if ( !execReply( "INSERT INTO views VALUES ( ?, ?, ?, ?, ? )", "V", reply, database, i ) )
+        return false;
+
+    if ( !query.exec( "DELETE FROM view_settings" ) )
+        return false;
+
+    if ( !execReply( "INSERT INTO view_settings VALUES ( ?, ?, ? )", "S", reply, database, i ) )
+        return false;
+
+    qDeleteAll( m_issueTypesCache );
+    m_issueTypesCache.clear();
+
+    if ( !recalculateAllAlerts( database ) )
+        return false;
+
+    return true;
 }
 
 Command* DataManager::updateProjects()
@@ -524,37 +688,56 @@ Command* DataManager::updateProjects()
 
 void DataManager::updateProjectsReply( const Reply& reply )
 {
-    m_projects.clear();
-    m_folders.clear();
-    m_alerts.clear();
+    QSqlDatabase database = QSqlDatabase::database();
+    database.transaction();
 
-    for ( int i = 0; i < reply.lines().count(); i++ ) {
-        ReplyLine line = reply.lines().at( i );
-        if ( line.keyword() == QLatin1String( "P" ) ) {
-            ProjectRow* project = readProjectRow( line );
-            m_projects.insert( project );
-        } else if ( line.keyword() == QLatin1String( "F" ) ) {
-            FolderRow* folder = readFolderRow( line );
-            m_folders.insert( folder );
-        } else { // "A"
-            AlertRow* alert = readAlertRow( line );
-            m_alerts.insert( alert );
-        }
-    }
+    bool ok = updateProjectsReply( reply, database );
+    if ( ok )
+        ok = database.commit();
 
-    recalculateAllAlerts();
+    if ( !ok )
+        database.rollback();
 
-    notifyObservers( UpdateEvent::Projects );
+    if ( ok )
+        notifyObservers( UpdateEvent::Projects );
+}
+
+bool DataManager::updateProjectsReply( const Reply& reply, const QSqlDatabase& database )
+{
+    QSqlQuery query( database );
+    if ( !query.exec( "DELETE FROM projects" ) )
+        return false;
+
+    int i = 0;
+    if ( !execReply( "INSERT INTO projects VALUES ( ?, ? )", "P", reply, database, i ) )
+        return false;
+
+    if ( !query.exec( "DELETE FROM folders" ) )
+        return false;
+
+    if ( !execReply( "INSERT INTO folders VALUES ( ?, ?, ?, ?, ? )", "F", reply, database, i ) )
+        return false;
+
+    if ( !query.exec( "DELETE FROM alerts" ) )
+        return false;
+
+    if ( !execReply( "INSERT INTO alerts VALUES ( ?, ?, ?, ? )", "A", reply, database, i ) )
+        return false;
+
+    if ( !recalculateAllAlerts( database ) )
+        return false;
+
+    return true;
 }
 
 Command* DataManager::updateStates()
 {
-    updateStateCache();
+    int lastStateId = execScalar( "SELECT state_id FROM users_cache WHERE user_id = ?", QSqlDatabase::database(), m_currentUserId ).toInt();
 
     Command* command = new Command();
 
     command->setKeyword( "LIST STATES" );
-    command->addArg( m_lastStateId );
+    command->addArg( lastStateId );
 
     command->setAcceptNullReply( true );
     command->addRule( "S iii", ReplyRule::ZeroOrMore );
@@ -566,36 +749,63 @@ Command* DataManager::updateStates()
 
 void DataManager::updateStatesReply( const Reply& reply )
 {
+    Command* command = static_cast<Command*>( sender() );
+    int lastStateId = command->args().at( 0 ).toInt();
+
+    QSqlDatabase database = QSqlDatabase::database();
+    database.transaction();
+
+    bool ok = updateStatesReply( reply, lastStateId, database );
+    if ( ok )
+        ok = database.commit();
+
+    if ( !ok )
+        database.rollback();
+
+    if ( ok )
+        notifyObservers( UpdateEvent::States );
+}
+
+bool DataManager::updateStatesReply( const Reply& reply, int lastStateId, const QSqlDatabase& database )
+{
+    AutoSqlQuery insertStateQuery( "INSERT OR REPLACE INTO issue_states VALUES ( ?, ?, ? )", database );
+
     for ( int i = 0; i < reply.lines().count(); i++ ) {
-        ReplyLine line = reply.lines().at( i );
+        const ReplyLine& line = reply.lines().at( i );
+
         int stateId = line.argInt( 0 );
-        int issueId = line.argInt( 1 );
-        int stamp = line.argInt( 2 );
+        if ( stateId > lastStateId )
+            lastStateId = stateId;
 
-        if ( stateId > m_lastStateId )
-            m_lastStateId = stateId;
-
-        IssueState* state = issueState( issueId );
-        state->setReadStamp( stamp );
+        insertStateQuery.addBindValue( m_currentUserId );
+        insertStateQuery.addBindValue( line.argInt( 1 ) );
+        insertStateQuery.addBindValue( line.argInt( 2 ) );
+        if ( !insertStateQuery.exec() )
+            return false;
     }
 
-    recalculateAllAlerts();
+    QSqlQuery query( database );
+    query.prepare( "INSERT OR REPLACE INTO users_cache VALUES ( ?, ? )" );
+    query.addBindValue( m_currentUserId );
+    query.addBindValue( lastStateId );
+    if ( !query.exec() )
+        return false;
 
-    notifyObservers( UpdateEvent::States );
+    if ( !recalculateAllAlerts( database ) )
+        return false;
+
+    return true;
 }
 
 Command* DataManager::updateFolder( int folderId )
 {
-    updateFolderCache( folderId );
-
-    FolderState* state = m_folderStates.find( folderId );
-    int stamp = state ? state->listStamp() : 0;
+    int lastStampId = execScalar( "SELECT list_id FROM folders_cache WHERE folder_id = ?", QSqlDatabase::database(), folderId ).toInt();
 
     Command* command = new Command();
 
     command->setKeyword( "LIST ISSUES" );
     command->addArg( folderId );
-    command->addArg( stamp );
+    command->addArg( lastStampId );
 
     command->setAcceptNullReply( true );
     command->addRule( "F iisii", ReplyRule::One );
@@ -610,85 +820,152 @@ Command* DataManager::updateFolder( int folderId )
 
 void DataManager::updateFolderReply( const Reply& reply )
 {
-    ReplyLine folderLine = reply.lines().at( 0 );
+    QList<int> updatedFolders;
 
-    FolderRow* folder = readFolderRow( folderLine );
-    int folderId = folder->folderId();
+    QSqlDatabase database = QSqlDatabase::database();
+    database.transaction();
 
-    QList<int> folders;
-    folders.append( folderId );
+    bool ok = updateFolderReply( reply, database, updatedFolders );
+    if ( ok )
+        ok = database.commit();
 
-    m_folders.remove( folderId );
-    m_folders.insert( folder );
+    if ( !ok )
+        database.rollback();
 
-    FolderState* state = folderState( folderId );
-    state->setListStamp( folder->stamp() );
+    if ( ok ) {
+        foreach ( int folderId, updatedFolders )
+            notifyObservers( UpdateEvent::Folder, folderId );
 
-    for ( int i = 1; i < reply.lines().count(); i++ ) {
-        ReplyLine line = reply.lines().at( i );
-        if ( line.keyword() == QLatin1String( "I" ) ) {
-            IssueRow* issue = readIssueRow( line );
-            int issueId = issue->issueId();
+        notifyObservers( UpdateEvent::AlertStates );
+    }
+}
 
-            const IssueRow* oldIssue = m_issues.find( issueId );
-            if ( oldIssue ) {
-                if ( !folders.contains( oldIssue->folderId() ) )
-                    folders.append( oldIssue->folderId() );
+bool DataManager::updateFolderReply( const Reply& reply, const QSqlDatabase& database, QList<int>& updatedFolders )
+{
+    const ReplyLine& folderLine = reply.lines().at( 0 );
+    int folderId = folderLine.argInt( 0 );
+    int lastStampId = folderLine.argInt( 4 );
 
-                m_issues.remove( issueId );
-                m_values.removeSecond( issueId );
-            }
+    updatedFolders.append( folderId );
 
-            m_issues.insert( issue );
-        } else if ( line.keyword() == QLatin1String( "V" ) ) {
-            ValueRow* value = readValueRow( line );
-            m_values.insert( value );
-        } else { // "X"
-            int issueId = line.argInt( 0 );
-            int toFolderId = line.argInt( 1 );
+    QSqlQuery query( database );
 
-            const IssueRow* issue = m_issues.find( issueId );
-            if ( issue ) {
-                if ( toFolderId != 0 ) {
-                    if ( issue->folderId() != toFolderId ) {
-                        IssueRow* newIssue = new IssueRow( issueId, toFolderId, issue->name(), issue->stamp(), issue->createdDate(), issue->createdUser(),
-                            issue->modifiedDate(), issue->modifiedUser() );
+    query.prepare( "INSERT OR REPLACE INTO folders VALUES ( ?, ?, ?, ?, ? )" );
+    foreach ( const QVariant& arg, folderLine.args() )
+        query.addBindValue( arg );
+    if ( !query.exec() )
+        return false;
 
-                        if ( !folders.contains( toFolderId ) )
-                            folders.append( toFolderId );
+    query.prepare( "INSERT OR REPLACE INTO folders_cache VALUES ( ?, ? )" );
+    query.addBindValue( folderId );
+    query.addBindValue( lastStampId );
+    if ( !query.exec() )
+        return false;
 
-                        m_issues.remove( issueId );
-                        m_issues.insert( newIssue );
-                    }
-                } else {
-                    m_issues.remove( issueId );
-                    m_values.removeSecond( issueId );
+    AutoSqlQuery oldIssueQuery( "SELECT folder_id FROM issues WHERE issue_id = ?", database );
+    AutoSqlQuery deleteValuesQuery( "DELETE FROM attr_values WHERE issue_id = ?", database );
+    AutoSqlQuery insertIssueQuery( "INSERT OR REPLACE INTO issues VALUES ( ?, ?, ?, ?, ?, ?, ?, ? )", database );
 
-                    removeIssueDetails( issueId );
+    int i = 1;
+    for ( ; i < reply.lines().count(); i++ ) {
+        const ReplyLine& line = reply.lines().at( i );
+
+        if ( line.keyword() != QLatin1String( "I" ) )
+            break;
+
+        int issueId = line.argInt( 0 );
+
+        oldIssueQuery.addBindValue( issueId );
+        if ( !oldIssueQuery.exec() )
+            return false;
+
+        if ( oldIssueQuery.next() ) {
+            int oldFolderId = oldIssueQuery.value( 0 ).toInt();
+
+            if ( !updatedFolders.contains( oldFolderId ) )
+                updatedFolders.append( oldFolderId );
+
+            deleteValuesQuery.addBindValue( issueId );
+            if ( !deleteValuesQuery.exec() )
+                return false;
+        }
+
+        foreach ( const QVariant& arg, line.args() )
+            insertIssueQuery.addBindValue( arg );
+        if ( !insertIssueQuery.exec() )
+            return false;
+    }
+
+    if ( !execReply( "INSERT INTO attr_values VALUES ( ?, ?, ? )", "V", reply, database, i ) )
+        return false;
+
+    AutoSqlQuery moveIssueQuery( "UPDATE issues SET folder_id = ? WHERE issue_id = ?", database );
+    AutoSqlQuery deleteIssueQuery( "DELETE FROM issues WHERE issue_id = ?", database );
+
+    QList<int> deletedIssues;
+
+    for ( ; i < reply.lines().count(); i++ ) {
+        const ReplyLine& line = reply.lines().at( i );
+
+        if ( line.keyword() != QLatin1String( "X" ) )
+            break;
+
+        int issueId = line.argInt( 0 );
+        int toFolderId = line.argInt( 1 );
+
+        if ( toFolderId != 0 ) {
+            oldIssueQuery.addBindValue( issueId );
+            if ( !oldIssueQuery.exec() )
+                return false;
+
+            if ( oldIssueQuery.next() ) {
+                int oldFolderId = oldIssueQuery.value( 0 ).toInt();
+
+                if ( oldFolderId != toFolderId ) {
+                    if ( !updatedFolders.contains( toFolderId ) )
+                        updatedFolders.append( toFolderId );
+
+                    moveIssueQuery.addBindValue( toFolderId );
+                    moveIssueQuery.addBindValue( issueId );
+                    if ( !moveIssueQuery.exec() )
+                        return false;
                 }
             }
+        } else {
+            deletedIssues.append( issueId );
+
+            deleteIssueQuery.addBindValue( issueId );
+            if ( !deleteIssueQuery.exec() )
+                return false;
+
+            deleteValuesQuery.addBindValue( issueId );
+            if ( !deleteValuesQuery.exec() )
+                return false;
         }
     }
 
-    foreach ( int folderId, folders )
-        recalculateAlerts( folderId );
+    if ( !deletedIssues.isEmpty() ) {
+        if ( !removeIssueDetails( deletedIssues, database ) )
+            return false;
+    }
 
-    foreach ( int folderId, folders )
-        notifyObservers( UpdateEvent::Folder, folderId );
+    foreach ( int folderId, updatedFolders ) {
+        if ( !recalculateAlerts( folderId, database ) )
+            return false;
+    }
 
-    notifyObservers( UpdateEvent::AlertStates );
+    return true;
 }
 
 Command* DataManager::updateIssue( int issueId )
 {
-    IssueState* state = m_issueStates.find( issueId );
-    int stamp = state ? state->detailsStamp() : 0;
+    int lastStampId = execScalar( "SELECT details_id FROM issues_cache WHERE issue_id = ?", QSqlDatabase::database(), issueId ).toInt();
 
     Command* command = new Command();
 
     command->setKeyword( "GET DETAILS" );
     command->addArg( issueId );
-    command->addArg( stamp );
+    command->addArg( lastStampId );
 
     command->setAcceptNullReply( true );
     command->addRule( "I iisiiiii", ReplyRule::One );
@@ -705,430 +982,442 @@ Command* DataManager::updateIssue( int issueId )
 
 void DataManager::updateIssueReply( const Reply& reply )
 {
-    ReplyLine issueLine = reply.lines().at( 0 );
+    QList<int> updatedFolders;
+    int issueId;
 
-    IssueRow* issue = readIssueRow( issueLine );
-    int issueId = issue->issueId();
+    QSqlDatabase database = QSqlDatabase::database();
+    database.transaction();
 
-    QList<int> folders;
-    folders.append( issue->folderId() );
+    bool ok = updateIssueReply( reply, database, updatedFolders, issueId );
+    if ( ok )
+        ok = database.commit();
 
-    const IssueRow* oldIssue = m_issues.find( issueId );
-    if ( oldIssue ) {
-        if ( !folders.contains( oldIssue->folderId() ) )
-            folders.append( oldIssue->folderId() );
+    if ( !ok )
+        database.rollback();
 
-        m_issues.remove( issueId );
-        m_values.removeSecond( issueId );
+    if ( ok ) {
+        foreach ( int folderId, updatedFolders )
+            notifyObservers( UpdateEvent::IssueList, folderId );
+
+        notifyObservers( UpdateEvent::Issue, issueId );
+
+        notifyObservers( UpdateEvent::AlertStates );
+    }
+}
+
+bool DataManager::updateIssueReply( const Reply& reply, const QSqlDatabase& database, QList<int>& updatedFolders, int& issueId )
+{
+    const ReplyLine& issueLine = reply.lines().at( 0 );
+    issueId = issueLine.argInt( 0 );
+    int folderId = issueLine.argInt( 1 );
+    int lastStampId = issueLine.argInt( 3 );
+
+    updatedFolders.append( folderId );
+
+    QSqlQuery oldIssueQuery( database );
+    oldIssueQuery.prepare( "SELECT folder_id FROM issues WHERE issue_id = ?" );
+    oldIssueQuery.addBindValue( issueId );
+    if ( !oldIssueQuery.exec() )
+        return false;
+
+    if ( oldIssueQuery.next() ) {
+        int oldFolderId = oldIssueQuery.value( 0 ).toInt();
+        if ( !updatedFolders.contains( oldFolderId ) )
+            updatedFolders.append( oldFolderId );
+
+        QSqlQuery deleteValuesQuery( database );
+        deleteValuesQuery.prepare( "DELETE FROM attr_values WHERE issue_id = ?" );
+        deleteValuesQuery.addBindValue( issueId );
+        if ( !deleteValuesQuery.exec() )
+            return false;
     }
 
-    m_issues.insert( issue );
+    QSqlQuery query( database );
 
-    IssueState* state = issueState( issueId );
-    state->setDetailsStamp( issue->stamp() );
-    state->setReadStamp( issue->stamp() );
+    query.prepare( "INSERT OR REPLACE INTO issues VALUES ( ?, ?, ?, ?, ?, ?, ?, ? )" );
+    foreach ( const QVariant& arg, issueLine.args() )
+        query.addBindValue( arg );
+    if ( !query.exec() )
+        return false;
 
-    for ( int i = 1; i < reply.lines().count(); i++ ) {
-        ReplyLine line = reply.lines().at( i );
-        if ( line.keyword() == QLatin1String( "V" ) ) {
-            ValueRow* value = readValueRow( line );
-            m_values.insert( value );
-        } else if ( line.keyword() == QLatin1String( "H" ) ) {
-            ChangeRow* change = readChangeRow( line );
-            m_changes.remove( change->changeId() );
-            m_changes.insert( change );
-        } else if ( line.keyword() == QLatin1String( "C" ) ) {
-            CommentRow* comment = readCommentRow( line );
-            m_comments.remove( comment->commentId() );
-            m_comments.insert( comment );
-        } else if ( line.keyword() == QLatin1String( "A" ) ) {
-            FileRow* file = readFileRow( line );
-            m_files.remove( file->fileId() );
-            m_files.insert( file );
-        } else { // "X"
-            int changeId = line.argInt( 0 );
-            const ChangeRow* change = m_changes.find( changeId );
-            if ( change ) {
-                if ( change->changeType() == CommentAdded )
-                    m_comments.remove( changeId );
-                else if ( change->changeType() == FileAdded )
-                    m_files.remove( changeId );
-                m_changes.remove( changeId );
+    query.prepare( "INSERT OR REPLACE INTO issues_cache VALUES ( ?, ? )" );
+    query.addBindValue( issueId );
+    query.addBindValue( lastStampId );
+    if ( !query.exec() )
+        return false;
+
+    query.prepare( "INSERT OR REPLACE INTO issue_states VALUES ( ?, ?, ? )" );
+    query.addBindValue( m_currentUserId );
+    query.addBindValue( issueId );
+    query.addBindValue( lastStampId );
+    if ( !query.exec() )
+        return false;
+
+    int i = 1;
+    if ( !execReply( "INSERT INTO attr_values VALUES ( ?, ?, ? )", "V", reply, database, i ) )
+        return false;
+
+    if ( !execReply( "INSERT OR REPLACE INTO changes VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )", "H", reply, database, i ) )
+        return false;
+
+    if ( !execReply( "INSERT OR REPLACE INTO comments VALUES ( ?, ? )", "C", reply, database, i ) )
+        return false;
+
+    if ( !execReply( "INSERT OR REPLACE INTO files VALUES ( ?, ?, ?, ? )", "A", reply, database, i ) )
+        return false;
+
+    QSqlQuery oldChangeQuery( "SELECT change_type FROM changes WHERE change_id = ?", database );
+    QSqlQuery deleteCommentQuery( "DELETE FROM comments WHERE comment_id = ?", database );
+    QSqlQuery deleteFileQuery( "DELETE FROM files WHERE file_id = ?", database );
+    QSqlQuery deleteChangeQuery( "DELETE FROM changes WHERE change_id = ?", database );
+
+    for ( ; i < reply.lines().count(); i++ ) {
+        const ReplyLine& line = reply.lines().at( i );
+
+        if ( line.keyword() != QLatin1String( "X" ) )
+            break;
+
+        int changeId = line.argInt( 0 );
+
+        oldChangeQuery.addBindValue( changeId );
+        if ( !oldChangeQuery.exec() )
+            return false;
+
+        if ( oldChangeQuery.next() ) {
+            int changeType = oldChangeQuery.value( 0 ).toInt();
+
+            if ( changeType == CommentAdded ) {
+                deleteCommentQuery.addBindValue( changeId );
+                if ( !deleteCommentQuery.exec() )
+                    return false;
+            } else if ( changeType == FileAdded ) {
+                deleteFileQuery.addBindValue( changeId );
+                if ( !deleteFileQuery.exec() )
+                    return false;
             }
+
+            deleteChangeQuery.addBindValue( changeId );
+            if ( !deleteChangeQuery.exec() )
+                return false;
         }
     }
 
-    foreach ( int folderId, folders )
-        recalculateAlerts( folderId );
+    if ( !flushIssueDetails( database ) )
+        return false;
 
-    foreach ( int folderId, folders )
-        notifyObservers( UpdateEvent::IssueList, folderId );
+    foreach ( int folderId, updatedFolders ) {
+        if ( !recalculateAlerts( folderId, database ) )
+            return false;
+    }
 
-    notifyObservers( UpdateEvent::Issue, issueId );
-
-    notifyObservers( UpdateEvent::AlertStates );
-
-    flushIssueCache();
+    return true;
 }
 
-UserRow* DataManager::readUserRow( const ReplyLine& line )
+void DataManager::lockIssue( int issueId )
 {
-    int userId = line.argInt( 0 );
-    QString login = line.argString( 1 );
-    QString name = line.argString( 2 );
-    Access access = (Access)line.argInt( 3 );
+    QSqlDatabase database = QSqlDatabase::database();
+    database.transaction();
 
-    return new UserRow( userId, login, name, access );
+    bool ok = lockIssue( issueId, database );
+    if ( ok )
+        ok = database.commit();
+
+    if ( !ok )
+        database.rollback();
 }
 
-MemberRow* DataManager::readMemberRow( const ReplyLine& line )
+bool DataManager::lockIssue( int issueId, const QSqlDatabase& database )
 {
-    int userId = line.argInt( 0 );
-    int projectId = line.argInt( 1 );
-    Access access = (Access)line.argInt( 2 );
+    QSqlQuery query( database );
+    query.prepare( "UPDATE issue_locks SET lock_count = lock_count + 1 WHERE issue_id = ?" );
+    query.addBindValue( issueId );
+    if ( !query.exec() )
+        return false;
 
-    return new MemberRow( userId, projectId, access );
+    if ( query.numRowsAffected() == 0 ) {
+        query.prepare( "INSERT INTO issue_locks VALUES ( ?, 1, strftime( '%s', 'now' ) )" );
+        query.addBindValue( issueId );
+        if ( !query.exec() )
+            return false;
+    }
+
+    return true;
 }
 
-TypeRow* DataManager::readTypeRow( const ReplyLine& line )
+void DataManager::unlockIssue( int issueId )
 {
-    int typeId = line.argInt( 0 );
-    QString name = line.argString( 1 );
+    QSqlDatabase database = QSqlDatabase::database();
+    database.transaction();
 
-    return new TypeRow( typeId, name );
+    bool ok = unlockIssue( issueId, database );
+    if ( ok )
+        ok = database.commit();
+
+    if ( !ok )
+        database.rollback();
 }
 
-AttributeRow* DataManager::readAttributeRow( const ReplyLine& line )
+bool DataManager::unlockIssue( int issueId, const QSqlDatabase& database )
 {
-    int attributeId = line.argInt( 0 );
-    int typeId = line.argInt( 1 );
-    QString name = line.argString( 2 );
-    QString definition = line.argString( 3 );
+    QSqlQuery query( database );
+    query.prepare( "UPDATE issue_locks SET lock_count = lock_count - 1, last_access = strftime( '%s', 'now' ) WHERE issue_id = ?" );
+    query.addBindValue( issueId );
+    if ( !query.exec() )
+        return false;
 
-    return new AttributeRow( attributeId, typeId, name, definition );
+    if ( !flushIssueDetails( database ) )
+        return false;
+
+    return true;
 }
 
-ProjectRow* DataManager::readProjectRow( const ReplyLine& line )
+bool DataManager::clearIssueLocks( const QSqlDatabase& database )
 {
-    int projectId = line.argInt( 0 );
-    QString name = line.argString( 1 );
+    QSqlQuery query( database );
+    query.prepare( "UPDATE issue_locks SET lock_count = 0" );
+    if ( !query.exec() )
+        return false;
 
-    return new ProjectRow( projectId, name );
+    if ( !flushIssueDetails( database ) )
+        return false;
+
+    return true;
 }
 
-FolderRow* DataManager::readFolderRow( const ReplyLine& line )
+bool DataManager::flushIssueDetails( const QSqlDatabase& database )
 {
-    int folderId = line.argInt( 0 );
-    int projectId = line.argInt( 1 );
-    QString name = line.argString( 2 );
-    int typeId = line.argInt( 3 );
-    int stamp = line.argInt( 4 );
+    int count = execScalar( "SELECT COUNT(*) FROM issue_locks", database ).toInt();
 
-    return new FolderRow( folderId, projectId, name, typeId, stamp );
+    if ( count > 100 ) {
+        QSqlQuery query( database );
+        query.prepare( "SELECT issue_id FROM issue_locks WHERE lock_count = 0 ORDER BY last_access LIMIT ?" );
+        query.addBindValue( count - 100 );
+        if ( !query.exec() )
+            return false;
+
+        QList<int> deletedIssues;
+
+        while ( query.next() )
+            deletedIssues.append( query.value( 0 ).toInt() );
+
+        if ( !removeIssueDetails( deletedIssues, database ) )
+            return false;
+    }
+
+    return true;
 }
 
-IssueRow* DataManager::readIssueRow( const ReplyLine& line )
+bool DataManager::removeIssueDetails( const QList<int>& issues, const QSqlDatabase& database )
 {
-    int issueId = line.argInt( 0 );
-    int folderId = line.argInt( 1 );
-    QString name = line.argString( 2 );
-    int stamp = line.argInt( 3 );
-    QDateTime createdDate;
-    createdDate.setTime_t( line.argInt( 4 ) );
-    int createdUser = line.argInt( 5 );
-    QDateTime modifiedDate;
-    modifiedDate.setTime_t( line.argInt( 6 ) );
-    int modifiedUser = line.argInt( 7 );
+    QSqlQuery query( database );
 
-    return new IssueRow( issueId, folderId, name, stamp, createdDate, createdUser, modifiedDate, modifiedUser );
+    query.prepare( "DELETE FROM changes WHERE issue_id = ?" );
+    foreach ( int issueId, issues ) {
+        query.addBindValue( issueId );
+        if ( !query.exec() )
+            return false;
+    }
+
+    query.prepare( "DELETE FROM comments WHERE issue_id = ?" );
+    foreach ( int issueId, issues ) {
+        query.addBindValue( issueId );
+        if ( !query.exec() )
+            return false;
+    }
+
+    query.prepare( "DELETE FROM files WHERE issue_id = ?" );
+    foreach ( int issueId, issues ) {
+        query.addBindValue( issueId );
+        if ( !query.exec() )
+            return false;
+    }
+
+    query.prepare( "DELETE FROM issue_locks WHERE issue_id = ?" );
+    foreach ( int issueId, issues ) {
+        query.addBindValue( issueId );
+        if ( !query.exec() )
+            return false;
+    }
+
+    return true;
 }
 
-ValueRow* DataManager::readValueRow( const ReplyLine& line )
+QString DataManager::findFilePath( int fileId ) const
 {
-    int attributeId = line.argInt( 0 );
-    int issueId = line.argInt( 1 );
-    QString value = line.argString( 2 );
+    QSqlDatabase database = QSqlDatabase::database();
 
-    return new ValueRow( attributeId, issueId, value );
+    QString path = execScalar( "SELECT file_path FROM files_cache WHERE file_id = ?", database, fileId ).toString();
+
+    if ( !path.isEmpty() ) {
+        QSqlQuery query( database );
+        query.prepare( "UPDATE files_cache SET last_access = strftime( '%s', 'now' ) WHERE file_id = ?" );
+        query.addBindValue( fileId );
+        query.exec();
+    }
+
+    return path;
 }
 
-ChangeRow* DataManager::readChangeRow( const ReplyLine& line )
+QString DataManager::generateFilePath( const QString& name ) const
 {
-    int changeId = line.argInt( 0 );
-    int issueId = line.argInt( 1 );
-    ChangeType changeType = (ChangeType)line.argInt( 2 );
-    int stamp = line.argInt( 3 );
-    QDateTime createdDate;
-    createdDate.setTime_t( line.argInt( 4 ) );
-    int createdUser = line.argInt( 5 );
-    QDateTime modifiedDate;
-    modifiedDate.setTime_t( line.argInt( 6 ) );
-    int modifiedUser = line.argInt( 7 );
-    int attributeId = line.argInt( 8 );
-    QString oldValue = line.argString( 9 );
-    QString newValue = line.argString( 10 );
-    int fromFolder = line.argInt( 11 );
-    int toFolder = line.argInt( 12 );
+    QString path = application->locateTempFile( name );
 
-    return new ChangeRow( changeId, issueId, changeType, stamp, createdDate, createdUser, modifiedDate, modifiedUser,
-        attributeId, oldValue, newValue, fromFolder, toFolder );
-}
+    QFileInfo info( path );
 
-CommentRow* DataManager::readCommentRow( const ReplyLine& line )
-{
-    int commentId = line.argInt( 0 );
-    QString text = line.argString( 1 );
+    if ( !info.exists() )
+        return path;
 
-    return new CommentRow( commentId, text );
-}
+    QString baseName = info.baseName();
+    QString suffix = info.completeSuffix();
+    if ( !suffix.isEmpty() )
+        suffix.prepend( '.' );
 
-FileRow* DataManager::readFileRow( const ReplyLine& line )
-{
-    int fileId = line.argInt( 0 );
-    QString name = line.argString( 1 );
-    int size = line.argInt( 2 );
-    QString description = line.argString( 3 );
-
-    return new FileRow( fileId, name, size, description );
-}
-
-ViewRow* DataManager::readViewRow( const ReplyLine& line )
-{
-    int viewId = line.argInt( 0 );
-    int typeId = line.argInt( 1 );
-    QString name = line.argString( 2 );
-    QString definition = line.argString( 3 );
-    bool isPublic = line.argInt( 4 ) != 0;
-
-    return new ViewRow( viewId, typeId, name, definition, isPublic );
-}
-
-AlertRow* DataManager::readAlertRow( const ReplyLine& line )
-{
-    int alertId = line.argInt( 0 );
-    int folderId = line.argInt( 1 );
-    int viewId = line.argInt( 2 );
-    AlertEmail alertEmail = (AlertEmail)line.argInt( 3 );
-
-    return new AlertRow( alertId, folderId, viewId, alertEmail );
-}
-
-int DataManager::findItem( int itemId )
-{
-    const IssueRow* issue = m_issues.find( itemId );
-    if ( issue != NULL )
-        return itemId;
-
-    const ChangeRow* change = m_changes.find( itemId );
-    if ( change != NULL && ( change->changeType() == CommentAdded || change->changeType() == FileAdded ) )
-        return change->issueId();
-
-    return 0;
-}
-
-QDataStream& operator <<( QDataStream& stream, const IssueRow* row )
-{
-    return stream
-        << (qint32)row->issueId()
-        << (qint32)row->folderId()
-        << row->name()
-        << (qint32)row->stamp()
-        << row->createdDate()
-        << (qint32)row->createdUser()
-        << row->modifiedDate()
-        << (qint32)row->modifiedUser();
-}
-
-QDataStream& operator >>( QDataStream& stream, IssueRow*& row )
-{
-    qint32 issueId, folderId, stamp, createdUser, modifiedUser;
-    QString name;
-    QDateTime createdDate, modifiedDate;
-
-    stream >> issueId >> folderId >> name >> stamp >> createdDate >> createdUser >> modifiedDate >> modifiedUser;
-
-    if ( !dataManager->issues()->find( issueId ) )
-        row = new IssueRow( issueId, folderId, name, stamp, createdDate, createdUser, modifiedDate, modifiedUser );
-    else
-        row = NULL;
-
-    return stream;
-}
-
-QDataStream& operator <<( QDataStream& stream, const ValueRow* row )
-{
-    return stream
-        << (qint32)row->attributeId()
-        << (qint32)row->issueId()
-        << row->value();
-}
-
-QDataStream& operator >>( QDataStream& stream, ValueRow*& row )
-{
-    qint32 attributeId, issueId;
-    QString value;
-
-    stream >> attributeId >> issueId >> value;
-
-    if ( !dataManager->issues()->find( issueId ) )
-        row = new ValueRow( attributeId, issueId, value );
-    else
-        row = NULL;
-
-    return stream;
-}
-
-void DataManager::updateFolderCache( int folderId )
-{
-    FolderState* state = folderState( folderId );
-    if ( !state->cached() ) {
-        readFolderCache( folderId );
-        recalculateAlerts( folderId );
-        state->setCached( true );
+    for ( int number = 2; ; number++ ) {
+        QString generatedName = QString( "%1(%2)%3" ).arg( baseName ).arg( number ).arg( suffix );
+        path = application->locateTempFile( generatedName );
+        if ( !QFile::exists( path ) )
+            return path;
     }
 }
 
-void DataManager::readFolderCache( int folderId )
+void DataManager::allocFileSpace( int size )
 {
-    QString name = QString( "folder%1.cache" ).arg( folderId );
-    DataSerializer serializer( locateCacheFile( name ) );
+    QSqlDatabase database = QSqlDatabase::database();
+    database.transaction();
 
-    if ( !serializer.openForReading() )
-        return;
+    bool ok = flushFileCache( size, database );
+    if ( ok )
+        ok = database.commit();
 
-    qint32 listStamp;
-    serializer.stream() >> listStamp;
+    if ( !ok )
+        database.rollback();
+}
 
-    FolderState* state = folderState( folderId );
-    state->setListStamp( listStamp );
+void DataManager::commitFile( int fileId, const QString& path, int size )
+{
+    QSqlDatabase database = QSqlDatabase::database();
 
-    QList<IssueRow*> issues;
-    QList<ValueRow*> values;
+    QSqlQuery query( database );
+    query.prepare( "INSERT INTO files_cache VALUES ( ?, ?, ?, strftime( '%s', 'now' ) )" );
+    query.addBindValue( fileId );
+    query.addBindValue( path );
+    query.addBindValue( size );
+    query.exec();
+}
 
-    serializer.stream() >> issues >> values;
+bool DataManager::flushFileCache( int allocatedSize, const QSqlDatabase& database )
+{
+    LocalSettings* settings = application->applicationSettings();
+    int limit = settings->value( "AttachmentsCacheSize" ).toInt() * 1024 * 1024;
 
-    foreach ( IssueRow* issue, issues ) {
-        if ( issue )
-            m_issues.insert( issue );
+    int occupied = ( allocatedSize + 4095 ) & ~4096;
+    occupied += execScalar( "SELECT SUM( ( file_size + 4095 ) & ~4096 ) FROM files_cache", database ).toInt();
+
+    if ( occupied > limit ) {
+        QList<int> deletedFiles;
+
+        QSqlQuery query( database );
+        if ( !query.exec( "SELECT file_id, file_path, file_size FROM files_cache ORDER BY last_access" ) )
+            return false;
+
+        while ( query.next() && occupied > limit ) {
+            QString path = query.value( 1 ).toString();
+            if ( !QFile::exists( path ) || QFile::remove( path ) ) {
+                occupied -= ( query.value( 2 ).toInt() + 4095 ) & ~4096;
+                deletedFiles.append( query.value( 0 ).toInt() );
+            }
+        }
+
+        AutoSqlQuery deleteFileQuery( "DELETE FROM files_cache WHERE file_id = ?", database );
+
+        foreach ( int fileId, deletedFiles ) {
+            deleteFileQuery.addBindValue( fileId );
+            if ( !deleteFileQuery.exec() )
+                return false;
+        }
     }
 
-    foreach ( ValueRow* value, values ) {
-        if ( value )
-            m_values.insert( value );
+    return true;
+}
+
+bool DataManager::recalculateAllAlerts( const QSqlDatabase& database )
+{
+    QSqlQuery query( database );
+    if ( !query.exec( "DELETE FROM alerts_cache" ) )
+        return false;
+
+    if ( !query.exec( "SELECT a.alert_id, f.folder_id, a.view_id FROM alerts AS a JOIN folders AS f ON f.folder_id = a.folder_id" ) )
+        return false;
+
+    while ( query.next() ) {
+        if ( !recalculateAlert( query.value( 0 ).toInt(), query.value( 1 ).toInt(), query.value( 2 ).toInt(), database ) )
+            return false;
     }
 
-    notifyObservers( UpdateEvent::Folder, folderId );
+    return true;
 }
 
-void DataManager::saveFolderCache()
+bool DataManager::recalculateAlerts( int folderId, const QSqlDatabase& database )
 {
-    RDB::IndexConstIterator<FolderRow> it( m_folders.index() );
-    while ( it.next() )
-        writeFolderCache( it.key() );
-}
+    QSqlQuery query( database );
+    query.prepare( "DELETE FROM alerts_cache WHERE alert_id IN ( SELECT alert_id FROM alerts WHERE folder_id = ? )" );
+    query.addBindValue( folderId );
+    if ( !query.exec() )
+        return false;
 
-void DataManager::writeFolderCache( int folderId )
-{
-    FolderState* state = folderState( folderId );
-    if ( state->listStamp() == 0 )
-        return;
+    query.prepare( "SELECT a.alert_id, f.folder_id, a.view_id FROM alerts AS a JOIN folders AS f ON f.folder_id = a.folder_id WHERE f.folder_id = ?" );
+    query.addBindValue( folderId );
+    if ( !query.exec() )
+        return false;
 
-    QString name = QString( "folder%1.cache" ).arg( folderId );
-    DataSerializer serializer( locateCacheFile( name ) );
-
-    if ( !serializer.openForWriting() )
-        return;
-
-    serializer.stream() << (qint32)state->listStamp();
-
-    QList<const IssueRow*> issues;
-    QList<const ValueRow*> values;
-
-    RDB::ForeignConstIterator<IssueRow> it( m_issues.parentIndex(), folderId );
-    while ( it.next() ) {
-        issues.append( it.get() );
-        RDB::ForeignConstIterator<ValueRow> it2( m_values.index().second(), it.key( 0 ) );
-        while ( it2.next() )
-            values.append( it2.get() );
+    while ( query.next() ) {
+        if ( !recalculateAlert( query.value( 0 ).toInt(), query.value( 1 ).toInt(), query.value( 2 ).toInt(), database ) )
+            return false;
     }
 
-    serializer.stream() << issues << values;
+    return true;
 }
 
-struct IssueStateRecord
+bool DataManager::recalculateAlert( int alertId, int folderId, int viewId, const QSqlDatabase& database )
 {
-    qint32 m_issueId;
-    qint32 m_readStamp;
-};
+    QueryGenerator generator( folderId, viewId );
 
-QDataStream& operator <<( QDataStream& stream, const IssueStateRecord& record )
-{
-    return stream
-        << record.m_issueId
-        << record.m_readStamp;
-}
+    QString sql = generator.query( false );
+    if ( sql.isEmpty() )
+        return true;
 
-QDataStream& operator >>( QDataStream& stream, IssueStateRecord& record )
-{
-    return stream
-        >> record.m_issueId
-        >> record.m_readStamp;
-}
+    QSqlQuery sqlQuery( database );
+    sqlQuery.prepare( sql );
 
-void DataManager::updateStateCache()
-{
-    if ( m_stateCached )
-        return;
+    foreach ( const QVariant& arg, generator.arguments() )
+        sqlQuery.addBindValue( arg );
 
-    m_stateCached = true;
+    if ( !sqlQuery.exec() )
+        return false;
 
-    QString name = QString( "state%1.cache" ).arg( m_currentUserId );
-    DataSerializer serializer( locateCacheFile( name ) );
+    int total = 0;
+    int modified = 0;
+    int unread = 0;
 
-    if ( !serializer.openForReading() )
-        return;
-
-    qint32 lastStateId;
-    serializer.stream() >> lastStateId;
-
-    m_lastStateId = lastStateId;
-
-    QList<IssueStateRecord> records;
-    serializer.stream() >> records;
-
-    for ( int i = 0; i < records.count(); i++ ) {
-        int issueId = records.at( i ).m_issueId;
-        int readStamp = records.at( i ).m_readStamp;
-
-        IssueState* state = issueState( issueId );
-        state->setReadStamp( readStamp );
+    while ( sqlQuery.next() ) {
+        int readId = sqlQuery.value( 2 ).toInt();
+        if ( readId == 0 ) {
+            unread++;
+        } else {
+            int stampId = sqlQuery.value( 1 ).toInt();
+            if ( readId < stampId )
+                modified++;
+        }
+        total++;
     }
 
-    recalculateAllAlerts();
+    sqlQuery.prepare( "INSERT INTO alerts_cache VALUES ( ?, ?, ?, ? )" );
+    sqlQuery.addBindValue( alertId );
+    sqlQuery.addBindValue( total );
+    sqlQuery.addBindValue( modified );
+    sqlQuery.addBindValue( unread );
+    if ( !sqlQuery.exec() )
+        return false;
 
-    notifyObservers( UpdateEvent::States );
-}
-
-void DataManager::saveStateCache()
-{
-    QString name = QString( "state%1.cache" ).arg( m_currentUserId );
-    DataSerializer serializer( locateCacheFile( name ) );
-
-    if ( !serializer.openForWriting() )
-        return;
-
-    serializer.stream() << m_lastStateId;
-
-    QList<IssueStateRecord> records;
-
-    RDB::IndexConstIterator<IssueState> it( m_issueStates.index() );
-    while ( it.next() ) {
-        const IssueState* state = it.get();
-        IssueStateRecord record;
-        record.m_issueId = state->issueId();
-        record.m_readStamp = state->readStamp();
-        records.append( record );
-    }
-
-    serializer.stream() << records;
+    return true;
 }

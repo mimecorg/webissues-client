@@ -19,7 +19,7 @@
 
 #include "finditemdialog.h"
 
-#include "data/datamanager.h"
+#include "data/entities.h"
 #include "commands/finditembatch.h"
 #include "utils/iconloader.h"
 
@@ -70,7 +70,7 @@ void FindItemDialog::accept()
 {
     m_itemId = m_idSpin->value();
 
-    m_issueId = dataManager->findItem( m_itemId );
+    m_issueId = IssueEntity::findItem( m_itemId );
     if ( m_issueId != 0 ) {
         QDialog::accept();
         return;

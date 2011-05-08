@@ -114,7 +114,9 @@ private:
 
     bool setMinMaxLength( DefinitionInfo& info, const QVariantMap& metadata );
 
-    QString buildDatePattern( const QString& separator, const QString& order );
+    QString buildDatePattern( const QString& separator, const QString& order ) const;
+
+    void appendError( int code );
 
 private:
     QStringList m_errors;

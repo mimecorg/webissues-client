@@ -27,19 +27,11 @@ class QTreeView;
 class QModelIndex;
 
 /**
-* Functions for reading and applying settings of a tree view.
+* Helper class for reading and applying settings of a tree view.
 */
 class TreeViewHelper
 {
 public:
-    enum ColumnFlag
-    {
-        WideName = 1,
-        UserColumns = 2
-    };
-
-    Q_DECLARE_FLAGS( ColumnFlags, ColumnFlag )
-
     enum ViewFlag
     {
         TreeStyle = 1,
@@ -51,50 +43,61 @@ public:
 
 public:
     /**
+    * Constructor.
+    * @param view The associated tree view.
+    */
+    TreeViewHelper( QTreeView* view );
+
+    /**
+    * Destructor.
+    */
+    ~TreeViewHelper();
+
+public:
+    /**
     * Initialize common properties of the tree view.
     */
-    static void initializeView( QTreeView* view, ViewFlags flags = 0 );
+    void initializeView( ViewFlags flags = 0 );
 
     /**
     * Return the index of selected item in the view.
     */
-    static QModelIndex selectedIndex( QTreeView* view );
+    QModelIndex selectedIndex();
 
     /**
-    * Read sort order from the tree view.
+    * Save static column widths from the tree view.
     */
-    static QPair<int, Qt::SortOrder> sortOrder( QTreeView* view );
+    void saveColumnWidths( const QString& key );
 
     /**
-    * Apply sort order to the tree view.
+    * Load static column widths to the tree view.
     */
-    static void setSortOrder( QTreeView* view, const QPair<int, Qt::SortOrder>& order );
+    void loadColumnWidths( const QString& key, const QList<int>& defaultWidths );
 
     /**
-    * Save column widths from the tree view.
+    * Save dynamic column widths from the tree view.
     */
-    static void saveColumnWidths( QTreeView* view, const QString& type, ColumnFlags flags = 0 );
+    void saveColumnWidths( const QString& key, const QList<int>& columns );
 
     /**
-    * Load column widths to the tree view.
+    * Load dynamic column widths to the tree view.
     */
-    static void loadColumnWidths( QTreeView* view, const QString& type, ColumnFlags flags = 0 );
+    void loadColumnWidths( const QString& key, const QList<int>& columns, const QMap<int, int>& defaultWidths );
 
     /**
     * Save expanded nodes from the tree view.
     */
-    static void saveExpandedNodes( QTreeView* view, const QString& type );
+    void saveExpandedNodes( const QString& key );
 
     /**
     * Load expanded nodes to the tree view.
     */
-    static void loadExpandedNodes( QTreeView* view, const QString& type );
+    void loadExpandedNodes( const QString& key );
 
 private:
-    static int defaultColumnWidth( int column, ColumnFlags flags );
+    QTreeView* m_view;
 };
 
-Q_DECLARE_OPERATORS_FOR_FLAGS( TreeViewHelper::ColumnFlags )
 Q_DECLARE_OPERATORS_FOR_FLAGS( TreeViewHelper::ViewFlags )
 
 #endif

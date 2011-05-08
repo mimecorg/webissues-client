@@ -22,8 +22,8 @@
 
 #if defined( HAVE_OPENSSL )
 
-#include "informationdialog.h"
-#include "commanddialog.h"
+#include "dialogs/informationdialog.h"
+#include "dialogs/commanddialog.h"
 
 #include <QSslError>
 

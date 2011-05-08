@@ -22,12 +22,13 @@
 #include "application.h"
 #include "commands/issuebatch.h"
 #include "data/datamanager.h"
+#include "data/entities.h"
+#include "data/issuetypecache.h"
 #include "data/localsettings.h"
-#include "rdb/utilities.h"
 #include "utils/definitioninfo.h"
-#include "utils/tablemodelshelper.h"
 #include "utils/viewsettingshelper.h"
 #include "utils/attributehelper.h"
+#include "utils/formatter.h"
 #include "utils/iconloader.h"
 #include "widgets/inputlineedit.h"
 #include "widgets/abstractvalueeditor.h"
@@ -69,7 +70,8 @@ void IssueDialog::initialize( int typeId, int projectId )
 
     nameLabel->setBuddy( m_nameEdit );
 
-    QList<int> attributes = ViewSettingsHelper::attributeOrder( typeId, dataManager->viewSetting( typeId, "attribute_order" ) );
+    IssueTypeCache* cache = dataManager->issueTypeCache( typeId );
+    QList<int> attributes = cache->attributes();
 
     if ( !attributes.isEmpty() ) {
         QGroupBox* attributeGroup = new QGroupBox( tr( "Attributes" ), this );
@@ -103,12 +105,11 @@ void IssueDialog::initialize( int typeId, int projectId )
 
         for ( int i = 0; i < attributes.count(); i++ ) {
             int attributeId = attributes.at( i );
-            const AttributeRow* attribute = dataManager->attributes()->find( attributeId );
 
-            QLabel* headerLabel = new QLabel( attribute->name(), attributePanel );
+            QLabel* headerLabel = new QLabel( cache->attributeName( attributeId ), attributePanel );
             valuesLayout->addWidget( headerLabel, i + 2, 0 );
 
-            DefinitionInfo info = DefinitionInfo::fromString( attribute->definition() );
+            DefinitionInfo info = cache->attributeDefinition( attributeId );
 
             AbstractValueEditor* editor = ValueEditorFactory::createValueEditor( info, projectId, this, attributePanel );
             valuesLayout->addWidget( editor->widget(), i + 2, 1 );
@@ -161,27 +162,26 @@ QList<int> IssueDialog::attributeIds() const
 AddIssueDialog::AddIssueDialog( int folderId, QWidget* parent ) : IssueDialog( parent ),
     m_folderId( folderId )
 {
-    const FolderRow* folder = dataManager->folders()->find( folderId );
-    QString name = folder ? folder->name() : QString();
-    int typeId = folder ? folder->typeId() : 0;
-    int projectId = folder ? folder->projectId() : 0;
+    FolderEntity folder = FolderEntity::find( folderId );
 
     setWindowTitle( tr( "Add Issue" ) );
-    setPrompt( tr( "Create a new issue in folder <b>%1</b>:" ).arg( name ) );
+    setPrompt( tr( "Create a new issue in folder <b>%1</b>:" ).arg( folder.name() ) );
     setPromptPixmap( IconLoader::pixmap( "issue-new", 22 ) );
 
-    initialize( typeId, projectId );
+    initialize( folder.typeId(), folder.projectId() );
 
+    IssueTypeCache* cache = dataManager->issueTypeCache( folder.typeId() );
     QList<int> attributes = attributeIds();
+
+    AttributeHelper helper;
 
     for ( int i = 0; i < attributes.count(); i++ ) {
         int attributeId = attributes.at( i );
-        const AttributeRow* attribute = dataManager->attributes()->find( attributeId );
 
-        DefinitionInfo info = DefinitionInfo::fromString( attribute->definition() );
+        DefinitionInfo info = cache->attributeDefinition( attributeId );
         QString value = info.metadata( "default" ).toString();
 
-        value = AttributeHelper::convertInitialValue( info, value );
+        value = helper.convertInitialValue( info, value );
 
         setAttributeValue( attributeId, value );
         m_values.insert( attributeId, value );
@@ -219,31 +219,21 @@ bool AddIssueDialog::batchSuccessful( AbstractBatch* batch )
 EditIssueDialog::EditIssueDialog( int issueId, QWidget* parent ) : IssueDialog( parent ),
     m_issueId( issueId )
 {
-    const IssueRow* issue = dataManager->issues()->find( issueId );
-    m_oldName = issue ? issue->name() : QString();
-    int folderId = issue ? issue->folderId() : 0;
-
-    const FolderRow* folder = dataManager->folders()->find( folderId );
-    int typeId = folder ? folder->typeId() : 0;
-    int projectId = folder ? folder->projectId() : 0;
+    IssueEntity issue = IssueEntity::find( issueId );
+    FolderEntity folder = issue.folder();
+    m_oldName = issue.name();
 
     setWindowTitle( tr( "Edit Attributes" ) );
     setPrompt( tr( "Edit attributes of issue <b>%1</b>:" ).arg( m_oldName ) );
     setPromptPixmap( IconLoader::pixmap( "edit-modify", 22 ) );
 
-    initialize( typeId, projectId );
+    initialize( folder.typeId(), folder.projectId() );
 
     setIssueName( m_oldName );
 
-    QList<int> attributes = attributeIds();
-
-    for ( int i = 0; i < attributes.count(); i++ ) {
-        int attributeId = attributes.at( i );
-        const ValueRow* row = dataManager->values()->find( attributeId, issueId );
-        QString value = row ? row->value() : QString();
-
-        setAttributeValue( attributeId, value );
-        m_values.insert( attributeId, value );
+    foreach ( const ValueEntity& value, issue.values() ) {
+        setAttributeValue( value.id(), value.value() );
+        m_values.insert( value.id(), value.value() );
     }
 }
 
@@ -282,14 +272,12 @@ void EditIssueDialog::accept()
 MoveIssueDialog::MoveIssueDialog( int issueId, QWidget* parent ) : CommandDialog( parent ),
     m_issueId( issueId )
 {
-    const IssueRow* issue = dataManager->issues()->find( issueId );
-    QString name = issue ? issue->name() : QString();
-    m_oldFolderId = issue ? issue->folderId() : 0;
-    const FolderRow* folder = dataManager->folders()->find( m_oldFolderId );
-    int typeId = folder ? folder->typeId() : 0;
+    IssueEntity issue = IssueEntity::find( issueId );
+    FolderEntity oldFolder = issue.folder();
+    m_oldFolderId = oldFolder.id();
 
     setWindowTitle( tr( "Move Issue" ) );
-    setPrompt( tr( "Move issue <b>%1</b> to another folder of the same type:" ).arg( name ) );
+    setPrompt( tr( "Move issue <b>%1</b> to another folder of the same type:" ).arg( issue.name() ) );
     setPromptPixmap( IconLoader::pixmap( "issue-move", 22 ) );
 
     QGridLayout* layout = new QGridLayout();
@@ -304,29 +292,20 @@ MoveIssueDialog::MoveIssueDialog( int issueId, QWidget* parent ) : CommandDialog
 
     layout->setColumnStretch( 1, 1 );
 
-    RDB::IndexConstIterator<ProjectRow> itp( dataManager->projects()->index() );
-    QList<const ProjectRow*> projects = localeAwareSortRows( itp, &ProjectRow::name );
-
-    for ( int i = 0; i < projects.count(); i++ ) {
-        const ProjectRow* project = projects.at( i );
-
-        if ( !TableModelsHelper::isProjectAdmin( project->projectId() ) )
+    foreach ( const ProjectEntity& project, ProjectEntity::list() ) {
+        if ( !ProjectEntity::isAdmin( project.id() ) )
             continue;
 
-        RDB::ForeignConstIterator<FolderRow> itf( dataManager->folders()->parentIndex(), project->projectId() );
-        QList<const FolderRow*> folders = localeAwareSortRows( itf, &FolderRow::name );
-
         bool projectAdded = false;
-        for ( int j = 0; j < folders.count(); j++ ) {
-            const FolderRow* folder = folders.at( j );
-            if ( folder->typeId() != typeId )
+        foreach ( const FolderEntity& folder, project.folders() ) {
+            if ( folder.typeId() != oldFolder.typeId() )
                 continue;
             if ( !projectAdded ) {
-                m_folderCombo->addParentItem( project->name() );
+                m_folderCombo->addParentItem( project.name() );
                 projectAdded = true;
             }
-            m_folderCombo->addChildItem( folder->name(), folder->folderId() );
-            if ( folder->folderId() == m_oldFolderId )
+            m_folderCombo->addChildItem( folder.name(), folder.id() );
+            if ( folder.id() == m_oldFolderId )
                 m_folderCombo->setCurrentIndex( m_folderCombo->count() - 1 );
         }
     }
@@ -361,11 +340,10 @@ void MoveIssueDialog::accept()
 DeleteIssueDialog::DeleteIssueDialog( int issueId, QWidget* parent ) : CommandDialog( parent ),
     m_issueId( issueId )
 {
-    const IssueRow* issue = dataManager->issues()->find( issueId );
-    QString name = issue ? issue->name() : QString();
+    IssueEntity issue = IssueEntity::find( issueId );
 
     setWindowTitle( tr( "Delete Issue" ) );
-    setPrompt( tr( "Are you sure you want to delete issue <b>%1</b>?" ).arg( name ) );
+    setPrompt( tr( "Are you sure you want to delete issue <b>%1</b>?" ).arg( issue.name() ) );
     setPromptPixmap( IconLoader::pixmap( "edit-delete", 22 ) );
 
     showWarning( tr( "The entire issue history will be permanently deleted." ) );
@@ -388,7 +366,7 @@ void DeleteIssueDialog::accept()
 DeleteCommentDialog::DeleteCommentDialog( int commentId, QWidget* parent ) : CommandDialog( parent ),
     m_commentId( commentId )
 {
-    QString id = TableModelsHelper::formatId( commentId );
+    QString id = QString( "#%1" ).arg( commentId );
 
     setWindowTitle( tr( "Delete Comment" ) );
     setPrompt( tr( "Are you sure you want to delete comment <b>%1</b>?" ).arg( id ) );
@@ -403,10 +381,9 @@ DeleteCommentDialog::~DeleteCommentDialog()
 
 void DeleteCommentDialog::accept()
 {
-    const ChangeRow* change = dataManager->changes()->find( m_commentId );
-    int issueId = change ? change->issueId() : 0;
+    ChangeEntity change = ChangeEntity::findComment( m_commentId );
 
-    IssueBatch* batch = new IssueBatch( issueId );
+    IssueBatch* batch = new IssueBatch( change.issueId() );
     batch->deleteComment( m_commentId );
 
     executeBatch( batch );
@@ -434,11 +411,10 @@ AddAttachmentDialog::AddAttachmentDialog( int issueId, const QString& path, cons
             tr( "The name of the selected file is longer than %1 characters and will be truncated." ).arg( 40 ) );
     }
 
-    const IssueRow* issue = dataManager->issues()->find( issueId );
-    QString name = issue ? issue->name() : QString();
+    IssueEntity issue = IssueEntity::find( issueId );
 
     setWindowTitle( tr( "Add Attachment" ) );
-    setPrompt( tr( "Add an attachment to issue <b>%1</b>:" ).arg( name ) );
+    setPrompt( tr( "Add an attachment to issue <b>%1</b>:" ).arg( issue.name() ) );
     setPromptPixmap( IconLoader::pixmap( "file-attach", 22 ) );
 
     QGridLayout* layout = new QGridLayout();
@@ -468,7 +444,9 @@ AddAttachmentDialog::AddAttachmentDialog( int issueId, const QString& path, cons
     QFileInfo fileInfo( path );
     m_size = fileInfo.size();
 
-    createProgressPanel( m_size, tr( "Size: %1" ).arg( TableModelsHelper::formatSize( m_size ) ) );
+    Formatter formatter;
+
+    createProgressPanel( m_size, tr( "Size: %1" ).arg( formatter.formatSize( m_size ) ) );
 
     m_descriptionEdit->setFocus();
 }
@@ -497,8 +475,10 @@ void AddAttachmentDialog::accept()
 
 void AddAttachmentDialog::uploadProgress( int done )
 {
-    QString uploaded = TableModelsHelper::formatSize( done );
-    QString total = TableModelsHelper::formatSize( m_size );
+    Formatter formatter;
+
+    QString uploaded = formatter.formatSize( done );
+    QString total = formatter.formatSize( m_size );
 
     setProgress( done, tr( "Uploaded: %1 of %2" ).arg( uploaded, total ) );
 }
@@ -519,17 +499,16 @@ GetAttachmentDialog::GetAttachmentDialog( int fileId, const QString& path, const
     m_fileId( fileId ),
     m_path( path )
 {
-    const FileRow* file = dataManager->files()->find( fileId );
-    QString name = file ? file->name() : QString();
-    QString description = file ? file->description() : QString();
-    m_size = file ? file->size() : 0;
+    ChangeEntity change = ChangeEntity::findFile( fileId );
+    FileEntity file = change.file();
+    m_size = file.size();
 
     setWindowTitle( tr( "Download" ) );
     if ( !url.isEmpty() ) {
-        setPrompt( tr( "Download attachment <b>%1</b>:" ).arg( name ) );
+        setPrompt( tr( "Download attachment <b>%1</b>:" ).arg( file.name() ) );
         setPromptPixmap( IconLoader::pixmap( "file-save-as", 22 ) );
     } else {
-        setPrompt( tr( "Open attachment <b>%1</b>:" ).arg( name ) );
+        setPrompt( tr( "Open attachment <b>%1</b>:" ).arg( file.name() ) );
         setPromptPixmap( IconLoader::pixmap( "file-open", 22 ) );
     }
 
@@ -551,12 +530,14 @@ GetAttachmentDialog::GetAttachmentDialog( int fileId, const QString& path, const
 
     InputLineEdit* descriptionEdit = new InputLineEdit( this );
     descriptionEdit->setReadOnly( true );
-    descriptionEdit->setInputValue( description );
+    descriptionEdit->setInputValue( file.description() );
     layout->addWidget( descriptionEdit, 1, 1 );
 
     setContentLayout( layout, true );
 
-    createProgressPanel( m_size, tr( "Size: %1" ).arg( TableModelsHelper::formatSize( m_size ) ) );
+    Formatter formatter;
+
+    createProgressPanel( m_size, tr( "Size: %1" ).arg( formatter.formatSize( m_size ) ) );
 }
 
 GetAttachmentDialog::~GetAttachmentDialog()
@@ -570,10 +551,9 @@ void GetAttachmentDialog::download()
 
 void GetAttachmentDialog::accept()
 {
-    const ChangeRow* change = dataManager->changes()->find( m_fileId );
-    int issueId = change ? change->issueId() : 0;
+    ChangeEntity change = ChangeEntity::findFile( m_fileId );
 
-    IssueBatch* batch = new IssueBatch( issueId );
+    IssueBatch* batch = new IssueBatch( change.issueId() );
     batch->getAttachment( m_fileId, m_path );
 
     connect( batch, SIGNAL( downloadProgress( int ) ), this, SLOT( downloadProgress( int ) ) );
@@ -585,8 +565,10 @@ void GetAttachmentDialog::accept()
 
 void GetAttachmentDialog::downloadProgress( int done )
 {
-    QString downloaded = TableModelsHelper::formatSize( done );
-    QString total = TableModelsHelper::formatSize( m_size );
+    Formatter formatter;
+
+    QString downloaded = formatter.formatSize( done );
+    QString total = formatter.formatSize( m_size );
 
     setProgress( done, tr( "Downloaded: %1 of %2" ).arg( downloaded, total ) );
 }
@@ -606,9 +588,10 @@ bool GetAttachmentDialog::batchSuccessful( AbstractBatch* batch )
 EditAttachmentDialog::EditAttachmentDialog( int fileId, QWidget* parent ) : CommandDialog( parent ),
     m_fileId( fileId )
 {
-    const FileRow* file = dataManager->files()->find( fileId );
-    m_oldName = file ? file->name() : QString();
-    m_oldDescription = file ? file->description() : QString();
+    ChangeEntity change = ChangeEntity::findFile( fileId );
+    FileEntity file = change.file();
+    m_oldName = file.name();
+    m_oldDescription = file.description();
 
     setWindowTitle( tr( "Edit Attachment" ) );
     setPrompt( tr( "Edit attachment <b>%1</b>:" ).arg( m_oldName ) );
@@ -659,10 +642,9 @@ void EditAttachmentDialog::accept()
         return;
     }
 
-    const ChangeRow* change = dataManager->changes()->find( m_fileId );
-    int issueId = change ? change->issueId() : 0;
+    ChangeEntity change = ChangeEntity::findFile( m_fileId );
 
-    IssueBatch* batch = new IssueBatch( issueId );
+    IssueBatch* batch = new IssueBatch( change.issueId() );
     batch->editAttachment( m_fileId, fileName, description );
 
     executeBatch( batch );
@@ -671,11 +653,11 @@ void EditAttachmentDialog::accept()
 DeleteAttachmentDialog::DeleteAttachmentDialog( int fileId, QWidget* parent ) : CommandDialog( parent ),
     m_fileId( fileId )
 {
-    const FileRow* file = dataManager->files()->find( fileId );
-    QString name = file ? file->name() : QString();
+    ChangeEntity change = ChangeEntity::findFile( fileId );
+    FileEntity file = change.file();
 
     setWindowTitle( tr( "Delete Attachment" ) );
-    setPrompt( tr( "Are you sure you want to delete attachment <b>%1</b>?" ).arg( name ) );
+    setPrompt( tr( "Are you sure you want to delete attachment <b>%1</b>?" ).arg( file.name() ) );
     setPromptPixmap( IconLoader::pixmap( "edit-delete", 22 ) );
 
     setContentLayout( NULL, true );
@@ -687,10 +669,9 @@ DeleteAttachmentDialog::~DeleteAttachmentDialog()
 
 void DeleteAttachmentDialog::accept()
 {
-    const ChangeRow* change = dataManager->changes()->find( m_fileId );
-    int issueId = change ? change->issueId() : 0;
+    ChangeEntity change = ChangeEntity::findFile( m_fileId );
 
-    IssueBatch* batch = new IssueBatch( issueId );
+    IssueBatch* batch = new IssueBatch( change.issueId() );
     batch->deleteAttachment( m_fileId );
 
     executeBatch( batch );

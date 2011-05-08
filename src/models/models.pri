@@ -1,11 +1,25 @@
-HEADERS += models/issuedetailsgenerator.h \
+HEADERS += models/alertsmodel.h \
+           models/basemodel.h \
+           models/foldermodel.h \
+           models/issuedetailsgenerator.h \
+           models/membersmodel.h \
+           models/projectsmodel.h \
+           models/querygenerator.h \
            models/reportgenerator.h \
-           models/rowfilters.h \
            models/sqltreemodel.h \
-           models/tablemodels.h
+           models/typesmodel.h \
+           models/usersmodel.h \
+           models/viewsmodel.h
 
-SOURCES += models/issuedetailsgenerator.cpp \
+SOURCES += models/alertsmodel.cpp \
+           models/basemodel.cpp \
+           models/foldermodel.cpp \
+           models/issuedetailsgenerator.cpp \
+           models/membersmodel.cpp \
+           models/projectsmodel.cpp \
+           models/querygenerator.cpp \
            models/reportgenerator.cpp \
-           models/rowfilters.cpp \
            models/sqltreemodel.cpp \
-           models/tablemodels.cpp
+           models/typesmodel.cpp \
+           models/usersmodel.cpp \
+           models/viewsmodel.cpp

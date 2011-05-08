@@ -20,73 +20,61 @@
 #ifndef VIEWSETTINGSHELPER_H
 #define VIEWSETTINGSHELPER_H
 
-#include <QStringList>
-#include <QPair>
+#include <QObject>
 
 class DefinitionInfo;
 
 /**
-* Functions providing information about view settings.
+* Helper object providing information about view settings.
 */
-class ViewSettingsHelper
+class ViewSettingsHelper : public QObject
 {
+    Q_OBJECT
 public:
     /**
-    * Return the list of attributes in given order.
+    * Constructor.
+    * @param typeId Identifier of the issue type.
     */
-    static QList<int> attributeOrder( int typeId, const QString& attributes );
+    ViewSettingsHelper( int typeId );
 
     /**
-    * Return names of attributes.
+    * Destructor.
     */
-    static QString attributeNames( const QList<int>& attributeIds );
+    ~ViewSettingsHelper();
+
+public:
+    /**
+    * Return names of multiple attributes.
+    */
+    QString attributeNames( const QList<int>& attributes ) const;
 
     /**
-    * Return the list of columns for given view.
+    * Return name of a column.
     */
-    static QList<int> viewColumns( int typeId, const DefinitionInfo& info );
+    QString columnName( int column ) const;
 
     /**
-    * Return names of view columns.
+    * Return names of multiple columns.
     */
-    static QString columnNames( const QList<int>& columns );
-
-    /**
-    * Return the sort order for given view.
-    */
-    static QPair<int, Qt::SortOrder> viewSortOrder( int typeId, const DefinitionInfo& info );
+    QString columnNames( const QList<int>& columns ) const;
 
     /**
     * Return information about sort order.
     */
-    static QString sortOrderInfo(const QPair<int, Qt::SortOrder>& order );
-
-    /**
-    * Return the filters for given view.
-    */
-    static QList<DefinitionInfo> viewFilters( int typeId, const DefinitionInfo& info );
+    QString sortOrderInfo(const QPair<int, Qt::SortOrder>& order ) const;
 
     /**
     * Return information about filter conditions.
     */
-    static QString filtersInfo( const QList<DefinitionInfo>& filters );
+    QString filtersInfo( const QList<DefinitionInfo>& filters ) const;
 
     /**
-    * Return the list of available columns for given issue type.
+    * Return the user-friendly name of the operato
     */
-    static QList<int> availableColumns( int typeId );
-
-    /**
-    * Return the definition of a filter value for given column.
-    */
-    static DefinitionInfo filterValueInfo( int column );
-
-    static QStringList availableOperators( int column );
-
-    static QString operatorName( const QString& type );
+    QString operatorName( const QString& type ) const;
 
 private:
-    static QString tr( const char* text );
+    int m_typeId;
 };
 
 #endif

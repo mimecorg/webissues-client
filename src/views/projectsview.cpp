@@ -18,19 +18,19 @@
 **************************************************************************/
 
 #include "projectsview.h"
-#include "viewmanager.h"
 
 #include "application.h"
 #include "commands/updatebatch.h"
 #include "data/datamanager.h"
+#include "data/entities.h"
 #include "data/localsettings.h"
 #include "dialogs/projectdialogs.h"
 #include "dialogs/membersdialog.h"
 #include "dialogs/managealertsdialog.h"
-#include "models/tablemodels.h"
+#include "models/projectsmodel.h"
 #include "utils/treeviewhelper.h"
-#include "utils/tablemodelshelper.h"
 #include "utils/iconloader.h"
+#include "views/viewmanager.h"
 #include "xmlui/builder.h"
 
 #include <QTreeView>
@@ -102,7 +102,9 @@ ProjectsView::ProjectsView( QObject* parent, QWidget* parentWidget ) : View( par
     loadXmlUiFile( ":/resources/projectsview.xml" );
 
     m_list = new QTreeView( parentWidget );
-    TreeViewHelper::initializeView( m_list, TreeViewHelper::TreeStyle );
+
+    TreeViewHelper helper( m_list );
+    helper.initializeView( TreeViewHelper::TreeStyle );
 
     connect( m_list, SIGNAL( customContextMenuRequested( const QPoint& ) ),
         this, SLOT( contextMenu( const QPoint& ) ) );
@@ -114,29 +116,21 @@ ProjectsView::ProjectsView( QObject* parent, QWidget* parentWidget ) : View( par
 
 ProjectsView::~ProjectsView()
 {
-    TreeViewHelper::saveColumnWidths( m_list, "ProjectsView" );
+    TreeViewHelper helper( m_list );
+    helper.saveColumnWidths( "ProjectsViewWidths" );
     if ( m_firstUpdateDone )
-        TreeViewHelper::saveExpandedNodes( m_list, "ProjectsView" );
+        helper.saveExpandedNodes( "ExpandedProjects" );
 }
 
 void ProjectsView::initialUpdate()
 {
-    m_model = new RDB::TableItemModel( this );
-    m_model->setRootTableModel( new ProjectsTableModel( m_model ), dataManager->projects()->index() );
-    m_model->addChildTableModel( new FoldersTableModel( m_model ),
-        dataManager->folders()->index(), dataManager->folders()->parentIndex() );
-    m_model->addChildTableModel( new AlertsTableModel( true, m_model ),
-        dataManager->alerts()->index(), dataManager->alerts()->parentIndex() );
-
-    QList<int> columns;
-    columns.append( Column_Name );
-    columns.append( Column_Type );
-    m_model->setColumns( columns );
-
+    m_model = new ProjectsModel( this );
     m_list->setModel( m_model );
 
-    TreeViewHelper::setSortOrder( m_list, qMakePair( (int)Column_Name, Qt::AscendingOrder ) );
-    TreeViewHelper::loadColumnWidths( m_list, "ProjectsView" );
+    m_list->sortByColumn( 0, Qt::AscendingOrder );
+
+    TreeViewHelper helper( m_list );
+    helper.loadColumnWidths( "ProjectsViewWidths", QList<int>() << 150 << 150 );
 
     setCaption( dataManager->serverName() );
 
@@ -161,10 +155,8 @@ Access ProjectsView::checkDataAccess()
     m_anyProjectAdmin = m_systemAdmin;
 
     int userId = dataManager->currentUserId();
-    RDB::ForeignConstIterator<MemberRow> it( dataManager->members()->index().first(), userId );
-    while ( it.next() ) {
-        const MemberRow* member = it.get();
-        if ( member->access() == AdminAccess )
+    foreach ( const MemberEntity& member, MemberEntity::list( userId ) ) {
+        if ( member.access() == AdminAccess )
             m_anyProjectAdmin = true;
     }
 
@@ -224,17 +216,14 @@ void ProjectsView::cascadeUpdateFolders()
 {
     UpdateBatch* batch = NULL;
 
-    RDB::IndexConstIterator<FolderRow> itf( dataManager->folders()->index() );
-    while ( itf.next() ) {
-        int folderId = itf.key( 0 );
-        RDB::ForeignConstIterator<AlertRow> ita( dataManager->alerts()->parentIndex(), folderId );
-        if ( ita.next() ) {
-            if ( dataManager->folderUpdateNeeded( folderId ) ) {
+    foreach ( const FolderEntity& folder, FolderEntity::list() ) {
+        if ( !folder.alerts().isEmpty() ) {
+            if ( dataManager->folderUpdateNeeded( folder.id() ) ) {
                 if ( !batch ) {
                     batch = new UpdateBatch( -20 );
                     batch->setIfNeeded( true );
                 }
-                batch->updateFolder( folderId );
+                batch->updateFolder( folder.id() );
             }
         }
     }
@@ -252,32 +241,30 @@ void ProjectsView::updateActions()
     m_currentProjectId = 0;
     m_currentFolderId = 0;
 
-    QModelIndex index = TreeViewHelper::selectedIndex( m_list );
+    TreeViewHelper helper( m_list );
+    QModelIndex index = helper.selectedIndex();
+
     if ( index.isValid() ) {
-        int level = m_model->data( index, RDB::TableItemModel::LevelRole ).toInt();
-        int rowId = m_model->data( index, RDB::TableItemModel::RowIdRole ).toInt();
+        int level = m_model->levelOf( index );
+        int rowId = m_model->rowId( index );
         if ( level == 0 ) {
             m_selectedProjectId = rowId;
             m_currentProjectId = rowId;
         } else if ( level == 1 ) {
             m_selectedFolderId = rowId;
             m_currentFolderId = rowId;
-            const FolderRow* folder = dataManager->folders()->find( rowId );
-            if ( folder )
-                m_currentProjectId = folder->projectId();
+            FolderEntity folder = FolderEntity::find( rowId );
+            m_currentProjectId = folder.projectId();
         } else {
-            const AlertRow* alert = dataManager->alerts()->find( rowId );
-            if ( alert ) {
-                m_selectedViewId = alert->viewId();
-                m_currentFolderId = alert->folderId();
-                const FolderRow* folder = dataManager->folders()->find( alert->folderId() );
-                if ( folder )
-                    m_currentProjectId = folder->projectId();
-            }
+            AlertEntity alert = AlertEntity::find( rowId );
+            FolderEntity folder = alert.folder();
+            m_selectedViewId = alert.viewId();
+            m_currentFolderId = folder.id();
+            m_currentProjectId = folder.projectId();
         }
     }
 
-    m_currentProjectAdmin = TableModelsHelper::isProjectAdmin( m_currentProjectId );
+    m_currentProjectAdmin = ProjectEntity::isAdmin( m_currentProjectId );
 
     action( "showMembers" )->setEnabled( m_selectedProjectId && m_currentProjectAdmin );
     action( "openFolder" )->setEnabled( m_selectedFolderId != 0 );
@@ -299,10 +286,10 @@ void ProjectsView::setSelection( int folderId, int viewId )
         return;
 
     if ( viewId != 0 ) {
-        RDB::ForeignConstIterator<AlertRow> it( dataManager->alerts()->parentIndex(), folderId );
-        while ( it.next() ) {
-            if ( it.get()->viewId() == viewId ) {
-                QModelIndex index = m_model->findCell( 2, it.key( 0 ), Column_Name );
+        FolderEntity folder = FolderEntity::find( folderId );
+        foreach ( const AlertEntity& alert, folder.alerts() ) {
+            if ( alert.viewId() == viewId ) {
+                QModelIndex index = m_model->findIndex( 2, alert.id(), 0 );
                 if ( index.isValid() ) {
                     m_list->selectionModel()->setCurrentIndex( index, QItemSelectionModel::Current );
                     m_list->selectionModel()->select( index, QItemSelectionModel::ClearAndSelect | QItemSelectionModel::Rows );
@@ -313,7 +300,7 @@ void ProjectsView::setSelection( int folderId, int viewId )
         }
     }
 
-    QModelIndex index = m_model->findCell( 1, folderId, Column_Name );
+    QModelIndex index = m_model->findIndex( 1, folderId, 0 );
     if ( index.isValid() ) {
         m_list->selectionModel()->setCurrentIndex( index, QItemSelectionModel::Current );
         m_list->selectionModel()->select( index, QItemSelectionModel::ClearAndSelect | QItemSelectionModel::Rows );
@@ -358,8 +345,10 @@ void ProjectsView::addFolder()
 {
     if ( m_currentProjectId != 0 && m_currentProjectAdmin ) {
         AddFolderDialog dialog( m_currentProjectId, mainWidget() );
-        if ( dialog.exec() == QDialog::Accepted )
-            m_list->expand( TreeViewHelper::selectedIndex( m_list ) );
+        if ( dialog.exec() == QDialog::Accepted ) {
+            TreeViewHelper helper( m_list );
+            m_list->expand( helper.selectedIndex() );
+        }
     }
 }
 
@@ -429,7 +418,8 @@ void ProjectsView::updateEvent( UpdateEvent* e )
 
 void ProjectsView::projectsPopulated()
 {
-    TreeViewHelper::loadExpandedNodes( m_list, "ProjectsView" );
+    TreeViewHelper helper( m_list );
+    helper.loadExpandedNodes( "ExpandedProjects" );
 
     mainWidget()->setFocus();
 }
@@ -445,7 +435,7 @@ void ProjectsView::contextMenu( const QPoint& pos )
 
     QString menuName;
     if ( index.isValid() ) {
-        int level = m_model->data( index, RDB::TableItemModel::LevelRole ).toInt();
+        int level = m_model->levelOf( index );
         if ( level == 0 )
             menuName = m_systemAdmin ? "menuProjectAdmin" : "menuProject";
         else if ( level == 1 )
@@ -464,8 +454,8 @@ void ProjectsView::contextMenu( const QPoint& pos )
 void ProjectsView::doubleClicked( const QModelIndex& index )
 {
     if ( index.isValid() ) {
-        int level = m_model->data( index, RDB::TableItemModel::LevelRole ).toInt();
-        int rowId = m_model->data( index, RDB::TableItemModel::RowIdRole ).toInt();
+        int level = m_model->levelOf( index );
+        int rowId = m_model->rowId( index );
 
         if ( level == 1 )
             viewManager->openFolderView( rowId );

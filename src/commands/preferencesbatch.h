@@ -20,55 +20,10 @@
 #ifndef PREFERENCESBATCH_H
 #define PREFERENCESBATCH_H
 
-#include "abstractbatch.h"
-#include "batchjob.h"
+#include "commands/abstractbatch.h"
+#include "commands/batchjob.h"
 
 class Reply;
-
-/**
-* Batch for loading preferences of a user.
-*
-* This batch sends a <tt>LIST PREFERENCES</tt> command for the given user.
-*/
-class LoadPreferencesBatch : public AbstractBatch
-{
-    Q_OBJECT
-public:
-    /**
-    * Constructor.
-    * @param userId Identifier of the user.
-    */
-    LoadPreferencesBatch( int userId );
-
-    /**
-    * Destructor.
-    */
-    ~LoadPreferencesBatch();
-
-public:
-    /**
-    * Return the preferences data.
-    */
-    const QMap<QString, QString>& preferences() const { return m_preferences; }
-
-public: // overrides
-    Command* fetchNext();
-
-private:
-    typedef BatchJob<LoadPreferencesBatch> Job;
-    typedef BatchJobQueue<LoadPreferencesBatch> JobQueue;
-
-private:
-    Command* listPreferencesJob( const Job& job );
-
-private slots:
-    void listPreferencesReply( const Reply& reply );
-
-private:
-    JobQueue m_queue;
-
-    QMap<QString, QString> m_preferences;
-};
 
 /**
 * Batch for setting preferences of a user.
@@ -77,36 +32,46 @@ private:
 * for the given user. If current user's preferences are changed, they are
 * automatically updated.
 */
-class SavePreferencesBatch : public AbstractBatch
+class SetPreferencesBatch : public AbstractBatch
 {
     Q_OBJECT
 public:
     /**
     * Constructor.
     * @param userId Identifier of the user.
-    * @param data The preferences to set.
     */
-    SavePreferencesBatch( int userId, const QMap<QString, QString>& preferences );
+    SetPreferencesBatch( int userId );
 
     /**
     * Destructor.
     */
-    ~SavePreferencesBatch();
+    ~SetPreferencesBatch();
+
+public:
+    /**
+    * Set preference of the user.
+    * @param key Key of the preference.
+    * @param value Value of the preference.
+    */
+    void setPreference( const QString& key, const QString& value );
 
 public: // overrides
     Command* fetchNext();
 
 private:
-    Command* createSetCommand();
+    typedef BatchJob<SetPreferencesBatch> Job;
+    typedef BatchJobQueue<SetPreferencesBatch> JobQueue;
+
+private:
+    Command* setPreferenceJob( const Job& job );
 
 private slots:
     void setUpdate();
 
 private:
     int m_userId;
-    QMap<QString, QString> m_preferences;
 
-    QMapIterator<QString, QString> m_iterator;
+    JobQueue m_queue;
 
     bool m_update;
 };

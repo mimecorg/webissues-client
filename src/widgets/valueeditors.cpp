@@ -18,14 +18,14 @@
 **************************************************************************/
 
 #include "valueeditors.h"
-#include "inputlineedit.h"
-#include "inputtextedit.h"
 
 #include "data/datamanager.h"
-#include "rdb/utilities.h"
+#include "data/entities.h"
 #include "utils/definitioninfo.h"
 #include "utils/datetimehelper.h"
 #include "utils/attributehelper.h"
+#include "widgets/inputlineedit.h"
+#include "widgets/inputtextedit.h"
 
 #include <QVariant>
 #include <QLineEdit>
@@ -159,14 +159,12 @@ void InputLineValueEditor::initializeUser( const DefinitionInfo& info, bool init
     if ( initial )
         items.append( QString( "[%1]" ).arg( tr( "Me" ) ) );
 
-    RDB::IndexConstIterator<UserRow> it( dataManager->users()->index() );
-    QList<const UserRow*> users = localeAwareSortRows( it, &UserRow::name );
+    QList<UserEntity> users = UserEntity::list();
 
-    for ( int i = 0; i < users.count(); i++ ) {
-        const UserRow* user = users.at( i );
-        if ( user->access() == NoAccess )
+    foreach ( const UserEntity& user, users ) {
+       if ( user.access() == NoAccess )
             continue;
-        items.append( user->name() );
+        items.append( user.name() );
     }
 
     edit->setItems( items );
@@ -242,16 +240,18 @@ ComboBoxValueEditor::ComboBoxValueEditor( const DefinitionInfo& info, int projec
     } else if ( type == UserAttribute ) {
         bool members = info.metadata( "members" ).toBool() && projectId != 0;
 
-        RDB::IndexConstIterator<UserRow> it( dataManager->users()->index() );
-        QList<const UserRow*> users = localeAwareSortRows( it, &UserRow::name );
+        QList<UserEntity> users;
+        if ( members ) {
+            ProjectEntity project = ProjectEntity::find( projectId );
+            users = project.members();
+        } else {
+            users = UserEntity::list();
+        }
 
-        for ( int i = 0; i < users.count(); i++ ) {
-            const UserRow* user = users.at( i );
-            if ( user->access() == NoAccess )
+        foreach ( const UserEntity& user, users ) {
+            if ( user.access() == NoAccess )
                 continue;
-            if ( members && !dataManager->members()->find( user->userId(), projectId ) )
-                continue;
-            combo->addItem( user->name() );
+            combo->addItem( user.name() );
         }
     }
 

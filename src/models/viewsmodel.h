@@ -17,52 +17,43 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************/
 
-#ifndef LOCALECACHE_H
-#define LOCALECACHE_H
+#ifndef VIEWSMODEL_H
+#define VIEWSMODEL_H
 
-#include "locale.h"
-
-#include <QObject>
-
-class Command;
-class Reply;
+#include "basemodel.h"
 
 /**
-* Cache for locale information retrieved from the server.
+* Model for a list of views.
 */
-class LocaleCache : public QObject
+class ViewsModel : public BaseModel
 {
     Q_OBJECT
 public:
     /**
     * Constructor.
+    * @param folderId Identifier of the issue type.
+    * @param isPublic @c true if public views are displayed.
+    * @param parent The parent object.
     */
-    LocaleCache( QObject* parent );
+    ViewsModel( int typeId, bool isPublic, QObject* parent );
 
     /**
     * Destructor.
     */
-    ~LocaleCache();
+    ~ViewsModel();
 
-public:
-    bool isPopulated() const { return m_populated; }
+public: // overrides
+    QVariant data( const QModelIndex& index, int role = Qt::DisplayRole ) const;
 
-    const QList<LocaleLanguage>& languages() const { return m_languages; }
-
-    QList<LocaleFormat> formats( const QString& type ) const;
-
-    const QList<LocaleTimeZone>& timeZones() const { return m_timeZones; }
-
-    Command* updateLocale();
-
-private slots:
-    void updateLocaleReply( const Reply& reply );
+protected: // overrides
+    void updateEvent( UpdateEvent* e );
 
 private:
-    bool m_populated;
-    QList<LocaleLanguage> m_languages;
-    QList<LocaleFormat> m_formats;
-    QList<LocaleTimeZone> m_timeZones;
+    void refresh();
+
+private:
+    int m_typeId;
+    bool m_isPublic;
 };
 
 #endif

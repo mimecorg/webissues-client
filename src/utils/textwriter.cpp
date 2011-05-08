@@ -18,7 +18,8 @@
 **************************************************************************/
 
 #include "textwriter.h"
-#include "textwithlinks.h"
+
+#include "utils/textwithlinks.h"
 
 #include <QTextDocument>
 #include <QTextTable>

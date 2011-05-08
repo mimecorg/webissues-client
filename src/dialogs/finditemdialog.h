@@ -20,7 +20,7 @@
 #ifndef FINDITEMDIALOG_H
 #define FINDITEMDIALOG_H
 
-#include "commanddialog.h"
+#include "dialogs/commanddialog.h"
 
 class FindItemBatch;
 

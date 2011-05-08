@@ -18,15 +18,13 @@
 **************************************************************************/
 
 #include "reportgenerator.h"
-#include "issuedetailsgenerator.h"
-#include "tablemodels.h"
 
 #include "application.h"
 #include "commands/commandmanager.h"
 #include "data/datamanager.h"
-#include "rdb/utilities.h"
-#include "utils/datetimehelper.h"
-#include "utils/tablemodelshelper.h"
+#include "data/entities.h"
+#include "models/issuedetailsgenerator.h"
+#include "models/foldermodel.h"
 #include "utils/textwriter.h"
 #include "utils/csvwriter.h"
 
@@ -69,29 +67,29 @@ void ReportGenerator::setSummaryMode( IssueDetailsGenerator::History history )
 void ReportGenerator::write( TextWriter* writer )
 {
     if ( m_folderId != 0 && !m_summary ) {
-        const FolderRow* folder = dataManager->folders()->find( m_folderId );
-        if ( folder )
-            writer->writeBlock( folder->name(), TextWriter::Header1Block );
+        FolderEntity folder = FolderEntity::find( m_folderId );
+        writer->writeBlock( folder.name(), TextWriter::Header1Block );
 
-        IssuesTableModel model( m_folderId, NULL );
+        FolderModel model( m_folderId, NULL );
+        model.setColumns( m_columns );
 
         QStringList headers;
         for ( int i = 0; i < m_columns.count(); i++ ) {
-            int column = m_columns.at( i );
-            QString name = model.columnName( column );
+            QString name = model.headerData( i, Qt::Horizontal, Qt::DisplayRole ).toString();
             headers.append( name );
         }
         writer->createTable( headers );
 
         for ( int i = 0; i < m_issues.count(); i++ ) {
-            QList<TextWithLinks> cells;
-            int issueId = m_issues.at( i );
-            for ( int j = 0; j < m_columns.count(); j++ ) {
-                int column = m_columns.at( j );
-                QString text = model.text( issueId, column );
-                cells.append( TextWithLinks::parse( text, TextWithLinks::NoInternalLinks ) );
+            QModelIndex index = model.findIndex( 0, m_issues.at( i ), 0 );
+            if ( index.isValid() ) {
+                QList<TextWithLinks> cells;
+                for ( int j = 0; j < m_columns.count(); j++ ) {
+                    QString text = model.data( model.index( index.row(), j ), Qt::DisplayRole ).toString();
+                    cells.append( TextWithLinks::parse( text, TextWithLinks::NoInternalLinks ) );
+                }
+                writer->appendTableRow( cells );
             }
-            writer->appendTableRow( cells );
         }
 
         writer->endTable();
@@ -110,25 +108,26 @@ void ReportGenerator::write( TextWriter* writer )
 void ReportGenerator::write( CsvWriter* writer )
 {
     if ( m_folderId != 0 && !m_summary ) {
-        IssuesTableModel model( m_folderId, NULL );
+        FolderModel model( m_folderId, NULL );
+        model.setColumns( m_columns );
 
         QStringList headers;
         for ( int i = 0; i < m_columns.count(); i++ ) {
-            int column = m_columns.at( i );
-            QString name = model.columnName( column );
+            QString name = model.headerData( i, Qt::Horizontal, Qt::DisplayRole ).toString();
             headers.append( name );
         }
         writer->appendRow( headers );
 
         for ( int i = 0; i < m_issues.count(); i++ ) {
-            QStringList cells;
-            int issueId = m_issues.at( i );
-            for ( int j = 0; j < m_columns.count(); j++ ) {
-                int column = m_columns.at( j );
-                QString text = model.text( issueId, column );
-                cells.append( text );
+            QModelIndex index = model.findIndex( 0, m_issues.at( i ), 0 );
+            if ( index.isValid() ) {
+                QStringList cells;
+                for ( int j = 0; j < m_columns.count(); j++ ) {
+                    QString text = model.data( model.index( index.row(), j ), Qt::DisplayRole ).toString();
+                    cells.append( text );
+                }
+                writer->appendRow( cells );
             }
-            writer->appendRow( cells );
         }
     }
 }

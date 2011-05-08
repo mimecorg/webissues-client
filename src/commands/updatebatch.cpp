@@ -36,6 +36,18 @@ void UpdateBatch::updateSettings()
     m_queue.addJob( &UpdateBatch::updateSettingsJob );
 }
 
+void UpdateBatch::updateLocale()
+{
+    m_queue.addJob( &UpdateBatch::updateLocaleJob );
+}
+
+void UpdateBatch::updatePreferences( int userId )
+{
+    Job job( &UpdateBatch::updatePreferencesJob );
+    job.addArg( userId );
+    m_queue.addJob( job );
+}
+
 void UpdateBatch::updateUsers()
 {
     m_queue.addJob( &UpdateBatch::updateUsersJob );
@@ -89,6 +101,17 @@ Command* UpdateBatch::fetchNext()
 Command* UpdateBatch::updateSettingsJob( const Job& /*job*/ )
 {
     return dataManager->updateSettings();
+}
+
+Command* UpdateBatch::updateLocaleJob( const Job& job )
+{
+    if ( dataManager->localeUpdateNeeded() )
+        return dataManager->updateLocale();
+}
+
+Command* UpdateBatch::updatePreferencesJob( const Job& job )
+{
+    return dataManager->updatePreferences( job.argInt( 0 ) );
 }
 
 Command* UpdateBatch::updateUsersJob( const Job& /*job*/ )

@@ -18,110 +18,66 @@
 **************************************************************************/
 
 #include "viewsettingshelper.h"
-#include "tablemodelshelper.h"
-#include "attributehelper.h"
-#include "definitioninfo.h"
-#include "formatter.h"
 
 #include "data/datamanager.h"
-#include "models/tablemodels.h"
-#include "rdb/utilities.h"
+#include "data/issuetypecache.h"
+#include "models/foldermodel.h"
+#include "utils/attributehelper.h"
 
-#include <QApplication>
-#include <QStringList>
-
-QList<int> ViewSettingsHelper::attributeOrder( int typeId, const QString& attributes )
+ViewSettingsHelper::ViewSettingsHelper( int typeId ) :
+    m_typeId( typeId )
 {
-    QList<int> result;
-
-    RDB::ForeignConstIterator<AttributeRow> it( dataManager->attributes()->parentIndex(), typeId );
-    QList<const AttributeRow*> sorted = RDB::localeAwareSortRows( it, &AttributeRow::name );
-
-    QList<int> remaining;
-    for ( int i = 0; i < sorted.count(); i++ )
-        remaining.append( sorted.at( i )->attributeId() );
-
-    QStringList list = attributes.split( ',' );
-    for ( int i = 0; i < list.count(); i++ ) {
-        bool ok;
-        int attributeId = list.at( i ).toInt( &ok );
-        if ( ok && remaining.contains( attributeId ) && !result.contains( attributeId ) ) {
-            result.append( attributeId );
-            remaining.removeOne( attributeId );
-        }
-    }
-
-    result += remaining;
-
-    return result;
 }
 
-QString ViewSettingsHelper::attributeNames( const QList<int>& attributeIds )
+ViewSettingsHelper::~ViewSettingsHelper()
 {
+}
+
+QString ViewSettingsHelper::attributeNames( const QList<int>& attributes ) const
+{
+    IssueTypeCache* cache = dataManager->issueTypeCache( m_typeId );
+
     QStringList names;
-    for ( int i = 0; i < attributeIds.count(); i++ )
-        names.append( TableModelsHelper::attributeName( attributeIds.at( i ) ) );
+    for ( int i = 0; i < attributes.count(); i++ )
+        names.append( cache->attributeName( attributes.at( i ) ) );
     return names.join( ", " );
 }
 
-QList<int> ViewSettingsHelper::viewColumns( int typeId, const DefinitionInfo& info )
+QString ViewSettingsHelper::columnName( int column ) const
 {
-    QList<int> result;
-    result.append( Column_ID );
-    result.append( Column_Name );
-
-    QString columns = info.metadata( "columns" ).toString();
-
-    if ( !columns.isEmpty() ) {
-        QList<int> available = availableColumns( typeId );
-
-        QStringList list = columns.split( ',' );
-        for ( int i = 0; i < list.count(); i++ ) {
-            bool ok;
-            int column = list.at( i ).toInt( &ok );
-            if ( ok && available.contains( column ) && !result.contains( column ) )
-                result.append( column );
-        }
-    } else {
-        result.append( Column_ModifiedDate );
-        result.append( Column_ModifiedBy );
+    switch ( column ) {
+        case Column_Name:
+            return tr( "Name" );
+        case Column_ID:
+            return tr( "ID" );
+        case Column_CreatedDate:
+            return tr( "Created Date" );
+        case Column_CreatedBy:
+            return tr( "Created By" );
+        case Column_ModifiedDate:
+            return tr( "Modified Date" );
+        case Column_ModifiedBy:
+            return tr( "Modified By" );
+        default:
+            if ( column > Column_UserDefined ) {
+                IssueTypeCache* cache = dataManager->issueTypeCache( m_typeId );
+                return cache->attributeName( column - Column_UserDefined );
+            }
+            return QString();
     }
-
-    return result;
-
 }
 
-QString ViewSettingsHelper::columnNames( const QList<int>& columns )
+QString ViewSettingsHelper::columnNames( const QList<int>& columns ) const
 {
     QStringList names;
     for ( int i = 0; i < columns.count(); i++ )
-        names.append( TableModelsHelper::columnName( columns.at( i ) ) );
+        names.append( columnName( columns.at( i ) ) );
     return names.join( ", " );
 }
 
-QPair<int, Qt::SortOrder> ViewSettingsHelper::viewSortOrder( int typeId, const DefinitionInfo& info )
+QString ViewSettingsHelper::sortOrderInfo(const QPair<int, Qt::SortOrder>& order ) const
 {
-    QPair<int, Qt::SortOrder> result( Column_ID, Qt::AscendingOrder );
-
-    bool ok;
-    int column = info.metadata( "sort-column" ).toInt( &ok );
-
-    if ( ok ) {
-        QList<int> columns = viewColumns( typeId, info );
-
-        if ( columns.contains( column ) ) {
-            result.first = column;
-            if ( info.metadata( "sort-desc" ).toBool() )
-                result.second = Qt::DescendingOrder;
-        }
-    }
-
-    return result;
-}
-
-QString ViewSettingsHelper::sortOrderInfo(const QPair<int, Qt::SortOrder>& order )
-{
-    QString name = TableModelsHelper::columnName( order.first );
+    QString name = columnName( order.first );
 
     if ( order.second == Qt::AscendingOrder )
         return tr( "%1 (ascending)" ).arg( name );
@@ -129,27 +85,7 @@ QString ViewSettingsHelper::sortOrderInfo(const QPair<int, Qt::SortOrder>& order
         return tr( "%1 (descending)" ).arg( name );
 }
 
-QList<DefinitionInfo> ViewSettingsHelper::viewFilters( int typeId, const DefinitionInfo& info )
-{
-    QList<DefinitionInfo> result;
-
-    QStringList definitions = info.metadata( "filters" ).toStringList();
-
-    if ( !definitions.isEmpty() ) {
-        QList<int> columns = availableColumns( typeId );
-
-        for ( int i = 0; i < definitions.count(); i++ ) {
-            DefinitionInfo filter = DefinitionInfo::fromString( definitions.at( i ) );
-            int column = filter.metadata( "column" ).toInt();
-            if ( columns.contains( column ) )
-                result.append( filter );
-        }
-    }
-
-    return result;
-}
-
-QString ViewSettingsHelper::filtersInfo( const QList<DefinitionInfo>& filters )
+QString ViewSettingsHelper::filtersInfo( const QList<DefinitionInfo>& filters ) const
 {
     QStringList result;
 
@@ -157,7 +93,7 @@ QString ViewSettingsHelper::filtersInfo( const QList<DefinitionInfo>& filters )
         DefinitionInfo filter = filters.at( i );
 
         int column = filter.metadata( "column" ).toInt();
-        QString columnName = TableModelsHelper::columnName( column );
+        QString name = columnName( column );
 
         QString operatorName;
         if ( filter.type() == QLatin1String( "EQ" ) )
@@ -181,116 +117,21 @@ QString ViewSettingsHelper::filtersInfo( const QList<DefinitionInfo>& filters )
 
         QString value = filter.metadata( "value" ).toString();
 
-        DefinitionInfo valueInfo = filterValueInfo( column );
-        if ( !valueInfo.isEmpty() )
-            value = AttributeHelper::formatExpression( valueInfo, valueInfo.toString(), value );
+        IssueTypeCache* cache = dataManager->issueTypeCache( m_typeId );
+    
+        DefinitionInfo valueInfo = cache->filterValueInfo( column );
+        if ( !valueInfo.isEmpty() ) {
+            AttributeHelper helper;
+            value = helper.formatExpression( valueInfo, value );
+        }
 
-        result.append( QString( "%1 %2 %3" ).arg( columnName, operatorName, value ) );
+        result.append( QString( "%1 %2 %3" ).arg( name, operatorName, value ) );
     }
 
     return result.join( QString( " %1 " ).arg( tr( "AND" ) ) );
 }
 
-QList<int> ViewSettingsHelper::availableColumns( int typeId )
-{
-    QList<int> columns;
-    columns.append( Column_ID );
-    columns.append( Column_Name );
-    columns.append( Column_CreatedDate );
-    columns.append( Column_CreatedBy );
-    columns.append( Column_ModifiedDate );
-    columns.append( Column_ModifiedBy );
-
-    QList<int> attributes = attributeOrder( typeId, dataManager->viewSetting( typeId, "attribute_order" ) );
-    foreach( int attributeId, attributes )
-        columns.append( Column_UserDefined + attributeId );
-
-    return columns;
-}
-
-DefinitionInfo ViewSettingsHelper::filterValueInfo( int column )
-{
-    DefinitionInfo result;
-
-    if ( column > Column_UserDefined ) {
-        int attributeId = column - Column_UserDefined;
-        const AttributeRow* attribute = dataManager->attributes()->find( attributeId );
-
-        if ( attribute ) {
-            DefinitionInfo attributeInfo = DefinitionInfo::fromString( attribute->definition() );
-
-            switch ( AttributeHelper::toAttributeType( attributeInfo ) ) {
-                case TextAttribute:
-                case EnumAttribute:
-                case UserAttribute:
-                    result = AttributeHelper::fromAttributeType( TextAttribute );
-                    break;
-
-                case NumericAttribute:
-                    result = AttributeHelper::fromAttributeType( NumericAttribute );
-                    result.setMetadata( "decimal", attributeInfo.metadata( "decimal" ) );
-                    result.setMetadata( "strip", attributeInfo.metadata( "strip" ) );
-                    break;
-
-                case DateTimeAttribute:
-                    result = AttributeHelper::fromAttributeType( DateTimeAttribute );
-                    break;
-
-                default:
-                    break;
-            }
-        }
-    }
-
-    switch ( column ) {
-        case Column_ID:
-            result = AttributeHelper::fromAttributeType( NumericAttribute );
-            break;
-
-        case Column_Name:
-        case Column_CreatedBy:
-        case Column_ModifiedBy:
-            result = AttributeHelper::fromAttributeType( TextAttribute );
-            break;
-
-        case Column_CreatedDate:
-        case Column_ModifiedDate:
-            result = AttributeHelper::fromAttributeType( DateTimeAttribute );
-            break;
-
-        default:
-            break;
-    }
-
-    return result;
-}
-
-QStringList ViewSettingsHelper::availableOperators( int column )
-{
-    QStringList result;
-    result.append( "EQ" );
-    result.append( "NEQ" );
-
-    DefinitionInfo info = ViewSettingsHelper::filterValueInfo( column );
-    AttributeType type = AttributeHelper::toAttributeType( info );
-
-    if ( type == TextAttribute || type == EnumAttribute || type == UserAttribute ) {
-        result.append( "BEG" );
-        result.append( "CON" );
-        result.append( "END" );
-    }
-
-    if ( type == NumericAttribute || type == DateTimeAttribute ) {
-        result.append( "LT" );
-        result.append( "LTE" );
-        result.append( "GT" );
-        result.append( "GTE" );
-    }
-
-    return result;
-}
-
-QString ViewSettingsHelper::operatorName( const QString& type )
+QString ViewSettingsHelper::operatorName( const QString& type ) const
 {
     if ( type == QLatin1String( "EQ" ) )
         return tr( "is equal to" );
@@ -311,9 +152,4 @@ QString ViewSettingsHelper::operatorName( const QString& type )
     if ( type == QLatin1String( "END" ) )
         return tr( "ends with" );
     return QString();
-}
-
-QString ViewSettingsHelper::tr( const char* text )
-{
-    return qApp->translate( "ViewSettingsHelper", text );
 }

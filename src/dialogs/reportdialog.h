@@ -20,7 +20,7 @@
 #ifndef REPORTDIALOG_H
 #define REPORTDIALOG_H
 
-#include "commanddialog.h"
+#include "dialogs/commanddialog.h"
 #include "models/issuedetailsgenerator.h"
 
 class QPrinter;

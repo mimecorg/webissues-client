@@ -20,7 +20,7 @@
 #ifndef CONNECTIONINFODIALOG_H
 #define CONNECTIONINFODIALOG_H
 
-#include "informationdialog.h"
+#include "dialogs/informationdialog.h"
 
 class PropertyPanel;
 

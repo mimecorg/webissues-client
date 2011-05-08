@@ -19,9 +19,10 @@
 
 #include "preferencesdialog.h"
 
+#include "commands/updatebatch.h"
 #include "commands/preferencesbatch.h"
 #include "data/datamanager.h"
-#include "data/localecache.h"
+#include "data/entities.h"
 #include "utils/validator.h"
 #include "utils/formatter.h"
 #include "utils/iconloader.h"
@@ -46,14 +47,13 @@ PreferencesDialog::PreferencesDialog( int userId, QWidget* parent ) : CommandDia
     m_daysGroup( NULL ),
     m_hoursGroup( NULL )
 {
-    const UserRow* user = dataManager->users()->find( userId );
-    QString name = user ? user->name() : QString();
+    UserEntity user = UserEntity::find( userId );
 
     setWindowTitle( tr( "User Preferences" ) );
     if ( userId == dataManager->currentUserId() )
         setPrompt( tr( "Configure your user preferences:" ) );
     else
-        setPrompt( tr( "Configure preferences for user <b>%1</b>:" ).arg( name ) );
+        setPrompt( tr( "Configure preferences for user <b>%1</b>:" ).arg( user.name() ) );
     setPromptPixmap( IconLoader::pixmap( "preferences", 22 ) );
 
     showInfo( tr( "Edit user preferences." ) );
@@ -256,7 +256,9 @@ PreferencesDialog::PreferencesDialog( int userId, QWidget* parent ) : CommandDia
 
     setContentLayout( layout, true );
 
-    LoadPreferencesBatch* batch = new LoadPreferencesBatch( userId );
+    UpdateBatch* batch = new UpdateBatch( 0 );
+    batch->updatePreferences( userId );
+
     executeBatch( batch, tr( "Loading preferences..." ) );
 }
 
@@ -267,8 +269,6 @@ PreferencesDialog::~PreferencesDialog()
 bool PreferencesDialog::batchSuccessful( AbstractBatch* batch )
 {
     if ( !m_initialized ) {
-        LoadPreferencesBatch* loadBatch = (LoadPreferencesBatch*)batch;
-        m_preferences = loadBatch->preferences();
         initialize();
         showInfo( tr( "Edit user preferences." ) );
         return false;
@@ -296,39 +296,30 @@ void PreferencesDialog::fixGeometry()
 
 void PreferencesDialog::initialize()
 {
-    LocaleCache* cache = dataManager->localeCache();
-
     m_languageComboBox->addItem( tr( "Default", "language" ) );
     m_languageComboBox->addSeparator();
 
-    for ( int i = 0; i < cache->languages().count(); i++ ) {
-        LocaleLanguage language = cache->languages().at( i );
-        int index = 2;
-        while ( index < m_languageComboBox->count() && QString::localeAwareCompare( language.name(), m_languageComboBox->itemText( index ) ) > 0 )
-            index++;
-        m_languageComboBox->insertItem( index, language.name(), language.code() );
-    }
+    foreach ( const LanguageEntity& language, LanguageEntity::list() )
+        m_languageComboBox->addItem( language.name(), language.code() );
 
     m_numberComboBox->addItem( tr( "Default", "format" ) );
     m_numberComboBox->addSeparator();
 
-    QList<LocaleFormat> numberFormats = cache->formats( "number_format" );
-    for ( int i = 0; i < numberFormats.count(); i++ ) {
-        DefinitionInfo info = DefinitionInfo::fromString( numberFormats.at( i ).definition() );
+    foreach ( const FormatEntity& format, FormatEntity::list( "number_format" ) ) {
+        DefinitionInfo info = DefinitionInfo::fromString( format.definition() );
         QString number = QLatin1String( "1" );
         number += info.metadata( "group-separator" ).toString();
         number += QLatin1String( "000" );
         number += info.metadata( "decimal-separator" ).toString();
         number += QLatin1String( "00" );
-        m_numberComboBox->addItem( number, numberFormats.at( i ).key() );
+        m_numberComboBox->addItem( number, format.key() );
     }
 
     m_dateComboBox->addItem( tr( "Default", "format" ) );
     m_dateComboBox->addSeparator();
 
-    QList<LocaleFormat> dateFormats = cache->formats( "date_format" );
-    for ( int i = 0; i < dateFormats.count(); i++ ) {
-        DefinitionInfo info = DefinitionInfo::fromString( dateFormats.at( i ).definition() );
+    foreach ( const FormatEntity& format, FormatEntity::list( "date_format" ) ) {
+        DefinitionInfo info = DefinitionInfo::fromString( format.definition() );
         QMap<QChar, QString> parts;
         parts.insert( QChar( 'd' ), info.metadata( "pad-day" ).toBool() ? "dd" : "d" );
         parts.insert( QChar( 'm' ), info.metadata( "pad-month" ).toBool() ? "mm" : "m" );
@@ -340,15 +331,14 @@ void PreferencesDialog::initialize()
         date += parts.value( order.at( 1 ) );
         date += separator;
         date += parts.value( order.at( 2 ) );
-        m_dateComboBox->addItem( date, dateFormats.at( i ).key() );
+        m_dateComboBox->addItem( date, format.key() );
     }
 
     m_timeComboBox->addItem( tr( "Default", "format" ) );
     m_timeComboBox->addSeparator();
 
-    QList<LocaleFormat> timeFormats = cache->formats( "time_format" );
-    for ( int i = 0; i < timeFormats.count(); i++ ) {
-        DefinitionInfo info = DefinitionInfo::fromString( timeFormats.at( i ).definition() );
+    foreach ( const FormatEntity& format, FormatEntity::list( "time_format" ) ) {
+        DefinitionInfo info = DefinitionInfo::fromString( format.definition() );
         int mode = info.metadata( "time-mode" ).toInt();
         QString time = ( mode == 12 ) ? "h" : "H";
         if ( info.metadata( "pad-hour" ).toBool() )
@@ -357,7 +347,7 @@ void PreferencesDialog::initialize()
         time += QLatin1String( "mm" );
         if ( mode == 12 )
             time += QLatin1String( " tt" );
-        m_timeComboBox->addItem( time, timeFormats.at( i ).key() );
+        m_timeComboBox->addItem( time, format.key() );
     }
 
     m_firstDayComboBox->addItem( tr( "Default", "day of week" ) );
@@ -371,8 +361,7 @@ void PreferencesDialog::initialize()
     m_timeZoneComboBox->addSeparator();
 
     QMap<int, QStringList> timeZones;
-    for ( int i = 0; i < cache->timeZones().count(); i++ ) {
-        LocaleTimeZone timeZone = cache->timeZones().at( i );
+    foreach ( const TimeZoneEntity& timeZone, TimeZoneEntity::list() ) {
         QMap<int, QStringList>::iterator it = timeZones.find( timeZone.offset() );
         if ( it != timeZones.end() )
             it.value().append( timeZone.name() );
@@ -399,6 +388,9 @@ void PreferencesDialog::initialize()
             m_timeZoneComboBox->addChildItem( name, zone );
         }
     }
+
+    foreach ( const PreferenceEntity& preference, PreferenceEntity::list( m_userId ) )
+        m_preferences.insert( preference.key(), preference.value() );
 
     int index;
     index = m_languageComboBox->findData( m_preferences.value( "language" ) );
@@ -493,20 +485,20 @@ void PreferencesDialog::accept()
         preferences.insert( "summary_hours", list.join( "," ) );
     }
 
-    QMap<QString, QString> changes;
+    SetPreferencesBatch* batch = NULL;
 
     for ( QMap<QString, QString>::const_iterator it = preferences.constBegin(); it != preferences.constEnd(); ++it ) {
-        if ( m_preferences.value( it.key() ) != it.value() )
-            changes.insert( it.key(), it.value() );
+        if ( m_preferences.value( it.key() ) != it.value() ) {
+            if ( !batch )
+                batch = new SetPreferencesBatch( m_userId );
+            batch->setPreference( it.key(), it.value() );
+        }
     }
 
-    if ( changes.isEmpty() ) {
+    if ( batch )
+        executeBatch( batch );
+    else
         QDialog::accept();
-        return;
-    }
-
-    SavePreferencesBatch* batch = new SavePreferencesBatch( m_userId, changes );
-    executeBatch( batch );
 }
 
 void PreferencesDialog::allDaysActivated()

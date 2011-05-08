@@ -53,8 +53,7 @@ public:
 
     void clear()
     {
-        foreach ( SqlTreeModelNode* node, m_nodes )
-            delete node;
+        qDeleteAll( m_nodes );
         m_ids.clear();
         m_nodes.clear();
     }
@@ -82,8 +81,7 @@ public:
 
     ~SqlTreeModelPrivate()
     {
-        foreach ( SqlTreeModelLevel* data, m_levelData )
-            delete data;
+        qDeleteAll( m_levelData );
     }
 
 public:

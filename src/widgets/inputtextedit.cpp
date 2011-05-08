@@ -66,7 +66,7 @@ bool InputTextEdit::validate()
     updateInput();
 
     if ( m_empty && !m_errorIfEmpty )
-        setError( ErrorHelper::errorMessage( ErrorHelper::EmptyValue ) );
+        setError( ErrorHelper::EmptyValue );
     m_errorIfEmpty = true;
 
     return !m_error;
@@ -187,7 +187,7 @@ QString InputTextEdit::textToValue( const QString& text )
     if ( value.isEmpty() ) {
         if ( m_required ) {
             if ( m_errorIfEmpty ) {
-                setError( ErrorHelper::errorMessage( ErrorHelper::EmptyValue ) );
+                setError( ErrorHelper::EmptyValue );
             } else {
                 m_errorButton->setToolTip( tr( "Field is required" ) );
                 m_empty = true;
@@ -198,12 +198,12 @@ QString InputTextEdit::textToValue( const QString& text )
     }
 
     if ( m_maxLength > 0 && value.length() > m_maxLength ) {
-        setError( ErrorHelper::errorMessage( ErrorHelper::StringTooLong ) );
+        setError( ErrorHelper::StringTooLong );
         return QString();
     }
 
     if ( m_minLength > 0 && value.length() < m_minLength ) {
-        setError( ErrorHelper::errorMessage( ErrorHelper::StringTooShort ) );
+        setError( ErrorHelper::StringTooShort );
         return QString();
     }
 
@@ -217,3 +217,10 @@ QString InputTextEdit::textToValue( const QString& text )
 
     return value;
 }
+
+void InputTextEdit::setError( int code )
+{
+    ErrorHelper helper;
+    setError( helper.errorMessage( (ErrorHelper::ErrorCode)code ) );
+}
+

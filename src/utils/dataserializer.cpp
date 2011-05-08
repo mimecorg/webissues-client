@@ -24,10 +24,10 @@ int DataSerializer::m_dataVersion = 0;
 static const int MagicHeader = 0x5749C4D3;
 
 // increment this value every time data format is changed
-static const int CurrentVersion = 1;
+static const int CurrentVersion = 2;
 
 // minimum supported version
-static const int MinimumVersion = 1;
+static const int MinimumVersion = 2;
 
 DataSerializer::DataSerializer( const QString& path ) :
     m_file( path )

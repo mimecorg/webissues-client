@@ -18,75 +18,33 @@
 **************************************************************************/
 
 #include "preferencesbatch.h"
-#include "command.h"
-#include "commandmanager.h"
 
+#include "commands/command.h"
+#include "commands/commandmanager.h"
 #include "data/datamanager.h"
-#include "data/localecache.h"
 
-LoadPreferencesBatch::LoadPreferencesBatch( int userId ) : AbstractBatch( 0 )
-{
-    Job job( &LoadPreferencesBatch::listPreferencesJob );
-    job.addArg( userId );
-    m_queue.addJob( job );
-}
-
-LoadPreferencesBatch::~LoadPreferencesBatch()
-{
-}
-
-Command* LoadPreferencesBatch::fetchNext()
-{
-    if ( !dataManager->localeCache()->isPopulated() )
-        return dataManager->localeCache()->updateLocale();
-
-    if ( m_queue.moreJobs() )
-        return m_queue.callJob( this );
-
-    return NULL;
-}
-
-Command* LoadPreferencesBatch::listPreferencesJob( const Job& job )
-{
-    Command* command = new Command();
-
-    command->setKeyword( "LIST PREFERENCES" );
-    command->addArg( job.argInt( 0 ) );
-
-    command->setAcceptNullReply( true );
-    command->addRule( "P ss", ReplyRule::ZeroOrMore );
-
-    connect( command, SIGNAL( commandReply( const Reply& ) ), this, SLOT( listPreferencesReply( const Reply& ) ) );
-
-    return command;
-}
-
-void LoadPreferencesBatch::listPreferencesReply( const Reply& reply )
-{
-    for ( int i = 0; i < reply.lines().count(); i++ ) {
-        ReplyLine line = reply.lines().at( i );
-        m_preferences.insert( line.argString( 0 ), line.argString( 1 ) );
-    }
-}
-
-SavePreferencesBatch::SavePreferencesBatch( int userId, const QMap<QString, QString>& preferences ) : AbstractBatch( 0 ),
+SetPreferencesBatch::SetPreferencesBatch( int userId ) : AbstractBatch( 0 ),
     m_userId( userId ),
-    m_preferences( preferences ),
-    m_iterator( m_preferences ),
     m_update( false )
 {
 }
 
-SavePreferencesBatch::~SavePreferencesBatch()
+SetPreferencesBatch::~SetPreferencesBatch()
 {
 }
 
-Command* SavePreferencesBatch::fetchNext()
+void SetPreferencesBatch::setPreference( const QString& key, const QString& value )
 {
-    if ( m_iterator.hasNext() ) {
-        m_iterator.next();
-        return createSetCommand();
-    }
+    Job job( &SetPreferencesBatch::setPreferenceJob );
+    job.addArg( key );
+    job.addArg( value );
+    m_queue.addJob( job );
+}
+
+Command* SetPreferencesBatch::fetchNext()
+{
+    while ( m_queue.moreJobs() )
+        return m_queue.callJob( this );
 
     if ( m_update ) {
         m_update = false;
@@ -96,14 +54,14 @@ Command* SavePreferencesBatch::fetchNext()
     return NULL;
 }
 
-Command* SavePreferencesBatch::createSetCommand()
+Command* SetPreferencesBatch::setPreferenceJob( const Job& job )
 {
     Command* command = new Command();
 
     command->setKeyword( "SET PREFERENCE" );
     command->addArg( m_userId );
-    command->addArg( m_iterator.key() );
-    command->addArg( m_iterator.value() );
+    command->addArg( job.argString( 0 ) );
+    command->addArg( job.argString( 1 ) );
 
     command->setAcceptNullReply( true );
     command->addRule( "OK", ReplyRule::One );
@@ -114,7 +72,7 @@ Command* SavePreferencesBatch::createSetCommand()
     return command;
 }
 
-void SavePreferencesBatch::setUpdate()
+void SetPreferencesBatch::setUpdate()
 {
     m_update = true;
 }

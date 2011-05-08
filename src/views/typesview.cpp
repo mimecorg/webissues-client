@@ -21,9 +21,10 @@
 
 #include "commands/updatebatch.h"
 #include "data/datamanager.h"
+#include "data/entities.h"
 #include "dialogs/typedialogs.h"
 #include "dialogs/viewsettingsdialog.h"
-#include "models/tablemodels.h"
+#include "models/typesmodel.h"
 #include "utils/treeviewhelper.h"
 #include "utils/iconloader.h"
 #include "xmlui/builder.h"
@@ -79,7 +80,9 @@ TypesView::TypesView( QObject* parent, QWidget* parentWidget ) : View( parent )
     loadXmlUiFile( ":/resources/typesview.xml" );
 
     m_list = new QTreeView( parentWidget );
-    TreeViewHelper::initializeView( m_list, TreeViewHelper::TreeStyle );
+
+    TreeViewHelper helper( m_list );
+    helper.initializeView( TreeViewHelper::TreeStyle | TreeViewHelper::NotSortable );
 
     connect( m_list, SIGNAL( customContextMenuRequested( const QPoint& ) ),
         this, SLOT( contextMenu( const QPoint& ) ) );
@@ -95,30 +98,19 @@ TypesView::TypesView( QObject* parent, QWidget* parentWidget ) : View( parent )
 
 TypesView::~TypesView()
 {
-    TreeViewHelper::saveColumnWidths( m_list, "TypesView" );
-    TreeViewHelper::saveExpandedNodes( m_list, "TypesView" );
+    TreeViewHelper helper( m_list );
+    helper.saveColumnWidths( "TypesViewWidths" );
+    helper.saveExpandedNodes( "ExpandedTypes" );
 }
 
 void TypesView::initialUpdate()
 {
-    m_model = new RDB::TableItemModel( this );
-    m_model->setRootTableModel( new TypesTableModel( m_model ), dataManager->types()->index() );
-    m_model->addChildTableModel( new AttributesTableModel( m_model ),
-        dataManager->attributes()->index(), dataManager->attributes()->parentIndex() );
-
-    QList<int> columns;
-    columns.append( Column_Name );
-    columns.append( Column_Type );
-    columns.append( Column_DefaultValue );
-    columns.append( Column_Required );
-    columns.append( Column_Details );
-    m_model->setColumns( columns );
-
+    m_model = new TypesModel( this );
     m_list->setModel( m_model );
 
-    TreeViewHelper::setSortOrder( m_list, qMakePair( (int)Column_Name, Qt::AscendingOrder ) );
-    TreeViewHelper::loadColumnWidths( m_list, "TypesView" );
-    TreeViewHelper::loadExpandedNodes( m_list, "TypesView" );
+    TreeViewHelper helper( m_list );
+    helper.loadColumnWidths( "TypesViewWidths", QList<int>() << 150 << 150 << 150 << 100 << 300 );
+    helper.loadExpandedNodes( "ExpandedTypes" );
 
     setCaption( tr( "Issue Types" ) );
 
@@ -135,18 +127,19 @@ void TypesView::updateActions()
     m_selectedAttributeId = 0;
     m_currentTypeId = 0;
 
-    QModelIndex index = TreeViewHelper::selectedIndex( m_list );
+    TreeViewHelper helper( m_list );
+    QModelIndex index = helper.selectedIndex();
+
     if ( index.isValid() ) {
-        int level = m_model->data( index, RDB::TableItemModel::LevelRole ).toInt();
-        int rowId = m_model->data( index, RDB::TableItemModel::RowIdRole ).toInt();
+        int level = m_model->levelOf( index );
+        int rowId = m_model->rowId( index );
         if ( level == 0 ) {
             m_selectedTypeId = rowId;
             m_currentTypeId = rowId;
         } else {
             m_selectedAttributeId = rowId;
-            const AttributeRow* attribute = dataManager->attributes()->find( rowId );
-            if ( attribute )
-                m_currentTypeId = attribute->typeId();
+            AttributeEntity attribute = AttributeEntity::find( rowId );
+            m_currentTypeId = attribute.typeId();
         }
     }
 
@@ -180,8 +173,10 @@ void TypesView::addAttribute()
 {
     if ( m_currentTypeId != 0 ) {
         AddAttributeDialog dialog( m_currentTypeId, mainWidget() );
-        if ( dialog.exec() == QDialog::Accepted )
-            m_list->expand( TreeViewHelper::selectedIndex( m_list ) );
+        if ( dialog.exec() == QDialog::Accepted ) {
+            TreeViewHelper helper( m_list );
+            m_list->expand( helper.selectedIndex() );
+        }
     }
 }
 
@@ -240,7 +235,7 @@ void TypesView::contextMenu( const QPoint& pos )
 
     QString menuName;
     if ( index.isValid() ) {
-        int level = m_model->data( index, RDB::TableItemModel::LevelRole ).toInt();
+        int level = m_model->levelOf( index );
         if ( level == 0 )
             menuName = "menuType";
         else
@@ -257,8 +252,8 @@ void TypesView::contextMenu( const QPoint& pos )
 void TypesView::doubleClicked( const QModelIndex& index )
 {
     if ( index.isValid() ) {
-        int level = m_model->data( index, RDB::TableItemModel::LevelRole ).toInt();
-        int rowId = m_model->data( index, RDB::TableItemModel::RowIdRole ).toInt();
+        int level = m_model->levelOf( index );
+        int rowId = m_model->rowId( index );
 
         if ( level == 1 ) {
             ModifyAttributeDialog dialog( rowId, mainWidget() );

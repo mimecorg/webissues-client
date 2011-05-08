@@ -22,9 +22,8 @@
 #include "commands/projectsbatch.h"
 #include "commands/commandmanager.h"
 #include "data/datamanager.h"
-#include "rdb/utilities.h"
+#include "data/entities.h"
 #include "utils/errorhelper.h"
-#include "utils/tablemodelshelper.h"
 #include "utils/iconloader.h"
 #include "widgets/inputlineedit.h"
 
@@ -66,9 +65,8 @@ void AddProjectDialog::accept()
 
     QString name = m_nameEdit->inputValue();
 
-    RDB::IndexConstIterator<ProjectRow> it( dataManager->projects()->index() );
-    if ( RDB::findRow( it, &ProjectRow::name, name ) ) {
-        showWarning( ErrorHelper::statusMessage( ErrorHelper::ProjectAlreadyExists ) );
+    if ( ProjectEntity::exists( name ) ) {
+        showWarning( ErrorHelper::ProjectAlreadyExists );
         return;
     }
 
@@ -81,8 +79,8 @@ void AddProjectDialog::accept()
 RenameProjectDialog::RenameProjectDialog( int projectId, QWidget* parent ) : CommandDialog( parent ),
     m_projectId( projectId )
 {
-    const ProjectRow* project = dataManager->projects()->find( projectId );
-    m_oldName = project ? project->name() : QString();
+    ProjectEntity project = ProjectEntity::find( projectId );
+    m_oldName = project.name();
 
     setWindowTitle( tr( "Rename Project" ) );
     setPrompt( tr( "Enter the new name of project <b>%1</b>:" ).arg( m_oldName ) );
@@ -122,9 +120,8 @@ void RenameProjectDialog::accept()
         return;
     }
 
-    RDB::IndexConstIterator<ProjectRow> it( dataManager->projects()->index() );
-    if ( RDB::findRow( it, &ProjectRow::name, name ) ) {
-        showWarning( ErrorHelper::statusMessage( ErrorHelper::ProjectAlreadyExists ) );
+    if ( ProjectEntity::exists( name ) ) {
+        showWarning( ErrorHelper::ProjectAlreadyExists );
         return;
     }
 
@@ -138,15 +135,13 @@ DeleteProjectDialog::DeleteProjectDialog( int projectId, QWidget* parent ) : Com
     m_projectId( projectId ),
     m_force( false )
 {
-    const ProjectRow* project = dataManager->projects()->find( projectId );
-    QString name = project ? project->name() : QString();
+    ProjectEntity project = ProjectEntity::find( projectId );
 
     setWindowTitle( tr( "Delete Project" ) );
-    setPrompt( tr( "Are you sure you want to delete project <b>%1</b>?" ).arg( name ) );
+    setPrompt( tr( "Are you sure you want to delete project <b>%1</b>?" ).arg( project.name() ) );
     setPromptPixmap( IconLoader::pixmap( "edit-delete", 22 ) );
 
-    RDB::ForeignConstIterator<FolderRow> it( dataManager->folders()->parentIndex(), projectId );
-    if ( it.next() ) {
+    if ( !project.folders().isEmpty() ) {
         showWarning( tr( "All folders and issues in this project will be permanently deleted." ) );
         m_force = true;
     }
@@ -181,17 +176,15 @@ AddFolderDialog::AddFolderDialog( int projectId, QWidget* parent ) : CommandDial
     m_nameEdit( NULL ),
     m_typeCombo( NULL )
 {
-    const ProjectRow* project = dataManager->projects()->find( projectId );
-    QString name = project ? project->name() : QString();
+    ProjectEntity project = ProjectEntity::find( projectId );
 
     setWindowTitle( tr( "Add Folder" ) );
-    setPrompt( tr( "Create a new folder in project <b>%1</b>:" ).arg( name ) );
+    setPrompt( tr( "Create a new folder in project <b>%1</b>:" ).arg( project.name() ) );
     setPromptPixmap( IconLoader::pixmap( "folder-new", 22 ) );
 
-    RDB::IndexConstIterator<TypeRow> it( dataManager->types()->index() );
-    QList<const TypeRow*> types = localeAwareSortRows( it, &TypeRow::name );
+    QList<TypeEntity> types = TypeEntity::list();
 
-    if ( types.empty() ) {
+    if ( types.isEmpty() ) {
         showWarning( tr( "There are no available issue types to use." ) );
         showCloseButton();
         setContentLayout( NULL, true );
@@ -219,7 +212,7 @@ AddFolderDialog::AddFolderDialog( int projectId, QWidget* parent ) : CommandDial
     typeLabel->setBuddy( m_typeCombo );
 
     for ( int i = 0; i < types.count(); i++ )
-        m_typeCombo->addItem( types.at( i )->name(), types.at( i )->typeId() );
+        m_typeCombo->addItem( types.at( i ).name(), types.at( i ).id() );
 
     setContentLayout( layout, true );
 
@@ -237,9 +230,8 @@ void AddFolderDialog::accept()
 
     QString name = m_nameEdit->inputValue();
 
-    RDB::ForeignConstIterator<FolderRow> it( dataManager->folders()->parentIndex(), m_projectId );
-    if ( RDB::findRow( it, &FolderRow::name, name ) ) {
-        showWarning( ErrorHelper::statusMessage( ErrorHelper::FolderAlreadyExists ) );
+    if ( FolderEntity::exists( m_projectId, name ) ) {
+        showWarning( ErrorHelper::FolderAlreadyExists );
         return;
     }
 
@@ -254,8 +246,8 @@ void AddFolderDialog::accept()
 RenameFolderDialog::RenameFolderDialog( int folderId, QWidget* parent ) : CommandDialog( parent ),
     m_folderId( folderId )
 {
-    const FolderRow* folder = dataManager->folders()->find( folderId );
-    m_oldName = folder ? folder->name() : QString();
+    FolderEntity folder = FolderEntity::find( folderId );
+    m_oldName = folder.name();
 
     setWindowTitle( tr( "Rename Folder" ) );
     setPrompt( tr( "Enter the new name of folder <b>%1</b>:" ).arg( m_oldName ) );
@@ -295,12 +287,10 @@ void RenameFolderDialog::accept()
         return;
     }
 
-    const FolderRow* folder = dataManager->folders()->find( m_folderId );
-    int projectId = folder ? folder->projectId() : 0;
+    FolderEntity folder = FolderEntity::find( m_folderId );
 
-    RDB::ForeignConstIterator<FolderRow> it( dataManager->folders()->parentIndex(), projectId );
-    if ( RDB::findRow( it, &FolderRow::name, name ) ) {
-        showWarning( ErrorHelper::statusMessage( ErrorHelper::FolderAlreadyExists ) );
+    if ( FolderEntity::exists( folder.projectId(), name ) ) {
+        showWarning( ErrorHelper::FolderAlreadyExists );
         return;
     }
 
@@ -313,12 +303,11 @@ void RenameFolderDialog::accept()
 MoveFolderDialog::MoveFolderDialog( int folderId, QWidget* parent ) : CommandDialog( parent ),
     m_folderId( folderId )
 {
-    const FolderRow* folder = dataManager->folders()->find( folderId );
-    QString name = folder ? folder->name() : QString();
-    m_oldProjectId = folder ? folder->projectId() : 0;
+    FolderEntity folder = FolderEntity::find( folderId );
+    m_oldProjectId = folder.projectId();
 
     setWindowTitle( tr( "Move Folder" ) );
-    setPrompt( tr( "Move folder <b>%1</b> to another project:" ).arg( name ) );
+    setPrompt( tr( "Move folder <b>%1</b> to another project:" ).arg( folder.name() ) );
     setPromptPixmap( IconLoader::pixmap( "folder-move", 22 ) );
 
     QGridLayout* layout = new QGridLayout();
@@ -333,15 +322,11 @@ MoveFolderDialog::MoveFolderDialog( int folderId, QWidget* parent ) : CommandDia
 
     layout->setColumnStretch( 1, 1 );
 
-    RDB::IndexConstIterator<ProjectRow> it( dataManager->projects()->index() );
-    QList<const ProjectRow*> projects = localeAwareSortRows( it, &ProjectRow::name );
-
-    for ( int i = 0; i < projects.count(); i++ ) {
-        const ProjectRow* project = projects.at( i );
-        if ( !TableModelsHelper::isProjectAdmin( project->projectId() ) )
+    foreach ( const ProjectEntity& project, ProjectEntity::list() ) {
+        if ( !ProjectEntity::isAdmin( project.id() ) )
             continue;
-        m_projectCombo->addItem( project->name(), project->projectId() );
-        if ( project->projectId() == m_oldProjectId )
+        m_projectCombo->addItem( project.name(), project.id() );
+        if ( project.id() == m_oldProjectId )
             m_projectCombo->setCurrentIndex( m_projectCombo->count() - 1 );
     }
 
@@ -366,12 +351,10 @@ void MoveFolderDialog::accept()
         return;
     }
 
-    const FolderRow* folder = dataManager->folders()->find( m_folderId );
-    QString name = folder ? folder->name() : QString();
+    FolderEntity folder = FolderEntity::find( m_folderId );
 
-    RDB::ForeignConstIterator<FolderRow> it( dataManager->folders()->parentIndex(), projectId );
-    if ( RDB::findRow( it, &FolderRow::name, name ) ) {
-        showWarning( ErrorHelper::statusMessage( ErrorHelper::FolderAlreadyExists ) );
+    if ( FolderEntity::exists( projectId, folder.name() ) ) {
+        showWarning( ErrorHelper::FolderAlreadyExists );
         return;
     }
 
@@ -385,15 +368,13 @@ DeleteFolderDialog::DeleteFolderDialog( int folderId, QWidget* parent ) : Comman
     m_folderId( folderId ),
     m_force( false )
 {
-    const FolderRow* folder = dataManager->folders()->find( folderId );
-    QString name = folder ? folder->name() : QString();
+    FolderEntity folder = FolderEntity::find( folderId );
 
     setWindowTitle( tr( "Delete Folder" ) );
-    setPrompt( tr( "Are you sure you want to delete folder <b>%1</b>?" ).arg( name ) );
+    setPrompt( tr( "Are you sure you want to delete folder <b>%1</b>?" ).arg( folder.name() ) );
     setPromptPixmap( IconLoader::pixmap( "edit-delete", 22 ) );
 
-    RDB::ForeignConstIterator<IssueRow> it( dataManager->issues()->parentIndex(), folderId );
-    if ( it.next() ) {
+    if ( !folder.issues().isEmpty() ) {
         showWarning( tr( "All issues in this folder will be permanently deleted." ) );
         m_force = true;
     }

@@ -18,12 +18,13 @@
 **************************************************************************/
 
 #include "typedialogs.h"
-#include "metadatadialog.h"
 
 #include "commands/typesbatch.h"
 #include "commands/commandmanager.h"
 #include "data/datamanager.h"
-#include "rdb/utilities.h"
+#include "data/entities.h"
+#include "data/issuetypecache.h"
+#include "dialogs/metadatadialog.h"
 #include "utils/definitioninfo.h"
 #include "utils/validator.h"
 #include "utils/errorhelper.h"
@@ -76,9 +77,8 @@ void AddTypeDialog::accept()
 
     QString name = m_nameEdit->inputValue();
 
-    RDB::IndexConstIterator<TypeRow> it( dataManager->types()->index() );
-    if ( RDB::findRow( it, &TypeRow::name, name ) ) {
-        showWarning( ErrorHelper::statusMessage( ErrorHelper::TypeAlreadyExists ) );
+    if ( TypeEntity::exists( name ) ) {
+        showWarning( ErrorHelper::TypeAlreadyExists );
         return;
     }
 
@@ -91,8 +91,8 @@ void AddTypeDialog::accept()
 RenameTypeDialog::RenameTypeDialog( int typeId, QWidget* parent ) : CommandDialog( parent ),
     m_typeId( typeId )
 {
-    const TypeRow* type = dataManager->types()->find( typeId );
-    m_oldName = type ? type->name() : QString();
+    TypeEntity type = TypeEntity::find( typeId );
+    m_oldName = type.name();
 
     setWindowTitle( tr( "Rename Type" ) );
     setPrompt( tr( "Enter the new name of type <b>%1</b>:" ).arg( m_oldName ) );
@@ -132,9 +132,8 @@ void RenameTypeDialog::accept()
         return;
     }
 
-    RDB::IndexConstIterator<TypeRow> it( dataManager->types()->index() );
-    if ( RDB::findRow( it, &TypeRow::name, name ) ) {
-        showWarning( ErrorHelper::statusMessage( ErrorHelper::TypeAlreadyExists ) );
+    if ( TypeEntity::exists( name ) ) {
+        showWarning( ErrorHelper::TypeAlreadyExists );
         return;
     }
 
@@ -148,20 +147,15 @@ DeleteTypeDialog::DeleteTypeDialog( int typeId, QWidget* parent ) : CommandDialo
     m_typeId( typeId ),
     m_force( false )
 {
-    const TypeRow* type = dataManager->types()->find( typeId );
-    QString name = type ? type->name() : QString();
+    TypeEntity type = TypeEntity::find( typeId );
 
     setWindowTitle( tr( "Delete Type" ) );
-    setPrompt( tr( "Are you sure you want to delete type <b>%1</b> and all its attributes?" ).arg( name ) );
+    setPrompt( tr( "Are you sure you want to delete type <b>%1</b> and all its attributes?" ).arg( type.name() ) );
     setPromptPixmap( IconLoader::pixmap( "edit-delete", 22 ) );
 
-    RDB::IndexConstIterator<FolderRow> it( dataManager->folders()->index() );
-    while ( it.next() ) {
-        if ( it.get()->typeId() == typeId ) {
-            showWarning( tr( "All folders and issues of this type will be permanently deleted." ) );
-            m_force = true;
-            break;
-        }
+    if ( !type.folders().isEmpty() ) {
+        showWarning( tr( "All folders and issues of this type will be permanently deleted." ) );
+        m_force = true;
     }
 
     setContentLayout( NULL, true );
@@ -256,18 +250,20 @@ void AttributeDialog::initialize( bool withName, const DefinitionInfo& info )
     connect( detailsButton, SIGNAL( clicked() ), this, SLOT( detailsClicked() ) );
     connect( m_requiredCheck, SIGNAL( toggled( bool ) ), this, SLOT( requiredToggled( bool ) ) );
 
+    AttributeHelper helper;
+
     if ( info.isEmpty() ) {
         m_type = FirstAttribute;
 
         for ( int i = FirstAttribute; i <= LastAttribute; i++ )
-            m_typeCombo->addItem( AttributeHelper::typeName( (AttributeType)i ), i );
+            m_typeCombo->addItem( helper.typeName( (AttributeType)i ), i );
     } else {
         m_type = AttributeHelper::toAttributeType( info );
         m_metadata = info.metadata();
 
-        QList<AttributeType> types = AttributeHelper::compatibleTypes( m_type );
+        QList<AttributeType> types = helper.compatibleTypes( m_type );
         for ( int i = 0; i < types.count(); i++ )
-            m_typeCombo->addItem( AttributeHelper::typeName( types.at( i ) ), (int)types.at( i ) );
+            m_typeCombo->addItem( helper.typeName( types.at( i ) ), (int)types.at( i ) );
 
         m_typeCombo->blockSignals( true );
         m_typeCombo->setCurrentIndex( m_typeCombo->findData( (int)m_type ) );
@@ -344,7 +340,9 @@ void AttributeDialog::updateWidgets()
     Validator validator;
     DefinitionInfo info = validator.createAttributeDefinition( m_type, m_metadata );
 
-    m_detailsEdit->setText( AttributeHelper::metadataDetails( info ) );
+    AttributeHelper helper;
+
+    m_detailsEdit->setText( helper.metadataDetails( info ) );
     m_detailsEdit->setCursorPosition( 0 );
 
     delete m_editor;
@@ -390,11 +388,10 @@ bool AttributeDialog::event( QEvent* e )
 AddAttributeDialog::AddAttributeDialog( int typeId, QWidget* parent ) : AttributeDialog( parent ),
     m_typeId( typeId )
 {
-    const TypeRow* type = dataManager->types()->find( typeId );
-    QString name = type ? type->name() : QString();
+    TypeEntity type = TypeEntity::find( typeId );
 
     setWindowTitle( tr( "Add Attribute" ) );
-    setPrompt( tr( "Create a new attribute in type <b>%1</b>:" ).arg( name ) );
+    setPrompt( tr( "Create a new attribute in type <b>%1</b>:" ).arg( type.name() ) );
     setPromptPixmap( IconLoader::pixmap( "attribute-new", 22 ) );
 
     initialize( true, DefinitionInfo() );
@@ -411,9 +408,8 @@ void AddAttributeDialog::accept()
 
     QString name = attributeName();
 
-    RDB::ForeignConstIterator<AttributeRow> it( dataManager->attributes()->parentIndex(), m_typeId );
-    if ( RDB::findRow( it, &AttributeRow::name, name ) ) {
-        showWarning( ErrorHelper::statusMessage( ErrorHelper::AttributeAlreadyExists ) );
+    if ( AttributeEntity::exists( m_typeId, name ) ) {
+        showWarning( ErrorHelper::AttributeAlreadyExists );
         return;
     }
 
@@ -430,15 +426,14 @@ void AddAttributeDialog::accept()
 ModifyAttributeDialog::ModifyAttributeDialog( int attributeId, QWidget* parent ) : AttributeDialog( parent ),
     m_attributeId( attributeId )
 {
-    const AttributeRow* attribute = dataManager->attributes()->find( attributeId );
-    QString name = attribute ? attribute->name() : QString();
-    m_oldDefinition = attribute ? attribute->definition() : QString();
+    AttributeEntity attribute = AttributeEntity::find( attributeId );
+
+    IssueTypeCache* cache = dataManager->issueTypeCache( attribute.typeId() );
+    DefinitionInfo info = cache->attributeDefinition( attributeId );
 
     setWindowTitle( tr( "Modify Attribute" ) );
-    setPrompt( tr( "Modify attribute <b>%1</b>:" ).arg( name ) );
+    setPrompt( tr( "Modify attribute <b>%1</b>:" ).arg( attribute.name() ) );
     setPromptPixmap( IconLoader::pixmap( "edit-modify", 22 ) );
-
-    DefinitionInfo info = DefinitionInfo::fromString( m_oldDefinition );
 
     initialize( false, info );
 }
@@ -465,8 +460,8 @@ void ModifyAttributeDialog::accept()
 RenameAttributeDialog::RenameAttributeDialog( int attributeId, QWidget* parent ) : CommandDialog( parent ),
     m_attributeId( attributeId )
 {
-    const AttributeRow* attribute = dataManager->attributes()->find( attributeId );
-    m_oldName = attribute ? attribute->name() : QString();
+    AttributeEntity attribute = AttributeEntity::find( attributeId );
+    m_oldName = attribute.name();
 
     setWindowTitle( tr( "Rename Attribute" ) );
     setPrompt( tr( "Enter the new name of attribute <b>%1</b>:" ).arg( m_oldName ) );
@@ -506,12 +501,9 @@ void RenameAttributeDialog::accept()
         return;
     }
 
-    const AttributeRow* attribute = dataManager->attributes()->find( m_attributeId );
-    int typeId = attribute ? attribute->typeId() : 0;
-
-    RDB::ForeignConstIterator<AttributeRow> it( dataManager->attributes()->parentIndex(), typeId );
-    if ( RDB::findRow( it, &AttributeRow::name, name ) ) {
-        showWarning( ErrorHelper::statusMessage( ErrorHelper::AttributeAlreadyExists ) );
+    AttributeEntity attribute = AttributeEntity::find( m_attributeId );
+    if ( AttributeEntity::exists( attribute.typeId(), name ) ) {
+        showWarning( ErrorHelper::AttributeAlreadyExists );
         return;
     }
 
@@ -525,15 +517,13 @@ DeleteAttributeDialog::DeleteAttributeDialog( int attributeId, QWidget* parent )
     m_attributeId( attributeId ),
     m_force( false )
 {
-    const AttributeRow* attribute = dataManager->attributes()->find( attributeId );
-    QString name = attribute ? attribute->name() : QString();
+    AttributeEntity attribute = AttributeEntity::find( attributeId );
 
     setWindowTitle( tr( "Delete Attribute" ) );
-    setPrompt( tr( "Are you sure you want to delete attribute <b>%1</b>?" ).arg( name ) );
+    setPrompt( tr( "Are you sure you want to delete attribute <b>%1</b>?" ).arg( attribute.name() ) );
     setPromptPixmap( IconLoader::pixmap( "edit-delete", 22 ) );
 
-    RDB::ForeignConstIterator<ValueRow> it( dataManager->values()->index().first(), attributeId );
-    if ( it.next() ) {
+    if ( !attribute.values().isEmpty() ) {
         showWarning( tr( "All current values of this attribute will be deleted." ) );
         m_force = true;
     }

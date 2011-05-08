@@ -22,11 +22,11 @@
 #include "application.h"
 #include "commands/viewsbatch.h"
 #include "data/datamanager.h"
+#include "data/entities.h"
+#include "data/issuetypecache.h"
 #include "data/localsettings.h"
-#include "models/tablemodels.h"
-#include "rdb/utilities.h"
+#include "models/foldermodel.h"
 #include "utils/definitioninfo.h"
-#include "utils/tablemodelshelper.h"
 #include "utils/viewsettingshelper.h"
 #include "utils/validator.h"
 #include "utils/errorhelper.h"
@@ -46,6 +46,7 @@
 #include <QSignalMapper>
 
 ViewDialog::ViewDialog( QWidget* parent ) : CommandDialog( parent ),
+    m_typeId( 0 ),
     m_nameEdit( NULL ),
     m_filtersPanel( NULL ),
     m_updatingLayout( false )
@@ -66,6 +67,8 @@ static QFrame* makeSeparator( QWidget* parent )
 
 void ViewDialog::initialize( bool withName, bool withFilters, int typeId, const DefinitionInfo& info )
 {
+    m_typeId = typeId;
+
     QGridLayout* layout = new QGridLayout();
     layout->setColumnStretch( 1, 1 );
 
@@ -112,8 +115,10 @@ void ViewDialog::initialize( bool withName, bool withFilters, int typeId, const 
     m_columnWidgets.append( new QLabel( tr( "Available columns:" ), m_columnsPanel ) );
     m_columnWidgets.append( makeSeparator( m_columnsPanel ) );
 
-    m_availableColumns = ViewSettingsHelper::availableColumns( typeId );
-    m_selectedColumns = ViewSettingsHelper::viewColumns( typeId, info );
+    IssueTypeCache* cache = dataManager->issueTypeCache( typeId );
+
+    m_availableColumns = cache->availableColumns();
+    m_selectedColumns = cache->viewColumns( info );
 
     QSignalMapper* columnToggledMapper = new QSignalMapper( this );
     connect( columnToggledMapper, SIGNAL( mapped( int ) ), this, SLOT( columnToggled( int ) ) );
@@ -121,10 +126,12 @@ void ViewDialog::initialize( bool withName, bool withFilters, int typeId, const 
     QSignalMapper* columnIndexChangedMapper = new QSignalMapper( this );
     connect( columnIndexChangedMapper, SIGNAL( mapped( int ) ), this, SLOT( columnIndexChanged( int ) ) );
 
+    ViewSettingsHelper helper( typeId );
+
     for ( int i = 0; i < m_availableColumns.count(); i++ ) {
         int column = m_availableColumns.at( i );
 
-        QCheckBox* columnCheckBox = new QCheckBox( TableModelsHelper::columnName( column ), m_columnsPanel );
+        QCheckBox* columnCheckBox = new QCheckBox( helper.columnName( column ), m_columnsPanel );
         m_columnCheckBoxes.insert( column, columnCheckBox );
 
         columnToggledMapper->setMapping( columnCheckBox, column );
@@ -186,7 +193,7 @@ void ViewDialog::initialize( bool withName, bool withFilters, int typeId, const 
     m_orderGroup->addButton( ascendingRadioButton, Qt::AscendingOrder );
     m_orderGroup->addButton( descendingRadioButton, Qt::DescendingOrder );
 
-    QPair<int, Qt::SortOrder> order = ViewSettingsHelper::viewSortOrder( typeId, info );
+    QPair<int, Qt::SortOrder> order = cache->viewSortOrder( info );
     updateSortComboBox( order.first );
     m_orderGroup->button( order.second )->setChecked( true );
 
@@ -222,7 +229,7 @@ void ViewDialog::initialize( bool withName, bool withFilters, int typeId, const 
         m_conditionIndexChangedMapper = new QSignalMapper( this );
         connect( m_conditionIndexChangedMapper, SIGNAL( mapped( int ) ), this, SLOT( conditionIndexChanged( int ) ) );
 
-        QList<DefinitionInfo> filters = ViewSettingsHelper::viewFilters( typeId, info );
+        QList<DefinitionInfo> filters = cache->viewFilters( info );
 
         for ( int i = 0; i < filters.count(); i++ ) {
             DefinitionInfo filter = filters.at( i );
@@ -238,16 +245,16 @@ void ViewDialog::initialize( bool withName, bool withFilters, int typeId, const 
         for ( int i = 0; i < m_availableColumns.count(); i++ ) {
             int column = m_availableColumns.at( i );
 
-            QCheckBox* checkBox = new QCheckBox( TableModelsHelper::columnName( column ), m_filtersPanel );
+            QCheckBox* checkBox = new QCheckBox( helper.columnName( column ), m_filtersPanel );
             m_filterCheckBoxes.insert( column, checkBox );
 
             filterToggledMapper->setMapping( checkBox, column );
             connect( checkBox, SIGNAL( toggled( bool ) ), filterToggledMapper, SLOT( map() ) );
 
             QComboBox* operatorsComboBox = new QComboBox( m_filtersPanel );
-            QStringList operators = ViewSettingsHelper::availableOperators( column );
+            QStringList operators = cache->availableOperators( column );
             for ( int j = 0; j < operators.count(); j++ )
-                operatorsComboBox->addItem( ViewSettingsHelper::operatorName( operators.at( j ) ), operators.at( j ) );
+                operatorsComboBox->addItem( helper.operatorName( operators.at( j ) ), operators.at( j ) );
             m_filterOperators.insert( column, operatorsComboBox );
 
             filterIndexChangedMapper->setMapping( operatorsComboBox, column );
@@ -383,9 +390,11 @@ void ViewDialog::updateSortComboBox( int current /*= -1*/ )
 
     m_sortComboBox->clear();
 
+    ViewSettingsHelper helper( m_typeId );
+
     for ( int i = 0; i < m_selectedColumns.count(); i++ ) {
         int column = m_selectedColumns.at( i );
-        m_sortComboBox->addItem( TableModelsHelper::columnName( column ), column );
+        m_sortComboBox->addItem( helper.columnName( column ), column );
         if ( column == current )
             m_sortComboBox->setCurrentIndex( i );
     }
@@ -445,16 +454,19 @@ void ViewDialog::filterIndexChanged( int column )
 
 void ViewDialog::appendCondition( int column, const QString& type, const QString& value )
 {
-    QCheckBox* checkBox = new QCheckBox( TableModelsHelper::columnName( column ), m_filtersPanel );
+    IssueTypeCache* cache = dataManager->issueTypeCache( m_typeId );
+    ViewSettingsHelper helper( m_typeId );
+
+    QCheckBox* checkBox = new QCheckBox( helper.columnName( column ), m_filtersPanel );
     checkBox->setChecked( true );
     m_conditionCheckBoxes.append( checkBox );
 
     connect( checkBox, SIGNAL( toggled( bool ) ), m_conditionToggledMapper, SLOT( map() ) );
 
     QComboBox* operatorsComboBox = new QComboBox( m_filtersPanel );
-    QStringList operators = ViewSettingsHelper::availableOperators( column );
+    QStringList operators = cache->availableOperators( column );
     for ( int j = 0; j < operators.count(); j++ )
-        operatorsComboBox->addItem( ViewSettingsHelper::operatorName( operators.at( j ) ), operators.at( j ) );
+        operatorsComboBox->addItem( helper.operatorName( operators.at( j ) ), operators.at( j ) );
     operatorsComboBox->setCurrentIndex( operators.indexOf( type ) );
     m_conditionOperators.append( operatorsComboBox );
 
@@ -472,11 +484,11 @@ InputLineEdit* ViewDialog::createEditor( int column )
 {
     if ( column > Column_UserDefined ) {
         int attributeId = column - Column_UserDefined;
-        const AttributeRow* attribute = dataManager->attributes()->find( attributeId );
 
-        if ( attribute ) {
-            DefinitionInfo attributeInfo = DefinitionInfo::fromString( attribute->definition() );
+        IssueTypeCache* cache = dataManager->issueTypeCache( m_typeId );
+        DefinitionInfo attributeInfo = cache->attributeDefinition( attributeId );
 
+        if ( !attributeInfo.isEmpty() ) {
             switch ( AttributeHelper::toAttributeType( attributeInfo ) ) {
                 case TextAttribute: {
                     InputLineEdit* editor = new InputLineEdit( m_filtersPanel );
@@ -555,14 +567,12 @@ QStringList ViewDialog::userItems()
 
     items.append( QString( "[%1]" ).arg( tr( "Me" ) ) );
 
-    RDB::IndexConstIterator<UserRow> it( dataManager->users()->index() );
-    QList<const UserRow*> users = localeAwareSortRows( it, &UserRow::name );
+    QList<UserEntity> users = UserEntity::list();
 
-    for ( int i = 0; i < users.count(); i++ ) {
-        const UserRow* user = users.at( i );
-        if ( user->access() == NoAccess )
+    foreach ( const UserEntity& user, users ) {
+        if ( user.access() == NoAccess )
             continue;
-        items.append( user->name() );
+        items.append( user.name() );
     }
 
     return items;
@@ -672,22 +682,20 @@ AddViewDialog::AddViewDialog( int typeId, bool isPublic, QWidget* parent ) : Vie
     m_isPublic( isPublic ),
     m_viewId( 0 )
 {
-    const TypeRow* type = dataManager->types()->find( typeId );
-    QString name = type ? type->name() : QString();
+    TypeEntity type = TypeEntity::find( typeId );
 
     if ( isPublic ) {
         setWindowTitle( tr( "Add Public View" ) );
-        setPrompt( tr( "Create a new public view for type <b>%1</b>:" ).arg( name ) );
+        setPrompt( tr( "Create a new public view for type <b>%1</b>:" ).arg( type.name() ) );
     } else {
         setWindowTitle( tr( "Add Personal View" ) );
-        setPrompt( tr( "Create a new personal view for type <b>%1</b>:" ).arg( name ) );
+        setPrompt( tr( "Create a new personal view for type <b>%1</b>:" ).arg( type.name() ) );
     }
     setPromptPixmap( IconLoader::pixmap( "view-new", 22 ) );
 
-    QString definition = dataManager->viewSetting( typeId, "default_view" );
-    DefinitionInfo info = DefinitionInfo::fromString( definition );
+    IssueTypeCache* cache = dataManager->issueTypeCache( typeId );
 
-    initialize( true, true, typeId, info );
+    initialize( true, true, typeId, cache->defaultView() );
 }
 
 AddViewDialog::~AddViewDialog()
@@ -701,12 +709,9 @@ void AddViewDialog::accept()
 
     QString name = viewName();
 
-    RDB::ForeignConstIterator<ViewRow> it( dataManager->views()->parentIndex(), m_typeId );
-    while ( it.next() ) {
-        if ( it.get()->name() == name && it.get()->isPublic() == m_isPublic ) {
-            showWarning( ErrorHelper::statusMessage( ErrorHelper::ViewAlreadyExists ) );
-            return;
-        }
+    if ( ViewEntity::exists( m_typeId, name, m_isPublic ) ) {
+        showWarning( ErrorHelper::ViewAlreadyExists );
+        return;
     }
 
     DefinitionInfo info = definitionInfo();
@@ -727,24 +732,18 @@ bool AddViewDialog::batchSuccessful( AbstractBatch* batch )
 ModifyViewDialog::ModifyViewDialog( int viewId, QWidget* parent ) : ViewDialog( parent ),
     m_viewId( viewId )
 {
-    const ViewRow* view = dataManager->views()->find( viewId );
-    QString name = view ? view->name() : QString();
-    m_oldDefinition = view ? view->definition() : QString();
-    int typeId = view ? view->typeId() : 0;
-    bool isPublic = view ? view->isPublic() : false;
+    ViewEntity view = ViewEntity::find( viewId );
 
-    if ( isPublic ) {
+    if ( view.isPublic() ) {
         setWindowTitle( tr( "Modify Public View" ) );
-        setPrompt( tr( "Modify the public view <b>%1</b>:" ).arg( name ) );
+        setPrompt( tr( "Modify the public view <b>%1</b>:" ).arg( view.name() ) );
     } else {
         setWindowTitle( tr( "Modify Personal View" ) );
-        setPrompt( tr( "Modify your personal view <b>%1</b>:" ).arg( name ) );
+        setPrompt( tr( "Modify your personal view <b>%1</b>:" ).arg( view.name() ) );
     }
     setPromptPixmap( IconLoader::pixmap( "edit-modify", 22 ) );
 
-    DefinitionInfo info = DefinitionInfo::fromString( m_oldDefinition );
-
-    initialize( false, true, typeId, info );
+    initialize( false, true, view.typeId(), view.definition() );
 }
 
 ModifyViewDialog::~ModifyViewDialog()
@@ -767,18 +766,15 @@ void ModifyViewDialog::accept()
 DefaultViewDialog::DefaultViewDialog( int typeId, QWidget* parent ) : ViewDialog( parent ),
     m_typeId( typeId )
 {
-    const TypeRow* type = dataManager->types()->find( typeId );
-    QString name = type ? type->name() : QString();
-
-    m_oldDefinition = dataManager->viewSetting( typeId, "default_view" );
+    TypeEntity type = TypeEntity::find( typeId );
 
     setWindowTitle( tr( "Default View" ) );
-    setPrompt( tr( "Modify the default view for type <b>%1</b>:" ).arg( name ) );
+    setPrompt( tr( "Modify the default view for type <b>%1</b>:" ).arg( type.name() ) );
     setPromptPixmap( IconLoader::pixmap( "edit-modify", 22 ) );
 
-    DefinitionInfo info = DefinitionInfo::fromString( m_oldDefinition );
+    IssueTypeCache* cache = dataManager->issueTypeCache( typeId );
 
-    initialize( false, false, typeId, info );
+    initialize( false, false, typeId, cache->defaultView() );
 }
 
 DefaultViewDialog::~DefaultViewDialog()
@@ -801,8 +797,8 @@ void DefaultViewDialog::accept()
 RenameViewDialog::RenameViewDialog( int viewId, QWidget* parent ) : CommandDialog( parent ),
     m_viewId( viewId )
 {
-    const ViewRow* view = dataManager->views()->find( viewId );
-    m_oldName = view ? view->name() : QString();
+    ViewEntity view = ViewEntity::find( viewId );
+    m_oldName = view.name();
 
     setWindowTitle( tr( "Rename View" ) );
     setPrompt( tr( "Enter the new name of view <b>%1</b>:" ).arg( m_oldName ) );
@@ -842,16 +838,10 @@ void RenameViewDialog::accept()
         return;
     }
 
-    const ViewRow* view = dataManager->views()->find( m_viewId );
-    bool typeId = view ? view->typeId() : 0;
-    bool isPublic = view ? view->isPublic() : false;
-
-    RDB::ForeignConstIterator<ViewRow> it( dataManager->views()->parentIndex(), typeId );
-    while ( it.next() ) {
-        if ( it.get()->name() == name && it.get()->isPublic() == isPublic ) {
-            showWarning( ErrorHelper::statusMessage( ErrorHelper::ViewAlreadyExists ) );
-            return;
-        }
+    ViewEntity view = ViewEntity::find( m_viewId );
+    if ( ViewEntity::exists( view.typeId(), name, view.isPublic() ) ) {
+        showWarning( ErrorHelper::ViewAlreadyExists );
+        return;
     }
 
     ViewsBatch* batch = new ViewsBatch();
@@ -863,15 +853,13 @@ void RenameViewDialog::accept()
 DeleteViewDialog::DeleteViewDialog( int viewId, QWidget* parent ) : CommandDialog( parent ),
     m_viewId( viewId )
 {
-    const ViewRow* view = dataManager->views()->find( viewId );
-    QString name = view ? view->name() : QString();
-    bool isPublic = view ? view->isPublic() : false;
+    ViewEntity view = ViewEntity::find( viewId );
 
     setWindowTitle( tr( "Delete View" ) );
-    if ( isPublic )
-        setPrompt( tr( "Are you sure you want to delete public view <b>%1</b>?" ).arg( name ) );
+    if ( view.isPublic() )
+        setPrompt( tr( "Are you sure you want to delete public view <b>%1</b>?" ).arg( view.name() ) );
     else
-        setPrompt( tr( "Are you sure you want to delete your personal view <b>%1</b>?" ).arg( name ) );
+        setPrompt( tr( "Are you sure you want to delete your personal view <b>%1</b>?" ).arg( view.name() ) );
     setPromptPixmap( IconLoader::pixmap( "edit-delete", 22 ) );
 
     setContentLayout( NULL, true );
@@ -893,16 +881,15 @@ PublishViewDialog::PublishViewDialog( int viewId, bool isPublic, QWidget* parent
     m_viewId( viewId ),
     m_isPublic( isPublic )
 {
-    const ViewRow* view = dataManager->views()->find( viewId );
-    QString name = view ? view->name() : QString();
+    ViewEntity view = ViewEntity::find( viewId );
 
-    if ( isPublic ) {
+    if ( view.isPublic() ) {
         setWindowTitle( tr( "Publish View" ) );
-        setPrompt( tr( "Are you sure you want to convert your personal view <b>%1</b> to a public view?" ).arg( name ) );
+        setPrompt( tr( "Are you sure you want to convert your personal view <b>%1</b> to a public view?" ).arg( view.name() ) );
         setPromptPixmap( IconLoader::pixmap( "edit-publish", 22 ) );
     } else {
         setWindowTitle( tr( "Unpublish View" ) );
-        setPrompt( tr( "Are you sure you want to convert public view <b>%1</b> to your personal view?" ).arg( name ) );
+        setPrompt( tr( "Are you sure you want to convert public view <b>%1</b> to your personal view?" ).arg( view.name() ) );
         setPromptPixmap( IconLoader::pixmap( "edit-unpublish", 22 ) );
     }
 
@@ -915,22 +902,16 @@ PublishViewDialog::~PublishViewDialog()
 
 void PublishViewDialog::accept()
 {
-    const ViewRow* view = dataManager->views()->find( m_viewId );
-    QString name = view ? view->name() : QString();
-    int typeId = view ? view->typeId() : 0;
-    bool isPublic = view ? view->isPublic() : false;
+    ViewEntity view = ViewEntity::find( m_viewId );
 
-    if ( isPublic == m_isPublic ) {
+    if ( view.isPublic() == m_isPublic ) {
         QDialog::accept();
         return;
     }
 
-    RDB::ForeignConstIterator<ViewRow> it( dataManager->views()->parentIndex(), typeId );
-    while ( it.next() ) {
-        if ( it.get()->name() == name && it.get()->isPublic() == m_isPublic ) {
-            showWarning( ErrorHelper::statusMessage( ErrorHelper::ViewAlreadyExists ) );
-            return;
-        }
+    if ( ViewEntity::exists( view.typeId(), view.name(), m_isPublic ) ) {
+        showWarning( ErrorHelper::ViewAlreadyExists );
+        return;
     }
 
     ViewsBatch* batch = new ViewsBatch();
@@ -943,11 +924,10 @@ AttributeOrderDialog::AttributeOrderDialog( int typeId, QWidget* parent ) : Comm
     m_typeId( typeId ),
     m_updatingLayout( false )
 {
-    const TypeRow* type = dataManager->types()->find( typeId );
-    QString name = type ? type->name() : QString();
+    TypeEntity type = TypeEntity::find( typeId );
 
     setWindowTitle( tr( "Order of Attributes" ) );
-    setPrompt( tr( "Modify order of attributes for type <b>%1</b>:" ).arg( name ) );
+    setPrompt( tr( "Modify order of attributes for type <b>%1</b>:" ).arg( type.name() ) );
     setPromptPixmap( IconLoader::pixmap( "edit-modify", 22 ) );
 
     QVBoxLayout* layout = new QVBoxLayout();
@@ -967,8 +947,9 @@ AttributeOrderDialog::AttributeOrderDialog( int typeId, QWidget* parent ) : Comm
     m_widgets.append( new QLabel( tr( "Order" ), m_panel ) );
     m_widgets.append( makeSeparator( m_panel ) );
 
-    QString order = dataManager->viewSetting( typeId, "attribute_order" );
-    m_attributes = ViewSettingsHelper::attributeOrder( typeId, order );
+    IssueTypeCache* cache = dataManager->issueTypeCache( typeId );
+
+    m_attributes = cache->attributes();
 
     QSignalMapper* indexChangedMapper = new QSignalMapper( this );
     connect( indexChangedMapper, SIGNAL( mapped( int ) ), this, SLOT( indexChanged( int ) ) );
@@ -976,7 +957,7 @@ AttributeOrderDialog::AttributeOrderDialog( int typeId, QWidget* parent ) : Comm
     for ( int i = 0; i < m_attributes.count(); i++ ) {
         int attributeId = m_attributes.at( i );
 
-        QLabel* label = new QLabel( TableModelsHelper::attributeName( attributeId ), m_panel );
+        QLabel* label = new QLabel( cache->attributeName( attributeId ), m_panel );
         m_labels.insert( attributeId, label );
 
         QComboBox* comboBox = new QComboBox( m_panel );

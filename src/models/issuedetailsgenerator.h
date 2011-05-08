@@ -26,11 +26,9 @@
 #include <QList>
 
 class TextWriter;
-class IssueRow;
-class ChangeRow;
-class FileRow;
-
-class QDateTime;
+class IssueEntity;
+class ChangeEntity;
+class FileEntity;
 
 /**
 * Class providing issue details to the TextWriter.
@@ -77,26 +75,25 @@ public:
     void write( TextWriter* writer, TextWithLinks::Flags flags = 0 );
 
 private:
-    void writeProperties( TextWriter* writer, const IssueRow* issue );
-    void writeAttributes( TextWriter* writer, const IssueRow* issue, TextWithLinks::Flags flags );
-    void writeHistory( TextWriter* writer, TextWithLinks::Flags flags );
+    void writeProperties( TextWriter* writer, const IssueEntity& issue );
+    void writeAttributes( TextWriter* writer, const IssueEntity& issue, TextWithLinks::Flags flags );
+    void writeHistory( TextWriter* writer, const IssueEntity& issue, TextWithLinks::Flags flags );
 
-    QString formatStamp( int userId, const QDateTime& date );
-    QString formatStamp( const ChangeRow* change );
+    QString formatStamp( const ChangeEntity& change );
 
-    TextWithLinks formatChange( const ChangeRow* change, TextWithLinks::Flags flags );
-    TextWithLinks formatFile( const FileRow* file, TextWithLinks::Flags flags );
+    TextWithLinks formatChange( const ChangeEntity& change, TextWithLinks::Flags flags );
+    TextWithLinks formatFile( const FileEntity& file, TextWithLinks::Flags flags );
 
     TextWithLinks historyLinks( TextWithLinks::Flags flags );
 
-    bool checkChangeLinks( const ChangeRow* change );
-    TextWithLinks changeLinks( const ChangeRow* change, TextWithLinks::Flags flags );
+    bool checkChangeLinks( const ChangeEntity& change );
+    TextWithLinks changeLinks( const ChangeEntity& change, TextWithLinks::Flags flags );
 
 private:
     int m_issueId;
     History m_history;
 
-    QList<int> m_items;
+    bool m_isAdmin;
 };
 
 #endif

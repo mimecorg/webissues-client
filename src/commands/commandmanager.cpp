@@ -306,7 +306,8 @@ QString CommandManager::webIssuesError()
         }
     }
 
-    QString message = ErrorHelper::errorMessage( (ErrorHelper::ErrorCode)m_errorCode );
+    ErrorHelper helper;
+    QString message = helper.errorMessage( (ErrorHelper::ErrorCode)m_errorCode );
 
     if ( message.isEmpty() )
         message = tr( "An unknown error occurred (%1 %2)" ).arg( m_errorCode ).arg( m_errorString );

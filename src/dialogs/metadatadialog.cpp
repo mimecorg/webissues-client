@@ -32,9 +32,11 @@
 MetadataDialog::MetadataDialog( AttributeType type, QWidget* parent ) : CommandDialog( parent ),
     m_type( type )
 {
+    AttributeHelper helper;
+
     setWindowTitle( tr( "Attribute Details" ) );
     setPromptPixmap( IconLoader::pixmap( "status-info", 22 ) );
-    setPrompt( tr( "Specify details of <b>%1</b> attribute:" ).arg( AttributeHelper::typeName( type ) ) );
+    setPrompt( tr( "Specify details of <b>%1</b> attribute:" ).arg( helper.typeName( type ) ) );
 
     QVBoxLayout* layout = new QVBoxLayout();
 

@@ -20,12 +20,11 @@
 #ifndef TYPESVIEW_H
 #define TYPESVIEW_H
 
-#include "view.h"
+#include "views/view.h"
 
-#include "rdb/tableitemmodel.h"
+class TypesModel;
 
-#include <QModelIndex>
-
+class QModelIndex;
 class QTreeView;
 
 /**
@@ -66,7 +65,7 @@ private slots:
 
 private:
     QTreeView* m_list;
-    RDB::TableItemModel* m_model;
+    TypesModel* m_model;
 
     int m_selectedTypeId;
     int m_selectedAttributeId;

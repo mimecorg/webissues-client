@@ -20,8 +20,7 @@
 #ifndef METADATADIALOG_H
 #define METADATADIALOG_H
 
-#include "commanddialog.h"
-
+#include "dialogs/commanddialog.h"
 #include "utils/attributehelper.h"
 
 #include <QVariantMap>

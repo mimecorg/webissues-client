@@ -20,12 +20,10 @@
 #ifndef VIEWSETTINGSDIALOG_H
 #define VIEWSETTINGSDIALOG_H
 
-#include "informationdialog.h"
-
-#include "rdb/tableitemmodel.h"
+#include "dialogs/informationdialog.h"
 #include "xmlui/client.h"
 
-#include <QDialog>
+class ViewsModel;
 
 class QLineEdit;
 class QTreeView;
@@ -87,7 +85,7 @@ private:
     QLineEdit* m_sortByEdit;
 
     QTreeView* m_list;
-    RDB::TableItemModel* m_model;
+    ViewsModel* m_model;
 };
 
 #endif

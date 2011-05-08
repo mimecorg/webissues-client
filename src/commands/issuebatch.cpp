@@ -18,9 +18,10 @@
 **************************************************************************/
 
 #include "issuebatch.h"
-#include "command.h"
 
+#include "commands/command.h"
 #include "data/datamanager.h"
+#include "data/entities.h"
 
 #include <QFile>
 
@@ -82,8 +83,8 @@ void IssueBatch::deleteIssue()
     Job job( &IssueBatch::deleteIssueJob );
     m_queue.addJob( job );
 
-    const IssueRow* issue = dataManager->issues()->find( m_issueId );
-    m_folderId = issue ? issue->folderId() : 0;
+    IssueEntity issue = IssueEntity::find( m_issueId );
+    m_folderId = issue.folderId();
 }
 
 void IssueBatch::addComment( const QString& text )

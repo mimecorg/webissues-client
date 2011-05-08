@@ -18,15 +18,15 @@
 **************************************************************************/
 
 #include "commentview.h"
-#include "viewmanager.h"
 
 #include "commands/commandmanager.h"
 #include "commands/issuebatch.h"
 #include "data/datamanager.h"
+#include "data/entities.h"
 #include "data/updateevent.h"
 #include "utils/formatter.h"
-#include "utils/tablemodelshelper.h"
 #include "utils/iconloader.h"
+#include "views/viewmanager.h"
 #include "widgets/inputtextedit.h"
 #include "xmlui/builder.h"
 
@@ -127,41 +127,36 @@ void CommentView::initialUpdate()
     setAccess( checkDataAccess(), true );
 
     if ( isEnabled() && id() != m_issueId ) {
-        const CommentRow* comment = dataManager->comments()->find( id() );
-        if ( comment ) {
-            m_oldText = comment->text();
-            m_edit->setInputValue( m_oldText );
-        }
+        ChangeEntity change = ChangeEntity::findComment( id() );
+        m_oldText = change.comment().text();
+        m_edit->setInputValue( m_oldText );
     }
 }
 
 Access CommentView::checkDataAccess()
 {
-    const ChangeRow* change = dataManager->changes()->find( id() );
-    if ( change )
-        m_issueId = change->issueId();
+    ChangeEntity change = ChangeEntity::findComment( id() );
+    if ( change.isValid() )
+        m_issueId = change.issueId();
     else
         m_issueId = id();
 
-    const IssueRow* issue = dataManager->issues()->find( m_issueId );
-    if ( !issue )
+    IssueEntity issue = IssueEntity::find( m_issueId );
+    if ( !issue.isValid() )
         return UnknownAccess;
 
-    m_folderId = issue->folderId();
-
-    const FolderRow* folder = dataManager->folders()->find( issue->folderId() );
-    if ( !folder )
+    FolderEntity folder = issue.folder();
+    if ( !folder.isValid() )
         return NoAccess;
 
     if ( dataManager->currentUserAccess() != AdminAccess ) {
-        int userId = dataManager->currentUserId();
-        const MemberRow* member = dataManager->members()->find( userId, folder->projectId() );
-        if ( !member )
+        MemberEntity member = MemberEntity::find( folder.projectId(), dataManager->currentUserId() );
+        if ( !member.isValid() )
             return NoAccess;
     }
 
-    const TypeRow* type = dataManager->types()->find( folder->typeId() );
-    if ( !type )
+    TypeEntity type = folder.type();
+    if ( !type.isValid() )
         return UnknownAccess;
 
     return NormalAccess;
@@ -184,14 +179,14 @@ void CommentView::updateCaption()
 {
     QString name = tr( "Unknown Issue" ) ;
     if ( isEnabled() ) {
-        const IssueRow* row = dataManager->issues()->find( m_issueId );
-        if ( row )
-            name = row->name();
+        IssueEntity issue = IssueEntity::find( m_issueId );
+        if ( issue.isValid() )
+            name = issue.name();
     }
     if ( id() == m_issueId ) {
         setCaption( tr( "Add Comment - %1" ).arg( name ) );
     } else {
-        QString ident = TableModelsHelper::formatId( id() );
+        QString ident = QString( "#%1" ).arg( id() );
         setCaption( tr( "Edit Comment %1 - %2" ).arg( ident, name ) );
     }
 }

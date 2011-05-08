@@ -20,10 +20,10 @@
 #ifndef MEMBERSDIALOG_H
 #define MEMBERSDIALOG_H
 
-#include "informationdialog.h"
-
-#include "rdb/tableitemmodel.h"
+#include "dialogs/informationdialog.h"
 #include "xmlui/client.h"
+
+class MembersModel;
 
 class QTreeView;
 
@@ -60,7 +60,7 @@ private:
     int m_projectId;
 
     QTreeView* m_list;
-    RDB::TableItemModel* m_model;
+    MembersModel* m_model;
 
     QList<int> m_selectedUsers;
 };

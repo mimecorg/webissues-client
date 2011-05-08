@@ -22,6 +22,7 @@
 #include "application.h"
 #include "commands/commandmanager.h"
 #include "data/datamanager.h"
+#include "data/entities.h"
 #include "data/localsettings.h"
 #include "dialogs/userdialogs.h"
 #include "dialogs/finditemdialog.h"
@@ -619,10 +620,11 @@ void MainWindow::gotoItem()
 
 void MainWindow::gotoIssue( int issueId, int itemId )
 {
-    const IssueRow* issue = dataManager->issues()->find( issueId );
-    int folderId = issue ? issue->folderId() : 0;
+    IssueEntity issue = IssueEntity::find( issueId );
 
-    if ( folderId != 0 ) {
+    if ( issue.isValid() ) {
+        int folderId = issue.folderId();
+
         if ( folderId != m_folderView->id() ) {
             m_selectedFolderId = folderId;
             m_currentViewId = 0;
@@ -630,6 +632,7 @@ void MainWindow::gotoIssue( int issueId, int itemId )
             m_folderView->setId( folderId );
             m_folderView->initialUpdate();
         }
+
         if ( issueId != m_issueView->id() )
             m_folderView->gotoIssue( issueId, itemId );
         else

@@ -21,6 +21,7 @@
 
 #include "commands/abstractbatch.h"
 #include "commands/commandmanager.h"
+#include "utils/errorhelper.h"
 #include "utils/iconloader.h"
 #include "widgets/inputlineedit.h"
 #include "widgets/inputtextedit.h"
@@ -176,6 +177,12 @@ void CommandDialog::showWarning( const QString& text )
     QMessageBox box;
     box.setIcon( QMessageBox::Warning );
     QAccessible::updateAccessibility( &box, 0, QAccessible::Alert );
+}
+
+void CommandDialog::showWarning( int code )
+{
+    ErrorHelper helper;
+    showWarning( helper.statusMessage( (ErrorHelper::ErrorCode)code ) );
 }
 
 void CommandDialog::showError( const QString& text )

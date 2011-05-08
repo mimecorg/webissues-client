@@ -20,8 +20,8 @@
 #ifndef UPDATEBATCH_H
 #define UPDATEBATCH_H
 
-#include "abstractbatch.h"
-#include "batchjob.h"
+#include "commands/abstractbatch.h"
+#include "commands/batchjob.h"
 
 /**
 * Batch for retrieving data from the server.
@@ -46,6 +46,16 @@ public:
     * Add a <tt>GET SETTINGS</tt> command to the batch.
     */
     void updateSettings();
+
+    /**
+    * Add a <tt>GET LOCALE</tt> command to the batch.
+    */
+    void updateLocale();
+
+    /**
+    * Add a <tt>LIST PREFERENCES</tt> command to the batch.
+    */
+    void updatePreferences( int userId );
 
     /**
     * Add a <tt>LIST USERS</tt> command to the batch.
@@ -98,6 +108,8 @@ private:
 
 private:
     Command* updateSettingsJob( const Job& job );
+    Command* updateLocaleJob( const Job& job );
+    Command* updatePreferencesJob( const Job& job );
     Command* updateUsersJob( const Job& job );
     Command* updateTypesJob( const Job& job );
     Command* updateProjectsJob( const Job& job );

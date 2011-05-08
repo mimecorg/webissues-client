@@ -74,6 +74,7 @@ protected:
     void updateInput();
 
     void setError( const QString& error );
+    void setError( int code );
     void clearError();
 
     void setPopupVisible( bool visible );

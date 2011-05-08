@@ -20,12 +20,12 @@
 #ifndef ERRORHELPER_H
 #define ERRORHELPER_H
 
-#include <QString>
+#include <QObject>
 
 /**
 * Class providing localized error messages.
 */
-class ErrorHelper
+class ErrorHelper : public QObject
 {
 public:
     /**
@@ -95,15 +95,12 @@ public:
     /**
     * Return the error message for given error code.
     */
-    static QString errorMessage( ErrorCode code );
+    QString errorMessage( ErrorCode code ) const;
 
     /**
     * Return the error message formatted for status.
     */
-    static QString statusMessage( ErrorCode code );
-
-private:
-    static QString tr( const char* text );
+    QString statusMessage( ErrorCode code ) const;
 };
 
 #endif

@@ -18,12 +18,13 @@
 **************************************************************************/
 
 #include "managealertsdialog.h"
-#include "alertdialogs.h"
 
 #include "application.h"
 #include "data/datamanager.h"
+#include "data/entities.h"
 #include "data/localsettings.h"
-#include "models/tablemodels.h"
+#include "dialogs/alertdialogs.h"
+#include "models/alertsmodel.h"
 #include "utils/treeviewhelper.h"
 #include "utils/iconloader.h"
 #include "xmlui/builder.h"
@@ -38,8 +39,7 @@
 ManageAlertsDialog::ManageAlertsDialog( int folderId, QWidget* parent ) : InformationDialog( parent ),
     m_folderId( folderId )
 {
-    const FolderRow* folder = dataManager->folders()->find( folderId );
-    QString name = folder ? folder->name() : QString();
+    FolderEntity folder = FolderEntity::find( m_folderId );
 
     m_emailEnabled = dataManager->setting( "email_enabled" ).toInt();
 
@@ -70,7 +70,7 @@ ManageAlertsDialog::ManageAlertsDialog( int folderId, QWidget* parent ) : Inform
 
     setWindowTitle( tr( "Manage Alerts" ) );
     setPromptPixmap( IconLoader::pixmap( "configure-alerts", 22 ) );
-    setPrompt( tr( "Edit alert settings for folder <b>%1</b>:" ).arg( name ) );
+    setPrompt( tr( "Edit alert settings for folder <b>%1</b>:" ).arg( folder.name() ) );
 
     QVBoxLayout* layout = new QVBoxLayout();
     layout->setSpacing( 4 );
@@ -80,24 +80,21 @@ ManageAlertsDialog::ManageAlertsDialog( int folderId, QWidget* parent ) : Inform
     layout->addWidget( strip );
 
     m_list = new QTreeView( this );
-    TreeViewHelper::initializeView( m_list );
     layout->addWidget( m_list );
 
-    m_model = new RDB::TableItemModel( this );
-    m_model->setRootTableModel( new AlertsTableModel( false, m_model ),
-        dataManager->alerts()->index(), dataManager->alerts()->parentIndex(), folderId );
+    TreeViewHelper helper( m_list );
+    helper.initializeView( TreeViewHelper::NotSortable );
 
-    QList<int> columns;
-    columns.append( Column_Name );
-    columns.append( Column_Status );
-    if ( m_emailEnabled != 0 )
-        columns.append( Column_EmailType );
-    m_model->setColumns( columns );
-
+    m_model = new AlertsModel( folderId, this );
     m_list->setModel( m_model );
 
-    TreeViewHelper::setSortOrder( m_list, qMakePair( (int)Column_Name, Qt::AscendingOrder ) );
-    TreeViewHelper::loadColumnWidths( m_list, "ManageAlertsDialog" );
+    QList<int> widths;
+    widths.append( 150 );
+    widths.append( 250 );
+    if ( m_emailEnabled != 0 )
+        widths.append( 150 );
+
+    helper.loadColumnWidths( "ManageAlertsDialogWidths", widths );
 
     connect( m_list->selectionModel(), SIGNAL( selectionChanged( const QItemSelection&, const QItemSelection& ) ),
         this, SLOT( updateActions() ) );
@@ -120,7 +117,8 @@ ManageAlertsDialog::~ManageAlertsDialog()
 {
     application->applicationSettings()->setValue( "ManageAlertsDialogSize", size() );
 
-    TreeViewHelper::saveColumnWidths( m_list, "ManageAlertsDialog" );
+    TreeViewHelper helper( m_list );
+    helper.saveColumnWidths( "ManageAlertsDialogWidths" );
 }
 
 void ManageAlertsDialog::addAlert()
@@ -147,15 +145,17 @@ void ManageAlertsDialog::editModify()
 
 void ManageAlertsDialog::updateActions()
 {
-    const FolderRow* folder = dataManager->folders()->find( m_folderId );
+    FolderEntity folder = FolderEntity::find( m_folderId );
 
-    action( "addAlert" )->setEnabled( folder != NULL );
+    action( "addAlert" )->setEnabled( folder.isValid() );
 
     m_selectedAlertId = 0;
 
-    QModelIndex index = TreeViewHelper::selectedIndex( m_list );
+    TreeViewHelper helper( m_list );
+    QModelIndex index = helper.selectedIndex();
+
     if ( index.isValid() )
-        m_selectedAlertId = m_model->data( index, RDB::TableItemModel::RowIdRole ).toInt();
+        m_selectedAlertId = m_model->rowId( index );
 
     action( "editDelete" )->setEnabled( m_selectedAlertId != 0 );
     if ( m_emailEnabled != 0 )
@@ -165,7 +165,7 @@ void ManageAlertsDialog::updateActions()
 void ManageAlertsDialog::doubleClicked( const QModelIndex& index )
 {
     if ( index.isValid() && m_emailEnabled != 0 ) {
-        int alertId = m_model->data( index, RDB::TableItemModel::RowIdRole ).toInt();
+        int alertId = m_model->rowId( index );
 
         ModifyAlertDialog dialog( alertId, this );
         dialog.exec();

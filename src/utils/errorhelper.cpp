@@ -19,9 +19,7 @@
 
 #include "errorhelper.h"
 
-#include <QApplication>
-
-QString ErrorHelper::errorMessage( ErrorCode code )
+QString ErrorHelper::errorMessage( ErrorCode code ) const
 {
     switch ( code ) {
         case LoginRequired:
@@ -139,7 +137,7 @@ QString ErrorHelper::errorMessage( ErrorCode code )
     }
 }
 
-QString ErrorHelper::statusMessage( ErrorCode code )
+QString ErrorHelper::statusMessage( ErrorCode code ) const
 {
     QString message = errorMessage( code );
 
@@ -147,9 +145,4 @@ QString ErrorHelper::statusMessage( ErrorCode code )
         return tr( "Some of the values you entered are incorrect." );
 
     return tr( "Incorrect value: %1." ).arg( message );
-}
-
-QString ErrorHelper::tr( const char* text )
-{
-    return qApp->translate( "ErrorHelper", text );
 }
