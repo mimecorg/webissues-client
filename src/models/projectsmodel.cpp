@@ -22,7 +22,10 @@
 #include "data/datamanager.h"
 #include "utils/iconloader.h"
 
+#include <QSqlQueryModel>
+#include <QSqlQuery>
 #include <QPixmap>
+#include <QFont>
 
 ProjectsModel::ProjectsModel( QObject* parent ) : BaseModel( parent )
 {

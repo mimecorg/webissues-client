@@ -24,6 +24,8 @@
 #include "utils/attributehelper.h"
 #include "utils/iconloader.h"
 
+#include <QSqlQueryModel>
+#include <QSqlQuery>
 #include <QPixmap>
 
 TypesModel::TypesModel( QObject* parent ) : BaseModel( parent )

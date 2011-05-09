@@ -26,6 +26,7 @@
 class AlertsModel;
 
 class QTreeView;
+class QModelIndex;
 
 /**
 * Dialog for managing alerts.

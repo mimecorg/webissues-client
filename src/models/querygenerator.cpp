@@ -25,6 +25,9 @@
 #include "utils/attributehelper.h"
 #include "utils/datetimehelper.h"
 
+#include <QSqlQuery>
+#include <QDateTime>
+
 QueryGenerator::QueryGenerator( int folderId, int viewId ) :
     m_folderId( folderId ),
     m_typeId( 0 ),
@@ -256,6 +259,8 @@ QString QueryGenerator::generateConditions()
                             break;
                         case DateTimeAttribute:
                             conditions.append( makeDateCondition( expression, type, convertDateTimeValue( value, info.metadata( "local" ).toBool() ) ) );
+                            break;
+                        default:
                             break;
                     }
                 }

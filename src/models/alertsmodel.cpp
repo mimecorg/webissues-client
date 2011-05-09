@@ -22,6 +22,8 @@
 #include "data/datamanager.h"
 #include "utils/iconloader.h"
 
+#include <QSqlQueryModel>
+#include <QSqlQuery>
 #include <QPixmap>
 
 AlertsModel::AlertsModel( int folderId, QObject* parent ) : BaseModel( parent ),

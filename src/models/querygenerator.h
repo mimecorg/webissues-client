@@ -24,6 +24,8 @@
 
 class DefinitionInfo;
 
+class QDateTime;
+
 /**
 * Generator for SQL query retrieving the list of issues.
 */

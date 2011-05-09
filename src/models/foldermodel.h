@@ -22,6 +22,8 @@
 
 #include "basemodel.h"
 
+#include <QStringList>
+
 /**
 * Column type.
 */

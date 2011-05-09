@@ -27,6 +27,7 @@ class ViewsModel;
 
 class QLineEdit;
 class QTreeView;
+class QModelIndex;
 
 /**
 * Dialog for managing public or personal view settings.

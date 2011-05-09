@@ -25,6 +25,8 @@
 #include "utils/definitioninfo.h"
 #include "utils/iconloader.h"
 
+#include <QSqlQueryModel>
+#include <QSqlQuery>
 #include <QPixmap>
 
 ViewsModel::ViewsModel( int typeId, bool isPublic, QObject* parent ) : BaseModel( parent ),

@@ -22,6 +22,8 @@
 #include "models/foldermodel.h"
 #include "utils/attributehelper.h"
 
+#include <QSqlQuery>
+
 IssueTypeCache::IssueTypeCache( int typeId, QObject* parent ) : QObject( parent )
 {
     QString query = "SELECT attr_id, attr_name, attr_def"
@@ -250,6 +252,9 @@ QStringList IssueTypeCache::availableOperators( int column ) const
             result.append( "LTE" );
             result.append( "GT" );
             result.append( "GTE" );
+            break;
+
+        default:
             break;
     }
 

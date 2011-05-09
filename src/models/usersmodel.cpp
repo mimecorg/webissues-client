@@ -22,6 +22,8 @@
 #include "data/datamanager.h"
 #include "utils/iconloader.h"
 
+#include <QSqlQueryModel>
+#include <QSqlQuery>
 #include <QPixmap>
 
 UsersModel::UsersModel( QObject* parent ) : BaseModel( parent )

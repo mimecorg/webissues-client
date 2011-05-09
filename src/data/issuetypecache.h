@@ -23,6 +23,8 @@
 #include "utils/definitioninfo.h"
 
 #include <QObject>
+#include <QPair>
+#include <QHash>
 
 /**
 * Cache for information related to an issue type.

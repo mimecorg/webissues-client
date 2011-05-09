@@ -28,6 +28,10 @@
 #include "utils/viewsettingshelper.h"
 #include "utils/iconloader.h"
 
+#include <QSqlQueryModel>
+#include <QSqlQuery>
+#include <QDateTime>
+#include <QTextDocument>
 #include <QPixmap>
 
 FolderModel::FolderModel( int folderId, QObject* parent ) : BaseModel( parent ),

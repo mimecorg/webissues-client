@@ -22,6 +22,9 @@
 
 #include "data/issuetypecache.h"
 
+#include <QSqlQuery>
+#include <QVector>
+
 ProjectEntity::ProjectEntity() :
     d( new ProjectEntityData() )
 {

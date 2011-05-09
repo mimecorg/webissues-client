@@ -28,6 +28,11 @@
 #include "sqlite/sqlitedriver.h"
 #include "sqlite/sqliteextension.h"
 
+#include <QSqlDatabase>
+#include <QSqlQuery>
+#include <QFileInfo>
+#include <QFile>
+
 DataManager* dataManager = NULL;
 
 DataManager::DataManager() :
@@ -255,7 +260,7 @@ bool DataManager::installSchema( const QSqlDatabase& database )
             "CREATE TABLE views ( view_id integer UNIQUE, type_id integer, view_name text, view_def text, is_public integer )"
         };
 
-        for ( int i = 0; i < sizeof( schema ) / sizeof( schema[ 0 ] ); i++ ) {
+        for ( int i = 0; i < (int)( sizeof( schema ) / sizeof( schema[ 0 ] ) ); i++ ) {
             if ( !query.exec( schema[ i ] ) )
                 return false;
         }

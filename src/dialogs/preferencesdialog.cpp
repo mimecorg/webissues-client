@@ -38,6 +38,7 @@
 #include <QGroupBox>
 #include <QButtonGroup>
 #include <QTimer>
+#include <QDateTime>
 
 PreferencesDialog::PreferencesDialog( int userId, QWidget* parent ) : CommandDialog( parent ),
     m_userId( userId ),
@@ -266,7 +267,7 @@ PreferencesDialog::~PreferencesDialog()
 {
 }
 
-bool PreferencesDialog::batchSuccessful( AbstractBatch* batch )
+bool PreferencesDialog::batchSuccessful( AbstractBatch* /*batch*/ )
 {
     if ( !m_initialized ) {
         initialize();

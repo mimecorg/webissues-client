@@ -103,10 +103,12 @@ Command* UpdateBatch::updateSettingsJob( const Job& /*job*/ )
     return dataManager->updateSettings();
 }
 
-Command* UpdateBatch::updateLocaleJob( const Job& job )
+Command* UpdateBatch::updateLocaleJob( const Job& /*job*/ )
 {
     if ( dataManager->localeUpdateNeeded() )
         return dataManager->updateLocale();
+
+    return NULL;
 }
 
 Command* UpdateBatch::updatePreferencesJob( const Job& job )

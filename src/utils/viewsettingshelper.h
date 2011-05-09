@@ -21,6 +21,7 @@
 #define VIEWSETTINGSHELPER_H
 
 #include <QObject>
+#include <QPair>
 
 class DefinitionInfo;
 

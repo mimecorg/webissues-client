@@ -24,11 +24,14 @@
 #include "utils/definitioninfo.h"
 
 #include <QObject>
+#include <QHash>
 
 class Command;
 class Reply;
 class LocalSettings;
 class IssueTypeCache;
+
+class QSqlDatabase;
 
 /**
 * Access level for user or member.

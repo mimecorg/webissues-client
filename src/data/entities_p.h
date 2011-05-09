@@ -20,6 +20,10 @@
 #ifndef ENTITIES_P_H
 #define ENTITIES_P_H
 
+#include <QDateTime>
+
+class QSqlQuery;
+
 class ProjectEntityData : public QSharedData
 {
 public:

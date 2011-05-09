@@ -21,6 +21,7 @@
 
 #include <QString>
 #include <QVariant>
+#include <QRegExp>
 
 #include "sqlite3.h"
 
