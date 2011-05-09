@@ -74,9 +74,18 @@ static QSqlError qMakeError(sqlite3 *access, const QString &descr, QSqlError::Er
                             int errorCode = -1)
 {
     return QSqlError(descr,
-                     QString(reinterpret_cast<const QChar *>(sqlite3_errmsg16(access))),
+                     QString::fromUtf16(static_cast<const ushort *>(sqlite3_errmsg16(access))),
                      type, errorCode);
 }
+
+#if defined(SQLITEDRIVER_DEBUG)
+
+static void trace( void* /*arg*/, const char* query )
+{
+    qDebug() << "SQLite:" << QString::fromUtf8( query );
+}
+
+#endif
 
 class SQLiteDriverPrivate
 {
@@ -141,12 +150,12 @@ void SQLiteResultPrivate::initColumns(bool emptyResultset)
     q->init(nCols);
 
     for (int i = 0; i < nCols; ++i) {
-        QString colName = QString(reinterpret_cast<const QChar *>(
+        QString colName = QString::fromUtf16(static_cast<const ushort *>(
                     sqlite3_column_name16(stmt, i))
                     ).remove(QLatin1Char('"'));
 
         // must use typeName for resolving the type to match SQLiteDriver::record
-        QString typeName = QString(reinterpret_cast<const QChar *>(
+        QString typeName = QString::fromUtf16(static_cast<const ushort *>(
                     sqlite3_column_decltype16(stmt, i)));
 
         int dotIdx = colName.lastIndexOf(QLatin1Char('.'));
@@ -206,19 +215,7 @@ bool SQLiteResultPrivate::fetchNext(SqlCachedResult::ValueCache &values, int idx
                 values[i + idx] = sqlite3_column_int64(stmt, i);
                 break;
             case SQLITE_FLOAT:
-                switch(q->numericalPrecisionPolicy()) {
-                    case QSql::LowPrecisionInt32:
-                        values[i + idx] = sqlite3_column_int(stmt, i);
-                        break;
-                    case QSql::LowPrecisionInt64:
-                        values[i + idx] = sqlite3_column_int64(stmt, i);
-                        break;
-                    case QSql::LowPrecisionDouble:
-                    case QSql::HighPrecision:
-                    default:
-                        values[i + idx] = sqlite3_column_double(stmt, i);
-                        break;
-                };
+                values[i + idx] = sqlite3_column_double(stmt, i);
                 break;
             case SQLITE_NULL:
                 values[i + idx] = QVariant(QVariant::String);
@@ -310,6 +307,9 @@ bool SQLiteResult::prepare(const QString &query)
 #endif
 
     if (res != SQLITE_OK) {
+#if defined(SQLITEDRIVER_DEBUG)
+        trace(NULL, query.toUtf8().constData());
+#endif
         setLastError(qMakeError(d->access, QCoreApplication::translate("SQLiteResult",
                      "Unable to execute statement"), QSqlError::StatementError, res));
         d->finalize();
@@ -434,6 +434,15 @@ QVariant SQLiteResult::handle() const
     return qVariantFromValue(d->stmt);
 }
 
+void SQLiteResult::setLastError(const QSqlError& e)
+{
+#if defined(SQLITEDRIVER_DEBUG)
+    if (e.isValid())
+        qDebug() << "SQLite error:" << e.driverText() << e.databaseText();
+#endif
+    SqlCachedResult::setLastError(e);
+}
+
 /////////////////////////////////////////////////////////
 
 SQLiteDriver::SQLiteDriver(QObject * parent)
@@ -494,6 +503,9 @@ bool SQLiteDriver::open(const QString & db, const QString &, const QString &, co
 
     if (sqlite3_open16(db.utf16(), &d->access) == SQLITE_OK) {
         sqlite3_busy_timeout(d->access, 5000);
+#if defined(SQLITEDRIVER_DEBUG)
+        sqlite3_trace(d->access, trace, NULL);
+#endif
         setOpen(true);
         setOpenError(false);
         return true;
@@ -635,8 +647,10 @@ QSqlIndex SQLiteDriver::primaryIndex(const QString &tblname) const
         return QSqlIndex();
 
     QString table = tblname;
+#if (QT_VERSION >= 0x040500)
     if (isIdentifierEscaped(table, QSqlDriver::TableName))
         table = stripDelimiters(table, QSqlDriver::TableName);
+#endif
 
     QSqlQuery q(createResult());
     q.setForwardOnly(true);
@@ -649,8 +663,10 @@ QSqlRecord SQLiteDriver::record(const QString &tbl) const
         return QSqlRecord();
 
     QString table = tbl;
+#if (QT_VERSION >= 0x040500)
     if (isIdentifierEscaped(table, QSqlDriver::TableName))
         table = stripDelimiters(table, QSqlDriver::TableName);
+#endif
 
     QSqlQuery q(createResult());
     q.setForwardOnly(true);
@@ -666,4 +682,13 @@ QString SQLiteDriver::escapeIdentifier(const QString &identifier, IdentifierType
 {
     Q_UNUSED(type);
     return _q_escapeIdentifier(identifier);
+}
+
+void SQLiteDriver::setLastError(const QSqlError& e)
+{
+#if defined(SQLITEDRIVER_DEBUG)
+    if (e.isValid())
+        qDebug() << "SQLite error:" << e.driverText() << e.databaseText();
+#endif
+    QSqlDriver::setLastError(e);
 }

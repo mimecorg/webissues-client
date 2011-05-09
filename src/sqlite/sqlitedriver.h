@@ -53,6 +53,7 @@ protected:
     QVariant lastInsertId() const;
     QSqlRecord record() const;
     void virtual_hook(int id, void *data);
+    void setLastError(const QSqlError& e);
 
 private:
     SQLiteResultPrivate* d;
@@ -84,6 +85,9 @@ public:
     QSqlIndex primaryIndex(const QString &table) const;
     QVariant handle() const;
     QString escapeIdentifier(const QString &identifier, IdentifierType) const;
+
+protected:
+    void setLastError(const QSqlError& e);
 
 private:
     SQLiteDriverPrivate* d;
