@@ -707,9 +707,6 @@ void IssueView::linkContextMenu( const QString& link, const QPoint& pos )
     QMenu* menu = builder()->contextMenu( menuName );
     if ( menu )
         menu->exec( pos );
-
-    m_actionLink.clear();
-    updateActions();
 }
 
 void IssueView::historyContextMenu( const QPoint& pos )
