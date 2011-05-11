@@ -264,7 +264,7 @@ QString CommandManager::networkError()
     }
 
     if ( error <= QNetworkReply::UnknownContentError ) {
-        switch ( m_statusCode ) {
+        switch ( error ) {
             case QNetworkReply::ContentAccessDenied:
             case QNetworkReply::ContentOperationNotPermittedError:
             case QNetworkReply::AuthenticationRequiredError:
@@ -696,7 +696,7 @@ void CommandManager::handleSslErrors( QNetworkReply* reply, const QList<QSslErro
     if ( certificate.isNull() )
         return;
 
-    if ( certificate == m_certificate ) {
+    if ( m_certificates.contains( certificate ) ) {
         reply->ignoreSslErrors();
         return;
     }
@@ -704,7 +704,7 @@ void CommandManager::handleSslErrors( QNetworkReply* reply, const QList<QSslErro
     CertificatesStore* store = application->certificatesStore();
 
     if ( store->containsCertificate( certificate ) ) {
-        m_certificate = certificate;
+        m_certificates.append( certificate );
         reply->ignoreSslErrors();
         return;
     }
@@ -719,7 +719,7 @@ void CommandManager::handleSslErrors( QNetworkReply* reply, const QList<QSslErro
     if ( dialog.acceptPermanently() )
         store->addCertificate( certificate );
 
-    m_certificate = certificate;
+    m_certificates.append( certificate );
     reply->ignoreSslErrors();
 }
 

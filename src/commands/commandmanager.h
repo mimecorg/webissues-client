@@ -182,7 +182,7 @@ private:
     QNetworkAccessManager* m_manager;
 
 #if defined( HAVE_OPENSSL )
-    QSslCertificate m_certificate;
+    QList<QSslCertificate> m_certificates;
 
     QSslConfiguration m_sslConfiguration;
 #endif
