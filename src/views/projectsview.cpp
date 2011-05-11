@@ -124,10 +124,10 @@ ProjectsView::~ProjectsView()
 
 void ProjectsView::initialUpdate()
 {
+    m_list->sortByColumn( 0, Qt::AscendingOrder );
+
     m_model = new ProjectsModel( this );
     m_list->setModel( m_model );
-
-    m_list->sortByColumn( 0, Qt::AscendingOrder );
 
     TreeViewHelper helper( m_list );
     helper.loadColumnWidths( "ProjectsViewWidths", QList<int>() << 150 << 150 );

@@ -258,6 +258,7 @@ PreferencesDialog::PreferencesDialog( int userId, QWidget* parent ) : CommandDia
     setContentLayout( layout, true );
 
     UpdateBatch* batch = new UpdateBatch( 0 );
+    batch->updateLocale();
     batch->updatePreferences( userId );
 
     executeBatch( batch, tr( "Loading preferences..." ) );

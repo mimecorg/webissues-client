@@ -60,15 +60,10 @@ QVariant ProjectsModel::data( const QModelIndex& index, int role /*= Qt::Display
             QString name = ( viewId != 0 ) ? value.toString() : tr( "All Issues" );
 
             int alert = rawData( level, row, 5 ).toInt() + rawData( level, row, 6 ).toInt();
-            if ( alert > 0 ) {
+            if ( alert > 0 )
                 value = name + QString( " (%1)" ).arg( alert );
-            } else {
-                int total = rawData( level, row, 4 ).toInt();
-                if ( total > 0 )
-                    value = name + QString( " [%1]" ).arg( total );
-                else
-                    value = name;
-            }
+            else
+                value = name;
         }
 
         return value;
@@ -156,6 +151,6 @@ void ProjectsModel::refresh()
 
 void ProjectsModel::updateEvent( UpdateEvent* e )
 {
-    if ( e->unit() == UpdateEvent::Projects || e->unit() == UpdateEvent::Types || e->unit() == UpdateEvent::AlertStates )
+    if ( e->unit() == UpdateEvent::Projects || e->unit() == UpdateEvent::Types || e->unit() == UpdateEvent::AlertStates || e->unit() == UpdateEvent::States )
         refresh();
 }

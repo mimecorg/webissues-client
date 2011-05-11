@@ -92,11 +92,11 @@ QVariant TypesModel::data( const QModelIndex& index, int role /*= Qt::DisplayRol
 void TypesModel::refresh()
 {
     QString typesQuery = "SELECT type_id, type_name"
-        " FROM types"
+        " FROM issue_types"
         " ORDER BY type_name COLLATE LOCALE ASC";
 
     QString attributesQuery = "SELECT attr_id, type_id, attr_name, attr_def"
-        " FROM attributes"
+        " FROM attr_types"
         " ORDER BY attr_name COLLATE LOCALE ASC";
 
     modelAt( 0 )->setQuery( typesQuery );

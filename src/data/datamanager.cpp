@@ -542,11 +542,11 @@ bool DataManager::updatePreferencesReply( const Reply& reply, int userId, const 
     for ( int i = 0; i < reply.lines().count(); i++ ) {
         const ReplyLine& line = reply.lines().at( i );
 
-        query.addBindValue( userId );
+        insertPreferencesQuery.addBindValue( userId );
         foreach ( const QVariant& arg, line.args() )
-            query.addBindValue( arg );
+            insertPreferencesQuery.addBindValue( arg );
 
-        if ( !query.exec() )
+        if ( !insertPreferencesQuery.exec() )
             return false;
     }
 
@@ -1071,10 +1071,10 @@ bool DataManager::updateIssueReply( const Reply& reply, const QSqlDatabase& data
     if ( !execReply( "INSERT OR REPLACE INTO files VALUES ( ?, ?, ?, ? )", "A", reply, database, i ) )
         return false;
 
-    QSqlQuery oldChangeQuery( "SELECT change_type FROM changes WHERE change_id = ?", database );
-    QSqlQuery deleteCommentQuery( "DELETE FROM comments WHERE comment_id = ?", database );
-    QSqlQuery deleteFileQuery( "DELETE FROM files WHERE file_id = ?", database );
-    QSqlQuery deleteChangeQuery( "DELETE FROM changes WHERE change_id = ?", database );
+    AutoSqlQuery oldChangeQuery( "SELECT change_type FROM changes WHERE change_id = ?", database );
+    AutoSqlQuery deleteCommentQuery( "DELETE FROM comments WHERE comment_id = ?", database );
+    AutoSqlQuery deleteFileQuery( "DELETE FROM files WHERE file_id = ?", database );
+    AutoSqlQuery deleteChangeQuery( "DELETE FROM changes WHERE change_id = ?", database );
 
     for ( ; i < reply.lines().count(); i++ ) {
         const ReplyLine& line = reply.lines().at( i );
@@ -1216,21 +1216,21 @@ bool DataManager::removeIssueDetails( const QList<int>& issues, const QSqlDataba
 {
     QSqlQuery query( database );
 
+    query.prepare( "DELETE FROM comments WHERE comment_id IN ( SELECT change_id FROM changes WHERE issue_id = ? )" );
+    foreach ( int issueId, issues ) {
+        query.addBindValue( issueId );
+        if ( !query.exec() )
+            return false;
+    }
+
+    query.prepare( "DELETE FROM files WHERE file_id IN ( SELECT change_id FROM changes WHERE issue_id = ? )" );
+    foreach ( int issueId, issues ) {
+        query.addBindValue( issueId );
+        if ( !query.exec() )
+            return false;
+    }
+
     query.prepare( "DELETE FROM changes WHERE issue_id = ?" );
-    foreach ( int issueId, issues ) {
-        query.addBindValue( issueId );
-        if ( !query.exec() )
-            return false;
-    }
-
-    query.prepare( "DELETE FROM comments WHERE issue_id = ?" );
-    foreach ( int issueId, issues ) {
-        query.addBindValue( issueId );
-        if ( !query.exec() )
-            return false;
-    }
-
-    query.prepare( "DELETE FROM files WHERE issue_id = ?" );
     foreach ( int issueId, issues ) {
         query.addBindValue( issueId );
         if ( !query.exec() )

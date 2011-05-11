@@ -883,7 +883,7 @@ PublishViewDialog::PublishViewDialog( int viewId, bool isPublic, QWidget* parent
 {
     ViewEntity view = ViewEntity::find( viewId );
 
-    if ( view.isPublic() ) {
+    if ( isPublic ) {
         setWindowTitle( tr( "Publish View" ) );
         setPrompt( tr( "Are you sure you want to convert your personal view <b>%1</b> to a public view?" ).arg( view.name() ) );
         setPromptPixmap( IconLoader::pixmap( "edit-publish", 22 ) );

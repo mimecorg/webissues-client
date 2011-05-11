@@ -34,9 +34,9 @@ AlertsModel::AlertsModel( int folderId, QObject* parent ) : BaseModel( parent ),
     bool emailEnabled = dataManager->setting( "email_enabled" ).toInt();
 
     QList<int> columnMapping;
-    columnMapping << 1 << -1;
+    columnMapping << 2 << -1;
     if ( emailEnabled )
-        columnMapping << 5;
+        columnMapping << 6;
     setColumnMapping( 0, columnMapping );
 
     setHeaderData( 0, Qt::Horizontal, tr( "Name" ) );
@@ -58,13 +58,18 @@ QVariant AlertsModel::data( const QModelIndex& index, int role /*= Qt::DisplayRo
 
     if ( role == Qt::DisplayRole ) {
         if ( index.column() == 1 ) {
-            int total = rawData( level, row, 2 ).toInt();
-            int modified = rawData( level, row, 3 ).toInt();
-            int unread = rawData( level, row, 4 ).toInt();
+            int total = rawData( level, row, 3 ).toInt();
+            int modified = rawData( level, row, 4 ).toInt();
+            int unread = rawData( level, row, 5 ).toInt();
             return tr( "%1 new, %2 modified, %3 total issues" ).arg( unread ).arg( modified ).arg( total );
         }
 
         QVariant value = rawData( level, row, mappedColumn( index ), role );
+
+        if ( index.column() == 0 ) {
+            int viewId = rawData( level, row, 1 ).toInt();
+            return ( viewId != 0 ) ? value.toString() : tr( "All Issues" );
+        }
 
         if ( index.column() == 2 ) {
             int email = value.toInt();
@@ -81,10 +86,10 @@ QVariant AlertsModel::data( const QModelIndex& index, int role /*= Qt::DisplayRo
     }
 
     if ( role == Qt::DecorationRole && index.column() == 0 ) {
-        int unread = rawData( level, row, 4 ).toInt();
+        int unread = rawData( level, row, 5 ).toInt();
         if ( unread > 0 )
             return IconLoader::pixmap( "alert-unread" );
-        int modified = rawData( level, row, 3 ).toInt();
+        int modified = rawData( level, row, 4 ).toInt();
         if ( modified > 0 )
             return IconLoader::pixmap( "alert-modified" );
         return IconLoader::pixmap( "alert" );
@@ -95,7 +100,7 @@ QVariant AlertsModel::data( const QModelIndex& index, int role /*= Qt::DisplayRo
 
 void AlertsModel::refresh()
 {
-    QString query = "SELECT a.alert_id, v.view_name, ac.total_count, ac.modified_count, ac.new_count, a.alert_email"
+    QString query = "SELECT a.alert_id, v.view_id, v.view_name, ac.total_count, ac.modified_count, ac.new_count, a.alert_email"
         " FROM alerts AS a"
         " LEFT OUTER JOIN views AS v ON v.view_id = a.view_id"
         " LEFT OUTER JOIN alerts_cache AS ac ON ac.alert_id = a.alert_id"
@@ -114,6 +119,6 @@ void AlertsModel::refresh()
 
 void AlertsModel::updateEvent( UpdateEvent* e )
 {
-    if ( e->unit() == UpdateEvent::AlertStates || e->unit() == UpdateEvent::Projects )
+    if ( e->unit() == UpdateEvent::Projects || e->unit() == UpdateEvent::Types || e->unit() == UpdateEvent::AlertStates || e->unit() == UpdateEvent::States )
         refresh();
 }

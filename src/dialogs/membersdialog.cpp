@@ -81,10 +81,10 @@ MembersDialog::MembersDialog( int projectId, QWidget* parent ) : InformationDial
     TreeViewHelper helper( m_list );
     helper.initializeView( TreeViewHelper::MultiSelect );
 
+    m_list->sortByColumn( 0, Qt::AscendingOrder );
+
     m_model = new MembersModel( projectId, this );
     m_list->setModel( m_model );
-
-    m_list->sortByColumn( 0, Qt::AscendingOrder );
 
     helper.loadColumnWidths( "MembersDialogWidths", QList<int>() << 150 << 150 );
 

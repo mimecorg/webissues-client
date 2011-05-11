@@ -99,10 +99,10 @@ UsersView::~UsersView()
 
 void UsersView::initialUpdate()
 {
+    m_list->sortByColumn( 0, Qt::AscendingOrder );
+
     m_model = new UsersModel( this );
     m_list->setModel( m_model );
-
-    m_list->sortByColumn( 0, Qt::AscendingOrder );
 
     TreeViewHelper helper( m_list );
     helper.loadColumnWidths( "UsersViewWidths", QList<int>() << 150 << 100 << 150 );

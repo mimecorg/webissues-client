@@ -105,6 +105,6 @@ void ViewsModel::refresh()
 
 void ViewsModel::updateEvent( UpdateEvent* e )
 {
-    if ( e->unit() == UpdateEvent::Type )
+    if ( e->unit() == UpdateEvent::Types )
         refresh();
 }

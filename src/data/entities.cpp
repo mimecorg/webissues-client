@@ -616,7 +616,7 @@ ViewEntity ViewEntity::find( int id )
     if ( id != 0 ) {
         QSqlQuery query;
         query.prepare( "SELECT view_id, type_id, view_name, view_def, is_public"
-            " FROM view"
+            " FROM views"
             " WHERE view_id = ?" );
         query.addBindValue( id );
         query.exec();
@@ -1641,7 +1641,7 @@ QList<ChangeEntity> IssueEntity::changes() const
         QSqlQuery query;
         query.setForwardOnly( true );
         query.prepare( "SELECT ch.change_id, ch.issue_id, ch.stamp_id, ch.change_type,"
-            " ch.created_time, ch.created_user_id, uc.user_name AS created_user,"
+            " ch.created_time, uc.user_name AS created_user, ch.created_user_id,"
             " ch.modified_time, um.user_name AS modified_user,"
             " ch.attr_id, ch.old_value, ch.new_value, ff.folder_name AS from_folder, tf.folder_name AS to_folder,"
             " c.comment_text, f.file_name, f.file_size, f.file_descr"
@@ -1652,7 +1652,8 @@ QList<ChangeEntity> IssueEntity::changes() const
             " LEFT OUTER JOIN folders AS tf ON tf.folder_id = ch.to_folder_id"
             " LEFT OUTER JOIN comments AS c ON c.comment_id = ch.change_id AND ch.change_type = ?"
             " LEFT OUTER JOIN files AS f ON f.file_id = ch.change_id AND ch.change_type = ?"
-            " WHERE ch.issue_id = ?" );
+            " WHERE ch.issue_id = ? "
+            " ORDER BY ch.change_id" );
         query.addBindValue( CommentAdded );
         query.addBindValue( FileAdded );
         query.addBindValue( d->m_id );
@@ -1741,7 +1742,8 @@ QList<ChangeEntity> IssueEntity::comments() const
             " LEFT OUTER JOIN users AS uc ON uc.user_id = ch.created_user_id"
             " LEFT OUTER JOIN users AS um ON um.user_id = ch.modified_user_id"
             " JOIN comments AS c ON c.comment_id = ch.change_id AND ch.change_type = ?"
-            " WHERE ch.issue_id = ?" );
+            " WHERE ch.issue_id = ?"
+            " ORDER BY ch.change_id" );
         query.addBindValue( CommentAdded );
         query.addBindValue( d->m_id );
         query.exec();
@@ -1791,7 +1793,7 @@ ChangeEntity ChangeEntity::findFile( int id )
         query.exec();
 
         if ( query.next() )
-            entity.d->readComment( query );
+            entity.d->readFile( query );
     }
 
     return entity;
@@ -1812,7 +1814,8 @@ QList<ChangeEntity> IssueEntity::files() const
             " LEFT OUTER JOIN users AS uc ON uc.user_id = ch.created_user_id"
             " LEFT OUTER JOIN users AS um ON um.user_id = ch.modified_user_id"
             " JOIN files AS f ON f.file_id = ch.change_id AND ch.change_type = ?"
-            " WHERE ch.issue_id = ?" );
+            " WHERE ch.issue_id = ?"
+            " ORDER BY ch.change_id" );
         query.addBindValue( FileAdded );
         query.addBindValue( d->m_id );
         query.exec();
