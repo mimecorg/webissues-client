@@ -263,7 +263,7 @@ void CommentView::sendCompleted( bool successful )
 
 bool CommentView::queryClose()
 {
-    if ( isEnabled() && m_edit->document()->isModified() ) {
+    if ( isEnabled() && m_edit->document()->isModified() && !m_sending ) {
         if ( QMessageBox::warning( mainWidget(), tr( "Warning" ),
             tr( "This comment has not been sent. You will lose all changes\n"
             "when you close it. Are you sure you want to continue?" ),
