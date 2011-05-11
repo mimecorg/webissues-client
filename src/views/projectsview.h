@@ -68,6 +68,7 @@ protected: // overrides
 
 private slots:
     void updateActions();
+    void updateSelection();
 
     void updateTimeout();
 

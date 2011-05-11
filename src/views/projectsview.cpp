@@ -135,7 +135,7 @@ void ProjectsView::initialUpdate()
     setCaption( dataManager->serverName() );
 
     connect( m_list->selectionModel(), SIGNAL( selectionChanged( const QItemSelection&, const QItemSelection& ) ),
-        this, SLOT( updateActions() ) );
+        this, SLOT( updateSelection() ) );
     connect( m_model, SIGNAL( layoutChanged() ), this, SLOT( updateActions() ) );
 
     updateActions();
@@ -276,6 +276,11 @@ void ProjectsView::updateActions()
 
     action( "editRename" )->setText( m_selectedFolderId != 0 ? tr( "&Rename Folder..." ) : tr( "&Rename Project..." ) );
     action( "editDelete" )->setText( m_selectedFolderId != 0 ? tr( "&Delete Folder" ) : tr( "&Delete Project" ) );
+}
+
+void ProjectsView::updateSelection()
+{
+    updateActions();
 
     emit selectionChanged( m_currentFolderId, m_selectedViewId );
 }
