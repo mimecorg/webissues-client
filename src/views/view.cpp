@@ -65,10 +65,11 @@ void View::setAccess( Access access, bool initial )
             m_enabled = true;
             enableView();
             emit enabledChanged( true );
-            showSummary( QPixmap(), QString() );
+            showInfo( tr( "OK" ) );
         } else if ( ( initial || m_enabled ) && ( access == UnknownAccess || access == NoAccess ) ) {
             m_enabled = false;
             emit enabledChanged( false );
+            showSummary( QPixmap(), QString() );
             disableView();
         }
 
