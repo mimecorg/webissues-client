@@ -34,15 +34,17 @@ AlertsModel::AlertsModel( int folderId, QObject* parent ) : BaseModel( parent ),
     bool emailEnabled = dataManager->setting( "email_enabled" ).toInt();
 
     QList<int> columnMapping;
-    columnMapping << 2 << -1;
+    columnMapping << 2 << 3 << 4 << 5;
     if ( emailEnabled )
         columnMapping << 6;
     setColumnMapping( 0, columnMapping );
 
     setHeaderData( 0, Qt::Horizontal, tr( "Name" ) );
-    setHeaderData( 1, Qt::Horizontal, tr( "Status" ) );
+    setHeaderData( 1, Qt::Horizontal, tr( "Total" ) );
+    setHeaderData( 2, Qt::Horizontal, tr( "Unread" ) );
+    setHeaderData( 3, Qt::Horizontal, tr( "Modified" ) );
     if ( emailEnabled )
-        setHeaderData( 2, Qt::Horizontal, tr( "Email Type" ) );
+        setHeaderData( 4, Qt::Horizontal, tr( "Email Type" ) );
 
     refresh();
 }
@@ -57,13 +59,6 @@ QVariant AlertsModel::data( const QModelIndex& index, int role /*= Qt::DisplayRo
     int row = mappedRow( index );
 
     if ( role == Qt::DisplayRole ) {
-        if ( index.column() == 1 ) {
-            int total = rawData( level, row, 3 ).toInt();
-            int modified = rawData( level, row, 4 ).toInt();
-            int unread = rawData( level, row, 5 ).toInt();
-            return tr( "%1 new, %2 modified, %3 total issues" ).arg( unread ).arg( modified ).arg( total );
-        }
-
         QVariant value = rawData( level, row, mappedColumn( index ), role );
 
         if ( index.column() == 0 ) {
@@ -71,7 +66,7 @@ QVariant AlertsModel::data( const QModelIndex& index, int role /*= Qt::DisplayRo
             return ( viewId != 0 ) ? value.toString() : tr( "All Issues" );
         }
 
-        if ( index.column() == 2 ) {
+        if ( index.column() == 4 ) {
             int email = value.toInt();
             if ( email == ImmediateNotificationEmail )
                 return tr( "Immediate notifications" );
@@ -86,13 +81,22 @@ QVariant AlertsModel::data( const QModelIndex& index, int role /*= Qt::DisplayRo
     }
 
     if ( role == Qt::DecorationRole && index.column() == 0 ) {
-        int unread = rawData( level, row, 5 ).toInt();
+        int unread = rawData( level, row, 4 ).toInt();
         if ( unread > 0 )
             return IconLoader::pixmap( "alert-unread" );
-        int modified = rawData( level, row, 4 ).toInt();
+        int modified = rawData( level, row, 5 ).toInt();
         if ( modified > 0 )
             return IconLoader::pixmap( "alert-modified" );
         return IconLoader::pixmap( "alert" );
+    }
+
+    if ( role == Qt::FontRole && index.column() >= 1 && index.column() <= 3 ) {
+        int count = rawData( level, row, mappedColumn( index ), Qt::DisplayRole ).toInt();
+        if ( count > 0 ) {
+            QFont font;
+            font.setBold( true );
+            return font;
+        }
     }
 
     return QVariant();
@@ -100,7 +104,7 @@ QVariant AlertsModel::data( const QModelIndex& index, int role /*= Qt::DisplayRo
 
 void AlertsModel::refresh()
 {
-    QString query = "SELECT a.alert_id, v.view_id, v.view_name, ac.total_count, ac.modified_count, ac.new_count, a.alert_email"
+    QString query = "SELECT a.alert_id, v.view_id, v.view_name, ac.total_count, ac.new_count, ac.modified_count, a.alert_email"
         " FROM alerts AS a"
         " LEFT OUTER JOIN views AS v ON v.view_id = a.view_id"
         " LEFT OUTER JOIN alerts_cache AS ac ON ac.alert_id = a.alert_id"

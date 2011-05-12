@@ -89,8 +89,7 @@ ManageAlertsDialog::ManageAlertsDialog( int folderId, QWidget* parent ) : Inform
     m_list->setModel( m_model );
 
     QList<int> widths;
-    widths.append( 150 );
-    widths.append( 250 );
+    widths << 150 << 80 << 80 << 80;
     if ( m_emailEnabled != 0 )
         widths.append( 150 );
 
