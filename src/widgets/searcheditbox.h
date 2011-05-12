@@ -44,19 +44,6 @@ public:
     */
     ~SearchEditBox();
 
-    /**
-    * Set the text displayed when control is empty and has no focus.
-    */
-    void setPromptText( const QString& text );
-
-    /**
-    * Set the menu displayed when user clicks the options button.
-    */
-    void setOptionsMenu( QMenu* menu );
-
-public: // overrides
-    void clear();
-
 signals:
     /**
     * Emitted when user presses ESC or Enter key.
@@ -66,25 +53,13 @@ signals:
 protected:
     void resizeEvent( QResizeEvent* e );
 
-    void focusInEvent( QFocusEvent* e );
-    void focusOutEvent( QFocusEvent* e );
-
-    void paintEvent( QPaintEvent* e );
-
     void keyPressEvent ( QKeyEvent * e );
 
 private slots:
     void updateCloseButton( const QString& text );
 
 private:
-    void showPrompt( bool on );
-
-private:
-    EditToolButton* m_optionsButton;
     EditToolButton* m_clearButton;
-
-    bool m_showPrompt;
-    QString m_promptText;
 };
 
 #endif
