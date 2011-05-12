@@ -85,8 +85,6 @@ private slots:
     void contextMenu( const QPoint& pos );
     void doubleClicked( const QModelIndex& index );
 
-    void projectsPopulated();
-
 private:
     Access checkDataAccess();
 
@@ -101,8 +99,6 @@ private:
     ProjectsModel* m_model;
 
     QTimer* m_timer;
-
-    bool m_firstUpdateDone;
 
     int m_updateCounter;
 

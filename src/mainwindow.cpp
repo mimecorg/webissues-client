@@ -392,6 +392,8 @@ void MainWindow::connectionOpened()
 
     m_folderView->initialUpdate();
     m_issueView->initialUpdate();
+
+    m_view->mainWidget()->setFocus();
 }
 
 void MainWindow::restoreViewState()

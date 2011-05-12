@@ -40,7 +40,6 @@
 #include <QMessageBox>
 
 ProjectsView::ProjectsView( QObject* parent, QWidget* parentWidget ) : View( parent ),
-    m_firstUpdateDone( false ),
     m_updateCounter( 0 )
 {
     m_systemAdmin = dataManager->currentUserAccess() == AdminAccess;
@@ -118,8 +117,7 @@ ProjectsView::~ProjectsView()
 {
     TreeViewHelper helper( m_list );
     helper.saveColumnWidths( "ProjectsViewWidths" );
-    if ( m_firstUpdateDone )
-        helper.saveExpandedNodes( "ExpandedProjects" );
+    helper.saveExpandedNodes( "ExpandedProjects" );
 }
 
 void ProjectsView::initialUpdate()
@@ -131,6 +129,7 @@ void ProjectsView::initialUpdate()
 
     TreeViewHelper helper( m_list );
     helper.loadColumnWidths( "ProjectsViewWidths", QList<int>() << 150 << 150 );
+    helper.loadExpandedNodes( "ExpandedProjects" );
 
     setCaption( dataManager->serverName() );
 
@@ -412,21 +411,8 @@ void ProjectsView::updateEvent( UpdateEvent* e )
 {
     setAccess( checkDataAccess() );
 
-    if ( e->unit() == UpdateEvent::Projects && !m_firstUpdateDone ) {
-        QTimer::singleShot( 0, this, SLOT( projectsPopulated() ) );
-        m_firstUpdateDone = true;
-    }
-
     if ( e->unit() == UpdateEvent::Projects )
         cascadeUpdateFolders();
-}
-
-void ProjectsView::projectsPopulated()
-{
-    TreeViewHelper helper( m_list );
-    helper.loadExpandedNodes( "ExpandedProjects" );
-
-    mainWidget()->setFocus();
 }
 
 void ProjectsView::contextMenu( const QPoint& pos )
