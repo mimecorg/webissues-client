@@ -25,6 +25,7 @@
 #include "data/bookmarksstore.h"
 #include "data/credentialsstore.h"
 #include "data/datamanager.h"
+#include "dialogs/aboutbox.h"
 #include "utils/iconloader.h"
 #include "views/viewmanager.h"
 
@@ -129,17 +130,53 @@ void Application::commitData( QSessionManager& manager )
 
 void Application::about()
 {
-    QString link = "<a href=\"http://webissues.mimec.org\">webissues.mimec.org</a>";
-
     QString message;
     message += "<h3>" + tr( "WebIssues Desktop Client %1" ).arg( version() ) + "</h3>";
     message += "<p>" + tr( "Desktop Client for the WebIssues team collaboration system." ) + "</p>";
-    message += "<p>" + tr( "NOTE: THIS IS AN ALPHA RELEASE, USE IT FOR TESTING PURPOSES ONLY." ) + "</p>";
-    message += "<p>" + tr( "This program is licensed under the terms of the GNU General Public License." ) + "</p>";
+    message += "<p>" + tr( "This program is free software: you can redistribute it and/or modify"
+        " it under the terms of the GNU General Public License as published by"
+        " the Free Software Foundation, either version 3 of the License, or"
+        " (at your option) any later version." ) + "</p>";
     message += "<p>" + trUtf8( "Copyright (C) 2006 Michał Męciński" ) + "<br>" + tr( "Copyright (C) 2007-2011 WebIssues Team" ) + "</p>";
-    message += "<p>" + tr( "Visit %1 for more information." ).arg( link ) + "</p>";
 
-    QMessageBox::about( activeWindow(), tr( "About WebIssues" ), message );
+    QString link = "<a href=\"http://webissues.mimec.org\">webissues.mimec.org</a>";
+
+    QString helpMessage;
+    helpMessage += "<h4>" + tr( "Help" ) + "</h4>";
+    helpMessage += "<p>" + tr( "Open the WebIssues Manual for help." ) + "</p>";
+
+    QString webMessage;
+    webMessage += "<h4>" + tr( "Web Page" ) + "</h4>";
+    webMessage += "<p>" + tr( "Visit %1 for more information about WebIssues." ).arg( link ) + "</p>";
+
+    QString donateMessage;
+    donateMessage += "<h4>" + tr( "Donations" ) + "</h4>";
+    donateMessage += "<p>" + tr( "If you like this program, your donation will help us dedicate more time for it, support it and implement new features." ) + "</p>";
+
+    AboutBox aboutBox( tr( "About WebIssues" ), message, activeWindow() );
+
+    AboutBoxSection* helpSection = aboutBox.addSection( IconLoader::pixmap( "help" ), helpMessage );
+
+    QPushButton* helpButton = helpSection->addButton( tr( "&Manual" ) );
+    connect( helpButton, SIGNAL( clicked() ), this, SLOT( openManual() ) );
+
+    aboutBox.addSection( IconLoader::pixmap( "web" ), webMessage );
+
+    AboutBoxSection* donateSection = aboutBox.addSection( IconLoader::pixmap( "donate" ), donateMessage );
+
+    QPushButton* donateButton = donateSection->addButton( tr( "&Donate" ) );
+    connect( donateButton, SIGNAL( clicked() ), this, SLOT( openDonations() ) );
+
+    aboutBox.exec();
+}
+
+void Application::openManual()
+{
+}
+
+void Application::openDonations()
+{
+    QDesktopServices::openUrl( QUrl( "http://webissues.mimec.org/donations" ) );
 }
 
 QString Application::version() const

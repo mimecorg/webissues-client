@@ -122,7 +122,7 @@ MainWindow::MainWindow() :
     connect( action, SIGNAL( triggered() ), this, SLOT( configure() ), Qt::QueuedConnection );
     setAction( "configure", action );
 
-    action = new QAction( IconLoader::icon( "help" ), tr( "About WebIssues" ), this );
+    action = new QAction( IconLoader::icon( "about" ), tr( "About WebIssues" ), this );
     action->setMenuRole( QAction::AboutRole );
     connect( action, SIGNAL( triggered() ), qApp, SLOT( about() ), Qt::QueuedConnection );
     setAction( "about", action );

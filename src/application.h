@@ -125,6 +125,9 @@ public: // overrides
     void commitData( QSessionManager& manager );
 
 private slots:
+    void openManual();
+    void openDonations();
+
     void settingsChanged();
 
 private:

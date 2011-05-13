@@ -1,4 +1,5 @@
-HEADERS += dialogs/alertdialogs.h \
+HEADERS += dialogs/aboutbox.h \
+           dialogs/alertdialogs.h \
            dialogs/checkmessagebox.h \
            dialogs/commanddialog.h \
            dialogs/connectioninfodialog.h \
@@ -19,7 +20,8 @@ HEADERS += dialogs/alertdialogs.h \
            dialogs/viewdialogs.h \
            dialogs/viewsettingsdialog.h
 
-SOURCES += dialogs/alertdialogs.cpp \
+SOURCES += dialogs/aboutbox.cpp \
+           dialogs/alertdialogs.cpp \
            dialogs/checkmessagebox.cpp \
            dialogs/commanddialog.cpp \
            dialogs/connectioninfodialog.cpp \

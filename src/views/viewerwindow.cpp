@@ -51,7 +51,7 @@ ViewerWindow::ViewerWindow() :
     connect( action, SIGNAL( triggered() ), this, SLOT( configure() ) );
     setAction( "configure", action );
 
-    action = new QAction( IconLoader::icon( "help" ), tr( "About WebIssues" ), this );
+    action = new QAction( IconLoader::icon( "about" ), tr( "About WebIssues" ), this );
     connect( action, SIGNAL( triggered() ), qApp, SLOT( about() ) );
     setAction( "about", action );
 

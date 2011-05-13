@@ -1,6 +1,6 @@
 <RCC version="1.0">
 <qresource prefix="/icons">
-  <file>about-qt-16.png</file>
+  <file>about-16.png</file>
   <file>alert-16.png</file>
   <file>alert-modified-16.png</file>
   <file>alert-new-16.png</file>
@@ -11,6 +11,7 @@
   <file>attribute-16.png</file>
   <file>attribute-new-16.png</file>
   <file>attribute-new-22.png</file>
+  <file>close-16.png</file>
   <file>comment-16.png</file>
   <file>comment-22.png</file>
   <file>comment-send-16.png</file>
@@ -30,6 +31,7 @@
   <file>connection-go-16.png</file>
   <file>connection-open-16.png</file>
   <file>connection-open-22.png</file>
+  <file>donate-16.png</file>
   <file>edit-access-16.png</file>
   <file>edit-access-22.png</file>
   <file>edit-copy-16.png</file>
@@ -107,7 +109,6 @@
   <file>go-previous-16.png</file>
   <file>go-start-16.png</file>
   <file>help-16.png</file>
-  <file>help-contents-16.png</file>
   <file>issue-16.png</file>
   <file>issue-22.png</file>
   <file>issue-modified-16.png</file>
@@ -162,6 +163,7 @@
   <file>view-users-22.png</file>
   <file>view-zoom-in-16.png</file>
   <file>view-zoom-out-16.png</file>
+  <file>web-16.png</file>
   <file>webissues-16.png</file>
   <file>webissues-22.png</file>
   <file>webissues-32.png</file>
