@@ -191,6 +191,7 @@ protected: // overrides
 
 private slots:
     void setDate( const QDate& date );
+    void setToday();
 
 private:
     QWidget* m_popup;
