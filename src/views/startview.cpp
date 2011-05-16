@@ -211,7 +211,7 @@ void StartView::openConnection( const QString& url, const ServerCredential& cred
 
     showBusy( tr( "Connecting to server..." ) );
 
-    commandManager = new CommandManager();
+    commandManager = new CommandManager( application->networkAccessManager() );
     commandManager->setServerUrl( parsedUrl );
 
     dataManager = new DataManager();

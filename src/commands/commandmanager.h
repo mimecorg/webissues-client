@@ -28,10 +28,6 @@
 #include <QSslConfiguration>
 #endif
 
-#if ( QT_VERSION < 0x040500 ) || !defined( Q_WS_WIN ) && !defined( Q_WS_MAC )
-#define NO_DEFAULT_PROXY
-#endif
-
 class AbstractBatch;
 class Command;
 class Reply;
@@ -80,9 +76,9 @@ public:
 
 public:
     /**
-    * Default constructor.
+    * Constructor.
     */
-    CommandManager();
+    CommandManager( QNetworkAccessManager* manager );
 
     /**
     * Destructor.

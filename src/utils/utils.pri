@@ -9,6 +9,7 @@ HEADERS += utils/attributehelper.h \
            utils/textwithlinks.h \
            utils/textwriter.h \
            utils/treeviewhelper.h \
+           utils/updateclient.h \
            utils/validator.h \
            utils/viewsettingshelper.h
 
@@ -23,5 +24,6 @@ SOURCES += utils/attributehelper.cpp \
            utils/textwithlinks.cpp \
            utils/textwriter.cpp \
            utils/treeviewhelper.cpp \
+           utils/updateclient.cpp \
            utils/validator.cpp \
            utils/viewsettingshelper.cpp

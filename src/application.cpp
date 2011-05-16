@@ -26,6 +26,7 @@
 #include "data/credentialsstore.h"
 #include "data/datamanager.h"
 #include "dialogs/aboutbox.h"
+#include "utils/updateclient.h"
 #include "utils/iconloader.h"
 #include "views/viewmanager.h"
 
@@ -43,6 +44,10 @@
 #include <QNetworkProxy>
 #include <QDesktopServices>
 
+#if !defined( NO_DEFAULT_PROXY )
+#include <QNetworkProxyFactory>
+#endif
+
 #if defined( Q_WS_WIN )
 #define _WIN32_IE 0x0400
 #include <shlobj.h>
@@ -51,6 +56,53 @@
 #include <cstdlib>
 
 Application* application = NULL;
+
+#if defined( NO_DEFAULT_PROXY )
+
+static QNetworkProxy networkProxy()
+{
+    LocalSettings* settings = application->applicationSettings();
+    QNetworkProxy::ProxyType type = (QNetworkProxy::ProxyType)settings->value( "ProxyType" ).toInt();
+
+    if ( type == QNetworkProxy::NoProxy || type == QNetworkProxy::DefaultProxy )
+        return QNetworkProxy::NoProxy;
+
+    QString hostName = settings->value( "ProxyHost" ).toString();
+    quint16 port = (quint16)settings->value( "ProxyPort" ).toInt();
+    return QNetworkProxy( type, hostName, port );
+}
+
+#else // defined( NO_DEFAULT_PROXY )
+
+class NetworkProxyFactory : public QNetworkProxyFactory
+{
+public:
+    NetworkProxyFactory()
+    {
+    }
+
+    ~NetworkProxyFactory()
+    {
+    }
+
+    QList<QNetworkProxy> queryProxy( const QNetworkProxyQuery& query )
+    {
+        LocalSettings* settings = application->applicationSettings();
+        QNetworkProxy::ProxyType type = (QNetworkProxy::ProxyType)settings->value( "ProxyType" ).toInt();
+
+        if ( type == QNetworkProxy::DefaultProxy )
+            return QNetworkProxyFactory::systemProxyForQuery( query );
+
+        if ( type == QNetworkProxy::NoProxy )
+            return QList<QNetworkProxy>() << QNetworkProxy::NoProxy;
+
+        QString hostName = settings->value( "ProxyHost" ).toString();
+        quint16 port = (quint16)settings->value( "ProxyPort" ).toInt();
+        return QList<QNetworkProxy>() << QNetworkProxy( type, hostName, port );
+    }
+};
+
+#endif // defined( NO_DEFAULT_PROXY )
 
 Application::Application( int& argc, char** argv ) : QApplication( argc, argv ),
     m_portable( false )
@@ -71,9 +123,6 @@ Application::Application( int& argc, char** argv ) : QApplication( argc, argv ),
 #endif
 
     initializeSettings();
-    settingsChanged();
-
-    connect( m_settings, SIGNAL( settingsChanged() ), this, SLOT( settingsChanged() ) );
 
     QString language = m_settings->value( "Language" ).toString();
     if ( language.isEmpty() )
@@ -94,6 +143,16 @@ Application::Application( int& argc, char** argv ) : QApplication( argc, argv ),
 
     m_mainWindow = new MainWindow();
 
+    m_manager = new QNetworkAccessManager();
+
+    m_updateClient = new UpdateClient( "webissues", version(), m_manager );
+
+    connect( m_updateClient, SIGNAL( stateChanged() ), this, SLOT( showUpdateState() ) );
+
+    settingsChanged();
+
+    connect( m_settings, SIGNAL( settingsChanged() ), this, SLOT( settingsChanged() ) );
+
     restoreState();
 }
 
@@ -101,6 +160,8 @@ Application::~Application()
 {
     m_settings->setValue( "ShutdownVisible", m_mainWindow->isVisible() );
     m_settings->setValue( "ShutdownConnected", dataManager != NULL && dataManager->currentUserAccess() != NoAccess );
+
+    delete m_updateSection;
 
     delete viewManager;
     viewManager = NULL;
@@ -153,6 +214,10 @@ void Application::about()
     donateMessage += "<h4>" + tr( "Donations" ) + "</h4>";
     donateMessage += "<p>" + tr( "If you like this program, your donation will help us dedicate more time for it, support it and implement new features." ) + "</p>";
 
+    QString updateMessage;
+    updateMessage += "<h4>" + tr( "Latest Version" ) + "</h4>";
+    updateMessage += "<p>" + tr( "Automatic checking for latest version is disabled. You can enable it in program settings." ) + "</p>";
+
     AboutBox aboutBox( tr( "About WebIssues" ), message, activeWindow() );
 
     AboutBoxSection* helpSection = aboutBox.addSection( IconLoader::pixmap( "help" ), helpMessage );
@@ -167,7 +232,69 @@ void Application::about()
     QPushButton* donateButton = donateSection->addButton( tr( "&Donate" ) );
     connect( donateButton, SIGNAL( clicked() ), this, SLOT( openDonations() ) );
 
+    delete m_updateSection;
+
+    m_updateSection = aboutBox.addSection( IconLoader::pixmap( "status-info" ), updateMessage );
+
+    if ( m_updateClient->autoUpdate() ) {
+        showUpdateState();
+    } else {
+        m_updateButton = m_updateSection->addButton( tr( "&Check Now" ) );
+        connect( m_updateButton, SIGNAL( clicked() ), m_updateClient, SLOT( checkUpdate() ) );
+    }
+
     aboutBox.exec();
+}
+
+void Application::showUpdateState()
+{
+    if ( !m_updateSection ) {
+        if ( m_updateClient->state() != UpdateClient::UpdateAvailableState || m_updateClient->updateVersion() == m_shownVersion )
+            return;
+
+        m_updateSection = new AboutBoxToolSection();
+    } else {
+        m_updateSection->clearButtons();
+    }
+
+    QString header = "<h4>" + tr( "Latest Version" ) + "</h4>";
+
+    switch ( m_updateClient->state() ) {
+        case UpdateClient::CheckingState: {
+            m_updateSection->setPixmap( IconLoader::pixmap( "status-info" ) );
+            m_updateSection->setMessage( header + "<p>" + tr( "Checking for latest version..." ) + "</p>" );
+            break;
+        }
+
+        case UpdateClient::ErrorState: {
+            m_updateSection->setPixmap( IconLoader::pixmap( "status-warning" ) );
+            m_updateSection->setMessage( header + "<p>" + tr( "Checking for latest version failed." ) + "</p>" );
+
+            m_updateButton = m_updateSection->addButton( tr( "&Retry" ) );
+            connect( m_updateButton, SIGNAL( clicked() ), m_updateClient, SLOT( checkUpdate() ) );
+            break;
+        }
+
+        case UpdateClient::CurrentVersionState: {
+            m_updateSection->setPixmap( IconLoader::pixmap( "status-info" ) );
+            m_updateSection->setMessage( header + "<p>" + tr( "Your version of WebIssues Desktop Client is up to date." ) + "</p>" );
+            break;
+        }
+
+        case UpdateClient::UpdateAvailableState: {
+            m_updateSection->setPixmap( IconLoader::pixmap( "status-warning" ) );
+            m_updateSection->setMessage( header + "<p>" + tr( "The latest version of WebIssues Desktop Client is %1." ).arg( m_updateClient->updateVersion() ) + "</p>" );
+
+            QPushButton* notesButton = m_updateSection->addButton( tr( "&Release Notes" ) );
+            connect( notesButton, SIGNAL( clicked() ), this, SLOT( openReleaseNotes() ) );
+
+            QPushButton* downloadButton = m_updateSection->addButton( tr( "Do&wnload" ) );
+            connect( downloadButton, SIGNAL( clicked() ), this, SLOT( openDownloads() ) );
+
+            m_shownVersion = m_updateClient->updateVersion();
+            break;
+        }
+    }
 }
 
 void Application::openManual()
@@ -177,6 +304,16 @@ void Application::openManual()
 void Application::openDonations()
 {
     QDesktopServices::openUrl( QUrl( "http://webissues.mimec.org/donations" ) );
+}
+
+void Application::openReleaseNotes()
+{
+    QDesktopServices::openUrl( m_updateClient->notesUrl() );
+}
+
+void Application::openDownloads()
+{
+    QDesktopServices::openUrl( m_updateClient->downloadUrl() );
 }
 
 QString Application::version() const
@@ -332,6 +469,8 @@ void Application::initializeSettings()
         m_settings->setValue( "AttachmentsCacheSize", 10 );
     if ( !m_settings->contains( "AutoStart" ) )
         m_settings->setValue( "AutoStart", false );
+    if ( !m_settings->contains( "AutoUpdate" ) )
+        m_settings->setValue( "AutoUpdate", true );
 
     if ( !m_settings->contains( "ProxyType" ) ) {
 #if defined( NO_DEFAULT_PROXY )
@@ -344,6 +483,14 @@ void Application::initializeSettings()
 
 void Application::settingsChanged()
 {
+#if defined( NO_DEFAULT_PROXY )
+    m_manager->setProxy( networkProxy() );
+#else
+    m_manager->setProxyFactory( new NetworkProxyFactory() );
+#endif
+
+    m_updateClient->setAutoUpdate( m_settings->value( "AutoUpdate" ).toBool() );
+
 #if defined( Q_WS_WIN )
     if ( m_portable )
         return;
@@ -372,4 +519,9 @@ void Application::restoreState()
 
     if ( connect == RestoreAlways || connect == RestoreAuto && wasConnected )
         m_mainWindow->reconnect();
+
+    if ( m_settings->value( "LastVersion" ).toString() != version() ) {
+        m_settings->setValue( "LastVersion", version() );
+        about();
+    }
 }

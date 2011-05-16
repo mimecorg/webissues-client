@@ -22,14 +22,22 @@
 
 #include <QApplication>
 
+#if ( QT_VERSION < 0x040500 ) || !defined( Q_WS_WIN ) && !defined( Q_WS_MAC )
+#define NO_DEFAULT_PROXY
+#endif
+
 class MainWindow;
 class LocalSettings;
 class BookmarksStore;
 class CredentialsStore;
+class UpdateClient;
+class AboutBoxSection;
 
 #if defined( HAVE_OPENSSL )
 class CertificatesStore;
 #endif
+
+class QNetworkAccessManager;
 
 /**
 * Class representing the WebIssues application.
@@ -115,6 +123,11 @@ public:
     CertificatesStore* certificatesStore() const { return m_certificates; }
 #endif
 
+    /**
+    * Return the network access manager.
+    */
+    QNetworkAccessManager* networkAccessManager() const { return m_manager; }
+
 public slots:
     /**
     * Show the About WebIssues dialog.
@@ -126,7 +139,12 @@ public: // overrides
 
 private slots:
     void openManual();
+
+    void showUpdateState();
+
     void openDonations();
+    void openReleaseNotes();
+    void openDownloads();
 
     void settingsChanged();
 
@@ -159,6 +177,15 @@ private:
 #if defined( HAVE_OPENSSL )
     CertificatesStore* m_certificates;
 #endif
+
+    QNetworkAccessManager* m_manager;
+
+    UpdateClient* m_updateClient;
+
+    QPointer<AboutBoxSection> m_updateSection;
+    QPointer<QPushButton> m_updateButton;
+
+    QString m_shownVersion;
 };
 
 /**

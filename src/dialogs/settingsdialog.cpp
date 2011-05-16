@@ -112,7 +112,7 @@ SettingsDialog::SettingsDialog( QWidget* parent ) : CommandDialog( parent )
     separator2->setFixedHeight( 20 );
     behaviorLayout->addWidget( separator2, 4, 0, 1, 2 );
 
-    QLabel* actionLabel = new QLabel( tr( "D&efault action for attachments:" ), behaviorTab );
+    QLabel* actionLabel = new QLabel( tr( "De&fault action for attachments:" ), behaviorTab );
     behaviorLayout->addWidget( actionLabel, 5, 0 );
 
     m_actionComboBox = new QComboBox( behaviorTab );
@@ -123,15 +123,23 @@ SettingsDialog::SettingsDialog( QWidget* parent ) : CommandDialog( parent )
 
     actionLabel->setBuddy( m_actionComboBox );
 
+    QFrame* separator3 = new QFrame( behaviorTab );
+    separator3->setFrameStyle( QFrame::HLine | QFrame::Sunken );
+    separator3->setFixedHeight( 20 );
+    behaviorLayout->addWidget( separator3, 6, 0, 1, 2 );
+
+    m_autoUpdateCheckBox = new QCheckBox( tr( "&Enable automatic checking for latest version of WebIssues" ), behaviorTab );
+    behaviorLayout->addWidget( m_autoUpdateCheckBox, 7, 0, 1, 2 );
+
 #if defined( Q_WS_WIN )
     if ( !application->isPortableMode() ) {
         QFrame* separator3 = new QFrame( behaviorTab );
         separator3->setFrameStyle( QFrame::HLine | QFrame::Sunken );
         separator3->setFixedHeight( 20 );
-        behaviorLayout->addWidget( separator3, 6, 0, 1, 2 );
+        behaviorLayout->addWidget( separator3, 8, 0, 1, 2 );
 
         m_autoStartCheckBox = new QCheckBox( tr( "Start &WebIssues when I start Windows" ), behaviorTab );
-        behaviorLayout->addWidget( m_autoStartCheckBox, 7, 0, 1, 2 );
+        behaviorLayout->addWidget( m_autoStartCheckBox, 9, 0, 1, 2 );
     }
 #endif
 
@@ -236,6 +244,8 @@ SettingsDialog::SettingsDialog( QWidget* parent ) : CommandDialog( parent )
     m_actionComboBox->setCurrentIndex( settings->value( "DefaultAttachmentAction" ).toInt() );
     m_cacheSpin->setValue( settings->value( "AttachmentsCacheSize" ).toInt() );
 
+    m_autoUpdateCheckBox->setChecked( settings->value( "AutoUpdate" ).toBool() );
+
     QNetworkProxy::ProxyType proxyType = (QNetworkProxy::ProxyType)settings->value( "ProxyType" ).toInt();
     m_proxyCombo->setCurrentIndex( m_proxyCombo->findData( (int)proxyType ) );
     if ( proxyType != QNetworkProxy::DefaultProxy && proxyType != QNetworkProxy::NoProxy ) {
@@ -286,18 +296,11 @@ bool SettingsDialog::apply()
     settings->setValue( "DefaultAttachmentAction", m_actionComboBox->currentIndex() );
     settings->setValue( "AttachmentsCacheSize", m_cacheSpin->value() );
 
+    settings->setValue( "AutoUpdate", m_autoUpdateCheckBox->isChecked() );
+
     QNetworkProxy::ProxyType proxyType = (QNetworkProxy::ProxyType)m_proxyCombo->itemData( m_proxyCombo->currentIndex() ).toInt();
     QString proxyHost = m_proxyHostEdit->inputValue();
     int proxyPort = m_proxyPortSpin->value();
-
-    if ( commandManager != NULL ) {
-        if ( proxyType != settings->value( "ProxyType" ).toInt() ||
-             proxyHost != settings->value( "ProxyHost" ).toString() ||
-             proxyPort != settings->value( "ProxyPort" ).toInt() ) {
-            QMessageBox::information( this, tr( "Notice" ),
-                tr( "Proxy settings will be applied when you reconnect to the server." ) );
-        }
-    }
 
     settings->setValue( "ProxyType", (int)proxyType );
     settings->setValue( "ProxyHost", proxyHost );

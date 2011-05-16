@@ -77,6 +77,8 @@ private:
     QComboBox* m_actionComboBox;
     QSpinBox* m_cacheSpin;
 
+    QCheckBox* m_autoUpdateCheckBox;
+
 #if defined( Q_WS_WIN )
     QCheckBox* m_autoStartCheckBox;
 #endif

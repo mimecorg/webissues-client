@@ -123,7 +123,7 @@ MainWindow::MainWindow() :
     setAction( "configure", action );
 
     action = new QAction( IconLoader::icon( "about" ), tr( "About WebIssues" ), this );
-    action->setMenuRole( QAction::AboutRole );
+    action->setShortcut( QKeySequence( Qt::Key_F1 ) );
     connect( action, SIGNAL( triggered() ), qApp, SLOT( about() ), Qt::QueuedConnection );
     setAction( "about", action );
 

@@ -41,60 +41,10 @@
 #include "dialogs/ssldialogs.h"
 #endif
 
-#if !defined( NO_DEFAULT_PROXY )
-#include <QNetworkProxyFactory>
-#endif
-
 CommandManager* commandManager = NULL;
 
-#if defined( NO_DEFAULT_PROXY )
-
-static QNetworkProxy networkProxy()
-{
-    LocalSettings* settings = application->applicationSettings();
-    QNetworkProxy::ProxyType type = (QNetworkProxy::ProxyType)settings->value( "ProxyType" ).toInt();
-
-    if ( type == QNetworkProxy::NoProxy || type == QNetworkProxy::DefaultProxy )
-        return QNetworkProxy::NoProxy;
-
-    QString hostName = settings->value( "ProxyHost" ).toString();
-    quint16 port = (quint16)settings->value( "ProxyPort" ).toInt();
-    return QNetworkProxy( type, hostName, port );
-}
-
-#else // defined( NO_DEFAULT_PROXY )
-
-class NetworkProxyFactory : public QNetworkProxyFactory
-{
-public:
-    NetworkProxyFactory()
-    {
-    }
-
-    ~NetworkProxyFactory()
-    {
-    }
-
-    QList<QNetworkProxy> queryProxy( const QNetworkProxyQuery& query )
-    {
-        LocalSettings* settings = application->applicationSettings();
-        QNetworkProxy::ProxyType type = (QNetworkProxy::ProxyType)settings->value( "ProxyType" ).toInt();
-
-        if ( type == QNetworkProxy::DefaultProxy )
-            return QNetworkProxyFactory::systemProxyForQuery( query );
-
-        if ( type == QNetworkProxy::NoProxy )
-            return QList<QNetworkProxy>() << QNetworkProxy::NoProxy;
-
-        QString hostName = settings->value( "ProxyHost" ).toString();
-        quint16 port = (quint16)settings->value( "ProxyPort" ).toInt();
-        return QList<QNetworkProxy>() << QNetworkProxy( type, hostName, port );
-    }
-};
-
-#endif // defined( NO_DEFAULT_PROXY )
-
-CommandManager::CommandManager() :
+CommandManager::CommandManager( QNetworkAccessManager* manager ) :
+    m_manager( manager ),
     m_currentBatch( NULL ),
     m_currentCommand( NULL ),
     m_currentMessage( NULL ),
@@ -103,14 +53,6 @@ CommandManager::CommandManager() :
     m_error( NoError ),
     m_errorCode( 0 )
 {
-    m_manager = new QNetworkAccessManager();
-
-#if defined( NO_DEFAULT_PROXY )
-    m_manager->setProxy( networkProxy() );
-#else
-    m_manager->setProxyFactory( new NetworkProxyFactory() );
-#endif
-
     connect( m_manager, SIGNAL( finished( QNetworkReply* ) ), this, SLOT( finished( QNetworkReply* ) ) );
 
     connect( m_manager, SIGNAL( authenticationRequired( QNetworkReply*, QAuthenticator* ) ),
@@ -126,13 +68,7 @@ CommandManager::CommandManager() :
 
 CommandManager::~CommandManager()
 {
-    delete m_manager;
-    m_manager = NULL;
-
-    while ( !m_batches.isEmpty() ) {
-        AbstractBatch* batch = m_batches.takeFirst();
-        delete batch;
-    }
+    qDeleteAll( m_batches );
 }
 
 void CommandManager::setServerUrl( const QUrl& url )
