@@ -336,6 +336,12 @@ void CommandManager::metaDataChanged()
         return;
     }
 
+    int pos = m_contentType.indexOf( ';' );
+    if ( pos >= 0 ) {
+        m_contentType.truncate( pos );
+        m_contentType = m_contentType.trimmed();
+    }
+
     if ( m_contentType == "application/octet-stream" ) {
         if ( !m_currentCommand->binaryResponseOutput() )
             setError( InvalidResponse );
