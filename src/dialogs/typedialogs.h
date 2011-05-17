@@ -159,7 +159,6 @@ protected:
 private slots:
     void typeActivated( int index );
     void detailsClicked();
-    void requiredToggled( bool on );
 
 private:
     void updateWidgets();

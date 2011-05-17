@@ -248,7 +248,6 @@ void AttributeDialog::initialize( bool withName, const DefinitionInfo& info )
 
     connect( m_typeCombo, SIGNAL( activated( int ) ), this, SLOT( typeActivated( int ) ) );
     connect( detailsButton, SIGNAL( clicked() ), this, SLOT( detailsClicked() ) );
-    connect( m_requiredCheck, SIGNAL( toggled( bool ) ), this, SLOT( requiredToggled( bool ) ) );
 
     AttributeHelper helper;
 
@@ -327,14 +326,6 @@ void AttributeDialog::detailsClicked()
     }
 }
 
-void AttributeDialog::requiredToggled( bool on )
-{
-    m_metadata.insert( "required", on );
-    m_metadata.insert( "default", m_editor ? m_editor->inputValue() : QString() );
-
-    updateWidgets();
-}
-
 void AttributeDialog::updateWidgets()
 {
     Validator validator;
@@ -355,12 +346,7 @@ void AttributeDialog::updateWidgets()
         return;
 
     bool required = m_metadata.value( "required" ).toBool();
-    if ( required )
-        info.setMetadata( "required", 1 );
-
-    m_requiredCheck->blockSignals( true );
     m_requiredCheck->setChecked( required );
-    m_requiredCheck->blockSignals( false );
 
     m_editor = ValueEditorFactory::createInitialValueEditor( info, this, this );
     m_layout->addWidget( m_editor->widget(), row, 1, 1, 2 );
