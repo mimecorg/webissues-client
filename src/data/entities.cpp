@@ -1569,6 +1569,11 @@ const QString& ChangeEntity::modifiedUser() const
     return d->m_modifiedUser;
 }
 
+int ChangeEntity::attributeId() const
+{
+    return d->m_attributeId;
+}
+
 const QString& ChangeEntity::oldValue() const
 {
     return d->m_oldValue;
@@ -1643,11 +1648,12 @@ QList<ChangeEntity> IssueEntity::changes() const
         query.prepare( "SELECT ch.change_id, ch.issue_id, ch.stamp_id, ch.change_type,"
             " ch.created_time, uc.user_name AS created_user, ch.created_user_id,"
             " ch.modified_time, um.user_name AS modified_user,"
-            " ch.attr_id, ch.old_value, ch.new_value, ff.folder_name AS from_folder, tf.folder_name AS to_folder,"
+            " a.attr_id, ch.old_value, ch.new_value, ff.folder_name AS from_folder, tf.folder_name AS to_folder,"
             " c.comment_text, f.file_name, f.file_size, f.file_descr"
             " FROM changes AS ch"
             " LEFT OUTER JOIN users AS uc ON uc.user_id = ch.created_user_id"
             " LEFT OUTER JOIN users AS um ON um.user_id = ch.modified_user_id"
+            " LEFT OUTER JOIN attr_types AS a ON a.attr_id = ch.attr_id"
             " LEFT OUTER JOIN folders AS ff ON ff.folder_id = ch.from_folder_id"
             " LEFT OUTER JOIN folders AS tf ON tf.folder_id = ch.to_folder_id"
             " LEFT OUTER JOIN comments AS c ON c.comment_id = ch.change_id AND ch.change_type = ?"

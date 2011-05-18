@@ -153,6 +153,9 @@ void IssueDetailsGenerator::writeHistory( TextWriter* writer, const IssueEntity&
     for ( int i = 0; i < changes.count(); i++ ) {
         const ChangeEntity& change = changes.at( i );
 
+        if ( change.type() == ValueChanged && change.attributeId() == 0 )
+            continue;
+
         if ( change.type() <= ValueChanged && list.count() > 0 ) {
             if ( change.createdUserId() == lastUserId && lastDate.secsTo( change.createdDate() ) < 180 ) {
                 list.append( formatChange( change, flags ) );

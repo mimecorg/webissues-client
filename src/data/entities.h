@@ -454,6 +454,7 @@ public:
     const QDateTime& modifiedDate() const;
     const QString& modifiedUser() const;
 
+    int attributeId() const;
     const QString& oldValue() const;
     const QString& newValue() const;
 
