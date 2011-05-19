@@ -386,6 +386,8 @@ QStringList QueryGenerator::sortColumns() const
 {
     QStringList result;
 
+    IssueTypeCache* cache = dataManager->issueTypeCache( m_typeId );
+
     if ( m_valid ) {
         foreach ( int column, m_columns ) {
             switch ( column ) {
@@ -408,8 +410,24 @@ QStringList QueryGenerator::sortColumns() const
                     result.append( "um.user_name COLLATE LOCALE" );
                     break;
                 default:
-                    if ( column > Column_UserDefined )
-                        result.append( QString( "a%1.attr_value COLLATE LOCALE" ).arg( column - Column_UserDefined ) );
+                    if ( column > Column_UserDefined ) {
+                        DefinitionInfo info = cache->attributeDefinition( column - Column_UserDefined );
+                        switch ( AttributeHelper::toAttributeType( info ) ) {
+                            case TextAttribute:
+                            case EnumAttribute:
+                            case UserAttribute:
+                                result.append( QString( "a%1.attr_value COLLATE LOCALE" ).arg( column - Column_UserDefined ) );
+                                break;
+                            case NumericAttribute:
+                                result.append( QString( "CAST( a%1.attr_value AS REAL )" ).arg( column - Column_UserDefined ) );
+                                break;
+                            case DateTimeAttribute:
+                                result.append( QString( "a%1.attr_value" ).arg( column - Column_UserDefined ) );
+                                break;
+                            default:
+                                break;
+                        }
+                    }
                     break;
             }
         }
