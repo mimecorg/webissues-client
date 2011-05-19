@@ -37,10 +37,10 @@ public:
 public:
     enum Format
     {
-        NoFormat,
-        EmailFormat,
-        UrlFormat,
-        FileNameFormat
+        NoFormat = 0,
+        EmailFormat = 1,
+        UrlFormat = 2,
+        FileNameFormat = 3
     };
 
     enum Functions
@@ -60,8 +60,8 @@ public:
     void setMinLength( int length );
     int minLength() const { return m_minLength; }
 
-    void setFormat( Format format );
-    Format format() const { return m_format; }
+    void setFormat( int format );
+    int format() const { return m_format; }
 
     void setFunctions( int functions );
     int functions() const { return m_functions; }
@@ -99,7 +99,7 @@ private:
 
     bool m_required;
     int m_minLength;
-    Format m_format;
+    int m_format;
     int m_functions;
 
     bool m_empty;
@@ -136,6 +136,12 @@ class NumericLineEdit : public InputLineEdit
 public:
     NumericLineEdit( QWidget* parent );
     ~NumericLineEdit();
+
+public:
+    enum NumericFormat
+    {
+        Identifier = 4
+    };
 
 public:
     void setDecimal( int decimal );

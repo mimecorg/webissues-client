@@ -23,8 +23,7 @@
 #include "dialogs/commanddialog.h"
 
 class FindItemBatch;
-
-class QSpinBox;
+class NumericLineEdit;
 
 /**
 * Dialog for executing the <tt>FIND ITEM</tt> command.
@@ -68,7 +67,7 @@ protected: // overrides
     bool batchSuccessful( AbstractBatch* batch );
 
 private:
-    QSpinBox* m_idSpin;
+    NumericLineEdit* m_idEdit;
 
     int m_itemId;
     int m_issueId;

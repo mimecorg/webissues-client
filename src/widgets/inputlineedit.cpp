@@ -97,9 +97,12 @@ void InputLineEdit::setMinLength( int length )
     m_minLength = length;
 }
 
-void InputLineEdit::setFormat( Format format )
+void InputLineEdit::setFormat( int format )
 {
-    m_format = format;
+    if ( m_format != format ) {
+        m_format = format;
+        updateValidator();
+    }
 }
 
 void InputLineEdit::setFunctions( int functions )
@@ -392,12 +395,15 @@ void NumericLineEdit::updateValidator()
     DefinitionInfo info = DefinitionInfo::fromString( dataManager->setting( "number_format" ) );
 
     QString pattern;
-    
+
+    if ( format() == Identifier )
+        pattern = "#?";
+
     QString groupSeparator = info.metadata( "group-separator" ).toString();
     if ( !groupSeparator.isEmpty() )
-        pattern = "-?(\\d*|\\d{0,3}(" + QRegExp::escape( groupSeparator ) + "\\d{0,3})*)";
+        pattern += "-?(\\d*|\\d{0,3}(" + QRegExp::escape( groupSeparator ) + "\\d{0,3})*)";
     else
-        pattern = "-?\\d*";
+        pattern += "-?\\d*";
 
     if ( m_decimal > 0 )
         pattern += "(" + QRegExp::escape( info.metadata( "decimal-separator" ).toString() ) + QString( "\\d{0,%1})?" ).arg( m_decimal );
@@ -409,8 +415,16 @@ void NumericLineEdit::updateValidator()
 
 QString NumericLineEdit::valueToText( const QString& value )
 {
-    Formatter formatter;
-    return formatter.convertNumber( value, m_decimal, m_stripZeros );
+    if ( format() == Identifier ) {
+        bool ok;
+        int number = value.toInt( &ok );
+        if ( !ok )
+            return QString();
+        return QString( "#%1" ).arg( number );
+    } else {
+        Formatter formatter;
+        return formatter.convertNumber( value, m_decimal, m_stripZeros );
+    }
 }
 
 QString NumericLineEdit::textToValue( const QString& text )
@@ -418,6 +432,9 @@ QString NumericLineEdit::textToValue( const QString& text )
     QString value = InputLineEdit::textToValue( text );
     if ( value.isEmpty() )
         return QString();
+
+    if ( format() == Identifier && value.at( 0 ) == QLatin1Char( '#' ) )
+        value = value.mid( 1 );
 
     Validator validator;
     double number = validator.parseNumber( value, m_decimal );

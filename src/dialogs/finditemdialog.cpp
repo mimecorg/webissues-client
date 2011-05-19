@@ -22,17 +22,17 @@
 #include "data/entities.h"
 #include "commands/finditembatch.h"
 #include "utils/iconloader.h"
+#include "widgets/inputlineedit.h"
 
 #include <QLayout>
 #include <QLabel>
-#include <QSpinBox>
 
 FindItemDialog::FindItemDialog( QWidget* parent ) : CommandDialog( parent ),
     m_itemId( 0 ),
     m_issueId( 0 )
 {
     setWindowTitle( tr( "Go To Item" ) );
-    setPrompt( tr( "Enter an issue, comment or attachment identifier:" ) );
+    setPrompt( tr( "Enter the identifier of an issue, comment or attachment:" ) );
     setPromptPixmap( IconLoader::pixmap( "edit-goto", 22 ) );
 
     showInfo( tr( "Enter item identifier." ) );
@@ -42,17 +42,18 @@ FindItemDialog::FindItemDialog( QWidget* parent ) : CommandDialog( parent ),
     QLabel* label = new QLabel( tr( "&ID:" ), this );
     layout->addWidget( label, 0 );
 
-    m_idSpin = new QSpinBox( this );
-    m_idSpin->setRange( 1, INT_MAX );
-    m_idSpin->setPrefix( "#" );
-    layout->addWidget( m_idSpin, 1 );
+    m_idEdit = new NumericLineEdit( this );
+    m_idEdit->setFormat( NumericLineEdit::Identifier );
+    m_idEdit->setRequired( true );
+    m_idEdit->setMinValue( 1 );
+    m_idEdit->setMaxValue( INT_MAX );
+    layout->addWidget( m_idEdit, 1 );
 
-    label->setBuddy( m_idSpin );
+    label->setBuddy( m_idEdit );
 
     setContentLayout( layout, true );
 
-    m_idSpin->setFocus();
-    m_idSpin->selectAll();
+    m_idEdit->setFocus();
 }
 
 FindItemDialog::~FindItemDialog()
@@ -61,14 +62,19 @@ FindItemDialog::~FindItemDialog()
 
 void FindItemDialog::findItem( int itemId )
 {
-    m_idSpin->setValue( itemId );
+    m_idEdit->setInputValue( QString::number( itemId ) );
 
     accept();
 }
 
 void FindItemDialog::accept()
 {
-    m_itemId = m_idSpin->value();
+    if ( !validate() )
+        return;
+
+    QString value = m_idEdit->inputValue();
+
+    m_itemId = value.toInt();
 
     m_issueId = IssueEntity::findItem( m_itemId );
     if ( m_issueId != 0 ) {
