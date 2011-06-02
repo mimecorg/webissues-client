@@ -125,6 +125,11 @@ QString ViewSettingsHelper::filtersInfo( const QList<DefinitionInfo>& filters ) 
             value = helper.formatExpression( valueInfo, value );
         }
 
+        if ( !value.isEmpty() )
+            value = QString( "\"%1\"" ).arg( value );
+        else
+            value = tr( "empty" );
+
         result.append( QString( "%1 %2 %3" ).arg( name, operatorName, value ) );
     }
 
