@@ -297,8 +297,28 @@ void Application::showUpdateState()
     }
 }
 
+QUrl Application::manualIndex() const
+{
+    QString language = QLocale().name();
+
+    while ( !language.isEmpty() ) {
+        QString path = QString( "%1/%2/index.html" ).arg( m_manualPath, language );
+        if ( QFile::exists( path ) )
+            return QUrl::fromLocalFile( path );
+
+        int pos = language.lastIndexOf( QLatin1Char( '_' ) );
+        if ( pos < 0 )
+            break;
+
+        language = language.mid( 0, pos );
+    }
+
+    return QUrl::fromLocalFile( m_manualPath + "/en/index.html" );
+}
+
 void Application::openManual()
 {
+    QDesktopServices::openUrl( manualIndex() );
 }
 
 void Application::openDonations()

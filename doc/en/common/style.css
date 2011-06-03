@@ -1,0 +1,266 @@
+/* Generic elements */
+
+html {
+  background: #f3f3f3 url(bg-body.png) repeat-x;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font: 13px/150% 'Trebuchet MS', 'Lucida Grande', Verdana, Sans-Serif;
+  color: #494949;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  padding: 0;
+  font-weight: normal;
+  font-family: 'Trebuchet MS', 'Lucida Grande', Verdana, Sans-Serif;
+}
+
+h1 {
+  font-size: 170%;
+  line-height: 130%;
+}
+
+h2 {
+  font-size: 150%;
+  line-height: 130%;
+  margin-top: 0.6em;
+}
+
+h3 {
+  font-size: 130%;
+  margin-top: 0.6em;
+}
+
+h4 {
+  font-size: 120%;
+}
+
+ul, quote, code, fieldset {
+  margin: .5em 0;
+}
+
+p {
+  margin: 0.6em 0 1.2em;
+  padding: 0;
+  text-align: justify;
+}
+
+a:link, a:visited {
+  color: #027AC6;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #0062A0;
+  text-decoration: underline;
+}
+
+a:active, a.active {
+  color: #5895be;
+}
+
+hr {
+  margin: 0;
+  padding: 0;
+  border: none;
+  height: 1px;
+  background: #5294c1;
+}
+
+ul {
+  margin: 0.5em 0 1em 3em;
+  padding: 0;
+}
+
+ul li {
+  margin: 0.4em 0 0.4em 0.5em;
+}
+
+ul li p {
+  margin: 0;
+}
+
+dl {
+  margin: 0.5em 0 1em 1.5em;
+}
+
+dl dt {
+}
+
+dl dd {
+  margin: 0 0 0.5em 1.5em;
+}
+
+dl dd p {
+  margin: 0;
+}
+
+dl dd dl {
+  margin-top: 0;
+}
+
+img, a img {
+  border: none;
+}
+
+/* Layout */
+
+#wrapper {
+  margin: 0 auto 0 auto;
+  width: 1000px;
+}
+
+#header {
+  width: 1000px;
+  height: 100px;
+}
+
+#header-top {
+  width: 1000px;
+  height: 55px;
+}
+
+#header-left {
+  margin: 20px 0 0 15px;
+  float: left;
+}
+
+#header-left h1 {
+  line-height: 35px;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+#header-left h1 img {
+  margin-right: 5px;
+  float: left;
+}
+
+#header-right {
+  margin: 20px 15px 0 0;
+  float: right;
+}
+
+#header-right h2 {
+  line-height: 35px;
+  font-size: 100%;
+  font-weight: normal;
+  margin: 0;
+  color: #dddddd;
+}
+
+#infobar {
+  width: 1000px;
+  height: 38px;
+  background: #f3f3f3 url(bg-infobar.png) repeat-x;
+}
+
+#infobar-left {
+  float: left;
+  min-width: 70px;
+  height: 26px;
+  background: transparent url(bg-infobar-left.png) no-repeat;
+  padding: 12px 0 0 25px;
+}
+
+#infobar-right {
+  float: right;
+  min-width: 70px;
+  height: 26px;
+  background: transparent url(bg-infobar-right.png) no-repeat 100% 0;
+  padding: 12px 25px 0 0;
+  text-align: right;
+}
+
+#body {
+  width: 945px;
+  background: #ffffff url(bg-block.png) repeat-x;
+  border: 1px solid #cccccc;
+  margin: 15px auto 20px auto;
+  padding: 15px;
+}
+
+#footer {
+  float: none;
+  clear: both;
+  margin: 2em 0 0 0;
+  color: #898989;
+}
+
+#footer p {
+  text-align: center;
+  margin: 0;
+}
+
+/* DocBook elements */
+
+h2.subtitle {
+  margin-bottom: 1.2em;
+  font-size: 130%;
+}
+
+.navlinks {
+  margin: 0 0 1em 0;
+  height: 1em;
+}
+
+.navleft {
+  float: left;
+}
+
+.navright {
+  float: right;
+}
+
+.toc .preface, .toc .chapter, .toc .appendix {
+  font-weight: bold;
+}
+
+.toc dl dt {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.toc dl dl dt {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+.toc dl dl dl {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.toc dl dl dl dt {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.figure-title {
+  margin: 0.5em 0 0.8em;
+}
+
+.guilabel, .guimenu, .guimenuitem, .guibutton, .shortcut {
+  font-weight: bold;
+}
+
+.tip, .warning, .note {
+  border: 1px solid #cccccc;
+  padding: 0 1em;
+  margin: 1em 0.5in;
+}
+
+.tip {
+  background: #ddddff;
+}
+
+.warning {
+  background: #ffffcc;
+}
+
+.note {
+  background: #eeeeee;
+}

@@ -159,6 +159,8 @@ private:
     void initializeSettings();
     void restoreState();
 
+    QUrl manualIndex() const;
+
 private:
     MainWindow* m_mainWindow;
 
