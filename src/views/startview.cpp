@@ -40,6 +40,7 @@
 #include <QTreeWidget>
 #include <QMenu>
 #include <QAction>
+#include <QMessageBox>
 
 StartView::StartView( QObject* parent, QWidget* parentWidget ) : View( parent ),
     m_batch( NULL ),
@@ -184,8 +185,12 @@ void StartView::removeConnection()
 {
     Bookmark bookmark = selectedBookmark();
     if ( !bookmark.url().isEmpty() ) {
-        application->bookmarksStore()->deleteBookmark( bookmark );
-        delete m_list->selectedItems().first();
+        if ( QMessageBox::warning( mainWidget(), tr( "Warning" ),
+             tr( "Are you sure you want to remove the selected connection?" ),
+             QMessageBox::Ok | QMessageBox::Cancel ) == QMessageBox::Ok ) {
+            application->bookmarksStore()->deleteBookmark( bookmark );
+            delete m_list->selectedItems().first();
+        }
     }
 }
 
