@@ -27,6 +27,7 @@
 */
 class ErrorHelper : public QObject
 {
+    Q_OBJECT
 public:
     /**
     * Error codes for the WebIssues protocol.
