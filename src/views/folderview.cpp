@@ -94,6 +94,7 @@ FolderView::FolderView( QObject* parent, QWidget* parentWidget ) : View( parent 
     setAction( "markAsRead", action );
 
     action = new QAction( IconLoader::icon( "folder-read" ), tr( "Mark All As Read" ), this );
+    action->setIconText( tr( "Mark All As Read", "icon text" ) );
     setAction( "popupMarkAll", action );
 
     action = new QAction( IconLoader::icon( "folder-read" ), tr( "Mark All As Read" ), this );
