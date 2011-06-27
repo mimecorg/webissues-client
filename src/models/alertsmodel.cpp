@@ -25,6 +25,7 @@
 #include <QSqlQueryModel>
 #include <QSqlQuery>
 #include <QPixmap>
+#include <QFont>
 
 AlertsModel::AlertsModel( int folderId, QObject* parent ) : BaseModel( parent ),
     m_folderId( folderId )

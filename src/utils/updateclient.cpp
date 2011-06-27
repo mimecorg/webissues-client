@@ -19,6 +19,12 @@
 
 #include "updateclient.h"
 
+#include <QNetworkAccessManager>
+#include <QNetworkRequest>
+#include <QNetworkReply>
+#include <QTimer>
+#include <QDomDocument>
+
 UpdateClient::UpdateClient( const QString& application, const QString& version, QNetworkAccessManager* manager ) : QObject( manager ),
     m_manager( manager ),
     m_currentReply( NULL ),

@@ -21,6 +21,11 @@
 #define UPDATECLIENT_H
 
 #include <QObject>
+#include <QUrl>
+
+class QNetworkAccessManager;
+class QNetworkReply;
+class QTimer;
 
 class UpdateClient : public QObject
 {

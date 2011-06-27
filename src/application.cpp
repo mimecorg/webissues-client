@@ -43,6 +43,8 @@
 #include <QLibraryInfo>
 #include <QNetworkProxy>
 #include <QDesktopServices>
+#include <QNetworkAccessManager>
+#include <QPushButton>
 
 #if !defined( NO_DEFAULT_PROXY )
 #include <QNetworkProxyFactory>

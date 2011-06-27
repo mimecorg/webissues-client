@@ -21,6 +21,7 @@
 #define APPLICATION_H
 
 #include <QApplication>
+#include <QPointer>
 
 #if ( QT_VERSION < 0x040500 ) || !defined( Q_WS_WIN ) && !defined( Q_WS_MAC )
 #define NO_DEFAULT_PROXY
@@ -38,6 +39,8 @@ class CertificatesStore;
 #endif
 
 class QNetworkAccessManager;
+class QUrl;
+class QPushButton;
 
 /**
 * Class representing the WebIssues application.
