@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Creating and editing issues</title>
+    <link rel="stylesheet" type="text/css" href="common/style.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.76.1" />
+    <link rel="home" href="index.html" title="WebIssues Manual" />
+    <link rel="up" href="webissues.work.html" title="Chapter 3. Working with issues" />
+    <link rel="prev" href="webissues.work.login.html" title="Logging into the system" />
+    <link rel="next" href="webissues.work.views.html" title="Filtering and searching" />
+  </head>
+  <body>
+    <div id="wrapper">
+      <div id="header">
+        <div id="header-top">
+          <div id="header-left">
+            <h1><img src="common/webissues.png" alt="WebIssues" id="logo" />WebIssues Manual</h1>
+          </div>
+          <div id="header-right">
+            <h2 class="subtitle">Version 1.0-beta1</h2>
+          </div>
+        </div>
+        <div id="infobar">
+          <div id="infobar-left"><a accesskey="h" href="index.html">Home</a> &raquo; <a accesskey="u" href="webissues.work.html">Working with issues</a></div>
+          <div id="infobar-right"></div>
+        </div>
+      </div>
+      <div id="body">
+        <div class="navlinks">
+          <div class="navleft">&laquo; <a accesskey="p" href="webissues.work.login.html">Logging into the system</a></div>
+          <div class="navright"><a accesskey="n" href="webissues.work.views.html">Filtering and searching</a> &raquo;</div>
+        </div>
+        <div class="sect1" title="Creating and editing issues">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h2 class="title" style="clear: both"><a id="webissues.work.issues"></a>Creating and editing issues</h2>
+              </div>
+            </div>
+          </div>
+          <p>Click on the folder Bugs to open it. If you have just created a new server, the folder will be empty, so let's start with creating the first issue.</p>
+          <div class="sect2" title="Attributes of an issue">
+            <div class="titlepage">
+              <div>
+                <div>
+                  <h3 class="title"><a id="webissues.work.issues.attributes"></a>Attributes of an issue</h3>
+                </div>
+              </div>
+            </div>
+            <p>Select the <span class="guilabel">Add issue</span> command (if you are using the Desktop Client, you must click on the list of issues for the command to appear). The following window will be displayed:</p>
+            <div class="figure">
+              <a id="id519146"></a>
+              <div class="figure-contents">
+                <div class="mediaobject">
+                  <img src="images/ch03-fig06.png" alt="Adding an issue" />
+                </div>
+              </div>
+              <div class="figure-title">Figure 3.6. Adding an issue</div>
+            </div>
+            <p>The name of the issue is a required field, so let's type <span class="quote">“<span class="quote">My first issue</span>”</span>. The remaining fields are the attributes of the issue. Status and Priority are also required fields, but they have a default initial value. Depending on the type of the attributes, they accept different kinds of values:</p>
+            <div class="variablelist">
+              <dl>
+                <dt>
+                  <span class="term">Text</span>
+                </dt>
+                <dd>
+                  <p>It's the simplest attribute that can have any value. It may have a specified minimum and maximum length. It may also be a single line of text or a field where you can enter multiple lines of text. An example of a text attribute is the Version field.</p>
+                </dd>
+                <dt>
+                  <span class="term">Dropdown list</span>
+                </dt>
+                <dd>
+                  <p>This attribute can only accept one of the specific values​​, just like the Status field, where you have to choose one of Active, Resolved or Closed. There is also a variant of this attribute that accepts any value, and the list is merely auxiliary.</p>
+                </dd>
+                <dt>
+                  <span class="term">User</span>
+                </dt>
+                <dd>
+                  <p>The value of this attribute can be the name of any user of the WebIssues system or a member of the project. The Assigned To field is an example of such attribute.</p>
+                </dd>
+                <dt>
+                  <span class="term">Numeric</span>
+                </dt>
+                <dd>
+                  <p>The value of this attribute can be an integer or a decimal value with specified number of decimal places. It may specify the minimum and maximum value. An example of a numeric attribute is Severity, which may be in the range from 1 (most critical bug) to 3 (insignificant bug).</p>
+                </dd>
+                <dt>
+                  <span class="term">Date</span>
+                </dt>
+                <dd>
+                  <p>The value of this attribute can be any valid date that can be entered manually or selected using a drop down calendar. An example is the Due Date attribute of the Tasks issue type. There is also a version accepting both date and time.</p>
+                </dd>
+              </dl>
+            </div>
+            <p>For starters, assign the bug to yourself and change its severity to 1 — after all, it's the first bug recorded in the system.</p>
+            <div class="tip" title="Tip" style="margin-left: 0.5in; margin-right: 0.5in;">
+              <h3 class="title">Tip</h3>
+              <p>If you don't see some user in the drop down list, it probably means that the user was not added to the project members; see <a class="xref" href="webissues.admin.html" title="Chapter 5. System administration">Chapter 5, <em>System administration</em></a>.</p>
+            </div>
+            <p>Then press <span class="guibutton">OK</span>. If the value of one of the attributes is incorrect, you will receive an error. Otherwise, the new issue will appear in the list and its details will be displayed below:</p>
+            <div class="figure">
+              <a id="id519274"></a>
+              <div class="figure-contents">
+                <div class="mediaobject">
+                  <img src="images/ch03-fig07.png" alt="Details of the new issue" />
+                </div>
+              </div>
+              <div class="figure-title">Figure 3.7. Details of the new issue</div>
+            </div>
+          </div>
+          <div class="sect2" title="Comments and editing">
+            <div class="titlepage">
+              <div>
+                <div>
+                  <h3 class="title"><a id="webissues.work.issues.comments"></a>Comments and editing</h3>
+                </div>
+              </div>
+            </div>
+            <p>For now, it doen't look very impressive. The system has registered that you have created the issue, you gave it the name and changed the value of two attributes. Now let's write a comment. To do this, choose <span class="guilabel">Add Comment</span> (make sure that the history of the issue is the active panel, if you are using the Desktop Client).</p>
+            <p>The new window consists almost entirely of text edit box. In case of the Desktop Client, you can leave this window open and return to another window, for example, to view the history of the issue. Using a web browser you can also add a new comment in a separate window, if you right-click on the link and select an appropriate option.</p>
+            <p>Returning to our window, type the text of the comment regarding the first issue:</p>
+            <div class="figure">
+              <a id="id519316"></a>
+              <div class="figure-contents">
+                <div class="mediaobject">
+                  <img src="images/ch03-fig08.png" alt="Adding a comment" />
+                </div>
+              </div>
+              <div class="figure-title">Figure 3.8. Adding a comment</div>
+            </div>
+            <p>The text will appear exactly as typed, with all spaces and lines preserved. This allows you, for example, to paste fragments of code and error logs without worrying that they will become unreadable. Long lines are automatically wrapped, depending on the width of the window. Web addresses and email addresses are automatically converted into clickable links.</p>
+            <div class="figure">
+              <a id="id519338"></a>
+              <div class="figure-contents">
+                <div class="mediaobject">
+                  <img src="images/ch03-fig09.png" alt="Issue history with a comment" />
+                </div>
+              </div>
+              <div class="figure-title">Figure 3.9. Issue history with a comment</div>
+            </div>
+            <div class="tip" title="Tip" style="margin-left: 0.5in; margin-right: 0.5in;">
+              <h3 class="title">Tip</h3>
+              <p>Automatic recognition of links works not only in the text of comments, but also in the names of issues and attribute values​​, and even in descriptions of attachments.</p>
+            </div>
+            <p>You can also create links to other issues and to comments or attachments. To demonstrate this, let's create another issue called <span class="quote">“<span class="quote">Second issue</span>”</span>, leaving the default values ​​of attributes. Let's assume that the identifier of the first issue is #1, and the second is #5.</p>
+            <p>If you add a comment to the first issue, and type <span class="quote">“<span class="quote">#5</span>”</span>, it will be replaced with a link to the other issue. Similarly, if you now add a comment to the second issue, writing <span class="quote">“<span class="quote">#1</span>”</span>, it will become a link to the first issue. In this way, you can create links between issues, refer to other comments in your own comments, etc.</p>
+            <div class="figure">
+              <a id="id519385"></a>
+              <div class="figure-contents">
+                <div class="mediaobject">
+                  <img src="images/ch03-fig10.png" alt="Link to an issue" />
+                </div>
+              </div>
+              <div class="figure-title">Figure 3.10. Link to an issue</div>
+            </div>
+            <div class="note" title="Note" style="margin-left: 0.5in; margin-right: 0.5in;">
+              <h3 class="title">Note</h3>
+              <p>Identifiers of issues are unique and increasing, but not necessarily in consecutive numerical order. In our example, the ID of the second issue is #5, not #2, because the identifiers are also assigned to comments, attachments and other changes, making them easier to manage by the system.</p>
+            </div>
+            <p>To quickly go to the issue, comment or attachment with the given identifier, you can also use the Go To Item command. In the Web Client, click <span class="guilabel">Tools</span> in the the upper right corner of the screen, then click the <span class="guilabel">Go To Item</span>. In the Desktop Client this command is always available in the the main window toolbar, you can also press <span class="shortcut"><strong><span class="keycap"><strong>Ctrl</strong></span>+<span class="keycap"><strong>G</strong></span></strong></span>.</p>
+            <div class="figure">
+              <a id="id519441"></a>
+              <div class="figure-contents">
+                <div class="mediaobject">
+                  <img src="images/ch03-fig11.png" alt="Going to an item" />
+                </div>
+              </div>
+              <div class="figure-title">Figure 3.11. Going to an item</div>
+            </div>
+            <p>Then enter the identifier you are looking for and press <span class="guibutton">OK</span>. If there is an issue with this identifier, it will be displayed. If the identifier represents a comment or an attachment, you will see the issue which contains the item, and the history will be scrolled to the item.</p>
+            <p>The <span class="guilabel">Edit Attributes</span> command allows you to edit issue, i.e., change the value of each attribute and the name of the issue. Select the first issue and select that command. You will see the same window as in case of adding a new issue, containing current values ​​of attributes. Change the status of issue to Resolved, and select Fixed in the Resolution field. Then press <span class="guibutton">OK</span> to save your changes.</p>
+            <div class="figure">
+              <a id="id519482"></a>
+              <div class="figure-contents">
+                <div class="mediaobject">
+                  <img src="images/ch03-fig12.png" alt="Changing attributes of an issue" />
+                </div>
+              </div>
+              <div class="figure-title">Figure 3.12. Changing attributes of an issue</div>
+            </div>
+            <p>Note that the WebIssues system automatically remembers your changes and displays them in the history of the issue. This allows you to track the entire life cycle of the issue, changes of its status and all operations performed with the issue.</p>
+            <div class="figure">
+              <a id="id519504"></a>
+              <div class="figure-contents">
+                <div class="mediaobject">
+                  <img src="images/ch03-fig13.png" alt="Issue history after the change" />
+                </div>
+              </div>
+              <div class="figure-title">Figure 3.13. Issue history after the change</div>
+            </div>
+          </div>
+          <div class="sect2" title="Adding attachments">
+            <div class="titlepage">
+              <div>
+                <div>
+                  <h3 class="title"><a id="webissues.work.issues.attach"></a>Adding attachments</h3>
+                </div>
+              </div>
+            </div>
+            <p>You already know how to add a comment to describe the issue or discuss about it. However it's better to add long passages of text (such as error logs) as separate attachments. This way you can also attach to image files, documents and other types of files to the issue, just like attachments to email messages.</p>
+            <p>To attach a file, select <span class="guilabel">Add Attachment</span>. Then select the file you want to add, and optionally enter a brief description of the attachment.</p>
+            <div class="figure">
+              <a id="id519542"></a>
+              <div class="figure-contents">
+                <div class="mediaobject">
+                  <img src="images/ch03-fig14.png" alt="Adding an attachment" />
+                </div>
+              </div>
+              <div class="figure-title">Figure 3.14. Adding an attachment</div>
+            </div>
+            <p>The new attachment is visible in the history of the issue:</p>
+            <div class="figure">
+              <a id="id519565"></a>
+              <div class="figure-contents">
+                <div class="mediaobject">
+                  <img src="images/ch03-fig15.png" alt="Issue history with an attachment" />
+                </div>
+              </div>
+              <div class="figure-title">Figure 3.15. Issue history with an attachment</div>
+            </div>
+            <p>Click the link to open the attached file or to save it to disk. The Desktop Client by default always asks if you want to open or save the file. You can also right-click to select the appropriate option from the context menu. By changing the program settings you can select the default action for attachments, and change the maximum amount of disk space used to store temporary files.</p>
+            <p>In case of the Web Client, the default action performed when you click a link depends on the configuration of your browser. In most browsers you can also click the right mouse button above the link to choose an action from the context menu.</p>
+            <div class="note" title="Note" style="margin-left: 0.5in; margin-right: 0.5in;">
+              <h3 class="title">Note</h3>
+              <p>The maximum size of files which can be attached to an issue depends on the configuration of the WebIssues system. You can change it in the WebIssues system settings (see <a class="xref" href="webissues.admin.html" title="Chapter 5. System administration">Chapter 5, <em>System administration</em></a> for more information). Uploading large attachments also requires appropriate configuration of the web server and PHP. For more information, please visit <a class="ulink" href="http://php.net/manual/en/features.file-upload.common-pitfalls.php" target="_top">http://php.net/manual/en/features.file-upload.common-pitfalls.php</a>.</p>
+              <p>By default, small attachments are stored in the database, and large files are stored directly in the file system. Depending on your needs, you can change the threshold value or force storing all attachments only in the database or the file system, by changing WebIssues system settings. For client applications it doesn't matter how the attachments are stored.</p>
+            </div>
+          </div>
+        </div>
+        <div class="navlinks">
+          <div class="navleft">&laquo; <a accesskey="p" href="webissues.work.login.html">Logging into the system</a></div>
+          <div class="navright"><a accesskey="n" href="webissues.work.views.html">Filtering and searching</a> &raquo;</div>
+        </div>
+        <div id="footer">
+          <p class="copyright">Copyright © 2007-2011 WebIssues Team</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

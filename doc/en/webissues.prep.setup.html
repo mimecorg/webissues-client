@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Initial setup</title>
+    <link rel="stylesheet" type="text/css" href="common/style.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.76.1" />
+    <link rel="home" href="index.html" title="WebIssues Manual" />
+    <link rel="up" href="webissues.prep.html" title="Chapter 2. Preparing the system" />
+    <link rel="prev" href="webissues.prep.installation.html" title="Installation" />
+    <link rel="next" href="webissues.prep.notifications.html" title="Email notifications" />
+  </head>
+  <body>
+    <div id="wrapper">
+      <div id="header">
+        <div id="header-top">
+          <div id="header-left">
+            <h1><img src="common/webissues.png" alt="WebIssues" id="logo" />WebIssues Manual</h1>
+          </div>
+          <div id="header-right">
+            <h2 class="subtitle">Version 1.0-beta1</h2>
+          </div>
+        </div>
+        <div id="infobar">
+          <div id="infobar-left"><a accesskey="h" href="index.html">Home</a> &raquo; <a accesskey="u" href="webissues.prep.html">Preparing the system</a></div>
+          <div id="infobar-right"></div>
+        </div>
+      </div>
+      <div id="body">
+        <div class="navlinks">
+          <div class="navleft">&laquo; <a accesskey="p" href="webissues.prep.installation.html">Installation</a></div>
+          <div class="navright"><a accesskey="n" href="webissues.prep.notifications.html">Email notifications</a> &raquo;</div>
+        </div>
+        <div class="sect1" title="Initial setup">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h2 class="title" style="clear: both"><a id="webissues.prep.setup"></a>Initial setup</h2>
+              </div>
+            </div>
+          </div>
+          <p>After installing the new WebIssues server, it contains initial configuration and settings, but before you can use it, you have to do a few more things. First, you must create accounts for users that will use the system. Secondly, you need to create projects and folders in which the issues will be stored.</p>
+          <div class="sect2" title="User accounts">
+            <div class="titlepage">
+              <div>
+                <div>
+                  <h3 class="title"><a id="webissues.prep.setup.users"></a>User accounts</h3>
+                </div>
+              </div>
+            </div>
+            <p>Let's start with creating user accounts. Click the <span class="guilabel">Administration Panel</span> link in the upper right corner of the window, then select <span class="guilabel">User Accounts</span>. You should see a single user named Administrator, which was created by the installer.</p>
+            <p>Create your personal account, so you don't have to log in as Administrator. To do this, click <span class="guilabel">Add user</span>, then enter your name and the login and password that you will be using to log into the system. Then press <span class="guibutton">OK</span>.</p>
+            <div class="figure">
+              <a id="id511721"></a>
+              <div class="figure-contents">
+                <div class="mediaobject">
+                  <img src="images/ch02-fig04.png" alt="Creating a user account" />
+                </div>
+              </div>
+              <div class="figure-title">Figure 2.4. Creating a user account</div>
+            </div>
+            <p>Repeat the above steps to create accounts for other people who will use the system. For each of them you need to specify the initial password, but for greater security, you can select the <span class="guilabel">User must change password at next logon</span> option, if you want them to set their own password when logging into the system.</p>
+            <p>In the WebIssues system there may be more users with administrator privileges. To change permissions of a user, select him by clicking his name in the list, then click <span class="guilabel">Change Access</span>. You can choose the System Administrator or Regular User permission, and also disable access to the system for given user. Press <span class="guibutton">OK</span> to confirm the changes.</p>
+            <div class="tip" title="Tip" style="margin-left: 0.5in; margin-right: 0.5in;">
+              <h3 class="title">Tip</h3>
+              <p>The System Administrator has access to the Administration Panel, and is the administrator of all existing projects, even if he's not implicitly their member. Thus grant this permission only to persons that you trust.</p>
+            </div>
+            <p>A configured list of user accounts may look like the figure below. For more information on administering user accounts, read <a class="xref" href="webissues.admin.html" title="Chapter 5. System administration">Chapter 5, <em>System administration</em></a>.</p>
+            <div class="figure">
+              <a id="id511779"></a>
+              <div class="figure-contents">
+                <div class="mediaobject">
+                  <img src="images/ch02-fig05.png" alt="List of user accounts" />
+                </div>
+              </div>
+              <div class="figure-title">Figure 2.5. List of user accounts</div>
+            </div>
+          </div>
+          <div class="sect2" title="Projects and folders">
+            <div class="titlepage">
+              <div>
+                <div>
+                  <h3 class="title"><a id="webissues.prep.setup.projects"></a>Projects and folders</h3>
+                </div>
+              </div>
+            </div>
+            <p>Then click on the <span class="guilabel">Web Client</span> link in the upper right corner to go to the main part of the WebIssues system. On the left you'll see an empty projects and folders tree. Click <span class="guilabel">Add Project</span> to create the first project. Name it <span class="quote">“<span class="quote">My first project</span>”</span> and press <span class="guibutton">OK</span>.</p>
+            <div class="figure">
+              <a id="id511827"></a>
+              <div class="figure-contents">
+                <div class="mediaobject">
+                  <img src="images/ch02-fig06.png" alt="Creating a project" />
+                </div>
+              </div>
+              <div class="figure-title">Figure 2.6. Creating a project</div>
+            </div>
+            <p>The new project will appear in the tree and will be automatically selected. On the right side there will be a number of operations that you can perform on the selected project. Let's begin by creating folders. Click <span class="guilabel">Add Folder</span> and create a folder called <span class="quote">“<span class="quote">Bugs</span>”</span>, selecting the type of issues with the same name.</p>
+            <div class="figure">
+              <a id="id511857"></a>
+              <div class="figure-contents">
+                <div class="mediaobject">
+                  <img src="images/ch02-fig07.png" alt="Creating a folder" />
+                </div>
+              </div>
+              <div class="figure-title">Figure 2.7. Creating a folder</div>
+            </div>
+            <p>After creating a folder, it will be displayed in the tree below the project and automatically selected. Select the project again by clicking on its name and add another folder of type Tasks. Then repeat the same step to create a Forums folder. The projects tree will look like this:</p>
+            <div class="figure">
+              <a id="id511878"></a>
+              <div class="figure-contents">
+                <div class="mediaobject">
+                  <img src="images/ch02-fig08.png" alt="Projects tree" />
+                </div>
+              </div>
+              <div class="figure-title">Figure 2.8. Projects tree</div>
+            </div>
+            <p>For now, the newly created project is only available to system administrators. To grant access to other users, select the project and click <span class="guilabel">Project Members</span>. You will see an empty list. Now click <span class="guilabel">Add members</span> and select all users except the Administrator account. Click <span class="guibutton">OK</span>.</p>
+            <p>You can also assign one of the members an administrator right for the project. Select a user and click <span class="guilabel">Change Access</span>. Then select the access level in a similar way as in case of changing user's access to the system.</p>
+            <div class="tip" title="Tip" style="margin-left: 0.5in; margin-right: 0.5in;">
+              <h3 class="title">Tip</h3>
+              <p>Project Administrator can create and modify folders, as well as change permissions of other users for this project. He can also delete issues and delete and modify other users' comments.</p>
+            </div>
+            <p>A configured list of members of the project may look like below. Read <a class="xref" href="webissues.admin.html" title="Chapter 5. System administration">Chapter 5, <em>System administration</em></a> later in this book to learn more about administration of projects, folders and members.</p>
+            <div class="figure">
+              <a id="id511942"></a>
+              <div class="figure-contents">
+                <div class="mediaobject">
+                  <img src="images/ch02-fig09.png" alt="List of project members" />
+                </div>
+              </div>
+              <div class="figure-title">Figure 2.9. List of project members</div>
+            </div>
+          </div>
+        </div>
+        <div class="navlinks">
+          <div class="navleft">&laquo; <a accesskey="p" href="webissues.prep.installation.html">Installation</a></div>
+          <div class="navright"><a accesskey="n" href="webissues.prep.notifications.html">Email notifications</a> &raquo;</div>
+        </div>
+        <div id="footer">
+          <p class="copyright">Copyright © 2007-2011 WebIssues Team</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

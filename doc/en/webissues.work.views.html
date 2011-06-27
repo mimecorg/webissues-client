@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Filtering and searching</title>
+    <link rel="stylesheet" type="text/css" href="common/style.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.76.1" />
+    <link rel="home" href="index.html" title="WebIssues Manual" />
+    <link rel="up" href="webissues.work.html" title="Chapter 3. Working with issues" />
+    <link rel="prev" href="webissues.work.issues.html" title="Creating and editing issues" />
+    <link rel="next" href="webissues.work.advanced.html" title="Advanced editing" />
+  </head>
+  <body>
+    <div id="wrapper">
+      <div id="header">
+        <div id="header-top">
+          <div id="header-left">
+            <h1><img src="common/webissues.png" alt="WebIssues" id="logo" />WebIssues Manual</h1>
+          </div>
+          <div id="header-right">
+            <h2 class="subtitle">Version 1.0-beta1</h2>
+          </div>
+        </div>
+        <div id="infobar">
+          <div id="infobar-left"><a accesskey="h" href="index.html">Home</a> &raquo; <a accesskey="u" href="webissues.work.html">Working with issues</a></div>
+          <div id="infobar-right"></div>
+        </div>
+      </div>
+      <div id="body">
+        <div class="navlinks">
+          <div class="navleft">&laquo; <a accesskey="p" href="webissues.work.issues.html">Creating and editing issues</a></div>
+          <div class="navright"><a accesskey="n" href="webissues.work.advanced.html">Advanced editing</a> &raquo;</div>
+        </div>
+        <div class="sect1" title="Filtering and searching">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h2 class="title" style="clear: both"><a id="webissues.work.views"></a>Filtering and searching</h2>
+              </div>
+            </div>
+          </div>
+          <p>Over time, folders contain more and more issues and finding the desired information can become difficult. You can of course sort the list of issues using any column, not only by identifiers, but also by name or the value of any attribute. This can help you find the information you need, but it's not always enough.</p>
+          <p>The list of issues also has a quick search function. Enter a word or a its fragment in the text box on the right side above the list, and you'll see only the issue containing the text in their name.</p>
+          <p>It's most useful in everyday work to use views. Each view has filter conditions, which limit the displayed list issues to those that meet certain criteria. Each view also has its own column layout, and default sort order. In other words, the view defines which issues from all issues in the folder are visible, and which columns from all available columns are displayed.</p>
+          <p>What views are available depends on the type of issues in the folder. The only exception is the <span class="quote">“<span class="quote">All Issues</span>”</span> view, which exists for each issue type and has no filter conditions, and therefore (as the name implies) displays all the issues in the current folder.</p>
+          <p>Open the Bugs folder, and then expand the list of views on the left above the list of issues. You'll see the default <span class="quote">“<span class="quote">All Issues</span>”</span> view, and a few public views:</p>
+          <div class="figure">
+            <a id="id519646"></a>
+            <div class="figure-contents">
+              <div class="mediaobject">
+                <img src="images/ch03-fig16.png" alt="View selection" />
+              </div>
+            </div>
+            <div class="figure-title">Figure 3.16. View selection</div>
+          </div>
+          <p>Select the <span class="quote">“<span class="quote">Active Bugs</span>”</span> view from the list. Note that now the list of issues contains only the second issue, since you have just changed the status of the first issue to Resolved.</p>
+          <div class="figure">
+            <a id="id519672"></a>
+            <div class="figure-contents">
+              <div class="mediaobject">
+                <img src="images/ch03-fig17.png" alt="List of active bugs" />
+              </div>
+            </div>
+            <div class="figure-title">Figure 3.17. List of active bugs</div>
+          </div>
+          <p>Select other available views, to see that every time other issues are displayed and the layout of visible columns changes. This allows each user to focus only on those issues that are currently interesting — for example, a tester can view the list of fixed bugs, that need to be verified, and a developer can display the list of bugs assigned to him, that must be solved.</p>
+          <div class="tip" title="Tip" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <h3 class="title">Tip</h3>
+            <p>Although views make it much easier to work with a large number of issues, you should anticipate what will happen in your system over the next few years. For example, if there are 10 new issues created every day by average, in a year there will be more than 3000 issues.</p>
+            <p>Although there is no specified limit of issues per one folder, a large number of issues  may adversely affect system performance. In this situation, you should divide the issues into separate folders, for example, by date of creation or a version of the project to which they refer.</p>
+          </div>
+          <p>Sometimes it is not enough to use the existing public views. In that case, you can create your own, private views, which may have any filtering criteria, columns and sorting order.</p>
+          <p>Click <span class="guilabel">Add View</span> to quickly create a new view for the current type of issues. Suppose you want to display only critical bugs, so we will call our view <span class="quote">“<span class="quote">Critical bugs</span>”</span>. The Severity column is not needed, because it will always have a value of 1, so uncheck it on the list of columns. Add the Created By and Created Date columns, so that you know who and when created the the issue. To move the Assigned To and Status columns to the end of the list, set the values defining their order to 10 and 11, respectively.</p>
+          <div class="figure">
+            <a id="id519723"></a>
+            <div class="figure-contents">
+              <div class="mediaobject">
+                <img src="images/ch03-fig18.png" alt="Editing view columns" />
+              </div>
+            </div>
+            <div class="figure-title">Figure 3.18. Editing view columns</div>
+          </div>
+          <p>Click the <span class="guibutton">Update</span> button to see how the new column layout of the view will look. Leave the default sort order in order to display issues from oldest to newest. Then go to editing the filters. Turn on a filter for the Severity column and type 1 as a parameter of the condition:</p>
+          <div class="figure">
+            <a id="id519750"></a>
+            <div class="figure-contents">
+              <div class="mediaobject">
+                <img src="images/ch03-fig19.png" alt="Editing the filter" />
+              </div>
+            </div>
+            <div class="figure-title">Figure 3.19. Editing the filter</div>
+          </div>
+          <p>Save your changes by clicking <span class="guibutton">OK</span>. The Views drop-down list now includes a private view named <span class="quote">“<span class="quote">Critical bugs</span>”</span>. After selecting it, the list of issues will only contain the first the issue, according to the selected filter criteria.</p>
+          <p>Now suppose that we are only interested these critical issues, which are active and in addition older than 7 days. Such view would be very useful for people supervising the process of resolving bugs. Click <span class="guilabel">Edit View</span> to edit the active view (first make sure that it's selected).</p>
+          <p>Select two additional conditions for the Created Date and Status columns. In the first condition, select the <span class="quote">“<span class="quote">is less than</span>”</span> operator, and using the drop-down calendar, select Today. Then change the value of the parameter to <span class="quote">“<span class="quote">[Today]-7</span>”</span>. This value will be replaced by the current date minus 7 days, so only issues created more than 7 days ago will satisfy this condition. Also set the filter parameter for the Status field to Active.</p>
+          <div class="tip" title="Tip" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <h3 class="title">Tip</h3>
+            <p>Two special values can be used in the definition of a filter. The value <span class="quote">“<span class="quote">[Today]</span>”</span> is replaced by the current date (with the possibility of adding or subtracting a specified numer of days), an the value <span class="quote">“<span class="quote">[Me]</span>”</span> is replaced by the name of the current user.</p>
+          </div>
+          <div class="figure">
+            <a id="id519819"></a>
+            <div class="figure-contents">
+              <div class="mediaobject">
+                <img src="images/ch03-fig20.png" alt="Changing the filter" />
+              </div>
+            </div>
+            <div class="figure-title">Figure 3.20. Changing the filter</div>
+          </div>
+          <p>Click <span class="guibutton">Update</span> to see all the filters. Note that you can add new conditions containing those fields that are already used. Thanks to this you can create complex filters, such as <span class="quote">“<span class="quote">older than seven days but not older than a month</span>”</span>.</p>
+          <p>Save your changes by clicking <span class="guibutton">OK</span>. Of course the list of issues will now be empty, since at this time there are no issues older than 7 days in the system.</p>
+          <p>You can create any number of private views. They won't be visible to any other user. However they will be available for each folder that contains issues of the same type. To create, modify, rename, and delete your views, open the folder of the given type, and click <span class="guilabel">Manage Views</span>. A new window will be opened containing a list of all your views with detailed information.</p>
+          <div class="figure">
+            <a id="id519866"></a>
+            <div class="figure-contents">
+              <div class="mediaobject">
+                <img src="images/ch03-fig21.png" alt="Managing views" />
+              </div>
+            </div>
+            <div class="figure-title">Figure 3.21. Managing views</div>
+          </div>
+          <p>If you are a system administrator, you can also publish your views, so that they become accessible to all users, and manage public views for different types of issues. For more information, please read <a class="xref" href="webissues.custom.html" title="Chapter 6. Customizing the system">Chapter 6, <em>Customizing the system</em></a>.</p>
+        </div>
+        <div class="navlinks">
+          <div class="navleft">&laquo; <a accesskey="p" href="webissues.work.issues.html">Creating and editing issues</a></div>
+          <div class="navright"><a accesskey="n" href="webissues.work.advanced.html">Advanced editing</a> &raquo;</div>
+        </div>
+        <div id="footer">
+          <p class="copyright">Copyright © 2007-2011 WebIssues Team</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

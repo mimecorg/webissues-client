@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Logiczna organizacja danych</title>
+    <link rel="stylesheet" type="text/css" href="common/style.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.76.1" />
+    <link rel="home" href="index.html" title="Podręcznik WebIssues" />
+    <link rel="up" href="webissues.intro.html" title="Rozdział 1. Wprowadzenie" />
+    <link rel="prev" href="webissues.intro.html" title="Rozdział 1. Wprowadzenie" />
+    <link rel="next" href="webissues.intro.lifecycle.html" title="Cykl życia sprawy" />
+  </head>
+  <body>
+    <div id="wrapper">
+      <div id="header">
+        <div id="header-top">
+          <div id="header-left">
+            <h1><img src="common/webissues.png" alt="WebIssues" id="logo" />Podręcznik WebIssues</h1>
+          </div>
+          <div id="header-right">
+            <h2 class="subtitle">Wersja 1.0-beta1</h2>
+          </div>
+        </div>
+        <div id="infobar">
+          <div id="infobar-left"><a accesskey="h" href="index.html">Spis treści</a> &raquo; <a accesskey="u" href="webissues.intro.html">Wprowadzenie</a></div>
+          <div id="infobar-right"></div>
+        </div>
+      </div>
+      <div id="body">
+        <div class="navlinks">
+          <div class="navleft">&laquo; <a accesskey="p" href="webissues.intro.html">Wprowadzenie</a></div>
+          <div class="navright"><a accesskey="n" href="webissues.intro.lifecycle.html">Cykl życia sprawy</a> &raquo;</div>
+        </div>
+        <div class="sect1" title="Logiczna organizacja danych">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h2 class="title" style="clear: both"><a id="webissues.intro.organization"></a>Logiczna organizacja danych</h2>
+              </div>
+            </div>
+          </div>
+          <p>W poprzednim rozdziale kilkukrotnie użyte zostało sformułowanie <em class="firstterm">sprawa</em>. Jest to najmniejsza samodzielna jednostka informacji występująca w systemie WebIssues. Jest to zarazem bardzo ogólne pojęcie — pojedyncza sprawa może reprezentować błąd w oprogramowaniu, zgłoszenie serwisowe, zadanie do wykonania, wątek w dyskusji, zasób będący własnością firmy, itp.</p>
+          <p>Każda sprawa w systemie posiada swój unikalny i niezmienny <em class="firstterm">identyfikator</em>, dzięki czemu możesz ją jednoznacznie zidentyfikować w całym cyklu życia. Sprawa posiada również nazwę, a także dowolną liczbę <em class="firstterm">atrybutów</em> różnych typów, analogicznie do tabeli w arkuszu kalkulacyjnym, w którym pojedynczy wiersz reprezentuje sprawę, a kolumna — atrybut. W systemie WebIssues mogą istnieć niezależnie od siebie sprawy różnych <em class="firstterm">typów</em>, posiadających odmienne zestawy atrybutów — podobnie jak arkusz kalkulacyjny może zawierać tabele o różnym układzie kolumn.</p>
+          <div class="figure">
+            <a id="id508670"></a>
+            <div class="figure-contents">
+              <div class="mediaobject">
+                <img src="images/ch01-fig01.png" alt="Tabela zawierająca sprawy i atrybuty" />
+              </div>
+            </div>
+            <div class="figure-title">Rysunek 1.1. Tabela zawierająca sprawy i atrybuty</div>
+          </div>
+          <p>Każda sprawa zarejestrowana w systemie posiada swoją historię, uszeregowaną chronologicznie począwszy od momentu utworzenia. Składają się na nią zmiany wartości poszczególnych atrybutów, a także komentarze oraz załączone pliki. Umożliwia to prześledzenie całego cyklu życia danej sprawy, odtworzenie jej stanu w dowolnym momencie, a także sprawdzenie, kto, kiedy i w jaki sposób zmodyfikował daną sprawę.</p>
+          <div class="figure">
+            <a id="id508691"></a>
+            <div class="figure-contents">
+              <div class="mediaobject">
+                <img src="images/ch01-fig02.png" alt="Historia sprawy ze zmianami, komentarzami i załącznikami" />
+              </div>
+            </div>
+            <div class="figure-title">Rysunek 1.2. Historia sprawy ze zmianami, komentarzami i załącznikami</div>
+          </div>
+          <p>Aby zmaksymalizować produktywność i elastyczność, system WebIssues nie ma złożonego systemu uprawnień i opiera się na idei otwartej współpracy. Dlatego najlepiej nadaje się on do wewnętrznego użytku w zaufanej grupie pracowników lub członków organizacji. Każdy może tworzyć i dowolnie modyfikować wszystkie sprawy, do których ma dostęp. Każda zmiana jest jednak jawna i pozostaje trwale zarejestrowana przez system. Dodatkowo usuwanie spraw i inne potencjalne niebezpieczne lub nieodwracalne operacje wymagają specjalnych uprawnień.</p>
+          <p>Aby ułatwić zarządzanie sprawami, są one logicznie podzielone na <em class="firstterm">foldery</em>. Możesz utworzyć dowolną liczbę folderów różnych typów, przy czym pojedynczy folder musi zawierać sprawy tego samego typu. Kontynuując naszą analogię, folder jest więc odpowiednikiem tabeli w arkuszu. Korzystanie z folderów ułatwia wyszukiwanie informacji — możesz np. podzielić błędy według modułów, których dotyczą, albo wersji oprogramowania, listy dyskusyjne możesz podzielić według tematu, a zgłoszenia serwisowe według miesięcy, w których zostały zarejestrowane.</p>
+          <p>Foldery są z kolei pogrupowane w <em class="firstterm">projekty</em>. Dla każdego projektu możesz określić zbiór osób, którzy mają do niego dostęp, oraz ich uprawnienia w ramach tego projektu. Możesz zatem podzielić system na obszary, do których dostęp mają różne grupy użytkowników. Każdy projekt może również mieć swojego administratora (lub kilku administratorów). Administrator projektu ma większe uprawnienia niż zwykły użytkownik, np. ma możliwość usuwania spraw lub przenoszenia ich między folderami.</p>
+          <div class="figure">
+            <a id="id508727"></a>
+            <div class="figure-contents">
+              <div class="mediaobject">
+                <img src="images/ch01-fig03.png" alt="Drzewo projektów i folderów" />
+              </div>
+            </div>
+            <div class="figure-title">Rysunek 1.3. Drzewo projektów i folderów</div>
+          </div>
+          <p>Nie ma możliwości definiowania uprawnień na niższym poziomie szczegółowości niż pojedynczy projekt. Wszyscy członkowie projektu mają zatem równoprawny dostęp do wszystkich informacji zawartych w tym projekcie i możliwość ich modyfikowania. System WebIssues zapewnia natomiast bezpieczeństwo przed niepowołanym dostępem do danych przez nieuprawnione osoby.</p>
+        </div>
+        <div class="navlinks">
+          <div class="navleft">&laquo; <a accesskey="p" href="webissues.intro.html">Wprowadzenie</a></div>
+          <div class="navright"><a accesskey="n" href="webissues.intro.lifecycle.html">Cykl życia sprawy</a> &raquo;</div>
+        </div>
+        <div id="footer">
+          <p class="copyright">Copyright © 2007-2011 Zespół WebIssues</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

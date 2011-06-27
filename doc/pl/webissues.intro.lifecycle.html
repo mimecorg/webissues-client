@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Cykl życia sprawy</title>
+    <link rel="stylesheet" type="text/css" href="common/style.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.76.1" />
+    <link rel="home" href="index.html" title="Podręcznik WebIssues" />
+    <link rel="up" href="webissues.intro.html" title="Rozdział 1. Wprowadzenie" />
+    <link rel="prev" href="webissues.intro.organization.html" title="Logiczna organizacja danych" />
+    <link rel="next" href="webissues.prep.html" title="Rozdział 2. Przygotowanie systemu" />
+  </head>
+  <body>
+    <div id="wrapper">
+      <div id="header">
+        <div id="header-top">
+          <div id="header-left">
+            <h1><img src="common/webissues.png" alt="WebIssues" id="logo" />Podręcznik WebIssues</h1>
+          </div>
+          <div id="header-right">
+            <h2 class="subtitle">Wersja 1.0-beta1</h2>
+          </div>
+        </div>
+        <div id="infobar">
+          <div id="infobar-left"><a accesskey="h" href="index.html">Spis treści</a> &raquo; <a accesskey="u" href="webissues.intro.html">Wprowadzenie</a></div>
+          <div id="infobar-right"></div>
+        </div>
+      </div>
+      <div id="body">
+        <div class="navlinks">
+          <div class="navleft">&laquo; <a accesskey="p" href="webissues.intro.organization.html">Logiczna organizacja danych</a></div>
+          <div class="navright"><a accesskey="n" href="webissues.prep.html">Przygotowanie systemu</a> &raquo;</div>
+        </div>
+        <div class="sect1" title="Cykl życia sprawy">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h2 class="title" style="clear: both"><a id="webissues.intro.lifecycle"></a>Cykl życia sprawy</h2>
+              </div>
+            </div>
+          </div>
+          <p>Na początek załóżmy, że system WebIssues jest używany do wewnętrznej komunikacji między członkami zespołu, zastępując fora dyskusyjne bądź listy mailowe. Folder reprezentuje forum lub listę związaną z określonym tematem, a sprawa — wątek dyskusji.</p>
+          <div class="sect2" title="Proste forum">
+            <div class="titlepage">
+              <div>
+                <div>
+                  <h3 class="title"><a id="webissues.intro.lifecycle.forum"></a>Proste forum</h3>
+                </div>
+              </div>
+            </div>
+            <p>Jan Kowalski jest nowym pracownikiem w twojej firmie i dopiero uczy się używać różnych programów, które są mu potrzebne do pracy. Jeden z programów księgowych, Big Finances, nie chce się uruchomić i zamiast tego wyświetlił niezrozumiały komunikat błędu. Kowalski loguje się do systemu WebIssues i otwiera folder Pomoc. Następnie dodaje nową sprawę i nadaje jej nazwę <span class="quote">„<span class="quote">Problem z Big Finances</span>”</span>. Tworzy również komentarz, w którym opisuje, co robił kiedy wystąpił problem, a na koniec dołącza zrzut ekranu z komunikatem błędu w postaci pliku graficznego.</p>
+            <p>Ponieważ starasz się pomagać nowym pracownikom, regularnie w ciągu dnia zaglądasz do folderu Pomoc. Wszystkie wątki (sprawy) są domyślnie posortowane według daty ostatniej modyfikacji. Co więcej, nowe wątki, których jeszcze nie czytałeś, są oznaczone żółtym symbolem zamkniętej koperty i dodatkowo pogrubione — podobnie jak w wielu programach pocztowych czy forach dyskusyjnych. Otwierasz sprawę, czytasz opis problemu i otwierasz załącznik.</p>
+            <p>To dość częsty problem — wystarczy skasować jeden błędny plik i program Big Finances znowu powinien działać. Dodajesz do sprawy nowy komentarz, w którym opisujesz sposób postępowania. Niedługo potem Kowalski zagląda znowu do katalogu Pomoc i zauważa, że jego sprawa jest oznaczona zieloną, zamkniętą kopertą i pogrubiona. Oznacza to, że ktoś inny zmodyfikował sprawę od czasu, kiedy ją ostatnio otwierał. Kowalski czyta twój komentarz, wykonuje opisane kroki i uruchamia program. Następnie odpisuje, że zaproponowane przez ciebie rozwiązanie pomogło rozwiązać problem. Przeglądając ponownie folder Pomoc szybko zauważasz zieloną kopertę — kolejny raz pomogłeś komuś nawet nie ruszając się z miejsca.</p>
+          </div>
+          <div class="sect2" title="Zgłoszenia serwisowe">
+            <div class="titlepage">
+              <div>
+                <div>
+                  <h3 class="title"><a id="webissues.intro.lifecycle.service"></a>Zgłoszenia serwisowe</h3>
+                </div>
+              </div>
+            </div>
+            <p>Pół roku później firma rozrosła się tak, że nie jesteś w stanie już pomagać wszystkim pracownikom, nie zaniedbując własnych obowiązków. Co gorsza pojawiło się nowe oprogramowanie Great Finances, którego nie znasz tak dobrze i nie potrafisz samodzielnie rozwiązać wszystkich problemów. Zwykłe forum dyskusyjne przestało już wystarczać i konieczne było wprowadzenie wirtualnego punktu serwisowego.</p>
+            <p>Kowalski od niedawna używa nowego programu Great Finances i radzi sobie dobrze, ale właśnie pojawił się problem przy rozliczaniu faktur. Kowalski loguje się do systemu WebIssues i otwiera folder <span class="quote">„<span class="quote">Great Finances</span>”</span> — ze względu na dużą liczbę zgłoszeń, trzeba je było podzielić na osobne foldery związane z poszczególnymi programami. Dodając nową sprawę, oprócz nazwy musi teraz także wypełnić kilka dodatkowych pól (atrybutów) — rodzaj problemu, nazwa modułu oraz wersja używanego programu. Następnie dodaje komentarz z dokładnym opisem problemu.</p>
+            <p>W dalszym ciągu regularnie zaglądasz do systemu serwisowego, ale zajmujesz się głównie przypisywaniem nowych zgłoszeń innym osobom, a samodzielnie rozwiązujesz jedynie sprawy związane z programem Big Finances.</p>
+            <p>Ponieważ zgłoszeń w systemie jest bardzo dużo, korzystasz z widoku <span class="quote">„<span class="quote">Nowe zgłoszenia</span>”</span>, który wyświetla jedynie te zgłoszenia, które nie są jeszcze przypisane do żadnej osoby. W widoku tym pojawia się nowe zgłoszenie utworzone przez Kowalskiego. Nie czytając nawet opisu problemu, spoglądasz tylko na typ problemu i nazwę modułu, a następnie przechodzisz do trybu edycji sprawy. W polu <span class="quote">„<span class="quote">Przypisany do</span>”</span> wybierasz z listy użytkowników Adama Nowaka, który specjalizuje się w rozliczaniu faktur. Po zapisaniu sprawa znika z widoku Nowe zgłoszenie, ponieważ zostało ono już przypisane.</p>
+            <p>Adam Nowak korzysta z widoku <span class="quote">„<span class="quote">Aktywne zgłoszenia</span>”</span>, w którym widzi tylko sprawy przypisane do niego i posiadające status Aktywny (który jest domyślny dla nowo utworzonych zgłoszeń). Ponieważ nie zawsze ma czas na bieżąco do niego zaglądać, włączył sobie dodatkowe powiadomienie, które informuje go o e-mailem o nowych sprawach w tym widoku. Nowak potrzebuje więcej informacji od Kowalskiego, zatem dodaje komentarz z prośbą o ich dostarczenie. Kowalski widzi sprawę w widoku <span class="quote">„<span class="quote">Moje zgłoszenia</span>”</span>, zawierającym wszystkie aktywne sprawy, które zostały przez niego utworzone, a zielona ikonka, tak jak poprzednio, informuje go o wszystkich zmianach atrybutów i nowych komentarzach.</p>
+          </div>
+          <div class="sect2" title="Przepływ pracy">
+            <div class="titlepage">
+              <div>
+                <div>
+                  <h3 class="title"><a id="webissues.intro.lifecycle.workflow"></a>Przepływ pracy</h3>
+                </div>
+              </div>
+            </div>
+            <p>W wielu sytuacjach cykl życia sprawy może być jeszcze bardziej złożony, a w proces jego przetwarzania może być zaangażowanych wiele osób. Powszechnym przykładem jest cykl życia błędu w oprogramowaniu. Jest on tworzony przez testera, a następnie jest weryfikowany i przypisywany przez kierownika projektu do odpowiedniego programisty. Programista rozwiązuje (naprawia) błąd, a tester może albo zaakceptować rozwiązanie i zamknąć błąd, albo je odrzucić i przypisać z powrotem do programisty.</p>
+            <div class="figure">
+              <a id="id508840"></a>
+              <div class="figure-contents">
+                <div class="mediaobject">
+                  <img src="images/ch01-fig04.png" alt="Przykładowy cykl życia błędu" />
+                </div>
+              </div>
+              <div class="figure-title">Rysunek 1.4. Przykładowy cykl życia błędu</div>
+            </div>
+            <p>Taki proces, w którego poszczególne kroki są zaangażowane różne osoby, nazywa się często przepływem pracy (ang. <span class="foreignphrase"><em class="foreignphrase">workflow</em></span>). W niektórych systemach przepływ pracy jest zdefiniowany w sztywny sposób i nie może być zmieniany, lub może być modyfikowany jedynie w niewielkim stopniu. Inne systemy posiadają skomplikowane narzędzia służące do projektowania przepływu pracy.</p>
+            <p>W systemie WebIssues przepływ pracy nie jest w żaden sposób wymuszony, ale można go w bardzo łatwy sposób modelować w odpowiedni sposób wykorzystując atrybuty (określające aktualny stan sprawy, a także przypisaną do niej osobę), widoki (ograniczające zbiór spraw do znajdujących się w określonym stanie i przypisane do odpowiedniej osoby) oraz śledzenie stanu spraw (wskazujące nowe i zmodyfikowane sprawy).</p>
+            <p>Osoby uczestniczące w różnych etapach przepływu pracy mogą korzystać z różnych widoków, aby skoncentrować się tylko na tych sprawach, które wymagają ich interwencji. Przykładowo, programistę na ogół interesują tylko aktywne i przypisane do niego błędy, ale w razie potrzeby ma dostęp do wszystkich błędów niezależnie od ich stanu — na przykład aby odnaleźć inne błędy, które mogą być potencjalnie związane z aktualnie przetwarzanym.</p>
+            <p>Również osoby nadzorujące cały proces mogą w odpowiedni sposób korzystać z widoków, aby kontrolować liczbę aktywnych spraw lub podejmować odpowiednie kroki w sytuacji, gdy jakiś błąd przez dłuższy czas pozostaje nierozwiązany. Dodatkowo mają do dyspozycji narzędzia umożliwiające tworzenie raportów czy eksport danych do innego programu (np. arkusza kalkulacyjnego) w celu dalszej analizy.</p>
+          </div>
+        </div>
+        <div class="navlinks">
+          <div class="navleft">&laquo; <a accesskey="p" href="webissues.intro.organization.html">Logiczna organizacja danych</a></div>
+          <div class="navright"><a accesskey="n" href="webissues.prep.html">Przygotowanie systemu</a> &raquo;</div>
+        </div>
+        <div id="footer">
+          <p class="copyright">Copyright © 2007-2011 Zespół WebIssues</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

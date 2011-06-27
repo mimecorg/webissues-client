@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Chapter 2. Preparing the system</title>
+    <link rel="stylesheet" type="text/css" href="common/style.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.76.1" />
+    <link rel="home" href="index.html" title="WebIssues Manual" />
+    <link rel="up" href="index.html" title="WebIssues Manual" />
+    <link rel="prev" href="webissues.intro.lifecycle.html" title="Life cycle of an issue" />
+    <link rel="next" href="webissues.prep.installation.html" title="Installation" />
+  </head>
+  <body>
+    <div id="wrapper">
+      <div id="header">
+        <div id="header-top">
+          <div id="header-left">
+            <h1><img src="common/webissues.png" alt="WebIssues" id="logo" />WebIssues Manual</h1>
+          </div>
+          <div id="header-right">
+            <h2 class="subtitle">Version 1.0-beta1</h2>
+          </div>
+        </div>
+        <div id="infobar">
+          <div id="infobar-left">
+            <a accesskey="h" href="index.html">Home</a>
+          </div>
+          <div id="infobar-right"></div>
+        </div>
+      </div>
+      <div id="body">
+        <div class="navlinks">
+          <div class="navleft">&laquo; <a accesskey="p" href="webissues.intro.lifecycle.html">Life cycle of an issue</a></div>
+          <div class="navright"><a accesskey="n" href="webissues.prep.installation.html">Installation</a> &raquo;</div>
+        </div>
+        <div class="chapter" title="Chapter 2. Preparing the system">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h2 class="title"><a id="webissues.prep"></a>Chapter 2. Preparing the system</h2>
+              </div>
+            </div>
+          </div>
+          <p>In order to use the WebIssues system, it's necessary to configure a server which is its central and most important part. This chapter describes a step-by-step process of installing the WebIssues server and preparing it to work. If you use an already existing server, you can skip this chapter.</p>
+          <div class="sect1" title="Requirements">
+            <div class="titlepage">
+              <div>
+                <div>
+                  <h2 class="title" style="clear: both"><a id="webissues.prep.requirements"></a>Requirements</h2>
+                </div>
+              </div>
+            </div>
+            <p>You can install WebIssues server software on a computer with Unix/Linux, OS X or Windows operating system. Before installing you will need the following components:</p>
+            <div class="itemizedlist">
+              <ul class="itemizedlist" type="disc">
+                <li class="listitem">
+                  <p>A web server</p>
+                </li>
+                <li class="listitem">
+                  <p>A database server</p>
+                </li>
+                <li class="listitem">
+                  <p>PHP</p>
+                </li>
+              </ul>
+            </div>
+            <p>You can use the Apache web server that runs on almost all operating systems (version 2.0 or later is recommended). You can also use the Microsoft IIS server which is part of Windows (version 7.0 or later is recommended).</p>
+            <p>One of the following database server is required:</p>
+            <div class="itemizedlist">
+              <ul class="itemizedlist" type="disc">
+                <li class="listitem">
+                  <p>MySQL (version 5.0.15 or newer)</p>
+                </li>
+                <li class="listitem">
+                  <p>PostgreSQL (version 8.0 or newer)</p>
+                </li>
+                <li class="listitem">
+                  <p>Microsoft SQL Server (version 2005 or newer)</p>
+                </li>
+              </ul>
+            </div>
+            <p>In order to install the system, you must create a database on one of these servers and a user account with sufficient permissions to create tables and indexes in the database.</p>
+            <p>In case of MySQL support for the InnoDB engine is required. The PostgreSQL database should be created with Unicode character encoding. Also remember that you can only use the SQL Server database if the WebIssues server is installed on a computer running Windows.</p>
+            <p>The WebIssues server also requires PHP, version 5.2.1 or newer, integrated with the web server. In case of IIS server, to get the best performance it's recommended to use the <code class="literal">fastcgi</code> module and the <code class="literal">wincache</code> extension. PHP must also have the <code class="literal">mbstring</code> extension installed, and if you're using a MySQL or PostrgreSQL database, also the <code class="literal">mysqli</code> or <code class="literal">pgsql</code> extension, respectively.</p>
+            <p>If you're installing the WebIssues server using an external web hosting service, make sure that it meets all these requirements. To create a database and configure the web server, use the tools provided by hosting provider and refer to the available documentation.</p>
+            <div class="warning" title="Warning" style="margin-left: 0.5in; margin-right: 0.5in;">
+              <h3 class="title">Warning</h3>
+              <p>Some hosting services may have a specific configuration or other restrictions which make it difficult or even impossible to correctly install WebIssues server. They may, for example, limit the amount of available memory, the database size, or the size of files uploaded to the server.</p>
+            </div>
+            <p>Before installing the WebIssues server on your computer (for personal or testing purposes) or on a computer that belongs to your company or organization, install and configure the necessary components, and then create a database using the appropriate administrative tools. Refer to the documentation of these tools to get more information about them. More information about creating databases and configuring the web server can be found at <a class="ulink" href="http://wiki.mimec.org/wiki/WebIssues/Installation" target="_top">http://wiki.mimec.org/wiki/WebIssues/Installation</a>.</p>
+          </div>
+        </div>
+        <div class="navlinks">
+          <div class="navleft">&laquo; <a accesskey="p" href="webissues.intro.lifecycle.html">Life cycle of an issue</a></div>
+          <div class="navright"><a accesskey="n" href="webissues.prep.installation.html">Installation</a> &raquo;</div>
+        </div>
+        <div id="footer">
+          <p class="copyright">Copyright © 2007-2011 WebIssues Team</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

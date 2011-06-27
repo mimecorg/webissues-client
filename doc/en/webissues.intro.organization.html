@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Logical organization of data</title>
+    <link rel="stylesheet" type="text/css" href="common/style.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.76.1" />
+    <link rel="home" href="index.html" title="WebIssues Manual" />
+    <link rel="up" href="webissues.intro.html" title="Chapter 1. Introduction" />
+    <link rel="prev" href="webissues.intro.html" title="Chapter 1. Introduction" />
+    <link rel="next" href="webissues.intro.lifecycle.html" title="Life cycle of an issue" />
+  </head>
+  <body>
+    <div id="wrapper">
+      <div id="header">
+        <div id="header-top">
+          <div id="header-left">
+            <h1><img src="common/webissues.png" alt="WebIssues" id="logo" />WebIssues Manual</h1>
+          </div>
+          <div id="header-right">
+            <h2 class="subtitle">Version 1.0-beta1</h2>
+          </div>
+        </div>
+        <div id="infobar">
+          <div id="infobar-left"><a accesskey="h" href="index.html">Home</a> &raquo; <a accesskey="u" href="webissues.intro.html">Introduction</a></div>
+          <div id="infobar-right"></div>
+        </div>
+      </div>
+      <div id="body">
+        <div class="navlinks">
+          <div class="navleft">&laquo; <a accesskey="p" href="webissues.intro.html">Introduction</a></div>
+          <div class="navright"><a accesskey="n" href="webissues.intro.lifecycle.html">Life cycle of an issue</a> &raquo;</div>
+        </div>
+        <div class="sect1" title="Logical organization of data">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h2 class="title" style="clear: both"><a id="webissues.intro.organization"></a>Logical organization of data</h2>
+              </div>
+            </div>
+          </div>
+          <p>In the previous chapter the term <em class="firstterm">issue </em> has been repeatedly used  It's the smallest independent unit of information that appears in the WebIssues system. It's also a very general term; a single issue may represent a bug in the software, a service request, a task, a thread in the discussion, an asset owned by the company, etc.</p>
+          <p>Every issue in the system has its own unique and invariant <em class="firstterm">identifies</em>, which makes it possible to unambiguously identify it through its entire life time. An issue also has a name and any number of <em class="firstterm">attributes</em> of different types, analogous to a table in a spreadsheet, in which a single row represents an issue and a column corresponds to an attribute. In the WebIssues system issues of different <em class="firstterm">typów</em> can coexist independently, having different sets of attributes, just like a spreadsheet can contain many tables with different sets of columns.</p>
+          <div class="figure">
+            <a id="id498843"></a>
+            <div class="figure-contents">
+              <div class="mediaobject">
+                <img src="images/ch01-fig01.png" alt="A table with issues and attributes" />
+              </div>
+            </div>
+            <div class="figure-title">Figure 1.1. A table with issues and attributes</div>
+          </div>
+          <p>Each issue registered in the system has its own history, arranged chronologically from the time of creation. It contains modifications of values of individual attributes, as well as comments and attached files. This allows you to trace the entire life cycle of the issue, to reproduce its state at any time and to see who and when changed the issue and in what way.</p>
+          <div class="figure">
+            <a id="id498865"></a>
+            <div class="figure-contents">
+              <div class="mediaobject">
+                <img src="images/ch01-fig02.png" alt="Issue history with changes, comments and attachments" />
+              </div>
+            </div>
+            <div class="figure-title">Figure 1.2. Issue history with changes, comments and attachments</div>
+          </div>
+          <p>To maximize the productivity and flexibility, the WebIssues system has no complex system of permissions; it's based on the idea of ​​open collaboration. Therefore, it's best suited for internal use in a trusted group of employees or members of an organization. Everyone can freely create and modify all issues to which they have access. Every change, however, is explicit and remains permanently registered by the system. In addition, removal of issues and other potentially dangerous or irreversible operations require special permissions.</p>
+          <p>To make issue management easier, they are logically divided into <em class="firstterm">folders</em>. You can create any number of folders of different types, but a single folder must contain issues of same type. Continuing our analogy, the folder is therefore equivalent to a table in a worksheet. Using folders makes it easy to search for information; for example, you can divide bugs according to modules to which they are related, or version of the software; discussion forums can be divided by topic, and service requests by month in which they were registered.</p>
+          <p>Folders in turn are grouped into <em class="firstterm">projects</em>. For each project you can specify a set of people who have access to it and their rights within the project. You can therefore divide the system into areas accessible to different groups of users. Each project can also have its administrator (or several administrators). The administrator of the project has more permissions than an ordinary user; for example, he has the ability to delete issues or move them between folders.</p>
+          <div class="figure">
+            <a id="id498901"></a>
+            <div class="figure-contents">
+              <div class="mediaobject">
+                <img src="images/ch01-fig03.png" alt="Projects and folders tree" />
+              </div>
+            </div>
+            <div class="figure-title">Figure 1.3. Projects and folders tree</div>
+          </div>
+          <p>It's not possible to define permissions at a lower level of detail than an single project. All members of the project have equal access to all information contained in this project and the ability to modify them. However the WebIssues system ensures security against unauthorized access to data by unauthorized persons.</p>
+        </div>
+        <div class="navlinks">
+          <div class="navleft">&laquo; <a accesskey="p" href="webissues.intro.html">Introduction</a></div>
+          <div class="navright"><a accesskey="n" href="webissues.intro.lifecycle.html">Life cycle of an issue</a> &raquo;</div>
+        </div>
+        <div id="footer">
+          <p class="copyright">Copyright © 2007-2011 WebIssues Team</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
