@@ -1260,12 +1260,22 @@ QString DataManager::findFilePath( int fileId ) const
 
     QString path = execScalar( "SELECT file_path FROM files_cache WHERE file_id = ?", database, fileId ).toString();
 
-    if ( !path.isEmpty() ) {
+    if ( path.isEmpty() )
+        return QString();
+
+    if ( !QFile::exists( path ) ) {
         QSqlQuery query( database );
-        query.prepare( "UPDATE files_cache SET last_access = strftime( '%s', 'now' ) WHERE file_id = ?" );
+        query.prepare( "DELETE FROM files_cache WHERE file_id = ?" );
         query.addBindValue( fileId );
         query.exec();
+
+        return QString();
     }
+
+    QSqlQuery query( database );
+    query.prepare( "UPDATE files_cache SET last_access = strftime( '%s', 'now' ) WHERE file_id = ?" );
+    query.addBindValue( fileId );
+    query.exec();
 
     return path;
 }
@@ -1325,28 +1335,26 @@ bool DataManager::flushFileCache( int allocatedSize, const QSqlDatabase& databas
     int occupied = ( allocatedSize + 4095 ) & ~4096;
     occupied += execScalar( "SELECT SUM( ( file_size + 4095 ) & ~4096 ) FROM files_cache", database ).toInt();
 
-    if ( occupied > limit ) {
-        QList<int> deletedFiles;
+    QList<int> deletedFiles;
 
-        QSqlQuery query( database );
-        if ( !query.exec( "SELECT file_id, file_path, file_size FROM files_cache ORDER BY last_access" ) )
+    QSqlQuery query( database );
+    if ( !query.exec( "SELECT file_id, file_path, file_size FROM files_cache ORDER BY last_access" ) )
+        return false;
+
+    while ( query.next() ) {
+        QString path = query.value( 1 ).toString();
+        if ( !QFile::exists( path ) || ( occupied > limit ) && QFile::remove( path ) ) {
+            occupied -= ( query.value( 2 ).toInt() + 4095 ) & ~4096;
+            deletedFiles.append( query.value( 0 ).toInt() );
+        }
+    }
+
+    AutoSqlQuery deleteFileQuery( "DELETE FROM files_cache WHERE file_id = ?", database );
+
+    foreach ( int fileId, deletedFiles ) {
+        deleteFileQuery.addBindValue( fileId );
+        if ( !deleteFileQuery.exec() )
             return false;
-
-        while ( query.next() && occupied > limit ) {
-            QString path = query.value( 1 ).toString();
-            if ( !QFile::exists( path ) || QFile::remove( path ) ) {
-                occupied -= ( query.value( 2 ).toInt() + 4095 ) & ~4096;
-                deletedFiles.append( query.value( 0 ).toInt() );
-            }
-        }
-
-        AutoSqlQuery deleteFileQuery( "DELETE FROM files_cache WHERE file_id = ?", database );
-
-        foreach ( int fileId, deletedFiles ) {
-            deleteFileQuery.addBindValue( fileId );
-            if ( !deleteFileQuery.exec() )
-                return false;
-        }
     }
 
     return true;
