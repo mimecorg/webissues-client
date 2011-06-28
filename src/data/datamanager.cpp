@@ -1244,6 +1244,13 @@ bool DataManager::removeIssueDetails( const QList<int>& issues, const QSqlDataba
             return false;
     }
 
+    query.prepare( "DELETE FROM issues_cache WHERE issue_id = ?" );
+    foreach ( int issueId, issues ) {
+        query.addBindValue( issueId );
+        if ( !query.exec() )
+            return false;
+    }
+
     return true;
 }
 
