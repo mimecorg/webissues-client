@@ -551,7 +551,7 @@ QString CommandManager::quoteString( const QString& string )
 
 QString CommandManager::unquoteString( const QString& string )
 {
-    QString result;
+    QString result = "";
     int length = string.length();
     for ( int i = 1; i < length - 1; i++ ) {
         QChar ch = string[ i ];
