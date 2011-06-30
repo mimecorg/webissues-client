@@ -21,12 +21,12 @@
 #ifndef SQLITEEXTENSION_H
 #define SQLITEEXTENSION_H
 
-class QVariant;
+struct sqlite3;
 
 /**
 * Install UNICODE support collation and functions for SQLite.
-* @param handle The SQLite driver's handle.
+* @param db The SQLite database handle.
 */
-void installSQLiteExtension( const QVariant& handle );
+void installSQLiteExtension( sqlite3* db );
 
 #endif

@@ -25,8 +25,6 @@
 #include "data/localsettings.h"
 #include "data/issuetypecache.h"
 #include "models/querygenerator.h"
-#include "sqlite/sqlitedriver.h"
-#include "sqlite/sqliteextension.h"
 
 #include <QSqlDatabase>
 #include <QSqlQuery>
@@ -184,15 +182,12 @@ static QVariant execScalar( const QString& sql, const QSqlDatabase& database, co
 
 bool DataManager::openDatabase()
 {
-    SQLiteDriver* driver = new SQLiteDriver();
-    QSqlDatabase database = QSqlDatabase::addDatabase( driver );
+    QSqlDatabase database = QSqlDatabase::addDatabase( "SQLITEX" );
 
     database.setDatabaseName( locateCacheFile( "cache.db" ) );
 
     if ( !database.open() )
         return false;
-
-    installSQLiteExtension( driver->handle() );
 
     database.transaction();
 

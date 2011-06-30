@@ -21,7 +21,6 @@
 #include "sqliteextension.h"
 
 #include <QString>
-#include <QVariant>
 #include <QRegExp>
 
 #include "sqlite3.h"
@@ -54,10 +53,8 @@ static void regexpFunction( sqlite3_context* context, int /*argc*/, sqlite3_valu
     sqlite3_result_int( context, match ? 1 : 0 );
 }
 
-void installSQLiteExtension( const QVariant& handle )
+void installSQLiteExtension( sqlite3* db )
 {
-    sqlite3* db = *static_cast<sqlite3* const*>( handle.data() );
-
     sqlite3_create_collation( db, "LOCALE", SQLITE_UTF16, NULL, &localeCompare );
 
     sqlite3_create_function( db, "regexp", 2, SQLITE_UTF16, NULL, &regexpFunction, NULL, NULL );

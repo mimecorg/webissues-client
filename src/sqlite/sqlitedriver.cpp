@@ -20,6 +20,8 @@
 
 #include "sqlitedriver.h"
 
+#include "sqliteextension.h"
+
 #include <qcoreapplication.h>
 #include <qvariant.h>
 #include <qsqlerror.h>
@@ -506,6 +508,7 @@ bool SQLiteDriver::open(const QString & db, const QString &, const QString &, co
 #endif
         setOpen(true);
         setOpenError(false);
+        installSQLiteExtension(d->access);
         return true;
     } else {
         setLastError(qMakeError(d->access, tr("Error opening database"),
@@ -691,8 +694,6 @@ void SQLiteDriver::setLastError(const QSqlError& e)
     QSqlDriver::setLastError(e);
 }
 
-#if defined(SQLITEDRIVER_EXPORT)
-
 class SQLiteDriverPlugin : public QSqlDriverPlugin
 {
 public:
@@ -723,7 +724,21 @@ QStringList SQLiteDriverPlugin::keys() const
     return l;
 }
 
+#if defined(SQLITEDRIVER_EXPORT)
+
 Q_EXPORT_STATIC_PLUGIN(SQLiteDriverPlugin)
 Q_EXPORT_PLUGIN2(sqlitex, SQLiteDriverPlugin)
+
+#else
+
+QObject* qt_plugin_instance_sqlitex()
+{
+    static QPointer<QObject> instance;
+    if (!instance)
+        instance = new SQLiteDriverPlugin();
+    return instance;
+}
+
+Q_IMPORT_PLUGIN(sqlitex)
 
 #endif
