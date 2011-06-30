@@ -198,6 +198,8 @@ IssueView::IssueView( QObject* parent, QWidget* parentWidget ) : View( parent ),
     QPalette palette = m_browser->palette();
     palette.setBrush( QPalette::Base, QColor( 0xff, 0xff, 0xff ) );
     palette.setBrush( QPalette::Text, QColor( 0x49, 0x49, 0x49 ) );
+    palette.setBrush( QPalette::Inactive, QPalette::Highlight, palette.brush( QPalette::Active, QPalette::Highlight ) );
+    palette.setBrush( QPalette::Inactive, QPalette::HighlightedText, palette.brush( QPalette::Active, QPalette::HighlightedText ) );
     m_browser->setPalette( palette );
 
     mainLayout->addWidget( m_browser );
