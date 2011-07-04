@@ -23,7 +23,7 @@
 !define BUILDVERSION "1.0.0.4091"
 
 !define SRCDIR "..\.."
-!define BUILDDIR "..\..\release"
+!define BUILDDIR "bin"
 
 !define QTDIR "D:\Qt4-msvc\win32-static"
 

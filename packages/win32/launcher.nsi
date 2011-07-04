@@ -69,7 +69,6 @@ Var RadioFull
 Var RadioNoCache
 Var RadioReadOnly
 Var TempDir
-Var CommandLine
 
 Function .onInit
 
@@ -230,33 +229,33 @@ Section
             StrCpy $1 $0 6 1
             StrCpy $TempDir "$TEMP\WI$1"
         ${LoopWhile} ${FileExists} "$TempDir\*.*"
+
         CreateDirectory "$TempDir"
 
-        StrCpy $CommandLine '"$EXEDIR\App\WebIssues\bin\Webissues.exe"'
+        CreateDirectory "$TempDir\data"
+        CopyFiles /SILENT "$EXEDIR\Data\profiles\*.*" "$TempDir\data"
+
+        CreateDirectory "$TempDir\cache"
+        ${If} $StoreCache == "true"
+            CopyFiles /SILENT "$EXEDIR\Data\cache\*.*" "$TempDir\cache"
+        ${EndIf}
+
+        CreateDirectory "$TempDir\temp"
+
+        Push "$TempDir"
+        Call SetFileAttributesDirectoryNormal
+
+        ExecWait '"$EXEDIR\App\WebIssues\bin\Webissues.exe"  -data "$TempDir\data" -cache "$TempDir\cache" -temp "$TempDir\temp"'
 
         ${If} $StoreSettings == "true"
             CreateDirectory "$EXEDIR\Data\profiles"
-            StrCpy $CommandLine '$CommandLine -data "$EXEDIR\Data\profiles"'
-        ${Else}
-            CreateDirectory "$TempDir\data"
-            CopyFiles /SILENT "$EXEDIR\Data\profiles\*.*" "$TempDir\data"
-            Push "$TempDir"
-            Call SetFileAttributesDirectoryNormal
-            StrCpy $CommandLine '$CommandLine -data "$TempDir\data"'
+            CopyFiles /SILENT "$TempDir\data\*.*" "$EXEDIR\Data\profiles"
         ${EndIf}
 
         ${If} $StoreCache == "true"
             CreateDirectory "$EXEDIR\Data\cache"
-            StrCpy $CommandLine '$CommandLine -cache "$EXEDIR\Data\cache"'
-        ${Else}
-            CreateDirectory "$TempDir\cache"
-            StrCpy $CommandLine '$CommandLine -cache "$TempDir\cache"'
+            CopyFiles /SILENT "$TempDir\cache\*.*" "$EXEDIR\Data\cache"
         ${EndIf}
-
-        CreateDirectory "$TempDir\temp"
-        StrCpy $CommandLine '$CommandLine -temp "$TempDir\temp"'
-
-        ExecWait '$CommandLine'
 
         RMDir /r "$TempDir"
     ${EndIf}
