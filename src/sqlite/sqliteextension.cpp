@@ -43,7 +43,8 @@ static void regexpFunction( sqlite3_context* context, int /*argc*/, sqlite3_valu
     if ( !data1 || !data2 )
         return;
 
-    QString string1 = QString::fromRawData( reinterpret_cast<const QChar*>( data1 ), len1 / sizeof( QChar ) );
+    // do not use fromRawData for pattern string because it may be cached internally by the regexp engine
+    QString string1 = QString::fromUtf16( reinterpret_cast<const ushort*>( data1 ), len1 / sizeof( QChar ) );
     QString string2 = QString::fromRawData( reinterpret_cast<const QChar*>( data2 ), len2 / sizeof( QChar ) );
 
     QRegExp pattern( string1, Qt::CaseInsensitive );
