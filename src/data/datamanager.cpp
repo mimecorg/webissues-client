@@ -592,7 +592,7 @@ bool DataManager::updateUsersReply( const Reply& reply, const QSqlDatabase& data
     if ( !query.exec( "DELETE FROM rights" ) )
         return false;
 
-    if ( !execReply( "INSERT INTO rights VALUES ( ?, ?, ? )", "M", reply, database, i ) )
+    if ( !execReply( "INSERT INTO rights ( user_id, project_id, project_access ) VALUES ( ?, ?, ? )", "M", reply, database, i ) )
         return false;
 
     return true;
