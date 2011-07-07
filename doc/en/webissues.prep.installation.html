@@ -73,7 +73,7 @@
             </div>
             <p>Now you can open the homepage of the WebIssues system. Launch your favorite web browser and enter the URL of the server, for example <code class="literal">http://www.example.com</code>. You should see the following message:</p>
             <div class="figure">
-              <a id="id511499"></a>
+              <a id="id608711"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch02-fig01.png" alt="Welcome message" />
@@ -84,7 +84,7 @@
             <p>If you follow the instructions and click on the link, you will be prompted for the language that will be used during the installation. It will also be the default language in which the WebIssues system will display all messages.</p>
             <p>In the next step of the installation, basic information about your server will be displayed: its name (usually <code class="literal">default</code>, unless you create multiple instances of the server within a single installation), the base URL of the server and the path of the directory in which the configuration file will be created. You will also see the version of PHP, the web server and the operating system and the name of the computer on which you're installing WebIssues. After verifying this information, go to the next step.</p>
             <div class="figure">
-              <a id="id511529"></a>
+              <a id="id608741"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch02-fig02.png" alt="Configuring the database connection" />
@@ -101,7 +101,7 @@
             </div>
             <p>Enter the necessary information and proceed to the next step. The WebIssues system will try to connect to the database server and in case of an error will display an appropriate message. If the connection succeeds and the database doesn't already contain the tables required by the system, you will see the following page:</p>
             <div class="figure">
-              <a id="id511587"></a>
+              <a id="id608799"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch02-fig03.png" alt="Parameters of the new server" />
@@ -114,7 +114,7 @@
             <div class="note" title="Note" style="margin-left: 0.5in; margin-right: 0.5in;">
               <h3 class="title">Note</h3>
               <p>You can import data from version 0.8.5 of the WebIssues server to the new version of the system. The new server must be installed in the same database as its previous version. Therefore you must use a different prefix for the names of the new tables than the one that was used in version 0.8.5. Select <span class="guilabel">Import data from WebIssues Server 0.8.5</span> and optionally enter a prefix for the source tables.</p>
-              <p>When installing a new server, all data is copied, but the source tables are not modified or removed. Thus, if the import process fails, you can correct any errors and try installing the new version again.</p>
+              <p>When installing a new server, all data stored in the database is copied, but the source tables are not modified or removed. Thus, if the import process fails, you can correct any errors and try installing the new version again. If attachments were stored in the file system, you must also copy them from the old version to the appropriate directory in the new version of the server; the installer will not do it automatically.</p>
               <p>If version 0.8.5 of the system used a version of the database earlier than the currently required version, before the installation you must first update the database to a newer version. After updating a MySQL database from a version older than 4.1, you also need to convert all text columns to binary, and then back to text with <code class="literal">utf8</code> encoding, in order to ensure proper encoding of text. Read <a class="ulink" href="http://dev.mysql.com/doc/refman/4.1/en/charset-conversion.html" target="_top">http://dev.mysql.com/doc/refman/4.1/en/charset-conversion.html</a> for more information about converting columns.</p>
             </div>
             <p>Go to the next page, which contains a brief summary of the operations that will be performed. Click <span class="guibutton">Install</span> to begin the installation. This may take a few seconds, and in case of importing existing data, a bit longer. If the installation is successful, a message will appear.</p>
