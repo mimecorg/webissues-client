@@ -31,6 +31,7 @@
 #include <qstringlist.h>
 #include <qvector.h>
 #include <qdebug.h>
+#include <qsqldriverplugin.h>
 
 #if defined Q_OS_WIN
 # include <qt_windows.h>
