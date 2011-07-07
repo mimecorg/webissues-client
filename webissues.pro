@@ -15,6 +15,16 @@ win32 {
 }
 INSTALLS += documentation
 
+manual.files = doc/en doc/pl
+win32 {
+    manual.path = $$PREFIX/doc
+} else:mac {
+    manual.path = $${DESTINATION}$$PREFIX/doc
+} else {
+    manual.path = $${DESTINATION}$$PREFIX/share/doc/webissues/doc
+}
+INSTALLS += manual
+
 translations.files = translations/*.qm translations/locale.ini
 win32 {
     translations.path = $$PREFIX/translations

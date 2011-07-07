@@ -340,12 +340,12 @@ void Application::openDownloads()
 
 QString Application::version() const
 {
-    return QString( "1.0-alpha4" );
+    return QString( "1.0-beta1" );
 }
 
 QString Application::protocolVersion() const
 {
-    return QString( "1.0-alpha4" );
+    return QString( "1.0-beta1" );
 }
 
 bool Application::loadTranslation( const QString& name, bool tryQtDir )

@@ -19,8 +19,8 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************/
 
-!define VERSION "1.0-alpha4"
-!define BUILDVERSION "1.0.0.4091"
+!define VERSION "1.0-beta1"
+!define BUILDVERSION "1.0.0.4206"
 
 !define SRCDIR "..\.."
 !define BUILDDIR "bin"

@@ -1,3 +1,14 @@
+1.0-beta1 (2011-07-08)
+    * added initial version of WebIssues Manual
+    * use SQLite database for caching folders and issues (task #411)
+    * no need for default value when attribute is required
+    * mark updated alerts and issues using bold font
+    * check for latest version of the program
+    * skip initializion of OpenSSL unless necessary
+    * fixed crash on closing comment window (bug #602)
+    * fixed switching to All Issues after updating projects (bug #609)
+    * fixed filter conditions containing empty operands
+
 1.0-alpha4 (2011-03-15)
     * moving and deleting issues
     * editing and deleting comments and attachments

@@ -1,5 +1,5 @@
 WebIssues Desktop Client
-Version 1.0-alpha4 (2011-03-15)
+Version 1.0-beta1 (2011-07-08)
 
 Desktop Client for the WebIssues team collaboration system.
 
@@ -9,9 +9,8 @@ with various attributes, comments and file attachments. The system
 is easy to install and use but has many capabilities and is highly
 customizable.
 
-NOTE: THIS IS AN ALPHA RELEASE, USE IT FOR TESTING PURPOSES ONLY.
-THIS VERSION OF THE CLIENT APPLICATION CAN ONLY CONNECT TO THE 1.0-alpha1
-VERSION OF THE SERVER, IT WILL NOT WORK WITH OTHER VERSIONS.
+For more information please refer to the manual which is included
+in the 'doc' subdirectory of this package.
 
 
 Copyrights
@@ -20,8 +19,15 @@ Copyrights
 Copyright (C) 2006 Michał Męciński
 Copyright (C) 2007-2011 WebIssues Team
 
+The WebIssues Manual is licensed under the terms of the GNU Free
+Documentation License, Version 1.3
+
 Icons based on the KDE Crystal theme copyright (C) 2002 and following
 years KDE Artists
+
+Includes the Extensible SQLite driver for Qt4 copyright (C) 2011
+Michał Męciński, licensed under the terms of the GNU Lesser General
+Public License version 2.1
 
 This product includes software developed by the OpenSSL Project for use
 in the OpenSSL Toolkit (http://www.openssl.org/)
@@ -56,17 +62,20 @@ WebIssues Team
 ==============
 
 Authors:
+
  * Michał Męciński (mimec at mimec org)
 
 Contributors:
+
  * Francine LAI DOO WOO (fldw.fladsc at orange fr)
     - Supporting Web Client developer, French translation
+
  * Patrick Matthäi (patrick.matthaei at web de)
     - Debian packaging, patches
+
  * Azevedo Filipe (pasnox at gmail com)
     - OS X packaging, patches
- * Alex Bekhtin (alexbekhtin at gmail com)
-    - Firebird database engine
+
  * Flávio Veras (flaviove at gmail com)
     - Portuguese translation
 
@@ -74,17 +83,14 @@ Contributors:
 Resources
 =========
 
-Website
-    http://webissues.mimec.org/
+ * http://webissues.mimec.org/
+    - Main site of the project
 
-Online Documentation
-    http://doc.mimec.org/webissues/client/
+ * http://webissues.mimec.org/forum/general
+    - General support forum
 
-Forum
-    http://webissues.mimec.org/forum/general
+ * http://webissues.mimec.org/forum/tracker
+    - Bugs & requests forum
 
-Bugs & Requests
-    http://webissues.mimec.org/forum/tracker
-
-Development
-    http://wiki.mimec.org/wiki/WebIssues
+ * http://wiki.mimec.org/wiki/WebIssues
+    - Site for advanced users, administrators and developers
