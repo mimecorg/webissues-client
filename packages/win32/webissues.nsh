@@ -121,7 +121,11 @@ Section
 
     File "${BUILDDIR}\webissues.exe"
 
+    SetOutPath "$INSTDIR\doc"
+
     Delete "$INSTDIR\doc\*.*"
+
+    File /r /x .svn "${SRCDIR}\doc\*.*"
 
     SetOutPath "$INSTDIR\translations"
 
