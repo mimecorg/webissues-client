@@ -132,6 +132,8 @@ QString ErrorHelper::errorMessage( ErrorCode code ) const
             return tr( "Cannot reuse password; choose different password" );
         case ItemNotFound:
             return tr( "The specified item was not found" );
+        case CommaNotAllowed:
+            return tr( "Value cannot contain a comma" );
         default:
             return QString();
     }

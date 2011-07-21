@@ -114,8 +114,10 @@ public:
     ~EnumLineEdit();
 
 public:
-    void setItems( const QStringList& items );
+    void setItems( const QStringList& items, bool multiSelect = false );
+
     const QStringList& items() const { return m_items; }
+    bool isMultiSelect() const { return m_multiSelect; }
 
     void setEditable( bool editable );
     bool editable() const { return m_editable; }
@@ -127,6 +129,7 @@ protected: // overrides
 private:
     QStringList m_items;
 
+    bool m_multiSelect;
     bool m_editable;
 };
 

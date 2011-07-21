@@ -93,7 +93,9 @@ void InputLineValueEditor::initializeEnum( const DefinitionInfo& info, bool init
     EnumLineEdit* edit = new EnumLineEdit( parentWidget );
 
     QVariant items = info.metadata( "items" );
-    edit->setItems( items.toStringList() );
+    bool multiSelect = info.metadata( "multi-select" ).toBool();
+
+    edit->setItems( items.toStringList(), multiSelect );
 
     QVariant maxLength = info.metadata( "max-length" );
     if ( maxLength.isValid() )

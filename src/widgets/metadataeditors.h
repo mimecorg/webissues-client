@@ -54,7 +54,7 @@ public: // overrides
     void updateMetadata( QVariantMap& metadata );
 
 private:
-    QButtonGroup* m_multiLineGroup;
+    QCheckBox* m_multiLineCheckBox;
     NumericLineEdit* m_minLengthEdit;
     NumericLineEdit* m_maxLengthEdit;
 };
@@ -83,10 +83,11 @@ public: // overrides
     void updateMetadata( QVariantMap& metadata );
 
 private slots:
-    void radioToggled();
+    void checkBoxToggled();
 
 private:
-    QButtonGroup* m_editableGroup;
+    QCheckBox* m_editableCheckBox;
+    QCheckBox* m_multiSelectCheckBox;
     InputTextEdit* m_itemsEdit;
     NumericLineEdit* m_minLengthEdit;
     NumericLineEdit* m_maxLengthEdit;

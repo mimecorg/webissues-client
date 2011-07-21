@@ -155,8 +155,8 @@ QString AttributeHelper::textMetadataDetails( const DefinitionInfo& info ) const
 {
     QStringList details;
 
-    QVariant multiLine = info.metadata( "multi-line" );
-    if ( multiLine.isValid() && multiLine.toBool() )
+    bool multiLine = info.metadata( "multi-line" ).toBool();
+    if ( multiLine )
         details.append( tr( "Multiple lines" ) );
 
     QVariant minLength = info.metadata( "min-length" );
@@ -174,23 +174,24 @@ QString AttributeHelper::enumMetadataDetails( const DefinitionInfo& info ) const
 {
     QStringList details;
 
-    QVariant editable = info.metadata( "editable" );
-    if ( editable.isValid() && editable.toBool() )
+    bool editable = info.metadata( "editable" ).toBool();
+    if ( editable )
         details.append( tr( "Editable" ) );
 
-    QVariant items = info.metadata( "items" );
-    if ( items.isValid() && items.toStringList().count() > 0 )
-        details.append( tr( "Items: %1" ).arg( items.toStringList().join( ", " ) ) );
+    bool multiSelect = info.metadata( "multi-select" ).toBool();
+    if ( multiSelect )
+        details.append( tr( "Multiple selection" ) );
 
-    if ( editable.isValid() && editable.toBool() ) {
-        QVariant minLength = info.metadata( "min-length" );
-        if ( minLength.isValid() )
-            details.append( tr( "Min. length: %1" ).arg( minLength.toString() ) );
+    QStringList items = info.metadata( "items" ).toStringList();
+    details.append( tr( "Items: %1" ).arg( items.join( ", " ) ) );
 
-        QVariant maxLength = info.metadata( "max-length" );
-        if ( maxLength.isValid() )
-            details.append( tr( "Max. length: %1" ).arg( maxLength.toString() ) );
-    }
+    QVariant minLength = info.metadata( "min-length" );
+    if ( minLength.isValid() )
+        details.append( tr( "Min. length: %1" ).arg( minLength.toString() ) );
+
+    QVariant maxLength = info.metadata( "max-length" );
+    if ( maxLength.isValid() )
+        details.append( tr( "Max. length: %1" ).arg( maxLength.toString() ) );
 
     return details.join( "; " );
 }
@@ -225,12 +226,12 @@ QString AttributeHelper::dateTimeMetadataDetails( const DefinitionInfo& info ) c
 {
     QStringList details;
 
-    QVariant time = info.metadata( "time" );
-    if ( time.isValid() && time.toBool() )
+    bool time = info.metadata( "time" ).toBool();
+    if ( time )
         details.append( tr( "With time" ) );
 
-    QVariant local = info.metadata( "local" );
-    if ( local.isValid() && local.toBool() )
+    bool local = info.metadata( "local" ).toBool();
+    if ( local )
         details.append( tr( "Local time zone" ) );
 
     return details.join( "; " );
@@ -240,8 +241,8 @@ QString AttributeHelper::userMetadataDetails( const DefinitionInfo& info ) const
 {
     QStringList details;
 
-    QVariant members = info.metadata( "members" );
-    if ( members.isValid() && members.toBool() )
+    bool members = info.metadata( "members" ).toBool();
+    if ( members )
         details.append( tr( "Members only" ) );
 
     return details.join( "; " );

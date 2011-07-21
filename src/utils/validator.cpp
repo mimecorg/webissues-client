@@ -130,6 +130,9 @@ DefinitionInfo Validator::createAttributeDefinition( AttributeType type, const Q
             bool editable = metadata.value( "editable" ).toBool();
             if ( editable )
                 info.setMetadata( "editable", 1 );
+            bool multiSelect = metadata.value( "multi-select" ).toBool();
+            if ( multiSelect )
+                info.setMetadata( "multi-select", 1 );
             QStringList items = metadata.value( "items" ).toStringList();
             if ( items.isEmpty() ) {
                 appendError( ErrorHelper::NoItems );
@@ -142,10 +145,14 @@ DefinitionInfo Validator::createAttributeDefinition( AttributeType type, const Q
                     appendError( ErrorHelper::DuplicateItems );
                     return DefinitionInfo();
                 }
+                if ( multiSelect && items.at( i ).contains( QLatin1Char( ',' ) ) ) {
+                    appendError( ErrorHelper::CommaNotAllowed );
+                    return DefinitionInfo();
+                }
                 seen.insert( items.at( i ) );
             }
             info.setMetadata( "items", items );
-            if ( editable ) {
+            if ( editable && !multiSelect ) {
                 if ( !setMinMaxLength( info, metadata ) )
                     return DefinitionInfo();
                 for ( int i = 0; i < items.count(); i++ ) {

@@ -37,36 +37,30 @@ TextMetadataEditor::TextMetadataEditor( QObject* parent, QWidget* parentWidget )
     QGridLayout* layout = new QGridLayout( widget );
     layout->setMargin( 0 );
 
-    QRadioButton* singleRadio = new QRadioButton( tr( "&Single line of text" ), widget );
-    layout->addWidget( singleRadio, 0, 0, 1, 2 );
-    QRadioButton* multipleRadio = new QRadioButton( tr( "&Multiple lines of text" ), widget );
-    layout->addWidget( multipleRadio, 1, 0, 1, 2 );
-
-    m_multiLineGroup = new QButtonGroup( this );
-    m_multiLineGroup->addButton( singleRadio, 0 );
-    m_multiLineGroup->addButton( multipleRadio, 1 );
+    m_multiLineCheckBox = new QCheckBox( tr( "&Allow entering multiple lines of text" ), widget );
+    layout->addWidget( m_multiLineCheckBox, 0, 0, 1, 2 );
 
     QFrame* separator = new QFrame( widget );
     separator->setFrameStyle( QFrame::HLine | QFrame::Sunken );
-    layout->addWidget( separator, 2, 0, 1, 2 );
+    layout->addWidget( separator, 1, 0, 1, 2 );
 
     QLabel* minLengthLabel = new QLabel( tr( "Mi&nimum length:" ), widget );
-    layout->addWidget( minLengthLabel, 3, 0 );
+    layout->addWidget( minLengthLabel, 2, 0 );
 
     m_minLengthEdit = new NumericLineEdit( widget );
     m_minLengthEdit->setMinValue( 1 );
     m_minLengthEdit->setMaxValue( 255 );
-    layout->addWidget( m_minLengthEdit, 3, 1 );
+    layout->addWidget( m_minLengthEdit, 2, 1 );
 
     minLengthLabel->setBuddy( m_minLengthEdit );
 
     QLabel* maxLengthLabel = new QLabel( tr( "Ma&ximum length:" ), widget );
-    layout->addWidget( maxLengthLabel, 4, 0 );
+    layout->addWidget( maxLengthLabel, 3, 0 );
 
     m_maxLengthEdit = new NumericLineEdit( widget );
     m_maxLengthEdit->setMinValue( 1 );
     m_maxLengthEdit->setMaxValue( 255 );
-    layout->addWidget( m_maxLengthEdit, 4, 1 );
+    layout->addWidget( m_maxLengthEdit, 3, 1 );
 
     maxLengthLabel->setBuddy( m_maxLengthEdit );
 
@@ -80,14 +74,14 @@ TextMetadataEditor::~TextMetadataEditor()
 
 void TextMetadataEditor::setMetadata( const QVariantMap& metadata )
 {
-    m_multiLineGroup->button( metadata.value( "multi-line" ).toBool() ? 1 : 0 )->setChecked( true );
+    m_multiLineCheckBox->setChecked( metadata.value( "multi-line" ).toBool() );
     m_minLengthEdit->setInputValue( metadata.value( "min-length" ).toString() );
     m_maxLengthEdit->setInputValue( metadata.value( "max-length" ).toString() );
 }
 
 void TextMetadataEditor::updateMetadata( QVariantMap& metadata )
 {
-    metadata.insert( "multi-line", m_multiLineGroup->checkedId() );
+    metadata.insert( "multi-line", m_multiLineCheckBox->isChecked() );
 
     if ( !m_minLengthEdit->inputValue().isEmpty() )
         metadata.insert( "min-length", m_minLengthEdit->inputValue().toInt() );
@@ -107,16 +101,15 @@ EnumMetadataEditor::EnumMetadataEditor( QObject* parent, QWidget* parentWidget )
     QGridLayout* layout = new QGridLayout( widget );
     layout->setMargin( 0 );
 
-    QRadioButton* nonEditableRadio = new QRadioButton( tr( "&Allow only values from the list" ), widget );
-    layout->addWidget( nonEditableRadio, 0, 0, 1, 2 );
-    QRadioButton* editableRadio = new QRadioButton( tr( "Allow &entering custom values" ), widget );
-    layout->addWidget( editableRadio, 1, 0, 1, 2 );
+    m_editableCheckBox = new QCheckBox( tr( "Allow &entering custom values" ), widget );
+    layout->addWidget( m_editableCheckBox, 0, 0, 1, 2 );
 
-    m_editableGroup = new QButtonGroup( this );
-    m_editableGroup->addButton( nonEditableRadio, 0 );
-    m_editableGroup->addButton( editableRadio, 1 );
+    connect( m_editableCheckBox, SIGNAL( toggled( bool ) ), this, SLOT( checkBoxToggled() ) );
 
-    connect( nonEditableRadio, SIGNAL( toggled( bool ) ), this, SLOT( radioToggled() ) );
+    m_multiSelectCheckBox = new QCheckBox( tr( "Allow &selecting multiple itmes" ), widget );
+    layout->addWidget( m_multiSelectCheckBox, 1, 0, 1, 2 );
+
+    connect( m_multiSelectCheckBox, SIGNAL( toggled( bool ) ), this, SLOT( checkBoxToggled() ) );
 
     QFrame* separator = new QFrame( widget );
     separator->setFrameStyle( QFrame::HLine | QFrame::Sunken );
@@ -136,7 +129,8 @@ EnumMetadataEditor::EnumMetadataEditor( QObject* parent, QWidget* parentWidget )
     separator2->setFrameStyle( QFrame::HLine | QFrame::Sunken );
     layout->addWidget( separator2, 5, 0, 1, 2 );
 
-    QLabel* limitsLabel = new QLabel( tr( "Limits can only be used when entering custom values is allowed." ), widget );
+    QLabel* limitsLabel = new QLabel( tr( "Limits can only be used when entering custom values is allowed and selecting multiple items is not allowed." ), widget );
+    limitsLabel->setWordWrap( true );
     layout->addWidget( limitsLabel, 6, 0, 1, 2 );
 
     QLabel* minLengthLabel = new QLabel( tr( "Mi&nimum length:" ), widget );
@@ -169,7 +163,8 @@ EnumMetadataEditor::~EnumMetadataEditor()
 
 void EnumMetadataEditor::setMetadata( const QVariantMap& metadata )
 {
-    m_editableGroup->button( metadata.value( "editable" ).toBool() ? 1 : 0 )->setChecked( true );
+    m_editableCheckBox->setChecked( metadata.value( "editable" ).toBool() );
+    m_multiSelectCheckBox->setChecked( metadata.value( "multi-select" ).toBool() );
     m_itemsEdit->setInputValue( metadata.value( "items" ).toStringList().join( "\n" ) );
     m_minLengthEdit->setInputValue( metadata.value( "min-length" ).toString() );
     m_maxLengthEdit->setInputValue( metadata.value( "max-length" ).toString() );
@@ -177,10 +172,11 @@ void EnumMetadataEditor::setMetadata( const QVariantMap& metadata )
 
 void EnumMetadataEditor::updateMetadata( QVariantMap& metadata )
 {
-    metadata.insert( "editable", m_editableGroup->checkedId() );
+    metadata.insert( "editable", m_editableCheckBox->isChecked() );
+    metadata.insert( "multi-select", m_multiSelectCheckBox->isChecked() );
     metadata.insert( "items", m_itemsEdit->inputValue().split( "\n" ) );
 
-    if ( m_editableGroup->checkedId() == 1 ) {
+    if ( m_editableCheckBox->isChecked() && !m_multiSelectCheckBox->isCheckable() ) {
         if ( !m_minLengthEdit->inputValue().isEmpty() )
             metadata.insert( "min-length", m_minLengthEdit->inputValue().toInt() );
         else
@@ -193,11 +189,11 @@ void EnumMetadataEditor::updateMetadata( QVariantMap& metadata )
     }
 }
 
-void EnumMetadataEditor::radioToggled()
+void EnumMetadataEditor::checkBoxToggled()
 {
-    bool editable = ( m_editableGroup->checkedId() == 1 );
-    m_minLengthEdit->setEnabled( editable );
-    m_maxLengthEdit->setEnabled( editable );
+    bool limits = ( m_editableCheckBox->isChecked() && !m_multiSelectCheckBox->isCheckable() );
+    m_minLengthEdit->setEnabled( limits );
+    m_maxLengthEdit->setEnabled( limits );
 }
 
 NumericMetadataEditor::NumericMetadataEditor( QObject* parent, QWidget* parentWidget ) : AbstractMetadataEditor( parent )

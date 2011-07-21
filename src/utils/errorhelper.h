@@ -90,6 +90,7 @@ public:
         MustChangePassword = 352,
         CannotReusePassword = 353,
         ItemNotFound = 354,
+        CommaNotAllowed = 355,
     };
 
 public:

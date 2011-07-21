@@ -30,15 +30,19 @@ AbstractValueEditor* ValueEditorFactory::createValueEditor( const DefinitionInfo
             if ( info.metadata( "multi-line" ).toBool() )
                 return new InputTextValueEditor( info, parent, parentWidget );
             break;
+
         case EnumAttribute:
-            if ( !info.metadata( "editable" ).toBool() )
+            if ( !info.metadata( "editable" ).toBool() && !info.metadata( "multi-select" ).toBool() )
                 return new ComboBoxValueEditor( info, projectId, parent, parentWidget );
             break;
+
         case UserAttribute:
             return new ComboBoxValueEditor( info, projectId, parent, parentWidget );
+
         default:
             break;
     }
+
     return new InputLineValueEditor( info, false, parent, parentWidget );
 }
 
@@ -49,8 +53,10 @@ AbstractValueEditor* ValueEditorFactory::createInitialValueEditor( const Definit
             if ( info.metadata( "multi-line" ).toBool() )
                 return new InputTextValueEditor( info, parent, parentWidget );
             break;
+
         default:
             break;
     }
+
     return new InputLineValueEditor( info, true, parent, parentWidget );
 }

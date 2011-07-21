@@ -24,6 +24,7 @@
 #include "utils/formatter.h"
 #include "utils/validator.h"
 #include "utils/errorhelper.h"
+#include "utils/multiselectcompleter.h"
 #include "utils/iconloader.h"
 
 #include <QLayout>
@@ -303,6 +304,7 @@ void InputLineEdit::popup()
 }
 
 EnumLineEdit::EnumLineEdit( QWidget* parent ) : InputLineEdit( parent ),
+    m_multiSelect( false ),
     m_editable( true )
 {
 }
@@ -311,13 +313,18 @@ EnumLineEdit::~EnumLineEdit()
 {
 }
 
-void EnumLineEdit::setItems( const QStringList& items )
+void EnumLineEdit::setItems( const QStringList& items, bool multiSelect /*= false*/ )
 {
     m_items = items;
+    m_multiSelect = multiSelect;
 
     delete completer();
 
-    setCompleter( new QCompleter( items, this ) );
+    if ( multiSelect )
+        setCompleter( new MultiSelectCompleter( items, this ) );
+    else
+        setCompleter( new QCompleter( items, this ) );
+
     completer()->setCaseSensitivity( Qt::CaseInsensitive );
 
     setPopupVisible( true );
@@ -337,9 +344,35 @@ QString EnumLineEdit::textToValue( const QString& text )
     if ( ( functions() & MeFunction ) && value == QLatin1String( "[Me]" ) )
         return value;
 
-    if ( !m_editable && !m_items.contains( value ) ) {
-        setError( ErrorHelper::NoMatchingItem );
-        return QString();
+    if ( m_multiSelect ) {
+        QStringList parts = value.split( QLatin1Char( ',' ) );
+        QStringList result;
+
+        foreach ( const QString& part, parts ) {
+            QString trimmed = part.trimmed();
+            if ( trimmed.isEmpty() )
+                continue;
+
+            if ( !m_editable ) {
+                if ( !m_items.contains( trimmed ) ) {
+                    setError( ErrorHelper::NoMatchingItem );
+                    return QString();
+                }
+                if ( result.contains( trimmed ) ) {
+                    setError( ErrorHelper::DuplicateItems );
+                    return QString();
+                }
+            }
+
+            result.append( trimmed );
+        }
+
+        value = result.join( QLatin1String( ", " ) );
+    } else if ( !m_editable ) {
+        if ( !m_items.contains( value ) ) {
+            setError( ErrorHelper::NoMatchingItem );
+            return QString();
+        }
     }
 
     return value;
