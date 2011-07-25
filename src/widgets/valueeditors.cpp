@@ -39,7 +39,7 @@
 // fix for GCC 4.3-snapshot
 #include <climits>
 
-InputLineValueEditor::InputLineValueEditor( const DefinitionInfo& info, bool initial, QObject* parent, QWidget* parentWidget ) : AbstractValueEditor( parent )
+InputLineValueEditor::InputLineValueEditor( const DefinitionInfo& info, bool initial, int projectId, QObject* parent, QWidget* parentWidget ) : AbstractValueEditor( parent )
 {
     switch ( AttributeHelper::toAttributeType( info ) ) {
         case TextAttribute:
@@ -55,7 +55,7 @@ InputLineValueEditor::InputLineValueEditor( const DefinitionInfo& info, bool ini
             initializeDateTime( info, initial, parentWidget );
             break;
         case UserAttribute:
-            initializeUser( info, initial, parentWidget );
+            initializeUser( info, initial, projectId, parentWidget );
             break;
         default:
             break;
@@ -152,7 +152,7 @@ void InputLineValueEditor::initializeDateTime( const DefinitionInfo& info, bool 
     setWidget( edit );
 }
 
-void InputLineValueEditor::initializeUser( const DefinitionInfo& info, bool initial, QWidget* parentWidget )
+void InputLineValueEditor::initializeUser( const DefinitionInfo& info, bool initial, int projectId, QWidget* parentWidget )
 {
     EnumLineEdit* edit = new EnumLineEdit( parentWidget );
 
@@ -161,15 +161,25 @@ void InputLineValueEditor::initializeUser( const DefinitionInfo& info, bool init
     if ( initial )
         items.append( QString( "[%1]" ).arg( tr( "Me" ) ) );
 
-    QList<UserEntity> users = UserEntity::list();
+    bool members = info.metadata( "members" ).toBool();
+
+    QList<UserEntity> users;
+    if ( members && projectId != 0 ) {
+        ProjectEntity project = ProjectEntity::find( projectId );
+        users = project.members();
+    } else {
+        users = UserEntity::list();
+    }
 
     foreach ( const UserEntity& user, users ) {
-       if ( user.access() == NoAccess )
+        if ( user.access() == NoAccess )
             continue;
         items.append( user.name() );
     }
 
-    edit->setItems( items );
+    bool multiSelect = info.metadata( "multi-select" ).toBool();
+
+    edit->setItems( items, multiSelect );
     edit->setEditable( false );
 
     edit->setRequired( info.metadata( "required" ).toBool() );
@@ -240,10 +250,10 @@ ComboBoxValueEditor::ComboBoxValueEditor( const DefinitionInfo& info, int projec
         QVariant items = info.metadata( "items" );
         combo->addItems( items.toStringList() );
     } else if ( type == UserAttribute ) {
-        bool members = info.metadata( "members" ).toBool() && projectId != 0;
+        bool members = info.metadata( "members" ).toBool();
 
         QList<UserEntity> users;
-        if ( members ) {
+        if ( members && projectId != 0 ) {
             ProjectEntity project = ProjectEntity::find( projectId );
             users = project.members();
         } else {

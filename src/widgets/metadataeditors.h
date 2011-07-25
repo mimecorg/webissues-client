@@ -179,7 +179,8 @@ public: // overrides
     void updateMetadata( QVariantMap& metadata );
 
 private:
-    QButtonGroup* m_membersGroup;
+    QCheckBox* m_membersCheckBox;
+    QCheckBox* m_multiSelectCheckBox;
 };
 
 #endif

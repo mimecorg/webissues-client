@@ -335,14 +335,10 @@ UserMetadataEditor::UserMetadataEditor( QObject* parent, QWidget* parentWidget )
     QVBoxLayout* layout = new QVBoxLayout( widget );
     layout->setMargin( 0 );
 
-    QRadioButton* allUsersRadio = new QRadioButton( tr( "&All users" ), widget );
-    layout->addWidget( allUsersRadio );
-    QRadioButton* membersRadio = new QRadioButton( tr( "Only project &members" ), widget );
-    layout->addWidget( membersRadio );
-
-    m_membersGroup = new QButtonGroup( this );
-    m_membersGroup->addButton( allUsersRadio, 0 );
-    m_membersGroup->addButton( membersRadio, 1 );
+    m_membersCheckBox = new QCheckBox( tr( "&Allow selecting only project members" ), widget );
+    layout->addWidget( m_membersCheckBox );
+    m_multiSelectCheckBox = new QCheckBox( tr( "Allow &selecting multiple itmes" ), widget );
+    layout->addWidget( m_multiSelectCheckBox );
 
     setWidget( widget );
     setFixedHeight( true );
@@ -354,10 +350,12 @@ UserMetadataEditor::~UserMetadataEditor()
 
 void UserMetadataEditor::setMetadata( const QVariantMap& metadata )
 {
-    m_membersGroup->button( metadata.value( "members" ).toBool() ? 1 : 0 )->setChecked( true );
+    m_membersCheckBox->setChecked( metadata.value( "members" ).toBool() );
+    m_multiSelectCheckBox->setChecked( metadata.value( "multi-select" ).toBool() );
 }
 
 void UserMetadataEditor::updateMetadata( QVariantMap& metadata )
 {
-    metadata.insert( "members", m_membersGroup->checkedId() );
+    metadata.insert( "members", m_membersCheckBox->isChecked() );
+    metadata.insert( "multi-select", m_multiSelectCheckBox->isChecked() );
 }

@@ -245,6 +245,10 @@ QString AttributeHelper::userMetadataDetails( const DefinitionInfo& info ) const
     if ( members )
         details.append( tr( "Members only" ) );
 
+    bool multiSelect = info.metadata( "multi-select" ).toBool();
+    if ( multiSelect )
+        details.append( tr( "Multiple selection" ) );
+
     return details.join( "; " );
 }
 

@@ -38,7 +38,7 @@ public:
     * @param parent Parent of the delegate.
     * @param parentWidget Parent widget of the editor widget.
     */
-    InputLineValueEditor( const DefinitionInfo& info, bool initial, QObject* parent, QWidget* parentWidget );
+    InputLineValueEditor( const DefinitionInfo& info, bool initial, int projectId, QObject* parent, QWidget* parentWidget );
 
     /**
     * Destructor.
@@ -54,7 +54,7 @@ private:
     void initializeEnum( const DefinitionInfo& info, bool initial, QWidget* parentWidget );
     void initializeNumeric( const DefinitionInfo& info, bool initial, QWidget* parentWidget );
     void initializeDateTime( const DefinitionInfo& info, bool initial, QWidget* parentWidget );
-    void initializeUser( const DefinitionInfo& info, bool initial, QWidget* parentWidget );
+    void initializeUser( const DefinitionInfo& info, bool initial, int projectId, QWidget* parentWidget );
 };
 
 /**

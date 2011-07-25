@@ -37,13 +37,14 @@ AbstractValueEditor* ValueEditorFactory::createValueEditor( const DefinitionInfo
             break;
 
         case UserAttribute:
-            return new ComboBoxValueEditor( info, projectId, parent, parentWidget );
+            if ( !info.metadata( "multi-select" ).toBool() )
+                return new ComboBoxValueEditor( info, projectId, parent, parentWidget );
 
         default:
             break;
     }
 
-    return new InputLineValueEditor( info, false, parent, parentWidget );
+    return new InputLineValueEditor( info, false, projectId, parent, parentWidget );
 }
 
 AbstractValueEditor* ValueEditorFactory::createInitialValueEditor( const DefinitionInfo& info, QObject* parent, QWidget* parentWidget )
@@ -58,5 +59,5 @@ AbstractValueEditor* ValueEditorFactory::createInitialValueEditor( const Definit
             break;
     }
 
-    return new InputLineValueEditor( info, true, parent, parentWidget );
+    return new InputLineValueEditor( info, true, 0, parent, parentWidget );
 }

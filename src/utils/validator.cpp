@@ -195,6 +195,8 @@ DefinitionInfo Validator::createAttributeDefinition( AttributeType type, const Q
         case UserAttribute: {
             if ( metadata.value( "members" ).toBool() )
                 info.setMetadata( "members", 1 );
+            if ( metadata.value( "multi-select" ).toBool() )
+                info.setMetadata( "multi-select", 1 );
             break;
         }
 
