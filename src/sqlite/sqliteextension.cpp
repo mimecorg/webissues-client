@@ -33,6 +33,14 @@ static int localeCompare( void* /*arg*/, int len1, const void* data1, int len2, 
     return QString::localeAwareCompare( string1, string2 );
 }
 
+static int nocaseCompare( void* /*arg*/, int len1, const void* data1, int len2, const void* data2 )
+{
+    QString string1 = QString::fromRawData( reinterpret_cast<const QChar*>( data1 ), len1 / sizeof( QChar ) );
+    QString string2 = QString::fromRawData( reinterpret_cast<const QChar*>( data2 ), len2 / sizeof( QChar ) );
+
+    return QString::compare( string1, string2, Qt::CaseInsensitive );
+}
+
 static void regexpFunction( sqlite3_context* context, int /*argc*/, sqlite3_value** argv )
 {
     int len1 = sqlite3_value_bytes16( argv[ 0 ] );
@@ -57,6 +65,7 @@ static void regexpFunction( sqlite3_context* context, int /*argc*/, sqlite3_valu
 void installSQLiteExtension( sqlite3* db )
 {
     sqlite3_create_collation( db, "LOCALE", SQLITE_UTF16, NULL, &localeCompare );
+    sqlite3_create_collation( db, "NOCASE", SQLITE_UTF16, NULL, &nocaseCompare );
 
     sqlite3_create_function( db, "regexp", 2, SQLITE_UTF16, NULL, &regexpFunction, NULL, NULL );
 }
