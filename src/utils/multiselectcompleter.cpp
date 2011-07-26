@@ -19,7 +19,8 @@
 
 #include "multiselectcompleter.h"
 
-MultiSelectCompleter::MultiSelectCompleter( const QStringList& items, QObject* parent ) : QCompleter( items, parent )
+MultiSelectCompleter::MultiSelectCompleter( const QStringList& items, QObject* parent ) : QCompleter( items, parent ),
+    m_multiSelect( true )
 {
 }
 
@@ -27,25 +28,36 @@ MultiSelectCompleter::~MultiSelectCompleter()
 {
 }
 
+void MultiSelectCompleter::setMultiSelect( bool multi )
+{
+    m_multiSelect = multi;
+}
+
 QString MultiSelectCompleter::pathFromIndex( const QModelIndex& index ) const
 {
     QString path = QCompleter::pathFromIndex( index );
 
-    QString text = static_cast<QLineEdit*>( widget() )->text();
+    if ( m_multiSelect ) {
+        QString text = static_cast<QLineEdit*>( widget() )->text();
 
-    int pos = text.lastIndexOf( ',' );
-    if ( pos >= 0 )
-        path = text.left( pos ) + ", " + path;
+        int pos = text.lastIndexOf( ',' );
+        if ( pos >= 0 )
+            path = text.left( pos ) + ", " + path;
+    }
 
     return path;
 }
 
 QStringList MultiSelectCompleter::splitPath( const QString& path ) const
 {
-    int pos = path.lastIndexOf( ',' ) + 1;
+    if ( m_multiSelect ) {
+        int pos = path.lastIndexOf( ',' ) + 1;
 
-    while ( pos < path.length() && path.at( pos ) == QLatin1Char( ' ' ) )
-        pos++;
+        while ( pos < path.length() && path.at( pos ) == QLatin1Char( ' ' ) )
+            pos++;
 
-    return QStringList( path.mid( pos ) );
+        return QStringList( path.mid( pos ) );
+    } else {
+        return QCompleter::splitPath( path );
+    }
 }

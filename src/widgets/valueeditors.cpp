@@ -95,7 +95,8 @@ void InputLineValueEditor::initializeEnum( const DefinitionInfo& info, bool init
     QVariant items = info.metadata( "items" );
     bool multiSelect = info.metadata( "multi-select" ).toBool();
 
-    edit->setItems( items.toStringList(), multiSelect );
+    edit->setItems( items.toStringList() );
+    edit->setMultiSelect( multiSelect );
 
     QVariant maxLength = info.metadata( "max-length" );
     if ( maxLength.isValid() )
@@ -179,7 +180,8 @@ void InputLineValueEditor::initializeUser( const DefinitionInfo& info, bool init
 
     bool multiSelect = info.metadata( "multi-select" ).toBool();
 
-    edit->setItems( items, multiSelect );
+    edit->setItems( items );
+    edit->setMultiSelect( multiSelect );
     edit->setEditable( false );
 
     edit->setRequired( info.metadata( "required" ).toBool() );

@@ -438,18 +438,26 @@ void ViewDialog::filterToggled( int column )
     updateFiltersLayout();
 }
 
+static void updateEditor( InputLineEdit* editor, const QString& type )
+{
+    editor->setRequired( type != QLatin1String( "EQ" ) && type != QLatin1String( "NEQ" ) );
+
+    if ( EnumLineEdit* enumEditor = qobject_cast<EnumLineEdit*>( editor ) )
+        enumEditor->setMultiSelect( type == QLatin1String( "IN" ) );
+}
+
 void ViewDialog::conditionIndexChanged( int index )
 {
     QComboBox* operatorsComboBox = m_conditionOperators.at( index );
     QString type = operatorsComboBox->itemData( operatorsComboBox->currentIndex() ).toString();
-    m_conditionEditors.at( index )->setRequired( type != QLatin1String( "EQ" ) && type != QLatin1String( "NEQ" ) );
+    updateEditor( m_conditionEditors.at( index ), type );
 }
 
 void ViewDialog::filterIndexChanged( int column )
 {
     QComboBox* operatorsComboBox = m_filterOperators.value( column );
     QString type = operatorsComboBox->itemData( operatorsComboBox->currentIndex() ).toString();
-    m_filterEditors.value( column )->setRequired( type != QLatin1String( "EQ" ) && type != QLatin1String( "NEQ" ) );
+    updateEditor( m_filterEditors.value( column ), type );
 }
 
 void ViewDialog::appendCondition( int column, const QString& type, const QString& value )
@@ -473,7 +481,7 @@ void ViewDialog::appendCondition( int column, const QString& type, const QString
     connect( operatorsComboBox, SIGNAL( currentIndexChanged( int ) ), m_conditionIndexChangedMapper, SLOT( map() ) );
 
     InputLineEdit* editor = createEditor( column );
-    editor->setRequired( type != QLatin1String( "EQ" ) && type != QLatin1String( "NEQ" ) );
+    updateEditor( editor, type );
     editor->setInputValue( value );
     m_conditionEditors.append( editor );
 
@@ -491,7 +499,7 @@ InputLineEdit* ViewDialog::createEditor( int column )
         if ( !attributeInfo.isEmpty() ) {
             switch ( AttributeHelper::toAttributeType( attributeInfo ) ) {
                 case TextAttribute: {
-                    InputLineEdit* editor = new InputLineEdit( m_filtersPanel );
+                    EnumLineEdit* editor = new EnumLineEdit( m_filtersPanel );
                     editor->setFunctions( InputLineEdit::MeFunction );
                     return editor;
                 }
@@ -534,7 +542,7 @@ InputLineEdit* ViewDialog::createEditor( int column )
             return new NumericLineEdit( m_filtersPanel );
 
         case Column_Name: {
-            InputLineEdit* editor = new InputLineEdit( m_filtersPanel );
+            EnumLineEdit* editor = new EnumLineEdit( m_filtersPanel );
             editor->setFunctions( InputLineEdit::MeFunction );
             return editor;
         }

@@ -313,21 +313,31 @@ EnumLineEdit::~EnumLineEdit()
 {
 }
 
-void EnumLineEdit::setItems( const QStringList& items, bool multiSelect /*= false*/ )
+void EnumLineEdit::setItems( const QStringList& items )
 {
     m_items = items;
-    m_multiSelect = multiSelect;
 
     delete completer();
 
-    if ( multiSelect )
-        setCompleter( new MultiSelectCompleter( items, this ) );
-    else
-        setCompleter( new QCompleter( items, this ) );
+    MultiSelectCompleter* completer = new MultiSelectCompleter( items, this );
+    completer->setCaseSensitivity( Qt::CaseInsensitive );
+    completer->setMultiSelect( m_multiSelect );
 
-    completer()->setCaseSensitivity( Qt::CaseInsensitive );
+    setCompleter( completer );
 
-    setPopupVisible( true );
+    setPopupVisible( !items.isEmpty() );
+}
+
+void EnumLineEdit::setMultiSelect( bool multi )
+{
+    if ( m_multiSelect != multi ) {
+        m_multiSelect = multi;
+
+        if ( MultiSelectCompleter* multiCompleter = qobject_cast<MultiSelectCompleter*>( completer() ) )
+            multiCompleter->setMultiSelect( multi );
+
+        updateInput();
+    }
 }
 
 void EnumLineEdit::setEditable( bool editable )

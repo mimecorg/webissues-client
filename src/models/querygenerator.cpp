@@ -302,11 +302,11 @@ QString QueryGenerator::makeStringCondition( const QString& expression, const QS
 {
     if ( type == QLatin1String( "EQ" ) ) {
         m_arguments.append( value );
-        return QString( "%1 COLLATE LOCALE = ?" ).arg( expression );
+        return QString( "%1 COLLATE NOCASE = ?" ).arg( expression );
     }
     if ( type == QLatin1String( "NEQ" ) ) {
         m_arguments.append( value );
-        return QString( "%1 COLLATE LOCALE <> ?" ).arg( expression );
+        return QString( "%1 COLLATE NOCASE <> ?" ).arg( expression );
     }
     if ( type == QLatin1String( "CON" ) ) {
         m_arguments.append( QLatin1String( ".*" ) + QRegExp::escape( value ) + QLatin1String( ".*" ) );
@@ -319,6 +319,20 @@ QString QueryGenerator::makeStringCondition( const QString& expression, const QS
     if ( type == QLatin1String( "END" ) ) {
         m_arguments.append( QLatin1String( ".*" ) + QRegExp::escape( value ) );
         return QString( "%1 REGEXP ?" ).arg( expression );
+    }
+    if ( type == QLatin1String( "IN" ) ) {
+        QStringList items = value.split(  ", " );
+        if ( items.count() >= 2 ) {
+            QStringList placeholders;
+            foreach ( const QString item, items ) {
+                m_arguments.append( item );
+                placeholders.append( "?" );
+            }
+            return QString( "%1 COLLATE NOCASE IN ( %2 )" ).arg( expression, placeholders.join( ", " ) );
+        } else {
+            m_arguments.append( value );
+            return QString( "%1 COLLATE NOCASE = ?" ).arg( expression );
+        }
     }
 
     m_valid = false;

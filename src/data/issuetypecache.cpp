@@ -244,6 +244,7 @@ QStringList IssueTypeCache::availableOperators( int column ) const
             result.append( "BEG" );
             result.append( "CON" );
             result.append( "END" );
+            result.append( "IN" );
             break;
 
         case NumericAttribute:

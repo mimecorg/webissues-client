@@ -114,6 +114,8 @@ QString ViewSettingsHelper::filtersInfo( const QList<DefinitionInfo>& filters ) 
             operatorName = tr( "begins with" );
         else if ( filter.type() == QLatin1String( "END" ) )
             operatorName = tr( "ends with" );
+        else if ( filter.type() == QLatin1String( "IN" ) )
+            operatorName = tr( "in" );
 
         QString value = filter.metadata( "value" ).toString();
 
@@ -156,5 +158,7 @@ QString ViewSettingsHelper::operatorName( const QString& type ) const
         return tr( "begins with" );
     if ( type == QLatin1String( "END" ) )
         return tr( "ends with" );
+    if ( type == QLatin1String( "IN" ) )
+        return tr( "in list" );
     return QString();
 }

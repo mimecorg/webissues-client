@@ -29,10 +29,17 @@ public:
     MultiSelectCompleter( const QStringList& items, QObject* parent );
     ~MultiSelectCompleter();
 
+public:
+    void setMultiSelect( bool multi );
+    bool isMultiSelect() const { return m_multiSelect; }
+
 public: // overrrides
     QString pathFromIndex( const QModelIndex& index ) const;
 
     QStringList splitPath( const QString& path ) const;
+
+private:
+    bool m_multiSelect;
 };
 
 #endif
