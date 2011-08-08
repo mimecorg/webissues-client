@@ -134,6 +134,10 @@ QString ErrorHelper::errorMessage( ErrorCode code ) const
             return tr( "The specified item was not found" );
         case CommaNotAllowed:
             return tr( "Value cannot contain a comma" );
+        case TransactionDeadlock:
+            return tr( "Concurrency error; please try again" );
+        case ConstraintConflict:
+            return tr( "One of the dependent objects no longer exists" );
         default:
             return QString();
     }

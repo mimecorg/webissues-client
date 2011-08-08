@@ -91,6 +91,8 @@ public:
         CannotReusePassword = 353,
         ItemNotFound = 354,
         CommaNotAllowed = 355,
+        TransactionDeadlock = 356,
+        ConstraintConflict = 357,
     };
 
 public:
