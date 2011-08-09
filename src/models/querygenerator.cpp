@@ -258,7 +258,7 @@ QString QueryGenerator::generateConditions()
                             conditions.append( makeNumericCondition( QString( "CAST( %1 AS REAL )" ).arg( expression ), type, value.toDouble() ) );
                             break;
                         case DateTimeAttribute:
-                            conditions.append( makeDateCondition( expression, type, convertDateTimeValue( value, info.metadata( "local" ).toBool() ) ) );
+                            conditions.append( makeDateCondition( QString( "CAST( STRFTIME( '%s', %1 ) AS INTEGER )" ).arg( expression ), type, convertDateTimeValue( value, info.metadata( "local" ).toBool() ) ) );
                             break;
                         default:
                             break;
@@ -436,7 +436,7 @@ QStringList QueryGenerator::sortColumns() const
                                 result.append( QString( "CAST( a%1.attr_value AS REAL )" ).arg( column - Column_UserDefined ) );
                                 break;
                             case DateTimeAttribute:
-                                result.append( QString( "a%1.attr_value" ).arg( column - Column_UserDefined ) );
+                                result.append( QString( "CAST( STRFTIME( '%s', a%1.attr_value ) AS INTEGER )" ).arg( column - Column_UserDefined ) );
                                 break;
                             default:
                                 break;
