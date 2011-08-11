@@ -31,15 +31,6 @@ AbstractValueEditor* ValueEditorFactory::createValueEditor( const DefinitionInfo
                 return new InputTextValueEditor( info, parent, parentWidget );
             break;
 
-        case EnumAttribute:
-            if ( !info.metadata( "editable" ).toBool() && !info.metadata( "multi-select" ).toBool() )
-                return new ComboBoxValueEditor( info, projectId, parent, parentWidget );
-            break;
-
-        case UserAttribute:
-            if ( !info.metadata( "multi-select" ).toBool() )
-                return new ComboBoxValueEditor( info, projectId, parent, parentWidget );
-
         default:
             break;
     }

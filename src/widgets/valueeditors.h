@@ -82,31 +82,4 @@ public: // overrides
     QString inputValue();
 };
 
-/**
-* Editor delegate using a combo box.
-*/
-class ComboBoxValueEditor : public AbstractValueEditor
-{
-    Q_OBJECT
-public:
-    /**
-    * Constructor.
-    * @param info Attribute definition.
-    * @param intial True if this is an initial value editor.
-    * @param projectId Optional project identifier for membership context.
-    * @param parent Parent of the delegate.
-    * @param parentWidget Parent widget of the editor widget.
-    */
-    ComboBoxValueEditor( const DefinitionInfo& info, int projectId, QObject* parent, QWidget* parentWidget );
-
-    /**
-    * Destructor.
-    */
-    ~ComboBoxValueEditor();
-
-public: // overrides
-    void setInputValue( const QString& value );
-    QString inputValue();
-};
-
 #endif
