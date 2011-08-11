@@ -53,11 +53,37 @@ IssueDialog::IssueDialog( QWidget* parent ) : CommandDialog( parent ),
 
 IssueDialog::~IssueDialog()
 {
-    application->applicationSettings()->setValue( "IssueDialogSize", size() );
+    if ( !isFixed() )
+        application->applicationSettings()->setValue( "IssueDialogSize", size() );
 }
 
-void IssueDialog::initialize( int typeId, int projectId )
+bool IssueDialog::initialize( int typeId, int projectId )
 {
+    IssueTypeCache* cache = dataManager->issueTypeCache( typeId );
+    QList<int> attributes = cache->attributes();
+
+    bool membersRequired = false;
+
+    foreach ( int attributeId, attributes ) {
+        DefinitionInfo info = cache->attributeDefinition( attributeId );
+        if ( AttributeHelper::toAttributeType( info ) == UserAttribute ) {
+            if ( info.metadata( "required" ).toBool() && info.metadata( "members" ).toBool() ) {
+                membersRequired = true;
+                break;
+            }
+        }
+    }
+
+    if ( membersRequired ) {
+        ProjectEntity project = ProjectEntity::find( projectId );
+        if ( project.members().isEmpty() ) {
+            showWarning( tr( "There are no available project members to assign to the issue." ) );
+            showCloseButton();
+            setContentLayout( NULL, true );
+            return false;
+        }
+    }
+
     QGridLayout* layout = new QGridLayout();
 
     QLabel* nameLabel = new QLabel( tr( "&Name:" ), this );
@@ -69,9 +95,6 @@ void IssueDialog::initialize( int typeId, int projectId )
     layout->addWidget( m_nameEdit, 0, 1 );
 
     nameLabel->setBuddy( m_nameEdit );
-
-    IssueTypeCache* cache = dataManager->issueTypeCache( typeId );
-    QList<int> attributes = cache->attributes();
 
     if ( !attributes.isEmpty() ) {
         QGroupBox* attributeGroup = new QGroupBox( tr( "Attributes" ), this );
@@ -127,6 +150,8 @@ void IssueDialog::initialize( int typeId, int projectId )
     m_nameEdit->setFocus();
 
     resize( application->applicationSettings()->value( "IssueDialogSize", QSize( 500, 500 ) ).toSize() );
+
+    return true;
 }
 
 void IssueDialog::setIssueName( const QString& name )
@@ -168,7 +193,8 @@ AddIssueDialog::AddIssueDialog( int folderId, QWidget* parent ) : IssueDialog( p
     setPrompt( tr( "Create a new issue in folder <b>%1</b>:" ).arg( folder.name() ) );
     setPromptPixmap( IconLoader::pixmap( "issue-new", 22 ) );
 
-    initialize( folder.typeId(), folder.projectId() );
+    if ( !initialize( folder.typeId(), folder.projectId() ) )
+        return;
 
     IssueTypeCache* cache = dataManager->issueTypeCache( folder.typeId() );
     QList<int> attributes = attributeIds();
@@ -227,7 +253,8 @@ EditIssueDialog::EditIssueDialog( int issueId, QWidget* parent ) : IssueDialog( 
     setPrompt( tr( "Edit attributes of issue <b>%1</b>:" ).arg( m_oldName ) );
     setPromptPixmap( IconLoader::pixmap( "edit-modify", 22 ) );
 
-    initialize( folder.typeId(), folder.projectId() );
+    if ( !initialize( folder.typeId(), folder.projectId() ) )
+        return;
 
     setIssueName( m_oldName );
 

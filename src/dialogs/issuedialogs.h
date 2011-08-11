@@ -50,7 +50,7 @@ public:
     ~IssueDialog();
 
 protected:
-    void initialize( int typeId, int projectId );
+    bool initialize( int typeId, int projectId );
 
     void setIssueName( const QString& name );
     QString issueName() const;

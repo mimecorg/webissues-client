@@ -84,6 +84,11 @@ protected:
     void setContentLayout( QLayout* layout, bool fixed );
 
     /**
+    * Return @c true if the dialog has fixed layout.
+    */
+    bool isFixed() const { return m_fixed; }
+
+    /**
     * Add a progress panel beneath the main content.
     * @param total The total number of steps in the progress bar.
     * @param text The initial status text.
