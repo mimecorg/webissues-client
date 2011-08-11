@@ -47,7 +47,7 @@ InputLineEdit::InputLineEdit( QWidget* parent ) : QLineEdit( parent ),
     m_empty( false ),
     m_errorIfEmpty( false )
 {
-    m_errorButton = new EditToolButton( this );
+    m_errorLabel = new QLabel( this );
 
     m_popupButton = new EditToolButton( this );
     m_popupButton->setIcon( IconLoader::icon( "arrow-down" ) );
@@ -155,28 +155,27 @@ void InputLineEdit::calculateLayout()
     int frameWidth = style()->pixelMetric( QStyle::PM_DefaultFrameWidth );
 
     int x = rect().right() + 1;
-    int y = ( rect().bottom() + 1 - buttonSize.height() ) / 2;
     int padding = frameWidth + 1;
 
     if ( m_popup ) {
         padding += buttonSize.width();
-        m_popupButton->move( x - padding, y );
+        m_popupButton->move( x - padding, ( rect().bottom() + 1 - buttonSize.height() ) / 2 );
         m_popupButton->show();
     } else {
         m_popupButton->hide();
     }
 
     if ( m_error )
-        m_errorButton->setIcon( IconLoader::icon( "status-warning" ) );
+        m_errorLabel->setPixmap( IconLoader::pixmap( "status-warning" ) );
     else if ( m_empty )
-        m_errorButton->setIcon( IconLoader::icon( "status-required" ) );
+        m_errorLabel->setPixmap( IconLoader::pixmap( "status-required" ) );
 
     if ( m_error || m_empty ) {
-        padding += buttonSize.width();
-        m_errorButton->move( x - padding, y );
-        m_errorButton->show();
+        padding += 16;
+        m_errorLabel->move( x - padding, ( rect().bottom() - 15 ) / 2 );
+        m_errorLabel->show();
     } else {
-        m_errorButton->hide();
+        m_errorLabel->hide();
     }
 
 #if QT_VERSION >= 0x040500
@@ -190,7 +189,7 @@ void InputLineEdit::calculateLayout()
 
 void InputLineEdit::setError( const QString& error )
 {
-    m_errorButton->setToolTip( error );
+    m_errorLabel->setToolTip( error );
     m_error = true;
 
     calculateLayout();
@@ -242,7 +241,7 @@ QString InputLineEdit::textToValue( const QString& text )
             if ( m_errorIfEmpty ) {
                 setError( ErrorHelper::EmptyValue );
             } else {
-                m_errorButton->setToolTip( tr( "Field is required" ) );
+                m_errorLabel->setToolTip( tr( "Field is required" ) );
                 m_empty = true;
                 calculateLayout();
             }

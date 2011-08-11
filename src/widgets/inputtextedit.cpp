@@ -38,7 +38,8 @@ InputTextEdit::InputTextEdit( QWidget* parent ) : QPlainTextEdit( parent ),
     m_errorIfEmpty( false ),
     m_autoValidate( true )
 {
-    m_errorButton = new EditToolButton( this );
+    m_errorLabel = new QLabel( this );
+    m_errorLabel->setAlignment( Qt::AlignCenter );
 
     calculateLayout();
  }
@@ -135,26 +136,25 @@ void InputTextEdit::updateInput()
 
 void InputTextEdit::calculateLayout()
 {
-    QSize buttonSize = m_errorButton->sizeHint();
     int frameWidth = style()->pixelMetric( QStyle::PM_DefaultFrameWidth );
 
     if ( m_error )
-        m_errorButton->setIcon( IconLoader::icon( "status-warning" ) );
+        m_errorLabel->setPixmap( IconLoader::pixmap( "status-warning" ) );
     else if ( m_empty )
-        m_errorButton->setIcon( IconLoader::icon( "status-required" ) );
+        m_errorLabel->setPixmap( IconLoader::pixmap( "status-required" ) );
 
     if ( m_error || m_empty ) {
         int scrollWidth = verticalScrollBar()->isVisible() ? verticalScrollBar()->width() : 0;
-        m_errorButton->move( rect().right() - buttonSize.width() - frameWidth - scrollWidth, frameWidth );
-        m_errorButton->show();
+        m_errorLabel->move( rect().right() - 16 - frameWidth - scrollWidth, frameWidth + 1 );
+        m_errorLabel->show();
     } else {
-        m_errorButton->hide();
+        m_errorLabel->hide();
     }
 }
 
 void InputTextEdit::setError( const QString& error )
 {
-    m_errorButton->setToolTip( error );
+    m_errorLabel->setToolTip( error );
     m_error = true;
 
     calculateLayout();
@@ -189,7 +189,7 @@ QString InputTextEdit::textToValue( const QString& text )
             if ( m_errorIfEmpty ) {
                 setError( ErrorHelper::EmptyValue );
             } else {
-                m_errorButton->setToolTip( tr( "Field is required" ) );
+                m_errorLabel->setToolTip( tr( "Field is required" ) );
                 m_empty = true;
                 calculateLayout();
             }

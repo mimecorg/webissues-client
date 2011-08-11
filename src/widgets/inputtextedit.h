@@ -77,7 +77,7 @@ private:
     void setError( int code );
 
 private:
-    EditToolButton* m_errorButton;
+    QLabel* m_errorLabel;
 
     bool m_error;
     bool m_required;

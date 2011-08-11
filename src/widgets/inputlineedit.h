@@ -91,7 +91,7 @@ private:
     void calculateLayout();
 
 private:
-    EditToolButton* m_errorButton;
+    QLabel* m_errorLabel;
     EditToolButton* m_popupButton;
 
     bool m_error;
