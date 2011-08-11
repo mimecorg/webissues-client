@@ -172,11 +172,8 @@ void InputLineValueEditor::initializeUser( const DefinitionInfo& info, bool init
         users = UserEntity::list();
     }
 
-    foreach ( const UserEntity& user, users ) {
-        if ( user.access() == NoAccess )
-            continue;
+    foreach ( const UserEntity& user, users )
         items.append( user.name() );
-    }
 
     bool multiSelect = info.metadata( "multi-select" ).toBool();
 

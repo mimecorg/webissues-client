@@ -358,8 +358,6 @@ AddMemberDialog::AddMemberDialog( int projectId, QWidget* parent ) : CommandDial
     QList<UserEntity> available;
 
     foreach ( const UserEntity& user, UserEntity::list() ) {
-        if ( user.access() == NoAccess )
-            continue;
         if ( members.contains( user.id() ) )
             continue;
         available.append( user );
