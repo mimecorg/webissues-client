@@ -155,6 +155,8 @@ EnumMetadataEditor::EnumMetadataEditor( QObject* parent, QWidget* parentWidget )
 
     setWidget( widget );
     setFixedHeight( false );
+
+    checkBoxToggled();
 }
 
 EnumMetadataEditor::~EnumMetadataEditor()
@@ -176,7 +178,7 @@ void EnumMetadataEditor::updateMetadata( QVariantMap& metadata )
     metadata.insert( "multi-select", m_multiSelectCheckBox->isChecked() );
     metadata.insert( "items", m_itemsEdit->inputValue().split( "\n" ) );
 
-    if ( m_editableCheckBox->isChecked() && !m_multiSelectCheckBox->isCheckable() ) {
+    if ( m_editableCheckBox->isChecked() && !m_multiSelectCheckBox->isChecked() ) {
         if ( !m_minLengthEdit->inputValue().isEmpty() )
             metadata.insert( "min-length", m_minLengthEdit->inputValue().toInt() );
         else
@@ -191,7 +193,7 @@ void EnumMetadataEditor::updateMetadata( QVariantMap& metadata )
 
 void EnumMetadataEditor::checkBoxToggled()
 {
-    bool limits = ( m_editableCheckBox->isChecked() && !m_multiSelectCheckBox->isCheckable() );
+    bool limits = ( m_editableCheckBox->isChecked() && !m_multiSelectCheckBox->isChecked() );
     m_minLengthEdit->setEnabled( limits );
     m_maxLengthEdit->setEnabled( limits );
 }
