@@ -306,7 +306,17 @@ QString AttributeDialog::attributeName() const
 
 void AttributeDialog::typeActivated( int index )
 {
-    m_type = (AttributeType)m_typeCombo->itemData( index ).toInt();
+    AttributeType type = (AttributeType)m_typeCombo->itemData( index ).toInt();
+
+    m_metadata.insert( "required", m_requiredCheck->isChecked() );
+
+    AttributeHelper helper;
+    if ( m_editor && helper.compatibleTypes( m_type ).contains( type ) )
+        m_metadata.insert( "default", m_editor->inputValue() );
+    else
+        m_metadata.insert( "default", QString() );
+
+    m_type = type;
 
     updateWidgets();
 }
