@@ -25,6 +25,7 @@
 class EditToolButton;
 
 class QCalendarWidget;
+class QLabel;
 class QDate;
 
 class InputLineEdit : public QLineEdit

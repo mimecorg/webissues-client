@@ -19,6 +19,8 @@
 
 #include "multiselectcompleter.h"
 
+#include <QLineEdit>
+
 MultiSelectCompleter::MultiSelectCompleter( const QStringList& items, QObject* parent ) : QCompleter( items, parent ),
     m_multiSelect( true )
 {

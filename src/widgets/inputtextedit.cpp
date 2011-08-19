@@ -27,6 +27,7 @@
 
 #include <QStyle>
 #include <QScrollBar>
+#include <QLabel>
 
 InputTextEdit::InputTextEdit( QWidget* parent ) : QPlainTextEdit( parent ),
     m_error( false ),

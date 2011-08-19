@@ -24,6 +24,8 @@
 
 class EditToolButton;
 
+class QLabel;
+
 class InputTextEdit : public QPlainTextEdit
 {
     Q_OBJECT

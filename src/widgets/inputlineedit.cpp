@@ -36,6 +36,7 @@
 #include <QApplication>
 #include <QUrl>
 #include <QPushButton>
+#include <QLabel>
 
 InputLineEdit::InputLineEdit( QWidget* parent ) : QLineEdit( parent ),
     m_error( false ),
