@@ -39,7 +39,11 @@
 # include <unistd.h>
 #endif
 
-#include "sqlite3.h"
+#if defined HAVE_SYSTEM_SQLITE
+# include <sqlite3.h>
+#else
+# include "sqlite3.h"
+#endif
 
 Q_DECLARE_METATYPE(sqlite3*)
 Q_DECLARE_METATYPE(sqlite3_stmt*)

@@ -23,7 +23,11 @@
 #include <QString>
 #include <QRegExp>
 
-#include "sqlite3.h"
+#if defined HAVE_SYSTEM_SQLITE
+# include <sqlite3.h>
+#else
+# include "sqlite3.h"
+#endif
 
 static int localeCompare( void* /*arg*/, int len1, const void* data1, int len2, const void* data2 )
 {
