@@ -41,6 +41,10 @@ Additional options that can be passed to the configure script:
 
         Build with debugging symbols.
 
+    -system-sqlite
+
+        Use system SQLite library instead of the embedded one.
+
 
 Windows
 =======
@@ -106,6 +110,10 @@ Additional options that can be passed to the configure script:
     -debug
 
         Build with debugging symbols.
+
+    -system-sqlite
+
+        Use system SQLite library instead of the embedded one.
 
     -universal
 
