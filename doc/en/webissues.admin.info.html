@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Server information</title>
+    <link rel="stylesheet" type="text/css" href="common/style.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.76.1" />
+    <link rel="home" href="index.html" title="WebIssues Manual" />
+    <link rel="up" href="webissues.admin.html" title="Chapter 5. System administration" />
+    <link rel="prev" href="webissues.admin.html" title="Chapter 5. System administration" />
+    <link rel="next" href="webissues.admin.log.html" title="Event log" />
+  </head>
+  <body>
+    <div id="wrapper">
+      <div id="header">
+        <div id="header-top">
+          <div id="header-left">
+            <h1><img src="common/webissues.png" alt="WebIssues" id="logo" />WebIssues Manual</h1>
+          </div>
+          <div id="header-right">
+            <h2 class="subtitle">Version 1.0-beta2</h2>
+          </div>
+        </div>
+        <div id="infobar">
+          <div id="infobar-left"><a accesskey="h" href="index.html">Home</a> &raquo; <a accesskey="u" href="webissues.admin.html">System administration</a></div>
+          <div id="infobar-right"></div>
+        </div>
+      </div>
+      <div id="body">
+        <div class="navlinks">
+          <div class="navleft">&laquo; <a accesskey="p" href="webissues.admin.html">System administration</a></div>
+          <div class="navright"><a accesskey="n" href="webissues.admin.log.html">Event log</a> &raquo;</div>
+        </div>
+        <div class="sect1" title="Server information">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h2 class="title" style="clear: both"><a id="webissues.admin.info"></a>Server information</h2>
+              </div>
+            </div>
+          </div>
+          <p>In order to display general information about the server, go to the Administration Panel and click <span class="guilabel">General Information</span>.</p>
+          <div class="figure">
+            <a id="id605891"></a>
+            <div class="figure-contents">
+              <div class="mediaobject">
+                <img src="images/ch05-fig02.png" alt="General information" />
+              </div>
+            </div>
+            <div class="figure-title">Figure 5.2. General information</div>
+          </div>
+          <p>You will see the version number of the currently installed database schema, the name of the server and its unique identifier. You can use the <span class="guilabel">Rename Server</span> command to change the name of the server, which is visible in the upper left corner of the Web Client and in the title bar of both client programs. With the <span class="guilabel">Generate New Unique ID</span> command you can change the identifier of the server to a new, randomly generated identifier.</p>
+          <div class="note" title="Note" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <h3 class="title">Note</h3>
+            <p>The unique identifier allows the Desktop Client to distinguish individual instances of the WebIssues server, regardless of their name and URL. It is automatically generated during the installation, and normally there is no need to change it. Changing this identifier may be needed when a server instance is cloned (for example, when an update is tested on a temporary copy before deploying to production environment), and also after manually making changes to the database (for example, when you restore a previous version of the database from the backup).</p>
+          </div>
+          <p>In the next part of the window you can see basic information about your server: the name of the instance (usually it will be <code class="literal">default</code>, unless you create multiple instances of the server within a single installation), the base URL of the server and the path of the directory where the configuration file is located. Also there is the version of PHP, the web server and operating system and the name of the computer on which WebIssues is installed.</p>
+          <p>You can also see information about the type and version of the database server, the name of the host and the database and an optional prefix for table names in the database.</p>
+          <p>The last part of the window contains information about the last run of the cron job. For more information, see <a class="xref" href="webissues.prep.notifications.html#webissues.prep.nofitications.cron" title="Cron jobs">the section called “Cron jobs”</a>.</p>
+        </div>
+        <div class="navlinks">
+          <div class="navleft">&laquo; <a accesskey="p" href="webissues.admin.html">System administration</a></div>
+          <div class="navright"><a accesskey="n" href="webissues.admin.log.html">Event log</a> &raquo;</div>
+        </div>
+        <div id="footer">
+          <p class="copyright">Copyright © 2007-2011 WebIssues Team</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

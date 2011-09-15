@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>User management</title>
+    <link rel="stylesheet" type="text/css" href="common/style.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.76.1" />
+    <link rel="home" href="index.html" title="WebIssues Manual" />
+    <link rel="up" href="webissues.admin.html" title="Chapter 5. System administration" />
+    <link rel="prev" href="webissues.admin.log.html" title="Event log" />
+    <link rel="next" href="webissues.admin.projects.html" title="Managing projects" />
+  </head>
+  <body>
+    <div id="wrapper">
+      <div id="header">
+        <div id="header-top">
+          <div id="header-left">
+            <h1><img src="common/webissues.png" alt="WebIssues" id="logo" />WebIssues Manual</h1>
+          </div>
+          <div id="header-right">
+            <h2 class="subtitle">Version 1.0-beta2</h2>
+          </div>
+        </div>
+        <div id="infobar">
+          <div id="infobar-left"><a accesskey="h" href="index.html">Home</a> &raquo; <a accesskey="u" href="webissues.admin.html">System administration</a></div>
+          <div id="infobar-right"></div>
+        </div>
+      </div>
+      <div id="body">
+        <div class="navlinks">
+          <div class="navleft">&laquo; <a accesskey="p" href="webissues.admin.log.html">Event log</a></div>
+          <div class="navright"><a accesskey="n" href="webissues.admin.projects.html">Managing projects</a> &raquo;</div>
+        </div>
+        <div class="sect1" title="User management">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h2 class="title" style="clear: both"><a id="webissues.admin.users"></a>User management</h2>
+              </div>
+            </div>
+          </div>
+          <p>Managing users in the WebIssues system includes both the creation and managing global rights of user accounts, and giving users access to specific projects.</p>
+          <div class="sect2" title="User accounts">
+            <div class="titlepage">
+              <div>
+                <div>
+                  <h3 class="title"><a id="webissues.admin.users.accounts"></a>User accounts</h3>
+                </div>
+              </div>
+            </div>
+            <p>To manage the users of WebIssues system, go to the Administration Panel and click <span class="guilabel">User Accounts</span>. In case of the Desktop Client, use the <span class="guilabel">Users</span> command from the main window toolbar.</p>
+            <div class="figure">
+              <a id="id606124"></a>
+              <div class="figure-contents">
+                <div class="mediaobject">
+                  <img src="images/ch05-fig04.png" alt="User accounts" />
+                </div>
+              </div>
+              <div class="figure-title">Figure 5.4. User accounts</div>
+            </div>
+            <p>Each user has a unique, fixed login, which is used along with the password when logging into the system. Each user also has a name that is visible to other users and that the administrator can change if necessary. Depending on the convention, it can be the first and last name, the email address or any other name.</p>
+            <p>Managing privileges in the WebIssues system is relatively simple. There are three global access levels:</p>
+            <div class="variablelist">
+              <dl>
+                <dt>
+                  <span class="term">System administrator</span>
+                </dt>
+                <dd>
+                  <p>User of this level have access to all functions of Administration Panel. They can manage user accounts and customize the issue types and public views. They are also members and administrators of all existing projects in the system, even if they are not explicitly granted such permissions. The first such account is created upon installation.</p>
+                </dd>
+                <dt>
+                  <span class="term">Regular user</span>
+                </dt>
+                <dd>
+                  <p>Users with this level of access can log into the system and change their personal settings. They have access only to those projects for which they were granted specific privileges. They can be administrators of selected projects, but they can not create new projects.</p>
+                </dd>
+                <dt>
+                  <span class="term">Disabled</span>
+                </dt>
+                <dd>
+                  <p>Users with this level of access are not allowed to log into the system and do not have access to any part of it.</p>
+                </dd>
+              </dl>
+            </div>
+            <p>To create a new user account, select <span class="guilabel">Add User</span>.</p>
+            <div class="figure">
+              <a id="id606204"></a>
+              <div class="figure-contents">
+                <div class="mediaobject">
+                  <img src="images/ch05-fig05.png" alt="Creating a user account" />
+                </div>
+              </div>
+              <div class="figure-title">Figure 5.5. Creating a user account</div>
+            </div>
+            <p>Enter the name of the user, login and initial password. To avoid mistakes, you must enter the password twice. You can select <span class="guilabel">User must change password at next logon</span> to force the user to change password when logging into the system for the first time.</p>
+            <p>If the user does not remember their password, you can reset it by selecting the user from the list and clicking <span class="guilabel">Change Password</span>. You will be asked to enter a new password twice. Also in this case, you can select <span class="guilabel">User must change password at next logon</span>.</p>
+            <div class="figure">
+              <a id="id606244"></a>
+              <div class="figure-contents">
+                <div class="mediaobject">
+                  <img src="images/ch05-fig06.png" alt="Changing user's password" />
+                </div>
+              </div>
+              <div class="figure-title">Figure 5.6. Changing user's password</div>
+            </div>
+            <p>If you change your own password, for greater security you must also enter your current password. All users can also change their own password at any time, using the <span class="guilabel">Change Password</span> command, which is available in the <span class="guilabel">Tools</span> window or in the toolbar of the Desktop Client main window.</p>
+            <div class="note" title="Note" style="margin-left: 0.5in; margin-right: 0.5in;">
+              <h3 class="title">Note</h3>
+              <p>If the forget the password for system administrator, you can not easily recover it. All passwords are stored in a database in the form of secure hashes, from which it is practically impossible to recreate the original password. However by accessing the database you can reset the administrator password, by generating a new hash and storing it into the <code class="literal">user_passwd</code> column for the corresponding user in the <code class="literal">users</code> table. WebIssues uses the <span class="quote">“<span class="quote">Portable PHP password hashing framework</span>”</span> which is compatible with such programs as Wordpress or Drupal, so you can use one of the available <a class="ulink" href="http://scriptserver.mainframe8.com/wordpress_password_hasher.php" target="_top">hash generators</a> for these programs.</p>
+            </div>
+            <p>To change the global access level of a user, select that user on the list and click <span class="guilabel">Change Access</span>. Then choose the new access level and click <span class="guibutton">OK</span>. You can not deprive your own administrator right, because the system must have at least one active administrator account.</p>
+            <div class="figure">
+              <a id="id606318"></a>
+              <div class="figure-contents">
+                <div class="mediaobject">
+                  <img src="images/ch05-fig07.png" alt="Changing user's access" />
+                </div>
+              </div>
+              <div class="figure-title">Figure 5.7. Changing user's access</div>
+            </div>
+            <p>To change the name of a user, select that user on the list and click <span class="guilabel">Rename User</span>. Enter a new name and click <span class="guibutton">OK</span>.</p>
+            <div class="tip" title="Tip" style="margin-left: 0.5in; margin-right: 0.5in;">
+              <h3 class="title">Tip</h3>
+              <p>Avoid changing the names of users who have assigned issues. Attribute values ​​are stored as text, so changing the user name will not automatically change the values ​​of <span class="quote">“<span class="quote"> Assigned to</span>”</span> attributes. This may cause the user to no longer see those assigned issues.</p>
+            </div>
+            <p>You can also change the preferences of any user using the <span class="guilabel">User Preferences</span> command. All users can also change their own settings, using the <span class="guilabel">User Prererences</span> command in the <span class="guilabel">Tools</span> window or in the toolbar of the Desktop Client main window. For more information about user preferences, see <a class="xref" href="webissues.track.alerts.html" title="Managing alerts">the section called “Managing alerts”</a> and <a class="xref" href="webissues.custom.locale.html" title="Regional settings">the section called “Regional settings”</a>.</p>
+            <p>WebIssues system does not allow to delete existing users, because it keeps all the historical information, for example, changes made by individual users. Instead, you can change the access level of users to disabled when they should no longer be able to use the system.</p>
+          </div>
+          <div class="sect2" title="Project members">
+            <div class="titlepage">
+              <div>
+                <div>
+                  <h3 class="title"><a id="webissues.admin.users.members"></a>Project members</h3>
+                </div>
+              </div>
+            </div>
+            <p>A newly created user has no access to any project, unless he is the system administrator. To manage user privileges for specific projects, select the project, and then click <span class="guilabel">Project Members</span>.</p>
+            <div class="figure">
+              <a id="id606411"></a>
+              <div class="figure-contents">
+                <div class="mediaobject">
+                  <img src="images/ch05-fig08.png" alt="List of project members" />
+                </div>
+              </div>
+              <div class="figure-title">Figure 5.8. List of project members</div>
+            </div>
+            <p>There are two levels of access to projects:</p>
+            <div class="variablelist">
+              <dl>
+                <dt>
+                  <span class="term">Project administrator</span>
+                </dt>
+                <dd>
+                  <p>Users with this level of access can manage members and folders of the project. They can also delete or move issues and edit and delete all comments and attachments within the project.</p>
+                </dd>
+                <dt>
+                  <span class="term">Regular member</span>
+                </dt>
+                <dd>
+                  <p>Users with this level of access can view issues in all folders, manage their own alerts and create new and edit existing issues. They can also add comments and attachments, and edit and delete their own comments and attachments.</p>
+                </dd>
+              </dl>
+            </div>
+            <p>The global access level is always more important than permissions for a given project. A system administrator automatically becomes the administrator of all projects, and a disabled user has no access to any project. Regular users only have access to projects that they are members of, according to permissions that were assigned to them.</p>
+            <p>To add members of the project, select <span class="guilabel">Add Members</span>.</p>
+            <div class="figure">
+              <a id="id606477"></a>
+              <div class="figure-contents">
+                <div class="mediaobject">
+                  <img src="images/ch05-fig09.png" alt="Adding project members" />
+                </div>
+              </div>
+              <div class="figure-title">Figure 5.9. Adding project members</div>
+            </div>
+            <p>Select one or more users who are not yet members of the project. Then select the appropriate level of access and click <span class="guibutton">OK</span>.</p>
+            <p>To change the access level of a member, select the member on the list and click <span class="guilabel">Change Access</span>. Then select the new access level and click <span class="guibutton">OK </span>. You can not deprive your own project administrator rights, unless you are a system administrator.</p>
+            <div class="figure">
+              <a id="id606516"></a>
+              <div class="figure-contents">
+                <div class="mediaobject">
+                  <img src="images/ch05-fig10.png" alt="Changing member's access" />
+                </div>
+              </div>
+              <div class="figure-title">Figure 5.10. Changing member's access</div>
+            </div>
+            <p>To remove a member of the project, select the member on the list and click <span class="guilabel">Remove Member</span>. In case of the Desktop Client, you can choose several members on the list and change their access level or remove them from the project simultaneously.</p>
+          </div>
+        </div>
+        <div class="navlinks">
+          <div class="navleft">&laquo; <a accesskey="p" href="webissues.admin.log.html">Event log</a></div>
+          <div class="navright"><a accesskey="n" href="webissues.admin.projects.html">Managing projects</a> &raquo;</div>
+        </div>
+        <div id="footer">
+          <p class="copyright">Copyright © 2007-2011 WebIssues Team</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

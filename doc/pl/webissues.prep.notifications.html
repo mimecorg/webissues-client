@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Email notifications</title>
+    <title>Powiadomienia mailowe</title>
     <link rel="stylesheet" type="text/css" href="common/style.css" />
     <meta name="generator" content="DocBook XSL Stylesheets V1.76.1" />
     <link rel="home" href="index.html" title="Podręcznik WebIssues" />
@@ -19,7 +19,7 @@
             <h1><img src="common/webissues.png" alt="WebIssues" id="logo" />Podręcznik WebIssues</h1>
           </div>
           <div id="header-right">
-            <h2 class="subtitle">Wersja 1.0-beta1</h2>
+            <h2 class="subtitle">Wersja 1.0-beta2</h2>
           </div>
         </div>
         <div id="infobar">
@@ -32,11 +32,11 @@
           <div class="navleft">&laquo; <a accesskey="p" href="webissues.prep.setup.html">Konfiguracja początkowa</a></div>
           <div class="navright"><a accesskey="n" href="webissues.work.html">Praca ze sprawami</a> &raquo;</div>
         </div>
-        <div class="sect1" title="Email notifications">
+        <div class="sect1" title="Powiadomienia mailowe">
           <div class="titlepage">
             <div>
               <div>
-                <h2 class="title" style="clear: both"><a id="webissues.prep.notifications"></a>Email notifications</h2>
+                <h2 class="title" style="clear: both"><a id="webissues.prep.notifications"></a>Powiadomienia mailowe</h2>
               </div>
             </div>
           </div>
@@ -51,7 +51,7 @@
             </div>
             <p>Najpierw przejdź do Panelu administracyjnego i kliknij <span class="guilabel">Ustawienia e-maili</span>, aby skonfigurować wysyłanie poczty.</p>
             <div class="figure">
-              <a id="id580806"></a>
+              <a id="id598958"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch02-fig10.png" alt="Ustawienia e-maili" />
@@ -84,7 +84,7 @@
             </div>
             <p>Jeśli zadanie cyklicznie jest wykonywane lokalnie, powinno ono uruchamiać skrypt <code class="literal">cron/job.php</code> przy użyciu interpretera PHP. Więcej informacji na temat uruchamiania PHP z wiersza poleceń znajdziesz na stronie <a class="ulink" href="http://www.php.net/manual/en/features.commandline.options.php" target="_top">http://www.php.net/manual/en/features.commandline.options.php</a>.</p>
             <p>Jeśli korzystasz z zewnętrznej usługi cron lub uruchamiasz zadanie na innym komputerze, skrypt powinien być uruchamiany zdalnie, poprzez pełny adres URL, na przykład <code class="literal">http://www.example.com/cron/job.php</code>. Możesz w tym celu na przykład skorzystać z programu <code class="literal">wget</code> lub <code class="literal">curl</code>, a także z dowolnej przeglądarki stron WWW działającej w trybie tekstowym.</p>
-            <p>Aby sprawdzić, czy cykliczne zadanie się uruchamia, przejdź do Panelu administracyjnego i kliknij <span class="guilabel">Ogólne informacje</span>. W ramce <span class="guilabel">Zadanie cron</span> powinna być wyświetlona data i czas ostatniego uruchomienia zadania. Każde uruchomienie zadania jest także zalogowane w Dzienniku zdarzeń systemu WebIssues.</p>
+            <p>Aby sprawdzić, czy cykliczne zadanie się uruchamia, przejdź do Panelu administracyjnego i kliknij <span class="guilabel">Ogólne informacje</span>. W ramce <span class="guilabel">Zadanie cykliczne</span> powinna być wyświetlona data i czas ostatniego uruchomienia zadania. Każde uruchomienie zadania jest także zalogowane w Dzienniku zdarzeń systemu WebIssues.</p>
           </div>
         </div>
         <div class="navlinks">

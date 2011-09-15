@@ -9,7 +9,7 @@
     <link rel="home" href="index.html" title="Podręcznik WebIssues" />
     <link rel="up" href="index.html" title="Podręcznik WebIssues" />
     <link rel="prev" href="webissues.track.alerts.html" title="Zarządzanie alertami" />
-    <link rel="next" href="webissues.custom.html" title="Rozdział 6. Dostosowywanie systemu" />
+    <link rel="next" href="webissues.admin.info.html" title="Informacje o serwerze" />
   </head>
   <body>
     <div id="wrapper">
@@ -19,7 +19,7 @@
             <h1><img src="common/webissues.png" alt="WebIssues" id="logo" />Podręcznik WebIssues</h1>
           </div>
           <div id="header-right">
-            <h2 class="subtitle">Wersja 1.0-beta1</h2>
+            <h2 class="subtitle">Wersja 1.0-beta2</h2>
           </div>
         </div>
         <div id="infobar">
@@ -32,7 +32,7 @@
       <div id="body">
         <div class="navlinks">
           <div class="navleft">&laquo; <a accesskey="p" href="webissues.track.alerts.html">Zarządzanie alertami</a></div>
-          <div class="navright"><a accesskey="n" href="webissues.custom.html">Dostosowywanie systemu</a> &raquo;</div>
+          <div class="navright"><a accesskey="n" href="webissues.admin.info.html">Informacje o serwerze</a> &raquo;</div>
         </div>
         <div class="chapter" title="Rozdział 5. Administrowanie systemem">
           <div class="titlepage">
@@ -42,14 +42,73 @@
               </div>
             </div>
           </div>
-          <div class="note" title="Notatka" style="margin-left: 0.5in; margin-right: 0.5in;">
-            <h3 class="title">Notatka</h3>
-            <p>Ten rozdział jest jeszcze w trakcie przygotowywania.</p>
+          <p>Rozdział ten opisuje zagadnienia związane z bieżącym administrowaniem projektami i użytkownikami oraz konserwacją systemu.</p>
+          <div class="sect1" title="Panel administracyjny">
+            <div class="titlepage">
+              <div>
+                <div>
+                  <h2 class="title" style="clear: both"><a id="webissues.admin.panel"></a>Panel administracyjny</h2>
+                </div>
+              </div>
+            </div>
+            <p>Większość czynności związanych z administracją, konserwacją i zmianą ustawień systemu można dokonać poprzez Panel administracyjny. Wyjątkiem są operacje związane z zarządzaniem projektami i folderami, które można wykonywać bezpośrednio w głównym oknie programu.</p>
+            <p>Aby otworzyć Panel administracyjny w programie Web Client, kliknij <span class="guilabel">Panel administracyjny</span> w prawym górnym rogu okna. Opcja ta jest dostępna tylko dla użytkowników mających uprawnienia administratora serwera.</p>
+            <div class="figure">
+              <a id="id606812"></a>
+              <div class="figure-contents">
+                <div class="mediaobject">
+                  <img src="images/ch05-fig01.png" alt="Panel administracyjny" />
+                </div>
+              </div>
+              <div class="figure-title">Rysunek 5.1. Panel administracyjny</div>
+            </div>
+            <p>Panel administracyjny jest podzielony na następujące moduły:</p>
+            <div class="variablelist">
+              <dl>
+                <dt>
+                  <span class="term">Ogólne informacje</span>
+                </dt>
+                <dd>
+                  <p>Wyświetla informacje o serwerze WebIssues, bazie danych i środowisku, w którym działa serwer. Patrz sekcja <a class="xref" href="webissues.admin.info.html" title="Informacje o serwerze">„Informacje o serwerze”</a>.</p>
+                </dd>
+                <dt>
+                  <span class="term">Dziennik zdarzeń</span>
+                </dt>
+                <dd>
+                  <p>Pozwala przeglądać zdarzenia z dziennika zdarzeń serwera WebIssues. Patrz sekcja <a class="xref" href="webissues.admin.log.html" title="Dziennik zdarzeń">„Dziennik zdarzeń”</a>.</p>
+                </dd>
+                <dt>
+                  <span class="term">Ustawienia serwera</span>
+                </dt>
+                <dd>
+                  <p>Pozwala zmienić ustawienia językowe i inne ustawienia serwera WebIssues. Patrz sekcje <a class="xref" href="webissues.custom.locale.html" title="Ustawienia regionalne">„Ustawienia regionalne”</a> oraz <a class="xref" href="webissues.custom.settings.html" title="Ustawienia zaawansowane">„Ustawienia zaawansowane”</a>.</p>
+                </dd>
+                <dt>
+                  <span class="term">Ustawienia e-maili</span>
+                </dt>
+                <dd>
+                  <p>Pozwala zmienić ustawienia powiadomień mailowych. Patrz sekcja <a class="xref" href="webissues.prep.notifications.html" title="Powiadomienia mailowe">„Powiadomienia mailowe”</a>.</p>
+                </dd>
+                <dt>
+                  <span class="term">Konta użytkowników</span>
+                </dt>
+                <dd>
+                  <p>Pozwala zarządzać kontami użytkowników systemu WebIssues. Patrz sekcja <a class="xref" href="webissues.admin.users.html" title="Zarządzanie użytkownikami">„Zarządzanie użytkownikami”</a>.</p>
+                </dd>
+                <dt>
+                  <span class="term">Typy spraw</span>
+                </dt>
+                <dd>
+                  <p>Pozwala dostosować typy spraw oraz publiczne widoki. Patrz sekcje <a class="xref" href="webissues.custom.html#webissues.custom.types" title="Zarządzanie typami spraw">„Zarządzanie typami spraw”</a> oraz <a class="xref" href="webissues.custom.views.html" title="Ustawienia widoków">„Ustawienia widoków”</a>.</p>
+                </dd>
+              </dl>
+            </div>
+            <p>W programie Desktop Client istnieje możliwość administrowania użytkownikami i projektami oraz zarządzania typami spraw i widokami. Polecenia <span class="guilabel">Użytkownicy</span> oraz <span class="guilabel">Typy spraw</span> są dostępne bezpośrednio z paska narzędzi głównego okna. Nie jest natomiast dostępny pełny Panel administracyjny. Aby uzyskać dostęp do dziennika zdarzeń lub zmienić ustawienia systemu, musisz zatem skorzystać z programu Web Client.</p>
           </div>
         </div>
         <div class="navlinks">
           <div class="navleft">&laquo; <a accesskey="p" href="webissues.track.alerts.html">Zarządzanie alertami</a></div>
-          <div class="navright"><a accesskey="n" href="webissues.custom.html">Dostosowywanie systemu</a> &raquo;</div>
+          <div class="navright"><a accesskey="n" href="webissues.admin.info.html">Informacje o serwerze</a> &raquo;</div>
         </div>
         <div id="footer">
           <p class="copyright">Copyright © 2007-2011 Zespół WebIssues</p>

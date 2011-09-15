@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Dziennik zdarzeń</title>
+    <link rel="stylesheet" type="text/css" href="common/style.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.76.1" />
+    <link rel="home" href="index.html" title="Podręcznik WebIssues" />
+    <link rel="up" href="webissues.admin.html" title="Rozdział 5. Administrowanie systemem" />
+    <link rel="prev" href="webissues.admin.info.html" title="Informacje o serwerze" />
+    <link rel="next" href="webissues.admin.users.html" title="Zarządzanie użytkownikami" />
+  </head>
+  <body>
+    <div id="wrapper">
+      <div id="header">
+        <div id="header-top">
+          <div id="header-left">
+            <h1><img src="common/webissues.png" alt="WebIssues" id="logo" />Podręcznik WebIssues</h1>
+          </div>
+          <div id="header-right">
+            <h2 class="subtitle">Wersja 1.0-beta2</h2>
+          </div>
+        </div>
+        <div id="infobar">
+          <div id="infobar-left"><a accesskey="h" href="index.html">Spis treści</a> &raquo; <a accesskey="u" href="webissues.admin.html">Administrowanie systemem</a></div>
+          <div id="infobar-right"></div>
+        </div>
+      </div>
+      <div id="body">
+        <div class="navlinks">
+          <div class="navleft">&laquo; <a accesskey="p" href="webissues.admin.info.html">Informacje o serwerze</a></div>
+          <div class="navright"><a accesskey="n" href="webissues.admin.users.html">Zarządzanie użytkownikami</a> &raquo;</div>
+        </div>
+        <div class="sect1" title="Dziennik zdarzeń">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h2 class="title" style="clear: both"><a id="webissues.admin.log"></a>Dziennik zdarzeń</h2>
+              </div>
+            </div>
+          </div>
+          <p>Aby wyświetlić dziennik zdarzeń serwera WebIssues, przejdź do Panelu administracyjnego i kliknij <span class="guilabel">Dziennik zdarzeń</span>.</p>
+          <div class="figure">
+            <a id="id607061"></a>
+            <div class="figure-contents">
+              <div class="mediaobject">
+                <img src="images/ch05-fig03.png" alt="Dziennik zdarzeń" />
+              </div>
+            </div>
+            <div class="figure-title">Rysunek 5.3. Dziennik zdarzeń</div>
+          </div>
+          <p>Dziennik zdarzeń zawiera informacje o błędach, dostępie do systemu, ważnych operacjach administracyjnych oraz uruchomieniach zadań cyklicznych. Jest on niezależny od dzienników PHP, serwera WWW oraz systemu operacyjnego. Jego zadaniem jest uzupełnienie tych informacji, a nie ich zastąpienie. W szczególności, niektóre poważne błędy (na przykład brak dostępu do bazy danych) mogą nie być zapisane w dzienniku zdarzeń serwera WebIssues.</p>
+          <p>Zdarzenia w dzienniku zdarzeń dzielą się na cztery typy:</p>
+          <div class="variablelist">
+            <dl>
+              <dt>
+                <span class="term">Błędy</span>
+              </dt>
+              <dd>
+                <p>Błędy i ostrzeżenia w systemie WebIssues. Mogą one wynikać z niepoprawnych danych wejściowych, braku uprawnień do wykonania operacji, konfliktu między dokonywanymi równolegle zmianami lub błędnej konfiguracji systemu.</p>
+              </dd>
+              <dt>
+                <span class="term">Dostęp</span>
+              </dt>
+              <dd>
+                <p>Informacje o udanych i nieudanych próbach logowania użytkowników do systemu, a także błędy związane z odmową dostępu do określonych stron lub operacji.</p>
+              </dd>
+              <dt>
+                <span class="term">Audyt</span>
+              </dt>
+              <dd>
+                <p>Informacje o ważnych operacjach administracyjnych, takich jak: tworzenie i zmiana hasła lub uprawnień użytkowników oraz tworzenie, usuwanie i modyfikacja typów spraw, atrybutów, projektów i folderów oraz usuwanie spraw.</p>
+              </dd>
+              <dt>
+                <span class="term">Zadania</span>
+              </dt>
+              <dd>
+                <p>Informacje o uruchomieniu zadań cyklicznych. Więcej informacji na ten temat znajdziesz w sekcji <a class="xref" href="webissues.prep.notifications.html#webissues.prep.nofitications.cron" title="Zadania cykliczne">„Zadania cykliczne”</a>.</p>
+              </dd>
+            </dl>
+          </div>
+          <p>Zdarzenia mają również trzy różne poziomy: informacja, ostrzeżenie i błąd. Są one oznaczane różnymi ikonami.</p>
+          <p>Domyślnie dziennik wyświetla wszystkie zdarzenia, posortowane od najnowszych do najstarszych. Jeśli interesuje cię tylko określony typ zdarzeń, kliknij na jednej z opcji w prawym górnym rogu okna, aby włączyć filtrowanie.</p>
+          <p>Kliknij na zdarzeniu, aby wyświetlić szczegółowe informacje na jego temat. Oprócz typu, poziomu i pełnego komunikatu, wyświetlana jest również nazwa użytkownika, który wykonał daną operację oraz nazwa hosta lub adres IP komputera, z którego zostało dokonane połączenie.</p>
+          <div class="note" title="Notatka" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <h3 class="title">Notatka</h3>
+            <p>Choć szczegółowe informacje o błędach są zapisywane w dzienniku zdarzeń, to ze względów bezpieczeństwa nie są one wyświetlane na stronach błędów. Istnieje jednak możliwość włączenia szczegółowych komunikatów o błędach dla celów deweloperskich lub podczas rozwiązywania problemów. Istnieje również możliwość włączenia dodatkowego logu tekstowego, ułatwiającego debugowanie programu. Nie włączaj tych ustawień w środowisku produkcyjnym. Więcej informacji na ten temat znajdziesz na stronie <a class="ulink" href="http://wiki.mimec.org/wiki/WebIssues/Configuration" target="_top">http://wiki.mimec.org/wiki/WebIssues/Configuration</a>.</p>
+          </div>
+          <p>Zdarzenia są automatycznie usuwane z dziennika po upłynięciu określonego czasu. Więcej informacji na temat konfigurowania tego okresu znajdziesz w sekcji <a class="xref" href="webissues.custom.settings.html" title="Ustawienia zaawansowane">„Ustawienia zaawansowane”</a>.</p>
+        </div>
+        <div class="navlinks">
+          <div class="navleft">&laquo; <a accesskey="p" href="webissues.admin.info.html">Informacje o serwerze</a></div>
+          <div class="navright"><a accesskey="n" href="webissues.admin.users.html">Zarządzanie użytkownikami</a> &raquo;</div>
+        </div>
+        <div id="footer">
+          <p class="copyright">Copyright © 2007-2011 Zespół WebIssues</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
