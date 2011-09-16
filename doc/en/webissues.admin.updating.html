@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Updating the system</title>
+    <link rel="stylesheet" type="text/css" href="common/style.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.76.1" />
+    <link rel="home" href="index.html" title="WebIssues Manual" />
+    <link rel="up" href="webissues.admin.html" title="Chapter 5. System administration" />
+    <link rel="prev" href="webissues.admin.projects.html" title="Managing projects" />
+    <link rel="next" href="webissues.custom.html" title="Chapter 6. Customizing the system" />
+  </head>
+  <body>
+    <div id="wrapper">
+      <div id="header">
+        <div id="header-top">
+          <div id="header-left">
+            <h1><img src="common/webissues.png" alt="WebIssues" id="logo" />WebIssues Manual</h1>
+          </div>
+          <div id="header-right">
+            <h2 class="subtitle">Version 1.0-beta2</h2>
+          </div>
+        </div>
+        <div id="infobar">
+          <div id="infobar-left"><a accesskey="h" href="index.html">Home</a> &raquo; <a accesskey="u" href="webissues.admin.html">System administration</a></div>
+          <div id="infobar-right"></div>
+        </div>
+      </div>
+      <div id="body">
+        <div class="navlinks">
+          <div class="navleft">&laquo; <a accesskey="p" href="webissues.admin.projects.html">Managing projects</a></div>
+          <div class="navright"><a accesskey="n" href="webissues.custom.html">Customizing the system</a> &raquo;</div>
+        </div>
+        <div class="sect1" title="Updating the system">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h2 class="title" style="clear: both"><a id="webissues.admin.updating"></a>Updating the system</h2>
+              </div>
+            </div>
+          </div>
+          <p>One of the maintenance tasks is updating the WebIssues system to a new version. New versions solve problems and add new features, so it is recommended to periodically update the software.</p>
+          <p>Before the upgrade, it is recommended to back up the database and WebIssues system files, and also disable the web server to prevent the use of the system during the upgrade.</p>
+          <div class="note" title="Note" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <h3 class="title">Note</h3>
+            <p>If you cannot disable the server or block access to it, you can also temporarily rename the <code class="literal">config.inc.php</code> configuration file, which by default is located in the <code class="literal">data/sites/default</code> subdirectory. You may even completely remove the file, and then recreate it using the installer, because at the time of installation the existing database will be preserved and if necessary updated to the new version.</p>
+          </div>
+          <p>First, delete all files and subdirectories from the directory where you installed the WebIssues server, remembering to keep the <code class="literal">date</code> subdirectory, which stores all files related to the particular installation, for example, configuration files and attachments of issues. If you created your own <code class="literal">.htaccess</code> or <code class="literal">web.config</code> file (in case of IIS), then also make a copy of it to be able to restore it later.</p>
+          <p>Download and unpack the new WebIssues server package — it contains a directory named <code class="literal">webissues-x.y</code> (where <code class="literal">x.y</code> is the version of the package). Then move all files and subdirectories from that directory to the directory where the WebIssues server was previously installed.</p>
+          <p>After copying the files, enable the web server and open the main page of the WebIssues system in the browser. If there is a need to update the database, then follow the instructions. Otherwise, the system is ready to work.</p>
+          <p>It is also recommended to update the Desktop Client to a newer version on the computers of people who use it. Generally, however, the Desktop Client can communicate with both older and newer version of the server, provided that the first digit of the version number is the same. Therefore, client version 0.9.x will not work with the 1.0 system, and client version 1.0 will not work with the 0.8.x system, but both versions can be installed side by side on a single computer.</p>
+          <div class="note" title="Note" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <h3 class="title">Note</h3>
+            <p>Versions marked as <code class="literal">alpha</code> or <code class="literal">beta</code> are the so-called developer versions. They allow for testing new features before the official version is released, but it is not recommended to use them for production purposes. Development versions of the system can only be used with the same version of the Desktop Client. Additionally in case of an <code class="literal">alpha</code> version it is not possible to update the database to a newer version.</p>
+          </div>
+          <p>Although a direct upgrade from version 0.8.5 of the server is not possible, existing data can be imported from version 0.8.5 of the WebIssues server when installing a new version of the system. More information can be found in <a class="xref" href="webissues.prep.installation.html" title="Installation">the section called “Installation”</a>.</p>
+        </div>
+        <div class="navlinks">
+          <div class="navleft">&laquo; <a accesskey="p" href="webissues.admin.projects.html">Managing projects</a></div>
+          <div class="navright"><a accesskey="n" href="webissues.custom.html">Customizing the system</a> &raquo;</div>
+        </div>
+        <div id="footer">
+          <p class="copyright">Copyright © 2007-2011 WebIssues Team</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

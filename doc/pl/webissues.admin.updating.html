@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Aktualizacja systemu</title>
+    <link rel="stylesheet" type="text/css" href="common/style.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.76.1" />
+    <link rel="home" href="index.html" title="Podręcznik WebIssues" />
+    <link rel="up" href="webissues.admin.html" title="Rozdział 5. Administrowanie systemem" />
+    <link rel="prev" href="webissues.admin.projects.html" title="Zarządzanie projektami" />
+    <link rel="next" href="webissues.custom.html" title="Rozdział 6. Dostosowywanie systemu" />
+  </head>
+  <body>
+    <div id="wrapper">
+      <div id="header">
+        <div id="header-top">
+          <div id="header-left">
+            <h1><img src="common/webissues.png" alt="WebIssues" id="logo" />Podręcznik WebIssues</h1>
+          </div>
+          <div id="header-right">
+            <h2 class="subtitle">Wersja 1.0-beta2</h2>
+          </div>
+        </div>
+        <div id="infobar">
+          <div id="infobar-left"><a accesskey="h" href="index.html">Spis treści</a> &raquo; <a accesskey="u" href="webissues.admin.html">Administrowanie systemem</a></div>
+          <div id="infobar-right"></div>
+        </div>
+      </div>
+      <div id="body">
+        <div class="navlinks">
+          <div class="navleft">&laquo; <a accesskey="p" href="webissues.admin.projects.html">Zarządzanie projektami</a></div>
+          <div class="navright"><a accesskey="n" href="webissues.custom.html">Dostosowywanie systemu</a> &raquo;</div>
+        </div>
+        <div class="sect1" title="Aktualizacja systemu">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h2 class="title" style="clear: both"><a id="webissues.admin.updating"></a>Aktualizacja systemu</h2>
+              </div>
+            </div>
+          </div>
+          <p>Jedną z czynności konserwacyjnych jest aktualizacja systemu WebIssues do nowej wersji. Nowe wersje rozwiązują problemy i dodają nowe funkcje, więc zalecana jest okresowa aktualizacja oprogramowania.</p>
+          <p>Przed rozpoczęciem aktualizacji, zaleca się utworzyć kopię zapasową bazy danych i plików systemu WebIssues, a także wyłączyć serwer WWW, aby zapobiec korzystaniu z systemu w trakcie aktualizacji.</p>
+          <div class="note" title="Notatka" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <h3 class="title">Notatka</h3>
+            <p>Jeśli nie możesz wyłączyć serwera ani zablokować dostępu do niego, to możesz również tymczasowo zmienić nazwę pliku konfiguracyjnego <code class="literal">config.inc.php</code>, który domyślnie znajduje się w podkatalogu <code class="literal">data/sites/default</code>. Możesz nawet całkowicie usunąć ten plik, a potem odtworzyć go za pomocą instalatora, gdyż w momencie instalacji istniejąca baza danych zostanie zachowana i w razie potrzeby zaktualizowana do nowej wersji.</p>
+          </div>
+          <p>Najpierw usuń wszystkie pliki i podkatalogi z katalogu, w którym został zainstalowany serwer WebIssues, pamiętając o pozostawieniu podkatalogu <code class="literal">data</code>, który przechowuje pliki związane z daną instalacją, na przykład pliki konfiguracyjne i załączniki spraw. Jeśli utworzyłeś własny plik <code class="literal">.htaccess</code> lub <code class="literal">web.config</code> (w przypadku serwera IIS), to również zachowaj jego kopię, aby móc go później przywrócić.</p>
+          <p>Ściągnij i rozpakuj nowy pakiet serwera WebIssues — zawiera on katalog o nazwie <code class="literal">webissues-x.y</code> (gdzie <code class="literal">x.y</code> to wersja pakietu). Następnie przenieś wszystkie pliki i podkatalogi z tego katalogu do katalogu, w którym był wcześniej zainstalowany serwer WebIssues.</p>
+          <p>Po zakończeniu kopiowania plików włącz serwer WWW i otwórz główną stronę systemu WebIssues w przeglądarce. Jeśli istnieje konieczność aktualizacji bazy danych, to postępuj zgodnie z wyświetlonymi instrukcjami. W przeciwnym wypadku system jest gotowy do pracy.</p>
+          <p>Zaleca się również aktualizować program Desktop Client do nowszej wersji na komputerach osób, które z niego korzystają. Generalnie jednak program Desktop Client może się komunikować zarówno ze starszą, jak i nowszą wersją serwera, pod warunkiem że pierwsza cyfra numeru wersji jest zgodna. Klient w wersji 0.9.x nie będzie zatem działał z systemem 1.0, a klient 1.0 z systemem 0.8.x, ale można te wersje zainstalować równolegle na jednym komputerze.</p>
+          <div class="note" title="Notatka" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <h3 class="title">Notatka</h3>
+            <p>Wersje systemu oznaczone jako <code class="literal">alpha</code> lub <code class="literal">beta</code> to tak zwane wersje deweloperskie. Umożliwiają one testowanie nowych funkcji przed wydaniem oficjalnej wersji, jednak nie zaleca się ich używać do celów produkcyjnych. Wersja deweloperska systemu może być używana tylko z tą samą wersją programu Desktop Client. Dodatkowo w przypadku wersji <code class="literal">alpha</code> nie ma możliwości aktualizacji bazy danych do nowszej wersji.</p>
+          </div>
+          <p>Bezpośrednia aktualizacja z wersji 0.8.5 serwera nie jest możliwa, jednak istnieje możliwość zaimportowania instniejących danych z serwera WebIssues w wersji 0.8.5 podczas instalacji nowej wersji systemu. Więcej informacji na ten temat znajdziesz w sekcji <a class="xref" href="webissues.prep.installation.html" title="Instalacja">„Instalacja”</a>.</p>
+        </div>
+        <div class="navlinks">
+          <div class="navleft">&laquo; <a accesskey="p" href="webissues.admin.projects.html">Zarządzanie projektami</a></div>
+          <div class="navright"><a accesskey="n" href="webissues.custom.html">Dostosowywanie systemu</a> &raquo;</div>
+        </div>
+        <div id="footer">
+          <p class="copyright">Copyright © 2007-2011 Zespół WebIssues</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
