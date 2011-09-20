@@ -4,7 +4,7 @@
 <context>
     <name>AboutBox</name>
     <message>
-        <location filename="../src/dialogs/aboutbox.cpp" line="79"/>
+        <location filename="../src/dialogs/aboutbox.cpp" line="86"/>
         <source>&amp;OK</source>
         <translation>&amp;OK</translation>
     </message>
@@ -12,7 +12,7 @@
 <context>
     <name>AboutBoxToolSection</name>
     <message>
-        <location filename="../src/dialogs/aboutbox.cpp" line="181"/>
+        <location filename="../src/dialogs/aboutbox.cpp" line="188"/>
         <source>Close</source>
         <translation>Zamknij</translation>
     </message>
@@ -83,47 +83,47 @@
 <context>
     <name>AddAttachmentDialog</name>
     <message>
-        <location filename="../src/dialogs/issuedialogs.cpp" line="416"/>
+        <location filename="../src/dialogs/issuedialogs.cpp" line="443"/>
         <source>Add Attachment</source>
         <translation>Dodaj załącznik</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/issuedialogs.cpp" line="417"/>
+        <location filename="../src/dialogs/issuedialogs.cpp" line="444"/>
         <source>Add an attachment to issue &lt;b&gt;%1&lt;/b&gt;:</source>
         <translation>Dodaj załącznik do sprawy &lt;b&gt;%1&lt;/b&gt;:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/issuedialogs.cpp" line="422"/>
+        <location filename="../src/dialogs/issuedialogs.cpp" line="449"/>
         <source>&amp;File name:</source>
         <translation>&amp;Nazwa pliku:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/issuedialogs.cpp" line="433"/>
+        <location filename="../src/dialogs/issuedialogs.cpp" line="460"/>
         <source>&amp;Description:</source>
         <translation>O&amp;pis:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/issuedialogs.cpp" line="449"/>
+        <location filename="../src/dialogs/issuedialogs.cpp" line="476"/>
         <source>Size: %1</source>
         <translation>Rozmiar: %1</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/issuedialogs.cpp" line="483"/>
+        <location filename="../src/dialogs/issuedialogs.cpp" line="510"/>
         <source>Uploaded: %1 of %2</source>
         <translation>Przesłano: %1 z %2</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/issuedialogs.cpp" line="491"/>
+        <location filename="../src/dialogs/issuedialogs.cpp" line="518"/>
         <source>File could not be read.</source>
         <translation>Nie można odczytać pliku.</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/issuedialogs.cpp" line="410"/>
+        <location filename="../src/dialogs/issuedialogs.cpp" line="437"/>
         <source>Warning</source>
         <translation>Ostrzeżenie</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/issuedialogs.cpp" line="411"/>
+        <location filename="../src/dialogs/issuedialogs.cpp" line="438"/>
         <source>The name of the selected file is longer than %1 characters and will be truncated.</source>
         <translation>Nazwa wybranego pliku jest dłuższa niż %1 znaków i zostanie skrócona.</translation>
     </message>
@@ -131,12 +131,12 @@
 <context>
     <name>AddAttributeDialog</name>
     <message>
-        <location filename="../src/dialogs/typedialogs.cpp" line="379"/>
+        <location filename="../src/dialogs/typedialogs.cpp" line="389"/>
         <source>Add Attribute</source>
         <translation>Dodaj atrybut</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/typedialogs.cpp" line="380"/>
+        <location filename="../src/dialogs/typedialogs.cpp" line="390"/>
         <source>Create a new attribute in type &lt;b&gt;%1&lt;/b&gt;:</source>
         <translation>Utwórz nowy atrybut dla typu &lt;b&gt;%1&lt;/b&gt;:</translation>
     </message>
@@ -172,12 +172,12 @@
 <context>
     <name>AddIssueDialog</name>
     <message>
-        <location filename="../src/dialogs/issuedialogs.cpp" line="167"/>
+        <location filename="../src/dialogs/issuedialogs.cpp" line="192"/>
         <source>Add Issue</source>
         <translation>Dodaj sprawę</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/issuedialogs.cpp" line="168"/>
+        <location filename="../src/dialogs/issuedialogs.cpp" line="193"/>
         <source>Create a new issue in folder &lt;b&gt;%1&lt;/b&gt;:</source>
         <translation>Utwórz nową sprawę w folderze &lt;b&gt;%1&lt;/b&gt;:</translation>
     </message>
@@ -195,32 +195,32 @@
         <translation>Dodaj nowych członków do projektu &lt;b&gt;%1&lt;/b&gt;:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/userdialogs.cpp" line="369"/>
+        <location filename="../src/dialogs/userdialogs.cpp" line="367"/>
         <source>There are no more available users to add.</source>
         <translation>Nie ma więcej dostępnych użytkowników.</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/userdialogs.cpp" line="377"/>
+        <location filename="../src/dialogs/userdialogs.cpp" line="375"/>
         <source>&amp;Users:</source>
         <translation>&amp;Użytkownicy:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/userdialogs.cpp" line="392"/>
+        <location filename="../src/dialogs/userdialogs.cpp" line="390"/>
         <source>Access:</source>
         <translation>Dostęp:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/userdialogs.cpp" line="400"/>
+        <location filename="../src/dialogs/userdialogs.cpp" line="398"/>
         <source>&amp;Regular member</source>
         <translation>&amp;Zwykły członek</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/userdialogs.cpp" line="404"/>
+        <location filename="../src/dialogs/userdialogs.cpp" line="402"/>
         <source>&amp;Project administrator</source>
         <translation>&amp;Administrator projektu</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/userdialogs.cpp" line="433"/>
+        <location filename="../src/dialogs/userdialogs.cpp" line="431"/>
         <source>No user selected.</source>
         <translation>Nie wybrano użytkownika.</translation>
     </message>
@@ -302,22 +302,22 @@
 <context>
     <name>AddViewDialog</name>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="688"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="696"/>
         <source>Add Public View</source>
         <translation>Dodaj publiczny widok</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="689"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="697"/>
         <source>Create a new public view for type &lt;b&gt;%1&lt;/b&gt;:</source>
         <translation>Utwórz nowy publiczny widok dla typu &lt;b&gt;%1&lt;/b&gt;:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="691"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="699"/>
         <source>Add Personal View</source>
         <translation>Dodaj prywatny widok</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="692"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="700"/>
         <source>Create a new personal view for type &lt;b&gt;%1&lt;/b&gt;:</source>
         <translation>Utwórz nowy prywatny widok dla typu &lt;b&gt;%1&lt;/b&gt;:</translation>
     </message>
@@ -325,52 +325,52 @@
 <context>
     <name>AlertsModel</name>
     <message>
-        <location filename="../src/models/alertsmodel.cpp" line="42"/>
+        <location filename="../src/models/alertsmodel.cpp" line="43"/>
         <source>Name</source>
         <translation>Nazwa</translation>
     </message>
     <message>
-        <location filename="../src/models/alertsmodel.cpp" line="43"/>
+        <location filename="../src/models/alertsmodel.cpp" line="44"/>
         <source>Total</source>
         <translation>Łącznie</translation>
     </message>
     <message>
-        <location filename="../src/models/alertsmodel.cpp" line="44"/>
+        <location filename="../src/models/alertsmodel.cpp" line="45"/>
         <source>Unread</source>
         <translation>Nieprzeczytane</translation>
     </message>
     <message>
-        <location filename="../src/models/alertsmodel.cpp" line="45"/>
+        <location filename="../src/models/alertsmodel.cpp" line="46"/>
         <source>Modified</source>
         <translation>Zmienione</translation>
     </message>
     <message>
-        <location filename="../src/models/alertsmodel.cpp" line="47"/>
+        <location filename="../src/models/alertsmodel.cpp" line="48"/>
         <source>Email Type</source>
         <translation>Typ e-maili</translation>
     </message>
     <message>
-        <location filename="../src/models/alertsmodel.cpp" line="66"/>
+        <location filename="../src/models/alertsmodel.cpp" line="67"/>
         <source>All Issues</source>
         <translation>Wszystkie sprawy</translation>
     </message>
     <message>
-        <location filename="../src/models/alertsmodel.cpp" line="72"/>
+        <location filename="../src/models/alertsmodel.cpp" line="73"/>
         <source>Immediate notifications</source>
         <translation>Natychmiastowe powiadomienia</translation>
     </message>
     <message>
-        <location filename="../src/models/alertsmodel.cpp" line="74"/>
+        <location filename="../src/models/alertsmodel.cpp" line="75"/>
         <source>Summary of notifications</source>
         <translation>Podsumowanie powiadomień</translation>
     </message>
     <message>
-        <location filename="../src/models/alertsmodel.cpp" line="76"/>
+        <location filename="../src/models/alertsmodel.cpp" line="77"/>
         <source>Summary reports</source>
         <translation>Raporty podsumowujące</translation>
     </message>
     <message>
-        <location filename="../src/models/alertsmodel.cpp" line="77"/>
+        <location filename="../src/models/alertsmodel.cpp" line="78"/>
         <source>None</source>
         <translation>Brak</translation>
     </message>
@@ -378,123 +378,123 @@
 <context>
     <name>Application</name>
     <message utf8="true">
-        <location filename="../src/application.cpp" line="201"/>
+        <location filename="../src/application.cpp" line="203"/>
         <source>Copyright (C) 2006 Michał Męciński</source>
         <translation>Copyright (C) 2006 Michał Męciński</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="196"/>
+        <location filename="../src/application.cpp" line="198"/>
         <source>Desktop Client for the WebIssues team collaboration system.</source>
         <translation>Klient natywny dla systemu WebIssues wspomagającego pracę zespołową.</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="195"/>
+        <location filename="../src/application.cpp" line="197"/>
         <source>WebIssues Desktop Client %1</source>
         <translation>WebIssues Desktop Client %1</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="197"/>
+        <location filename="../src/application.cpp" line="199"/>
         <source>This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.</source>
         <translation>Ten program stanowi wolne oprogramowanie: możesz je rozpowszechniać i/lub modyfikować na warunkach GNU Powszechnej Licencji Publicznej opublikowanej przez Free Software Foundation, według wersji 3 Licencji lub (według uznania) jakiejkolwiek wersji późniejszej.</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="206"/>
+        <location filename="../src/application.cpp" line="208"/>
         <source>Help</source>
         <translation>Pomoc</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="207"/>
+        <location filename="../src/application.cpp" line="209"/>
         <source>Open the WebIssues Manual for help.</source>
         <translation>Otwórz Podręcznik WebIssues aby uzyskać pomoc.</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="210"/>
+        <location filename="../src/application.cpp" line="212"/>
         <source>Web Page</source>
         <translation>Strona internetowa</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="211"/>
+        <location filename="../src/application.cpp" line="213"/>
         <source>Visit %1 for more information about WebIssues.</source>
         <translation>Odwiedź %1 aby uzyskać więcej informacji o programie WebIssues.</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="214"/>
+        <location filename="../src/application.cpp" line="216"/>
         <source>Donations</source>
         <translation>Dotacje</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="215"/>
+        <location filename="../src/application.cpp" line="217"/>
         <source>If you like this program, your donation will help us dedicate more time for it, support it and implement new features.</source>
         <translation>Jeśli lubisz ten program, twoja dotacja pomoże nam poświęcić mu więcej czasu, wsiperać go i implementować nowe funkcje.</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="218"/>
-        <location filename="../src/application.cpp" line="260"/>
+        <location filename="../src/application.cpp" line="220"/>
+        <location filename="../src/application.cpp" line="262"/>
         <source>Latest Version</source>
         <translation>Najnowsza wersja</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="219"/>
+        <location filename="../src/application.cpp" line="221"/>
         <source>Automatic checking for latest version is disabled. You can enable it in program settings.</source>
         <translation>Automatyczne sprawdzanie najnowszej wersji jest wyłączone. Możesz je włączyć w ustawieniach programu.</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="225"/>
+        <location filename="../src/application.cpp" line="227"/>
         <source>&amp;Manual</source>
         <translation>&amp;Podręcznik</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="232"/>
+        <location filename="../src/application.cpp" line="234"/>
         <source>&amp;Donate</source>
         <translation>&amp;Dotacja</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="242"/>
+        <location filename="../src/application.cpp" line="244"/>
         <source>&amp;Check Now</source>
         <translation>&amp;Sprawdź teraz</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="265"/>
+        <location filename="../src/application.cpp" line="267"/>
         <source>Checking for latest version...</source>
         <translation>Sprawdzanie najnowszej wersji...</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="271"/>
+        <location filename="../src/application.cpp" line="273"/>
         <source>Checking for latest version failed.</source>
         <translation>prawdzanie najnowszej wersji nie powiodło się.</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="273"/>
+        <location filename="../src/application.cpp" line="275"/>
         <source>&amp;Retry</source>
         <translation>Po&amp;nów</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="280"/>
+        <location filename="../src/application.cpp" line="282"/>
         <source>Your version of WebIssues Desktop Client is up to date.</source>
         <translation>Twoja wersja programu WebIssues Desktop Client jest aktualna.</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="286"/>
+        <location filename="../src/application.cpp" line="288"/>
         <source>The latest version of WebIssues Desktop Client is %1.</source>
         <translation>Najnowsza wersja programu WebIssues Desktop Client to %1.</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="288"/>
+        <location filename="../src/application.cpp" line="290"/>
         <source>&amp;Release Notes</source>
         <translation>I&amp;nformacje</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="291"/>
+        <location filename="../src/application.cpp" line="293"/>
         <source>Do&amp;wnload</source>
         <translation>Po&amp;bierz</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="201"/>
+        <location filename="../src/application.cpp" line="203"/>
         <source>Copyright (C) 2007-2011 WebIssues Team</source>
         <translation>Copyright (C) 2007-2011 Zespół WebIssues</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="221"/>
+        <location filename="../src/application.cpp" line="223"/>
         <source>About WebIssues</source>
         <translation>O programie WebIssues</translation>
     </message>
@@ -576,13 +576,13 @@
     </message>
     <message>
         <location filename="../src/utils/attributehelper.cpp" line="164"/>
-        <location filename="../src/utils/attributehelper.cpp" line="188"/>
+        <location filename="../src/utils/attributehelper.cpp" line="190"/>
         <source>Min. length: %1</source>
         <translation>Min. długość: %1</translation>
     </message>
     <message>
         <location filename="../src/utils/attributehelper.cpp" line="168"/>
-        <location filename="../src/utils/attributehelper.cpp" line="192"/>
+        <location filename="../src/utils/attributehelper.cpp" line="194"/>
         <source>Max. length: %1</source>
         <translation>Maks. długość: %1</translation>
     </message>
@@ -593,41 +593,47 @@
     </message>
     <message>
         <location filename="../src/utils/attributehelper.cpp" line="183"/>
+        <location filename="../src/utils/attributehelper.cpp" line="250"/>
+        <source>Multiple selection</source>
+        <translation>Wielokrotny wybór</translation>
+    </message>
+    <message>
+        <location filename="../src/utils/attributehelper.cpp" line="186"/>
         <source>Items: %1</source>
         <translation>Elementy: %1</translation>
     </message>
     <message>
-        <location filename="../src/utils/attributehelper.cpp" line="204"/>
+        <location filename="../src/utils/attributehelper.cpp" line="205"/>
         <source>Decimal places: %1</source>
         <translation>Miejsca dziesiętne: %1</translation>
     </message>
     <message>
-        <location filename="../src/utils/attributehelper.cpp" line="212"/>
+        <location filename="../src/utils/attributehelper.cpp" line="213"/>
         <source>Min. value: %1</source>
         <translation>Min. wartość: %1</translation>
     </message>
     <message>
-        <location filename="../src/utils/attributehelper.cpp" line="216"/>
+        <location filename="../src/utils/attributehelper.cpp" line="217"/>
         <source>Max. value: %1</source>
         <translation>Maks. wartość: %1</translation>
     </message>
     <message>
-        <location filename="../src/utils/attributehelper.cpp" line="219"/>
+        <location filename="../src/utils/attributehelper.cpp" line="220"/>
         <source>Strip zeros</source>
         <translation>Usuń zera</translation>
     </message>
     <message>
-        <location filename="../src/utils/attributehelper.cpp" line="230"/>
+        <location filename="../src/utils/attributehelper.cpp" line="231"/>
         <source>With time</source>
         <translation>Z czasem</translation>
     </message>
     <message>
-        <location filename="../src/utils/attributehelper.cpp" line="234"/>
+        <location filename="../src/utils/attributehelper.cpp" line="235"/>
         <source>Local time zone</source>
         <translation>Czas lokalny</translation>
     </message>
     <message>
-        <location filename="../src/utils/attributehelper.cpp" line="245"/>
+        <location filename="../src/utils/attributehelper.cpp" line="246"/>
         <source>Members only</source>
         <translation>Tylko członkowie</translation>
     </message>
@@ -635,27 +641,27 @@
 <context>
     <name>AttributeOrderDialog</name>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="929"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="937"/>
         <source>Order of Attributes</source>
         <translation>Kolejność atrybutów</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="930"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="938"/>
         <source>Modify order of attributes for type &lt;b&gt;%1&lt;/b&gt;:</source>
         <translation>Zmień kolejność atrybutów dla typu &lt;b&gt;%1&lt;/b&gt;:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="946"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="954"/>
         <source>Name</source>
         <translation>Nazwa</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="947"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="955"/>
         <source>Order</source>
         <translation>Kolejność</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="977"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="985"/>
         <source>Edit view settings.</source>
         <translation>Edytuj ustawienia widoków.</translation>
     </message>
@@ -663,32 +669,32 @@
 <context>
     <name>ChangeMemberAccessDialog</name>
     <message>
-        <location filename="../src/dialogs/userdialogs.cpp" line="454"/>
+        <location filename="../src/dialogs/userdialogs.cpp" line="452"/>
         <source>Change Access</source>
         <translation>Zmień dostęp</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/userdialogs.cpp" line="456"/>
+        <location filename="../src/dialogs/userdialogs.cpp" line="454"/>
         <source>Set new access level to project &lt;b&gt;%1&lt;/b&gt; for user &lt;b&gt;%2&lt;/b&gt;:</source>
         <translation>Zmień poziom dostępu do projektu &lt;b&gt;%1&lt;/b&gt; dla użytkownika &lt;b&gt;%2&lt;/b&gt;:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/userdialogs.cpp" line="458"/>
+        <location filename="../src/dialogs/userdialogs.cpp" line="456"/>
         <source>Set new access level to project &lt;b&gt;%1&lt;/b&gt; for %2 selected users:</source>
         <translation>Zmień poziom dostępu do projektu &lt;b&gt;%1&lt;/b&gt; dla %2 wybranych użytkowników:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/userdialogs.cpp" line="463"/>
+        <location filename="../src/dialogs/userdialogs.cpp" line="461"/>
         <source>Access:</source>
         <translation>Dostęp:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/userdialogs.cpp" line="471"/>
+        <location filename="../src/dialogs/userdialogs.cpp" line="469"/>
         <source>&amp;Regular member</source>
         <translation>&amp;Zwykły członek</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/userdialogs.cpp" line="475"/>
+        <location filename="../src/dialogs/userdialogs.cpp" line="473"/>
         <source>&amp;Project administrator</source>
         <translation>&amp;Administrator projektu</translation>
     </message>
@@ -1096,10 +1102,10 @@ jeśli go zamkniesz. Czy na pewno chcesz kontynuować?</translation>
 <context>
     <name>DateTimeLineEdit</name>
     <message>
-        <location filename="../src/widgets/inputlineedit.cpp" line="518"/>
-        <location filename="../src/widgets/inputlineedit.cpp" line="528"/>
-        <location filename="../src/widgets/inputlineedit.cpp" line="543"/>
-        <location filename="../src/widgets/inputlineedit.cpp" line="596"/>
+        <location filename="../src/widgets/inputlineedit.cpp" line="562"/>
+        <location filename="../src/widgets/inputlineedit.cpp" line="572"/>
+        <location filename="../src/widgets/inputlineedit.cpp" line="587"/>
+        <location filename="../src/widgets/inputlineedit.cpp" line="640"/>
         <source>Today</source>
         <translation>Dzisiaj</translation>
     </message>
@@ -1107,17 +1113,17 @@ jeśli go zamkniesz. Czy na pewno chcesz kontynuować?</translation>
 <context>
     <name>DateTimeMetadataEditor</name>
     <message>
-        <location filename="../src/widgets/metadataeditors.cpp" line="297"/>
+        <location filename="../src/widgets/metadataeditors.cpp" line="295"/>
         <source>&amp;Date only</source>
         <translation>&amp;Tylko data</translation>
     </message>
     <message>
-        <location filename="../src/widgets/metadataeditors.cpp" line="299"/>
+        <location filename="../src/widgets/metadataeditors.cpp" line="297"/>
         <source>Date and &amp;time without time zone conversion</source>
         <translation>Data i &amp;czas bez konwersji strefy czasowej</translation>
     </message>
     <message>
-        <location filename="../src/widgets/metadataeditors.cpp" line="301"/>
+        <location filename="../src/widgets/metadataeditors.cpp" line="299"/>
         <source>Date and time &amp;using local time zone</source>
         <translation>Data i czas w lo&amp;kalnej strefie czasowej</translation>
     </message>
@@ -1125,12 +1131,12 @@ jeśli go zamkniesz. Czy na pewno chcesz kontynuować?</translation>
 <context>
     <name>DefaultViewDialog</name>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="771"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="779"/>
         <source>Default View</source>
         <translation>Domyślny widok</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="772"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="780"/>
         <source>Modify the default view for type &lt;b&gt;%1&lt;/b&gt;:</source>
         <translation>Zmień domyślny widok dla typu &lt;b&gt;%1&lt;/b&gt;:</translation>
     </message>
@@ -1156,12 +1162,12 @@ jeśli go zamkniesz. Czy na pewno chcesz kontynuować?</translation>
 <context>
     <name>DeleteAttachmentDialog</name>
     <message>
-        <location filename="../src/dialogs/issuedialogs.cpp" line="659"/>
+        <location filename="../src/dialogs/issuedialogs.cpp" line="686"/>
         <source>Delete Attachment</source>
         <translation>Usuń załącznik</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/issuedialogs.cpp" line="660"/>
+        <location filename="../src/dialogs/issuedialogs.cpp" line="687"/>
         <source>Are you sure you want to delete attachment &lt;b&gt;%1&lt;/b&gt;?</source>
         <translation>Czy na pewno chcesz usunąć załącznik &lt;b&gt;%1&lt;/b&gt;?</translation>
     </message>
@@ -1169,22 +1175,22 @@ jeśli go zamkniesz. Czy na pewno chcesz kontynuować?</translation>
 <context>
     <name>DeleteAttributeDialog</name>
     <message>
-        <location filename="../src/dialogs/typedialogs.cpp" line="508"/>
+        <location filename="../src/dialogs/typedialogs.cpp" line="518"/>
         <source>Delete Attribute</source>
         <translation>Usuń atrybut</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/typedialogs.cpp" line="509"/>
+        <location filename="../src/dialogs/typedialogs.cpp" line="519"/>
         <source>Are you sure you want to delete attribute &lt;b&gt;%1&lt;/b&gt;?</source>
         <translation>Czy na pewno chcesz usunąć atrybut &lt;b&gt;%1&lt;/b&gt;?</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/typedialogs.cpp" line="513"/>
+        <location filename="../src/dialogs/typedialogs.cpp" line="523"/>
         <source>All current values of this attribute will be deleted.</source>
         <translation>Wszystkie aktualne wartości tego atrybutu zostaną usunięte.</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/typedialogs.cpp" line="535"/>
+        <location filename="../src/dialogs/typedialogs.cpp" line="545"/>
         <source>All folders and issues of this type will be permanently deleted.</source>
         <translation>Wszystkie foldery i sprawy tego typu zostaną trwale usunięte.</translation>
     </message>
@@ -1192,12 +1198,12 @@ jeśli go zamkniesz. Czy na pewno chcesz kontynuować?</translation>
 <context>
     <name>DeleteCommentDialog</name>
     <message>
-        <location filename="../src/dialogs/issuedialogs.cpp" line="371"/>
+        <location filename="../src/dialogs/issuedialogs.cpp" line="398"/>
         <source>Delete Comment</source>
         <translation>Usuń komentarz</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/issuedialogs.cpp" line="372"/>
+        <location filename="../src/dialogs/issuedialogs.cpp" line="399"/>
         <source>Are you sure you want to delete comment &lt;b&gt;%1&lt;/b&gt;?</source>
         <translation>Czy na pewno chcesz usunąć komentarz &lt;b&gt;%1&lt;/b&gt;?</translation>
     </message>
@@ -1224,17 +1230,17 @@ jeśli go zamkniesz. Czy na pewno chcesz kontynuować?</translation>
 <context>
     <name>DeleteIssueDialog</name>
     <message>
-        <location filename="../src/dialogs/issuedialogs.cpp" line="345"/>
+        <location filename="../src/dialogs/issuedialogs.cpp" line="372"/>
         <source>Delete Issue</source>
         <translation>Usuń sprawę</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/issuedialogs.cpp" line="346"/>
+        <location filename="../src/dialogs/issuedialogs.cpp" line="373"/>
         <source>Are you sure you want to delete issue &lt;b&gt;%1&lt;/b&gt;?</source>
         <translation>Czy na pewno chcesz usunąć sprawę &lt;b&gt;%1&lt;/b&gt;?</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/issuedialogs.cpp" line="349"/>
+        <location filename="../src/dialogs/issuedialogs.cpp" line="376"/>
         <source>The entire issue history will be permanently deleted.</source>
         <translation>Cała historia tej sprawy zostanie trwale usunięta.</translation>
     </message>
@@ -1280,17 +1286,17 @@ jeśli go zamkniesz. Czy na pewno chcesz kontynuować?</translation>
 <context>
     <name>DeleteViewDialog</name>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="858"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="866"/>
         <source>Delete View</source>
         <translation>Usuń widok</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="860"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="868"/>
         <source>Are you sure you want to delete public view &lt;b&gt;%1&lt;/b&gt;?</source>
         <translation>Czy na pewno chcesz usunąć publiczny widok &lt;b&gt;%1&lt;/b&gt;?</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="862"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="870"/>
         <source>Are you sure you want to delete your personal view &lt;b&gt;%1&lt;/b&gt;?</source>
         <translation>Czy na pewno chcesz usunąć swój prywatny widok &lt;b&gt;%1&lt;/b&gt;?</translation>
     </message>
@@ -1298,22 +1304,22 @@ jeśli go zamkniesz. Czy na pewno chcesz kontynuować?</translation>
 <context>
     <name>EditAttachmentDialog</name>
     <message>
-        <location filename="../src/dialogs/issuedialogs.cpp" line="596"/>
+        <location filename="../src/dialogs/issuedialogs.cpp" line="623"/>
         <source>Edit Attachment</source>
         <translation>Edytuj załącznik</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/issuedialogs.cpp" line="597"/>
+        <location filename="../src/dialogs/issuedialogs.cpp" line="624"/>
         <source>Edit attachment &lt;b&gt;%1&lt;/b&gt;:</source>
         <translation>Edytuj załącznik &lt;b&gt;%1&lt;/b&gt;:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/issuedialogs.cpp" line="602"/>
+        <location filename="../src/dialogs/issuedialogs.cpp" line="629"/>
         <source>&amp;File name:</source>
         <translation>&amp;Nazwa pliku:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/issuedialogs.cpp" line="613"/>
+        <location filename="../src/dialogs/issuedialogs.cpp" line="640"/>
         <source>&amp;Description:</source>
         <translation>O&amp;pis:</translation>
     </message>
@@ -1321,12 +1327,12 @@ jeśli go zamkniesz. Czy na pewno chcesz kontynuować?</translation>
 <context>
     <name>EditIssueDialog</name>
     <message>
-        <location filename="../src/dialogs/issuedialogs.cpp" line="226"/>
+        <location filename="../src/dialogs/issuedialogs.cpp" line="252"/>
         <source>Edit Attributes</source>
         <translation>Edytuj atrybuty</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/issuedialogs.cpp" line="227"/>
+        <location filename="../src/dialogs/issuedialogs.cpp" line="253"/>
         <source>Edit attributes of issue &lt;b&gt;%1&lt;/b&gt;:</source>
         <translation>Edytuj atrybuty dla sprawy &lt;b&gt;%1&lt;/b&gt;:</translation>
     </message>
@@ -1334,32 +1340,32 @@ jeśli go zamkniesz. Czy na pewno chcesz kontynuować?</translation>
 <context>
     <name>EnumMetadataEditor</name>
     <message>
-        <location filename="../src/widgets/metadataeditors.cpp" line="110"/>
-        <source>&amp;Allow only values from the list</source>
-        <translation>&amp;Zezwól tylko na wybór wartości z listy</translation>
-    </message>
-    <message>
-        <location filename="../src/widgets/metadataeditors.cpp" line="112"/>
+        <location filename="../src/widgets/metadataeditors.cpp" line="104"/>
         <source>Allow &amp;entering custom values</source>
         <translation>Zezwól &amp;na podawanie innych wartości</translation>
     </message>
     <message>
-        <location filename="../src/widgets/metadataeditors.cpp" line="125"/>
+        <location filename="../src/widgets/metadataeditors.cpp" line="109"/>
+        <source>Allow &amp;selecting multiple itmes</source>
+        <translation>Zezwól na &amp;wybieranie wielu wartości</translation>
+    </message>
+    <message>
+        <location filename="../src/widgets/metadataeditors.cpp" line="118"/>
         <source>&amp;Dropdown list items (enter one item per line):</source>
         <translation>&amp;Lista wartości (podaj każdy element w osobnej linii):</translation>
     </message>
     <message>
-        <location filename="../src/widgets/metadataeditors.cpp" line="139"/>
-        <source>Limits can only be used when entering custom values is allowed.</source>
-        <translation>Ograniczenia mogą być używane tylko jeśli dozwolone są własne wartości.</translation>
+        <location filename="../src/widgets/metadataeditors.cpp" line="132"/>
+        <source>Limits can only be used when entering custom values is allowed and selecting multiple items is not allowed.</source>
+        <translation>Limity mogą być użyte tylko jeśli wprowadzanie własnych wartości jest dozwolone i wybieranie wielu wartości nie jest dozwolone.</translation>
     </message>
     <message>
-        <location filename="../src/widgets/metadataeditors.cpp" line="142"/>
+        <location filename="../src/widgets/metadataeditors.cpp" line="136"/>
         <source>Mi&amp;nimum length:</source>
         <translation>Mi&amp;nimalna długość:</translation>
     </message>
     <message>
-        <location filename="../src/widgets/metadataeditors.cpp" line="152"/>
+        <location filename="../src/widgets/metadataeditors.cpp" line="146"/>
         <source>Ma&amp;ximum length:</source>
         <translation>Ma&amp;ksymalna długość:</translation>
     </message>
@@ -1642,12 +1648,27 @@ jeśli go zamkniesz. Czy na pewno chcesz kontynuować?</translation>
         <translation>Podany element nie został znaleziony</translation>
     </message>
     <message>
-        <location filename="../src/utils/errorhelper.cpp" line="145"/>
+        <location filename="../src/utils/errorhelper.cpp" line="136"/>
+        <source>Value cannot contain a comma</source>
+        <translation>Wartość nie może zawierać przecinka</translation>
+    </message>
+    <message>
+        <location filename="../src/utils/errorhelper.cpp" line="138"/>
+        <source>Concurrency error; please try again</source>
+        <translation>Błąd współbieżności; spróbuj ponownie</translation>
+    </message>
+    <message>
+        <location filename="../src/utils/errorhelper.cpp" line="140"/>
+        <source>One of the dependent objects no longer exists</source>
+        <translation>Jeden z zależnych obiektów już nie istnieje</translation>
+    </message>
+    <message>
+        <location filename="../src/utils/errorhelper.cpp" line="151"/>
         <source>Some of the values you entered are incorrect.</source>
         <translation>Niektóre z podanych wartości są niepoprawne.</translation>
     </message>
     <message>
-        <location filename="../src/utils/errorhelper.cpp" line="147"/>
+        <location filename="../src/utils/errorhelper.cpp" line="153"/>
         <source>Incorrect value: %1.</source>
         <translation>Niepoprawna wartość: %1.</translation>
     </message>
@@ -1949,42 +1970,42 @@ jeśli go zamkniesz. Czy na pewno chcesz kontynuować?</translation>
 <context>
     <name>GetAttachmentDialog</name>
     <message>
-        <location filename="../src/dialogs/issuedialogs.cpp" line="506"/>
+        <location filename="../src/dialogs/issuedialogs.cpp" line="533"/>
         <source>Download</source>
         <translation>Pobieranie</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/issuedialogs.cpp" line="508"/>
+        <location filename="../src/dialogs/issuedialogs.cpp" line="535"/>
         <source>Download attachment &lt;b&gt;%1&lt;/b&gt;:</source>
         <translation>Pobieranie załącznika &lt;b&gt;%1&lt;/b&gt;:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/issuedialogs.cpp" line="511"/>
+        <location filename="../src/dialogs/issuedialogs.cpp" line="538"/>
         <source>Open attachment &lt;b&gt;%1&lt;/b&gt;:</source>
         <translation>Otwieranie załącznika &lt;b&gt;%1&lt;/b&gt;:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/issuedialogs.cpp" line="517"/>
+        <location filename="../src/dialogs/issuedialogs.cpp" line="544"/>
         <source>Destination:</source>
         <translation>Lokalizacja:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/issuedialogs.cpp" line="528"/>
+        <location filename="../src/dialogs/issuedialogs.cpp" line="555"/>
         <source>Description:</source>
         <translation>Opis:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/issuedialogs.cpp" line="540"/>
+        <location filename="../src/dialogs/issuedialogs.cpp" line="567"/>
         <source>Size: %1</source>
         <translation>Rozmiar: %1</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/issuedialogs.cpp" line="573"/>
+        <location filename="../src/dialogs/issuedialogs.cpp" line="600"/>
         <source>Downloaded: %1 of %2</source>
         <translation>Pobrano: %1 z %2</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/issuedialogs.cpp" line="581"/>
+        <location filename="../src/dialogs/issuedialogs.cpp" line="608"/>
         <source>File could not be saved.</source>
         <translation>Nie można zapisać pliku.</translation>
     </message>
@@ -2000,23 +2021,23 @@ jeśli go zamkniesz. Czy na pewno chcesz kontynuować?</translation>
 <context>
     <name>InputLineEdit</name>
     <message>
-        <location filename="../src/widgets/inputlineedit.cpp" line="223"/>
-        <location filename="../src/widgets/inputlineedit.cpp" line="283"/>
+        <location filename="../src/widgets/inputlineedit.cpp" line="225"/>
+        <location filename="../src/widgets/inputlineedit.cpp" line="285"/>
         <source>Me</source>
         <translation>Ja</translation>
     </message>
     <message>
-        <location filename="../src/widgets/inputlineedit.cpp" line="243"/>
+        <location filename="../src/widgets/inputlineedit.cpp" line="245"/>
         <source>Field is required</source>
         <translation>Pole jest wymagane</translation>
     </message>
     <message>
-        <location filename="../src/widgets/inputlineedit.cpp" line="270"/>
+        <location filename="../src/widgets/inputlineedit.cpp" line="272"/>
         <source>Invalid URL address</source>
         <translation>Niepoprawny adres URL</translation>
     </message>
     <message>
-        <location filename="../src/widgets/inputlineedit.cpp" line="277"/>
+        <location filename="../src/widgets/inputlineedit.cpp" line="279"/>
         <source>Invalid file name</source>
         <translation>Niepoprawna nazwa pliku</translation>
     </message>
@@ -2024,7 +2045,7 @@ jeśli go zamkniesz. Czy na pewno chcesz kontynuować?</translation>
 <context>
     <name>InputLineValueEditor</name>
     <message>
-        <location filename="../src/widgets/valueeditors.cpp" line="160"/>
+        <location filename="../src/widgets/valueeditors.cpp" line="163"/>
         <source>Me</source>
         <translation>Ja</translation>
     </message>
@@ -2032,7 +2053,7 @@ jeśli go zamkniesz. Czy na pewno chcesz kontynuować?</translation>
 <context>
     <name>InputTextEdit</name>
     <message>
-        <location filename="../src/widgets/inputtextedit.cpp" line="192"/>
+        <location filename="../src/widgets/inputtextedit.cpp" line="193"/>
         <source>Field is required</source>
         <translation>Pole jest wymagane</translation>
     </message>
@@ -2184,22 +2205,27 @@ jeśli go zamkniesz. Czy na pewno chcesz kontynuować?</translation>
 <context>
     <name>IssueDialog</name>
     <message>
-        <location filename="../src/dialogs/issuedialogs.cpp" line="63"/>
+        <location filename="../src/dialogs/issuedialogs.cpp" line="80"/>
+        <source>There are no available project members to assign to the issue.</source>
+        <translation>Nie ma dostępnych członków projektu aby przypisać do tej sprawy.</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/issuedialogs.cpp" line="89"/>
         <source>&amp;Name:</source>
         <translation>&amp;Nazwa:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/issuedialogs.cpp" line="77"/>
+        <location filename="../src/dialogs/issuedialogs.cpp" line="100"/>
         <source>Attributes</source>
         <translation>Atrybuty</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/issuedialogs.cpp" line="96"/>
+        <location filename="../src/dialogs/issuedialogs.cpp" line="119"/>
         <source>Name</source>
         <translation>Nazwa</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/issuedialogs.cpp" line="99"/>
+        <location filename="../src/dialogs/issuedialogs.cpp" line="122"/>
         <source>Value</source>
         <translation>Wartość</translation>
     </message>
@@ -2290,7 +2316,7 @@ jeśli go zamkniesz. Czy na pewno chcesz kontynuować?</translation>
         <translation>Zaznacz &amp;wszystko</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="421"/>
+        <location filename="../src/views/issueview.cpp" line="423"/>
         <source>The selected file is bigger than the maximum allowed file size
 on this server which is %1.</source>
         <translation>Wybrany plik jest większy niż maksymalny dozwolony rozmiar pliku
@@ -2368,7 +2394,7 @@ na tym serwerze, który wynosi %1.</translation>
     </message>
     <message>
         <location filename="../src/views/issueview.cpp" line="173"/>
-        <location filename="../src/views/issueview.cpp" line="362"/>
+        <location filename="../src/views/issueview.cpp" line="364"/>
         <source>Mark As Read</source>
         <translation>Oznacz jako przeczytane</translation>
     </message>
@@ -2393,68 +2419,68 @@ na tym serwerze, który wynosi %1.</translation>
         <translation>Raport</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="331"/>
+        <location filename="../src/views/issueview.cpp" line="333"/>
         <source>Unknown Issue</source>
         <translation>Nieznana sprawa</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="362"/>
+        <location filename="../src/views/issueview.cpp" line="364"/>
         <source>Mark As Unread</source>
         <translation>Oznacz jako nieprzeczytane</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="410"/>
+        <location filename="../src/views/issueview.cpp" line="412"/>
         <source>Add Attachment</source>
         <translation>Dodaj załącznik</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="420"/>
+        <location filename="../src/views/issueview.cpp" line="422"/>
         <source>Warning</source>
         <translation>Ostrzeżenie</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="821"/>
+        <location filename="../src/views/issueview.cpp" line="823"/>
         <source>Attachment</source>
         <translation>Załącznik</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="822"/>
+        <location filename="../src/views/issueview.cpp" line="824"/>
         <source>Do you want to save or open attachment &lt;b&gt;%1&lt;/b&gt;?</source>
         <translation>Chcesz zapisać czy otworzyć załącznik &lt;b&gt;%1&lt;/b&gt;?</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="823"/>
+        <location filename="../src/views/issueview.cpp" line="825"/>
         <source>Do this automatically for all attachments</source>
         <translation>Rób to automatycznie dla wszystkich załączników</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="826"/>
+        <location filename="../src/views/issueview.cpp" line="828"/>
         <source>&amp;Save As...</source>
         <translation>&amp;Zapisz jako...</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="828"/>
+        <location filename="../src/views/issueview.cpp" line="830"/>
         <source>&amp;Open</source>
         <translation>&amp;Otwórz</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="855"/>
+        <location filename="../src/views/issueview.cpp" line="857"/>
         <source>Save Attachment</source>
         <translation>Zapisz załącznik</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="885"/>
-        <location filename="../src/views/issueview.cpp" line="891"/>
+        <location filename="../src/views/issueview.cpp" line="887"/>
+        <location filename="../src/views/issueview.cpp" line="893"/>
         <source>Error</source>
         <translation>Błąd</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="885"/>
+        <location filename="../src/views/issueview.cpp" line="887"/>
         <source>File could not be overwritten.</source>
         <translation>Nie można nadpisać pliku.</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="891"/>
+        <location filename="../src/views/issueview.cpp" line="893"/>
         <source>File could not be saved.</source>
         <translation>Nie można zapisać pliku.</translation>
     </message>
@@ -2833,12 +2859,12 @@ Połączony z %1</translation>
 <context>
     <name>ModifyAttributeDialog</name>
     <message>
-        <location filename="../src/dialogs/typedialogs.cpp" line="420"/>
+        <location filename="../src/dialogs/typedialogs.cpp" line="430"/>
         <source>Modify Attribute</source>
         <translation>Zmień atrybut</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/typedialogs.cpp" line="421"/>
+        <location filename="../src/dialogs/typedialogs.cpp" line="431"/>
         <source>Modify attribute &lt;b&gt;%1&lt;/b&gt;:</source>
         <translation>Zmień atrybut &lt;b&gt;%1&lt;/b&gt;:</translation>
     </message>
@@ -2846,22 +2872,22 @@ Połączony z %1</translation>
 <context>
     <name>ModifyViewDialog</name>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="738"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="746"/>
         <source>Modify Public View</source>
         <translation>Zmień publiczny widok</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="739"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="747"/>
         <source>Modify the public view &lt;b&gt;%1&lt;/b&gt;:</source>
         <translation>Zmień publiczny widok &lt;b&gt;%1&lt;/b&gt;:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="741"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="749"/>
         <source>Modify Personal View</source>
         <translation>Zmień prywatny widok</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="742"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="750"/>
         <source>Modify your personal view &lt;b&gt;%1&lt;/b&gt;:</source>
         <translation>Zmień swój prywatny widok &lt;b&gt;%1&lt;/b&gt;:</translation>
     </message>
@@ -2887,17 +2913,17 @@ Połączony z %1</translation>
 <context>
     <name>MoveIssueDialog</name>
     <message>
-        <location filename="../src/dialogs/issuedialogs.cpp" line="279"/>
+        <location filename="../src/dialogs/issuedialogs.cpp" line="306"/>
         <source>Move Issue</source>
         <translation>Przenieś sprawę</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/issuedialogs.cpp" line="280"/>
+        <location filename="../src/dialogs/issuedialogs.cpp" line="307"/>
         <source>Move issue &lt;b&gt;%1&lt;/b&gt; to another folder of the same type:</source>
         <translation>Przenieś sprawę &lt;b&gt;%1&lt;/b&gt; do innego folderu tego samego typu:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/issuedialogs.cpp" line="285"/>
+        <location filename="../src/dialogs/issuedialogs.cpp" line="312"/>
         <source>&amp;Folder:</source>
         <translation>&amp;Folder:</translation>
     </message>
@@ -2905,22 +2931,22 @@ Połączony z %1</translation>
 <context>
     <name>NumericMetadataEditor</name>
     <message>
-        <location filename="../src/widgets/metadataeditors.cpp" line="210"/>
+        <location filename="../src/widgets/metadataeditors.cpp" line="208"/>
         <source>&amp;Decimal places:</source>
         <translation>Miejsca &amp;dziesiętne:</translation>
     </message>
     <message>
-        <location filename="../src/widgets/metadataeditors.cpp" line="221"/>
+        <location filename="../src/widgets/metadataeditors.cpp" line="219"/>
         <source>&amp;Strip trailing decimal zeros</source>
         <translation>&amp;Usuń końcowe zera dziesiętne</translation>
     </message>
     <message>
-        <location filename="../src/widgets/metadataeditors.cpp" line="230"/>
+        <location filename="../src/widgets/metadataeditors.cpp" line="228"/>
         <source>Mi&amp;nimum value:</source>
         <translation>Mi&amp;nimalna wartość:</translation>
     </message>
     <message>
-        <location filename="../src/widgets/metadataeditors.cpp" line="238"/>
+        <location filename="../src/widgets/metadataeditors.cpp" line="236"/>
         <source>Ma&amp;ximum value:</source>
         <translation>Ma&amp;ksymalna wartość:</translation>
     </message>
@@ -3216,22 +3242,22 @@ Połączony z %1</translation>
 <context>
     <name>PublishViewDialog</name>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="887"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="895"/>
         <source>Publish View</source>
         <translation>Opublikuj widok</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="888"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="896"/>
         <source>Are you sure you want to convert your personal view &lt;b&gt;%1&lt;/b&gt; to a public view?</source>
         <translation>Czy na pewno chcesz skonwertować swój prywatny widok &lt;b&gt;%1&lt;/b&gt; na widok publiczny?</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="891"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="899"/>
         <source>Unpublish View</source>
         <translation>Cofnij publikację widoku</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="892"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="900"/>
         <source>Are you sure you want to convert public view &lt;b&gt;%1&lt;/b&gt; to your personal view?</source>
         <translation>Czy na pewno chcesz skonwertować publiczny widok &lt;b&gt;%1&lt;/b&gt; na swój widok prywatny?</translation>
     </message>
@@ -3239,22 +3265,22 @@ Połączony z %1</translation>
 <context>
     <name>RemoveMemberDialog</name>
     <message>
-        <location filename="../src/dialogs/userdialogs.cpp" line="527"/>
+        <location filename="../src/dialogs/userdialogs.cpp" line="525"/>
         <source>Remove Member</source>
         <translation>Usuń członka</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/userdialogs.cpp" line="528"/>
+        <location filename="../src/dialogs/userdialogs.cpp" line="526"/>
         <source>Do you want to remove user &lt;b&gt;%1&lt;/b&gt; from project &lt;b&gt;%2&lt;/b&gt;?</source>
         <translation>Czy chcesz usunąć użytkownika &lt;b&gt;%1&lt;/b&gt; z projektu &lt;b&gt;%2&lt;/b&gt;?</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/userdialogs.cpp" line="530"/>
+        <location filename="../src/dialogs/userdialogs.cpp" line="528"/>
         <source>Remove Members</source>
         <translation>Usuń członków</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/userdialogs.cpp" line="531"/>
+        <location filename="../src/dialogs/userdialogs.cpp" line="529"/>
         <source>Do you want to remove %1 selected users from project &lt;b&gt;%2&lt;/b&gt;?</source>
         <translation>Czy chcesz usuńąć %1 wybranych użytkowników z projektu &lt;b&gt;%2&lt;/b&gt;?</translation>
     </message>
@@ -3262,17 +3288,17 @@ Połączony z %1</translation>
 <context>
     <name>RenameAttributeDialog</name>
     <message>
-        <location filename="../src/dialogs/typedialogs.cpp" line="452"/>
+        <location filename="../src/dialogs/typedialogs.cpp" line="462"/>
         <source>Rename Attribute</source>
         <translation>Zmień nazwę atrybutu</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/typedialogs.cpp" line="453"/>
+        <location filename="../src/dialogs/typedialogs.cpp" line="463"/>
         <source>Enter the new name of attribute &lt;b&gt;%1&lt;/b&gt;:</source>
         <translation>Podaj nową nazwę atrybutu &lt;b&gt;%1&lt;/b&gt;:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/typedialogs.cpp" line="458"/>
+        <location filename="../src/dialogs/typedialogs.cpp" line="468"/>
         <source>&amp;Name:</source>
         <translation>&amp;Nazwa:</translation>
     </message>
@@ -3352,17 +3378,17 @@ Połączony z %1</translation>
 <context>
     <name>RenameViewDialog</name>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="803"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="811"/>
         <source>Rename View</source>
         <translation>Zmień nazwę widoku</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="804"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="812"/>
         <source>Enter the new name of view &lt;b&gt;%1&lt;/b&gt;:</source>
         <translation>Podaj nową nazwę widoku &lt;b&gt;%1&lt;/b&gt;:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="809"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="817"/>
         <source>&amp;Name:</source>
         <translation>&amp;Nazwa:</translation>
     </message>
@@ -3490,27 +3516,27 @@ Połączony z %1</translation>
 <context>
     <name>SQLiteDriver</name>
     <message>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="511"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="519"/>
         <source>Error opening database</source>
         <translation>Błąd otwarcia bazy danych</translation>
     </message>
     <message>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="522"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="530"/>
         <source>Error closing database</source>
         <translation>Błąd zamknięcia bazy danych</translation>
     </message>
     <message>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="542"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="550"/>
         <source>Unable to begin transaction</source>
         <translation>Nie można rozpocząć transakcji</translation>
     </message>
     <message>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="557"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="565"/>
         <source>Unable to commit transaction</source>
         <translation>Nie można zatwierdzić transakcji</translation>
     </message>
     <message>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="572"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="580"/>
         <source>Unable to rollback transaction</source>
         <translation>Nie można cofnąć transakcji</translation>
     </message>
@@ -3518,34 +3544,34 @@ Połączony z %1</translation>
 <context>
     <name>SQLiteResult</name>
     <message>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="190"/>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="241"/>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="249"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="197"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="248"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="256"/>
         <source>Unable to fetch row</source>
         <translation>Nie można pobrać wiersza</translation>
     </message>
     <message>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="191"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="198"/>
         <source>No query</source>
         <translation>Brak zapytania</translation>
     </message>
     <message>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="311"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="318"/>
         <source>Unable to execute statement</source>
         <translation>Nie można wykonać polecenia</translation>
     </message>
     <message>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="331"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="338"/>
         <source>Unable to reset statement</source>
         <translation>Nie można zresetować polecenia</translation>
     </message>
     <message>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="376"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="383"/>
         <source>Unable to bind parameters</source>
         <translation>Nie można dowiązać parametrów</translation>
     </message>
     <message>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="383"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="390"/>
         <source>Parameter count mismatch</source>
         <translation>Nieprawidłowa liczba parametrów</translation>
     </message>
@@ -3957,21 +3983,16 @@ Połączony z %1</translation>
     <name>TextMetadataEditor</name>
     <message>
         <location filename="../src/widgets/metadataeditors.cpp" line="40"/>
-        <source>&amp;Single line of text</source>
-        <translation>&amp;Pojedyncza linia tekstu</translation>
+        <source>&amp;Allow entering multiple lines of text</source>
+        <translation>&amp;Zezwól na wprowadzanie wielu linii tekstu</translation>
     </message>
     <message>
-        <location filename="../src/widgets/metadataeditors.cpp" line="42"/>
-        <source>&amp;Multiple lines of text</source>
-        <translation>&amp;Wiele linii tekstu</translation>
-    </message>
-    <message>
-        <location filename="../src/widgets/metadataeditors.cpp" line="53"/>
+        <location filename="../src/widgets/metadataeditors.cpp" line="47"/>
         <source>Mi&amp;nimum length:</source>
         <translation>Mi&amp;nimalna długość:</translation>
     </message>
     <message>
-        <location filename="../src/widgets/metadataeditors.cpp" line="63"/>
+        <location filename="../src/widgets/metadataeditors.cpp" line="57"/>
         <source>Ma&amp;ximum length:</source>
         <translation>Ma&amp;ksymalna długość:</translation>
     </message>
@@ -4093,14 +4114,14 @@ Połączony z %1</translation>
 <context>
     <name>UserMetadataEditor</name>
     <message>
-        <location filename="../src/widgets/metadataeditors.cpp" line="342"/>
-        <source>&amp;All users</source>
-        <translation>&amp;Wszyscy użytkownicy</translation>
+        <location filename="../src/widgets/metadataeditors.cpp" line="340"/>
+        <source>&amp;Allow selecting only project members</source>
+        <translation>&amp;Zezwól tylko na wybieranie członków projektu</translation>
     </message>
     <message>
-        <location filename="../src/widgets/metadataeditors.cpp" line="344"/>
-        <source>Only project &amp;members</source>
-        <translation>&amp;Tylko członkowie projektu</translation>
+        <location filename="../src/widgets/metadataeditors.cpp" line="342"/>
+        <source>Allow &amp;selecting multiple itmes</source>
+        <translation>Zezwól na &amp;wybieranie wielu wartości</translation>
     </message>
 </context>
 <context>
@@ -4331,7 +4352,7 @@ Połączony z %1</translation>
         <translation>Edytuj ustawienia widoku.</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="568"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="576"/>
         <source>Me</source>
         <translation>Ja</translation>
     </message>
@@ -4479,61 +4500,71 @@ Połączony z %1</translation>
     </message>
     <message>
         <location filename="../src/utils/viewsettingshelper.cpp" line="112"/>
-        <location filename="../src/utils/viewsettingshelper.cpp" line="154"/>
+        <location filename="../src/utils/viewsettingshelper.cpp" line="156"/>
         <source>contains</source>
         <translation>zawiera</translation>
     </message>
     <message>
         <location filename="../src/utils/viewsettingshelper.cpp" line="114"/>
-        <location filename="../src/utils/viewsettingshelper.cpp" line="156"/>
+        <location filename="../src/utils/viewsettingshelper.cpp" line="158"/>
         <source>begins with</source>
         <translation>zaczyna się od</translation>
     </message>
     <message>
         <location filename="../src/utils/viewsettingshelper.cpp" line="116"/>
-        <location filename="../src/utils/viewsettingshelper.cpp" line="158"/>
+        <location filename="../src/utils/viewsettingshelper.cpp" line="160"/>
         <source>ends with</source>
         <translation>kończy się na</translation>
     </message>
     <message>
-        <location filename="../src/utils/viewsettingshelper.cpp" line="131"/>
+        <location filename="../src/utils/viewsettingshelper.cpp" line="118"/>
+        <source>in</source>
+        <translation>w</translation>
+    </message>
+    <message>
+        <location filename="../src/utils/viewsettingshelper.cpp" line="133"/>
         <source>empty</source>
         <translation>pusty</translation>
     </message>
     <message>
-        <location filename="../src/utils/viewsettingshelper.cpp" line="136"/>
+        <location filename="../src/utils/viewsettingshelper.cpp" line="138"/>
         <source>AND</source>
         <translation>ORAZ</translation>
     </message>
     <message>
-        <location filename="../src/utils/viewsettingshelper.cpp" line="142"/>
+        <location filename="../src/utils/viewsettingshelper.cpp" line="144"/>
         <source>is equal to</source>
         <translation>jest równy</translation>
     </message>
     <message>
-        <location filename="../src/utils/viewsettingshelper.cpp" line="144"/>
+        <location filename="../src/utils/viewsettingshelper.cpp" line="146"/>
         <source>is not equal to</source>
         <translation>nie jest równy</translation>
     </message>
     <message>
-        <location filename="../src/utils/viewsettingshelper.cpp" line="146"/>
+        <location filename="../src/utils/viewsettingshelper.cpp" line="148"/>
         <source>is less than</source>
         <translation>jest mniejszy niż</translation>
     </message>
     <message>
-        <location filename="../src/utils/viewsettingshelper.cpp" line="148"/>
+        <location filename="../src/utils/viewsettingshelper.cpp" line="150"/>
         <source>is less than or equal to</source>
         <translation>jest mniejszy lub równy</translation>
     </message>
     <message>
-        <location filename="../src/utils/viewsettingshelper.cpp" line="150"/>
+        <location filename="../src/utils/viewsettingshelper.cpp" line="152"/>
         <source>is greater than</source>
         <translation>jest większy niż</translation>
     </message>
     <message>
-        <location filename="../src/utils/viewsettingshelper.cpp" line="152"/>
+        <location filename="../src/utils/viewsettingshelper.cpp" line="154"/>
         <source>is greater than or equal to</source>
         <translation>jest większy lub równy</translation>
+    </message>
+    <message>
+        <location filename="../src/utils/viewsettingshelper.cpp" line="162"/>
+        <source>in list</source>
+        <translation>w liście</translation>
     </message>
 </context>
 <context>
