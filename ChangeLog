@@ -1,3 +1,11 @@
+1.0-beta2 (2011-09-20)
+    * added multi-select attributes
+    * added IN operator in filters
+    * added option to use system sqlite library on Linux
+    * fixed filters with date conditions (bug #643)
+    * fixed filters with case-insensitive comparison
+    * fixed editing details for ENUM attributes
+
 1.0-beta1 (2011-07-08)
     * added initial version of WebIssues Manual
     * use SQLite database for caching folders and issues (task #411)

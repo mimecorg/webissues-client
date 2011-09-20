@@ -1,5 +1,5 @@
 WebIssues Desktop Client
-Version 1.0-beta1 (2011-07-08)
+Version 1.0-beta2 (2011-09-20)
 
 Desktop Client for the WebIssues team collaboration system.
 
@@ -67,8 +67,8 @@ Authors:
 
 Contributors:
 
- * Francine LAI DOO WOO (fldw.fladsc at orange fr)
-    - Supporting Web Client developer, French translation
+ * Francine Lai Doo Woo (fldw.fladsc at orange fr)
+    - Supporting Web Client developer
 
  * Patrick Matthäi (patrick.matthaei at web de)
     - Debian packaging, patches
@@ -76,8 +76,16 @@ Contributors:
  * Azevedo Filipe (pasnox at gmail com)
     - OS X packaging, patches
 
+Translators:
+
  * Flávio Veras (flaviove at gmail com)
     - Portuguese translation
+
+ * Bert Oost (bertoost85 at gmail com)
+    - Dutch translation
+
+ * Dara Sarnirand (dsarnirand at naxeo com)
+    - French translation
 
 
 Resources
