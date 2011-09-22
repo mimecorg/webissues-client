@@ -395,8 +395,8 @@
     </message>
     <message utf8="true">
         <location filename="../src/application.cpp" line="203"/>
-        <source>Copyright (C) 2006 Michał Męciński</source>
-        <translation type="unfinished"></translation>
+        <source>Copyright (C) 2006 Micha? M?ci?ski</source>
+        <translation>Copyright(c) 2006 Micha? M?ci?ski</translation>
     </message>
     <message>
         <location filename="../src/application.cpp" line="208"/>
@@ -596,12 +596,12 @@
         <location filename="../src/utils/attributehelper.cpp" line="183"/>
         <location filename="../src/utils/attributehelper.cpp" line="250"/>
         <source>Multiple selection</source>
-        <translation type="unfinished"></translation>
+        <translation>Sélection multiple</translation>
     </message>
     <message>
         <location filename="../src/utils/attributehelper.cpp" line="186"/>
         <source>Items: %1</source>
-        <translation type="unfinished">Éléments : %1</translation>
+        <translation>Éléments : %1</translation>
     </message>
     <message>
         <location filename="../src/utils/attributehelper.cpp" line="205"/>
@@ -1348,7 +1348,7 @@ quand vous le fermerez. Souhaitez-vous vraiment continuer ?</translation>
     <message>
         <location filename="../src/widgets/metadataeditors.cpp" line="109"/>
         <source>Allow &amp;selecting multiple itmes</source>
-        <translation type="unfinished"></translation>
+        <translation>Autoriser la &amp;sélection multiple d&apos;éléments</translation>
     </message>
     <message>
         <location filename="../src/widgets/metadataeditors.cpp" line="118"/>
@@ -1358,7 +1358,7 @@ quand vous le fermerez. Souhaitez-vous vraiment continuer ?</translation>
     <message>
         <location filename="../src/widgets/metadataeditors.cpp" line="132"/>
         <source>Limits can only be used when entering custom values is allowed and selecting multiple items is not allowed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Les limites peuvent être utilisées uniquement si vous autorisez les valeurs autres que celles de la liste et que la sélection multiple n&apos;est pas autorisée.</translation>
     </message>
     <message>
         <location filename="../src/widgets/metadataeditors.cpp" line="136"/>
@@ -1651,17 +1651,17 @@ quand vous le fermerez. Souhaitez-vous vraiment continuer ?</translation>
     <message>
         <location filename="../src/utils/errorhelper.cpp" line="136"/>
         <source>Value cannot contain a comma</source>
-        <translation type="unfinished"></translation>
+        <translation>La valeur ne peut pas contenir de virgule</translation>
     </message>
     <message>
         <location filename="../src/utils/errorhelper.cpp" line="138"/>
         <source>Concurrency error; please try again</source>
-        <translation type="unfinished"></translation>
+        <translation>Erreur d&apos;accès concurrentiel, veuillez réessayer</translation>
     </message>
     <message>
         <location filename="../src/utils/errorhelper.cpp" line="140"/>
         <source>One of the dependent objects no longer exists</source>
-        <translation type="unfinished"></translation>
+        <translation>Un des objets dépendants n&apos;existe plus</translation>
     </message>
     <message>
         <location filename="../src/utils/errorhelper.cpp" line="151"/>
@@ -1722,7 +1722,7 @@ quand vous le fermerez. Souhaitez-vous vraiment continuer ?</translation>
     <message>
         <location filename="../src/dialogs/finditemdialog.cpp" line="35"/>
         <source>Enter the identifier of an issue, comment or attachment:</source>
-        <translation type="unfinished">Saisir l&apos;ID de la demande, du commentaire ou de la pièce jointe :</translation>
+        <translation>Saisir l&apos;identifiant de la demande, du commentaire ou de la pièce jointe :</translation>
     </message>
     <message>
         <location filename="../src/dialogs/finditemdialog.cpp" line="38"/>
@@ -2208,7 +2208,7 @@ quand vous le fermerez. Souhaitez-vous vraiment continuer ?</translation>
     <message>
         <location filename="../src/dialogs/issuedialogs.cpp" line="80"/>
         <source>There are no available project members to assign to the issue.</source>
-        <translation type="unfinished"></translation>
+        <translation>Il n&apos;y a plus de membre de projet disponible à affecter à la demande.</translation>
     </message>
     <message>
         <location filename="../src/dialogs/issuedialogs.cpp" line="89"/>
@@ -3985,7 +3985,7 @@ Connecté à %1</translation>
     <message>
         <location filename="../src/widgets/metadataeditors.cpp" line="40"/>
         <source>&amp;Allow entering multiple lines of text</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Autoriser la saisie de texte à lignes multiples</translation>
     </message>
     <message>
         <location filename="../src/widgets/metadataeditors.cpp" line="47"/>
@@ -4117,12 +4117,12 @@ Connecté à %1</translation>
     <message>
         <location filename="../src/widgets/metadataeditors.cpp" line="340"/>
         <source>&amp;Allow selecting only project members</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Autoriser uniquement la sélection de membres du projet</translation>
     </message>
     <message>
         <location filename="../src/widgets/metadataeditors.cpp" line="342"/>
         <source>Allow &amp;selecting multiple itmes</source>
-        <translation type="unfinished"></translation>
+        <translation>Autoriser la &amp;sélection multiple d&apos;éléments</translation>
     </message>
 </context>
 <context>
@@ -4444,7 +4444,7 @@ Connecté à %1</translation>
     <message>
         <location filename="../src/dialogs/viewsettingsdialog.cpp" line="138"/>
         <source>Sort By:</source>
-        <translation type="unfinished">Tri par :</translation>
+        <translation>Tri par :</translation>
     </message>
     <message>
         <location filename="../src/dialogs/viewsettingsdialog.cpp" line="185"/>
@@ -4520,7 +4520,7 @@ Connecté à %1</translation>
     <message>
         <location filename="../src/utils/viewsettingshelper.cpp" line="118"/>
         <source>in</source>
-        <translation type="unfinished"></translation>
+        <translation>dans</translation>
     </message>
     <message>
         <location filename="../src/utils/viewsettingshelper.cpp" line="133"/>
@@ -4565,7 +4565,7 @@ Connecté à %1</translation>
     <message>
         <location filename="../src/utils/viewsettingshelper.cpp" line="162"/>
         <source>in list</source>
-        <translation type="unfinished"></translation>
+        <translation>dans la liste</translation>
     </message>
 </context>
 <context>
