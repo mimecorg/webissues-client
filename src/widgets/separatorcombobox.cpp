@@ -22,25 +22,12 @@
 #include <QItemDelegate>
 #include <QStandardItemModel>
 #include <QStandardItem>
-#include <QListView>
 #include <QPainter>
-#include <QKeyEvent>
 
-class SeparatorItemDelegate : public QAbstractItemDelegate
+class SeparatorItemDelegate : public QItemDelegate
 {
 public:
-    static const int ItemTypeRole = Qt::UserRole + 1;
-
-    enum ItemType {
-        NormalItem,
-        SeparatorItem,
-        ParentItem,
-        ChildItem 
-    };
-
-public:
-    SeparatorItemDelegate( QObject* parent, QAbstractItemDelegate* delegate ) : QAbstractItemDelegate( parent ),
-        m_delegate( delegate )
+    SeparatorItemDelegate( QObject* parent ) : QItemDelegate( parent )
     {
     }
 
@@ -51,60 +38,40 @@ public:
 public: // overrides
     void paint( QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index ) const
     {
-        int type = index.data( ItemTypeRole ).toInt();
-        switch ( type ) {
-            case SeparatorItem: {
-                QStyleOptionViewItem noFocus = option;
-                noFocus.state &= ~QStyle::State_HasFocus;
+        QString type = index.data( Qt::AccessibleDescriptionRole ).toString();
 
-                m_delegate->paint( painter, noFocus, index );
-
-                int y = ( option.rect.top() + option.rect.bottom() ) / 2;
-
-                painter->setPen(  option.palette.color( QPalette::Active, QPalette::Dark ) );
-                painter->drawLine( option.rect.left(), y, option.rect.right(), y );
-                break;
-            }
-            case ParentItem: {
-                QStyleOptionViewItem parentOption = option;
-                parentOption.state |= QStyle::State_Enabled;
-                m_delegate->paint( painter, parentOption, index );
-                break;
-            }
-            case ChildItem: {
-                QStyleOptionViewItem childOption = option;
-                int indent = option.fontMetrics.width( "    " );
-                childOption.rect.adjust( indent, 0, 0, 0 );
-                childOption.textElideMode = Qt::ElideNone;
-                m_delegate->paint( painter, childOption, index );
-                break;
-            }
-            default:
-                m_delegate->paint( painter, option, index );
-                break;
+        if ( type == QLatin1String( "separator" ) ) {
+            QItemDelegate::paint( painter, option, index );
+            int y = ( option.rect.top() + option.rect.bottom() ) / 2;
+            painter->setPen(  option.palette.color( QPalette::Active, QPalette::Dark ) );
+            painter->drawLine( option.rect.left(), y, option.rect.right(), y );
+        } else if ( type == QLatin1String( "parent" ) ) {
+            QStyleOptionViewItem parentOption = option;
+            parentOption.state |= QStyle::State_Enabled;
+            QItemDelegate::paint( painter, parentOption, index );
+        } else if ( type == QLatin1String( "child" ) ) {
+            QStyleOptionViewItem childOption = option;
+            int indent = option.fontMetrics.width( QString( 4, QChar( ' ' ) ) );
+            childOption.rect.adjust( indent, 0, 0, 0 );
+            childOption.textElideMode = Qt::ElideNone;
+            QItemDelegate::paint( painter, childOption, index );
+        } else {
+            QItemDelegate::paint( painter, option, index );
         }
     }
 
     QSize sizeHint( const QStyleOptionViewItem& option, const QModelIndex& index ) const
     {
-        QSize size = m_delegate->sizeHint( option, index );
-
-        int type = index.data( ItemTypeRole ).toInt();
-        if ( type == SeparatorItem )
-            size.setHeight( 5 );
-        return size;
+        QString type = index.data( Qt::AccessibleDescriptionRole ).toString();
+        if ( type == QLatin1String( "separator" ) )
+            return QSize( 5, 5 );
+        return QItemDelegate::sizeHint( option, index );
     }
-
-private:
-    QAbstractItemDelegate* m_delegate;
 };
 
 SeparatorComboBox::SeparatorComboBox( QWidget* parent ) : QComboBox( parent )
 {
-    QAbstractItemDelegate* delegate = view()->itemDelegate();
-    view()->setItemDelegate( NULL );
-
-    setItemDelegate( new SeparatorItemDelegate( this, delegate ) );
+    setItemDelegate( new SeparatorItemDelegate( this ) );
 }
 
 SeparatorComboBox::~SeparatorComboBox()
@@ -113,19 +80,14 @@ SeparatorComboBox::~SeparatorComboBox()
 
 void SeparatorComboBox::addSeparator()
 {
-    QStandardItem* item = new QStandardItem( QString::null );
-    item->setFlags( item->flags() & ~( Qt::ItemIsEnabled | Qt::ItemIsSelectable ) );
-    item->setData( SeparatorItemDelegate::SeparatorItem, SeparatorItemDelegate::ItemTypeRole );
-
-    QStandardItemModel* itemModel = (QStandardItemModel*)model();
-    itemModel->appendRow( item );
+    insertSeparator( count() );
 }
 
 void SeparatorComboBox::addParentItem( const QString& text )
 {
     QStandardItem* item = new QStandardItem( text );
     item->setFlags( item->flags() & ~( Qt::ItemIsEnabled | Qt::ItemIsSelectable ) );
-    item->setData( SeparatorItemDelegate::ParentItem, SeparatorItemDelegate::ItemTypeRole );
+    item->setData( "parent", Qt::AccessibleDescriptionRole );
 
     QFont font = item->font();
     font.setBold( true );
@@ -137,9 +99,9 @@ void SeparatorComboBox::addParentItem( const QString& text )
 
 void SeparatorComboBox::addChildItem( const QString& text, const QVariant& data /*= QVariant()*/ )
 {
-    QStandardItem* item = new QStandardItem( text + QLatin1String( "    " ) );
+    QStandardItem* item = new QStandardItem( text + QString( 4, QChar( ' ' ) ) );
     item->setData( data, Qt::UserRole );
-    item->setData( SeparatorItemDelegate::ChildItem, SeparatorItemDelegate::ItemTypeRole );
+    item->setData( "child", Qt::AccessibleDescriptionRole );
 
     QStandardItemModel* itemModel = (QStandardItemModel*)model();
     itemModel->appendRow( item );
