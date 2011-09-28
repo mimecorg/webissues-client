@@ -142,15 +142,15 @@ echo "CONFIG += $config" >>config.pri
 echo "PREFIX = $prefix" >>config.pri
 echo "DESTINATION = $destdir" >>config.pri
 
-if test "$syssqlite" == "yes"; then
+if test "$syssqlite" = "yes"; then
   echo "CONFIG += system-sqlite" >>config.pri
 fi
 
-if test "$mac" == "yes"; then
+if test "$mac" = "yes"; then
   echo "mac {" >>config.pri
   echo "    QMAKE_MACOSX_DEPLOYMENT_TARGET = $target" >>config.pri
   echo "    QMAKE_MAC_SDK = $sdk" >>config.pri
-  if test "$universal" == "yes"; then
+  if test "$universal" = "yes"; then
     echo "    CONFIG += x86 ppc" >>config.pri
   fi
   echo "}" >>config.pri
