@@ -536,10 +536,10 @@ void Application::restoreState()
     bool wasVisible = m_settings->value( "ShutdownVisible", true ).toBool();
     bool wasConnected = m_settings->value( "ShutdownConnected", false ).toBool();
 
-    if ( !docked || show == RestoreAlways || show == RestoreAuto && wasVisible )
+    if ( !docked || show == RestoreAlways || ( show == RestoreAuto && wasVisible ) )
         m_mainWindow->show();
 
-    if ( connect == RestoreAlways || connect == RestoreAuto && wasConnected )
+    if ( connect == RestoreAlways || ( connect == RestoreAuto && wasConnected ) )
         m_mainWindow->reconnect();
 
     if ( m_settings->value( "LastVersion" ).toString() != version() ) {

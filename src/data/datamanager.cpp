@@ -1338,7 +1338,7 @@ bool DataManager::flushFileCache( int allocatedSize, const QSqlDatabase& databas
 
     while ( query.next() ) {
         QString path = query.value( 1 ).toString();
-        if ( !QFile::exists( path ) || ( occupied > limit ) && QFile::remove( path ) ) {
+        if ( !QFile::exists( path ) || ( ( occupied > limit ) && QFile::remove( path ) ) ) {
             occupied -= ( query.value( 2 ).toInt() + 4095 ) & ~4096;
             deletedFiles.append( query.value( 0 ).toInt() );
         }
