@@ -5,12 +5,14 @@ SUBDIRS  = src
 
 # NOTE: if you change the installation paths, please update application.cpp accordingly
 
-documentation.files = ChangeLog COPYING README
 win32 {
+    documentation.files = ChangeLog COPYING README
     documentation.path = $$PREFIX
 } else:mac {
+    documentation.files = ChangeLog COPYING README
     documentation.path = $${DESTINATION}$$PREFIX
 } else {
+    documentation.files = README
     documentation.path = $${DESTINATION}$$PREFIX/share/doc/webissues
 }
 INSTALLS += documentation
@@ -34,3 +36,5 @@ win32 {
     translations.path = $${DESTINATION}$$PREFIX/share/webissues/translations
 }
 INSTALLS += translations
+
+QMAKE_DISTCLEAN += config.pri
