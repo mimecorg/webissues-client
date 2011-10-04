@@ -480,8 +480,7 @@ void MainWindow::setActiveView( View* view )
 
     if ( m_activeView ) {
         disconnect( m_activeView, NULL, statusBar(), NULL );
-        if ( m_activeView->isEnabled() )
-            builder()->removeClient( m_activeView );
+        builder()->removeClient( m_activeView );
     }
 
     m_activeView = view;
@@ -506,9 +505,9 @@ void MainWindow::folderEnabledChanged( bool enabled )
 
     if ( m_folderView == m_activeView ) {
         if ( enabled )
-           builder()->addClient( m_view );
+           builder()->addClient( m_folderView );
         else
-            builder()->removeClient( m_view );
+            builder()->removeClient( m_folderView );
     }
 }
 
