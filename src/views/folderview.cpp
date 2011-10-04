@@ -348,6 +348,12 @@ void FolderView::updateActions()
     action( "markAsRead" )->setText( m_isRead ? tr( "Mark As Unread" ) : tr( "Mark As Read" ) );
     action( "markAsRead" )->setIcon( IconLoader::icon( m_isRead ? "issue-unread" : "issue" ) );
 
+    FolderEntity folder = FolderEntity::find( id() );
+
+    action( "popupMarkAll" )->setEnabled( folder.stampId() > 0 );
+    action( "markAllAsRead" )->setEnabled( folder.stampId() > 0 );
+    action( "markAllAsUnread" )->setEnabled( folder.stampId() > 0 );
+
     bool isPersonalView = false;
 
     if ( m_currentViewId != 0 ) {
@@ -447,7 +453,15 @@ void FolderView::deleteIssue()
 void FolderView::markAsRead()
 {
     if ( isEnabled() && m_selectedIssueId != 0 ) {
-        IssueStateDialog dialog( m_selectedIssueId, !m_isRead, mainWidget() );
+        int readId;
+        if ( m_isRead ) {
+            readId = 0;
+        } else {
+            IssueEntity issue = IssueEntity::find( m_selectedIssueId );
+            readId = issue.stampId();
+        }
+
+        IssueStateDialog dialog( m_selectedIssueId, readId, mainWidget() );
         dialog.accept();
         dialog.exec();
     }
@@ -456,7 +470,9 @@ void FolderView::markAsRead()
 void FolderView::markAllAsRead()
 {
     if ( isEnabled() ) {
-        FolderStateDialog dialog( id(), true, mainWidget() );
+        FolderEntity folder = FolderEntity::find( id() );
+
+        FolderStateDialog dialog( id(), folder.stampId(), mainWidget() );
         dialog.exec();
     }
 }
@@ -464,7 +480,7 @@ void FolderView::markAllAsRead()
 void FolderView::markAllAsUnread()
 {
     if ( isEnabled() ) {
-        FolderStateDialog dialog( id(), false, mainWidget() );
+        FolderStateDialog dialog( id(), 0, mainWidget() );
         dialog.exec();
     }
 }

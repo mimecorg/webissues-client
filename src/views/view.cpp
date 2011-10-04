@@ -20,7 +20,7 @@
 #include "view.h"
 
 #include "commands/commandmanager.h"
-#include "commands/updatebatch.h"
+#include "commands/abstractbatch.h"
 #include "data/datamanager.h"
 #include "utils/iconloader.h"
 #include "xmlui/builder.h"
@@ -121,7 +121,7 @@ void View::initialUpdate()
 {
 }
 
-void View::executeUpdate( UpdateBatch* batch )
+void View::executeUpdate( AbstractBatch* batch )
 {
     m_updating = true;
 

@@ -49,16 +49,16 @@ public:
     /**
     * Add the <tt>SET ISSUE READ</tt> command to the batch.
     * @param issueId Identifier of the issue.
-    * @param isRead @c true to set the issue to read, @c false to unread.
+    * @param readId The new read stamp of the issue.
     */
-    void setIssueRead( int issueId, bool isRead );
+    void setIssueRead( int issueId, int readId );
 
     /**
     * Add the <tt>SET FOLDER READ</tt> command to the batch.
     * @param folderId Identifier of the folder.
-    * @param isRead @c true to set all issues to read, @c false to unread.
+    * @param readId The new read stamp of the folder.
     */
-    void setFolderRead( int folderId, bool isRead );
+    void setFolderRead( int folderId, int readId );
 
 public: // overrides
     Command* fetchNext();

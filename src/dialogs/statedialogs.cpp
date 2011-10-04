@@ -27,18 +27,18 @@
 #include <QLayout>
 #include <QLabel>
 
-IssueStateDialog::IssueStateDialog( int issueId, bool isRead, QWidget* parent ) : CommandDialog( parent ),
+IssueStateDialog::IssueStateDialog( int issueId, int readId, QWidget* parent ) : CommandDialog( parent ),
     m_issueId( issueId ),
-    m_isRead( isRead )
+    m_readId( readId )
 {
     IssueEntity issue = IssueEntity::find( issueId );
 
-    if ( isRead )
+    if ( readId > 0 )
         setWindowTitle( tr( "Mark As Read" ) );
     else
         setWindowTitle( tr( "Mark As Unread" ) );
     setPrompt( tr( "Updating the state of issue <b>%1</b>." ).arg( issue.name() ) );
-    setPromptPixmap( IconLoader::pixmap( isRead ? "issue" : "issue-unread", 22 ) );
+    setPromptPixmap( IconLoader::pixmap( ( readId > 0 ) ? "issue" : "issue-unread", 22 ) );
 
     setContentLayout( NULL, true );
 }
@@ -50,18 +50,18 @@ IssueStateDialog::~IssueStateDialog()
 void IssueStateDialog::accept()
 {
     StateBatch* batch = new StateBatch();
-    batch->setIssueRead( m_issueId, m_isRead );
+    batch->setIssueRead( m_issueId, m_readId );
 
     executeBatch( batch );
 }
 
-FolderStateDialog::FolderStateDialog( int folderId, bool isRead, QWidget* parent ) : CommandDialog( parent ),
+FolderStateDialog::FolderStateDialog( int folderId, int readId, QWidget* parent ) : CommandDialog( parent ),
     m_folderId( folderId ),
-    m_isRead( isRead )
+    m_readId( readId )
 {
     FolderEntity folder = FolderEntity::find( folderId );
 
-    if ( isRead ) {
+    if ( readId > 0 ) {
         setWindowTitle( tr( "Mark All As Read" ) );
         setPrompt( tr( "Are you sure you want to mark all issues in folder <b>%1</b> as read?" ).arg( folder.name() ) );
         setPromptPixmap( IconLoader::pixmap( "folder-read", 22 ) );
@@ -81,7 +81,7 @@ FolderStateDialog::~FolderStateDialog()
 void FolderStateDialog::accept()
 {
     StateBatch* batch = new StateBatch();
-    batch->setFolderRead( m_folderId, m_isRead );
+    batch->setFolderRead( m_folderId, m_readId );
 
     executeBatch( batch );
 }

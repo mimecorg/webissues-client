@@ -111,6 +111,7 @@ public:
     int projectId() const;
     int typeId() const;
     const QString& name() const;
+    int stampId() const;
 
     ProjectEntity project() const;
     TypeEntity type() const;

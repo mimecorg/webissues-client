@@ -31,19 +31,19 @@ StateBatch::~StateBatch()
 {
 }
 
-void StateBatch::setIssueRead( int issueId, bool isRead )
+void StateBatch::setIssueRead( int issueId, int readId )
 {
     Job job( &StateBatch::setIssueReadJob );
     job.addArg( issueId );
-    job.addArg( isRead ? 1 : 0 );
+    job.addArg( readId );
     m_queue.addJob( job );
 }
 
-void StateBatch::setFolderRead( int folderId, bool isRead )
+void StateBatch::setFolderRead( int folderId, int readId )
 {
     Job job( &StateBatch::setFolderReadJob );
     job.addArg( folderId );
-    job.addArg( isRead ? 1 : 0 );
+    job.addArg( readId );
     m_queue.addJob( job );
 }
 

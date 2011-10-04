@@ -162,7 +162,8 @@ FolderEntity& FolderEntity::operator =( const FolderEntity& other )
 FolderEntityData::FolderEntityData() :
     m_id( 0 ),
     m_projectId( 0 ),
-    m_typeId( 0 )
+    m_typeId( 0 ),
+    m_stampId( 0 )
 {
 }
 
@@ -195,6 +196,11 @@ const QString& FolderEntity::name() const
     return d->m_name;
 }
 
+int FolderEntity::stampId() const
+{
+    return d->m_stampId;
+}
+
 ProjectEntity FolderEntity::project() const
 {
     return ProjectEntity::find( d->m_projectId );
@@ -211,7 +217,7 @@ FolderEntity FolderEntity::find( int id )
 
     if ( id != 0 ) {
         QSqlQuery query;
-        query.prepare( "SELECT folder_id, project_id, type_id, folder_name"
+        query.prepare( "SELECT folder_id, project_id, type_id, folder_name, stamp_id"
             " FROM folders"
             " WHERE folder_id = ?" );
         query.addBindValue( id );
@@ -230,7 +236,7 @@ QList<FolderEntity> ProjectEntity::folders() const
 
     if ( d->m_id != 0 ) {
         QSqlQuery query;
-        query.prepare( "SELECT folder_id, project_id, type_id, folder_name"
+        query.prepare( "SELECT folder_id, project_id, type_id, folder_name, stamp_id"
             " FROM folders"
             " WHERE project_id = ?"
             " ORDER BY folder_name COLLATE LOCALE" );
@@ -253,7 +259,7 @@ QList<FolderEntity> TypeEntity::folders() const
 
     if ( d->m_id != 0 ) {
         QSqlQuery query;
-        query.prepare( "SELECT folder_id, project_id, type_id, folder_name"
+        query.prepare( "SELECT folder_id, project_id, type_id, folder_name, stamp_id"
             " FROM folders"
             " WHERE type_id = ?" );
         query.addBindValue( d->m_id );
@@ -274,7 +280,7 @@ QList<FolderEntity> FolderEntity::list()
     QList<FolderEntity> result;
 
     QSqlQuery query;
-    query.prepare( "SELECT folder_id, project_id, type_id, folder_name FROM folders" );
+    query.prepare( "SELECT folder_id, project_id, type_id, folder_name, stamp_id FROM folders" );
     query.exec();
 
     while ( query.next() ) {
@@ -292,6 +298,7 @@ void FolderEntityData::read( const QSqlQuery& query )
     m_projectId = query.value( 1 ).toInt();
     m_typeId = query.value( 2 ).toInt();
     m_name = query.value( 3 ).toString();
+    m_stampId = query.value( 4 ).toInt();
 }
 
 bool FolderEntity::isAdmin( int id )

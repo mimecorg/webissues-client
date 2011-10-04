@@ -32,10 +32,10 @@ public:
     /**
     * Constructor.
     * @param issueId Identifier of the issue.
-    * @param isRead @c true to set the issue to read, @c false to unread.
+    * @param readId The new read stamp of the issue.
     * @param parent The parent widget.
     */
-    IssueStateDialog( int issueId, bool isRead, QWidget* parent );
+    IssueStateDialog( int issueId, int readId, QWidget* parent );
 
     /**
     * Destructor.
@@ -47,7 +47,7 @@ public: // overrides
 
 private:
     int m_issueId;
-    bool m_isRead;
+    int m_readId;
 };
 
 /**
@@ -60,10 +60,10 @@ public:
     /**
     * Constructor.
     * @param folderId Identifier of the folder.
-    * @param isRead @c true to set all issues to read, @c false to unread.
+    * @param readId The new read stamp of the folder.
     * @param parent The parent widget.
     */
-    FolderStateDialog( int folderId, bool isRead, QWidget* parent );
+    FolderStateDialog( int folderId, int readId, QWidget* parent );
 
     /**
     * Destructor.
@@ -75,7 +75,7 @@ public: // overrides
 
 private:
     int m_folderId;
-    bool m_isRead;
+    int m_readId;
 };
 
 #endif

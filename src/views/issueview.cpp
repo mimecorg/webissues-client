@@ -21,6 +21,7 @@
 
 #include "application.h"
 #include "commands/updatebatch.h"
+#include "commands/statebatch.h"
 #include "data/datamanager.h"
 #include "data/entities.h"
 #include "data/updateevent.h"
@@ -367,12 +368,23 @@ void IssueView::updateActions()
 
 void IssueView::initialUpdateIssue()
 {
-    if ( isEnabled() && dataManager->issueUpdateNeeded( id() ) ) {
-        UpdateBatch* batch = new UpdateBatch();
-        batch->setIfNeeded( true );
-        batch->updateIssue( id() );
+    if ( isEnabled() ) {
+        if ( dataManager->issueUpdateNeeded( id() ) ) {
+            UpdateBatch* batch = new UpdateBatch();
+            batch->setIfNeeded( true );
+            batch->updateIssue( id() );
 
-        executeUpdate( batch );
+            executeUpdate( batch );
+        } else {
+            IssueEntity issue = IssueEntity::find( id() );
+
+            if ( issue.stampId() > issue.readId() ) {
+                StateBatch* batch = new StateBatch();
+                batch->setIssueRead( id(), issue.stampId() );
+
+                executeUpdate( batch );
+            }
+        }
     }
 }
 
@@ -459,7 +471,15 @@ void IssueView::deleteIssue()
 void IssueView::markAsRead()
 {
     if ( isEnabled() ) {
-        IssueStateDialog dialog( id(), !m_isRead, mainWidget() );
+        int readId;
+        if ( m_isRead ) {
+            readId = 0;
+        } else {
+            IssueEntity issue = IssueEntity::find( id() );
+            readId = issue.stampId();
+        }
+
+        IssueStateDialog dialog( id(), readId, mainWidget() );
         dialog.accept();
         dialog.exec();
     }

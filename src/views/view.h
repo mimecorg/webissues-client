@@ -26,7 +26,7 @@
 #include <QWidget>
 
 class UpdateEvent;
-class UpdateBatch;
+class AbstractBatch;
 
 /**
 * A view which can be embedded in a window.
@@ -203,7 +203,7 @@ protected:
     * Start executing the update batch.
     * @param batch The batch to execute.
     */
-    void executeUpdate( UpdateBatch* batch );
+    void executeUpdate( AbstractBatch* batch );
 
     /**
     * Return @c true if an update batch is being executed.

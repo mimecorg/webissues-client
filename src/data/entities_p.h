@@ -52,6 +52,7 @@ public:
     int m_projectId;
     int m_typeId;
     QString m_name;
+    int m_stampId;
 };
 
 class TypeEntityData : public QSharedData
