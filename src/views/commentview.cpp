@@ -36,7 +36,6 @@
 #include <QApplication>
 #include <QClipboard>
 #include <QMessageBox>
-#include <QLocale>
 
 CommentView::CommentView( QObject* parent, QWidget* parentWidget ) : View( parent ),
     m_sending( false ),

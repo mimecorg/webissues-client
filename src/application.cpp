@@ -125,14 +125,7 @@ Application::Application( int& argc, char** argv ) : QApplication( argc, argv ),
 #endif
 
     initializeSettings();
-
-    QString language = m_settings->value( "Language" ).toString();
-    if ( language.isEmpty() )
-        language = QLocale::system().name();
-    QLocale::setDefault( QLocale( language ) );
-
-    loadTranslation( "qt", true );
-    loadTranslation( "webissues", false );
+    initializeLanguage();
 
 #if defined( Q_WS_WIN )
     setStyle( "XmlUi::WindowsStyle" );
@@ -301,7 +294,7 @@ void Application::showUpdateState()
 
 QUrl Application::manualIndex() const
 {
-    QString language = QLocale().name();
+    QString language = m_language;
 
     while ( !language.isEmpty() ) {
         QString path = QString( "%1/%2/index.html" ).arg( m_manualPath, language );
@@ -348,9 +341,58 @@ QString Application::protocolVersion() const
     return QString( "1.0-beta2" );
 }
 
+void Application::initializeLanguage()
+{
+    QSettings settings( m_translationsPath + "/locale.ini", QSettings::IniFormat );
+#if ( QT_VERSION >= 0x040500 )
+    settings.setIniCodec( "UTF8" );
+#endif
+
+    settings.beginGroup( "languages" );
+    QStringList keys = settings.allKeys();
+
+    if ( keys.isEmpty() )
+        m_languages.insert( "en_US", "English / United States" );
+
+    foreach ( QString key, keys ) {
+        QString name = settings.value( key ).toString();
+#if ( QT_VERSION < 0x040500 )
+        QByteArray raw = name.toLatin1();
+        name = QString::fromUtf8( raw.data(), raw.size() );
+#endif
+        m_languages.insert( key, name );
+    }
+
+    settings.endGroup();
+
+    QString language = m_settings->value( "Language" ).toString();
+    if ( language.isEmpty() )
+        language = QLocale::system().name();
+
+    m_language = "en_US";
+
+    while ( !language.isEmpty() ) {
+        if ( m_languages.contains( language ) ) {
+            m_language = language;
+            break;
+        }
+
+        int pos = language.lastIndexOf( QLatin1Char( '_' ) );
+        if ( pos < 0 )
+            break;
+
+        language = language.mid( 0, pos );
+    }
+
+    QLocale::setDefault( QLocale( m_language ) );
+
+    loadTranslation( "qt", true );
+    loadTranslation( "webissues", false );
+}
+
 bool Application::loadTranslation( const QString& name, bool tryQtDir )
 {
-    QString fullName = name + "_" + QLocale().name();
+    QString fullName = name + "_" + m_language;
 
     QTranslator* translator = new QTranslator( this );
 

@@ -127,6 +127,16 @@ public:
 #endif
 
     /**
+    * Return the list of available languages.
+    */
+    const QMap<QString, QString>& languages() const { return m_languages; }
+
+    /**
+    * Return the current language.
+    */
+    const QString& language() const { return m_language; }
+
+    /**
     * Return the network access manager.
     */
     QNetworkAccessManager* networkAccessManager() const { return m_manager; }
@@ -162,6 +172,8 @@ private:
     void initializeSettings();
     void restoreState();
 
+    void initializeLanguage();
+
     QUrl manualIndex() const;
 
 private:
@@ -182,6 +194,9 @@ private:
 #if defined( HAVE_OPENSSL )
     CertificatesStore* m_certificates;
 #endif
+
+    QMap<QString, QString> m_languages;
+    QString m_language;
 
     QNetworkAccessManager* m_manager;
 

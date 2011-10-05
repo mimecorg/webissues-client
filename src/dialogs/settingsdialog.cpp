@@ -36,7 +36,6 @@
 #include <QPushButton>
 #include <QMessageBox>
 #include <QNetworkProxy>
-#include <QSettings>
 
 SettingsDialog::SettingsDialog( QWidget* parent ) : CommandDialog( parent )
 {
@@ -340,25 +339,8 @@ void SettingsDialog::loadLanguages()
     m_languageComboBox->addItem( tr( "System Default" ) );
     m_languageComboBox->addSeparator();
 
-    QSettings settings( application->translationsPath() + "/locale.ini", QSettings::IniFormat );
-#if ( QT_VERSION >= 0x040500 )
-    settings.setIniCodec( "UTF8" );
-#endif
+    QMap<QString, QString> languages = application->languages();
 
-    settings.beginGroup( "languages" );
-    QStringList languages = settings.allKeys();
-
-    if ( languages.isEmpty() )
-        m_languageComboBox->addItem( "English / United States", "en_US" );
-
-    foreach ( QString language, languages ) {
-        QString name = settings.value( language ).toString();
-#if ( QT_VERSION < 0x040500 )
-        QByteArray raw = name.toLatin1();
-        name = QString::fromUtf8( raw.data(), raw.size() );
-#endif
-        m_languageComboBox->addItem( name, language );
-    }
-
-    settings.endGroup();
+    for ( QMap<QString, QString>::iterator it = languages.begin(); it != languages.end(); it++ )
+        m_languageComboBox->addItem( it.value(), it.key() );
 }
