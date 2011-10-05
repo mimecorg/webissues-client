@@ -811,7 +811,7 @@ Command* DataManager::updateFolder( int folderId )
     command->addRule( "F iisii", ReplyRule::One );
     command->addRule( "I iisiiiii", ReplyRule::ZeroOrMore );
     command->addRule( "V iis", ReplyRule::ZeroOrMore );
-    command->addRule( "X ii", ReplyRule::ZeroOrMore );
+    command->addRule( "X iii", ReplyRule::ZeroOrMore );
 
     connect( command, SIGNAL( commandReply( const Reply& ) ), this, SLOT( updateFolderReply( const Reply& ) ) );
 
@@ -899,7 +899,7 @@ bool DataManager::updateFolderReply( const Reply& reply, const QSqlDatabase& dat
     if ( !execReply( "INSERT INTO attr_values VALUES ( ?, ?, ? )", "V", reply, database, i ) )
         return false;
 
-    AutoSqlQuery moveIssueQuery( "UPDATE issues SET folder_id = ? WHERE issue_id = ?", database );
+    AutoSqlQuery moveIssueQuery( "UPDATE issues SET folder_id = ?, stamp_id = ? WHERE issue_id = ?", database );
     AutoSqlQuery deleteIssueQuery( "DELETE FROM issues WHERE issue_id = ?", database );
 
     QList<int> deletedIssues;
@@ -912,6 +912,7 @@ bool DataManager::updateFolderReply( const Reply& reply, const QSqlDatabase& dat
 
         int issueId = line.argInt( 0 );
         int toFolderId = line.argInt( 1 );
+        int stampId = line.argInt( 2 );
 
         if ( toFolderId != 0 ) {
             oldIssueQuery.addBindValue( issueId );
@@ -926,6 +927,7 @@ bool DataManager::updateFolderReply( const Reply& reply, const QSqlDatabase& dat
                         updatedFolders.append( toFolderId );
 
                     moveIssueQuery.addBindValue( toFolderId );
+                    moveIssueQuery.addBindValue( stampId );
                     moveIssueQuery.addBindValue( issueId );
                     if ( !moveIssueQuery.exec() )
                         return false;

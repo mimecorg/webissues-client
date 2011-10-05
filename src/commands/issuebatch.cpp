@@ -83,8 +83,7 @@ void IssueBatch::deleteIssue()
     Job job( &IssueBatch::deleteIssueJob );
     m_queue.addJob( job );
 
-    IssueEntity issue = IssueEntity::find( m_issueId );
-    m_folderId = issue.folderId();
+    setUpdateFolder( true );
 }
 
 void IssueBatch::addComment( const QString& text )
@@ -140,6 +139,16 @@ void IssueBatch::deleteAttachment( int fileId )
     Job job( &IssueBatch::deleteAttachmentJob );
     job.addArg( fileId );
     m_queue.addJob( job );
+}
+
+void IssueBatch::setUpdateFolder( bool update )
+{
+    if ( update ) {
+        IssueEntity issue = IssueEntity::find( m_issueId );
+        m_folderId = issue.folderId();
+    } else {
+        m_folderId = 0;
+    }
 }
 
 Command* IssueBatch::fetchNext()
@@ -242,7 +251,7 @@ Command* IssueBatch::deleteIssueJob( const Job& /*job*/ )
 
     command->addRule( "ID i", ReplyRule::One );
 
-    connect( command, SIGNAL( commandReply( const Reply& ) ), this, SLOT( setUpdateFolder() ) );
+    connect( command, SIGNAL( commandReply( const Reply& ) ), this, SLOT( setUpdate() ) );
 
     return command;
 }
@@ -391,10 +400,8 @@ void IssueBatch::downloadProgress( qint64 done, qint64 /*total*/ )
 
 void IssueBatch::setUpdate()
 {
-    m_update = true;
-}
-
-void IssueBatch::setUpdateFolder()
-{
-    m_updateFolder = true;
+    if ( m_folderId != 0 )
+        m_updateFolder = true;
+    else
+        m_update = true;
 }

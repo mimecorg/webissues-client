@@ -430,6 +430,7 @@ void FolderView::editIssue()
 {
     if ( isEnabled() && m_selectedIssueId != 0 ) {
         EditIssueDialog dialog( m_selectedIssueId, mainWidget() );
+        dialog.setUpdateFolder( true );
         dialog.exec();
     }
 }
@@ -438,6 +439,7 @@ void FolderView::moveIssue()
 {
     if ( isEnabled() && FolderEntity::isAdmin( id() ) ) {
         MoveIssueDialog dialog( m_selectedIssueId, mainWidget() );
+        dialog.setUpdateFolder( true );
         dialog.exec();
     }
 }

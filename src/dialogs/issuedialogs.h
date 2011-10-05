@@ -122,11 +122,19 @@ public:
     */
     ~EditIssueDialog();
 
+public:
+    /**
+    * If @c true, update folder instead of issue details after making the changes.
+    */
+    void setUpdateFolder( bool update );
+
 public: // overrides
     void accept();
 
 private:
     int m_issueId;
+
+    bool m_updateFolder;
 
     QString m_oldName;
     QMap<int, QString> m_values;
@@ -151,11 +159,19 @@ public:
     */
     ~MoveIssueDialog();
 
+public:
+    /**
+    * If @c true, update folder instead of issue details after making the changes.
+    */
+    void setUpdateFolder( bool update );
+
 public: // overrides
     void accept();
 
 private:
     int m_issueId;
+
+    bool m_updateFolder;
 
     int m_oldFolderId;
 

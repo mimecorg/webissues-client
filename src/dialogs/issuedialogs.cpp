@@ -243,7 +243,8 @@ bool AddIssueDialog::batchSuccessful( AbstractBatch* batch )
 }
 
 EditIssueDialog::EditIssueDialog( int issueId, QWidget* parent ) : IssueDialog( parent ),
-    m_issueId( issueId )
+    m_issueId( issueId ),
+    m_updateFolder( false )
 {
     IssueEntity issue = IssueEntity::find( issueId );
     FolderEntity folder = issue.folder();
@@ -268,6 +269,11 @@ EditIssueDialog::~EditIssueDialog()
 {
 }
 
+void EditIssueDialog::setUpdateFolder( bool update )
+{
+    m_updateFolder = update;
+}
+
 void EditIssueDialog::accept()
 {
     if ( !validate() )
@@ -290,14 +296,17 @@ void EditIssueDialog::accept()
         }
     }
 
-    if ( batch )
+    if ( batch ) {
+        batch->setUpdateFolder( m_updateFolder );
         executeBatch( batch );
-    else
+    } else {
         QDialog::accept();
+    }
 }
 
 MoveIssueDialog::MoveIssueDialog( int issueId, QWidget* parent ) : CommandDialog( parent ),
-    m_issueId( issueId )
+    m_issueId( issueId ),
+    m_updateFolder( false )
 {
     IssueEntity issue = IssueEntity::find( issueId );
     FolderEntity oldFolder = issue.folder();
@@ -346,6 +355,11 @@ MoveIssueDialog::~MoveIssueDialog()
 {
 }
 
+void MoveIssueDialog::setUpdateFolder( bool update )
+{
+    m_updateFolder = update;
+}
+
 void MoveIssueDialog::accept()
 {
     if ( !validate() )
@@ -360,6 +374,8 @@ void MoveIssueDialog::accept()
 
     IssueBatch* batch = new IssueBatch( m_issueId );
     batch->moveIssue( folderId );
+
+    batch->setUpdateFolder( m_updateFolder );
 
     executeBatch( batch );
 }

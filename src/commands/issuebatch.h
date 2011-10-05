@@ -132,6 +132,11 @@ public:
     void deleteAttachment( int fileId );
 
     /**
+    * If @c true, update folder instead of issue details after making the changes.
+    */
+    void setUpdateFolder( bool update );
+
+    /**
     * Return the identifier of the issue.
     */
     int issueId() const { return m_issueId; }
@@ -190,7 +195,6 @@ private slots:
     void downloadProgress( qint64 done, qint64 total );
 
     void setUpdate();
-    void setUpdateFolder();
 
 private:
     JobQueue m_queue;
