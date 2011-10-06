@@ -386,6 +386,7 @@ Command* DataManager::updateSettings()
     Command* command = new Command();
 
     command->setKeyword( "GET SETTINGS" );
+    command->addArg( application->language() );
 
     command->setAcceptNullReply( true );
     command->addRule( "S ss", ReplyRule::ZeroOrMore );
