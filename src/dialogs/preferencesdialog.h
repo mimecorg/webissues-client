@@ -77,11 +77,15 @@ private:
     QTabWidget* m_tabWidget;
 
     SeparatorComboBox* m_languageComboBox;
+    SeparatorComboBox* m_timeZoneComboBox;
+
     SeparatorComboBox* m_numberComboBox;
     SeparatorComboBox* m_dateComboBox;
     SeparatorComboBox* m_timeComboBox;
     SeparatorComboBox* m_firstDayComboBox;
-    SeparatorComboBox* m_timeZoneComboBox;
+
+    SeparatorComboBox* m_folderPageComboBox;
+    SeparatorComboBox* m_historyPageComboBox;
 
     InputLineEdit* m_emailEdit;
     QCheckBox* m_noReadCheckBox;

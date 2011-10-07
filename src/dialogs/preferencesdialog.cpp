@@ -64,78 +64,116 @@ PreferencesDialog::PreferencesDialog( int userId, QWidget* parent ) : CommandDia
     m_tabWidget = new QTabWidget( this );
     layout->addWidget( m_tabWidget );
 
-    QWidget* regionalTab = new QWidget( m_tabWidget );
-    m_tabWidget->addTab( regionalTab, IconLoader::icon( "regional" ), tr( "Regional" ) );
+    QWidget* generalTab = new QWidget( m_tabWidget );
+    m_tabWidget->addTab( generalTab, IconLoader::icon( "preferences" ), tr( "General" ) );
 
-    QVBoxLayout* regionalLayout = new QVBoxLayout( regionalTab );
+    QVBoxLayout* generalLayout = new QVBoxLayout( generalTab );
 
-    QGroupBox* globalGroup = new QGroupBox( tr( "Global Options" ), regionalTab );
-    QGridLayout* globalLayout = new QGridLayout( globalGroup );
-    regionalLayout->addWidget( globalGroup );
+    QGroupBox* regionalGroup = new QGroupBox( tr( "Regional Options" ), generalTab );
+    QGridLayout* regionalLayout = new QGridLayout( regionalGroup );
+    generalLayout->addWidget( regionalGroup );
 
-    QLabel* numberLabel = new QLabel( tr( "&Number format:" ), globalGroup );
-    globalLayout->addWidget( numberLabel, 0, 0 );
+    QLabel* noteRegionalLabel = new QLabel( tr( "The following settings only affect the Web Client and email notifications.\n"
+        "The Desktop Client will always use the language configured in program settings and the local time zone." ), regionalGroup );
+    regionalLayout->addWidget( noteRegionalLabel, 0, 0, 1, 3 );
 
-    m_numberComboBox = new SeparatorComboBox( globalGroup );
-    globalLayout->addWidget( m_numberComboBox, 0, 1 );
+    QLabel* languageLabel = new QLabel( tr( "&Language:" ), regionalGroup );
+    regionalLayout->addWidget( languageLabel, 1, 0 );
 
-    numberLabel->setBuddy( m_numberComboBox );
-
-    QLabel* dateLabel = new QLabel( tr( "&Date format:" ), globalGroup );
-    globalLayout->addWidget( dateLabel, 1, 0 );
-
-    m_dateComboBox = new SeparatorComboBox( globalGroup );
-    globalLayout->addWidget( m_dateComboBox, 1, 1 );
-
-    dateLabel->setBuddy( m_dateComboBox );
-
-    QLabel* timeLabel = new QLabel( tr( "&Time format:" ), globalGroup );
-    globalLayout->addWidget( timeLabel, 2, 0 );
-
-    m_timeComboBox = new SeparatorComboBox( globalGroup );
-    globalLayout->addWidget( m_timeComboBox, 2, 1 );
-
-    timeLabel->setBuddy( m_timeComboBox );
-
-    QLabel* firstDayLabel = new QLabel( tr( "&First day of week:" ), globalGroup );
-    globalLayout->addWidget( firstDayLabel, 3, 0 );
-
-    m_firstDayComboBox = new SeparatorComboBox( globalGroup );
-    globalLayout->addWidget( m_firstDayComboBox, 3, 1 );
-
-    firstDayLabel->setBuddy( m_firstDayComboBox );
-
-    globalLayout->setColumnStretch( 2, 1 );
-
-    QGroupBox* webGroup = new QGroupBox( tr( "Web Client Options" ), regionalTab );
-    QGridLayout* webLayout = new QGridLayout( webGroup );
-    regionalLayout->addWidget( webGroup );
-
-    QLabel* languageLabel = new QLabel( tr( "&Language:" ), webGroup );
-    webLayout->addWidget( languageLabel, 0, 0 );
-
-    m_languageComboBox = new SeparatorComboBox( webGroup );
-    webLayout->addWidget( m_languageComboBox, 0, 1 );
+    m_languageComboBox = new SeparatorComboBox( regionalGroup );
+    regionalLayout->addWidget( m_languageComboBox, 1, 1 );
 
     languageLabel->setBuddy( m_languageComboBox );
 
-    QLabel* timeZoneLabel = new QLabel( tr( "Time &zone:" ), webGroup );
-    webLayout->addWidget( timeZoneLabel, 1, 0 );
+    QLabel* timeZoneLabel = new QLabel( tr( "Time &zone:" ), regionalGroup );
+    regionalLayout->addWidget( timeZoneLabel, 2, 0 );
 
-    m_timeZoneComboBox = new SeparatorComboBox( webGroup );
+    m_timeZoneComboBox = new SeparatorComboBox( regionalGroup );
     m_timeZoneComboBox->setMaxVisibleItems( 20 );
-    webLayout->addWidget( m_timeZoneComboBox, 1, 1 );
+    regionalLayout->addWidget( m_timeZoneComboBox, 2, 1 );
 
     timeZoneLabel->setBuddy( m_timeZoneComboBox );
 
-    QLabel* noteWebLabel = new QLabel( tr( "These settings affect the WebIssues Web Client only. "
-        "The Desktop Client will always use the language configured in program settings and the local time zone." ), webGroup );
-    noteWebLabel->setWordWrap( true );
-    webLayout->addWidget( noteWebLabel, 2, 0, 1, 3 );
+    regionalLayout->setColumnStretch( 2, 1 );
 
-    webLayout->setColumnStretch( 2, 1 );
+    QGroupBox* formatsGroup = new QGroupBox( tr( "Formats" ), generalTab );
+    QGridLayout* formatsLayout = new QGridLayout( formatsGroup );
+    generalLayout->addWidget( formatsGroup );
 
-    regionalLayout->addStretch( 1 );
+    QLabel* noteFormatsLabel = new QLabel( tr( "Customize the format of numbers, date and time. "
+        "Default formats depend on the selected language." ), regionalGroup );
+    formatsLayout->addWidget( noteFormatsLabel, 0, 0, 1, 3 );
+
+    QLabel* numberLabel = new QLabel( tr( "&Number format:" ), formatsGroup );
+    formatsLayout->addWidget( numberLabel, 1, 0 );
+
+    m_numberComboBox = new SeparatorComboBox( formatsGroup );
+    formatsLayout->addWidget( m_numberComboBox, 1, 1 );
+
+    numberLabel->setBuddy( m_numberComboBox );
+
+    QLabel* dateLabel = new QLabel( tr( "&Date format:" ), formatsGroup );
+    formatsLayout->addWidget( dateLabel, 2, 0 );
+
+    m_dateComboBox = new SeparatorComboBox( formatsGroup );
+    formatsLayout->addWidget( m_dateComboBox, 2, 1 );
+
+    dateLabel->setBuddy( m_dateComboBox );
+
+    QLabel* timeLabel = new QLabel( tr( "&Time format:" ), formatsGroup );
+    formatsLayout->addWidget( timeLabel, 3, 0 );
+
+    m_timeComboBox = new SeparatorComboBox( formatsGroup );
+    formatsLayout->addWidget( m_timeComboBox, 3, 1 );
+
+    timeLabel->setBuddy( m_timeComboBox );
+
+    QLabel* firstDayLabel = new QLabel( tr( "&First day of week:" ), formatsGroup );
+    formatsLayout->addWidget( firstDayLabel, 4, 0 );
+
+    m_firstDayComboBox = new SeparatorComboBox( formatsGroup );
+    formatsLayout->addWidget( m_firstDayComboBox, 4, 1 );
+
+    firstDayLabel->setBuddy( m_firstDayComboBox );
+
+    formatsLayout->setColumnStretch( 2, 1 );
+
+    QGroupBox* pageGroup = new QGroupBox( tr( "Page Size" ), generalTab );
+    QGridLayout* pageLayout = new QGridLayout( pageGroup );
+    generalLayout->addWidget( pageGroup );
+
+    QLabel* notePageLabel = new QLabel( tr( "The following settings only affect the Web Client." ), pageGroup );
+    pageLayout->addWidget( notePageLabel, 0, 0, 1, 3 );
+
+    QLabel* folderPageLabel = new QLabel( tr( "List of issues:" ), pageGroup );
+    pageLayout->addWidget( folderPageLabel, 1, 0 );
+
+    m_folderPageComboBox = new SeparatorComboBox( pageGroup );
+    pageLayout->addWidget( m_folderPageComboBox, 1, 1 );
+
+    folderPageLabel->setBuddy( m_folderPageComboBox );
+
+    m_folderPageComboBox->addItem( tr( "Default", "page size" ) );
+    m_folderPageComboBox->addSeparator();
+    for ( int i = 5; i <= 25; i += 5 )
+        m_folderPageComboBox->addItem( QString::number( i ), i );
+
+    QLabel* historyPageLabel = new QLabel( tr( "Issue history:" ), pageGroup );
+    pageLayout->addWidget( historyPageLabel, 2, 0 );
+
+    m_historyPageComboBox = new SeparatorComboBox( pageGroup );
+    pageLayout->addWidget( m_historyPageComboBox, 2, 1 );
+
+    m_historyPageComboBox->addItem( tr( "Default", "page size" ) );
+    m_historyPageComboBox->addSeparator();
+    for ( int i = 10; i <= 50; i += 10 )
+        m_historyPageComboBox->addItem( QString::number( i ), i );
+
+    historyPageLabel->setBuddy( m_historyPageComboBox );
+
+    pageLayout->setColumnStretch( 2, 1 );
+
+    generalLayout->addStretch( 1 );
 
     int emailEnabled = dataManager->setting( "email_enabled" ).toInt();
 
@@ -157,7 +195,6 @@ PreferencesDialog::PreferencesDialog( int userId, QWidget* parent ) : CommandDia
 
         QLabel* noteEmailLabel = new QLabel( tr( "This address will only be visible to the system administrator. "
             "You will not receive notifications if you leave this field empty." ), notifyTab );
-        noteEmailLabel->setWordWrap( true );
         notifyLayout->addWidget( noteEmailLabel, 1, 0, 1, 2 );
 
         notifyLayout->setRowMinimumHeight( 2, 5 );
@@ -249,7 +286,6 @@ PreferencesDialog::PreferencesDialog( int userId, QWidget* parent ) : CommandDia
         summaryLayout->addSpacing( 10 );
 
         QLabel* noteSummaryLabel = new QLabel( tr( "You will not receive summary emails if you do not select any day and hour." ), summaryGroup );
-        noteSummaryLabel->setWordWrap( true );
         summaryLayout->addWidget( noteSummaryLabel );
 
         notifyLayout->setRowStretch( notifyLayout->rowCount(), 1 );
@@ -397,6 +433,8 @@ void PreferencesDialog::initialize()
     int index;
     index = m_languageComboBox->findData( m_preferences.value( "language" ) );
     m_languageComboBox->setCurrentIndex( index >= 2 ? index : 0 );
+    index = m_timeZoneComboBox->findData( m_preferences.value( "time_zone" ) );
+    m_timeZoneComboBox->setCurrentIndex( index >= 2 ? index : 0 );
     index = m_numberComboBox->findData( m_preferences.value( "number_format" ) );
     m_numberComboBox->setCurrentIndex( index >= 2 ? index : 0 );
     index = m_dateComboBox->findData( m_preferences.value( "date_format" ) );
@@ -405,8 +443,10 @@ void PreferencesDialog::initialize()
     m_timeComboBox->setCurrentIndex( index >= 2 ? index : 0 );
     index = m_firstDayComboBox->findData( m_preferences.value( "first_day_of_week" ) );
     m_firstDayComboBox->setCurrentIndex( index >= 2 ? index : 0 );
-    index = m_timeZoneComboBox->findData( m_preferences.value( "time_zone" ) );
-    m_timeZoneComboBox->setCurrentIndex( index >= 2 ? index : 0 );
+    index = m_folderPageComboBox->findData( m_preferences.value( "folder_page_size" ) );
+    m_folderPageComboBox->setCurrentIndex( index >= 2 ? index : 0 );
+    index = m_historyPageComboBox->findData( m_preferences.value( "history_page_size" ) );
+    m_historyPageComboBox->setCurrentIndex( index >= 2 ? index : 0 );
 
     m_languageComboBox->setSizeAdjustPolicy( QComboBox::AdjustToContents );
     m_numberComboBox->setSizeAdjustPolicy( QComboBox::AdjustToContents );
@@ -462,6 +502,8 @@ void PreferencesDialog::accept()
     preferences.insert( "time_format", m_timeComboBox->itemData( m_timeComboBox->currentIndex() ).toString() );
     preferences.insert( "first_day_of_week", m_firstDayComboBox->itemData( m_firstDayComboBox->currentIndex() ).toString() );
     preferences.insert( "time_zone", m_timeZoneComboBox->itemData( m_timeZoneComboBox->currentIndex() ).toString() );
+    preferences.insert( "folder_page_size", m_folderPageComboBox->itemData( m_folderPageComboBox->currentIndex() ).toString() );
+    preferences.insert( "history_page_size", m_historyPageComboBox->itemData( m_historyPageComboBox->currentIndex() ).toString() );
 
     if ( m_emailEdit )
         preferences.insert( "email", m_emailEdit->inputValue() );
