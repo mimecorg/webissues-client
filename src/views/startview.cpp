@@ -269,7 +269,12 @@ void StartView::executeBatch( AbstractBatch* batch )
 void StartView::loginCompleted( bool successful )
 {
     if ( successful ) {
-        if ( dataManager->currentUserAccess() != NoAccess ) {
+        if ( !dataManager->isValid() ) {
+            showError( tr( "Local cache database cannot be opened." ) );
+            cancelConnection();
+        } else if ( dataManager->currentUserAccess() == NoAccess ) {
+            showLoginDialog( false );
+        } else {
             Bookmark bookmark( dataManager->serverName(), dataManager->serverUuid(), commandManager->serverUrl().toString() );
             application->bookmarksStore()->addBookmark( bookmark );
 
@@ -277,8 +282,6 @@ void StartView::loginCompleted( bool successful )
             application->credentialsStore()->addServerCredential( credential );
 
             emit connectionOpened();
-        } else {
-            showLoginDialog( false );
         }
     } else {
         if ( commandManager->error() == CommandManager::WebIssuesError && commandManager->errorCode() == ErrorHelper::IncorrectLogin ) {

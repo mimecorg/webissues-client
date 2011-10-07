@@ -189,6 +189,11 @@ bool DataManager::openDatabase()
     if ( !database.open() )
         return false;
 
+    if ( !lockDatabase( database ) ) {
+        database.close();
+        return false;
+    }
+
     database.transaction();
 
     bool ok = installSchema( database );
@@ -205,6 +210,20 @@ bool DataManager::openDatabase()
     }
 
     return ok;
+}
+
+bool DataManager::lockDatabase( const QSqlDatabase& database )
+{
+    QSqlQuery query( database );
+
+    if ( !query.exec( "PRAGMA locking_mode = EXCLUSIVE" ) )
+        return false;
+    if ( !query.exec( "BEGIN EXCLUSIVE" ) )
+        return false;
+    if ( !query.exec( "COMMIT" ) )
+        return false;
+
+    return true;
 }
 
 bool DataManager::installSchema( const QSqlDatabase& database )

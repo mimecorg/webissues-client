@@ -507,7 +507,7 @@ bool SQLiteDriver::open(const QString & db, const QString &, const QString &, co
         return false;
 
     if (sqlite3_open16(db.utf16(), &d->access) == SQLITE_OK) {
-        sqlite3_busy_timeout(d->access, 5000);
+        sqlite3_busy_timeout(d->access, 500);
 #if defined(SQLITEDRIVER_DEBUG)
         sqlite3_trace(d->access, trace, NULL);
 #endif

@@ -69,7 +69,9 @@ Command* LoginBatch::helloJob( const Job& /*job*/ )
 
 Command* LoginBatch::loginJob( const Job& job )
 {
-    return dataManager->login( job.argString( 0 ), job.argString( 1 ) );
+    if ( dataManager->isValid() )
+        return dataManager->login( job.argString( 0 ), job.argString( 1 ) );
+    return NULL;
 }
 
 Command* LoginBatch::loginNewJob( const Job& job )

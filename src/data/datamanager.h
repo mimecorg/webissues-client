@@ -400,6 +400,7 @@ private:
     void notifyObservers( UpdateEvent::Unit unit, int id = 0 );
 
     bool openDatabase();
+    bool lockDatabase( const QSqlDatabase& database );
     bool installSchema( const QSqlDatabase& database );
     void closeDatabase();
 
