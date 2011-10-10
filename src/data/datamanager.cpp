@@ -24,11 +24,11 @@
 #include "commands/commandmanager.h"
 #include "data/localsettings.h"
 #include "data/issuetypecache.h"
+#include "data/filecache.h"
 #include "models/querygenerator.h"
 
 #include <QSqlDatabase>
 #include <QSqlQuery>
-#include <QFileInfo>
 #include <QFile>
 
 DataManager* dataManager = NULL;
@@ -38,14 +38,20 @@ DataManager::DataManager() :
     m_currentUserId( 0 ),
     m_currentUserAccess( NoAccess ),
     m_connectionSettings( NULL ),
+    m_fileCache( NULL ),
     m_localeUpdated( false )
 {
 }
 
 DataManager::~DataManager()
 {
-    if ( m_valid )
+    if ( m_valid ) {
+        clearIssueLocks();
         closeDatabase();
+    }
+
+    if ( m_fileCache )
+        m_fileCache->flush();
 }
 
 static int parseVersion( const QString& version )
@@ -198,10 +204,6 @@ bool DataManager::openDatabase()
 
     bool ok = installSchema( database );
     if ( ok )
-        ok = clearIssueLocks( database );
-    if ( ok )
-        ok = flushFileCache( 0, database );
-    if ( ok )
         ok = database.commit();
 
     if ( !ok ) {
@@ -228,7 +230,7 @@ bool DataManager::lockDatabase( const QSqlDatabase& database )
 
 bool DataManager::installSchema( const QSqlDatabase& database )
 {
-    const int schemaVersion = 1;
+    const int schemaVersion = 2;
 
     int currentVersion = execScalar( "PRAGMA user_version", database ).toInt();
 
@@ -251,7 +253,6 @@ bool DataManager::installSchema( const QSqlDatabase& database )
             "CREATE INDEX changes_issue_idx ON changes ( issue_id )",
             "CREATE TABLE comments ( comment_id integer UNIQUE, comment_text text )",
             "CREATE TABLE files ( file_id integer UNIQUE, file_name text, file_size integer, file_descr text )",
-            "CREATE TABLE files_cache ( file_id integer UNIQUE, file_path text, file_size integer, last_access integer )",
             "CREATE TABLE folders ( folder_id integer UNIQUE, project_id integer, folder_name text, type_id integer, stamp_id integer )",
             "CREATE TABLE folders_cache ( folder_id integer UNIQUE, list_id integer )",
             "CREATE TABLE formats ( format_type text, format_key text, format_def text )",
@@ -278,6 +279,27 @@ bool DataManager::installSchema( const QSqlDatabase& database )
             if ( !query.exec( schema[ i ] ) )
                 return false;
         }
+
+        currentVersion = schemaVersion;
+    }
+
+    if ( currentVersion < 2 ) {
+        if ( !query.exec( "SELECT file_id, file_path, file_size FROM files_cache ORDER BY last_access ASC" ) )
+            return false;
+
+        while ( query.next() ) {
+            int fileId = query.value( 0 ).toInt();
+            QString path = query.value( 1 ).toString();
+            int size = query.value( 2 ).toInt();
+
+            if ( QFile::exists( path ) )
+                m_fileCache->commitFile( fileId, path, size );
+        }
+
+        m_fileCache->flush();
+
+        if ( !query.exec( "DROP TABLE files_cache" ) )
+            return false;
     }
 
     QString sql = QString( "PRAGMA user_version = %1" ).arg( schemaVersion );
@@ -291,17 +313,6 @@ bool DataManager::installSchema( const QSqlDatabase& database )
 void DataManager::closeDatabase()
 {
     QSqlDatabase database = QSqlDatabase::database();
-    database.transaction();
-
-    bool ok = clearIssueLocks( database );
-    if ( ok )
-        ok = flushFileCache( 0, database );
-    if ( ok )
-        ok = database.commit();
-
-    if ( !ok )
-        database.rollback();
-
     database.close();
 }
 
@@ -353,7 +364,15 @@ void DataManager::helloReply( const Reply& reply )
 
     m_connectionSettings = new LocalSettings( locateDataFile( "connection.dat" ), this );
 
+    m_fileCache = new FileCache( m_serverUuid, application->locateCacheFile( "filecache.dat" ), this );
+    m_fileCache->flush();
+
+    connect( application->applicationSettings(), SIGNAL( settingsChanged() ), this, SLOT( settingsChanged() ) );
+
     m_valid = openDatabase();
+
+    if ( m_valid )
+        clearIssueLocks();
 }
 
 Command* DataManager::login( const QString& login, const QString& password )
@@ -1193,6 +1212,19 @@ bool DataManager::unlockIssue( int issueId, const QSqlDatabase& database )
     return true;
 }
 
+void DataManager::clearIssueLocks()
+{
+    QSqlDatabase database = QSqlDatabase::database();
+    database.transaction();
+
+    bool ok = clearIssueLocks( database );
+    if ( ok )
+        ok = database.commit();
+
+    if ( !ok )
+        database.rollback();
+}
+
 bool DataManager::clearIssueLocks( const QSqlDatabase& database )
 {
     QSqlQuery query( database );
@@ -1273,108 +1305,27 @@ bool DataManager::removeIssueDetails( const QList<int>& issues, const QSqlDataba
 
 QString DataManager::findFilePath( int fileId ) const
 {
-    QSqlDatabase database = QSqlDatabase::database();
-
-    QString path = execScalar( "SELECT file_path FROM files_cache WHERE file_id = ?", database, fileId ).toString();
-
-    if ( path.isEmpty() )
-        return QString();
-
-    if ( !QFile::exists( path ) ) {
-        QSqlQuery query( database );
-        query.prepare( "DELETE FROM files_cache WHERE file_id = ?" );
-        query.addBindValue( fileId );
-        query.exec();
-
-        return QString();
-    }
-
-    QSqlQuery query( database );
-    query.prepare( "UPDATE files_cache SET last_access = strftime( '%s', 'now' ) WHERE file_id = ?" );
-    query.addBindValue( fileId );
-    query.exec();
-
-    return path;
+    return m_fileCache->findFilePath( fileId );
 }
 
 QString DataManager::generateFilePath( const QString& name ) const
 {
-    QString path = application->locateTempFile( name );
-
-    QFileInfo info( path );
-
-    if ( !info.exists() )
-        return path;
-
-    QString baseName = info.baseName();
-    QString suffix = info.completeSuffix();
-    if ( !suffix.isEmpty() )
-        suffix.prepend( '.' );
-
-    for ( int number = 2; ; number++ ) {
-        QString generatedName = QString( "%1(%2)%3" ).arg( baseName ).arg( number ).arg( suffix );
-        path = application->locateTempFile( generatedName );
-        if ( !QFile::exists( path ) )
-            return path;
-    }
+    return m_fileCache->generateFilePath( name );
 }
 
 void DataManager::allocFileSpace( int size )
 {
-    QSqlDatabase database = QSqlDatabase::database();
-    database.transaction();
-
-    bool ok = flushFileCache( size, database );
-    if ( ok )
-        ok = database.commit();
-
-    if ( !ok )
-        database.rollback();
+    m_fileCache->allocFileSpace( size );
 }
 
 void DataManager::commitFile( int fileId, const QString& path, int size )
 {
-    QSqlDatabase database = QSqlDatabase::database();
-
-    QSqlQuery query( database );
-    query.prepare( "INSERT INTO files_cache VALUES ( ?, ?, ?, strftime( '%s', 'now' ) )" );
-    query.addBindValue( fileId );
-    query.addBindValue( path );
-    query.addBindValue( size );
-    query.exec();
+    m_fileCache->commitFile( fileId, path, size );
 }
 
-bool DataManager::flushFileCache( int allocatedSize, const QSqlDatabase& database )
+void DataManager::settingsChanged()
 {
-    LocalSettings* settings = application->applicationSettings();
-    int limit = settings->value( "AttachmentsCacheSize" ).toInt() * 1024 * 1024;
-
-    int occupied = ( allocatedSize + 4095 ) & ~4096;
-    occupied += execScalar( "SELECT SUM( ( file_size + 4095 ) & ~4096 ) FROM files_cache", database ).toInt();
-
-    QList<int> deletedFiles;
-
-    QSqlQuery query( database );
-    if ( !query.exec( "SELECT file_id, file_path, file_size FROM files_cache ORDER BY last_access" ) )
-        return false;
-
-    while ( query.next() ) {
-        QString path = query.value( 1 ).toString();
-        if ( !QFile::exists( path ) || ( ( occupied > limit ) && QFile::remove( path ) ) ) {
-            occupied -= ( query.value( 2 ).toInt() + 4095 ) & ~4096;
-            deletedFiles.append( query.value( 0 ).toInt() );
-        }
-    }
-
-    AutoSqlQuery deleteFileQuery( "DELETE FROM files_cache WHERE file_id = ?", database );
-
-    foreach ( int fileId, deletedFiles ) {
-        deleteFileQuery.addBindValue( fileId );
-        if ( !deleteFileQuery.exec() )
-            return false;
-    }
-
-    return true;
+    m_fileCache->flush();
 }
 
 bool DataManager::recalculateAllAlerts( const QSqlDatabase& database )

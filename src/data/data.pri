@@ -6,6 +6,7 @@ HEADERS += data/bookmark.h \
            data/datamanager.h \
            data/entities.h \
            data/entities_p.h \
+           data/filecache.h \
            data/issuetypecache.h \
            data/localsettings.h \
            data/updateevent.h
@@ -17,6 +18,7 @@ SOURCES += data/bookmark.cpp \
            data/credentialsstore.cpp \
            data/datamanager.cpp \
            data/entities.cpp \
+           data/filecache.cpp \
            data/issuetypecache.cpp \
            data/localsettings.cpp \
            data/updateevent.cpp

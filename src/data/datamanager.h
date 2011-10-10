@@ -30,6 +30,7 @@ class Command;
 class Reply;
 class LocalSettings;
 class IssueTypeCache;
+class FileCache;
 
 class QSqlDatabase;
 
@@ -396,13 +397,16 @@ private slots:
     void updateFolderReply( const Reply& reply );
     void updateIssueReply( const Reply& reply );
 
+    void settingsChanged();
+
 private:
     void notifyObservers( UpdateEvent::Unit unit, int id = 0 );
 
     bool openDatabase();
+    void closeDatabase();
+
     bool lockDatabase( const QSqlDatabase& database );
     bool installSchema( const QSqlDatabase& database );
-    void closeDatabase();
 
     bool updateSettingsReply( const Reply& reply, const QSqlDatabase& database );
     bool updateLocaleReply( const Reply& reply, const QSqlDatabase& database );
@@ -416,11 +420,12 @@ private:
 
     bool lockIssue( int issueId, const QSqlDatabase& database );
     bool unlockIssue( int issueId, const QSqlDatabase& database );
+
+    void clearIssueLocks();
     bool clearIssueLocks( const QSqlDatabase& database );
+
     bool flushIssueDetails( const QSqlDatabase& database );
     bool removeIssueDetails( const QList<int>& issues, const QSqlDatabase& database );
-
-    bool flushFileCache( int allocatedSize, const QSqlDatabase& database );
 
     bool recalculateAllAlerts( const QSqlDatabase& database );
     bool recalculateAlerts( int folderId, const QSqlDatabase& database );
@@ -443,6 +448,8 @@ private:
     QMap<QString, QString> m_settings;
 
     QHash<int, IssueTypeCache*> m_issueTypesCache;
+
+    FileCache* m_fileCache;
 
     DefinitionInfo m_numberFormat;
     DefinitionInfo m_dateFormat;
