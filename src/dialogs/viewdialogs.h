@@ -66,6 +66,11 @@ protected:
     DefinitionInfo definitionInfo();
 
     /**
+    * Set the name of the view.
+    */
+    void setViewName( const QString& name );
+
+    /**
     * Return the name of the view.
     */
     QString viewName() const;
@@ -135,6 +140,7 @@ public:
     /**
     * Constructor.
     * @param typeId Identifier of the type associated with the view.
+    * @param isPublic If @c true, a public view is created.
     * @param parent The parent widget.
     */
     AddViewDialog( int typeId, bool isPublic, QWidget* parent );
@@ -158,6 +164,42 @@ private:
     bool m_isPublic;
 
     int m_viewId;
+};
+
+/**
+* Dialog for cloning an existing view.
+*/
+class CloneViewDialog : public ViewDialog
+{
+    Q_OBJECT
+public:
+    /**
+    * Constructor.
+    * @param viewId Identifier of the view to clone.
+    * @param isPublic If @c true, a public view is created.
+    * @param parent The parent widget.
+    */
+    CloneViewDialog( int viewId, bool isPublic, QWidget* parent );
+
+    /**
+    * Destructor.
+    */
+    ~CloneViewDialog();
+
+public:
+    int viewId() const { return m_viewId; }
+
+public: // overrides
+    void accept();
+
+protected: // overrides
+    bool batchSuccessful( AbstractBatch* batch );
+
+private:
+    int m_viewId;
+    bool m_isPublic;
+
+    int m_typeId;
 };
 
 /**

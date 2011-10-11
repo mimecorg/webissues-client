@@ -78,6 +78,10 @@ FolderView::FolderView( QObject* parent, QWidget* parentWidget ) : View( parent 
     connect( action, SIGNAL( triggered() ), this, SLOT( editIssue() ), Qt::QueuedConnection );
     setAction( "editIssue", action );
 
+    action = new QAction( IconLoader::icon( "issue-clone" ), tr( "Clone Issue..." ), this );
+    connect( action, SIGNAL( triggered() ), this, SLOT( cloneIssue() ), Qt::QueuedConnection );
+    setAction( "cloneIssue", action );
+
     action = new QAction( IconLoader::icon( "issue-move" ), tr( "&Move Issue..." ), this );
     action->setIconText( tr( "Move" ) );
     connect( action, SIGNAL( triggered() ), this, SLOT( moveIssue() ), Qt::QueuedConnection );
@@ -131,13 +135,18 @@ FolderView::FolderView( QObject* parent, QWidget* parentWidget ) : View( parent 
     connect( action, SIGNAL( triggered() ), this, SLOT( manageViews() ), Qt::QueuedConnection );
     setAction( "manageViews", action );
 
+    action = new QAction( IconLoader::icon( "view-new" ), tr( "Add View" ), this );
+    setAction( "popupAddView", action );
+
     action = new QAction( IconLoader::icon( "view-new" ), tr( "&Add View" ), this );
-    action->setIconText( tr( "Add" ) );
     connect( action, SIGNAL( triggered() ), this, SLOT( addView() ), Qt::QueuedConnection );
     setAction( "addView", action );
 
+    action = new QAction( IconLoader::icon( "view-clone" ), tr( "&Clone View" ), this );
+    connect( action, SIGNAL( triggered() ), this, SLOT( cloneView() ), Qt::QueuedConnection );
+    setAction( "cloneView", action );
+
     action = new QAction( IconLoader::icon( "edit-modify" ), tr( "M&odify View" ), this );
-    action->setIconText( tr( "Modify" ) );
     connect( action, SIGNAL( triggered() ), this, SLOT( modifyView() ), Qt::QueuedConnection );
     setAction( "modifyView", action );
 
@@ -149,6 +158,7 @@ FolderView::FolderView( QObject* parent, QWidget* parentWidget ) : View( parent 
 
     setPopupMenu( "popupExport", "menuExport", "exportPdf" );
     setPopupMenu( "popupMarkAll", "menuMarkAll", "markAllAsRead" );
+    setPopupMenu( "popupAddView", "menuAddView", "addView" );
 
     setDefaultMenuAction( "menuIssue", "openIssue" );
 
@@ -340,6 +350,7 @@ void FolderView::updateActions()
 
     action( "editIssue" )->setEnabled( m_selectedIssueId != 0 );
     action( "openIssue" )->setEnabled( m_selectedIssueId != 0 );
+    action( "cloneIssue" )->setEnabled( m_selectedIssueId != 0 );
 
     action( "moveIssue" )->setEnabled( m_selectedIssueId != 0 && access() == AdminAccess );
     action( "deleteIssue" )->setEnabled( m_selectedIssueId != 0 && access() == AdminAccess );
@@ -353,6 +364,8 @@ void FolderView::updateActions()
     action( "popupMarkAll" )->setEnabled( folder.stampId() > 0 );
     action( "markAllAsRead" )->setEnabled( folder.stampId() > 0 );
     action( "markAllAsUnread" )->setEnabled( folder.stampId() > 0 );
+
+    action( "cloneView" )->setEnabled( m_currentViewId != 0 );
 
     bool isPersonalView = false;
 
@@ -414,7 +427,7 @@ void FolderView::openIssue()
 void FolderView::addIssue()
 {
     if ( isEnabled() ) {
-        AddIssueDialog dialog( id(), mainWidget() );
+        AddIssueDialog dialog( id(), 0, mainWidget() );
         if ( dialog.exec() == QDialog::Accepted ) {
             int issueId = dialog.issueId();
 
@@ -432,6 +445,30 @@ void FolderView::editIssue()
         EditIssueDialog dialog( m_selectedIssueId, mainWidget() );
         dialog.setUpdateFolder( true );
         dialog.exec();
+    }
+}
+
+void FolderView::cloneIssue()
+{
+    if ( isEnabled() ) {
+        CloneIssueDialog cloneDialog( m_selectedIssueId, mainWidget() );
+        if ( cloneDialog.exec() == QDialog::Accepted ) {
+            int folderId = cloneDialog.folderId();
+
+            AddIssueDialog addDialog( folderId, m_selectedIssueId, mainWidget() );
+            if ( addDialog.exec() == QDialog::Accepted ) {
+                int issueId = addDialog.issueId();
+
+                if ( viewManager->isStandAlone( this ) ) {
+                    if ( id() == folderId )
+                        setSelectedIssueId( issueId );
+
+                    viewManager->openIssueView( issueId );
+                } else {
+                    emit issueActivated( issueId, issueId );
+                }
+            }
+        }
     }
 }
 
@@ -549,6 +586,16 @@ void FolderView::addView()
     }
 }
 
+void FolderView::cloneView()
+{
+    CloneViewDialog dialog( m_currentViewId, false, mainWidget() );
+    if ( dialog.exec() == QDialog::Accepted ) {
+        m_currentViewId = dialog.viewId();
+        updateViews();
+        loadCurrentView( true );
+    }
+}
+
 void FolderView::modifyView()
 {
     if ( m_currentViewId != 0 ) {
@@ -644,7 +691,7 @@ void FolderView::gotoIssue( int issueId, int itemId )
     }
 
     if ( issueId == m_selectedIssueId )
-        emit gotoItem( itemId );
+        emit itemActivated( itemId );
 }
 
 void FolderView::quickSearchChanged( const QString& text )

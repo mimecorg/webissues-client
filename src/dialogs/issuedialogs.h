@@ -75,9 +75,10 @@ public:
     /**
     * Constructor.
     * @param folderId The identifier of the folder containing the issue.
+    * @param cloneIssueId Optional identifier of the issue to clone.
     * @param parent The parent widget.
     */
-    AddIssueDialog( int folderId, QWidget* parent );
+    AddIssueDialog( int folderId, int cloneIssueId, QWidget* parent );
 
     /**
     * Destructor.
@@ -141,9 +142,57 @@ private:
 };
 
 /**
+* Base class for dialogs for moving and cloning issues.
+*/
+class TransferIssueDialog : public CommandDialog
+{
+    Q_OBJECT
+public:
+    /**
+    * Constructor.
+    * @param parent The parent widget.
+    */
+    TransferIssueDialog( QWidget* parent );
+
+    /**
+    * Destructor.
+    */
+    ~TransferIssueDialog();
+
+public:
+    int folderId() const;
+
+protected:
+    void initialize( int typeId, int folderId );
+
+private:
+    SeparatorComboBox* m_folderCombo;
+};
+
+/**
+* Dialog for selecting destination folder for cloned issue.
+*/
+class CloneIssueDialog : public TransferIssueDialog
+{
+    Q_OBJECT
+public:
+    /**
+    * Constructor.
+    * @param issueId Identifier of the isssue to clone.
+    * @param parent The parent widget.
+    */
+    CloneIssueDialog( int issueId, QWidget* parent );
+
+    /**
+    * Destructor.
+    */
+    ~CloneIssueDialog();
+};
+
+/**
 * Dialog for executing the <tt>MOVE ISSUE</tt> command.
 */
-class MoveIssueDialog : public CommandDialog
+class MoveIssueDialog : public TransferIssueDialog
 {
     Q_OBJECT
 public:
@@ -174,8 +223,6 @@ private:
     bool m_updateFolder;
 
     int m_oldFolderId;
-
-    SeparatorComboBox* m_folderCombo;
 };
 
 /**

@@ -90,6 +90,10 @@ IssueView::IssueView( QObject* parent, QWidget* parentWidget ) : View( parent ),
     connect( action, SIGNAL( triggered() ), this, SLOT( editIssue() ), Qt::QueuedConnection );
     setAction( "editIssue", action );
 
+    action = new QAction( IconLoader::icon( "issue-clone" ), tr( "Clone Issue..." ), this );
+    connect( action, SIGNAL( triggered() ), this, SLOT( cloneIssue() ), Qt::QueuedConnection );
+    setAction( "cloneIssue", action );
+
     action = new QAction( IconLoader::icon( "issue-move" ), tr( "&Move Issue..." ), this );
     action->setIconText( tr( "Move" ) );
     connect( action, SIGNAL( triggered() ), this, SLOT( moveIssue() ), Qt::QueuedConnection );
@@ -449,6 +453,26 @@ void IssueView::editIssue()
     if ( isEnabled() ) {
         EditIssueDialog dialog( id(), mainWidget() );
         dialog.exec();
+    }
+}
+
+void IssueView::cloneIssue()
+{
+    if ( isEnabled() ) {
+        CloneIssueDialog cloneDialog( id(), mainWidget() );
+        if ( cloneDialog.exec() == QDialog::Accepted ) {
+            int folderId = cloneDialog.folderId();
+
+            AddIssueDialog addDialog( folderId, id(), mainWidget() );
+            if ( addDialog.exec() == QDialog::Accepted ) {
+                int issueId = addDialog.issueId();
+
+                if ( viewManager->isStandAlone( this ) )
+                    viewManager->openIssueView( issueId );
+                else
+                    emit issueActivated( issueId, issueId );
+            }
+        }
     }
 }
 
@@ -822,7 +846,7 @@ void IssueView::findItem( int itemId )
     else if ( viewManager->isStandAlone( this ) )
         viewManager->openIssueView( issueId, itemId );
     else
-        emit gotoIssue( issueId, itemId );
+        emit issueActivated( issueId, itemId );
 }
 
 void IssueView::handleAttachment( int fileId )

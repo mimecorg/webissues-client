@@ -85,9 +85,14 @@ signals:
     void currentViewChanged( int viewId );
 
     /**
+    * Emitted when a link to another issue is clicked.
+    */
+    void issueActivated( int issueId, int itemId );
+
+    /**
     * Emitted when given item should be activated.
     */
-    void gotoItem( int itemId );
+    void itemActivated( int itemId );
 
 protected: // overrides
     void enableView();
@@ -104,6 +109,7 @@ private slots:
     void openIssue();
     void addIssue();
     void editIssue();
+    void cloneIssue();
     void moveIssue();
     void deleteIssue();
 
@@ -118,6 +124,7 @@ private slots:
 
     void manageViews();
     void addView();
+    void cloneView();
     void modifyView();
 
     void headerContextMenu( const QPoint& pos );

@@ -384,8 +384,9 @@ void MainWindow::connectionOpened()
     connect( m_folderView, SIGNAL( selectedIssueChanged( int ) ), this, SLOT( selectedIssueChanged( int ) ) );
     connect( m_folderView, SIGNAL( currentViewChanged( int ) ), this, SLOT( currentViewChanged( int ) ) );
 
-    connect( m_issueView, SIGNAL( gotoIssue( int, int ) ), this, SLOT( gotoIssue( int, int ) ), Qt::QueuedConnection );
-    connect( m_folderView, SIGNAL( gotoItem( int ) ), this, SLOT( gotoItem( int ) ) );
+    connect( m_issueView, SIGNAL( issueActivated( int, int ) ), this, SLOT( gotoIssue( int, int ) ), Qt::QueuedConnection );
+    connect( m_folderView, SIGNAL( issueActivated( int, int ) ), this, SLOT( gotoIssue( int, int ) ), Qt::QueuedConnection );
+    connect( m_folderView, SIGNAL( itemActivated( int ) ), this, SLOT( gotoItem( int ) ) );
 
     folderEnabledChanged( m_folderView->isEnabled() );
     issueEnabledChanged( m_issueView->isEnabled() );

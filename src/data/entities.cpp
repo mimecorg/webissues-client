@@ -1305,6 +1305,29 @@ DefinitionInfo ValueEntity::definition() const
     return DefinitionInfo();
 }
 
+ValueEntity ValueEntity::find( int issueId, int attributeId )
+{
+    ValueEntity entity;
+
+    if ( issueId != 0 && attributeId != 0 ) {
+        QSqlQuery query;
+        query.prepare( "SELECT a.attr_id, v.attr_value, a.type_id"
+            " FROM attr_types AS a"
+            " LEFT OUTER JOIN attr_values AS v ON v.attr_id = a.attr_id AND v.issue_id = ?"
+            " WHERE a.attr_id = ?" );
+        query.addBindValue( issueId );
+        query.addBindValue( attributeId );
+        query.exec();
+
+        if ( query.next() ) {
+            entity.d->read( query );
+            entity.d->m_typeId = query.value( 2 ).toInt();
+        }
+    }
+
+    return entity;
+}
+
 class ValueEntityLessThan
 {
 public:

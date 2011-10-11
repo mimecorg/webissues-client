@@ -61,6 +61,7 @@ private slots:
     void modifyDefaultView();
 
     void addView();
+    void cloneView();
     void editRename();
     void editDelete();
     void editModify();

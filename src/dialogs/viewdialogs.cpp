@@ -680,6 +680,11 @@ DefinitionInfo ViewDialog::definitionInfo()
     return info;
 }
 
+void ViewDialog::setViewName( const QString& name )
+{
+    m_nameEdit->setInputValue( name );
+}
+
 QString ViewDialog::viewName() const
 {
     return m_nameEdit->inputValue();
@@ -731,6 +736,56 @@ void AddViewDialog::accept()
 }
 
 bool AddViewDialog::batchSuccessful( AbstractBatch* batch )
+{
+    m_viewId = ( (ViewsBatch*)batch )->viewId();
+
+    return true;
+}
+
+CloneViewDialog::CloneViewDialog( int viewId, bool isPublic, QWidget* parent ) : ViewDialog( parent ),
+    m_viewId( viewId ),
+    m_isPublic( isPublic )
+{
+    ViewEntity view = ViewEntity::find( viewId );
+
+    setWindowTitle( tr( "Clone View" ) );
+    if ( isPublic )
+        setPrompt( tr( "Clone view <b>%1</b> as a new public view:" ).arg( view.name() ) );
+    else
+        setPrompt( tr( "Clone view <b>%1</b> as a new personal  view:" ).arg( view.name() ) );
+    setPromptPixmap( IconLoader::pixmap( "view-clone", 22 ) );
+
+    m_typeId = view.typeId();
+
+    initialize( true, true, m_typeId, view.definition() );
+    setViewName( view.name() );
+}
+
+CloneViewDialog::~CloneViewDialog()
+{
+}
+
+void CloneViewDialog::accept()
+{
+    if ( !validate() )
+        return;
+
+    QString name = viewName();
+
+    if ( ViewEntity::exists( m_typeId, name, m_isPublic ) ) {
+        showWarning( ErrorHelper::ViewAlreadyExists );
+        return;
+    }
+
+    DefinitionInfo info = definitionInfo();
+
+    ViewsBatch* batch = new ViewsBatch();
+    batch->addView( m_typeId, name, info.toString(), m_isPublic );
+
+    executeBatch( batch );
+}
+
+bool CloneViewDialog::batchSuccessful( AbstractBatch* batch )
 {
     m_viewId = ( (ViewsBatch*)batch )->viewId();
 

@@ -111,6 +111,8 @@
   <file>help-16.png</file>
   <file>issue-16.png</file>
   <file>issue-22.png</file>
+  <file>issue-clone-16.png</file>
+  <file>issue-clone-22.png</file>
   <file>issue-modified-16.png</file>
   <file>issue-move-16.png</file>
   <file>issue-move-22.png</file>
@@ -151,6 +153,8 @@
   <file>user-new-16.png</file>
   <file>user-new-22.png</file>
   <file>view-16.png</file>
+  <file>view-clone-16.png</file>
+  <file>view-clone-22.png</file>
   <file>view-dashboard-16.png</file>
   <file>view-history-16.png</file>
   <file>view-members-16.png</file>

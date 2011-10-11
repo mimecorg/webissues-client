@@ -9,6 +9,7 @@
     </section>
     <section id="sectionIssue">
       <action id="editIssue"/>
+      <action id="cloneIssue"/>
       <grid>
         <action id="moveIssue"/>
         <action id="deleteIssue"/>
@@ -18,7 +19,7 @@
     <section id="sectionViews">
       <action id="manageViews"/>
       <grid>
-        <action id="addView"/>
+        <action id="popupAddView"/>
         <action id="modifyView"/>
       </grid>
     </section>
@@ -41,6 +42,7 @@
     <action id="openIssue"/>
     <separator/>
     <action id="editIssue"/>
+    <action id="cloneIssue"/>
     <action id="moveIssue"/>
     <action id="deleteIssue"/>
     <separator/>
@@ -68,5 +70,9 @@
   <menu id="menuMarkAll">
     <action id="markAllAsRead"/>
     <action id="markAllAsUnread"/>
+  </menu>
+  <menu id="menuAddView">
+    <action id="addView"/>
+    <action id="cloneView"/>
   </menu>
 </xmlui>

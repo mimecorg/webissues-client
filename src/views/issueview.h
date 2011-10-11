@@ -74,7 +74,7 @@ signals:
     /**
     * Emitted when a link to another issue is clicked.
     */
-    void gotoIssue( int issueId, int itemId );
+    void issueActivated( int issueId, int itemId );
 
 protected: // overrides
     void enableView();
@@ -91,6 +91,7 @@ private slots:
     void addComment();
     void addAttachment();
     void editIssue();
+    void cloneIssue();
     void moveIssue();
     void deleteIssue();
     void markAsRead();

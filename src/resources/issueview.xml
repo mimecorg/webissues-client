@@ -7,6 +7,7 @@
     <section id="sectionIssue">
       <action id="updateIssue"/>
       <action id="editIssue"/>
+      <action id="cloneIssue"/>
       <grid>
         <action id="moveIssue"/>
         <action id="deleteIssue"/>

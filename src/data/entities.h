@@ -379,6 +379,9 @@ public:
     QString name() const;
     DefinitionInfo definition() const;
 
+public:
+    static ValueEntity find( int issueId, int attributeId );
+
 private:
     QExplicitlySharedDataPointer<ValueEntityData> d;
 

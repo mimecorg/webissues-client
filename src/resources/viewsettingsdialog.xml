@@ -2,6 +2,7 @@
   <strip id="stripViews">
     <action id="addView"/>
     <action id="editModify"/>
+    <action id="cloneView"/>
     <action id="editRename"/>
     <action id="editDelete"/>
     <action id="editPublish"/>
@@ -11,6 +12,7 @@
   </menu>
   <menu id="menuView">
     <action id="editModify"/>
+    <action id="cloneView"/>
     <separator/>
     <action id="editRename"/>
     <action id="editDelete"/>

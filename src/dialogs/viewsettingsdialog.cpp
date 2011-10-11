@@ -60,6 +60,10 @@ ViewSettingsDialog::ViewSettingsDialog( int typeId, bool isPublic, QWidget* pare
     connect( action, SIGNAL( triggered() ), this, SLOT( addView() ) );
     setAction( "addView", action );
 
+    action = new QAction( IconLoader::icon( "view-clone" ), tr( "&Clone View..." ), this );
+    connect( action, SIGNAL( triggered() ), this, SLOT( cloneView() ) );
+    setAction( "cloneView", action );
+
     action = new QAction( IconLoader::icon( "edit-rename" ), tr( "&Rename View..." ), this );
     action->setShortcut( tr( "F2" ) );
     connect( action, SIGNAL( triggered() ), this, SLOT( editRename() ) );
@@ -234,6 +238,12 @@ void ViewSettingsDialog::addView()
     dialog.exec();
 }
 
+void ViewSettingsDialog::cloneView()
+{
+    CloneViewDialog dialog( m_selectedViewId, m_isPublic, this );
+    dialog.exec();
+}
+
 void ViewSettingsDialog::editRename()
 {
     if ( m_selectedViewId != 0 ) {
@@ -308,6 +318,7 @@ void ViewSettingsDialog::updateActions()
     if ( index.isValid() )
         m_selectedViewId = m_model->rowId( index );
 
+    action( "cloneView" )->setEnabled( m_selectedViewId != 0 );
     action( "editRename" )->setEnabled( m_selectedViewId != 0 );
     action( "editDelete" )->setEnabled( m_selectedViewId != 0 );
     action( "editModify" )->setEnabled( m_selectedViewId != 0 );
