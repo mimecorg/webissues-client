@@ -26,7 +26,8 @@
 #include <QSqlQuery>
 #include <QPixmap>
 
-UsersModel::UsersModel( QObject* parent ) : BaseModel( parent )
+UsersModel::UsersModel( QObject* parent ) : BaseModel( parent ),
+    m_filter( UsersModel::AllUsers )
 {
     appendModel( new QSqlQueryModel( this ) );
 
@@ -41,6 +42,14 @@ UsersModel::UsersModel( QObject* parent ) : BaseModel( parent )
 
 UsersModel::~UsersModel()
 {
+}
+
+void UsersModel::setFilter( Filter filter )
+{
+    if ( m_filter != filter ) {
+        m_filter = filter;
+        refresh();
+    }
 }
 
 QVariant UsersModel::data( const QModelIndex& index, int role /*= Qt::DisplayRole*/ ) const
@@ -100,6 +109,11 @@ void UsersModel::refresh()
 {
     QString query = "SELECT user_id, user_name, user_login, user_access"
         " FROM users";
+
+    if ( m_filter == Active )
+        query += " WHERE user_access > 0";
+    else if ( m_filter == Disabled )
+        query += " WHERE user_access = 0";
 
     modelAt( 0 )->setQuery( QString( "%1 ORDER BY %2" ).arg( query, m_order ) );
 

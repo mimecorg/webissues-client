@@ -29,6 +29,14 @@ class UsersModel : public BaseModel
 {
     Q_OBJECT
 public:
+    enum Filter
+    {
+        AllUsers,
+        Active,
+        Disabled
+    };
+
+public:
     /**
     * Constructor.
     * @param parent The parent object.
@@ -39,6 +47,9 @@ public:
     * Destructor.
     */
     ~UsersModel();
+
+public:
+    void setFilter( Filter filter );
 
 public: // overrides
     QVariant data( const QModelIndex& index, int role = Qt::DisplayRole ) const;
@@ -53,6 +64,8 @@ private:
 
 private:
     QString m_order;
+
+    Filter m_filter;
 };
 
 #endif

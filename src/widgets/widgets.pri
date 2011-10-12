@@ -2,6 +2,7 @@ HEADERS += widgets/abstractmetadataeditor.h \
            widgets/abstractvalueeditor.h \
            widgets/edittoolbutton.h \
            widgets/elidedlabel.h \
+           widgets/filterlabel.h \
            widgets/findbar.h \
            widgets/inputlineedit.h \
            widgets/inputtextedit.h \
@@ -19,6 +20,7 @@ SOURCES += widgets/abstractmetadataeditor.cpp \
            widgets/abstractvalueeditor.cpp \
            widgets/edittoolbutton.cpp \
            widgets/elidedlabel.cpp \
+           widgets/filterlabel.cpp \
            widgets/findbar.cpp \
            widgets/inputlineedit.cpp \
            widgets/inputtextedit.cpp \

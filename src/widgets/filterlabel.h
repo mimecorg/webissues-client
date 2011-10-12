@@ -17,63 +17,61 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************/
 
-#ifndef USERSVIEW_H
-#define USERSVIEW_H
+#ifndef FILTERLABEL_H
+#define FILTERLABEL_H
 
-#include "views/view.h"
-
-class UsersModel;
-class FilterLabel;
-
-class QTreeView;
-class QModelIndex;
+#include <QLabel>
 
 /**
-* View for displaying and managing users.
+* A label constisting of mutually exclusive links.
 */
-class UsersView : public View
+class FilterLabel : public QLabel
 {
     Q_OBJECT
 public:
     /**
     * Constructor.
-    * @param parent The parent object.
-    * @param parentWidget The parent widget of the view's main widget.
+    * @param parent The parent widget.
     */
-    UsersView( QObject* parent, QWidget* parentWidget );
+    FilterLabel( QWidget* parent );
 
     /**
     * Destructor.
     */
-    ~UsersView();
+    ~FilterLabel();
 
-public: // overrides
-    void initialUpdate();
+public:
+    /**
+    * Add a link item.
+    */
+    void addItem( const QString& item );
+
+    /**
+    * Set the index of the current link.
+    */
+    void setCurrentIndex( int index );
+
+    /**
+    * Return the index of the current link.
+    */
+    int currentIndex() const { return m_currentIndex; }
+
+signals:
+    /**
+    * Emitted when the current link changed.
+    */
+    void currentIndexChanged( int index );
 
 private slots:
-    void updateActions();
-
-    void updateUsers();
-    void addUser();
-    void editRename();
-    void changeAccess();
-    void changePassword();
-    void userPreferences();
-
-    void filterChanged( int index );
-
-    void contextMenu( const QPoint& pos );
-    void doubleClicked( const QModelIndex& index );
+    void itemActivated( const QString& link );
 
 private:
-    QTreeView* m_list;
-    UsersModel* m_model;
+    void updateText();
 
-    FilterLabel* m_filterLabel;
+private:
+    QStringList m_items;
 
-    int m_selectedUserId;
-
-    bool m_systemAdmin;
+    int m_currentIndex;
 };
 
 #endif

@@ -26,6 +26,7 @@
 #include "models/usersmodel.h"
 #include "utils/treeviewhelper.h"
 #include "utils/iconloader.h"
+#include "widgets/filterlabel.h"
 #include "xmlui/builder.h"
 
 #include <QTreeView>
@@ -74,7 +75,28 @@ UsersView::UsersView( QObject* parent, QWidget* parentWidget ) : View( parent )
 
     loadXmlUiFile( ":/resources/usersview.xml" );
 
-    m_list = new QTreeView( parentWidget );
+    QWidget* main = new QWidget( parentWidget );
+
+    QVBoxLayout* mainLayout = new QVBoxLayout( main );
+    mainLayout->setMargin( 0 );
+    mainLayout->setSpacing( 0 );
+
+    QHBoxLayout* filterLayout = new QHBoxLayout();
+    filterLayout->setMargin( 3 );
+
+    mainLayout->addLayout( filterLayout );
+
+    m_filterLabel = new FilterLabel( main );
+    filterLayout->addWidget( m_filterLabel );
+
+    m_filterLabel->addItem( tr( "All Users" ) );
+    m_filterLabel->addItem( tr( "Active" ) );
+    m_filterLabel->addItem( tr( "Disabled" ) );
+
+    connect( m_filterLabel, SIGNAL( currentIndexChanged( int ) ), this, SLOT( filterChanged( int ) ) );
+
+    m_list = new QTreeView( main );
+    mainLayout->addWidget( m_list );
 
     TreeViewHelper helper( m_list );
     helper.initializeView();
@@ -84,7 +106,7 @@ UsersView::UsersView( QObject* parent, QWidget* parentWidget ) : View( parent )
     connect( m_list, SIGNAL( doubleClicked( const QModelIndex& ) ),
         this, SLOT( doubleClicked( const QModelIndex& ) ) );
 
-    setMainWidget( m_list );
+    setMainWidget( main );
 
     setViewerSizeHint( QSize( 400, 400 ) );
 
@@ -103,6 +125,8 @@ void UsersView::initialUpdate()
 
     m_model = new UsersModel( this );
     m_list->setModel( m_model );
+
+    m_model->setFilter( (UsersModel::Filter)m_filterLabel->currentIndex() );
 
     TreeViewHelper helper( m_list );
     helper.loadColumnWidths( "UsersViewWidths", QList<int>() << 150 << 100 << 150 );
@@ -178,6 +202,12 @@ void UsersView::userPreferences()
         PreferencesDialog dialog( m_selectedUserId, mainWidget() );
         dialog.exec();
     }
+}
+
+void UsersView::filterChanged( int index )
+{
+    if ( isEnabled() )
+        m_model->setFilter( (UsersModel::Filter)index );
 }
 
 void UsersView::contextMenu( const QPoint& pos )
