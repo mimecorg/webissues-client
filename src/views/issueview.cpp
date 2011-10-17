@@ -323,8 +323,10 @@ void IssueView::updateAccess( Access access )
 
 void IssueView::gotoItem( int itemId )
 {
-    if ( itemId == id() )
+    if ( itemId == id() ) {
+        m_browser->verticalScrollBar()->setSliderPosition( 0 );
         return;
+    }
 
     if ( isUpdating() )
         m_gotoItemId = itemId;
