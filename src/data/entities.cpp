@@ -21,8 +21,8 @@
 #include "entities_p.h"
 
 #include "data/issuetypecache.h"
+#include "data/query.h"
 
-#include <QSqlQuery>
 #include <QVector>
 
 ProjectEntity::ProjectEntity() :
@@ -74,10 +74,8 @@ ProjectEntity ProjectEntity::find( int id )
     ProjectEntity entity;
 
     if ( id != 0 ) {
-        QSqlQuery query;
-        query.prepare( "SELECT project_id, project_name FROM projects WHERE project_id = ?" );
-        query.addBindValue( id );
-        query.exec();
+        Query query( "SELECT project_id, project_name FROM projects WHERE project_id = ?" );
+        query.exec( id );
 
         if ( query.next() )
             entity.d->read( query );
@@ -90,8 +88,7 @@ QList<ProjectEntity> ProjectEntity::list()
 {
     QList<ProjectEntity> result;
 
-    QSqlQuery query;
-    query.prepare( "SELECT project_id, project_name FROM projects ORDER BY project_name COLLATE LOCALE" );
+    Query query( "SELECT project_id, project_name FROM projects ORDER BY project_name COLLATE LOCALE" );
     query.exec();
 
     while ( query.next() ) {
@@ -103,7 +100,7 @@ QList<ProjectEntity> ProjectEntity::list()
     return result;
 }
 
-void ProjectEntityData::read( const QSqlQuery& query )
+void ProjectEntityData::read( const Query& query )
 {
     m_id = query.value( 0 ).toInt();
     m_name = query.value( 1 ).toString();
@@ -114,13 +111,10 @@ bool ProjectEntity::isAdmin( int id )
     if ( dataManager->currentUserAccess() == AdminAccess )
         return true;
 
-    QSqlQuery query;
-    query.prepare( "SELECT project_access FROM rights WHERE project_id = ? AND user_id = ?" );
-    query.addBindValue( id );
-    query.addBindValue( dataManager->currentUserId() );
-    query.exec();
+    Query query( "SELECT project_access FROM rights WHERE project_id = ? AND user_id = ?" );
+    query.exec( id, dataManager->currentUserId() );
 
-    if ( query.next() && query.value( 0 ).toInt() == AdminAccess )
+    if ( query.readScalar().toInt() == AdminAccess )
         return true;
 
     return false;
@@ -128,10 +122,8 @@ bool ProjectEntity::isAdmin( int id )
 
 bool ProjectEntity::exists( const QString& name )
 {
-    QSqlQuery query;
-    query.prepare( "SELECT project_id FROM projects WHERE project_name = ?" );
-    query.addBindValue( name );
-    query.exec();
+    Query query( "SELECT project_id FROM projects WHERE project_name = ?" );
+    query.exec( name );
 
     if ( query.next() )
         return true;
@@ -216,12 +208,10 @@ FolderEntity FolderEntity::find( int id )
     FolderEntity entity;
 
     if ( id != 0 ) {
-        QSqlQuery query;
-        query.prepare( "SELECT folder_id, project_id, type_id, folder_name, stamp_id"
+        Query query( "SELECT folder_id, project_id, type_id, folder_name, stamp_id"
             " FROM folders"
             " WHERE folder_id = ?" );
-        query.addBindValue( id );
-        query.exec();
+        query.exec( id );
 
         if ( query.next() )
             entity.d->read( query );
@@ -235,13 +225,11 @@ QList<FolderEntity> ProjectEntity::folders() const
     QList<FolderEntity> result;
 
     if ( d->m_id != 0 ) {
-        QSqlQuery query;
-        query.prepare( "SELECT folder_id, project_id, type_id, folder_name, stamp_id"
+        Query query( "SELECT folder_id, project_id, type_id, folder_name, stamp_id"
             " FROM folders"
             " WHERE project_id = ?"
             " ORDER BY folder_name COLLATE LOCALE" );
-        query.addBindValue( d->m_id );
-        query.exec();
+        query.exec( d->m_id );
 
         while ( query.next() ) {
             FolderEntity entity;
@@ -258,12 +246,10 @@ QList<FolderEntity> TypeEntity::folders() const
     QList<FolderEntity> result;
 
     if ( d->m_id != 0 ) {
-        QSqlQuery query;
-        query.prepare( "SELECT folder_id, project_id, type_id, folder_name, stamp_id"
+        Query query( "SELECT folder_id, project_id, type_id, folder_name, stamp_id"
             " FROM folders"
             " WHERE type_id = ?" );
-        query.addBindValue( d->m_id );
-        query.exec();
+        query.exec( d->m_id );
 
         while ( query.next() ) {
             FolderEntity entity;
@@ -279,8 +265,7 @@ QList<FolderEntity> FolderEntity::list()
 {
     QList<FolderEntity> result;
 
-    QSqlQuery query;
-    query.prepare( "SELECT folder_id, project_id, type_id, folder_name, stamp_id FROM folders" );
+    Query query( "SELECT folder_id, project_id, type_id, folder_name, stamp_id FROM folders" );
     query.exec();
 
     while ( query.next() ) {
@@ -292,7 +277,7 @@ QList<FolderEntity> FolderEntity::list()
     return result;
 }
 
-void FolderEntityData::read( const QSqlQuery& query )
+void FolderEntityData::read( const Query& query )
 {
     m_id = query.value( 0 ).toInt();
     m_projectId = query.value( 1 ).toInt();
@@ -306,16 +291,13 @@ bool FolderEntity::isAdmin( int id )
     if ( dataManager->currentUserAccess() == AdminAccess )
         return true;
 
-    QSqlQuery query;
-    query.prepare( "SELECT project_access"
+    Query query( "SELECT project_access"
         " FROM rights AS r"
         " JOIN folders AS f ON f.project_id = r.project_id"
         " WHERE f.folder_id = ? AND r.user_id = ?" );
-    query.addBindValue( id );
-    query.addBindValue( dataManager->currentUserId() );
-    query.exec();
+    query.exec( id, dataManager->currentUserId() );
 
-    if ( query.next() && query.value( 0 ).toInt() == AdminAccess )
+    if ( query.readScalar().toInt() == AdminAccess )
         return true;
 
     return false;
@@ -323,11 +305,8 @@ bool FolderEntity::isAdmin( int id )
 
 bool FolderEntity::exists( int projectId, const QString& name )
 {
-    QSqlQuery query;
-    query.prepare( "SELECT folder_id FROM folders WHERE project_id = ? AND folder_name = ?" );
-    query.addBindValue( projectId );
-    query.addBindValue( name );
-    query.exec();
+    Query query( "SELECT folder_id FROM folders WHERE project_id = ? AND folder_name = ?" );
+    query.exec( projectId, name );
 
     if ( query.next() )
         return true;
@@ -384,10 +363,8 @@ TypeEntity TypeEntity::find( int id )
     TypeEntity entity;
 
     if ( id != 0 ) {
-        QSqlQuery query;
-        query.prepare( "SELECT type_id, type_name FROM issue_types WHERE type_id = ?" );
-        query.addBindValue( id );
-        query.exec();
+        Query query( "SELECT type_id, type_name FROM issue_types WHERE type_id = ?" );
+        query.exec( id );
 
         if ( query.next() )
             entity.d->read( query );
@@ -400,8 +377,7 @@ QList<TypeEntity> TypeEntity::list()
 {
     QList<TypeEntity> result;
 
-    QSqlQuery query;
-    query.prepare( "SELECT type_id, type_name FROM issue_types ORDER BY type_name COLLATE LOCALE" );
+    Query query( "SELECT type_id, type_name FROM issue_types ORDER BY type_name COLLATE LOCALE" );
     query.exec();
 
     while ( query.next() ) {
@@ -413,7 +389,7 @@ QList<TypeEntity> TypeEntity::list()
     return result;
 }
 
-void TypeEntityData::read( const QSqlQuery& query )
+void TypeEntityData::read( const Query& query )
 {
     m_id = query.value( 0 ).toInt();
     m_name = query.value( 1 ).toString();
@@ -421,10 +397,8 @@ void TypeEntityData::read( const QSqlQuery& query )
 
 bool TypeEntity::exists( const QString& name )
 {
-    QSqlQuery query;
-    query.prepare( "SELECT type_id FROM issue_types WHERE type_name = ?" );
-    query.addBindValue( name );
-    query.exec();
+    Query query( "SELECT type_id FROM issue_types WHERE type_name = ?" );
+    query.exec( name );
 
     if ( query.next() )
         return true;
@@ -492,12 +466,10 @@ AttributeEntity AttributeEntity::find( int id )
     AttributeEntity entity;
 
     if ( id != 0 ) {
-        QSqlQuery query;
-        query.prepare( "SELECT attr_id, type_id, attr_name"
+        Query query( "SELECT attr_id, type_id, attr_name"
             " FROM attr_types"
             " WHERE attr_id = ?" );
-        query.addBindValue( id );
-        query.exec();
+        query.exec( id );
 
         if ( query.next() )
             entity.d->read( query );
@@ -511,13 +483,11 @@ QList<AttributeEntity> TypeEntity::attributes() const
     QList<AttributeEntity> result;
 
     if ( d->m_id != 0 ) {
-        QSqlQuery query;
-        query.prepare( "SELECT attr_id, type_id, attr_name"
+        Query query( "SELECT attr_id, type_id, attr_name"
             " FROM attr_types"
             " WHERE type_id = ?"
             " ORDER BY attr_name COLLATE LOCALE" );
-        query.addBindValue( d->m_id );
-        query.exec();
+        query.exec( d->m_id );
 
         while ( query.next() ) {
             AttributeEntity entity;
@@ -529,7 +499,7 @@ QList<AttributeEntity> TypeEntity::attributes() const
     return result;
 }
 
-void AttributeEntityData::read( const QSqlQuery& query )
+void AttributeEntityData::read( const Query& query )
 {
     m_id = query.value( 0 ).toInt();
     m_typeId = query.value( 1 ).toInt();
@@ -538,11 +508,8 @@ void AttributeEntityData::read( const QSqlQuery& query )
 
 bool AttributeEntity::exists( int typeId, const QString& name )
 {
-    QSqlQuery query;
-    query.prepare( "SELECT attr_id FROM attr_types WHERE type_id = ? AND attr_name = ?" );
-    query.addBindValue( typeId );
-    query.addBindValue( name );
-    query.exec();
+    Query query( "SELECT attr_id FROM attr_types WHERE type_id = ? AND attr_name = ?" );
+    query.exec( typeId, name );
 
     if ( query.next() )
         return true;
@@ -621,12 +588,10 @@ ViewEntity ViewEntity::find( int id )
     ViewEntity entity;
 
     if ( id != 0 ) {
-        QSqlQuery query;
-        query.prepare( "SELECT view_id, type_id, view_name, view_def, is_public"
+        Query query( "SELECT view_id, type_id, view_name, view_def, is_public"
             " FROM views"
             " WHERE view_id = ?" );
-        query.addBindValue( id );
-        query.exec();
+        query.exec( id );
 
         if ( query.next() )
             entity.d->read( query );
@@ -640,13 +605,11 @@ QList<ViewEntity> TypeEntity::views() const
     QList<ViewEntity> result;
 
     if ( d->m_id != 0 ) {
-        QSqlQuery query;
-        query.prepare( "SELECT view_id, type_id, view_name, view_def, is_public"
+        Query query( "SELECT view_id, type_id, view_name, view_def, is_public"
             " FROM views"
             " WHERE type_id = ?"
             " ORDER BY view_name COLLATE LOCALE" );
-        query.addBindValue( d->m_id );
-        query.exec();
+        query.exec( d->m_id );
 
         while ( query.next() ) {
             ViewEntity entity;
@@ -658,7 +621,7 @@ QList<ViewEntity> TypeEntity::views() const
     return result;
 }
 
-void ViewEntityData::read( const QSqlQuery& query )
+void ViewEntityData::read( const Query& query )
 {
     m_id = query.value( 0 ).toInt();
     m_typeId = query.value( 1 ).toInt();
@@ -669,12 +632,8 @@ void ViewEntityData::read( const QSqlQuery& query )
 
 bool ViewEntity::exists( int typeId, const QString& name, bool isPublic )
 {
-    QSqlQuery query;
-    query.prepare( "SELECT view_id FROM views WHERE type_id = ? AND view_name = ? AND is_public = ?" );
-    query.addBindValue( typeId );
-    query.addBindValue( name );
-    query.addBindValue( isPublic ? 1 : 0 );
-    query.exec();
+    Query query( "SELECT view_id FROM views WHERE type_id = ? AND view_name = ? AND is_public = ?" );
+    query.exec( typeId, name, isPublic ? 1 : 0 );
 
     if ( query.next() )
         return true;
@@ -749,12 +708,10 @@ AlertEntity AlertEntity::find( int id )
     AlertEntity entity;
 
     if ( id != 0 ) {
-        QSqlQuery query;
-        query.prepare( "SELECT alert_id, folder_id, view_id, alert_email"
+        Query query( "SELECT alert_id, folder_id, view_id, alert_email"
             " FROM alerts"
             " WHERE alert_id = ?" );
-        query.addBindValue( id );
-        query.exec();
+        query.exec( id );
 
         if ( query.next() )
             entity.d->read( query );
@@ -768,12 +725,10 @@ QList<AlertEntity> FolderEntity::alerts() const
     QList<AlertEntity> result;
 
     if ( d->m_id != 0 ) {
-        QSqlQuery query;
-        query.prepare( "SELECT alert_id, folder_id, view_id, alert_email"
+        Query query( "SELECT alert_id, folder_id, view_id, alert_email"
             " FROM alerts"
             " WHERE folder_id = ?" );
-        query.addBindValue( d->m_id );
-        query.exec();
+        query.exec( d->m_id );
 
         while ( query.next() ) {
             AlertEntity entity;
@@ -785,7 +740,7 @@ QList<AlertEntity> FolderEntity::alerts() const
     return result;
 }
 
-void AlertEntityData::read( const QSqlQuery& query )
+void AlertEntityData::read( const Query& query )
 {
     m_id = query.value( 0 ).toInt();
     m_folderId = query.value( 1 ).toInt();
@@ -853,12 +808,10 @@ UserEntity UserEntity::find( int id )
     UserEntity entity;
 
     if ( id != 0 ) {
-        QSqlQuery query;
-        query.prepare( "SELECT user_id, user_login, user_name, user_access"
+        Query query( "SELECT user_id, user_login, user_name, user_access"
             " FROM users"
             " WHERE user_id = ?" );
-        query.addBindValue( id );
-        query.exec();
+        query.exec( id );
 
         if ( query.next() )
             entity.d->read( query );
@@ -871,8 +824,7 @@ QList<UserEntity> UserEntity::list()
 {
     QList<UserEntity> result;
 
-    QSqlQuery query;
-    query.prepare( "SELECT user_id, user_login, user_name, user_access"
+    Query query( "SELECT user_id, user_login, user_name, user_access"
         " FROM users"
         " ORDER BY user_name COLLATE LOCALE" );
     query.exec();
@@ -891,14 +843,12 @@ QList<UserEntity> ProjectEntity::members() const
     QList<UserEntity> result;
 
     if ( d->m_id != 0 ) {
-        QSqlQuery query;
-        query.prepare( "SELECT u.user_id, u.user_login, u.user_name, u.user_access"
+        Query query( "SELECT u.user_id, u.user_login, u.user_name, u.user_access"
             " FROM users AS u"
             " JOIN rights AS r ON r.user_id = u.user_id"
             " WHERE r.project_id = ?"
             " ORDER BY u.user_name COLLATE LOCALE" );
-        query.addBindValue( d->m_id );
-        query.exec();
+        query.exec( d->m_id );
 
         while ( query.next() ) {
             UserEntity entity;
@@ -910,7 +860,7 @@ QList<UserEntity> ProjectEntity::members() const
     return result;
 }
 
-void UserEntityData::read( const QSqlQuery& query )
+void UserEntityData::read( const Query& query )
 {
     m_id = query.value( 0 ).toInt();
     m_login = query.value( 1 ).toString();
@@ -920,11 +870,8 @@ void UserEntityData::read( const QSqlQuery& query )
 
 bool UserEntity::exists( const QString& login, const QString& name )
 {
-    QSqlQuery query;
-    query.prepare( "SELECT user_id FROM users WHERE user_login = ? OR user_name = ?" );
-    query.addBindValue( login );
-    query.addBindValue( name );
-    query.exec();
+    Query query( "SELECT user_id FROM users WHERE user_login = ? OR user_name = ?" );
+    query.exec( login, name );
 
     if ( query.next() )
         return true;
@@ -998,14 +945,11 @@ MemberEntity MemberEntity::find( int projectId, int userId )
     MemberEntity entity;
 
     if ( projectId != 0 && userId != 0 ) {
-        QSqlQuery query;
-        query.prepare( "SELECT r.user_id, r.project_id, u.user_login, u.user_name, r.project_access"
+        Query query( "SELECT r.user_id, r.project_id, u.user_login, u.user_name, r.project_access"
             " FROM users AS u"
             " JOIN rights AS r ON r.user_id = u.user_id"
             " WHERE u.user_id = ? AND r.project_id = ?" );
-        query.addBindValue( userId );
-        query.addBindValue( projectId );
-        query.exec();
+        query.exec( userId, projectId );
 
         if ( query.next() )
             entity.d->read( query );
@@ -1019,13 +963,11 @@ QList<MemberEntity> MemberEntity::list( int userId )
     QList<MemberEntity> result;
 
     if ( userId != 0 ) {
-        QSqlQuery query;
-        query.prepare( "SELECT r.user_id, r.project_id, u.user_login, u.user_name, r.project_access"
+        Query query( "SELECT r.user_id, r.project_id, u.user_login, u.user_name, r.project_access"
             " FROM users AS u"
             " JOIN rights AS r ON r.user_id = u.user_id"
             " WHERE r.user_id = ?" );
-        query.addBindValue( userId );
-        query.exec();
+        query.exec( userId );
 
         while ( query.next() ) {
             MemberEntity entity;
@@ -1037,7 +979,7 @@ QList<MemberEntity> MemberEntity::list( int userId )
     return result;
 }
 
-void MemberEntityData::read( const QSqlQuery& query )
+void MemberEntityData::read( const Query& query )
 {
     m_id = query.value( 0 ).toInt();
     m_projectId = query.value( 1 ).toInt();
@@ -1139,8 +1081,7 @@ IssueEntity IssueEntity::find( int id )
     IssueEntity entity;
 
     if ( id != 0 ) {
-        QSqlQuery query;
-        query.prepare( "SELECT i.issue_id, i.stamp_id, s.read_id, i.folder_id, f.type_id, i.issue_name,"
+        Query query( "SELECT i.issue_id, i.stamp_id, s.read_id, i.folder_id, f.type_id, i.issue_name,"
             " i.created_time, uc.user_name AS created_user, i.modified_time, um.user_name AS modified_user"
             " FROM issues AS i"
             " JOIN folders AS f ON f.folder_id = i.folder_id"
@@ -1148,9 +1089,7 @@ IssueEntity IssueEntity::find( int id )
             " LEFT OUTER JOIN users AS uc ON uc.user_id = i.created_user_id"
             " LEFT OUTER JOIN users AS um ON um.user_id = i.modified_user_id"
             " WHERE i.issue_id = ?" );
-        query.addBindValue( dataManager->currentUserId() );
-        query.addBindValue( id );
-        query.exec();
+        query.exec( dataManager->currentUserId(), id );
 
         if ( query.next() )
             entity.d->read( query );
@@ -1164,8 +1103,7 @@ QList<IssueEntity> FolderEntity::issues() const
     QList<IssueEntity> result;
 
     if ( d->m_id != 0 ) {
-        QSqlQuery query;
-        query.prepare( "SELECT i.issue_id, i.stamp_id, s.read_id, i.folder_id, f.type_id, i.issue_name,"
+        Query query( "SELECT i.issue_id, i.stamp_id, s.read_id, i.folder_id, f.type_id, i.issue_name,"
             " i.created_time, uc.user_name AS created_user, i.modified_time, um.user_name AS modified_user"
             " FROM issues AS i"
             " JOIN folders AS f ON f.folder_id = i.folder_id"
@@ -1173,9 +1111,7 @@ QList<IssueEntity> FolderEntity::issues() const
             " LEFT OUTER JOIN users AS uc ON uc.user_id = i.created_user_id"
             " LEFT OUTER JOIN users AS um ON um.user_id = i.modified_user_id"
             " WHERE i.folder_id = ?" );
-        query.addBindValue( dataManager->currentUserId() );
-        query.addBindValue( d->m_id );
-        query.exec();
+        query.exec( dataManager->currentUserId(), d->m_id );
 
         while ( query.next() ) {
             IssueEntity entity;
@@ -1187,7 +1123,7 @@ QList<IssueEntity> FolderEntity::issues() const
     return result;
 }
 
-void IssueEntityData::read( const QSqlQuery& query )
+void IssueEntityData::read( const Query& query )
 {
     m_id = query.value( 0 ).toInt();
     m_stampId = query.value( 1 ).toInt();
@@ -1206,15 +1142,12 @@ bool IssueEntity::isAdmin( int id )
     if ( dataManager->currentUserAccess() == AdminAccess )
         return true;
 
-    QSqlQuery query;
-    query.prepare( "SELECT project_access"
+    Query query( "SELECT project_access"
         " FROM rights AS r"
         " JOIN folders AS f ON f.project_id = r.project_id"
         " JOIN issues AS i ON i.folder_id = f.folder_id"
         " WHERE i.issue_id = ? AND r.user_id = ?" );
-    query.addBindValue( id );
-    query.addBindValue( dataManager->currentUserId() );
-    query.exec();
+    query.exec( id, dataManager->currentUserId() );
 
     if ( query.next() && query.value( 0 ).toInt() == AdminAccess )
         return true;
@@ -1228,19 +1161,12 @@ int IssueEntity::findItem( int itemId )
     if ( issue.isValid() )
         return itemId;
 
-    QSqlQuery query;
-    query.prepare( "SELECT issue_id"
+    Query query( "SELECT issue_id"
         " FROM changes"
         " WHERE change_id = ? AND ( change_type = ? OR change_type = ? )" );
-    query.addBindValue( itemId );
-    query.addBindValue( CommentAdded );
-    query.addBindValue( FileAdded );
-    query.exec();
+    query.exec( itemId, CommentAdded, FileAdded );
 
-    if ( query.next() )
-        return query.value( 0 ).toInt();
-
-    return 0;
+    return query.readScalar().toInt();
 }
 
 ValueEntity::ValueEntity() :
@@ -1310,14 +1236,11 @@ ValueEntity ValueEntity::find( int issueId, int attributeId )
     ValueEntity entity;
 
     if ( issueId != 0 && attributeId != 0 ) {
-        QSqlQuery query;
-        query.prepare( "SELECT a.attr_id, v.attr_value, a.type_id"
+        Query query( "SELECT a.attr_id, v.attr_value, a.type_id"
             " FROM attr_types AS a"
             " LEFT OUTER JOIN attr_values AS v ON v.attr_id = a.attr_id AND v.issue_id = ?"
             " WHERE a.attr_id = ?" );
-        query.addBindValue( issueId );
-        query.addBindValue( attributeId );
-        query.exec();
+        query.exec( issueId, attributeId );
 
         if ( query.next() ) {
             entity.d->read( query );
@@ -1351,14 +1274,11 @@ QList<ValueEntity> IssueEntity::values() const
     QList<ValueEntity> result;
 
     if ( d->m_id != 0 && d->m_typeId != 0 ) {
-        QSqlQuery query;
-        query.prepare( "SELECT a.attr_id, v.attr_value"
+        Query query( "SELECT a.attr_id, v.attr_value"
             " FROM attr_types AS a"
             " LEFT OUTER JOIN attr_values AS v ON v.attr_id = a.attr_id AND v.issue_id = ?"
             " WHERE a.type_id = ?" );
-        query.addBindValue( d->m_id );
-        query.addBindValue( d->m_typeId );
-        query.exec();
+        query.exec( d->m_id, d->m_typeId );
 
         while ( query.next() ) {
             ValueEntity entity;
@@ -1380,10 +1300,8 @@ QList<ValueEntity> AttributeEntity::values() const
     QList<ValueEntity> result;
 
     if ( d->m_id != 0 && d->m_typeId != 0 ) {
-        QSqlQuery query;
-        query.prepare( "SELECT attr_id, attr_value FROM attr_values WHERE attr_id = ?" );
-        query.addBindValue( d->m_id );
-        query.exec();
+        Query query( "SELECT attr_id, attr_value FROM attr_values WHERE attr_id = ?" );
+        query.exec( d->m_id );
 
         while ( query.next() ) {
             ValueEntity entity;
@@ -1396,7 +1314,7 @@ QList<ValueEntity> AttributeEntity::values() const
     return result;
 }
 
-void ValueEntityData::read( const QSqlQuery& query )
+void ValueEntityData::read( const Query& query )
 {
     m_id = query.value( 0 ).toInt();
     m_value = query.value( 1 ).toString();
@@ -1446,7 +1364,7 @@ const QString& CommentEntity::text() const
     return d->m_text;
 }
 
-void CommentEntityData::read( const QSqlQuery& query )
+void CommentEntityData::read( const Query& query )
 {
     m_id = query.value( 0 ).toInt();
     m_text = query.value( 1 ).toString();
@@ -1507,7 +1425,7 @@ const QString& FileEntity::description() const
     return d->m_description;
 }
 
-void FileEntityData::read( const QSqlQuery& query )
+void FileEntityData::read( const Query& query )
 {
     m_id = query.value( 0 ).toInt();
     m_name = query.value( 1 ).toString();
@@ -1673,9 +1591,7 @@ QList<ChangeEntity> IssueEntity::changes() const
     QList<ChangeEntity> result;
 
     if ( d->m_id != 0 && d->m_typeId != 0 ) {
-        QSqlQuery query;
-        query.setForwardOnly( true );
-        query.prepare( "SELECT ch.change_id, ch.issue_id, ch.stamp_id, ch.change_type,"
+        Query query( "SELECT ch.change_id, ch.issue_id, ch.stamp_id, ch.change_type,"
             " ch.created_time, uc.user_name AS created_user, ch.created_user_id,"
             " ch.modified_time, um.user_name AS modified_user,"
             " a.attr_id, ch.old_value, ch.new_value, ff.folder_name AS from_folder, tf.folder_name AS to_folder,"
@@ -1690,10 +1606,7 @@ QList<ChangeEntity> IssueEntity::changes() const
             " LEFT OUTER JOIN files AS f ON f.file_id = ch.change_id AND ch.change_type = ?"
             " WHERE ch.issue_id = ? "
             " ORDER BY ch.change_id" );
-        query.addBindValue( CommentAdded );
-        query.addBindValue( FileAdded );
-        query.addBindValue( d->m_id );
-        query.exec();
+        query.exec( CommentAdded, FileAdded, d->m_id );
 
         while ( query.next() ) {
             ChangeEntity entity;
@@ -1706,7 +1619,7 @@ QList<ChangeEntity> IssueEntity::changes() const
     return result;
 }
 
-void ChangeEntityData::read( const QSqlQuery& query )
+void ChangeEntityData::read( const Query& query )
 {
     m_id = query.value( 0 ).toInt();
     m_issueId = query.value( 1 ).toInt();
@@ -1741,9 +1654,7 @@ ChangeEntity ChangeEntity::findComment( int id )
     ChangeEntity entity;
 
     if ( id != 0 ) {
-        QSqlQuery query;
-        query.setForwardOnly( true );
-        query.prepare( "SELECT ch.change_id, ch.issue_id, ch.stamp_id,"
+        Query query( "SELECT ch.change_id, ch.issue_id, ch.stamp_id,"
             " ch.created_time, uc.user_name AS created_user, ch.created_user_id,"
             " ch.modified_time, um.user_name AS modified_user,"
             " c.comment_text"
@@ -1752,9 +1663,7 @@ ChangeEntity ChangeEntity::findComment( int id )
             " LEFT OUTER JOIN users AS um ON um.user_id = ch.modified_user_id"
             " JOIN comments AS c ON c.comment_id = ch.change_id AND ch.change_type = ?"
             " WHERE ch.change_id = ?" );
-        query.addBindValue( CommentAdded );
-        query.addBindValue( id );
-        query.exec();
+        query.exec( CommentAdded, id );
 
         if ( query.next() )
             entity.d->readComment( query );
@@ -1768,9 +1677,7 @@ QList<ChangeEntity> IssueEntity::comments() const
     QList<ChangeEntity> result;
 
     if ( d->m_id != 0 ) {
-        QSqlQuery query;
-        query.setForwardOnly( true );
-        query.prepare( "SELECT ch.change_id, ch.issue_id, ch.stamp_id,"
+        Query query( "SELECT ch.change_id, ch.issue_id, ch.stamp_id,"
             " ch.created_time, uc.user_name AS created_user, ch.created_user_id,"
             " ch.modified_time, um.user_name AS modified_user,"
             " c.comment_text"
@@ -1780,9 +1687,7 @@ QList<ChangeEntity> IssueEntity::comments() const
             " JOIN comments AS c ON c.comment_id = ch.change_id AND ch.change_type = ?"
             " WHERE ch.issue_id = ?"
             " ORDER BY ch.change_id" );
-        query.addBindValue( CommentAdded );
-        query.addBindValue( d->m_id );
-        query.exec();
+        query.exec( CommentAdded, d->m_id );
 
         while ( query.next() ) {
             ChangeEntity entity;
@@ -1794,7 +1699,7 @@ QList<ChangeEntity> IssueEntity::comments() const
     return result;
 }
 
-void ChangeEntityData::readComment( const QSqlQuery& query )
+void ChangeEntityData::readComment( const Query& query )
 {
     m_id = query.value( 0 ).toInt();
     m_issueId = query.value( 1 ).toInt();
@@ -1813,9 +1718,7 @@ ChangeEntity ChangeEntity::findFile( int id )
     ChangeEntity entity;
 
     if ( id != 0 ) {
-        QSqlQuery query;
-        query.setForwardOnly( true );
-        query.prepare( "SELECT ch.change_id, ch.issue_id, ch.stamp_id,"
+        Query query( "SELECT ch.change_id, ch.issue_id, ch.stamp_id,"
             " ch.created_time, ch.created_user_id, uc.user_name AS created_user,"
             " ch.modified_time, um.user_name AS modified_user,"
             " f.file_name, f.file_size, f.file_descr"
@@ -1824,9 +1727,7 @@ ChangeEntity ChangeEntity::findFile( int id )
             " LEFT OUTER JOIN users AS um ON um.user_id = ch.modified_user_id"
             " JOIN files AS f ON f.file_id = ch.change_id AND ch.change_type = ?"
             " WHERE ch.change_id = ?" );
-        query.addBindValue( FileAdded );
-        query.addBindValue( id );
-        query.exec();
+        query.exec( FileAdded, id );
 
         if ( query.next() )
             entity.d->readFile( query );
@@ -1840,9 +1741,7 @@ QList<ChangeEntity> IssueEntity::files() const
     QList<ChangeEntity> result;
 
     if ( d->m_id != 0 ) {
-        QSqlQuery query;
-        query.setForwardOnly( true );
-        query.prepare( "SELECT ch.change_id, ch.issue_id, ch.stamp_id,"
+        Query query( "SELECT ch.change_id, ch.issue_id, ch.stamp_id,"
             " ch.created_time, ch.created_user_id, uc.user_name AS created_user,"
             " ch.modified_time, um.user_name AS modified_user,"
             " f.file_name, f.file_size, f.file_descr"
@@ -1852,9 +1751,7 @@ QList<ChangeEntity> IssueEntity::files() const
             " JOIN files AS f ON f.file_id = ch.change_id AND ch.change_type = ?"
             " WHERE ch.issue_id = ?"
             " ORDER BY ch.change_id" );
-        query.addBindValue( FileAdded );
-        query.addBindValue( d->m_id );
-        query.exec();
+        query.exec( FileAdded, d->m_id );
 
         while ( query.next() ) {
             ChangeEntity entity;
@@ -1866,7 +1763,7 @@ QList<ChangeEntity> IssueEntity::files() const
     return result;
 }
 
-void ChangeEntityData::readFile( const QSqlQuery& query )
+void ChangeEntityData::readFile( const Query& query )
 {
     m_id = query.value( 0 ).toInt();
     m_issueId = query.value( 1 ).toInt();
@@ -1924,10 +1821,8 @@ QList<PreferenceEntity> PreferenceEntity::list( int userId )
 {
     QList<PreferenceEntity> result;
 
-    QSqlQuery query;
-    query.prepare( "SELECT pref_key, pref_value FROM preferences WHERE user_id = ?" );
-    query.addBindValue( userId );
-    query.exec();
+    Query query( "SELECT pref_key, pref_value FROM preferences WHERE user_id = ?" );
+    query.exec( userId );
 
     while ( query.next() ) {
         PreferenceEntity entity;
@@ -1938,7 +1833,7 @@ QList<PreferenceEntity> PreferenceEntity::list( int userId )
     return result;
 }
 
-void PreferenceEntityData::read( const QSqlQuery& query )
+void PreferenceEntityData::read( const Query& query )
 {
     m_key = query.value( 0 ).toString();
     m_value = query.value( 1 ).toString();
@@ -1986,10 +1881,8 @@ QList<FormatEntity> FormatEntity::list( const QString& type )
 {
     QList<FormatEntity> result;
 
-    QSqlQuery query;
-    query.prepare( "SELECT format_key, format_def FROM formats WHERE format_type = ? ORDER BY format_key" );
-    query.addBindValue( type );
-    query.exec();
+    Query query( "SELECT format_key, format_def FROM formats WHERE format_type = ? ORDER BY format_key" );
+    query.exec( type );
 
     while ( query.next() ) {
         FormatEntity entity;
@@ -2000,7 +1893,7 @@ QList<FormatEntity> FormatEntity::list( const QString& type )
     return result;
 }
 
-void FormatEntityData::read( const QSqlQuery& query )
+void FormatEntityData::read( const Query& query )
 {
     m_key = query.value( 0 ).toString();
     m_definition = query.value( 1 ).toString();
@@ -2048,8 +1941,7 @@ QList<LanguageEntity> LanguageEntity::list()
 {
     QList<LanguageEntity> result;
 
-    QSqlQuery query;
-    query.prepare( "SELECT lang_code, lang_name FROM languages ORDER BY lang_name COLLATE LOCALE" );
+    Query query( "SELECT lang_code, lang_name FROM languages ORDER BY lang_name COLLATE LOCALE" );
     query.exec();
 
     while ( query.next() ) {
@@ -2061,7 +1953,7 @@ QList<LanguageEntity> LanguageEntity::list()
     return result;
 }
 
-void LanguageEntityData::read( const QSqlQuery& query )
+void LanguageEntityData::read( const Query& query )
 {
     m_code = query.value( 0 ).toString();
     m_name = query.value( 1 ).toString();
@@ -2110,8 +2002,7 @@ QList<TimeZoneEntity> TimeZoneEntity::list()
 {
     QList<TimeZoneEntity> result;
 
-    QSqlQuery query;
-    query.prepare( "SELECT tz_name, tz_offset FROM time_zones ORDER BY tz_offset, tz_name COLLATE LOCALE" );
+    Query query( "SELECT tz_name, tz_offset FROM time_zones ORDER BY tz_offset, tz_name COLLATE LOCALE" );
     query.exec();
 
     while ( query.next() ) {
@@ -2123,7 +2014,7 @@ QList<TimeZoneEntity> TimeZoneEntity::list()
     return result;
 }
 
-void TimeZoneEntityData::read( const QSqlQuery& query )
+void TimeZoneEntityData::read( const Query& query )
 {
     m_name = query.value( 0 ).toString();
     m_offset = query.value( 1 ).toInt();

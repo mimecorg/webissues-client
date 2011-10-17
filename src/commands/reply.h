@@ -56,12 +56,12 @@ public:
     * Set a list of arguments of the line.
     * Arguments can be integers and strings.
     */
-    void setArgs( const QList<QVariant>& args ) { m_args = args; }
+    void setArgs( const QVariantList& args ) { m_args = args; }
 
     /**
     * Return the list of arguments of the line.
     */
-    const QList<QVariant>& args() const { return m_args; }
+    const QVariantList& args() const { return m_args; }
 
     /**
     * Add an integer argument to the line.
@@ -74,18 +74,23 @@ public:
     void addArg( const QString& string );
 
     /**
+    * Return the given argument.
+    */
+    const QVariant& arg( int index ) const { return m_args.at( index ); }
+
+    /**
     * Read the given integer argument from the line.
     */
-    int argInt( int index ) const { return m_args[ index ].toInt(); }
+    int argInt( int index ) const { return m_args.at( index ).toInt(); }
 
     /**
     * Read the given string argument from the line.
     */
-    QString argString( int index ) const { return m_args[ index ].toString(); }
+    QString argString( int index ) const { return m_args.at( index ).toString(); }
 
 private:
     QString m_keyword;
-    QList<QVariant> m_args;
+    QVariantList m_args;
 };
 
 /**
@@ -124,6 +129,16 @@ public:
     * Add a line to the reply.
     */
     void addLine( const ReplyLine& line );
+
+    /**
+    * Return the given line.
+    */
+    const ReplyLine& at( int index ) const { return m_lines.at( index ); }
+
+    /**
+    * Return the number of lines.
+    */
+    int count() const { return m_lines.count(); }
 
 private:
     QList<ReplyLine> m_lines;

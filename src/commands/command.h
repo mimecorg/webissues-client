@@ -71,12 +71,12 @@ public:
     * The arguments can be integers or strings. Refer to the WebIssues protocol
     * documentation for a list of arguments for each command.
     */
-    void setArgs( const QList<QVariant>& args ) { m_args = args; }
+    void setArgs( const QVariantList& args ) { m_args = args; }
 
     /**
     * Return the list of command arguments.
     */
-    const QList<QVariant>& args() const { return m_args; }
+    const QVariantList& args() const { return m_args; }
 
     /**
     * Add an integer value to the list of command arguments.
@@ -87,6 +87,21 @@ public:
     * Add a string value to the list of command arguments.
     */
     void addArg( const QString& string );
+
+    /**
+    * Return the given argument.
+    */
+    const QVariant& arg( int index ) const { return m_args.at( index ); }
+
+    /**
+    * Read the given integer argument from the line.
+    */
+    int argInt( int index ) const { return m_args.at( index ).toInt(); }
+
+    /**
+    * Read the given string argument from the line.
+    */
+    QString argString( int index ) const { return m_args.at( index ).toString(); }
 
     /**
     * Set the attachment data for the command.
@@ -173,7 +188,7 @@ signals:
 
 private:
     QString m_keyword;
-    QList<QVariant> m_args;
+    QVariantList m_args;
 
     QIODevice* m_attachmentInput;
     QIODevice* m_binaryResponseOutput;

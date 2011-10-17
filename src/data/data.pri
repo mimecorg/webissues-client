@@ -9,6 +9,7 @@ HEADERS += data/bookmark.h \
            data/filecache.h \
            data/issuetypecache.h \
            data/localsettings.h \
+           data/query.h \
            data/updateevent.h
 
 SOURCES += data/bookmark.cpp \
@@ -21,4 +22,5 @@ SOURCES += data/bookmark.cpp \
            data/filecache.cpp \
            data/issuetypecache.cpp \
            data/localsettings.cpp \
+           data/query.cpp \
            data/updateevent.cpp

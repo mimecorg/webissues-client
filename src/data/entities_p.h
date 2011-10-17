@@ -22,7 +22,7 @@
 
 #include <QDateTime>
 
-class QSqlQuery;
+class Query;
 
 class ProjectEntityData : public QSharedData
 {
@@ -31,7 +31,7 @@ public:
     ~ProjectEntityData();
 
 public:
-    void read( const QSqlQuery& query );
+    void read( const Query& query );
 
 public:
     int m_id;
@@ -45,7 +45,7 @@ public:
     ~FolderEntityData();
 
 public:
-    void read( const QSqlQuery& query );
+    void read( const Query& query );
 
 public:
     int m_id;
@@ -62,7 +62,7 @@ public:
     ~TypeEntityData();
 
 public:
-    void read( const QSqlQuery& query );
+    void read( const Query& query );
 
 public:
     int m_id;
@@ -76,7 +76,7 @@ public:
     ~AttributeEntityData();
 
 public:
-    void read( const QSqlQuery& query );
+    void read( const Query& query );
 
 public:
     int m_id;
@@ -91,7 +91,7 @@ public:
     ~ViewEntityData();
 
 public:
-    void read( const QSqlQuery& query );
+    void read( const Query& query );
 
 public:
     int m_id;
@@ -108,7 +108,7 @@ public:
     ~AlertEntityData();
 
 public:
-    void read( const QSqlQuery& query );
+    void read( const Query& query );
 
 public:
     int m_id;
@@ -124,7 +124,7 @@ public:
     ~UserEntityData();
 
 public:
-    void read( const QSqlQuery& query );
+    void read( const Query& query );
 
 public:
     int m_id;
@@ -140,7 +140,7 @@ public:
     ~MemberEntityData();
 
 public:
-    void read( const QSqlQuery& query );
+    void read( const Query& query );
 
 public:
     int m_id;
@@ -157,7 +157,7 @@ public:
     ~IssueEntityData();
 
 public:
-    void read( const QSqlQuery& query );
+    void read( const Query& query );
 
 public:
     int m_id;
@@ -179,7 +179,7 @@ public:
     ~ValueEntityData();
 
 public:
-    void read( const QSqlQuery& query );
+    void read( const Query& query );
 
 public:
     int m_id;
@@ -194,7 +194,7 @@ public:
     ~CommentEntityData();
 
 public:
-    void read( const QSqlQuery& query );
+    void read( const Query& query );
 
 public:
     int m_id;
@@ -208,7 +208,7 @@ public:
     ~FileEntityData();
 
 public:
-    void read( const QSqlQuery& query );
+    void read( const Query& query );
 
 public:
     int m_id;
@@ -225,9 +225,9 @@ public:
     ~ChangeEntityData();
 
 public:
-    void read( const QSqlQuery& query );
-    void readComment( const QSqlQuery& query );
-    void readFile( const QSqlQuery& query );
+    void read( const Query& query );
+    void readComment( const Query& query );
+    void readFile( const Query& query );
 
 public:
     int m_id;
@@ -265,7 +265,7 @@ public:
     ~PreferenceEntityData();
 
 public:
-    void read( const QSqlQuery& query );
+    void read( const Query& query );
 
 public:
     QString m_key;
@@ -279,7 +279,7 @@ public:
     ~FormatEntityData();
 
 public:
-    void read( const QSqlQuery& query );
+    void read( const Query& query );
 
 public:
     QString m_key;
@@ -293,7 +293,7 @@ public:
     ~LanguageEntityData();
 
 public:
-    void read( const QSqlQuery& query );
+    void read( const Query& query );
 
 public:
     QString m_code;
@@ -307,7 +307,7 @@ public:
     ~TimeZoneEntityData();
 
 public:
-    void read( const QSqlQuery& query );
+    void read( const Query& query );
 
 public:
     QString m_name;

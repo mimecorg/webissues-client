@@ -25,10 +25,10 @@
 #include "data/localsettings.h"
 #include "data/issuetypecache.h"
 #include "data/filecache.h"
+#include "data/query.h"
 #include "models/querygenerator.h"
 
 #include <QSqlDatabase>
-#include <QSqlQuery>
 #include <QFile>
 
 DataManager* dataManager = NULL;
@@ -116,76 +116,6 @@ void DataManager::notifyObservers( UpdateEvent::Unit unit, int id )
     }
 }
 
-class AutoSqlQuery : public QSqlQuery
-{
-public:
-    AutoSqlQuery( const QString& sql, const QSqlDatabase& database ) : QSqlQuery( database ),
-        m_sql( sql ),
-        m_prepared( false )
-    {
-    }
-
-public: // overrides
-    void addBindValue( const QVariant& value, QSql::ParamType paramType = QSql::In )
-    {
-        ensurePrepared();
-        QSqlQuery::addBindValue( value, paramType );
-    }
-
-    bool exec()
-    {
-        ensurePrepared();
-        return QSqlQuery::exec();
-    }
-
-private:
-    void ensurePrepared()
-    {
-        if ( !m_prepared ) {
-            prepare( m_sql );
-            m_prepared = true;
-        }
-    }
-
-private:
-    QString m_sql;
-    bool m_prepared;
-};
-
-static bool execReply( const QString& sql, const char* keyword, const Reply& reply, const QSqlDatabase& database, int& i )
-{
-    AutoSqlQuery query( sql, database );
-
-    for ( ; i < reply.lines().count(); i++ ) {
-        const ReplyLine& line = reply.lines().at( i );
-
-        if ( line.keyword() != QLatin1String( keyword ) )
-            break;
-
-        foreach ( const QVariant& arg, line.args() )
-            query.addBindValue( arg );
-
-        if ( !query.exec() )
-            return false;
-    }
-
-    return true;
-}
-
-static QVariant execScalar( const QString& sql, const QSqlDatabase& database, const QVariant& arg = QVariant() )
-{
-    QSqlQuery query( database );
-    query.prepare( sql );
-    if ( arg.isValid() )
-        query.addBindValue( arg );
-    query.exec();
-
-    if ( query.next() )
-        return query.value( 0 );
-
-    return QVariant();
-}
-
 bool DataManager::openDatabase()
 {
     QSqlDatabase database = QSqlDatabase::addDatabase( "SQLITEX" );
@@ -216,13 +146,13 @@ bool DataManager::openDatabase()
 
 bool DataManager::lockDatabase( const QSqlDatabase& database )
 {
-    QSqlQuery query( database );
+    Query query( database );
 
-    if ( !query.exec( "PRAGMA locking_mode = EXCLUSIVE" ) )
+    if ( !query.execQuery( "PRAGMA locking_mode = EXCLUSIVE" ) )
         return false;
-    if ( !query.exec( "BEGIN EXCLUSIVE" ) )
+    if ( !query.execQuery( "BEGIN EXCLUSIVE" ) )
         return false;
-    if ( !query.exec( "COMMIT" ) )
+    if ( !query.execQuery( "COMMIT" ) )
         return false;
 
     return true;
@@ -232,15 +162,18 @@ bool DataManager::installSchema( const QSqlDatabase& database )
 {
     const int schemaVersion = 2;
 
-    int currentVersion = execScalar( "PRAGMA user_version", database ).toInt();
+    Query query( database );
+
+    if ( !query.execQuery( "PRAGMA user_version" ) )
+        return false;
+
+    int currentVersion = query.readScalar().toInt();
 
     if ( currentVersion == schemaVersion )
         return true;
 
     if ( currentVersion > schemaVersion )
         return false;
-
-    QSqlQuery query( database );
 
     if ( currentVersion < 1 ) {
         const char* schema[] = {
@@ -276,7 +209,7 @@ bool DataManager::installSchema( const QSqlDatabase& database )
         };
 
         for ( int i = 0; i < (int)( sizeof( schema ) / sizeof( schema[ 0 ] ) ); i++ ) {
-            if ( !query.exec( schema[ i ] ) )
+            if ( !query.execQuery( schema[ i ] ) )
                 return false;
         }
 
@@ -284,7 +217,7 @@ bool DataManager::installSchema( const QSqlDatabase& database )
     }
 
     if ( currentVersion < 2 ) {
-        if ( !query.exec( "SELECT file_id, file_path, file_size FROM files_cache ORDER BY last_access ASC" ) )
+        if ( !query.execQuery( "SELECT file_id, file_path, file_size FROM files_cache ORDER BY last_access ASC" ) )
             return false;
 
         while ( query.next() ) {
@@ -298,13 +231,13 @@ bool DataManager::installSchema( const QSqlDatabase& database )
 
         m_fileCache->flush();
 
-        if ( !query.exec( "DROP TABLE files_cache" ) )
+        if ( !query.execQuery( "DROP TABLE files_cache" ) )
             return false;
     }
 
     QString sql = QString( "PRAGMA user_version = %1" ).arg( schemaVersion );
 
-    if ( !query.exec( sql ) )
+    if ( !query.execQuery( sql ) )
         return false;
 
     return true;
@@ -324,21 +257,49 @@ bool DataManager::localeUpdateNeeded() const
 bool DataManager::folderUpdateNeeded( int folderId ) const
 {
     QSqlDatabase database = QSqlDatabase::database();
+    Query query( database );
 
-    int stampId = execScalar( "SELECT stamp_id FROM folders WHERE folder_id = ?", database, folderId ).toInt();
-    int lastStampId = execScalar( "SELECT list_id FROM folders_cache WHERE folder_id = ?", database, folderId ).toInt();
+    if ( !query.execQuery( "SELECT stamp_id FROM folders WHERE folder_id = ?", folderId ) )
+        return false;
 
-    return ( stampId == 0 || stampId > lastStampId );
+    int stampId = query.readScalar().toInt();
+
+    if ( stampId == 0 )
+        return true;
+
+    if ( !query.execQuery( "SELECT list_id FROM folders_cache WHERE folder_id = ?", folderId ) )
+        return false;
+
+    int lastStampId = query.readScalar().toInt();
+
+    if ( stampId > lastStampId )
+        return true;
+
+    return false;
 }
 
 bool DataManager::issueUpdateNeeded( int issueId ) const
 {
     QSqlDatabase database = QSqlDatabase::database();
+    Query query( database );
 
-    int stampId = execScalar( "SELECT stamp_id FROM issues WHERE issue_id = ?", database, issueId ).toInt();
-    int lastStampId = execScalar( "SELECT details_id FROM issues_cache WHERE issue_id = ?", database, issueId ).toInt();
+    if ( !query.execQuery( "SELECT stamp_id FROM issues WHERE issue_id = ?", issueId ) )
+        return false;
 
-    return ( stampId == 0 || stampId > lastStampId );
+    int stampId = query.readScalar().toInt();
+
+    if ( stampId == 0 )
+        return true;
+
+    if ( !query.execQuery( "SELECT details_id FROM issues_cache WHERE issue_id = ?", issueId ) )
+        return false;
+
+    int lastStampId = query.readScalar().toInt();
+
+    if ( stampId > lastStampId )
+        return true;
+
+    return false;
 }
 
 Command* DataManager::hello()
@@ -356,11 +317,9 @@ Command* DataManager::hello()
 
 void DataManager::helloReply( const Reply& reply )
 {
-    ReplyLine line = reply.lines().at( 0 );
-
-    m_serverName = line.argString( 0 );
-    m_serverUuid = line.argString( 1 );
-    m_serverVersion = line.argString( 2 );
+    m_serverName = reply.at( 0 ).argString( 0 );
+    m_serverUuid = reply.at( 0 ).argString( 1 );
+    m_serverVersion = reply.at( 0 ).argString( 2 );
 
     m_connectionSettings = new LocalSettings( locateDataFile( "connection.dat" ), this );
 
@@ -412,11 +371,9 @@ Command* DataManager::loginNew( const QString& login, const QString& password, c
 
 void DataManager::loginReply( const Reply& reply )
 {
-    ReplyLine line = reply.lines().at( 0 );
-
-    m_currentUserId = line.argInt( 0 );
-    m_currentUserName = line.argString( 1 );
-    m_currentUserAccess = (Access)line.argInt( 2 );
+    m_currentUserId = reply.at( 0 ).argInt( 0 );
+    m_currentUserName = reply.at( 0 ).argString( 1 );
+    m_currentUserAccess = (Access)reply.at( 0 ).argInt( 2 );
 }
 
 Command* DataManager::updateSettings()
@@ -452,20 +409,23 @@ void DataManager::updateSettingsReply( const Reply& reply )
 
 bool DataManager::updateSettingsReply( const Reply& reply, const QSqlDatabase& database )
 {
-    QSqlQuery query( database );
-    if ( !query.exec( "DELETE FROM settings" ) )
+    Query query( database );
+
+    if ( !query.execQuery( "DELETE FROM settings" ) )
         return false;
 
-    int i = 0;
-    if ( !execReply( "INSERT INTO settings VALUES ( ?, ? )", "S", reply, database, i ) )
-        return false;
+    QMap<QString, QString> settings;
 
-    m_settings.clear();
+    query.setQuery( "INSERT INTO settings VALUES ( ?, ? )" );
 
-    for ( i = 0; i < reply.lines().count(); i++ ) {
-        const ReplyLine& line = reply.lines().at( i );
-        m_settings.insert( line.argString( 0 ), line.argString( 1 ) );
+    for ( int i = 0; i < reply.count() && reply.at( i ).keyword() == QLatin1String( "S" ); i++ ) {
+        if ( !query.exec( reply.at( i ).args() ) )
+            return false;
+
+        settings.insert( reply.at( i ).argString( 0 ), reply.at( i ).argString( 1 ) );
     }
+
+    m_settings = settings;
 
     m_numberFormat = DefinitionInfo::fromString( m_settings.value( "number_format" ) );
     m_dateFormat = DefinitionInfo::fromString( m_settings.value( "date_format" ) );
@@ -505,25 +465,39 @@ void DataManager::updateLocaleReply( const Reply& reply )
 
 bool DataManager::updateLocaleReply( const Reply& reply, const QSqlDatabase& database )
 {
-    QSqlQuery query( database );
-    if ( !query.exec( "DELETE FROM languages" ) )
+    Query query( database );
+
+    if ( !query.execQuery( "DELETE FROM languages" ) )
         return false;
 
     int i = 0;
-    if ( !execReply( "INSERT INTO languages VALUES ( ?, ? )", "L", reply, database, i ) )
+
+    query.setQuery( "INSERT INTO languages VALUES ( ?, ? )" );
+
+    for ( ; i < reply.count() && reply.at( i ).keyword() == QLatin1String( "L" ); i++ ) {
+        if ( !query.exec( reply.at( i ).args() ) )
+            return false;
+    }
+
+    if ( !query.execQuery( "DELETE FROM formats" ) )
         return false;
 
-    if ( !query.exec( "DELETE FROM formats" ) )
+    query.setQuery( "INSERT INTO formats VALUES ( ?, ?, ? )" );
+
+    for ( ; i < reply.count() && reply.at( i ).keyword() == QLatin1String( "F" ); i++ ) {
+        if ( !query.exec( reply.at( i ).args() ) )
+            return false;
+    }
+
+    if ( !query.execQuery( "DELETE FROM time_zones" ) )
         return false;
 
-    if ( !execReply( "INSERT INTO formats VALUES ( ?, ?, ? )", "F", reply, database, i ) )
-        return false;
+    query.setQuery( "INSERT INTO time_zones VALUES ( ?, ? )" );
 
-    if ( !query.exec( "DELETE FROM time_zones" ) )
-        return false;
-
-    if ( !execReply( "INSERT INTO time_zones VALUES ( ?, ? )", "Z", reply, database, i ) )
-        return false;
+    for ( ; i < reply.count() && reply.at( i ).keyword() == QLatin1String( "Z" ); i++ ) {
+        if ( !query.exec( reply.at( i ).args() ) )
+            return false;
+    }
 
     m_localeUpdated = true;
 
@@ -549,7 +523,7 @@ Command* DataManager::updatePreferences( int userId )
 void DataManager::updatePreferencesReply( const Reply& reply )
 {
     Command* command = static_cast<Command*>( sender() );
-    int userId = command->args().at( 0 ).toInt();
+    int userId = command->argInt( 0 );
 
     QSqlDatabase database = QSqlDatabase::database();
     database.transaction();
@@ -564,23 +538,15 @@ void DataManager::updatePreferencesReply( const Reply& reply )
 
 bool DataManager::updatePreferencesReply( const Reply& reply, int userId, const QSqlDatabase& database )
 {
-    QSqlQuery query( database );
+    Query query( database );
 
-    query.prepare( "DELETE FROM preferences WHERE user_id = ?" );
-    query.addBindValue( userId );
-    if ( !query.exec() )
+    if ( !query.execQuery( "DELETE FROM preferences WHERE user_id = ?", userId ) )
         return false;
 
-    AutoSqlQuery insertPreferencesQuery( "INSERT INTO preferences VALUES ( ?, ?, ? )", database );
+    query.setQuery( "INSERT INTO preferences VALUES ( ?, ?, ? )" );
 
-    for ( int i = 0; i < reply.lines().count(); i++ ) {
-        const ReplyLine& line = reply.lines().at( i );
-
-        insertPreferencesQuery.addBindValue( userId );
-        foreach ( const QVariant& arg, line.args() )
-            insertPreferencesQuery.addBindValue( arg );
-
-        if ( !insertPreferencesQuery.exec() )
+    for ( int i = 0; i < reply.count(); i++ ) {
+        if ( !query.exec( userId, reply.at( i ).arg( 0 ), reply.at( i ).arg( 1 ) ) )
             return false;
     }
 
@@ -620,19 +586,29 @@ void DataManager::updateUsersReply( const Reply& reply )
 
 bool DataManager::updateUsersReply( const Reply& reply, const QSqlDatabase& database )
 {
-    QSqlQuery query( database );
-    if ( !query.exec( "DELETE FROM users" ) )
+    Query query( database );
+
+    if ( !query.execQuery( "DELETE FROM users" ) )
         return false;
 
     int i = 0;
-    if ( !execReply( "INSERT INTO users VALUES ( ?, ?, ?, ? )", "U", reply, database, i ) )
+
+    query.setQuery( "INSERT INTO users VALUES ( ?, ?, ?, ? )" );
+
+    for ( ; i < reply.count() && reply.at( i ).keyword() == QLatin1String( "U" ); i++ ) {
+        if ( !query.exec( reply.at( i ).args() ) )
+            return false;
+    }
+
+    if ( !query.execQuery( "DELETE FROM rights" ) )
         return false;
 
-    if ( !query.exec( "DELETE FROM rights" ) )
-        return false;
+    query.setQuery( "INSERT INTO rights ( user_id, project_id, project_access ) VALUES ( ?, ?, ? )" );
 
-    if ( !execReply( "INSERT INTO rights ( user_id, project_id, project_access ) VALUES ( ?, ?, ? )", "M", reply, database, i ) )
-        return false;
+    for ( ; i < reply.count() && reply.at( i ).keyword() == QLatin1String( "M" ); i++ ) {
+        if ( !query.exec( reply.at( i ).args() ) )
+            return false;
+    }
 
     return true;
 }
@@ -673,31 +649,49 @@ void DataManager::updateTypesReply( const Reply& reply )
 
 bool DataManager::updateTypesReply( const Reply& reply, const QSqlDatabase& database )
 {
-    QSqlQuery query( database );
-    if ( !query.exec( "DELETE FROM issue_types" ) )
+    Query query( database );
+
+    if ( !query.execQuery( "DELETE FROM issue_types" ) )
         return false;
 
     int i = 0;
-    if ( !execReply( "INSERT INTO issue_types VALUES ( ?, ? )", "T", reply, database, i ) )
+
+    query.setQuery( "INSERT INTO issue_types VALUES ( ?, ? )" );
+
+    for ( ; i < reply.count() && reply.at( i ).keyword() == QLatin1String( "T" ); i++ ) {
+        if ( !query.exec( reply.at( i ).args() ) )
+            return false;
+    }
+
+    if ( !query.execQuery( "DELETE FROM attr_types" ) )
         return false;
 
-    if ( !query.exec( "DELETE FROM attr_types" ) )
+    query.setQuery( "INSERT INTO attr_types VALUES ( ?, ?, ?, ? )" );
+
+    for ( ; i < reply.count() && reply.at( i ).keyword() == QLatin1String( "A" ); i++ ) {
+        if ( !query.exec( reply.at( i ).args() ) )
+            return false;
+    }
+
+    if ( !query.execQuery( "DELETE FROM views" ) )
         return false;
 
-    if ( !execReply( "INSERT INTO attr_types VALUES ( ?, ?, ?, ? )", "A", reply, database, i ) )
+    query.setQuery( "INSERT INTO views VALUES ( ?, ?, ?, ?, ? )" );
+
+    for ( ; i < reply.count() && reply.at( i ).keyword() == QLatin1String( "V" ); i++ ) {
+        if ( !query.exec( reply.at( i ).args() ) )
+            return false;
+    }
+
+    if ( !query.execQuery( "DELETE FROM view_settings" ) )
         return false;
 
-    if ( !query.exec( "DELETE FROM views" ) )
-        return false;
+    query.setQuery( "INSERT INTO view_settings VALUES ( ?, ?, ? )" );
 
-    if ( !execReply( "INSERT INTO views VALUES ( ?, ?, ?, ?, ? )", "V", reply, database, i ) )
-        return false;
-
-    if ( !query.exec( "DELETE FROM view_settings" ) )
-        return false;
-
-    if ( !execReply( "INSERT INTO view_settings VALUES ( ?, ?, ? )", "S", reply, database, i ) )
-        return false;
+    for ( ; i < reply.count() && reply.at( i ).keyword() == QLatin1String( "S" ); i++ ) {
+        if ( !query.exec( reply.at( i ).args() ) )
+            return false;
+    }
 
     qDeleteAll( m_issueTypesCache );
     m_issueTypesCache.clear();
@@ -743,25 +737,39 @@ void DataManager::updateProjectsReply( const Reply& reply )
 
 bool DataManager::updateProjectsReply( const Reply& reply, const QSqlDatabase& database )
 {
-    QSqlQuery query( database );
-    if ( !query.exec( "DELETE FROM projects" ) )
+    Query query( database );
+
+    if ( !query.execQuery( "DELETE FROM projects" ) )
         return false;
 
     int i = 0;
-    if ( !execReply( "INSERT INTO projects VALUES ( ?, ? )", "P", reply, database, i ) )
+
+    query.setQuery( "INSERT INTO projects VALUES ( ?, ? )" );
+
+    for ( ; i < reply.count() && reply.at( i ).keyword() == QLatin1String( "P" ); i++ ) {
+        if ( !query.exec( reply.at( i ).args() ) )
+            return false;
+    }
+
+    if ( !query.execQuery( "DELETE FROM folders" ) )
         return false;
 
-    if ( !query.exec( "DELETE FROM folders" ) )
+    query.setQuery( "INSERT INTO folders VALUES ( ?, ?, ?, ?, ? )" );
+
+    for ( ; i < reply.count() && reply.at( i ).keyword() == QLatin1String( "F" ); i++ ) {
+        if ( !query.exec( reply.at( i ).args() ) )
+            return false;
+    }
+
+    if ( !query.execQuery( "DELETE FROM alerts" ) )
         return false;
 
-    if ( !execReply( "INSERT INTO folders VALUES ( ?, ?, ?, ?, ? )", "F", reply, database, i ) )
-        return false;
+    query.setQuery( "INSERT INTO alerts VALUES ( ?, ?, ?, ? )" );
 
-    if ( !query.exec( "DELETE FROM alerts" ) )
-        return false;
-
-    if ( !execReply( "INSERT INTO alerts VALUES ( ?, ?, ?, ? )", "A", reply, database, i ) )
-        return false;
+    for ( ; i < reply.count() && reply.at( i ).keyword() == QLatin1String( "A" ); i++ ) {
+        if ( !query.exec( reply.at( i ).args() ) )
+            return false;
+    }
 
     if ( !recalculateAllAlerts( database ) )
         return false;
@@ -771,7 +779,13 @@ bool DataManager::updateProjectsReply( const Reply& reply, const QSqlDatabase& d
 
 Command* DataManager::updateStates()
 {
-    int lastStateId = execScalar( "SELECT state_id FROM users_cache WHERE user_id = ?", QSqlDatabase::database(), m_currentUserId ).toInt();
+    QSqlDatabase database = QSqlDatabase::database();
+    Query query( database );
+
+    if ( !query.execQuery( "SELECT state_id FROM users_cache WHERE user_id = ?", m_currentUserId ) )
+        return NULL;
+
+    int lastStateId = query.readScalar().toInt();
 
     Command* command = new Command();
 
@@ -789,7 +803,7 @@ Command* DataManager::updateStates()
 void DataManager::updateStatesReply( const Reply& reply )
 {
     Command* command = static_cast<Command*>( sender() );
-    int lastStateId = command->args().at( 0 ).toInt();
+    int lastStateId = command->argInt( 0 );
 
     QSqlDatabase database = QSqlDatabase::database();
     database.transaction();
@@ -807,27 +821,20 @@ void DataManager::updateStatesReply( const Reply& reply )
 
 bool DataManager::updateStatesReply( const Reply& reply, int lastStateId, const QSqlDatabase& database )
 {
-    AutoSqlQuery insertStateQuery( "INSERT OR REPLACE INTO issue_states VALUES ( ?, ?, ? )", database );
+    Query query( database );
 
-    for ( int i = 0; i < reply.lines().count(); i++ ) {
-        const ReplyLine& line = reply.lines().at( i );
+    query.setQuery( "INSERT OR REPLACE INTO issue_states VALUES ( ?, ?, ? )" );
 
-        int stateId = line.argInt( 0 );
+    for ( int i = 0; i < reply.count(); i++ ) {
+        if ( !query.exec( m_currentUserId, reply.at( i ).arg( 1 ), reply.at( i ).arg( 2 ) ) )
+            return false;
+
+        int stateId = reply.at( i ).argInt( 0 );
         if ( stateId > lastStateId )
             lastStateId = stateId;
-
-        insertStateQuery.addBindValue( m_currentUserId );
-        insertStateQuery.addBindValue( line.argInt( 1 ) );
-        insertStateQuery.addBindValue( line.argInt( 2 ) );
-        if ( !insertStateQuery.exec() )
-            return false;
     }
 
-    QSqlQuery query( database );
-    query.prepare( "INSERT OR REPLACE INTO users_cache VALUES ( ?, ? )" );
-    query.addBindValue( m_currentUserId );
-    query.addBindValue( lastStateId );
-    if ( !query.exec() )
+    if ( !query.execQuery( "INSERT OR REPLACE INTO users_cache VALUES ( ?, ? )", m_currentUserId, lastStateId ) )
         return false;
 
     if ( !recalculateAllAlerts( database ) )
@@ -838,7 +845,13 @@ bool DataManager::updateStatesReply( const Reply& reply, int lastStateId, const 
 
 Command* DataManager::updateFolder( int folderId )
 {
-    int lastStampId = execScalar( "SELECT list_id FROM folders_cache WHERE folder_id = ?", QSqlDatabase::database(), folderId ).toInt();
+    QSqlDatabase database = QSqlDatabase::database();
+    Query query( database );
+
+    if ( !query.execQuery( "SELECT list_id FROM folders_cache WHERE folder_id = ?", folderId ) )
+        return false;
+
+    int lastStampId = query.readScalar().toInt();
 
     Command* command = new Command();
 
@@ -881,41 +894,29 @@ void DataManager::updateFolderReply( const Reply& reply )
 
 bool DataManager::updateFolderReply( const Reply& reply, const QSqlDatabase& database, QList<int>& updatedFolders )
 {
-    const ReplyLine& folderLine = reply.lines().at( 0 );
-    int folderId = folderLine.argInt( 0 );
-    int lastStampId = folderLine.argInt( 4 );
+    int folderId = reply.at( 0 ).argInt( 0 );
+    int lastStampId = reply.at( 0 ).argInt( 4 );
 
     updatedFolders.append( folderId );
 
-    QSqlQuery query( database );
+    Query query( database );
 
-    query.prepare( "INSERT OR REPLACE INTO folders VALUES ( ?, ?, ?, ?, ? )" );
-    foreach ( const QVariant& arg, folderLine.args() )
-        query.addBindValue( arg );
-    if ( !query.exec() )
+    if ( !query.execQuery( "INSERT OR REPLACE INTO folders VALUES ( ?, ?, ?, ?, ? )", reply.at( 0 ).args() ) )
         return false;
 
-    query.prepare( "INSERT OR REPLACE INTO folders_cache VALUES ( ?, ? )" );
-    query.addBindValue( folderId );
-    query.addBindValue( lastStampId );
-    if ( !query.exec() )
+    if ( !query.execQuery( "INSERT OR REPLACE INTO folders_cache VALUES ( ?, ? )", folderId, lastStampId ) )
         return false;
 
-    AutoSqlQuery oldIssueQuery( "SELECT folder_id FROM issues WHERE issue_id = ?", database );
-    AutoSqlQuery deleteValuesQuery( "DELETE FROM attr_values WHERE issue_id = ?", database );
-    AutoSqlQuery insertIssueQuery( "INSERT OR REPLACE INTO issues VALUES ( ?, ?, ?, ?, ?, ?, ?, ? )", database );
+    Query oldIssueQuery( "SELECT folder_id FROM issues WHERE issue_id = ?", database );
+    Query deleteValuesQuery( "DELETE FROM attr_values WHERE issue_id = ?", database );
+    Query insertIssueQuery( "INSERT OR REPLACE INTO issues VALUES ( ?, ?, ?, ?, ?, ?, ?, ? )", database );
 
     int i = 1;
-    for ( ; i < reply.lines().count(); i++ ) {
-        const ReplyLine& line = reply.lines().at( i );
 
-        if ( line.keyword() != QLatin1String( "I" ) )
-            break;
+    for ( ; i < reply.count() && reply.at( i ).keyword() == QLatin1String( "I" ); i++ ) {
+        int issueId = reply.at( i ).argInt( 0 );
 
-        int issueId = line.argInt( 0 );
-
-        oldIssueQuery.addBindValue( issueId );
-        if ( !oldIssueQuery.exec() )
+        if ( !oldIssueQuery.exec( issueId ) )
             return false;
 
         if ( oldIssueQuery.next() ) {
@@ -924,38 +925,33 @@ bool DataManager::updateFolderReply( const Reply& reply, const QSqlDatabase& dat
             if ( !updatedFolders.contains( oldFolderId ) )
                 updatedFolders.append( oldFolderId );
 
-            deleteValuesQuery.addBindValue( issueId );
-            if ( !deleteValuesQuery.exec() )
+            if ( !deleteValuesQuery.exec( issueId ) )
                 return false;
         }
 
-        foreach ( const QVariant& arg, line.args() )
-            insertIssueQuery.addBindValue( arg );
-        if ( !insertIssueQuery.exec() )
+        if ( !insertIssueQuery.exec( reply.at( i ).args() ) )
             return false;
     }
 
-    if ( !execReply( "INSERT INTO attr_values VALUES ( ?, ?, ? )", "V", reply, database, i ) )
-        return false;
+    query.setQuery( "INSERT INTO attr_values VALUES ( ?, ?, ? )" );
 
-    AutoSqlQuery moveIssueQuery( "UPDATE issues SET folder_id = ?, stamp_id = ? WHERE issue_id = ?", database );
-    AutoSqlQuery deleteIssueQuery( "DELETE FROM issues WHERE issue_id = ?", database );
+    for ( ; i < reply.count() && reply.at( i ).keyword() == QLatin1String( "V" ); i++ ) {
+        if ( !query.exec( reply.at( i ).args() ) )
+            return false;
+    }
+
+    Query moveIssueQuery( "UPDATE issues SET folder_id = ?, stamp_id = ? WHERE issue_id = ?", database );
+    Query deleteIssueQuery( "DELETE FROM issues WHERE issue_id = ?", database );
 
     QList<int> deletedIssues;
 
-    for ( ; i < reply.lines().count(); i++ ) {
-        const ReplyLine& line = reply.lines().at( i );
-
-        if ( line.keyword() != QLatin1String( "X" ) )
-            break;
-
-        int issueId = line.argInt( 0 );
-        int toFolderId = line.argInt( 1 );
-        int stampId = line.argInt( 2 );
+    for ( ; i < reply.count() && reply.at( i ).keyword() == QLatin1String( "X" ); i++ ) {
+        int issueId = reply.at( i ).argInt( 0 );
+        int toFolderId = reply.at( i ).argInt( 1 );
+        int stampId = reply.at( i ).argInt( 2 );
 
         if ( toFolderId != 0 ) {
-            oldIssueQuery.addBindValue( issueId );
-            if ( !oldIssueQuery.exec() )
+            if ( !oldIssueQuery.exec( issueId ) )
                 return false;
 
             if ( oldIssueQuery.next() ) {
@@ -965,22 +961,17 @@ bool DataManager::updateFolderReply( const Reply& reply, const QSqlDatabase& dat
                     if ( !updatedFolders.contains( toFolderId ) )
                         updatedFolders.append( toFolderId );
 
-                    moveIssueQuery.addBindValue( toFolderId );
-                    moveIssueQuery.addBindValue( stampId );
-                    moveIssueQuery.addBindValue( issueId );
-                    if ( !moveIssueQuery.exec() )
+                    if ( !moveIssueQuery.exec( toFolderId, stampId, issueId ) )
                         return false;
                 }
             }
         } else {
             deletedIssues.append( issueId );
 
-            deleteIssueQuery.addBindValue( issueId );
-            if ( !deleteIssueQuery.exec() )
+            if ( !deleteIssueQuery.exec( issueId ) )
                 return false;
 
-            deleteValuesQuery.addBindValue( issueId );
-            if ( !deleteValuesQuery.exec() )
+            if ( !deleteValuesQuery.exec( issueId ) )
                 return false;
         }
     }
@@ -1000,7 +991,13 @@ bool DataManager::updateFolderReply( const Reply& reply, const QSqlDatabase& dat
 
 Command* DataManager::updateIssue( int issueId )
 {
-    int lastStampId = execScalar( "SELECT details_id FROM issues_cache WHERE issue_id = ?", QSqlDatabase::database(), issueId ).toInt();
+    QSqlDatabase database = QSqlDatabase::database();
+    Query query( database );
+
+    if ( !query.execQuery( "SELECT details_id FROM issues_cache WHERE issue_id = ?", issueId ) )
+        return NULL;
+
+    int lastStampId = query.readScalar().toInt();
 
     Command* command = new Command();
 
@@ -1048,97 +1045,89 @@ void DataManager::updateIssueReply( const Reply& reply )
 
 bool DataManager::updateIssueReply( const Reply& reply, const QSqlDatabase& database, QList<int>& updatedFolders, int& issueId )
 {
-    const ReplyLine& issueLine = reply.lines().at( 0 );
-    issueId = issueLine.argInt( 0 );
-    int folderId = issueLine.argInt( 1 );
-    int lastStampId = issueLine.argInt( 3 );
+    issueId = reply.at( 0 ).argInt( 0 );
+    int folderId = reply.at( 0 ).argInt( 1 );
+    int lastStampId = reply.at( 0 ).argInt( 3 );
 
     updatedFolders.append( folderId );
 
-    QSqlQuery oldIssueQuery( database );
-    oldIssueQuery.prepare( "SELECT folder_id FROM issues WHERE issue_id = ?" );
-    oldIssueQuery.addBindValue( issueId );
-    if ( !oldIssueQuery.exec() )
+    Query query( database );
+
+    if ( !query.execQuery( "SELECT folder_id FROM issues WHERE issue_id = ?", issueId ) )
         return false;
 
-    if ( oldIssueQuery.next() ) {
-        int oldFolderId = oldIssueQuery.value( 0 ).toInt();
+    if ( query.next() ) {
+        int oldFolderId = query.value( 0 ).toInt();
+
         if ( !updatedFolders.contains( oldFolderId ) )
             updatedFolders.append( oldFolderId );
 
-        QSqlQuery deleteValuesQuery( database );
-        deleteValuesQuery.prepare( "DELETE FROM attr_values WHERE issue_id = ?" );
-        deleteValuesQuery.addBindValue( issueId );
-        if ( !deleteValuesQuery.exec() )
+        if ( !query.execQuery( "DELETE FROM attr_values WHERE issue_id = ?", issueId ) )
             return false;
     }
 
-    QSqlQuery query( database );
-
-    query.prepare( "INSERT OR REPLACE INTO issues VALUES ( ?, ?, ?, ?, ?, ?, ?, ? )" );
-    foreach ( const QVariant& arg, issueLine.args() )
-        query.addBindValue( arg );
-    if ( !query.exec() )
+    if ( !query.execQuery( "INSERT OR REPLACE INTO issues VALUES ( ?, ?, ?, ?, ?, ?, ?, ? )", reply.at( 0 ).args() ) )
         return false;
 
-    query.prepare( "INSERT OR REPLACE INTO issues_cache VALUES ( ?, ? )" );
-    query.addBindValue( issueId );
-    query.addBindValue( lastStampId );
-    if ( !query.exec() )
+    if ( !query.execQuery( "INSERT OR REPLACE INTO issues_cache VALUES ( ?, ? )", issueId, lastStampId ) )
         return false;
 
-    query.prepare( "INSERT OR REPLACE INTO issue_states VALUES ( ?, ?, ? )" );
-    query.addBindValue( m_currentUserId );
-    query.addBindValue( issueId );
-    query.addBindValue( lastStampId );
-    if ( !query.exec() )
+    if ( !query.execQuery( "INSERT OR REPLACE INTO issue_states VALUES ( ?, ?, ? )", m_currentUserId, issueId, lastStampId ) )
         return false;
 
     int i = 1;
-    if ( !execReply( "INSERT INTO attr_values VALUES ( ?, ?, ? )", "V", reply, database, i ) )
-        return false;
 
-    if ( !execReply( "INSERT OR REPLACE INTO changes VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )", "H", reply, database, i ) )
-        return false;
+    query.setQuery( "INSERT INTO attr_values VALUES ( ?, ?, ? )" );
 
-    if ( !execReply( "INSERT OR REPLACE INTO comments VALUES ( ?, ? )", "C", reply, database, i ) )
-        return false;
+    for ( ; i < reply.count() && reply.at( i ).keyword() == QLatin1String( "V" ); i++ ) {
+        if ( !query.exec( reply.at( i ).args() ) )
+            return false;
+    }
 
-    if ( !execReply( "INSERT OR REPLACE INTO files VALUES ( ?, ?, ?, ? )", "A", reply, database, i ) )
-        return false;
+    query.setQuery( "INSERT OR REPLACE INTO changes VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )" );
 
-    AutoSqlQuery oldChangeQuery( "SELECT change_type FROM changes WHERE change_id = ?", database );
-    AutoSqlQuery deleteCommentQuery( "DELETE FROM comments WHERE comment_id = ?", database );
-    AutoSqlQuery deleteFileQuery( "DELETE FROM files WHERE file_id = ?", database );
-    AutoSqlQuery deleteChangeQuery( "DELETE FROM changes WHERE change_id = ?", database );
+    for ( ; i < reply.count() && reply.at( i ).keyword() == QLatin1String( "H" ); i++ ) {
+        if ( !query.exec( reply.at( i ).args() ) )
+            return false;
+    }
 
-    for ( ; i < reply.lines().count(); i++ ) {
-        const ReplyLine& line = reply.lines().at( i );
+    query.setQuery( "INSERT OR REPLACE INTO comments VALUES ( ?, ? )" );
 
-        if ( line.keyword() != QLatin1String( "X" ) )
-            break;
+    for ( ; i < reply.count() && reply.at( i ).keyword() == QLatin1String( "C" ); i++ ) {
+        if ( !query.exec( reply.at( i ).args() ) )
+            return false;
+    }
 
-        int changeId = line.argInt( 0 );
+    query.setQuery( "INSERT OR REPLACE INTO files VALUES ( ?, ?, ?, ? )" );
 
-        oldChangeQuery.addBindValue( changeId );
-        if ( !oldChangeQuery.exec() )
+    for ( ; i < reply.count() && reply.at( i ).keyword() == QLatin1String( "A" ); i++ ) {
+        if ( !query.exec( reply.at( i ).args() ) )
+            return false;
+    }
+
+    Query oldChangeQuery( "SELECT change_type FROM changes WHERE change_id = ?", database );
+    Query deleteCommentQuery( "DELETE FROM comments WHERE comment_id = ?", database );
+    Query deleteFileQuery( "DELETE FROM files WHERE file_id = ?", database );
+    Query deleteChangeQuery( "DELETE FROM changes WHERE change_id = ?", database );
+
+    for ( ; i < reply.count() && reply.at( i ).keyword() == QLatin1String( "X" ); i++ ) {
+        int changeId = reply.at( i ).argInt( 0 );
+
+        if ( !oldChangeQuery.exec( changeId ) )
             return false;
 
         if ( oldChangeQuery.next() ) {
             int changeType = oldChangeQuery.value( 0 ).toInt();
 
             if ( changeType == CommentAdded ) {
-                deleteCommentQuery.addBindValue( changeId );
-                if ( !deleteCommentQuery.exec() )
+                if ( !deleteCommentQuery.exec( changeId ) )
                     return false;
             } else if ( changeType == FileAdded ) {
-                deleteFileQuery.addBindValue( changeId );
-                if ( !deleteFileQuery.exec() )
+                if ( !deleteFileQuery.exec( changeId ) )
                     return false;
             }
 
-            deleteChangeQuery.addBindValue( changeId );
-            if ( !deleteChangeQuery.exec() )
+            if ( !deleteChangeQuery.exec( changeId ) )
                 return false;
         }
     }
@@ -1169,16 +1158,13 @@ void DataManager::lockIssue( int issueId )
 
 bool DataManager::lockIssue( int issueId, const QSqlDatabase& database )
 {
-    QSqlQuery query( database );
-    query.prepare( "UPDATE issue_locks SET lock_count = lock_count + 1 WHERE issue_id = ?" );
-    query.addBindValue( issueId );
-    if ( !query.exec() )
+    Query query( database );
+
+    if ( !query.execQuery( "UPDATE issue_locks SET lock_count = lock_count + 1 WHERE issue_id = ?", issueId ) )
         return false;
 
     if ( query.numRowsAffected() == 0 ) {
-        query.prepare( "INSERT INTO issue_locks VALUES ( ?, 1, strftime( '%s', 'now' ) )" );
-        query.addBindValue( issueId );
-        if ( !query.exec() )
+        if ( !query.execQuery( "INSERT INTO issue_locks VALUES ( ?, 1, strftime( '%s', 'now' ) )", issueId ) )
             return false;
     }
 
@@ -1200,10 +1186,9 @@ void DataManager::unlockIssue( int issueId )
 
 bool DataManager::unlockIssue( int issueId, const QSqlDatabase& database )
 {
-    QSqlQuery query( database );
-    query.prepare( "UPDATE issue_locks SET lock_count = lock_count - 1, last_access = strftime( '%s', 'now' ) WHERE issue_id = ?" );
-    query.addBindValue( issueId );
-    if ( !query.exec() )
+    Query query( database );
+
+    if ( !query.execQuery( "UPDATE issue_locks SET lock_count = lock_count - 1, last_access = strftime( '%s', 'now' ) WHERE issue_id = ?", issueId ) )
         return false;
 
     if ( !flushIssueDetails( database ) )
@@ -1227,9 +1212,9 @@ void DataManager::clearIssueLocks()
 
 bool DataManager::clearIssueLocks( const QSqlDatabase& database )
 {
-    QSqlQuery query( database );
-    query.prepare( "UPDATE issue_locks SET lock_count = 0" );
-    if ( !query.exec() )
+    Query query( database );
+
+    if ( !query.execQuery( "UPDATE issue_locks SET lock_count = 0" ) )
         return false;
 
     if ( !flushIssueDetails( database ) )
@@ -1240,13 +1225,15 @@ bool DataManager::clearIssueLocks( const QSqlDatabase& database )
 
 bool DataManager::flushIssueDetails( const QSqlDatabase& database )
 {
-    int count = execScalar( "SELECT COUNT(*) FROM issue_locks", database ).toInt();
+    Query query( database );
+
+    if ( !query.execQuery( "SELECT COUNT(*) FROM issue_locks" ) )
+        return false;
+
+    int count = query.readScalar().toInt();
 
     if ( count > 100 ) {
-        QSqlQuery query( database );
-        query.prepare( "SELECT issue_id FROM issue_locks WHERE lock_count = 0 ORDER BY last_access LIMIT ?" );
-        query.addBindValue( count - 100 );
-        if ( !query.exec() )
+        if ( !query.execQuery( "SELECT issue_id FROM issue_locks WHERE lock_count = 0 ORDER BY last_access LIMIT ?", count - 100 ) )
             return false;
 
         QList<int> deletedIssues;
@@ -1263,40 +1250,40 @@ bool DataManager::flushIssueDetails( const QSqlDatabase& database )
 
 bool DataManager::removeIssueDetails( const QList<int>& issues, const QSqlDatabase& database )
 {
-    QSqlQuery query( database );
+    Query query( database );
 
-    query.prepare( "DELETE FROM comments WHERE comment_id IN ( SELECT change_id FROM changes WHERE issue_id = ? )" );
+    query.setQuery( "DELETE FROM comments WHERE comment_id IN ( SELECT change_id FROM changes WHERE issue_id = ? )" );
+
     foreach ( int issueId, issues ) {
-        query.addBindValue( issueId );
-        if ( !query.exec() )
+        if ( !query.exec( issueId ) )
             return false;
     }
 
-    query.prepare( "DELETE FROM files WHERE file_id IN ( SELECT change_id FROM changes WHERE issue_id = ? )" );
+    query.setQuery( "DELETE FROM files WHERE file_id IN ( SELECT change_id FROM changes WHERE issue_id = ? )" );
+
     foreach ( int issueId, issues ) {
-        query.addBindValue( issueId );
-        if ( !query.exec() )
+        if ( !query.exec( issueId ) )
             return false;
     }
 
-    query.prepare( "DELETE FROM changes WHERE issue_id = ?" );
+    query.setQuery( "DELETE FROM changes WHERE issue_id = ?" );
+
     foreach ( int issueId, issues ) {
-        query.addBindValue( issueId );
-        if ( !query.exec() )
+        if ( !query.exec( issueId ) )
             return false;
     }
 
-    query.prepare( "DELETE FROM issue_locks WHERE issue_id = ?" );
+    query.setQuery( "DELETE FROM issue_locks WHERE issue_id = ?" );
+
     foreach ( int issueId, issues ) {
-        query.addBindValue( issueId );
-        if ( !query.exec() )
+        if ( !query.exec( issueId ) )
             return false;
     }
 
-    query.prepare( "DELETE FROM issues_cache WHERE issue_id = ?" );
+    query.setQuery( "DELETE FROM issues_cache WHERE issue_id = ?" );
+
     foreach ( int issueId, issues ) {
-        query.addBindValue( issueId );
-        if ( !query.exec() )
+        if ( !query.exec( issueId ) )
             return false;
     }
 
@@ -1330,11 +1317,12 @@ void DataManager::settingsChanged()
 
 bool DataManager::recalculateAllAlerts( const QSqlDatabase& database )
 {
-    QSqlQuery query( database );
-    if ( !query.exec( "DELETE FROM alerts_cache" ) )
+    Query query( database );
+
+    if ( !query.execQuery( "DELETE FROM alerts_cache" ) )
         return false;
 
-    if ( !query.exec( "SELECT a.alert_id, f.folder_id, a.view_id FROM alerts AS a JOIN folders AS f ON f.folder_id = a.folder_id" ) )
+    if ( !query.execQuery( "SELECT a.alert_id, f.folder_id, a.view_id FROM alerts AS a JOIN folders AS f ON f.folder_id = a.folder_id" ) )
         return false;
 
     while ( query.next() ) {
@@ -1347,15 +1335,12 @@ bool DataManager::recalculateAllAlerts( const QSqlDatabase& database )
 
 bool DataManager::recalculateAlerts( int folderId, const QSqlDatabase& database )
 {
-    QSqlQuery query( database );
-    query.prepare( "DELETE FROM alerts_cache WHERE alert_id IN ( SELECT alert_id FROM alerts WHERE folder_id = ? )" );
-    query.addBindValue( folderId );
-    if ( !query.exec() )
+    Query query( database );
+
+    if ( !query.execQuery( "DELETE FROM alerts_cache WHERE alert_id IN ( SELECT alert_id FROM alerts WHERE folder_id = ? )", folderId ) )
         return false;
 
-    query.prepare( "SELECT a.alert_id, f.folder_id, a.view_id FROM alerts AS a JOIN folders AS f ON f.folder_id = a.folder_id WHERE f.folder_id = ?" );
-    query.addBindValue( folderId );
-    if ( !query.exec() )
+    if ( !query.execQuery( "SELECT a.alert_id, f.folder_id, a.view_id FROM alerts AS a JOIN folders AS f ON f.folder_id = a.folder_id WHERE f.folder_id = ?", folderId ) )
         return false;
 
     while ( query.next() ) {
@@ -1374,37 +1359,28 @@ bool DataManager::recalculateAlert( int alertId, int folderId, int viewId, const
     if ( sql.isEmpty() )
         return true;
 
-    QSqlQuery sqlQuery( database );
-    sqlQuery.prepare( sql );
+    Query query( database );
 
-    foreach ( const QVariant& arg, generator.arguments() )
-        sqlQuery.addBindValue( arg );
-
-    if ( !sqlQuery.exec() )
+    if ( !query.execQuery( sql, generator.arguments() ) )
         return false;
 
     int total = 0;
     int modified = 0;
     int unread = 0;
 
-    while ( sqlQuery.next() ) {
-        int readId = sqlQuery.value( 2 ).toInt();
+    while ( query.next() ) {
+        int readId = query.value( 2 ).toInt();
         if ( readId == 0 ) {
             unread++;
         } else {
-            int stampId = sqlQuery.value( 1 ).toInt();
+            int stampId = query.value( 1 ).toInt();
             if ( readId < stampId )
                 modified++;
         }
         total++;
     }
 
-    sqlQuery.prepare( "INSERT INTO alerts_cache VALUES ( ?, ?, ?, ? )" );
-    sqlQuery.addBindValue( alertId );
-    sqlQuery.addBindValue( total );
-    sqlQuery.addBindValue( modified );
-    sqlQuery.addBindValue( unread );
-    if ( !sqlQuery.exec() )
+    if ( !query.execQuery( "INSERT INTO alerts_cache VALUES ( ?, ?, ?, ? )", alertId, total, modified, unread ) )
         return false;
 
     return true;
