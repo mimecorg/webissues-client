@@ -344,7 +344,7 @@ void FolderView::updateActions()
         m_selectedIssueId = m_model->rowId( index );
         if ( m_selectedIssueId ) {
             IssueEntity issue = IssueEntity::find( m_selectedIssueId );
-            m_isRead = issue.isValid() ? issue.stampId() == issue.readId() : false;
+            m_isRead = issue.isValid() ? issue.readId() >= issue.stampId() : false;
         }
     }
 

@@ -355,7 +355,7 @@ void IssueView::updateActions()
     bool linkNotEmpty = !m_actionLink.isEmpty();
 
     IssueEntity issue = IssueEntity::find( id() );
-    m_isRead = issue.isValid() ? issue.readId() == issue.stampId() : false;
+    m_isRead = issue.isValid() ? issue.readId() >= issue.stampId() : false;
 
     action( "editCopy" )->setEnabled( hasSelection );
     action( "findNext" )->setEnabled( m_isFindEnabled );
