@@ -490,7 +490,9 @@ void IssueView::deleteIssue()
 {
     if ( isEnabled() && IssueEntity::isAdmin( id() ) ) {
         DeleteIssueDialog dialog( id(), mainWidget() );
-        dialog.exec();
+
+        if ( dialog.exec() == QDialog::Accepted && viewManager->isStandAlone( this ) )
+            viewManager->closeView( this );
     }
 }
 
