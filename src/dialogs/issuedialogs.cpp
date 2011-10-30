@@ -329,7 +329,7 @@ TransferIssueDialog::~TransferIssueDialog()
 {
 }
 
-void TransferIssueDialog::initialize( int typeId, int folderId )
+void TransferIssueDialog::initialize( int typeId, int folderId, bool requireAdministrator )
 {
     QGridLayout* layout = new QGridLayout();
 
@@ -344,7 +344,7 @@ void TransferIssueDialog::initialize( int typeId, int folderId )
     layout->setColumnStretch( 1, 1 );
 
     foreach ( const ProjectEntity& project, ProjectEntity::list() ) {
-        if ( !ProjectEntity::isAdmin( project.id() ) )
+        if ( requireAdministrator && !ProjectEntity::isAdmin( project.id() ) )
             continue;
 
         bool projectAdded = false;
@@ -383,7 +383,7 @@ MoveIssueDialog::MoveIssueDialog( int issueId, QWidget* parent ) : TransferIssue
     setPrompt( tr( "Move issue <b>%1</b> to another folder of the same type:" ).arg( issue.name() ) );
     setPromptPixmap( IconLoader::pixmap( "issue-move", 22 ) );
 
-    initialize( oldFolder.typeId(), m_oldFolderId );
+    initialize( oldFolder.typeId(), m_oldFolderId, true );
 }
 
 MoveIssueDialog::~MoveIssueDialog()
@@ -424,7 +424,7 @@ CloneIssueDialog::CloneIssueDialog( int issueId, QWidget* parent ) : TransferIss
     setPrompt( tr( "Clone issue <b>%1</b> to a folder of the same type:" ).arg( issue.name() ) );
     setPromptPixmap( IconLoader::pixmap( "issue-clone", 22 ) );
 
-    initialize( oldFolder.typeId(), oldFolder.id() );
+    initialize( oldFolder.typeId(), oldFolder.id(), false );
 }
 
 CloneIssueDialog::~CloneIssueDialog()

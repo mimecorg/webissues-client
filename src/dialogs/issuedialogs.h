@@ -163,7 +163,7 @@ public:
     int folderId() const;
 
 protected:
-    void initialize( int typeId, int folderId );
+    void initialize( int typeId, int folderId, bool requireAdministrator );
 
 private:
     SeparatorComboBox* m_folderCombo;
