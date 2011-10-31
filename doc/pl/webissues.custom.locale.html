@@ -19,7 +19,7 @@
             <h1><img src="common/webissues.png" alt="WebIssues" id="logo" />Podręcznik WebIssues</h1>
           </div>
           <div id="header-right">
-            <h2 class="subtitle">Wersja 1.0-beta2</h2>
+            <h2 class="subtitle">Wersja 1.0-beta3</h2>
           </div>
         </div>
         <div id="infobar">
@@ -40,9 +40,38 @@
               </div>
             </div>
           </div>
+          <p>System WebIssues umożliwia pełną lokalizację — zmianę języka, strefy czasowej, oraz formatu liczb, daty i czasu. Domyślny język systemu wybiera się podczas instalacji (patrz sekcja <a class="xref" href="webissues.prep.installation.html" title="Instalacja">„Instalacja”</a>). Aby zmienić domyślny język systemu, przejdź do Panelu administracyjnego i kliknij <span class="guilabel">Ustawienia serwera</span>.</p>
+          <div class="figure">
+            <a id="id539728"></a>
+            <div class="figure-contents">
+              <div class="mediaobject">
+                <img src="images/ch06-fig16.png" alt="Ustawienia regionalne" />
+              </div>
+            </div>
+            <div class="figure-title">Rysunek 6.16. Ustawienia regionalne</div>
+          </div>
+          <p>Zmiana języka systemu wpłynie na wszystkich użytkowników (o ile nie wybrali własnego preferowanego języka), a także na język nowych komunikatów w Dzienniku zdarzeń systemu WebIssues. Nazwy istniejących typów spraw, atrybutów i innych danych, oraz istniejące komunikaty w Dzienniku zdarzeń pozostaną niezmienione.</p>
+          <p>Każdy użytkownik może wybrać własny preferowany język. W tym celu kliknij <span class="guilabel">Narzędzia</span>, a następnie <span class="guilabel">Ustawienia użytkownika</span> (w przypadku programu Desktop Client, polecenie <span class="guilabel">Ustawienia użytkownika</span> jest dostępne bezpośrednio z paska narzędzi okna głównego). Ustawienie to określa język dla programu Web Client (po zalogowaniu do systemu), a także język, w jakim wysłane są powiadomienia mailowe dla danego użytkownika.</p>
+          <p>W przypadku programu Destkop Client, język interfejsu użytkownika zależy od ustawień programu i nie zmienia się po zalogowaniu do serwera. Użyj polecenia <span class="guilabel">Ustawienia WebIssues</span>, dostępnego w postaci ikony w prawym górnym rogu okna, aby zmienić te ustawienia. Zmiana języka wymaga zamknięcia i ponownego uruchomienia programu.</p>
           <div class="note" title="Notatka" style="margin-left: 0.5in; margin-right: 0.5in;">
             <h3 class="title">Notatka</h3>
-            <p>Ta sekcja jest jeszcze w trakcie przygotowywania.</p>
+            <p>System WebIssues został przetłumaczony na kilka języków, instnieje jednak możliwość tworzenia nowych tłumaczeń. Więcej informacji na ten temat znajdziesz na stronie <a class="ulink" href="http://wiki.mimec.org/wiki/WebIssues/Translation" target="_top">http://wiki.mimec.org/wiki/WebIssues/Translation</a>. Tłumaczenia są tworzone przez wolontariuszy, więc jeśli utworzyłeś własne tłumaczenie, skontaktuj się z autorami systemu, aby udostępnić je innym użytkownikom.</p>
+          </div>
+          <p>Domyślnie system WebIssues używa lokalnej strefy czasowej serwera, na którym jest zainstalowany. Administrator systemu można zmienić domyślną strefę czasową poprzez <span class="guilabel">Ustawienia serwera</span> w Panelu administracyjnym. Zmiana ta wpłynie na wszystkich użytkowników (o ile nie wybrali własnej strefy czasowej). Wyświetlane daty są automatycznie przeliczane zgodnie z wybraną strefą czasową.</p>
+          <p>Każdy użytkownik może wybrać własną preferowaną strefę czasową, korzystając z polecenia <span class="guilabel">Ustawienia użytkownika</span>. Ustawienie to określa strefę czasową dla dat wyświetlanych w programie Web Client, a także dla powiadomień mailowych. Natomiast program Desktop Client zawsze wyświetla daty zgodnie z lokalną strefą czasową komputera, na którym jest uruchomiony, i nie bierze pod uwagę ustawień serwera ani preferencji użytkownika.</p>
+          <div class="note" title="Notatka" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <h3 class="title">Notatka</h3>
+            <p>W zależności od ustawień, atrybuty typu Data i czas mogą być automatycznie przeliczane, zgodnie z aktualną strefą czasową, lub wyświetlane bez konwersji strefy czasowej. Opcja bez konwersji jest pozostawiona głównie dla zachowania zgodności z wersją 0.8 serwera, jeśli jednak z systemu korzystają użytkownicy znajdujących się w różnych strefach czasowych, zaleca się użyć opcji automatycznego dostosowania czasu do lokalnej strefy czasowej.</p>
+          </div>
+          <p>Format w jakim wyświetlane są liczby, data i czas, a także pierwszy dzień tygodnia w kalendarzu, zależą od aktualnego języka, w jakim wyświetlany jest interfejs użytkownika. Administrator systemu może dostosować te ustawienia dla wszystkich użytkowników, korzystając z polecenia <span class="guilabel">Ustawienia serwera</span> w Panelu administracyjnym. Każdy użytkownik może natomiast wybrać własne ustawienia, korzystając z polecenia <span class="guilabel">Ustawienia użytkownika</span>.</p>
+          <div class="figure">
+            <a id="id539831"></a>
+            <div class="figure-contents">
+              <div class="mediaobject">
+                <img src="images/ch06-fig17.png" alt="Formaty" />
+              </div>
+            </div>
+            <div class="figure-title">Rysunek 6.17. Formaty</div>
           </div>
         </div>
         <div class="navlinks">

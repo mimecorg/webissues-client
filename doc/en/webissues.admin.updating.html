@@ -19,7 +19,7 @@
             <h1><img src="common/webissues.png" alt="WebIssues" id="logo" />WebIssues Manual</h1>
           </div>
           <div id="header-right">
-            <h2 class="subtitle">Version 1.0-beta2</h2>
+            <h2 class="subtitle">Version 1.0-beta3</h2>
           </div>
         </div>
         <div id="infobar">
@@ -48,7 +48,7 @@
           </div>
           <p>First, delete all files and subdirectories from the directory where you installed the WebIssues server, remembering to keep the <code class="literal">date</code> subdirectory, which stores all files related to the particular installation, for example, configuration files and attachments of issues. If you created your own <code class="literal">.htaccess</code> or <code class="literal">web.config</code> file (in case of IIS), then also make a copy of it to be able to restore it later.</p>
           <p>Download and unpack the new WebIssues server package — it contains a directory named <code class="literal">webissues-x.y</code> (where <code class="literal">x.y</code> is the version of the package). Then move all files and subdirectories from that directory to the directory where the WebIssues server was previously installed.</p>
-          <p>After copying the files, enable the web server and open the main page of the WebIssues system in the browser. If there is a need to update the database, then follow the instructions. Otherwise, the system is ready to work.</p>
+          <p>After copying the files, enable the web server and open the main page of the WebIssues system in the browser. If there is a need to update the database, a message will be displayed. You will be asked to enter the login and password of the WebIssues system administrator, and then the database will be updated to the current version. Otherwise, the system is ready to work.</p>
           <p>It is also recommended to update the Desktop Client to a newer version on the computers of people who use it. Generally, however, the Desktop Client can communicate with both older and newer version of the server, provided that the first digit of the version number is the same. Therefore, client version 0.9.x will not work with the 1.0 system, and client version 1.0 will not work with the 0.8.x system, but both versions can be installed side by side on a single computer.</p>
           <div class="note" title="Note" style="margin-left: 0.5in; margin-right: 0.5in;">
             <h3 class="title">Note</h3>

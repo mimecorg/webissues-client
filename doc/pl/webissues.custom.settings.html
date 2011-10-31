@@ -19,7 +19,7 @@
             <h1><img src="common/webissues.png" alt="WebIssues" id="logo" />Podręcznik WebIssues</h1>
           </div>
           <div id="header-right">
-            <h2 class="subtitle">Wersja 1.0-beta2</h2>
+            <h2 class="subtitle">Wersja 1.0-beta3</h2>
           </div>
         </div>
         <div id="infobar">
@@ -40,9 +40,55 @@
               </div>
             </div>
           </div>
+          <p>Aby zmienić zaawansowane ustwienia serwera, przejdź do Panelu administracyjnego i kliknij <span class="guilabel">Ustawienia serwera</span>. Opcja ta nie jest dostępna w programie Desktop Client. Zmiany ustawień może dokonać jedynie administrator systemu.</p>
+          <p>Grupy opcji <span class="guilabel">Ustawienia regionalne</span> oraz <span class="guilabel">Formaty</span> zostały opisane w sekcji <a class="xref" href="webissues.custom.locale.html" title="Ustawienia regionalne">„Ustawienia regionalne”</a>.</p>
+          <p>Grupa opcji <span class="guilabel">Rozmiar strony</span> umożliwia określenie domyślnej liczby spraw wyświetlanych na pojedynczej stronie w liście spraw oraz domyślnej liczby elementów na stronie historii sprawy. Każdy użytkownik może natomiast wybrać własne preferowane ustawienia, korzystając z polecenia <span class="guilabel">Ustawienia użytkownika</span>. Opcje te wpływają jedynie na program Web Client, ponieważ program Desktop Client zawsze wyświetla wszystkie sprawy i pełną historię, bez podziału na strony.</p>
+          <div class="figure">
+            <a id="id539896"></a>
+            <div class="figure-contents">
+              <div class="mediaobject">
+                <img src="images/ch06-fig18.png" alt="Rozmiar strony" />
+              </div>
+            </div>
+            <div class="figure-title">Rysunek 6.18. Rozmiar strony</div>
+          </div>
+          <p>Opcje z grupy <span class="guilabel">Ograniczenia</span> umożliwiają administratorowi systemu określenie maksymalnej długości komentarzy oraz maksymalnej wielkości załączników, jakie mogą być dodawane przez użytkowników.</p>
+          <div class="figure">
+            <a id="id539923"></a>
+            <div class="figure-contents">
+              <div class="mediaobject">
+                <img src="images/ch06-fig19.png" alt="Ograniczenia" />
+              </div>
+            </div>
+            <div class="figure-title">Rysunek 6.19. Ograniczenia</div>
+          </div>
           <div class="note" title="Notatka" style="margin-left: 0.5in; margin-right: 0.5in;">
             <h3 class="title">Notatka</h3>
-            <p>Ta sekcja jest jeszcze w trakcie przygotowywania.</p>
+            <p>Maksymalny rozmiar załącznika, jaki może być przesłany do systemu, zależy również od odpowiedniej konfiguracji serwera WWW oraz PHP. Więcej informacji na ten temat znajdziesz na stronie <a class="ulink" href="http://php.net/manual/en/features.file-upload.common-pitfalls.php" target="_top">http://php.net/manual/en/features.file-upload.common-pitfalls.php</a>.</p>
+          </div>
+          <p>Domyślnie małe załączniki są przechowywane w bazie danych, a duże bezpośrednio w systemie plików. W zależności od potrzeb możesz zmienić wartość progową lub wymusić przechowywanie wszystkich załączników tylko w bazie danych lub w systemie plików. Maksymalny rozmiar załączników przechowywanych w bazie danych możesz określić w grupie <span class="guilabel">Przechowywanie załączników</span>.</p>
+          <div class="figure">
+            <a id="id539965"></a>
+            <div class="figure-contents">
+              <div class="mediaobject">
+                <img src="images/ch06-fig20.png" alt="Przechowywanie załączników" />
+              </div>
+            </div>
+            <div class="figure-title">Rysunek 6.20. Przechowywanie załączników</div>
+          </div>
+          <div class="note" title="Notatka" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <h3 class="title">Notatka</h3>
+            <p>Przechowywanie dużych załączników w bazie danych może wymagać odpowiedniej konfiguracji serwera bazy danych i może być nieoptymalne w porównaniu z systemem plików. Ponadto wiele usług hostingowych znacznie ogranicza maksymalny rozmiar bazy danych, jednocześnie oferując dużo dostępnej przestrzeni dyskowej. Z drugiej strony, przechowywanie załączników wyłącznie w bazie danych ułatwia tworzenie kopii zapasowych systemu, gdyż nie ma w tym wypadku konieczności dodatkowego archiwizowania plików. W niektórych przypadkach może być również bezpieczniejsze.</p>
+          </div>
+          <p>Opcje z grupy <span class="guilabel">Maksymalny czas życia</span> pozwalają na zdefiniowanie czasu, po jakim nieaktywne sesje użytkowników są usuwane, a także czasu, przez jaki w systemie przechowywane są wpisy w Dzienniku zdarzeń. Natomiast ustawienie <span class="guilabel">Usuwanie śmieci</span> pozwala określić prawdopodobieństwo, z jakim uruchamiany jest proces usuwania nieaktywnych sesji i starych wpisów w Dzienniku zdarzeń. Zmniejsz to prawdopodobieństwo, jeśli serwer jest mocno obciążony, lub wybierz opcję <span class="quote">„<span class="quote">Użyj zadania cyklicznego</span>”</span>, jeśli w systemie jest aktywny mechanizm wysyłania powiadomień mailowych (patrz sekcja <a class="xref" href="webissues.prep.notifications.html#webissues.prep.nofitications.cron" title="Zadania cykliczne">„Zadania cykliczne”</a>).</p>
+          <div class="figure">
+            <a id="id541060"></a>
+            <div class="figure-contents">
+              <div class="mediaobject">
+                <img src="images/ch06-fig21.png" alt="Maksymalny czas życia i Usuwanie śmieci" />
+              </div>
+            </div>
+            <div class="figure-title">Rysunek 6.21. Maksymalny czas życia i Usuwanie śmieci</div>
           </div>
         </div>
         <div class="navlinks">

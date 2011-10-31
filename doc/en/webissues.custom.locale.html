@@ -19,7 +19,7 @@
             <h1><img src="common/webissues.png" alt="WebIssues" id="logo" />WebIssues Manual</h1>
           </div>
           <div id="header-right">
-            <h2 class="subtitle">Version 1.0-beta2</h2>
+            <h2 class="subtitle">Version 1.0-beta3</h2>
           </div>
         </div>
         <div id="infobar">
@@ -40,9 +40,38 @@
               </div>
             </div>
           </div>
+          <p>The WebIssues system enables full localization — changing the language, time zone and format of numbers, date and time. The default system language is selected during installation (see <a class="xref" href="webissues.prep.installation.html" title="Installation">the section called “Installation”</a>). To change the default system language, go to the Administration Panel and click <span class="guilabel">Server Settings</span>.</p>
+          <div class="figure">
+            <a id="id516810"></a>
+            <div class="figure-contents">
+              <div class="mediaobject">
+                <img src="images/ch06-fig16.png" alt="Regional options" />
+              </div>
+            </div>
+            <div class="figure-title">Figure 6.16. Regional options</div>
+          </div>
+          <p>Changing the system language will affect all users (unless they have chosen their own preferred language) and also the language of new messages in the Event Log of the WebIssues system. Names of existing issue types, attributes and other data, and existing messages in the Event Log will remain unchanged.</p>
+          <p>Each user can choose their own preferred language. To do this, click <span class="guilabel">Tools</span> and then <span class="guilabel">User Preferences</span> (for the Desktop Client, the <span class="guilabel">User Preferences</span> command is available directly from the toolbar of the main window). This setting determines the language of the Web Client (after logging into the system), and also the language of e-mail notifications sent to the given user.</p>
+          <p>In case of the Destkop Client, the language of the user interface depends on the settings of the program and does not change after you log into the server. Use the <span class="guilabel">WebIssues settings</span> command, available as an icon in the upper right corner of the window, to change these settings. After changing the language you need to close and restart the program.</p>
           <div class="note" title="Note" style="margin-left: 0.5in; margin-right: 0.5in;">
             <h3 class="title">Note</h3>
-            <p>This section is still being prepared.</p>
+            <p>The WebIssues system has been translated into several languages, but it is possible to create new translations. For more information, please visit <a class="ulink" href="http://wiki.mimec.org/wiki/WebIssues/Translation" target="_top">http://wiki.mimec.org/wiki/WebIssues/Translation</a>. Translations are created by volunteers, so if you have created your own translation, please contact the authors of the system to share it with other users.</p>
+          </div>
+          <p>By default the WebIssues system uses the local time zone of the server on which it is installed. The system administrator can change the default time zone through the <span class="guilabel">Server Settings</span> command in the Administration Panel. This change will affect all users (unless they they chose their own time zone). Displayed dates are automatically recalculated according to the selected time zone.</p>
+          <p>Each user can select their own preferred time zone using the <span class="guilabel">User Preferences</span> command. This setting determines the time zone for dates displayed in the Web Client, and also for mail notifications. However Desktop Client always displays dates according to the local time zone of the computer it is running on, and it does not take into account server settings or user preferences.</p>
+          <div class="note" title="Note" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <h3 class="title">Note</h3>
+            <p>Depending on the settings, the date and time attributes can be automatically recalculated according to the current time zone, or displayed without time zone conversions. The no conversion option is left mainly for compatibility with version 0.8 of the server, but when users of the system are located in different time zones, it is recommended to use the option of automatically adjusting the time to the local time zone.</p>
+          </div>
+          <p>The format in which numbers, date and time are displayed, and the first day of the week in the calendar, depend on the current language of the user interface. The system administrator can customize these settings for all users using the <span class="guilabel">Server Settings</span> command in the Administration Panel. Each user can choose their own settings using the <span class="guilabel">User Preferences</span> command.</p>
+          <div class="figure">
+            <a id="id516915"></a>
+            <div class="figure-contents">
+              <div class="mediaobject">
+                <img src="images/ch06-fig17.png" alt="Formats" />
+              </div>
+            </div>
+            <div class="figure-title">Figure 6.17. Formats</div>
           </div>
         </div>
         <div class="navlinks">
