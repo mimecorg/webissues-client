@@ -30,6 +30,7 @@
 #include "xmlui/builder.h"
 
 #include <QTreeView>
+#include <QLayout>
 #include <QAction>
 #include <QMenu>
 

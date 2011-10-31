@@ -21,6 +21,7 @@
 #define QUERY_H
 
 #include <QSqlQuery>
+#include <QVariant>
 
 /**
 * Wrapper for the QSqlQuery.

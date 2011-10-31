@@ -22,6 +22,7 @@
 
 #include <QApplication>
 #include <QPointer>
+#include <QMap>
 
 #if ( QT_VERSION < 0x040500 ) || !defined( Q_WS_WIN ) && !defined( Q_WS_MAC )
 #define NO_DEFAULT_PROXY
