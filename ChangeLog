@@ -1,3 +1,12 @@
+1.0-beta3 (2011-11-02)
+    * cloning issues and views
+    * improved marking issues as read/unread
+    * format nubers, date and time according to program language
+    * share attachments cache between all server instances
+    * lock the cache database while connection is open
+    * filter active and disabled users
+    * fixed some keyboarch shortcuts
+
 1.0-beta2 (2011-09-20)
     * added multi-select attributes
     * added IN operator in filters
