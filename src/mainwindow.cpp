@@ -513,7 +513,8 @@ void MainWindow::setActiveView( View* view )
     builder()->supressUpdate();
 
     if ( m_activeView ) {
-        disconnect( m_activeView, NULL, this, NULL );
+        disconnect( m_activeView, SIGNAL( statusChanged( const QPixmap&, const QString&, int ) ), this, NULL );
+        disconnect( m_activeView, SIGNAL( summaryChanged( const QPixmap&, const QString& ) ), this, NULL );
         builder()->removeClient( m_activeView );
     }
 
