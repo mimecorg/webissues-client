@@ -53,9 +53,9 @@ ConnectionInfoDialog::ConnectionInfoDialog( QWidget* parent ) : InformationDialo
     m_serverPanel->setInnerMargin( 0 );
 
     m_serverPanel->addProperty( "url", tr( "URL:" ) );
-    m_serverPanel->addProperty( "encrypted", tr( "Encrypted:" ) );
     m_serverPanel->addProperty( "name", tr( "Name:" ) );
     m_serverPanel->addProperty( "version", tr( "Version:" ) );
+    m_serverPanel->addProperty( "encryption", tr( "Encryption:" ) );
 
     serverLayout->addWidget( m_serverPanel );
 
@@ -102,10 +102,9 @@ void ConnectionInfoDialog::updateInformation()
 
     QSslCipher cipher = commandManager->sslConfiguration().sessionCipher();
     if ( !cipher.isNull() )
-        m_serverPanel->setValue( "encrypted", tr( "Yes (%1, %2-bit)" )
-            .arg( cipher.authenticationMethod() ).arg( cipher.usedBits() ) );
+        m_serverPanel->setValue( "encryption", cipher.name() );
     else
-        m_serverPanel->setValue( "encrypted", tr( "No" ) );
+        m_serverPanel->setValue( "encryption", tr( "None" ) );
 #else
     m_certificatesButton->setEnabled( false );
     m_serverPanel->setValue( "encrypted", tr( "No" ) );
