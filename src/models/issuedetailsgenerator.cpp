@@ -31,7 +31,9 @@
 IssueDetailsGenerator::IssueDetailsGenerator() :
     m_issueId( 0 ),
     m_history( NoHistory ),
-    m_isAdmin( false )
+    m_isAdmin( false ),
+    m_commentsCount( 0 ),
+    m_filesCount( 0 )
 {
 }
 
@@ -200,6 +202,7 @@ void IssueDetailsGenerator::writeHistory( TextWriter* writer, const IssueEntity&
                 writer->mergeLayoutCells( row + 1, 0, 1, 4 );
                 writer->gotoLayoutCell( row + 1, 0, TextWriter::CommentCell );
                 writer->writeBlock( TextWithLinks::parse( change.comment().text(), flags ), TextWriter::NormalBlock );
+                m_commentsCount++;
                 break;
 
             case FileAdded:
@@ -215,6 +218,7 @@ void IssueDetailsGenerator::writeHistory( TextWriter* writer, const IssueEntity&
                 writer->mergeLayoutCells( row + 1, 0, 1, 4 );
                 writer->gotoLayoutCell( row + 1, 0, TextWriter::FileCell );
                 writer->writeBlock( formatFile( change.file(), flags ), TextWriter::NormalBlock );
+                m_filesCount++;
                 break;
 
             case IssueMoved:

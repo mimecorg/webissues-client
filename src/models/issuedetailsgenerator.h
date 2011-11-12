@@ -74,6 +74,10 @@ public:
     */
     void write( TextWriter* writer, TextWithLinks::Flags flags = 0 );
 
+    int commentsCount() const { return m_commentsCount; }
+
+    int filesCount() const { return m_filesCount; }
+
 private:
     void writeProperties( TextWriter* writer, const IssueEntity& issue );
     void writeAttributes( TextWriter* writer, const IssueEntity& issue, TextWithLinks::Flags flags );
@@ -94,6 +98,9 @@ private:
     History m_history;
 
     bool m_isAdmin;
+
+    int m_commentsCount;
+    int m_filesCount;
 };
 
 #endif
