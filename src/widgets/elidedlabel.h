@@ -40,15 +40,8 @@ public:
     */
     ~ElidedLabel();
 
-public: // overrides
-    void setText( const QString& text );
-    QString text() const { return m_fullText; }
-
 protected: // overrides
-    void resizeEvent( QResizeEvent* e );
-
-private:
-    QString m_fullText;
+    void paintEvent( QPaintEvent* e );
 };
 
 #endif

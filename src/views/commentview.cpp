@@ -108,7 +108,6 @@ CommentView::CommentView( QObject* parent, QWidget* parentWidget ) : View( paren
     loadXmlUiFile( ":/resources/commentview.xml" );
 
     connect( m_edit, SIGNAL( textChanged() ), this, SLOT( updateActions() ) );
-    connect( m_edit, SIGNAL( textChanged() ), this, SLOT( updateSummary() ) );
 
     connect( QApplication::clipboard(), SIGNAL( dataChanged() ), this, SLOT( updateClipboard() ) );
 
@@ -166,7 +165,6 @@ void CommentView::enableView()
     updateCaption();
     updateActions();
     updateClipboard();
-    updateSummary();
 }
 
 void CommentView::disableView()
@@ -203,25 +201,6 @@ void CommentView::updateActions()
 void CommentView::updateClipboard()
 {
     action( "editPaste" )->setEnabled( !QApplication::clipboard()->text().isEmpty() );
-}
-
-void CommentView::updateSummary()
-{
-    QTextDocument* document = m_edit->document();
-
-    int length = -1; // last end-of-block is removed
-    for ( QTextBlock block = document->begin(); block != document->end(); block = block.next() )
-        length += block.length();
-
-    int maxLength = dataManager->setting( "comment_max_length" ).toInt();
-
-    Formatter formatter;
-    QString status = tr( "%1 / %2 characters" ).arg( formatter.formatNumber( length, 0, false ), formatter.formatNumber( maxLength, 0, false ) );
-
-    if ( length <= maxLength )
-        showSummary( QPixmap(), status );
-    else
-        showSummary( IconLoader::pixmap( "status-warning" ), status );
 }
 
 void CommentView::sendComment()

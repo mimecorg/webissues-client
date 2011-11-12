@@ -138,7 +138,6 @@ void ProjectsView::initialUpdate()
     connect( m_model, SIGNAL( layoutChanged() ), this, SLOT( updateActions() ) );
 
     updateActions();
-    updateSummary();
 
     initialUpdateData();
 
@@ -398,13 +397,6 @@ void ProjectsView::manageAlerts()
         ManageAlertsDialog dialog( m_currentFolderId, mainWidget() );
         dialog.exec();
     }
-}
-
-void ProjectsView::updateSummary()
-{
-    QPixmap pixmap = m_systemAdmin ? IconLoader::overlayedPixmap( "user", "overlay-admin" ) : IconLoader::pixmap( "user" );
-
-    showSummary( pixmap, dataManager->currentUserName() );
 }
 
 void ProjectsView::updateEvent( UpdateEvent* e )

@@ -17,31 +17,49 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************/
 
+#include "statuslabel.h"
 #include "elidedlabel.h"
 
-#include <QResizeEvent>
+#include <QLayout>
 
-ElidedLabel::ElidedLabel( QWidget* parent ) : QLabel( parent )
+StatusLabel::StatusLabel( QWidget* parent ) : QWidget( parent )
 {
-    setMinimumWidth( 0 );
+    QHBoxLayout* layout = new QHBoxLayout( this );
+    layout->setMargin( 0 );
+    layout->setSpacing( 6 );
+
+    m_pixmapLabel = new QLabel( this );
+    m_pixmapLabel->setFixedSize( 16, 16 );
+    m_pixmapLabel->setVisible( false );
+    layout->addWidget( m_pixmapLabel );
+
+    m_label = new ElidedLabel( this );
+    layout->addWidget( m_label );
+
+    layout->addSpacing( 6 );
 }
 
-ElidedLabel::~ElidedLabel()
+StatusLabel::~StatusLabel()
 {
 }
 
-void ElidedLabel::paintEvent( QPaintEvent* /*e*/ )
+void StatusLabel::setText( const QString& text )
 {
-    QPainter painter( this );
-    drawFrame( &painter );
+    m_label->setText( text );
+}
 
-    QRect cr = contentsRect();
-    cr.adjust( margin(), margin(), -margin(), -margin() );
+QString StatusLabel::text() const
+{
+    return m_label->text();
+}
 
-    QStyleOption opt;
-    opt.initFrom( this );
+void StatusLabel::setPixmap( const QPixmap& pixmap )
+{
+    m_pixmapLabel->setPixmap( pixmap );
+    m_pixmapLabel->setVisible( !pixmap.isNull() );
+}
 
-    QString elidedText = fontMetrics().elidedText( text(), Qt::ElideRight, cr.width() );
-
-    style()->drawItemText( &painter, cr, alignment(), opt.palette, isEnabled(), elidedText, foregroundRole() );
+const QPixmap* StatusLabel::pixmap() const
+{
+    return m_pixmapLabel->pixmap();
 }

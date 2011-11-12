@@ -88,8 +88,6 @@ private slots:
 private:
     Access checkDataAccess();
 
-    void updateSummary();
-
     void initialUpdateData();
     void periodicUpdateData( bool full );
     void cascadeUpdateFolders();

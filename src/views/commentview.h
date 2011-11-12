@@ -57,7 +57,6 @@ protected: // overrides
 private slots:
     void updateActions();
     void updateClipboard();
-    void updateSummary();
 
     void sendComment();
 

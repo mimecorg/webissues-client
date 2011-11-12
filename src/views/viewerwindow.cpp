@@ -24,7 +24,7 @@
 #include "data/localsettings.h"
 #include "dialogs/settingsdialog.h"
 #include "utils/iconloader.h"
-#include "widgets/statusbar.h"
+#include "widgets/statuslabel.h"
 #include "xmlui/builder.h"
 #include "xmlui/toolstrip.h"
 
@@ -67,7 +67,15 @@ ViewerWindow::ViewerWindow() :
     builder->registerToolStrip( "stripMain", strip );
     builder->addClient( this );
 
-    setStatusBar( new ::StatusBar( this ) );
+    QStatusBar* bar = statusBar();
+
+    m_statusLabel = new StatusLabel( bar );
+    bar->addWidget( m_statusLabel, 1 );
+
+    m_summaryLabel = new StatusLabel( bar );
+    bar->addWidget( m_summaryLabel, 0 );
+
+    m_summaryLabel->hide();
 }
 
 ViewerWindow::~ViewerWindow()
@@ -86,8 +94,8 @@ void ViewerWindow::setView( View* view )
 
     connect( view, SIGNAL( enabledChanged( bool ) ), this, SLOT( enabledChanged( bool ) ) );
 
-    connect( view, SIGNAL( statusChanged( const QPixmap&, const QString&, int ) ), statusBar(), SLOT( showStatus( const QPixmap&, const QString&, int ) ) );
-    connect( view, SIGNAL( summaryChanged( const QPixmap&, const QString& ) ), statusBar(), SLOT( showSummary( const QPixmap&, const QString& ) ) );
+    connect( view, SIGNAL( statusChanged( const QPixmap&, const QString&, int ) ), this, SLOT( showStatus( const QPixmap&, const QString&, int ) ) );
+    connect( view, SIGNAL( summaryChanged( const QPixmap&, const QString& ) ), this, SLOT( showSummary( const QPixmap&, const QString& ) ) );
 
     setCentralWidget( view->mainWidget() );
 
@@ -167,4 +175,27 @@ void ViewerWindow::configure()
 void ViewerWindow::captionChanged( const QString& caption )
 {
     setWindowTitle( tr( "%1 - WebIssues Desktop Client" ).arg( caption ) );
+}
+
+void ViewerWindow::showStatus( const QPixmap& pixmap, const QString& text, int icon /*= 0*/ )
+{
+    m_statusLabel->setPixmap( pixmap );
+    m_statusLabel->setText( text );
+
+    if ( icon != 0 && topLevelWidget()->isActiveWindow() ) {
+        QMessageBox box;
+        box.setIcon( (QMessageBox::Icon)icon );
+        QAccessible::updateAccessibility( &box, 0, QAccessible::Alert );
+    }
+}
+
+void ViewerWindow::showSummary( const QPixmap& pixmap, const QString& text )
+{
+    if ( !text.isEmpty() || !pixmap.isNull() ) {
+        m_summaryLabel->setPixmap( pixmap );
+        m_summaryLabel->setText( text );
+        m_summaryLabel->show();
+    } else {
+        m_summaryLabel->hide();
+    }
 }

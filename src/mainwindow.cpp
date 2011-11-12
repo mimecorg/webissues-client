@@ -35,7 +35,7 @@
 #include "views/issueview.h"
 #include "views/startview.h"
 #include "views/viewmanager.h"
-#include "widgets/statusbar.h"
+#include "widgets/statuslabel.h"
 #include "widgets/panewidget.h"
 #include "xmlui/builder.h"
 #include "xmlui/toolstrip.h"
@@ -142,7 +142,19 @@ MainWindow::MainWindow() :
 
     updateActions( false );
 
-    setStatusBar( new ::StatusBar( this ) );
+    QStatusBar* bar = statusBar();
+
+    m_statusLabel = new StatusLabel( bar );
+    bar->addWidget( m_statusLabel, 1 );
+
+    m_summaryLabel = new StatusLabel( bar );
+    bar->addWidget( m_summaryLabel, 0 );
+
+    m_encryptionLabel = new StatusLabel( bar );
+    bar->addWidget( m_encryptionLabel, 0 );
+
+    m_userLabel = new StatusLabel( bar );
+    bar->addWidget( m_userLabel, 0 );
 
     showStartPage();
 
@@ -165,7 +177,11 @@ MainWindow::MainWindow() :
 
     settingsChanged();
 
-    statusBar()->showInfo( tr( "Not connected to server." ) );
+    showStatus( IconLoader::pixmap( "status-info" ), tr( "Not connected to server." ) );
+
+    m_summaryLabel->hide();
+    m_encryptionLabel->hide();
+    m_userLabel->hide();
 
     m_selectionTimer = new QTimer( this );
     m_selectionTimer->setInterval( 400 );
@@ -271,8 +287,11 @@ void MainWindow::closeConnection()
 
     setWindowTitle( tr( "WebIssues Desktop Client" ) );
 
-    statusBar()->showInfo( tr( "Disconnected from server." ) );
-    statusBar()->showSummary( QPixmap(), QString() );
+    showStatus( IconLoader::pixmap( "status-info" ), tr( "Disconnected from server." ) );
+
+    m_summaryLabel->hide();
+    m_encryptionLabel->hide();
+    m_userLabel->hide();
 }
 
 void MainWindow::showStartPage()
@@ -299,8 +318,8 @@ void MainWindow::showStartPage()
 
     m_startView->mainWidget()->setFocus();
 
-    connect( m_startView, SIGNAL( statusChanged( const QPixmap&, const QString&, int ) ), statusBar(), SLOT( showStatus( const QPixmap&, const QString&, int ) ) );
-    connect( m_startView, SIGNAL( summaryChanged( const QPixmap&, const QString& ) ), statusBar(), SLOT( showSummary( const QPixmap&, const QString& ) ) );
+    connect( m_startView, SIGNAL( statusChanged( const QPixmap&, const QString&, int ) ), this, SLOT( showStatus( const QPixmap&, const QString&, int ) ) );
+    connect( m_startView, SIGNAL( summaryChanged( const QPixmap&, const QString& ) ), this, SLOT( showSummary( const QPixmap&, const QString& ) ) );
 
     connect( m_startView, SIGNAL( connectionOpened() ), this, SLOT( connectionOpened() ), Qt::QueuedConnection );
 
@@ -358,8 +377,22 @@ void MainWindow::connectionOpened()
 
     connect( m_view, SIGNAL( captionChanged( const QString& ) ), this, SLOT( captionChanged( const QString& ) ) );
 
-    connect( m_view, SIGNAL( statusChanged( const QPixmap&, const QString&, int ) ), statusBar(), SLOT( showStatus( const QPixmap&, const QString&, int ) ) );
-    connect( m_view, SIGNAL( summaryChanged( const QPixmap&, const QString& ) ), statusBar(), SLOT( showSummary( const QPixmap&, const QString& ) ) );
+    connect( m_view, SIGNAL( statusChanged( const QPixmap&, const QString&, int ) ), this, SLOT( showStatus( const QPixmap&, const QString&, int ) ) );
+    connect( m_view, SIGNAL( summaryChanged( const QPixmap&, const QString& ) ), this, SLOT( showSummary( const QPixmap&, const QString& ) ) );
+
+#if defined( HAVE_OPENSSL )
+    QSslCipher cipher = commandManager->sslConfiguration().sessionCipher();
+    if ( !cipher.isNull() ) {
+        m_encryptionLabel->setPixmap( IconLoader::pixmap( "edit-access" ) );
+        m_encryptionLabel->setText( tr( "Encrypted" ) );
+        m_encryptionLabel->show();
+    }
+#endif
+
+    QPixmap userPixmap = ( dataManager->currentUserAccess() == AdminAccess ) ? IconLoader::overlayedPixmap( "user", "overlay-admin" ) : IconLoader::pixmap( "user" );
+    m_userLabel->setPixmap( userPixmap );
+    m_userLabel->setText( dataManager->currentUserName() );
+    m_userLabel->show();
 
     m_activeView = m_view;
 
@@ -480,17 +513,17 @@ void MainWindow::setActiveView( View* view )
     builder()->supressUpdate();
 
     if ( m_activeView ) {
-        disconnect( m_activeView, NULL, statusBar(), NULL );
+        disconnect( m_activeView, NULL, this, NULL );
         builder()->removeClient( m_activeView );
     }
 
     m_activeView = view;
 
-    connect( view, SIGNAL( statusChanged( const QPixmap&, const QString&, int ) ), statusBar(), SLOT( showStatus( const QPixmap&, const QString&, int ) ) );
-    connect( view, SIGNAL( summaryChanged( const QPixmap&, const QString& ) ), statusBar(), SLOT( showSummary( const QPixmap&, const QString& ) ) );
+    connect( view, SIGNAL( statusChanged( const QPixmap&, const QString&, int ) ), this, SLOT( showStatus( const QPixmap&, const QString&, int ) ) );
+    connect( view, SIGNAL( summaryChanged( const QPixmap&, const QString& ) ), this, SLOT( showSummary( const QPixmap&, const QString& ) ) );
 
-    statusBar()->showStatus( view->statusPixmap(), view->statusText() );
-    statusBar()->showSummary( view->summaryPixmap(), view->summaryText() );
+    showStatus( view->statusPixmap(), view->statusText() );
+    showSummary( view->summaryPixmap(), view->summaryText() );
 
     if ( view->isEnabled() )
         builder()->addClient( view );
@@ -698,4 +731,27 @@ void MainWindow::captionChanged( const QString& /*caption*/ )
 void MainWindow::builderReset()
 {
     m_trayIcon->setContextMenu( builder()->contextMenu( "menuTray" ) );
+}
+
+void MainWindow::showStatus( const QPixmap& pixmap, const QString& text, int icon /*= 0*/ )
+{
+    m_statusLabel->setPixmap( pixmap );
+    m_statusLabel->setText( text );
+
+    if ( icon != 0 && topLevelWidget()->isActiveWindow() ) {
+        QMessageBox box;
+        box.setIcon( (QMessageBox::Icon)icon );
+        QAccessible::updateAccessibility( &box, 0, QAccessible::Alert );
+    }
+}
+
+void MainWindow::showSummary( const QPixmap& pixmap, const QString& text )
+{
+    if ( !text.isEmpty() || !pixmap.isNull() ) {
+        m_summaryLabel->setPixmap( pixmap );
+        m_summaryLabel->setText( text );
+        m_summaryLabel->show();
+    } else {
+        m_summaryLabel->hide();
+    }
 }

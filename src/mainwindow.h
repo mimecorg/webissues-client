@@ -30,8 +30,8 @@ class View;
 class ProjectsView;
 class FolderView;
 class IssueView;
-class StatusBar;
 class PaneWidget;
+class StatusLabel;
 
 /**
 * The main window of the application.
@@ -64,8 +64,6 @@ public:
 
 public: // overrides
     QMenu* createPopupMenu();
-
-    StatusBar* statusBar() { return (StatusBar*)QMainWindow::statusBar(); }
 
 protected: // overrides
     void closeEvent( QCloseEvent* e );
@@ -107,6 +105,9 @@ private slots:
 
     void updateSelection();
 
+    void showStatus( const QPixmap& pixmap, const QString& text, int icon = 0 );
+    void showSummary( const QPixmap& pixmap, const QString& text );
+
 private:
     void showStartPage();
 
@@ -128,6 +129,11 @@ private:
 
     PaneWidget* m_folderPane;
     PaneWidget* m_issuePane;
+
+    StatusLabel* m_statusLabel;
+    StatusLabel* m_summaryLabel;
+    StatusLabel* m_encryptionLabel;
+    StatusLabel* m_userLabel;
 
     QSystemTrayIcon* m_trayIcon;
 

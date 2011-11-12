@@ -17,72 +17,42 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************/
 
-#ifndef STATUSBAR_H
-#define STATUSBAR_H
+#ifndef STATUSLABEL_H
+#define STATUSLABEL_H
 
-#include <QStatusBar>
-
-class ElidedLabel;
+#include <QWidget>
 
 class QLabel;
+class ElidedLabel;
 
 /**
-* A status bar with status icon and label and an optional summary field.
+* A label with an optional icon.
 */
-class StatusBar : public QStatusBar
+class StatusLabel : public QWidget
 {
     Q_OBJECT
 public:
     /**
-    * Conctructor.
+    * Constructor.
     * @param parent The parent widget.
     */
-    StatusBar( QWidget* parent );
+    StatusLabel( QWidget* parent );
 
     /**
     * Destructor.
     */
-    ~StatusBar();
+    ~StatusLabel();
 
 public:
-    /**
-    * Show a message with an information icon.
-    */
-    void showInfo( const QString& text );
+    void setText( const QString& text );
+    QString text() const;
 
-    /**
-    * Show a message with a warning icon.
-    */
-    void showWarning( const QString& text );
-
-    /**
-    * Show a message with an error icon.
-    */
-    void showError( const QString& text );
-
-    /**
-    * Show a message with a busy icon.
-    */
-    void showBusy( const QString& text );
-
-public slots:
-    /**
-    * Show a status message in the status bar.
-    */
-    void showStatus( const QPixmap& pixmap, const QString& text, int icon = 0 );
-
-    /**
-    * Show a summary field in the status bar.
-    * If the summary text is empty, the field is hidden.
-    */
-    void showSummary( const QPixmap& pixmap, const QString& text );
+    void setPixmap( const QPixmap& pixmap );
+    const QPixmap* pixmap() const;
 
 private:
-    QLabel* m_pixmap;
+    QLabel* m_pixmapLabel;
     ElidedLabel* m_label;
-
-    QLabel* m_summaryPixmap;
-    QLabel* m_summaryLabel;
 };
 
 #endif

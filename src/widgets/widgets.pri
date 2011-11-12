@@ -12,7 +12,7 @@ HEADERS += widgets/abstractmetadataeditor.h \
            widgets/propertypanel.h \
            widgets/searcheditbox.h \
            widgets/separatorcombobox.h \
-           widgets/statusbar.h \
+           widgets/statuslabel.h \
            widgets/valueeditorfactory.h \
            widgets/valueeditors.h
 
@@ -30,6 +30,6 @@ SOURCES += widgets/abstractmetadataeditor.cpp \
            widgets/propertypanel.cpp \
            widgets/searcheditbox.cpp \
            widgets/separatorcombobox.cpp \
-           widgets/statusbar.cpp \
+           widgets/statuslabel.cpp \
            widgets/valueeditorfactory.cpp \
            widgets/valueeditors.cpp

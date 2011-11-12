@@ -25,6 +25,7 @@
 #include <QMainWindow>
 
 class View;
+class StatusLabel;
 
 namespace XmlUi
 {
@@ -80,11 +81,17 @@ private slots:
 
     void enabledChanged( bool enabled );
 
+    void showStatus( const QPixmap& pixmap, const QString& text, int icon = 0 );
+    void showSummary( const QPixmap& pixmap, const QString& text );
+
 private:
     void storeGeometry( bool offset );
 
 private:
     View* m_view;
+
+    StatusLabel* m_statusLabel;
+    StatusLabel* m_summaryLabel;
 };
 
 #endif
