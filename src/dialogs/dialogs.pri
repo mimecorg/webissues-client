@@ -42,6 +42,8 @@ SOURCES += dialogs/aboutbox.cpp \
            dialogs/viewdialogs.cpp \
            dialogs/viewsettingsdialog.cpp
 
+FORMS   += dialogs/settingsdialog.ui
+
 contains( QT_CONFIG, openssl ) | contains( QT_CONFIG, openssl-linked ) {
     HEADERS += dialogs/ssldialogs.h
     SOURCES += dialogs/ssldialogs.cpp

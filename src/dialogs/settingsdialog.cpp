@@ -20,18 +20,9 @@
 #include "settingsdialog.h"
 
 #include "application.h"
-#include "commands/commandmanager.h"
 #include "data/localsettings.h"
 #include "utils/iconloader.h"
-#include "widgets/separatorcombobox.h"
-#include "widgets/inputlineedit.h"
 
-#include <QLayout>
-#include <QLabel>
-#include <QTabWidget>
-#include <QCheckBox>
-#include <QSpinBox>
-#include <QIntValidator>
 #include <QDialogButtonBox>
 #include <QPushButton>
 #include <QMessageBox>
@@ -50,219 +41,90 @@ SettingsDialog::SettingsDialog( QWidget* parent ) : CommandDialog( parent )
     m_tabWidget = new QTabWidget( this );
     layout->addWidget( m_tabWidget );
 
-    QWidget* appearanceTab = new QWidget( m_tabWidget );
-    m_tabWidget->addTab( appearanceTab, IconLoader::icon( "appearance" ), tr( "Appearance" ) );
+    m_ui.setupUi( m_tabWidget );
 
-    QGridLayout* appearanceLayout = new QGridLayout( appearanceTab );
-    appearanceLayout->setMargin( 15 );
+    m_tabWidget->setTabIcon( 0, IconLoader::icon( "configure" ) );
+    m_tabWidget->setTabIcon( 1, IconLoader::icon( "gear" ) );
 
-    QLabel* languageLabel = new QLabel( tr( "&Language of user interface:" ), appearanceTab );
-    appearanceLayout->addWidget( languageLabel, 0, 0 );
+    m_ui.languageComboBox->addSeparator();
 
-    m_languageComboBox = new SeparatorComboBox( appearanceTab );
-    loadLanguages();
-    appearanceLayout->addWidget( m_languageComboBox, 0, 1 );
+    QMap<QString, QString> languages = application->languages();
 
-    languageLabel->setBuddy( m_languageComboBox );
-
-    appearanceLayout->setRowStretch( appearanceLayout->rowCount(), 1 );
-    appearanceLayout->setColumnStretch( 0, 1 );
-
-    QWidget* behaviorTab = new QWidget( m_tabWidget );
-    m_tabWidget->addTab( behaviorTab, IconLoader::icon( "configure" ), tr( "Behavior" ) );
-
-    QGridLayout* behaviorLayout = new QGridLayout( behaviorTab );
-    behaviorLayout->setMargin( 15 );
-
-    m_dockCheckBox = new QCheckBox( tr( "&Dock main window in system tray" ), behaviorTab );
-    behaviorLayout->addWidget( m_dockCheckBox, 0, 0, 1, 2 );
-
-    connect( m_dockCheckBox, SIGNAL( stateChanged( int ) ), this, SLOT( dockChanged() ) );
-
-    QFrame* separator = new QFrame( behaviorTab );
-    separator->setFrameStyle( QFrame::HLine | QFrame::Sunken );
-    separator->setFixedHeight( 20 );
-    behaviorLayout->addWidget( separator, 1, 0, 1, 2 );
-
-    QLabel* showLabel = new QLabel( tr( "&Show main window at startup:" ), behaviorTab );
-    behaviorLayout->addWidget( showLabel, 2, 0 );
-
-    m_showComboBox = new QComboBox( behaviorTab );
-    m_showComboBox->addItem( tr( "Never" ) );
-    m_showComboBox->addItem( tr( "Automatically" ) );
-    m_showComboBox->addItem( tr( "Always" ) );
-    behaviorLayout->addWidget( m_showComboBox, 2, 1 );
-
-    showLabel->setBuddy( m_showComboBox );
-
-    QLabel* reconnectLabel = new QLabel( tr( "&Restore last connection at startup:" ), behaviorTab );
-    behaviorLayout->addWidget( reconnectLabel, 3, 0 );
-
-    m_reconnectComboBox = new QComboBox( behaviorTab );
-    m_reconnectComboBox->addItem( tr( "Never" ) );
-    m_reconnectComboBox->addItem( tr( "Automatically" ) );
-    m_reconnectComboBox->addItem( tr( "Always" ) );
-    behaviorLayout->addWidget( m_reconnectComboBox, 3, 1 );
-
-    reconnectLabel->setBuddy( m_reconnectComboBox );
-
-    QFrame* separator2 = new QFrame( behaviorTab );
-    separator2->setFrameStyle( QFrame::HLine | QFrame::Sunken );
-    separator2->setFixedHeight( 20 );
-    behaviorLayout->addWidget( separator2, 4, 0, 1, 2 );
-
-    QLabel* actionLabel = new QLabel( tr( "De&fault action for attachments:" ), behaviorTab );
-    behaviorLayout->addWidget( actionLabel, 5, 0 );
-
-    m_actionComboBox = new QComboBox( behaviorTab );
-    m_actionComboBox->addItem( tr( "Ask what to do" ) );
-    m_actionComboBox->addItem( tr( "Open" ) );
-    m_actionComboBox->addItem( tr( "Save As..." ) );
-    behaviorLayout->addWidget( m_actionComboBox, 5, 1 );
-
-    actionLabel->setBuddy( m_actionComboBox );
-
-    QFrame* separator3 = new QFrame( behaviorTab );
-    separator3->setFrameStyle( QFrame::HLine | QFrame::Sunken );
-    separator3->setFixedHeight( 20 );
-    behaviorLayout->addWidget( separator3, 6, 0, 1, 2 );
-
-    m_autoUpdateCheckBox = new QCheckBox( tr( "&Enable automatic checking for latest version of WebIssues" ), behaviorTab );
-    behaviorLayout->addWidget( m_autoUpdateCheckBox, 7, 0, 1, 2 );
+    for ( QMap<QString, QString>::iterator it = languages.begin(); it != languages.end(); it++ )
+        m_ui.languageComboBox->addItem( it.value(), it.key() );
 
 #if defined( Q_WS_WIN )
-    if ( !application->isPortableMode() ) {
-        QFrame* separator3 = new QFrame( behaviorTab );
-        separator3->setFrameStyle( QFrame::HLine | QFrame::Sunken );
-        separator3->setFixedHeight( 20 );
-        behaviorLayout->addWidget( separator3, 8, 0, 1, 2 );
-
-        m_autoStartCheckBox = new QCheckBox( tr( "Start &WebIssues when I start Windows" ), behaviorTab );
-        behaviorLayout->addWidget( m_autoStartCheckBox, 9, 0, 1, 2 );
-    }
+    if ( application->isPortableMode() )
+        m_ui.autoStartCheckBox->hide();
+#else
+    m_ui.autoStartCheckBox->hide();
 #endif
 
-    behaviorLayout->setRowStretch( behaviorLayout->rowCount(), 1 );
-    behaviorLayout->setColumnStretch( 0, 1 );
-
-    QWidget* connectionTab = new QWidget( m_tabWidget );
-    m_tabWidget->addTab( connectionTab, IconLoader::icon( "connection" ), tr( "Connection" ) );
-
-    QGridLayout* connectionLayout = new QGridLayout( connectionTab );
-    connectionLayout->setMargin( 15 );
-
-    QLabel* proxyLabel = new QLabel( tr( "&Proxy used for Internet connections:" ), connectionTab );
-    connectionLayout->addWidget( proxyLabel, 0, 0, 1, 2 );
-
-    m_proxyCombo = new QComboBox( connectionTab );
-#if !defined( NO_DEFAULT_PROXY )
-    m_proxyCombo->addItem( tr( "System Default" ), (int)QNetworkProxy::DefaultProxy );
+#if defined( NO_DEFAULT_PROXY )
+    m_ui.defaultProxyRadioButton->hide();
 #endif
-    m_proxyCombo->addItem( tr( "No Proxy" ), (int)QNetworkProxy::NoProxy );
-    m_proxyCombo->addItem( tr( "HTTP Proxy" ), (int)QNetworkProxy::HttpProxy );
-    m_proxyCombo->addItem( tr( "SOCKS5 Proxy" ), (int)QNetworkProxy::Socks5Proxy );
 
-    connectionLayout->addWidget( m_proxyCombo, 0, 2 );
+    m_ui.hostLineEdit->setMaxLength( 64 );
+    m_ui.hostLineEdit->setRequired( true );
 
-    connect( m_proxyCombo, SIGNAL( currentIndexChanged( int ) ), this, SLOT( proxyChanged() ) );
+    m_ui.excludeLineEdit->setMultiSelect( true );
 
-    proxyLabel->setBuddy( m_proxyCombo );
+    QMetaObject::connectSlotsByName( this );
 
-    QLabel* hostLabel = new QLabel( tr( "&Host name:" ), connectionTab );
-    connectionLayout->addWidget( hostLabel, 1, 0 );
-
-    m_proxyHostEdit = new InputLineEdit( connectionTab );
-    m_proxyHostEdit->setMaxLength( 64 );
-    m_proxyHostEdit->setRequired( true );
-    connectionLayout->addWidget( m_proxyHostEdit, 1, 1, 1, 2 );
-
-    hostLabel->setBuddy( m_proxyHostEdit );
-
-    QLabel* portLabel = new QLabel( tr( "Port &number:" ), connectionTab );
-    connectionLayout->addWidget( portLabel, 2, 0, 1, 2 );
-
-    m_proxyPortSpin = new QSpinBox( connectionTab );
-    m_proxyPortSpin->setRange( 1, 65535 );
-    connectionLayout->addWidget( m_proxyPortSpin, 2, 2 );
-
-    portLabel->setBuddy( m_proxyPortSpin );
-
-    connectionLayout->setRowStretch( connectionLayout->rowCount(), 1 );
-    connectionLayout->setColumnStretch( 1, 1 );
-
-    QWidget* advancedTab = new QWidget( m_tabWidget );
-    m_tabWidget->addTab( advancedTab, IconLoader::icon( "gear" ), tr( "Advanced" ) );
-
-    QGridLayout* advancedLayout = new QGridLayout( advancedTab );
-    advancedLayout->setMargin( 15 );
-
-    QLabel* intervalLabel = new QLabel( tr( "I&nterval of periodic data updates:" ), advancedTab );
-    advancedLayout->addWidget( intervalLabel, 0, 0 );
-
-    m_intervalSpin = new QSpinBox( advancedTab );
-    m_intervalSpin->setRange( 1, 120 );
-    m_intervalSpin->setSuffix( tr( " min" ) );
-    advancedLayout->addWidget( m_intervalSpin, 0, 1 );
-
-    intervalLabel->setBuddy( m_intervalSpin );
-
-    QFrame* separator4 = new QFrame( advancedTab );
-    separator4->setFrameStyle( QFrame::HLine | QFrame::Sunken );
-    separator4->setFixedHeight( 20 );
-    advancedLayout->addWidget( separator4, 1, 0, 1, 2 );
-
-    QLabel* cacheLabel = new QLabel( tr( "&Maximum size of attachments cache:" ), advancedTab );
-    advancedLayout->addWidget( cacheLabel, 2, 0 );
-
-    m_cacheSpin = new QSpinBox( advancedTab );
-    m_cacheSpin->setRange( 1, 200 );
-    m_cacheSpin->setSuffix( tr( " MB" ) );
-    advancedLayout->addWidget( m_cacheSpin, 2, 1 );
-
-    cacheLabel->setBuddy( m_cacheSpin );
-
-    advancedLayout->setRowStretch( advancedLayout->rowCount(), 1 );
-    advancedLayout->setColumnStretch( 0, 1 );
-
-    setContentLayout( layout, false );
+    setContentLayout( layout, true );
 
     QPushButton* applyButton = buttonBox()->addButton( tr( "&Apply" ), QDialogButtonBox::ApplyRole );
     connect( applyButton, SIGNAL( clicked() ), this, SLOT( apply() ) );
 
     LocalSettings* settings = application->applicationSettings();
 
-    m_dockCheckBox->setChecked( settings->value( "Docked" ).toBool() );
-    m_showComboBox->setCurrentIndex( settings->value( "ShowAtStartup" ).toInt() );
-    m_reconnectComboBox->setCurrentIndex( settings->value( "ConnectAtStartup" ).toInt() );
-
-    int index = m_languageComboBox->findData( settings->value( "Language" ).toString() );
+    int index = m_ui.languageComboBox->findData( settings->value( "Language" ).toString() );
     if ( index >= 2 )
-        m_languageComboBox->setCurrentIndex( index );
+        m_ui.languageComboBox->setCurrentIndex( index );
 
-    m_intervalSpin->setValue( settings->value( "UpdateInterval" ).toInt() );
-    m_actionComboBox->setCurrentIndex( settings->value( "DefaultAttachmentAction" ).toInt() );
-    m_cacheSpin->setValue( settings->value( "AttachmentsCacheSize" ).toInt() );
-
-    m_autoUpdateCheckBox->setChecked( settings->value( "AutoUpdate" ).toBool() );
-
-    QNetworkProxy::ProxyType proxyType = (QNetworkProxy::ProxyType)settings->value( "ProxyType" ).toInt();
-    m_proxyCombo->setCurrentIndex( m_proxyCombo->findData( (int)proxyType ) );
-    if ( proxyType != QNetworkProxy::DefaultProxy && proxyType != QNetworkProxy::NoProxy ) {
-        m_proxyHostEdit->setInputValue( settings->value( "ProxyHost" ).toString() );
-        m_proxyPortSpin->setValue( settings->value( "ProxyPort" ).toInt() );
-    } else {
-        m_proxyPortSpin->setValue( 80 );
-    }
+    m_ui.dockCheckBox->setChecked( settings->value( "Docked" ).toBool() );
+    m_ui.showComboBox->setCurrentIndex( settings->value( "ShowAtStartup" ).toInt() );
+    m_ui.reconnectComboBox->setCurrentIndex( settings->value( "ConnectAtStartup" ).toInt() );
 
 #if defined( Q_WS_WIN )
     if ( !application->isPortableMode() )
-        m_autoStartCheckBox->setChecked( settings->value( "AutoStart" ).toBool() );
+        m_ui.autoStartCheckBox->setChecked( settings->value( "AutoStart" ).toBool() );
 #endif
 
-    dockChanged();
-    proxyChanged();
 
-    resize( 450, 350 );
+    QFont commentFont( settings->value( "CommentFont" ).toString() );
+    commentFont.setStyleHint( QFont::SansSerif );
+    m_ui.commentFontComboBox->setCurrentFont( commentFont );
+    m_ui.commentFontSpinBox->setValue( settings->value( "CommentFontSize" ).toInt() );
+
+    QFont reportFont( settings->value( "ReportFont" ).toString() );
+    reportFont.setStyleHint( QFont::SansSerif );
+    m_ui.historyFontComboBox->setCurrentFont( reportFont );
+    m_ui.historyFontSpinBox->setValue( settings->value( "ReportFontSize" ).toInt() );
+
+    m_ui.autoUpdateCheckBox->setChecked( settings->value( "AutoUpdate" ).toBool() );
+
+    m_ui.attachmentsComboBox->setCurrentIndex( settings->value( "DefaultAttachmentAction" ).toInt() );
+
+    m_ui.foldersSpinBox->setValue( settings->value( "FolderUpdateInterval" ).toInt() );
+    m_ui.fullSpinBox->setValue( settings->value( "UpdateInterval" ).toInt() );
+    m_ui.detailsSpinBox->setValue( settings->value( "IssuesCacheSize" ).toInt() );
+    m_ui.cacheSpinBox->setValue( settings->value( "AttachmentsCacheSize" ).toInt() );
+
+    QNetworkProxy::ProxyType proxyType = (QNetworkProxy::ProxyType)settings->value( "ProxyType" ).toInt();
+    if ( proxyType == QNetworkProxy::DefaultProxy ) {
+        m_ui.defaultProxyRadioButton->setChecked( true );
+    } else if ( proxyType == QNetworkProxy::NoProxy ) {
+        m_ui.noProxyRadioButton->setChecked( true );
+    } else {
+        m_ui.customProxyRadioButton->setChecked( true );
+        m_ui.hostLineEdit->setInputValue( settings->value( "ProxyHost" ).toString() );
+        m_ui.portSpinBox->setValue( settings->value( "ProxyPort" ).toInt() );
+        m_ui.proxyTypeComboBox->setCurrentIndex( proxyType == QNetworkProxy::Socks5Proxy ? 1 : 0 );
+        m_ui.excludeLineEdit->setInputValue( settings->value( "ProxyExclude" ).toStringList().join( ", " ) );
+    }
+
+    resize( 500, 500 );
 }
 
 SettingsDialog::~SettingsDialog()
@@ -282,65 +144,56 @@ bool SettingsDialog::apply()
 
     LocalSettings* settings = application->applicationSettings();
 
-    settings->setValue( "Docked", m_dockCheckBox->isChecked() );
-    settings->setValue( "ShowAtStartup", m_showComboBox->currentIndex() );
-    settings->setValue( "ConnectAtStartup", m_reconnectComboBox->currentIndex() );
-
-    QString language = m_languageComboBox->itemData( m_languageComboBox->currentIndex() ).toString();
+    QString language = m_ui.languageComboBox->itemData( m_ui.languageComboBox->currentIndex() ).toString();
     if ( language != settings->value( "Language" ).toString() )
         QMessageBox::warning( this, tr( "Warning" ), tr( "Language settings will be applied when the application is restarted." ) );
     settings->setValue( "Language", language );
 
-    settings->setValue( "UpdateInterval", m_intervalSpin->value() );
-    settings->setValue( "DefaultAttachmentAction", m_actionComboBox->currentIndex() );
-    settings->setValue( "AttachmentsCacheSize", m_cacheSpin->value() );
-
-    settings->setValue( "AutoUpdate", m_autoUpdateCheckBox->isChecked() );
-
-    QNetworkProxy::ProxyType proxyType = (QNetworkProxy::ProxyType)m_proxyCombo->itemData( m_proxyCombo->currentIndex() ).toInt();
-    QString proxyHost = m_proxyHostEdit->inputValue();
-    int proxyPort = m_proxyPortSpin->value();
-
-    settings->setValue( "ProxyType", (int)proxyType );
-    settings->setValue( "ProxyHost", proxyHost );
-    settings->setValue( "ProxyPort", proxyPort );
+    settings->setValue( "Docked", m_ui.dockCheckBox->isChecked() );
+    settings->setValue( "ShowAtStartup", m_ui.showComboBox->currentIndex() );
+    settings->setValue( "ConnectAtStartup", m_ui.reconnectComboBox->currentIndex() );
 
 #if defined( Q_WS_WIN )
     if ( !application->isPortableMode() )
-        settings->setValue( "AutoStart", m_autoStartCheckBox->isChecked() );
+        settings->setValue( "AutoStart", m_ui.autoStartCheckBox->isChecked() );
 #endif
+
+    settings->setValue( "CommentFont", m_ui.commentFontComboBox->currentFont().family() );
+    settings->setValue( "CommentFontSize", m_ui.commentFontSpinBox->value() );
+    settings->setValue( "ReportFont", m_ui.historyFontComboBox->currentFont().family() );
+    settings->setValue( "ReportFontSize", m_ui.historyFontSpinBox->value() );
+
+    settings->setValue( "AutoUpdate", m_ui.autoUpdateCheckBox->isChecked() );
+
+    settings->setValue( "DefaultAttachmentAction", m_ui.attachmentsComboBox->currentIndex() );
+
+    settings->setValue( "FolderUpdateInterval", m_ui.foldersSpinBox->value() );
+    settings->setValue( "UpdateInterval", m_ui.fullSpinBox->value() );
+    settings->setValue( "IssuesCacheSize", m_ui.detailsSpinBox->value() );
+    settings->setValue( "AttachmentsCacheSize", m_ui.cacheSpinBox->value() );
+
+    if ( m_ui.defaultProxyRadioButton->isChecked() ) {
+        settings->setValue( "ProxyType", (int)QNetworkProxy::DefaultProxy );
+    } else if ( m_ui.noProxyRadioButton->isChecked() ) {
+        settings->setValue( "ProxyType", (int)QNetworkProxy::NoProxy );
+    } else {
+        settings->setValue( "ProxyHost", m_ui.hostLineEdit->inputValue() );
+        settings->setValue( "ProxyPort", m_ui.portSpinBox->value() );
+        settings->setValue( "ProxyType", (int)( m_ui.proxyTypeComboBox->currentIndex() == 1 ? QNetworkProxy::Socks5Proxy : QNetworkProxy::HttpProxy ) );
+        settings->setValue( "ProxyExclude", m_ui.excludeLineEdit->inputValue().split( ", " ) );
+    }
 
     settings->save();
 
     return true;
 }
 
-void SettingsDialog::dockChanged()
+void SettingsDialog::on_dockCheckBox_toggled( bool on )
 {
-    if ( m_dockCheckBox->isChecked() ) {
+    if ( on ) {
         LocalSettings* settings = application->applicationSettings();
-        m_showComboBox->setCurrentIndex( settings->value( "ShowAtStartup" ).toInt() );
-        m_showComboBox->setEnabled( true );
+        m_ui.showComboBox->setCurrentIndex( settings->value( "ShowAtStartup" ).toInt() );
     } else {
-        m_showComboBox->setCurrentIndex( (int)RestoreAlways );
-        m_showComboBox->setEnabled( false );
+        m_ui.showComboBox->setCurrentIndex( (int)RestoreAlways );
     }
-}
-
-void SettingsDialog::proxyChanged()
-{
-    QNetworkProxy::ProxyType type = (QNetworkProxy::ProxyType)m_proxyCombo->itemData( m_proxyCombo->currentIndex() ).toInt();
-    m_proxyHostEdit->setEnabled( type != QNetworkProxy::DefaultProxy && type != QNetworkProxy::NoProxy );
-    m_proxyPortSpin->setEnabled( type != QNetworkProxy::DefaultProxy && type != QNetworkProxy::NoProxy );
-}
-
-void SettingsDialog::loadLanguages()
-{
-    m_languageComboBox->addItem( tr( "System Default" ) );
-    m_languageComboBox->addSeparator();
-
-    QMap<QString, QString> languages = application->languages();
-
-    for ( QMap<QString, QString>::iterator it = languages.begin(); it != languages.end(); it++ )
-        m_languageComboBox->addItem( it.value(), it.key() );
 }

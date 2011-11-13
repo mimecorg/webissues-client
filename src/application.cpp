@@ -519,29 +519,37 @@ bool Application::checkAccess( const QString& path )
 
 void Application::initializeSettings()
 {
-    if ( !m_settings->contains( "Docked" ) )
-        m_settings->setValue( "Docked", false );
-    if ( !m_settings->contains( "ShowAtStartup" ) )
-        m_settings->setValue( "ShowAtStartup", (int)RestoreAlways );
-    if ( !m_settings->contains( "ConnectAtStartup" ) )
-        m_settings->setValue( "ConnectAtStartup", (int)RestoreNever );
-    if ( !m_settings->contains( "UpdateInterval" ) )
-        m_settings->setValue( "UpdateInterval", 5 );
-    if ( !m_settings->contains( "DefaultAttachmentAction" ) )
-        m_settings->setValue( "DefaultAttachmentAction", (int)ActionAsk );
-    if ( !m_settings->contains( "AttachmentsCacheSize" ) )
-        m_settings->setValue( "AttachmentsCacheSize", 10 );
-    if ( !m_settings->contains( "AutoStart" ) )
-        m_settings->setValue( "AutoStart", false );
-    if ( !m_settings->contains( "AutoUpdate" ) )
-        m_settings->setValue( "AutoUpdate", true );
-
-    if ( !m_settings->contains( "ProxyType" ) ) {
+    struct
+    {
+        QString m_key;
+        QVariant m_value;
+    }
+    defaults[] = 
+    {
+        { "Docked", false },
+        { "ShowAtStartup", (int)RestoreAlways },
+        { "ConnectAtStartup", (int)RestoreNever },
+        { "AutoStart", false },
+        { "CommentFont", "Verdana" },
+        { "CommentFontSize", 8 },
+        { "ReportFont", "Verdana" },
+        { "ReportFontSize", 8 },
+        { "AutoUpdate", true },
+        { "DefaultAttachmentAction", (int)ActionAsk },
+        { "FolderUpdateInterval", 1 },
+        { "UpdateInterval", 5 },
+        { "IssuesCacheSize", 100 },
+        { "AttachmentsCacheSize", 10 },
 #if defined( NO_DEFAULT_PROXY )
-        m_settings->setValue( "ProxyType", (int)QNetworkProxy::NoProxy );
+        { "ProxyType", (int)QNetworkProxy::NoProxy },
 #else
-        m_settings->setValue( "ProxyType", (int)QNetworkProxy::DefaultProxy );
+        { "ProxyType", (int)QNetworkProxy::DefaultProxy },
 #endif
+    };
+
+    for ( int i = 0; i < (int)( sizeof( defaults ) / sizeof( defaults[ 0 ] ) ); i++ ) {
+        if ( !m_settings->contains( defaults[ i ].m_key ) )
+            m_settings->setValue( defaults[ i ].m_key, defaults[ i ].m_value );
     }
 }
 

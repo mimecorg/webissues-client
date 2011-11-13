@@ -22,14 +22,7 @@
 
 #include "dialogs/commanddialog.h"
 
-class SeparatorComboBox;
-class InputLineEdit;
-
-class QTabWidget;
-class QCheckBox;
-class QComboBox;
-class QSpinBox;
-class QNetworkProxy;
+#include "ui_settingsdialog.h"
 
 /**
 * Dialog for modifying application settings.
@@ -53,35 +46,14 @@ public: // overrides
     void accept();
 
 private slots:
+    void on_dockCheckBox_toggled( bool on );
+
     bool apply();
-
-    void dockChanged();
-    void proxyChanged();
-
-private:
-    void loadLanguages();
 
 private:
     QTabWidget* m_tabWidget;
 
-    QCheckBox* m_dockCheckBox;
-    QComboBox* m_showComboBox;
-    QComboBox* m_reconnectComboBox;
-    SeparatorComboBox* m_languageComboBox;
-
-    QComboBox* m_proxyCombo;
-    InputLineEdit* m_proxyHostEdit;
-    QSpinBox* m_proxyPortSpin;
-
-    QSpinBox* m_intervalSpin;
-    QComboBox* m_actionComboBox;
-    QSpinBox* m_cacheSpin;
-
-    QCheckBox* m_autoUpdateCheckBox;
-
-#if defined( Q_WS_WIN )
-    QCheckBox* m_autoStartCheckBox;
-#endif
+    Ui::SettingsDialog m_ui;
 };
 
 #endif
