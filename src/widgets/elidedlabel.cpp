@@ -24,7 +24,8 @@
 #include <QStyle>
 #include <QStyleOption>
 
-ElidedLabel::ElidedLabel( QWidget* parent ) : QLabel( parent )
+ElidedLabel::ElidedLabel( QWidget* parent ) : QLabel( parent ),
+    m_lastWidth( 0 )
 {
     setMinimumWidth( 0 );
 }
@@ -41,10 +42,16 @@ void ElidedLabel::paintEvent( QPaintEvent* /*e*/ )
     QRect cr = contentsRect();
     cr.adjust( margin(), margin(), -margin(), -margin() );
 
+    QString fullText = text();
+
+    if ( fullText != m_lastText || cr.width() != m_lastWidth ) {
+        m_elidedText = fontMetrics().elidedText( fullText, Qt::ElideRight, cr.width() );
+        m_lastText = fullText;
+        m_lastWidth = cr.width();
+    }
+
     QStyleOption opt;
     opt.initFrom( this );
 
-    QString elidedText = fontMetrics().elidedText( text(), Qt::ElideRight, cr.width() );
-
-    style()->drawItemText( &painter, cr, alignment(), opt.palette, isEnabled(), elidedText, foregroundRole() );
+    style()->drawItemText( &painter, cr, alignment(), opt.palette, isEnabled(), m_elidedText, foregroundRole() );
 }

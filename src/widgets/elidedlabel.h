@@ -42,6 +42,11 @@ public:
 
 protected: // overrides
     void paintEvent( QPaintEvent* e );
+
+private:
+    QString m_elidedText;
+    QString m_lastText;
+    int m_lastWidth;
 };
 
 #endif
