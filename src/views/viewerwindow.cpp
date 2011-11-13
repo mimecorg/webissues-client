@@ -34,6 +34,9 @@
 #include <QSettings>
 #include <QToolBar>
 #include <QDesktopWidget>
+#include <QStatusBar>
+#include <QMessageBox>
+#include <QAccessible>
 
 ViewerWindow::ViewerWindow() :
     m_view( NULL )

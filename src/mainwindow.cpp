@@ -51,6 +51,12 @@
 #include <QLabel>
 #include <QTimer>
 #include <QMenu>
+#include <QStatusBar>
+#include <QAccessible>
+
+#if defined( HAVE_OPENSSL )
+#include <QSslCipher>
+#endif
 
 #if defined( Q_WS_WIN )
 static const int TrayIconSize = 16;

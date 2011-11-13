@@ -19,7 +19,10 @@
 
 #include "elidedlabel.h"
 
-#include <QResizeEvent>
+#include <QPaintEvent>
+#include <QPainter>
+#include <QStyle>
+#include <QStyleOption>
 
 ElidedLabel::ElidedLabel( QWidget* parent ) : QLabel( parent )
 {
