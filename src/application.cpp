@@ -26,6 +26,7 @@
 #include "data/credentialsstore.h"
 #include "data/datamanager.h"
 #include "dialogs/aboutbox.h"
+#include "utils/networkproxyfactory.h"
 #include "utils/updateclient.h"
 #include "utils/iconloader.h"
 #include "views/viewmanager.h"
@@ -41,14 +42,9 @@
 #include <QLocale>
 #include <QTranslator>
 #include <QLibraryInfo>
-#include <QNetworkProxy>
 #include <QDesktopServices>
 #include <QNetworkAccessManager>
 #include <QPushButton>
-
-#if !defined( NO_DEFAULT_PROXY )
-#include <QNetworkProxyFactory>
-#endif
 
 #if defined( Q_WS_WIN )
 #define _WIN32_IE 0x0400
@@ -58,53 +54,6 @@
 #include <cstdlib>
 
 Application* application = NULL;
-
-#if defined( NO_DEFAULT_PROXY )
-
-static QNetworkProxy networkProxy()
-{
-    LocalSettings* settings = application->applicationSettings();
-    QNetworkProxy::ProxyType type = (QNetworkProxy::ProxyType)settings->value( "ProxyType" ).toInt();
-
-    if ( type == QNetworkProxy::NoProxy || type == QNetworkProxy::DefaultProxy )
-        return QNetworkProxy::NoProxy;
-
-    QString hostName = settings->value( "ProxyHost" ).toString();
-    quint16 port = (quint16)settings->value( "ProxyPort" ).toInt();
-    return QNetworkProxy( type, hostName, port );
-}
-
-#else // defined( NO_DEFAULT_PROXY )
-
-class NetworkProxyFactory : public QNetworkProxyFactory
-{
-public:
-    NetworkProxyFactory()
-    {
-    }
-
-    ~NetworkProxyFactory()
-    {
-    }
-
-    QList<QNetworkProxy> queryProxy( const QNetworkProxyQuery& query )
-    {
-        LocalSettings* settings = application->applicationSettings();
-        QNetworkProxy::ProxyType type = (QNetworkProxy::ProxyType)settings->value( "ProxyType" ).toInt();
-
-        if ( type == QNetworkProxy::DefaultProxy )
-            return QNetworkProxyFactory::systemProxyForQuery( query );
-
-        if ( type == QNetworkProxy::NoProxy )
-            return QList<QNetworkProxy>() << QNetworkProxy::NoProxy;
-
-        QString hostName = settings->value( "ProxyHost" ).toString();
-        quint16 port = (quint16)settings->value( "ProxyPort" ).toInt();
-        return QList<QNetworkProxy>() << QNetworkProxy( type, hostName, port );
-    }
-};
-
-#endif // defined( NO_DEFAULT_PROXY )
 
 Application::Application( int& argc, char** argv ) : QApplication( argc, argv ),
     m_portable( false )
@@ -139,6 +88,10 @@ Application::Application( int& argc, char** argv ) : QApplication( argc, argv ),
     m_mainWindow = new MainWindow();
 
     m_manager = new QNetworkAccessManager();
+
+#if !defined( NO_PROXY_FACTORY )
+    m_manager->setProxyFactory( new NetworkProxyFactory() );
+#endif
 
     m_updateClient = new UpdateClient( "webissues", version(), m_manager );
 
@@ -540,10 +493,8 @@ void Application::initializeSettings()
         { "UpdateInterval", 5 },
         { "IssuesCacheSize", 100 },
         { "AttachmentsCacheSize", 10 },
-#if defined( NO_DEFAULT_PROXY )
+#if !defined( NO_PROXY_FACTORY )
         { "ProxyType", (int)QNetworkProxy::NoProxy },
-#else
-        { "ProxyType", (int)QNetworkProxy::DefaultProxy },
 #endif
     };
 
@@ -555,25 +506,18 @@ void Application::initializeSettings()
 
 void Application::settingsChanged()
 {
-#if defined( NO_DEFAULT_PROXY )
-    m_manager->setProxy( networkProxy() );
-#else
-    m_manager->setProxyFactory( new NetworkProxyFactory() );
-#endif
-
     m_updateClient->setAutoUpdate( m_settings->value( "AutoUpdate" ).toBool() );
 
 #if defined( Q_WS_WIN )
-    if ( m_portable )
-        return;
+    if ( !m_portable ) {
+        bool autoStart = m_settings->value( "AutoStart" ).toBool();
 
-    bool autoStart = m_settings->value( "AutoStart" ).toBool();
-
-    QSettings runKey( "HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Run", QSettings::NativeFormat );
-    if ( autoStart )
-        runKey.setValue( "WebIssues", '"' + QDir::toNativeSeparators( QApplication::applicationFilePath() ) + '"' );
-    else
-        runKey.remove( "WebIssues" );
+        QSettings runKey( "HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Run", QSettings::NativeFormat );
+        if ( autoStart )
+            runKey.setValue( "WebIssues", '"' + QDir::toNativeSeparators( QApplication::applicationFilePath() ) + '"' );
+        else
+            runKey.remove( "WebIssues" );
+    }
 #endif
 }
 

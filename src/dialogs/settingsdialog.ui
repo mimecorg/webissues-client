@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>459</width>
-    <height>488</height>
+    <height>425</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -280,7 +280,7 @@
        <item row="0" column="0">
         <widget class="QLabel" name="label_13">
          <property name="text">
-          <string>Comment &amp;editor:</string>
+          <string>Co&amp;mment editor:</string>
          </property>
          <property name="buddy">
           <cstring>commentFontComboBox</cstring>
@@ -559,32 +559,15 @@
      </widget>
     </item>
     <item>
-     <widget class="QGroupBox" name="groupBox_9">
+     <widget class="QGroupBox" name="proxyGroupBox">
       <property name="title">
-       <string>Pro&amp;xy Settings</string>
+       <string>Proxy Settings</string>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_4">
        <item>
-        <widget class="QRadioButton" name="defaultProxyRadioButton">
+        <widget class="QCheckBox" name="customProxyCheckBox">
          <property name="text">
-          <string>Use system default proxy settings</string>
-         </property>
-         <property name="checked">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QRadioButton" name="noProxyRadioButton">
-         <property name="text">
-          <string>Do not use a proxy</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QRadioButton" name="customProxyRadioButton">
-         <property name="text">
-          <string>Use custom proxy settings:</string>
+          <string>Use custom pro&amp;xy settings:</string>
          </property>
         </widget>
        </item>
@@ -731,66 +714,66 @@
    </hints>
   </connection>
   <connection>
-   <sender>customProxyRadioButton</sender>
+   <sender>customProxyCheckBox</sender>
    <signal>toggled(bool)</signal>
    <receiver>hostLineEdit</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>116</x>
-     <y>345</y>
+     <x>146</x>
+     <y>294</y>
     </hint>
     <hint type="destinationlabel">
-     <x>153</x>
-     <y>372</y>
+     <x>119</x>
+     <y>316</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>customProxyRadioButton</sender>
+   <sender>customProxyCheckBox</sender>
    <signal>toggled(bool)</signal>
    <receiver>portSpinBox</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>120</x>
-     <y>345</y>
+     <x>311</x>
+     <y>295</y>
     </hint>
     <hint type="destinationlabel">
-     <x>342</x>
-     <y>372</y>
+     <x>312</x>
+     <y>318</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>customProxyRadioButton</sender>
+   <sender>customProxyCheckBox</sender>
    <signal>toggled(bool)</signal>
    <receiver>proxyTypeComboBox</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>120</x>
-     <y>345</y>
+     <x>401</x>
+     <y>294</y>
     </hint>
     <hint type="destinationlabel">
-     <x>434</x>
-     <y>372</y>
+     <x>406</x>
+     <y>316</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>customProxyRadioButton</sender>
+   <sender>customProxyCheckBox</sender>
    <signal>toggled(bool)</signal>
    <receiver>excludeLineEdit</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>120</x>
-     <y>345</y>
+     <x>270</x>
+     <y>293</y>
     </hint>
     <hint type="destinationlabel">
-     <x>120</x>
-     <y>418</y>
+     <x>271</x>
+     <y>358</y>
     </hint>
    </hints>
   </connection>

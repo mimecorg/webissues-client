@@ -21,6 +21,7 @@
 
 #include "application.h"
 #include "data/localsettings.h"
+#include "utils/networkproxyfactory.h"
 #include "utils/iconloader.h"
 
 #include <QDialogButtonBox>
@@ -60,8 +61,8 @@ SettingsDialog::SettingsDialog( QWidget* parent ) : CommandDialog( parent )
     m_ui.autoStartCheckBox->hide();
 #endif
 
-#if defined( NO_DEFAULT_PROXY )
-    m_ui.defaultProxyRadioButton->hide();
+#if defined( NO_PROXY_FACTORY )
+    m_ui.proxyGroupBox->hide();
 #endif
 
     m_ui.hostLineEdit->setMaxLength( 64 );
@@ -91,7 +92,6 @@ SettingsDialog::SettingsDialog( QWidget* parent ) : CommandDialog( parent )
         m_ui.autoStartCheckBox->setChecked( settings->value( "AutoStart" ).toBool() );
 #endif
 
-
     QFont commentFont( settings->value( "CommentFont" ).toString() );
     commentFont.setStyleHint( QFont::SansSerif );
     m_ui.commentFontComboBox->setCurrentFont( commentFont );
@@ -111,18 +111,18 @@ SettingsDialog::SettingsDialog( QWidget* parent ) : CommandDialog( parent )
     m_ui.detailsSpinBox->setValue( settings->value( "IssuesCacheSize" ).toInt() );
     m_ui.cacheSpinBox->setValue( settings->value( "AttachmentsCacheSize" ).toInt() );
 
+#if !defined( NO_PROXY_FACTORY )
     QNetworkProxy::ProxyType proxyType = (QNetworkProxy::ProxyType)settings->value( "ProxyType" ).toInt();
-    if ( proxyType == QNetworkProxy::DefaultProxy ) {
-        m_ui.defaultProxyRadioButton->setChecked( true );
-    } else if ( proxyType == QNetworkProxy::NoProxy ) {
-        m_ui.noProxyRadioButton->setChecked( true );
+    if ( proxyType == QNetworkProxy::NoProxy || proxyType == QNetworkProxy::DefaultProxy ) {
+        m_ui.customProxyCheckBox->setChecked( false );
     } else {
-        m_ui.customProxyRadioButton->setChecked( true );
+        m_ui.customProxyCheckBox->setChecked( true );
         m_ui.hostLineEdit->setInputValue( settings->value( "ProxyHost" ).toString() );
         m_ui.portSpinBox->setValue( settings->value( "ProxyPort" ).toInt() );
         m_ui.proxyTypeComboBox->setCurrentIndex( proxyType == QNetworkProxy::Socks5Proxy ? 1 : 0 );
         m_ui.excludeLineEdit->setInputValue( settings->value( "ProxyExclude" ).toStringList().join( ", " ) );
     }
+#endif
 
     resize( 500, 500 );
 }
@@ -172,9 +172,8 @@ bool SettingsDialog::apply()
     settings->setValue( "IssuesCacheSize", m_ui.detailsSpinBox->value() );
     settings->setValue( "AttachmentsCacheSize", m_ui.cacheSpinBox->value() );
 
-    if ( m_ui.defaultProxyRadioButton->isChecked() ) {
-        settings->setValue( "ProxyType", (int)QNetworkProxy::DefaultProxy );
-    } else if ( m_ui.noProxyRadioButton->isChecked() ) {
+#if !defined( NO_PROXY_FACTORY )
+    if ( !m_ui.customProxyCheckBox->isChecked() ) {
         settings->setValue( "ProxyType", (int)QNetworkProxy::NoProxy );
     } else {
         settings->setValue( "ProxyHost", m_ui.hostLineEdit->inputValue() );
@@ -182,6 +181,7 @@ bool SettingsDialog::apply()
         settings->setValue( "ProxyType", (int)( m_ui.proxyTypeComboBox->currentIndex() == 1 ? QNetworkProxy::Socks5Proxy : QNetworkProxy::HttpProxy ) );
         settings->setValue( "ProxyExclude", m_ui.excludeLineEdit->inputValue().split( ", " ) );
     }
+#endif
 
     settings->save();
 
