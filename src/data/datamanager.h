@@ -424,6 +424,7 @@ private:
     void clearIssueLocks();
     bool clearIssueLocks( const QSqlDatabase& database );
 
+    void flushIssueDetails();
     bool flushIssueDetails( const QSqlDatabase& database );
     bool removeIssueDetails( const QList<int>& issues, const QSqlDatabase& database );
 

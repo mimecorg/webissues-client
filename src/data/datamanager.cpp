@@ -1223,6 +1223,19 @@ bool DataManager::clearIssueLocks( const QSqlDatabase& database )
     return true;
 }
 
+void DataManager::flushIssueDetails()
+{
+    QSqlDatabase database = QSqlDatabase::database();
+    database.transaction();
+
+    bool ok = flushIssueDetails( database );
+    if ( ok )
+        ok = database.commit();
+
+    if ( !ok )
+        database.rollback();
+}
+
 bool DataManager::flushIssueDetails( const QSqlDatabase& database )
 {
     Query query( database );
@@ -1230,10 +1243,13 @@ bool DataManager::flushIssueDetails( const QSqlDatabase& database )
     if ( !query.execQuery( "SELECT COUNT(*) FROM issue_locks" ) )
         return false;
 
+    LocalSettings* settings = application->applicationSettings();
+    int limit = settings->value( "IssuesCacheSize" ).toInt();
+
     int count = query.readScalar().toInt();
 
-    if ( count > 100 ) {
-        if ( !query.execQuery( "SELECT issue_id FROM issue_locks WHERE lock_count = 0 ORDER BY last_access LIMIT ?", count - 100 ) )
+    if ( count > limit ) {
+        if ( !query.execQuery( "SELECT issue_id FROM issue_locks WHERE lock_count = 0 ORDER BY last_access LIMIT ?", count - limit ) )
             return false;
 
         QList<int> deletedIssues;
@@ -1312,6 +1328,8 @@ void DataManager::commitFile( int fileId, const QString& path, int size )
 
 void DataManager::settingsChanged()
 {
+    flushIssueDetails();
+
     m_fileCache->flush();
 }
 
