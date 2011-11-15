@@ -40,6 +40,7 @@
 #include <QMessageBox>
 
 ProjectsView::ProjectsView( QObject* parent, QWidget* parentWidget ) : View( parent ),
+    m_folderUpdateCounter( 0 ),
     m_updateCounter( 0 )
 {
     m_systemAdmin = dataManager->currentUserAccess() == AdminAccess;
@@ -173,14 +174,18 @@ void ProjectsView::updateAccess( Access /*access*/ )
 void ProjectsView::updateTimeout()
 {
     LocalSettings* settings = application->applicationSettings();
+    int folderUpdateInterval = settings->value( "FolderUpdateInterval" ).toInt();
     int updateInterval = settings->value( "UpdateInterval" ).toInt();
 
+    m_folderUpdateCounter++;
     m_updateCounter++;
 
     if ( m_updateCounter >= updateInterval ) {
+        m_folderUpdateCounter = 0;
         m_updateCounter = 0;
         periodicUpdateData( true );
-    } else {
+    } else if ( m_folderUpdateCounter >= folderUpdateInterval ) {
+        m_folderUpdateCounter = 0;
         periodicUpdateData( false );
     }
 }

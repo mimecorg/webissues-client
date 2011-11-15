@@ -98,6 +98,7 @@ private:
 
     QTimer* m_timer;
 
+    int m_folderUpdateCounter;
     int m_updateCounter;
 
     int m_selectedProjectId;
