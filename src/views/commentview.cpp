@@ -19,11 +19,13 @@
 
 #include "commentview.h"
 
+#include "application.h"
 #include "commands/commandmanager.h"
 #include "commands/issuebatch.h"
 #include "data/datamanager.h"
 #include "data/entities.h"
 #include "data/updateevent.h"
+#include "data/localsettings.h"
 #include "utils/formatter.h"
 #include "utils/iconloader.h"
 #include "views/viewmanager.h"
@@ -54,10 +56,6 @@ CommentView::CommentView( QObject* parent, QWidget* parentWidget ) : View( paren
     m_edit->setMaxLength( dataManager->setting( "comment_max_length" ).toInt() );
     m_edit->setAutoValidate( false );
     m_edit->setContextMenuPolicy( Qt::CustomContextMenu );
-
-    QFont font( "Verdana", 8 );
-    font.setStyleHint( QFont::SansSerif );
-    m_edit->setFont( font );
 
     QPalette palette = m_edit->palette();
     palette.setBrush( QPalette::Base, QColor( 0xff, 0xff, 0xff ) );
@@ -110,6 +108,10 @@ CommentView::CommentView( QObject* parent, QWidget* parentWidget ) : View( paren
     connect( m_edit, SIGNAL( textChanged() ), this, SLOT( updateActions() ) );
 
     connect( QApplication::clipboard(), SIGNAL( dataChanged() ), this, SLOT( updateClipboard() ) );
+
+    connect( application->applicationSettings(), SIGNAL( settingsChanged() ), this, SLOT( settingsChanged() ) );
+
+    settingsChanged();
 
     setMainWidget( m_edit );
 
@@ -268,4 +270,16 @@ void CommentView::contextMenu( const QPoint& pos )
     QMenu* menu = builder()->contextMenu( "menuEdit" );
     if ( menu )
         menu->popup( m_edit->mapToGlobal( pos ) );
+}
+
+void CommentView::settingsChanged()
+{
+    LocalSettings* settings = application->applicationSettings();
+    QString family = settings->value( "CommentFont" ).toString();
+    int size = settings->value( "CommentFontSize" ).toInt();
+
+    QFont font( family, size );
+    font.setStyleHint( QFont::SansSerif );
+
+    m_edit->setFont( font );
 }

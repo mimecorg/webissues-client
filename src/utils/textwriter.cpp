@@ -19,6 +19,8 @@
 
 #include "textwriter.h"
 
+#include "application.h"
+#include "data/localsettings.h"
 #include "utils/textwithlinks.h"
 
 #include <QTextDocument>
@@ -33,8 +35,13 @@ TextWriter::TextWriter( QTextDocument* document, Flags flags /*= 0*/ ) :
     m_document->clear();
     m_document->setUndoRedoEnabled( false );
 
-    QFont font( "Verdana", 8 );
+    LocalSettings* settings = application->applicationSettings();
+    QString family = settings->value( "ReportFont" ).toString();
+    int size = settings->value( "ReportFontSize" ).toInt();
+
+    QFont font( family, size );
     font.setStyleHint( QFont::SansSerif );
+
     m_document->setDefaultFont( font );
 
     QTextFrame* rootFrame = m_document->rootFrame();

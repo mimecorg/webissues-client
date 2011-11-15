@@ -240,6 +240,8 @@ IssueView::IssueView( QObject* parent, QWidget* parentWidget ) : View( parent ),
     m_populateTimer->setSingleShot( true );
 
     connect( m_populateTimer, SIGNAL( timeout() ), this, SLOT( populateDetails() ) );
+
+    connect( application->applicationSettings(), SIGNAL( settingsChanged() ), this, SLOT( populateDetails() ) );
 }
 
 IssueView::~IssueView()

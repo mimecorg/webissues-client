@@ -64,6 +64,8 @@ private slots:
 
     void contextMenu( const QPoint& pos );
 
+    void settingsChanged();
+
 private:
     Access checkDataAccess();
 
