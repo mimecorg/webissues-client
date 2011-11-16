@@ -49,7 +49,7 @@ public:
     /**
     * Set the quick search text for the list.
     */
-    void setSearchText( const QString& text );
+    void setSearchText( int column, const QString& text );
 
     /**
     * Return the identifier of the type of issues.
@@ -118,6 +118,7 @@ private:
 
     QList<DefinitionInfo> m_filters;
 
+    int m_searchColumn;
     QString m_searchText;
 
     int m_sortColumn;

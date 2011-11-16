@@ -81,7 +81,7 @@ public:
     /**
     * Set the quick search text for the list.
     */
-    void setSearchText( const QString& text );
+    void setSearchText( int column, const QString& text );
 
 public: // overrides
     QVariant data( const QModelIndex& index, int role = Qt::DisplayRole ) const;
@@ -101,6 +101,8 @@ private:
     int m_typeId;
 
     bool m_forceColumns;
+
+    int m_searchColumn;
     QString m_searchText;
 
     QString m_query;

@@ -44,6 +44,12 @@ public:
     */
     ~SearchEditBox();
 
+public:
+    /**
+    * Set the menu displayed when user clicks the options button.
+    */
+    void setOptionsMenu( QMenu* menu );
+
 signals:
     /**
     * Emitted when user presses ESC or Enter key.
@@ -56,9 +62,10 @@ protected:
     void keyPressEvent ( QKeyEvent * e );
 
 private slots:
-    void updateCloseButton( const QString& text );
+    void updateClearButton( const QString& text );
 
 private:
+    EditToolButton* m_optionsButton;
     EditToolButton* m_clearButton;
 };
 

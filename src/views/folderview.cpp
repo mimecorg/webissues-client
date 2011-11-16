@@ -51,6 +51,7 @@
 FolderView::FolderView( QObject* parent, QWidget* parentWidget ) : View( parent ),
     m_model( NULL ),
     m_currentViewId( 0 ),
+    m_searchColumn( Column_Name ),
     m_gotoIssueId( 0 ),
     m_gotoItemId( 0 ),
     m_selectedIssueId( 0 ),
@@ -201,6 +202,13 @@ FolderView::FolderView( QObject* parent, QWidget* parentWidget ) : View( parent 
 
     connect( m_searchBox, SIGNAL( textChanged( const QString& ) ), this, SLOT( quickSearchChanged( const QString& ) ) );
 
+    m_searchMenu = new QMenu( m_searchBox );
+    m_searchBox->setOptionsMenu( m_searchMenu );
+
+    m_searchActionGroup = new QActionGroup( this );
+
+    connect( m_searchActionGroup, SIGNAL( triggered( QAction* ) ), this, SLOT( searchActionTriggered( QAction* ) ) );
+
     viewLayout->addWidget( m_searchBox, 1 );
 
     searchLabel->setBuddy( m_searchBox );
@@ -303,6 +311,8 @@ void FolderView::enableView()
 
     updateViews();
     loadCurrentView( true );
+
+    updateSearchOptions();
 }
 
 void FolderView::disableView()
@@ -615,6 +625,7 @@ void FolderView::updateEvent( UpdateEvent* e )
         if ( e->unit() == UpdateEvent::Types ) {
             updateViews();
             loadCurrentView( false );
+            updateSearchOptions();
         }
 
         if ( e->unit() == UpdateEvent::States )
@@ -694,9 +705,58 @@ void FolderView::gotoIssue( int issueId, int itemId )
         emit itemActivated( itemId );
 }
 
+void FolderView::updateSearchOptions()
+{
+    IssueTypeCache* cache = dataManager->issueTypeCache( m_typeId );
+
+    QList<int> allColumns = cache->availableColumns();
+
+    QList<int> columns;
+    foreach ( int column, allColumns ) {
+        if ( cache->availableOperators( column ).contains( "CON" ) )
+            columns.append( column );
+    }
+
+    if ( !columns.contains( m_searchColumn ) ) {
+        m_searchColumn = Column_Name;
+        m_model->setSearchText( m_searchColumn, m_searchBox->text() );
+    }
+
+    m_searchMenu->clear();
+
+    ViewSettingsHelper helper( m_typeId );
+
+    foreach ( int column, columns )
+    {
+        QString name = helper.columnName( column );
+        QAction* action = m_searchMenu->addAction( name );
+        action->setData( column );
+        action->setCheckable( true );
+        if ( column == m_searchColumn )
+            action->setChecked( true );
+        action->setActionGroup( m_searchActionGroup );
+    }
+
+#if ( QT_VERSION >= 0x040700 )
+    m_searchBox->setPlaceholderText( helper.columnName( m_searchColumn ) );
+#endif
+}
+
 void FolderView::quickSearchChanged( const QString& text )
 {
-    m_model->setSearchText( text );
+    m_model->setSearchText( m_searchColumn, text );
+}
+
+void FolderView::searchActionTriggered( QAction* action )
+{
+    m_searchColumn = action->data().toInt();
+
+#if ( QT_VERSION >= 0x040700 )
+    ViewSettingsHelper helper( m_typeId );
+    m_searchBox->setPlaceholderText( helper.columnName( m_searchColumn ) );
+#endif
+
+    m_model->setSearchText( m_searchColumn, m_searchBox->text() );
 }
 
 bool FolderView::eventFilter( QObject* obj, QEvent* e )

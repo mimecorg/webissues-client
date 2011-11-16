@@ -31,6 +31,7 @@
 QueryGenerator::QueryGenerator( int folderId, int viewId ) :
     m_folderId( folderId ),
     m_typeId( 0 ),
+    m_searchColumn( -1 ),
     m_sortColumn( -1 ),
     m_sortOrder( Qt::AscendingOrder ),
     m_valid( false )
@@ -77,8 +78,9 @@ QueryGenerator::~QueryGenerator()
 {
 }
 
-void QueryGenerator::setSearchText( const QString& text )
+void QueryGenerator::setSearchText( int column, const QString& text )
 {
+    m_searchColumn = column;
     m_searchText = text;
 }
 
@@ -167,6 +169,11 @@ QString QueryGenerator::generateJoins( bool allColumns )
             columns.append( column );
     }
 
+    if ( !m_searchText.isEmpty() ) {
+        if ( !columns.contains( m_searchColumn ) )
+            columns.append( m_searchColumn );
+    }
+
     foreach ( int column, columns ) {
         switch ( column ) {
             case Column_CreatedBy:
@@ -196,7 +203,17 @@ QString QueryGenerator::generateConditions()
 
     IssueTypeCache* cache = dataManager->issueTypeCache( m_typeId );
 
-    foreach ( const DefinitionInfo& filter, m_filters ) {
+    QList<DefinitionInfo> allFilters = m_filters;
+
+    if ( !m_searchText.isEmpty() ) {
+        DefinitionInfo info;
+        info.setType( "CON" );
+        info.setMetadata( "column", m_searchColumn );
+        info.setMetadata( "value", m_searchText );
+        allFilters.append( info );
+    }
+
+    foreach ( const DefinitionInfo& filter, allFilters ) {
         QString type = filter.type();
         int column = filter.metadata( "column" ).toInt();
         QString value = filter.metadata( "value" ).toString();
@@ -229,8 +246,6 @@ QString QueryGenerator::generateConditions()
                     m_valid = false;
                 break;
         }
-
-        QString condition;
 
         switch ( column ) {
             case Column_ID:
@@ -267,9 +282,6 @@ QString QueryGenerator::generateConditions()
                 break;
         }
     }
-
-    if ( !m_searchText.isEmpty() )
-        conditions.append( makeStringCondition( "i.issue_name", "CON", m_searchText ) );
 
     return conditions.join( " AND " );
 }

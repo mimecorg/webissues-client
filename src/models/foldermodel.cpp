@@ -38,7 +38,8 @@ FolderModel::FolderModel( int folderId, QObject* parent ) : BaseModel( parent ),
     m_folderId( folderId ),
     m_viewId( 0 ),
     m_typeId( 0 ),
-    m_forceColumns( false )
+    m_forceColumns( false ),
+    m_searchColumn( -1 )
 {
     appendModel( new QSqlQueryModel( this ) );
 }
@@ -64,8 +65,9 @@ void FolderModel::setColumns( const QList<int>& columns )
     generateQueries( true );
 }
 
-void FolderModel::setSearchText( const QString& text )
+void FolderModel::setSearchText( int column, const QString& text )
 {
+    m_searchColumn = column;
     m_searchText = text;
 
     generateQueries( false );
@@ -156,7 +158,7 @@ void FolderModel::generateQueries( bool resort )
     QueryGenerator generator( m_folderId, m_viewId );
 
     if ( !m_searchText.isEmpty() )
-        generator.setSearchText( m_searchText );
+        generator.setSearchText( m_searchColumn, m_searchText );
 
     if ( m_forceColumns )
         generator.setColumns( m_columns );

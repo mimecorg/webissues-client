@@ -29,22 +29,27 @@
 
 SearchEditBox::SearchEditBox( QWidget* parent ) : QLineEdit( parent )
 {
+    m_optionsButton = new EditToolButton( this );
+    m_optionsButton->setIcon( IconLoader::icon( "find-options" ) );
+    m_optionsButton->setToolTip( tr( "Search Options" ) );
+    m_optionsButton->setPopupMode( QToolButton::InstantPopup );
+
     m_clearButton = new EditToolButton( this );
     m_clearButton->setIcon( IconLoader::icon( "find-clear" ) );
     m_clearButton->setToolTip( tr( "Clear" ) );
     m_clearButton->hide();
   
     connect( m_clearButton, SIGNAL( clicked() ), this, SLOT( clear() ) );
-    connect( this, SIGNAL( textChanged( const QString& ) ), this, SLOT( updateCloseButton( const QString& ) ) );
+    connect( this, SIGNAL( textChanged( const QString& ) ), this, SLOT( updateClearButton( const QString& ) ) );
 
-    QSize buttonSize = m_clearButton->sizeHint();
+    QSize buttonSize = m_optionsButton->sizeHint();
     int frameWidth = style()->pixelMetric( QStyle::PM_DefaultFrameWidth );
 
     int padding = buttonSize.width() + frameWidth + 1;
-#if QT_VERSION >= 0x040500
-    setTextMargins( 0, 0, padding, 0 );
+#if ( QT_VERSION >= 0x040500 )
+    setTextMargins( padding, 0, padding, 0 );
 #else
-    setStyleSheet( QString( "QLineEdit { padding-right: %1px; } " ).arg( padding ) );
+    setStyleSheet( QString( "QLineEdit { padding-left: %1px; padding-right: %1px; } " ).arg( padding ) );
 #endif
 
     setMinimumHeight( qMax( minimumSizeHint().height(), buttonSize.height() + 2 * frameWidth ) );
@@ -58,17 +63,23 @@ void SearchEditBox::resizeEvent( QResizeEvent* e )
 {
     QLineEdit::resizeEvent( e );
 
-    QSize buttonSize = m_clearButton->sizeHint();
+    QSize buttonSize = m_optionsButton->sizeHint();
     int frameWidth = style()->pixelMetric( QStyle::PM_DefaultFrameWidth );
 
     int y = ( rect().bottom() + 1 - buttonSize.height() ) / 2;
 
+    m_optionsButton->move( frameWidth, y );
     m_clearButton->move( rect().right() - frameWidth - buttonSize.width(), y );
 }
 
-void SearchEditBox::updateCloseButton( const QString& text )
+void SearchEditBox::updateClearButton( const QString& text )
 {
     m_clearButton->setVisible( !text.isEmpty() );
+}
+
+void SearchEditBox::setOptionsMenu( QMenu* menu )
+{
+    m_optionsButton->setMenu( menu );
 }
 
 void SearchEditBox::keyPressEvent( QKeyEvent * e )
@@ -78,6 +89,8 @@ void SearchEditBox::keyPressEvent( QKeyEvent * e )
         emit deactivate();
     } else if ( e->key() == Qt::Key_Return || e->key() == Qt::Key_Enter ) {
         emit deactivate();
+    } else if ( e->key() == Qt::Key_F4 ) {
+        m_optionsButton->showMenu();
     } else {
         QLineEdit::keyPressEvent( e );
     }

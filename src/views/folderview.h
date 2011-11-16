@@ -133,6 +133,7 @@ private slots:
     void doubleClicked( const QModelIndex& index );
 
     void quickSearchChanged( const QString& text );
+    void searchActionTriggered( QAction* action );
 
     void viewActivated( int index );
 
@@ -147,6 +148,7 @@ private:
     void updateCaption();
 
     void updateViews();
+    void updateSearchOptions();
 
     void markAllIssues( bool read );
 
@@ -162,7 +164,12 @@ private:
 
     SearchEditBox* m_searchBox;
 
+    QMenu* m_searchMenu;
+    QActionGroup* m_searchActionGroup;
+
     int m_currentViewId;
+
+    int m_searchColumn;
 
     int m_typeId;
     int m_projectId;
