@@ -1588,10 +1588,20 @@ FileEntity ChangeEntity::file() const
 
 QList<ChangeEntity> IssueEntity::changes() const
 {
+    return d->changes( true );
+}
+
+QList<ChangeEntity> IssueEntity::commentsAndFiles() const
+{
+    return d->changes( false );
+}
+
+QList<ChangeEntity> IssueEntityData::changes( bool all ) const
+{
     QList<ChangeEntity> result;
 
-    if ( d->m_id != 0 && d->m_typeId != 0 ) {
-        Query query( "SELECT ch.change_id, ch.issue_id, ch.stamp_id, ch.change_type,"
+    if ( m_id != 0 && m_typeId != 0 ) {
+        QString sql = "SELECT ch.change_id, ch.issue_id, ch.stamp_id, ch.change_type,"
             " ch.created_time, uc.user_name AS created_user, ch.created_user_id,"
             " ch.modified_time, um.user_name AS modified_user,"
             " a.attr_id, ch.old_value, ch.new_value, ff.folder_name AS from_folder, tf.folder_name AS to_folder,"
@@ -1604,14 +1614,18 @@ QList<ChangeEntity> IssueEntity::changes() const
             " LEFT OUTER JOIN folders AS tf ON tf.folder_id = ch.to_folder_id"
             " LEFT OUTER JOIN comments AS c ON c.comment_id = ch.change_id AND ch.change_type = ?"
             " LEFT OUTER JOIN files AS f ON f.file_id = ch.change_id AND ch.change_type = ?"
-            " WHERE ch.issue_id = ? "
-            " ORDER BY ch.change_id" );
-        query.exec( CommentAdded, FileAdded, d->m_id );
+            " WHERE ch.issue_id = ?";
+        if ( !all )
+            sql += " AND ( c.comment_id IS NOT NULL OR f.file_id IS NOT NULL )";
+        sql += " ORDER BY ch.change_id";
+
+        Query query( sql );
+        query.exec( CommentAdded, FileAdded, m_id );
 
         while ( query.next() ) {
             ChangeEntity entity;
             entity.d->read( query );
-            entity.d->m_typeId = d->m_typeId;
+            entity.d->m_typeId = m_typeId;
             result.append( entity );
         }
     }

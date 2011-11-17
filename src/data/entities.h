@@ -345,6 +345,7 @@ public:
     QList<ValueEntity> values() const;
 
     QList<ChangeEntity> changes() const;
+    QList<ChangeEntity> commentsAndFiles() const;
     QList<ChangeEntity> comments() const;
     QList<ChangeEntity> files() const;
 
@@ -479,6 +480,7 @@ private:
     QExplicitlySharedDataPointer<ChangeEntityData> d;
 
     friend class IssueEntity;
+    friend class IssueEntityData;
 };
 
 class PreferenceEntity

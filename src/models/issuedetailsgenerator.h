@@ -57,6 +57,7 @@ public:
         AllHistory,
         OnlyComments,
         OnlyFiles,
+        CommentsAndFiles,
     };
 
 public:

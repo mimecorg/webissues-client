@@ -159,6 +159,8 @@ public:
 public:
     void read( const Query& query );
 
+    QList<ChangeEntity> changes( bool all ) const;
+
 public:
     int m_id;
     int m_stampId;

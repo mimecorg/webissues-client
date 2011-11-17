@@ -735,9 +735,9 @@ void IssueView::populateDetails()
     m_browser->verticalScrollBar()->setSliderPosition( pos );
 
     QStringList status;
-    if ( m_history == IssueDetailsGenerator::AllHistory || m_history == IssueDetailsGenerator::OnlyComments )
+    if ( m_history != IssueDetailsGenerator::OnlyFiles )
         status.append( tr( "%1 comments" ).arg( generator.commentsCount() ) );
-    if ( m_history == IssueDetailsGenerator::AllHistory || m_history == IssueDetailsGenerator::OnlyFiles )
+    if ( m_history != IssueDetailsGenerator::OnlyComments )
         status.append( tr( "%1 attachments" ).arg( generator.filesCount() ) );
     showSummary( QPixmap(), status.join( ", " ) );
 

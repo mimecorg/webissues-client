@@ -146,6 +146,8 @@ void IssueDetailsGenerator::writeHistory( TextWriter* writer, const IssueEntity&
         changes = issue.comments();
     else if ( m_history == OnlyFiles )
         changes = issue.files();
+    else if ( m_history == CommentsAndFiles )
+        changes = issue.commentsAndFiles();
 
     QList<TextWithLinks> list;
 
@@ -353,7 +355,7 @@ TextWithLinks IssueDetailsGenerator::historyLinks( TextWithLinks::Flags flags )
 {
     TextWithLinks result( flags );
 
-    for ( int i = AllHistory; i <= OnlyFiles; i++ ) {
+    for ( int i = AllHistory; i <= CommentsAndFiles; i++ ) {
         if ( i != AllHistory )
             result.appendText( " | " );
 
@@ -367,6 +369,9 @@ TextWithLinks IssueDetailsGenerator::historyLinks( TextWithLinks::Flags flags )
                 break;
             case OnlyFiles:
                 text = tr( "Only Attachments" );
+                break;
+            case CommentsAndFiles:
+                text = tr( "Comments & Attachments" );
                 break;
         }
 
