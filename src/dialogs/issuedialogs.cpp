@@ -383,6 +383,30 @@ MoveIssueDialog::MoveIssueDialog( int issueId, QWidget* parent ) : TransferIssue
     setPrompt( tr( "Move issue <b>%1</b> to another folder of the same type:" ).arg( issue.name() ) );
     setPromptPixmap( IconLoader::pixmap( "issue-move", 22 ) );
 
+    bool available = false;
+
+    foreach ( const ProjectEntity& project, ProjectEntity::list() ) {
+        if ( !ProjectEntity::isAdmin( project.id() ) )
+            continue;
+
+        foreach ( const FolderEntity& folder, project.folders() ) {
+            if ( folder.typeId() != oldFolder.typeId() )
+                continue;
+
+            if ( folder.id() != m_oldFolderId ) {
+                available = true;
+                break;
+            }
+        }
+    }
+
+    if ( !available ) {
+        showWarning( tr( "There are no available destination folders." ) );
+        showCloseButton();
+        setContentLayout( NULL, true );
+        return;
+    }
+
     initialize( oldFolder.typeId(), m_oldFolderId, true );
 }
 

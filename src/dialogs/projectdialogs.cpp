@@ -310,6 +310,24 @@ MoveFolderDialog::MoveFolderDialog( int folderId, QWidget* parent ) : CommandDia
     setPrompt( tr( "Move folder <b>%1</b> to another project:" ).arg( folder.name() ) );
     setPromptPixmap( IconLoader::pixmap( "folder-move", 22 ) );
 
+    QList<ProjectEntity> projects;
+    bool available = false;
+
+    foreach ( const ProjectEntity& project, ProjectEntity::list() ) {
+        if ( !ProjectEntity::isAdmin( project.id() ) )
+            continue;
+        projects.append( project );
+        if ( project.id() != m_oldProjectId )
+            available = true;
+    }
+
+    if ( !available ) {
+        showWarning( tr( "There are no available destination projects." ) );
+        showCloseButton();
+        setContentLayout( NULL, true );
+        return;
+    }
+
     QGridLayout* layout = new QGridLayout();
 
     QLabel* projectLabel = new QLabel( tr( "&Project:" ), this );
@@ -322,9 +340,7 @@ MoveFolderDialog::MoveFolderDialog( int folderId, QWidget* parent ) : CommandDia
 
     layout->setColumnStretch( 1, 1 );
 
-    foreach ( const ProjectEntity& project, ProjectEntity::list() ) {
-        if ( !ProjectEntity::isAdmin( project.id() ) )
-            continue;
+    foreach ( const ProjectEntity& project, projects ) {
         m_projectCombo->addItem( project.name(), project.id() );
         if ( project.id() == m_oldProjectId )
             m_projectCombo->setCurrentIndex( m_projectCombo->count() - 1 );
