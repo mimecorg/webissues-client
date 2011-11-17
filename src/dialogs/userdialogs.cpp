@@ -372,11 +372,25 @@ AddMemberDialog::AddMemberDialog( int projectId, QWidget* parent ) : CommandDial
 
     QGridLayout* layout = new QGridLayout();
 
+    QHBoxLayout* selectLayout = new QHBoxLayout();
+    layout->addLayout( selectLayout, 0, 1 );
+
+    selectLayout->addStretch( 1 );
+
+    QLabel* allUsersLabel = new QLabel( "<a href=\"#\">" + tr( "Select All" ) + "</a>", this );
+    selectLayout->addWidget( allUsersLabel );
+
+    QLabel* noUsersLabel = new QLabel( "<a href=\"#\">" + tr( "Unselect All" ) + "</a>", this );
+    selectLayout->addWidget( noUsersLabel );
+
+    connect( allUsersLabel, SIGNAL( linkActivated( const QString& ) ), this, SLOT( allUsersActivated() ) );
+    connect( noUsersLabel, SIGNAL( linkActivated( const QString& ) ), this, SLOT( noUsersActivated() ) );
+
     QLabel* userLabel = new QLabel( tr( "&Users:" ), this );
-    layout->addWidget( userLabel, 0, 0 );
+    layout->addWidget( userLabel, 1, 0 );
 
     m_list = new QListWidget( this );
-    layout->addWidget( m_list, 0, 1 );
+    layout->addWidget( m_list, 1, 1 );
 
     userLabel->setBuddy( m_list );
 
@@ -388,10 +402,10 @@ AddMemberDialog::AddMemberDialog( int projectId, QWidget* parent ) : CommandDial
     }
 
     QLabel* accessLabel = new QLabel( tr( "Access:" ), this );
-    layout->addWidget( accessLabel, 1, 0 );
+    layout->addWidget( accessLabel, 2, 0 );
 
     QHBoxLayout* buttonsLayout = new QHBoxLayout();
-    layout->addLayout( buttonsLayout, 1, 1 );
+    layout->addLayout( buttonsLayout, 2, 1 );
 
     m_accessGroup = new QButtonGroup( this );
 
@@ -439,6 +453,18 @@ void AddMemberDialog::accept()
         batch->grantMember( users.at( i ), m_projectId, (Access)access );
 
     executeBatch( batch );
+}
+
+void AddMemberDialog::allUsersActivated()
+{
+    for ( int i = 0; i < m_list->count(); i++ )
+        m_list->item( i )->setCheckState( Qt::Checked );
+}
+
+void AddMemberDialog::noUsersActivated()
+{
+    for ( int i = 0; i < m_list->count(); i++ )
+        m_list->item( i )->setCheckState( Qt::Unchecked );
 }
 
 ChangeMemberAccessDialog::ChangeMemberAccessDialog( const QList<int>& users, int projectId, QWidget* parent ) :

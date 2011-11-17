@@ -170,6 +170,10 @@ public:
 public: // overrides
     void accept();
 
+private slots:
+    void allUsersActivated();
+    void noUsersActivated();
+
 private:
     int m_projectId;
 
