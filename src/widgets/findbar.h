@@ -82,6 +82,11 @@ public:
     */
     void setBoundWidget( QWidget* widget );
 
+    /**
+    * Select all text in the edit box.
+    */
+    void selectAll();
+
 signals:
     /**
     * Emitted when the find text is updated.
@@ -110,6 +115,8 @@ protected: // overrides
 
 private slots:
     void textChanged( const QString& text );
+
+    void caseToggled();
 
 private:
     QLineEdit* m_edit;

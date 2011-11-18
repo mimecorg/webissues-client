@@ -81,8 +81,10 @@ FindBar::FindBar( QWidget* parent ) : QWidget( parent ),
 
     layout->addSpacing( 5 );
 
-    m_caseCheckBox = new QCheckBox( tr( "Match case" ), this );
+    m_caseCheckBox = new QCheckBox( tr( "&Match case" ), this );
     layout->addWidget( m_caseCheckBox );
+
+    connect( m_caseCheckBox, SIGNAL( toggled( bool ) ), this, SLOT( caseToggled() ) );
 
     layout->addSpacing( 10 );
 
@@ -110,7 +112,9 @@ FindBar::~FindBar()
 
 void FindBar::setText( const QString& text )
 {
+    bool old = blockSignals( true );
     m_edit->setText( text );
+    blockSignals( old );
 }
 
 QString FindBar::text() const
@@ -120,7 +124,9 @@ QString FindBar::text() const
 
 void FindBar::setFlags( QTextDocument::FindFlags flags )
 {
-    m_caseCheckBox->setChecked( flags & QTextDocument::FindCaseSensitively );
+    bool old = blockSignals( true );
+    m_caseCheckBox->setChecked( ( flags & QTextDocument::FindCaseSensitively ) != 0 );
+    blockSignals( old );
 }
 
 QTextDocument::FindFlags FindBar::flags() const
@@ -142,6 +148,11 @@ void FindBar::setBoundWidget( QWidget* widget )
     m_boundWidget = widget;
 }
 
+void FindBar::selectAll()
+{
+    m_edit->selectAll();
+}
+
 void FindBar::hideEvent( QHideEvent* e )
 {
     if ( m_boundWidget && !e->spontaneous() )
@@ -150,6 +161,15 @@ void FindBar::hideEvent( QHideEvent* e )
 
 bool FindBar::eventFilter( QObject* obj, QEvent* e )
 {
+    if ( obj == m_edit && e->type() == QEvent::ShortcutOverride ) {
+        QKeyEvent* ke = (QKeyEvent*)e;
+        if ( ke->key() == Qt::Key_Escape ) {
+            hide();
+            ke->accept();
+            return true;
+        }
+    }
+
     if ( obj == m_edit && e->type() == QEvent::KeyPress ) {
         QKeyEvent* ke = (QKeyEvent*)e;
         if ( ke->key() == Qt::Key_Escape ) {
@@ -187,4 +207,10 @@ void FindBar::textChanged( const QString& text )
     }
 
     emit find( text );
+}
+
+void FindBar::caseToggled()
+{
+    if ( m_enabled )
+        emit find( m_edit->text() );
 }

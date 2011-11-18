@@ -532,6 +532,7 @@ void IssueView::find()
     if ( isEnabled() ) {
         m_findBar->show();
         m_findBar->setFocus();
+        m_findBar->selectAll();
     }
 }
 
@@ -543,14 +544,18 @@ void IssueView::findText( const QString& text )
 
 void IssueView::findNext()
 {
-    if ( isEnabled() && m_isFindEnabled )
+    if ( isEnabled() && m_isFindEnabled ) {
         findText( m_findBar->text(), m_browser->textCursor().selectionStart() + 1, m_findBar->flags() );
+        m_findBar->selectAll();
+    }
 }
 
 void IssueView::findPrevious()
 {
-    if ( isEnabled() && m_isFindEnabled )
+    if ( isEnabled() && m_isFindEnabled ) {
         findText( m_findBar->text(), m_browser->textCursor().selectionStart(), m_findBar->flags() | QTextDocument::FindBackward );
+        m_findBar->selectAll();
+    }
 }
 
 void IssueView::findText( const QString& text, int from, QTextDocument::FindFlags flags )
