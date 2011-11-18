@@ -113,7 +113,7 @@ private:
     void generateCsvReport( QTextStream& stream );
     void generateHtmlReport( QTextDocument* document );
 
-    QString getReportFileName( const QString& name, const QString& filter );
+    QString getReportFileName( const QString& extension, const QString& filter );
 
 private:
     SourceType m_source;
@@ -132,7 +132,6 @@ private:
     QRadioButton* m_summaryButton;
     QRadioButton* m_fullReportButton;
 
-    QPrinter* m_printer;
     QTextDocument* m_document;
 };
 

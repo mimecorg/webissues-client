@@ -49,7 +49,6 @@ ReportDialog::ReportDialog( SourceType source, ReportMode mode, QWidget* parent 
     m_mode( mode ),
     m_folderId( 0 ),
     m_history( IssueDetailsGenerator::NoHistory ),
-    m_printer( NULL ),
     m_document( NULL )
 {
     QHBoxLayout* layout = new QHBoxLayout();
@@ -135,7 +134,6 @@ ReportDialog::ReportDialog( SourceType source, ReportMode mode, QWidget* parent 
 
 ReportDialog::~ReportDialog()
 {
-    delete m_printer;
 }
 
 void ReportDialog::setIssue( int issueId )
@@ -187,10 +185,10 @@ void ReportDialog::accept()
 
 bool ReportDialog::print()
 {
-    if ( !m_printer )
-        m_printer = new QPrinter();
+    QPrinter* printer = application->printer();
+    printer->setFromTo( 0, 0 );
 
-    QPrintDialog dialog( m_printer, this );
+    QPrintDialog dialog( printer, this );
 
     if ( dialog.exec() != QDialog::Accepted )
         return false;
@@ -198,14 +196,14 @@ bool ReportDialog::print()
     QTextDocument document;
     generateHtmlReport( &document );
 
-    document.print( m_printer );
+    document.print( printer );
 
     return true;
 }
 
 bool ReportDialog::exportCsv()
 {
-    QString fileName = getReportFileName( "report.csv", tr( "CSV Files (*.csv)" ) );
+    QString fileName = getReportFileName( ".csv", tr( "CSV Files (*.csv)" ) );
 
     if ( fileName.isEmpty() )
         return false;
@@ -226,7 +224,7 @@ bool ReportDialog::exportCsv()
 
 bool ReportDialog::exportHtml()
 {
-    QString fileName = getReportFileName( "report.html", tr( "HTML Files (*.html)" ) );
+    QString fileName = getReportFileName( ".html", tr( "HTML Files (*.html)" ) );
 
     if ( fileName.isEmpty() )
         return false;
@@ -250,17 +248,17 @@ bool ReportDialog::exportHtml()
 
 bool ReportDialog::exportPdf()
 {
-    QString fileName = getReportFileName( "report.pdf", tr( "PDF Files (*.pdf)" ) );
+    QString fileName = getReportFileName( ".pdf", tr( "PDF Files (*.pdf)" ) );
 
     if ( fileName.isEmpty() )
         return false;
 
+    QPrinter printer( QPrinter::HighResolution );
+    printer.setOutputFileName( fileName );
+    printer.setOutputFormat( QPrinter::PdfFormat );
+
     QTextDocument document;
     generateHtmlReport( &document );
-
-    QPrinter printer( QPrinter::HighResolution );
-    printer.setOutputFormat( QPrinter::PdfFormat );
-    printer.setOutputFileName( fileName );
 
     document.print( &printer );
 
@@ -269,22 +267,32 @@ bool ReportDialog::exportPdf()
 
 void ReportDialog::showPreview()
 {
-    if ( !m_printer )
-        m_printer = new QPrinter();
+    QPrinter* printer = application->printer();
+    printer->setFromTo( 0, 0 );
 
     m_document = new QTextDocument( this );
     generateHtmlReport( m_document );
 
-    QPrintPreviewDialog dialog( m_printer, this );
+    QPrintPreviewDialog dialog( printer, this );
     dialog.setWindowTitle( tr( "Print Preview" ) );
-    dialog.resize( QApplication::desktop()->screenGeometry( this ).size() * 4 / 5 );
+
+    LocalSettings* settings = application->applicationSettings();
+    if ( settings->contains( "PrintPreviewGeometry" ) )
+        dialog.restoreGeometry( settings->value( "PrintPreviewGeometry" ).toByteArray() );
+    else
+        dialog.resize( QApplication::desktop()->screenGeometry( this ).size() * 4 / 5 );
 
     connect( &dialog, SIGNAL( paintRequested( QPrinter* ) ), this, SLOT( paintRequested( QPrinter* ) ) );
 
-    dialog.exec();
+    int result = dialog.exec();
 
     delete m_document;
     m_document = NULL;
+
+    settings->setValue( "PrintPreviewGeometry", dialog.saveGeometry() );
+
+    if ( result == QDialog::Accepted )
+        QDialog::accept();
 }
 
 void ReportDialog::paintRequested( QPrinter* printer )
@@ -329,17 +337,17 @@ void ReportDialog::generateHtmlReport( QTextDocument* document )
     generator.write( &writer );
 }
 
-QString ReportDialog::getReportFileName( const QString& name, const QString& filter )
+QString ReportDialog::getReportFileName( const QString& extension, const QString& filter )
 {
     LocalSettings* settings = application->applicationSettings();
     QString dir = settings->value( "SaveReportPath", QDir::homePath() ).toString();
 
-    QFileInfo fileInfo( QDir( dir ), name );
-
-    QString path = QFileDialog::getSaveFileName( this, tr( "Save As" ), fileInfo.absoluteFilePath(), filter );
+    QString path = QFileDialog::getSaveFileName( this, tr( "Save As" ), dir, filter );
 
     if ( !path.isEmpty() ) {
-        fileInfo.setFile( path );
+        QFileInfo fileInfo( path );
+        if ( fileInfo.suffix().isEmpty() )
+            path += extension;
         settings->setValue( "SaveReportPath", fileInfo.absoluteDir().path() );
     }
 

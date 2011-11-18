@@ -45,6 +45,7 @@
 #include <QDesktopServices>
 #include <QNetworkAccessManager>
 #include <QPushButton>
+#include <QPrinter>
 
 #if defined( Q_WS_WIN )
 #define _WIN32_IE 0x0400
@@ -56,7 +57,8 @@
 Application* application = NULL;
 
 Application::Application( int& argc, char** argv ) : QApplication( argc, argv ),
-    m_portable( false )
+    m_portable( false ),
+    m_printer( NULL )
 {
     Q_INIT_RESOURCE( icons );
     Q_INIT_RESOURCE( resources );
@@ -125,6 +127,9 @@ Application::~Application()
  
     delete m_settings;
     m_settings = NULL;
+
+    delete m_printer;
+    m_printer = NULL;
 }
 
 void Application::commitData( QSessionManager& manager )
@@ -540,4 +545,13 @@ void Application::restoreState()
         m_settings->setValue( "LastVersion", version() );
         about();
     }
+}
+
+QPrinter* Application::printer()
+{
+    if ( !m_printer ) {
+        m_printer = new QPrinter( QPrinter::HighResolution );
+        m_printer->setOutputFormat( QPrinter::NativeFormat );
+    }
+    return m_printer;
 }

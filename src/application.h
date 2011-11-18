@@ -38,6 +38,7 @@ class CertificatesStore;
 class QNetworkAccessManager;
 class QUrl;
 class QPushButton;
+class QPrinter;
 
 /**
 * Class representing the WebIssues application.
@@ -138,6 +139,11 @@ public:
     */
     QNetworkAccessManager* networkAccessManager() const { return m_manager; }
 
+    /**
+    * Return the printer.
+    */
+    QPrinter* printer();
+
 public slots:
     /**
     * Show the About WebIssues dialog.
@@ -203,6 +209,8 @@ private:
     QPointer<QPushButton> m_updateButton;
 
     QString m_shownVersion;
+
+    QPrinter* m_printer;
 };
 
 /**
