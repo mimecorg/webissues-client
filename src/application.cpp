@@ -160,7 +160,7 @@ void Application::about()
     helpMessage += "<p>" + tr( "Open the WebIssues Manual for help." ) + "</p>";
 
     QString webMessage;
-    webMessage += "<h4>" + tr( "Web Page" ) + "</h4>";
+    webMessage += "<h4>" + tr( "Website" ) + "</h4>";
     webMessage += "<p>" + tr( "Visit %1 for more information about WebIssues." ).arg( link ) + "</p>";
 
     QString donateMessage;

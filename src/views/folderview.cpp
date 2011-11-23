@@ -177,7 +177,7 @@ FolderView::FolderView( QObject* parent, QWidget* parentWidget ) : View( parent 
 
     mainLayout->addLayout( viewLayout );
 
-    QLabel* viewLabel = new QLabel( tr( "&Select view:" ), main );
+    QLabel* viewLabel = new QLabel( tr( "&View:" ), main );
     viewLayout->addWidget( viewLabel );
 
     m_viewCombo = new SeparatorComboBox( main );
@@ -193,7 +193,7 @@ FolderView::FolderView( QObject* parent, QWidget* parentWidget ) : View( parent 
 
     viewLayout->addStretch( 0 );
 
-    QLabel* searchLabel = new QLabel( tr( "&Quick search:" ), main );
+    QLabel* searchLabel = new QLabel( tr( "&Search:" ), main );
     viewLayout->addWidget( searchLabel );
 
     m_searchBox = new SearchEditBox( main );
