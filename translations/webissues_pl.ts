@@ -83,47 +83,47 @@
 <context>
     <name>AddAttachmentDialog</name>
     <message>
-        <location filename="../src/dialogs/issuedialogs.cpp" line="510"/>
+        <location filename="../src/dialogs/issuedialogs.cpp" line="534"/>
         <source>Add Attachment</source>
         <translation>Dodaj załącznik</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/issuedialogs.cpp" line="511"/>
+        <location filename="../src/dialogs/issuedialogs.cpp" line="535"/>
         <source>Add an attachment to issue &lt;b&gt;%1&lt;/b&gt;:</source>
         <translation>Dodaj załącznik do sprawy &lt;b&gt;%1&lt;/b&gt;:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/issuedialogs.cpp" line="516"/>
+        <location filename="../src/dialogs/issuedialogs.cpp" line="540"/>
         <source>&amp;File name:</source>
         <translation>&amp;Nazwa pliku:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/issuedialogs.cpp" line="527"/>
+        <location filename="../src/dialogs/issuedialogs.cpp" line="551"/>
         <source>&amp;Description:</source>
         <translation>O&amp;pis:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/issuedialogs.cpp" line="543"/>
+        <location filename="../src/dialogs/issuedialogs.cpp" line="567"/>
         <source>Size: %1</source>
         <translation>Rozmiar: %1</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/issuedialogs.cpp" line="577"/>
+        <location filename="../src/dialogs/issuedialogs.cpp" line="601"/>
         <source>Uploaded: %1 of %2</source>
         <translation>Przesłano: %1 z %2</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/issuedialogs.cpp" line="585"/>
+        <location filename="../src/dialogs/issuedialogs.cpp" line="609"/>
         <source>File could not be read.</source>
         <translation>Nie można odczytać pliku.</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/issuedialogs.cpp" line="504"/>
+        <location filename="../src/dialogs/issuedialogs.cpp" line="528"/>
         <source>Warning</source>
         <translation>Ostrzeżenie</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/issuedialogs.cpp" line="505"/>
+        <location filename="../src/dialogs/issuedialogs.cpp" line="529"/>
         <source>The name of the selected file is longer than %1 characters and will be truncated.</source>
         <translation>Nazwa wybranego pliku jest dłuższa niż %1 znaków i zostanie skrócona.</translation>
     </message>
@@ -210,27 +210,37 @@
         <translation>Nie ma więcej dostępnych użytkowników.</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/userdialogs.cpp" line="375"/>
+        <location filename="../src/dialogs/userdialogs.cpp" line="380"/>
+        <source>Select All</source>
+        <translation>Zaznacz wszystkich</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="383"/>
+        <source>Unselect All</source>
+        <translation>Odznacz wszystkich</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="389"/>
         <source>&amp;Users:</source>
         <translation>&amp;Użytkownicy:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/userdialogs.cpp" line="390"/>
+        <location filename="../src/dialogs/userdialogs.cpp" line="404"/>
         <source>Access:</source>
         <translation>Dostęp:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/userdialogs.cpp" line="398"/>
+        <location filename="../src/dialogs/userdialogs.cpp" line="412"/>
         <source>&amp;Regular member</source>
         <translation>&amp;Zwykły członek</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/userdialogs.cpp" line="402"/>
+        <location filename="../src/dialogs/userdialogs.cpp" line="416"/>
         <source>&amp;Project administrator</source>
         <translation>&amp;Administrator projektu</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/userdialogs.cpp" line="431"/>
+        <location filename="../src/dialogs/userdialogs.cpp" line="445"/>
         <source>No user selected.</source>
         <translation>Nie wybrano użytkownika.</translation>
     </message>
@@ -388,123 +398,123 @@
 <context>
     <name>Application</name>
     <message utf8="true">
-        <location filename="../src/application.cpp" line="196"/>
+        <location filename="../src/application.cpp" line="154"/>
         <source>Copyright (C) 2006 Michał Męciński</source>
         <translation>Copyright (C) 2006 Michał Męciński</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="191"/>
+        <location filename="../src/application.cpp" line="149"/>
         <source>Desktop Client for the WebIssues team collaboration system.</source>
         <translation>Klient natywny dla systemu WebIssues wspomagającego pracę zespołową.</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="190"/>
+        <location filename="../src/application.cpp" line="148"/>
         <source>WebIssues Desktop Client %1</source>
         <translation>WebIssues Desktop Client %1</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="192"/>
+        <location filename="../src/application.cpp" line="150"/>
         <source>This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.</source>
-        <translation>Ten program stanowi wolne oprogramowanie: możesz je rozpowszechniać i/lub modyfikować na warunkach GNU Powszechnej Licencji Publicznej opublikowanej przez Free Software Foundation, według wersji 3 Licencji lub (według uznania) jakiejkolwiek wersji późniejszej.</translation>
+        <translation>Niniejszy program jest wolnym oprogramowaniem; możesz go rozprowadzać dalej i/lub modyfikować na warunkach Powszechnej Licencji Publicznej GNU, wydanej przez Fundację Wolnego Oprogramowania - według wersji 3-ciej tej Licencji lub (według twojego wyboru) którejś z późniejszych wersji.</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="201"/>
+        <location filename="../src/application.cpp" line="159"/>
         <source>Help</source>
         <translation>Pomoc</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="202"/>
+        <location filename="../src/application.cpp" line="160"/>
         <source>Open the WebIssues Manual for help.</source>
-        <translation>Otwórz Podręcznik WebIssues aby uzyskać pomoc.</translation>
+        <translation>Otwórz Podręcznik WebIssues, aby uzyskać pomoc.</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="205"/>
-        <source>Web Page</source>
-        <translation>Strona internetowa</translation>
-    </message>
-    <message>
-        <location filename="../src/application.cpp" line="206"/>
+        <location filename="../src/application.cpp" line="164"/>
         <source>Visit %1 for more information about WebIssues.</source>
-        <translation>Odwiedź %1 aby uzyskać więcej informacji o programie WebIssues.</translation>
+        <translation>Odwiedź %1, aby uzyskać więcej informacji o programie WebIssues.</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="209"/>
+        <location filename="../src/application.cpp" line="167"/>
         <source>Donations</source>
         <translation>Dotacje</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="210"/>
+        <location filename="../src/application.cpp" line="168"/>
         <source>If you like this program, your donation will help us dedicate more time for it, support it and implement new features.</source>
-        <translation>Jeśli lubisz ten program, twoja dotacja pomoże nam poświęcić mu więcej czasu, wsiperać go i implementować nowe funkcje.</translation>
+        <translation>Jeśli lubisz ten program, twoja dotacja pomoże nam poświęcić mu więcej czasu, wspierać go i wprowadzać nowe funkcje.</translation>
     </message>
     <message>
+        <location filename="../src/application.cpp" line="171"/>
         <location filename="../src/application.cpp" line="213"/>
-        <location filename="../src/application.cpp" line="255"/>
         <source>Latest Version</source>
         <translation>Najnowsza wersja</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="214"/>
+        <location filename="../src/application.cpp" line="172"/>
         <source>Automatic checking for latest version is disabled. You can enable it in program settings.</source>
         <translation>Automatyczne sprawdzanie najnowszej wersji jest wyłączone. Możesz je włączyć w ustawieniach programu.</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="220"/>
+        <location filename="../src/application.cpp" line="178"/>
         <source>&amp;Manual</source>
         <translation>&amp;Podręcznik</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="227"/>
+        <location filename="../src/application.cpp" line="185"/>
         <source>&amp;Donate</source>
         <translation>&amp;Dotacja</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="237"/>
+        <location filename="../src/application.cpp" line="195"/>
         <source>&amp;Check Now</source>
         <translation>&amp;Sprawdź teraz</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="260"/>
+        <location filename="../src/application.cpp" line="218"/>
         <source>Checking for latest version...</source>
         <translation>Sprawdzanie najnowszej wersji...</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="266"/>
+        <location filename="../src/application.cpp" line="224"/>
         <source>Checking for latest version failed.</source>
-        <translation>prawdzanie najnowszej wersji nie powiodło się.</translation>
+        <translation>Sprawdzanie najnowszej wersji nie powiodło się.</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="268"/>
+        <location filename="../src/application.cpp" line="226"/>
         <source>&amp;Retry</source>
         <translation>Po&amp;nów</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="275"/>
-        <source>Your version of WebIssues Desktop Client is up to date.</source>
-        <translation>Twoja wersja programu WebIssues Desktop Client jest aktualna.</translation>
+        <location filename="../src/application.cpp" line="233"/>
+        <source>Your version of WebIssues is up to date.</source>
+        <translation>Twoja wersja programu WebIssues jest aktualna.</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="281"/>
-        <source>The latest version of WebIssues Desktop Client is %1.</source>
-        <translation>Najnowsza wersja programu WebIssues Desktop Client to %1.</translation>
+        <location filename="../src/application.cpp" line="239"/>
+        <source>The latest version of WebIssues is %1.</source>
+        <translation>Najnowsza wersja programu WebIssues to %1.</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="283"/>
+        <location filename="../src/application.cpp" line="241"/>
         <source>&amp;Release Notes</source>
         <translation>I&amp;nformacje</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="286"/>
+        <location filename="../src/application.cpp" line="244"/>
         <source>Do&amp;wnload</source>
         <translation>Po&amp;bierz</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="196"/>
+        <location filename="../src/application.cpp" line="154"/>
         <source>Copyright (C) 2007-2011 WebIssues Team</source>
         <translation>Copyright (C) 2007-2011 Zespół WebIssues</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="216"/>
+        <location filename="../src/application.cpp" line="163"/>
+        <source>Website</source>
+        <translation>Strona internetowa</translation>
+    </message>
+    <message>
+        <location filename="../src/application.cpp" line="174"/>
         <source>About WebIssues</source>
         <translation>O programie WebIssues</translation>
     </message>
@@ -679,32 +689,32 @@
 <context>
     <name>ChangeMemberAccessDialog</name>
     <message>
-        <location filename="../src/dialogs/userdialogs.cpp" line="452"/>
+        <location filename="../src/dialogs/userdialogs.cpp" line="478"/>
         <source>Change Access</source>
         <translation>Zmień dostęp</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/userdialogs.cpp" line="454"/>
+        <location filename="../src/dialogs/userdialogs.cpp" line="480"/>
         <source>Set new access level to project &lt;b&gt;%1&lt;/b&gt; for user &lt;b&gt;%2&lt;/b&gt;:</source>
         <translation>Zmień poziom dostępu do projektu &lt;b&gt;%1&lt;/b&gt; dla użytkownika &lt;b&gt;%2&lt;/b&gt;:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/userdialogs.cpp" line="456"/>
+        <location filename="../src/dialogs/userdialogs.cpp" line="482"/>
         <source>Set new access level to project &lt;b&gt;%1&lt;/b&gt; for %2 selected users:</source>
         <translation>Zmień poziom dostępu do projektu &lt;b&gt;%1&lt;/b&gt; dla %2 wybranych użytkowników:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/userdialogs.cpp" line="461"/>
+        <location filename="../src/dialogs/userdialogs.cpp" line="487"/>
         <source>Access:</source>
         <translation>Dostęp:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/userdialogs.cpp" line="469"/>
+        <location filename="../src/dialogs/userdialogs.cpp" line="495"/>
         <source>&amp;Regular member</source>
         <translation>&amp;Zwykły członek</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/userdialogs.cpp" line="473"/>
+        <location filename="../src/dialogs/userdialogs.cpp" line="499"/>
         <source>&amp;Project administrator</source>
         <translation>&amp;Administrator projektu</translation>
     </message>
@@ -753,12 +763,12 @@
 <context>
     <name>CloneIssueDialog</name>
     <message>
-        <location filename="../src/dialogs/issuedialogs.cpp" line="423"/>
+        <location filename="../src/dialogs/issuedialogs.cpp" line="447"/>
         <source>Clone Issue</source>
         <translation>Sklonuj sprawę</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/issuedialogs.cpp" line="424"/>
+        <location filename="../src/dialogs/issuedialogs.cpp" line="448"/>
         <source>Clone issue &lt;b&gt;%1&lt;/b&gt; to a folder of the same type:</source>
         <translation>Sklonuj sprawę &lt;b&gt;%1&lt;/b&gt; do folderu tego samego typu:</translation>
     </message>
@@ -963,42 +973,42 @@
 <context>
     <name>CommentView</name>
     <message>
-        <location filename="../src/views/commentview.cpp" line="47"/>
+        <location filename="../src/views/commentview.cpp" line="49"/>
         <source>&amp;Send Comment</source>
         <translation>&amp;Wyślij komentarz</translation>
     </message>
     <message>
-        <location filename="../src/views/commentview.cpp" line="48"/>
+        <location filename="../src/views/commentview.cpp" line="50"/>
         <source>Ctrl+Return</source>
         <translation>Ctrl+Return</translation>
     </message>
     <message>
-        <location filename="../src/views/commentview.cpp" line="70"/>
+        <location filename="../src/views/commentview.cpp" line="68"/>
         <source>&amp;Undo</source>
         <translation>&amp;Cofnij</translation>
     </message>
     <message>
-        <location filename="../src/views/commentview.cpp" line="76"/>
+        <location filename="../src/views/commentview.cpp" line="74"/>
         <source>&amp;Redo</source>
         <translation>&amp;Przywróć</translation>
     </message>
     <message>
-        <location filename="../src/views/commentview.cpp" line="82"/>
+        <location filename="../src/views/commentview.cpp" line="80"/>
         <source>Cu&amp;t</source>
         <translation>Wy&amp;tnij</translation>
     </message>
     <message>
-        <location filename="../src/views/commentview.cpp" line="88"/>
+        <location filename="../src/views/commentview.cpp" line="86"/>
         <source>&amp;Copy</source>
         <translation>&amp;Kopiuj</translation>
     </message>
     <message>
-        <location filename="../src/views/commentview.cpp" line="94"/>
+        <location filename="../src/views/commentview.cpp" line="92"/>
         <source>&amp;Paste</source>
         <translation>Wk&amp;lej</translation>
     </message>
     <message>
-        <location filename="../src/views/commentview.cpp" line="99"/>
+        <location filename="../src/views/commentview.cpp" line="97"/>
         <source>Select &amp;All</source>
         <translation>Zaznacz &amp;wszystko</translation>
     </message>
@@ -1018,44 +1028,39 @@
         <translation>Edytuj komentarz %1 - %2</translation>
     </message>
     <message>
-        <location filename="../src/views/commentview.cpp" line="258"/>
+        <location filename="../src/views/commentview.cpp" line="239"/>
         <source>Comment could not be sent: %1.</source>
         <translation>Nie można wysłać komentarza: %1.</translation>
     </message>
     <message>
-        <location filename="../src/views/commentview.cpp" line="267"/>
+        <location filename="../src/views/commentview.cpp" line="248"/>
         <source>This comment has not been sent. You will lose all changes
 when you close it. Are you sure you want to continue?</source>
         <translation>Ten komentarz nie został wysłany. Stracisz wszystkie zmiany
 jeśli go zamkniesz. Czy na pewno chcesz kontynuować?</translation>
     </message>
     <message>
-        <location filename="../src/views/commentview.cpp" line="239"/>
+        <location filename="../src/views/commentview.cpp" line="220"/>
         <source>Sending comment...</source>
         <translation>Wysyłanie komentarza...</translation>
     </message>
     <message>
-        <location filename="../src/views/commentview.cpp" line="104"/>
+        <location filename="../src/views/commentview.cpp" line="102"/>
         <source>Send</source>
         <translation>Wyślij</translation>
     </message>
     <message>
-        <location filename="../src/views/commentview.cpp" line="105"/>
+        <location filename="../src/views/commentview.cpp" line="103"/>
         <source>Edit</source>
         <translation>Edycja</translation>
     </message>
     <message>
-        <location filename="../src/views/commentview.cpp" line="106"/>
+        <location filename="../src/views/commentview.cpp" line="104"/>
         <source>Clipboard</source>
         <translation>Schowek</translation>
     </message>
     <message>
-        <location filename="../src/views/commentview.cpp" line="219"/>
-        <source>%1 / %2 characters</source>
-        <translation>%1 / %2 znaków</translation>
-    </message>
-    <message>
-        <location filename="../src/views/commentview.cpp" line="266"/>
+        <location filename="../src/views/commentview.cpp" line="247"/>
         <source>Warning</source>
         <translation>Ostrzeżenie</translation>
     </message>
@@ -1078,9 +1083,14 @@ jeśli go zamkniesz. Czy na pewno chcesz kontynuować?</translation>
         <translation>URL:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/connectioninfodialog.cpp" line="58"/>
+        <location filename="../src/dialogs/connectioninfodialog.cpp" line="57"/>
         <source>Version:</source>
         <translation>Wersja:</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/connectioninfodialog.cpp" line="58"/>
+        <source>Encryption:</source>
+        <translation>Szyfrowanie:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/connectioninfodialog.cpp" line="65"/>
@@ -1098,12 +1108,17 @@ jeśli go zamkniesz. Czy na pewno chcesz kontynuować?</translation>
         <translation>Dostęp:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/connectioninfodialog.cpp" line="121"/>
+        <location filename="../src/dialogs/connectioninfodialog.cpp" line="107"/>
+        <source>None</source>
+        <translation>Brak</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/connectioninfodialog.cpp" line="120"/>
         <source>Administrator</source>
         <translation>Administrator</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/connectioninfodialog.cpp" line="121"/>
+        <location filename="../src/dialogs/connectioninfodialog.cpp" line="120"/>
         <source>Regular</source>
         <translation>Normalny</translation>
     </message>
@@ -1114,11 +1129,6 @@ jeśli go zamkniesz. Czy na pewno chcesz kontynuować?</translation>
     </message>
     <message>
         <location filename="../src/dialogs/connectioninfodialog.cpp" line="56"/>
-        <source>Encrypted:</source>
-        <translation>Szyfrowanie:</translation>
-    </message>
-    <message>
-        <location filename="../src/dialogs/connectioninfodialog.cpp" line="57"/>
         <location filename="../src/dialogs/connectioninfodialog.cpp" line="82"/>
         <source>Name:</source>
         <translation>Nazwa:</translation>
@@ -1129,13 +1139,7 @@ jeśli go zamkniesz. Czy na pewno chcesz kontynuować?</translation>
         <translation>Informacje o użytkowniku</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/connectioninfodialog.cpp" line="105"/>
-        <source>Yes (%1, %2-bit)</source>
-        <translation>Tak (%1, %2-bitowe)</translation>
-    </message>
-    <message>
-        <location filename="../src/dialogs/connectioninfodialog.cpp" line="108"/>
-        <location filename="../src/dialogs/connectioninfodialog.cpp" line="111"/>
+        <location filename="../src/dialogs/connectioninfodialog.cpp" line="110"/>
         <source>No</source>
         <translation>Nie</translation>
     </message>
@@ -1203,12 +1207,12 @@ jeśli go zamkniesz. Czy na pewno chcesz kontynuować?</translation>
 <context>
     <name>DeleteAttachmentDialog</name>
     <message>
-        <location filename="../src/dialogs/issuedialogs.cpp" line="753"/>
+        <location filename="../src/dialogs/issuedialogs.cpp" line="777"/>
         <source>Delete Attachment</source>
         <translation>Usuń załącznik</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/issuedialogs.cpp" line="754"/>
+        <location filename="../src/dialogs/issuedialogs.cpp" line="778"/>
         <source>Are you sure you want to delete attachment &lt;b&gt;%1&lt;/b&gt;?</source>
         <translation>Czy na pewno chcesz usunąć załącznik &lt;b&gt;%1&lt;/b&gt;?</translation>
     </message>
@@ -1239,12 +1243,12 @@ jeśli go zamkniesz. Czy na pewno chcesz kontynuować?</translation>
 <context>
     <name>DeleteCommentDialog</name>
     <message>
-        <location filename="../src/dialogs/issuedialogs.cpp" line="465"/>
+        <location filename="../src/dialogs/issuedialogs.cpp" line="489"/>
         <source>Delete Comment</source>
         <translation>Usuń komentarz</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/issuedialogs.cpp" line="466"/>
+        <location filename="../src/dialogs/issuedialogs.cpp" line="490"/>
         <source>Are you sure you want to delete comment &lt;b&gt;%1&lt;/b&gt;?</source>
         <translation>Czy na pewno chcesz usunąć komentarz &lt;b&gt;%1&lt;/b&gt;?</translation>
     </message>
@@ -1252,18 +1256,18 @@ jeśli go zamkniesz. Czy na pewno chcesz kontynuować?</translation>
 <context>
     <name>DeleteFolderDialog</name>
     <message>
-        <location filename="../src/dialogs/projectdialogs.cpp" line="373"/>
+        <location filename="../src/dialogs/projectdialogs.cpp" line="389"/>
         <source>Delete Folder</source>
         <translation>Usuń folder</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/projectdialogs.cpp" line="374"/>
+        <location filename="../src/dialogs/projectdialogs.cpp" line="390"/>
         <source>Are you sure you want to delete folder &lt;b&gt;%1&lt;/b&gt;?</source>
         <translation>Czy na pewno chcesz usunąć folder &lt;b&gt;%1&lt;/b&gt;?</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/projectdialogs.cpp" line="378"/>
-        <location filename="../src/dialogs/projectdialogs.cpp" line="400"/>
+        <location filename="../src/dialogs/projectdialogs.cpp" line="394"/>
+        <location filename="../src/dialogs/projectdialogs.cpp" line="416"/>
         <source>All issues in this folder will be permanently deleted.</source>
         <translation>Wszystkie sprawy w tym folderze zostaną trwale usunięte.</translation>
     </message>
@@ -1271,17 +1275,17 @@ jeśli go zamkniesz. Czy na pewno chcesz kontynuować?</translation>
 <context>
     <name>DeleteIssueDialog</name>
     <message>
-        <location filename="../src/dialogs/issuedialogs.cpp" line="439"/>
+        <location filename="../src/dialogs/issuedialogs.cpp" line="463"/>
         <source>Delete Issue</source>
         <translation>Usuń sprawę</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/issuedialogs.cpp" line="440"/>
+        <location filename="../src/dialogs/issuedialogs.cpp" line="464"/>
         <source>Are you sure you want to delete issue &lt;b&gt;%1&lt;/b&gt;?</source>
         <translation>Czy na pewno chcesz usunąć sprawę &lt;b&gt;%1&lt;/b&gt;?</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/issuedialogs.cpp" line="443"/>
+        <location filename="../src/dialogs/issuedialogs.cpp" line="467"/>
         <source>The entire issue history will be permanently deleted.</source>
         <translation>Cała historia tej sprawy zostanie trwale usunięta.</translation>
     </message>
@@ -1345,22 +1349,22 @@ jeśli go zamkniesz. Czy na pewno chcesz kontynuować?</translation>
 <context>
     <name>EditAttachmentDialog</name>
     <message>
-        <location filename="../src/dialogs/issuedialogs.cpp" line="690"/>
+        <location filename="../src/dialogs/issuedialogs.cpp" line="714"/>
         <source>Edit Attachment</source>
         <translation>Edytuj załącznik</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/issuedialogs.cpp" line="691"/>
+        <location filename="../src/dialogs/issuedialogs.cpp" line="715"/>
         <source>Edit attachment &lt;b&gt;%1&lt;/b&gt;:</source>
         <translation>Edytuj załącznik &lt;b&gt;%1&lt;/b&gt;:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/issuedialogs.cpp" line="696"/>
+        <location filename="../src/dialogs/issuedialogs.cpp" line="720"/>
         <source>&amp;File name:</source>
         <translation>&amp;Nazwa pliku:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/issuedialogs.cpp" line="707"/>
+        <location filename="../src/dialogs/issuedialogs.cpp" line="731"/>
         <source>&amp;Description:</source>
         <translation>O&amp;pis:</translation>
     </message>
@@ -1383,7 +1387,7 @@ jeśli go zamkniesz. Czy na pewno chcesz kontynuować?</translation>
     <message>
         <location filename="../src/widgets/metadataeditors.cpp" line="104"/>
         <source>Allow &amp;entering custom values</source>
-        <translation>Zezwól &amp;na podawanie innych wartości</translation>
+        <translation>Zezwól &amp;na podawanie własnych wartości</translation>
     </message>
     <message>
         <location filename="../src/widgets/metadataeditors.cpp" line="109"/>
@@ -1398,7 +1402,7 @@ jeśli go zamkniesz. Czy na pewno chcesz kontynuować?</translation>
     <message>
         <location filename="../src/widgets/metadataeditors.cpp" line="132"/>
         <source>Limits can only be used when entering custom values is allowed and selecting multiple items is not allowed.</source>
-        <translation>Limity mogą być użyte tylko jeśli wprowadzanie własnych wartości jest dozwolone i wybieranie wielu wartości nie jest dozwolone.</translation>
+        <translation>Limity mogą być użyte tylko, jeśli wprowadzanie własnych wartości jest dozwolone i wybieranie wielu wartości nie jest dozwolone.</translation>
     </message>
     <message>
         <location filename="../src/widgets/metadataeditors.cpp" line="136"/>
@@ -1743,11 +1747,11 @@ jeśli go zamkniesz. Czy na pewno chcesz kontynuować?</translation>
     </message>
     <message>
         <location filename="../src/widgets/findbar.cpp" line="84"/>
-        <source>Match case</source>
-        <translation>Zachowaj wielkość liter</translation>
+        <source>&amp;Match case</source>
+        <translation>&amp;Rozróżniaj wielkość liter</translation>
     </message>
     <message>
-        <location filename="../src/widgets/findbar.cpp" line="93"/>
+        <location filename="../src/widgets/findbar.cpp" line="95"/>
         <source>Text not found</source>
         <translation>Nie znaleziono tekstu</translation>
     </message>
@@ -1801,200 +1805,200 @@ jeśli go zamkniesz. Czy na pewno chcesz kontynuować?</translation>
 <context>
     <name>FolderView</name>
     <message>
-        <location filename="../src/views/folderview.cpp" line="61"/>
+        <location filename="../src/views/folderview.cpp" line="62"/>
         <source>&amp;Update Folder</source>
         <translation>Odś&amp;wież folder</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="66"/>
+        <location filename="../src/views/folderview.cpp" line="67"/>
         <source>&amp;Open Issue</source>
         <translation>&amp;Otwórz sprawę</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="71"/>
+        <location filename="../src/views/folderview.cpp" line="72"/>
         <source>&amp;Add Issue...</source>
         <translation>Dodaj &amp;sprawę...</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="77"/>
+        <location filename="../src/views/folderview.cpp" line="78"/>
         <source>F2</source>
         <translation>F2</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="81"/>
+        <location filename="../src/views/folderview.cpp" line="82"/>
         <source>Clone Issue...</source>
         <translation>Sklonuj sprawę...</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="85"/>
+        <location filename="../src/views/folderview.cpp" line="86"/>
         <source>&amp;Move Issue...</source>
         <translation>&amp;Przenieś sprawę...</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="86"/>
+        <location filename="../src/views/folderview.cpp" line="87"/>
         <source>Move</source>
         <translation>Przenieś</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="91"/>
+        <location filename="../src/views/folderview.cpp" line="92"/>
         <source>Delete</source>
         <translation>Usuń</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="96"/>
-        <location filename="../src/views/folderview.cpp" line="359"/>
+        <location filename="../src/views/folderview.cpp" line="97"/>
+        <location filename="../src/views/folderview.cpp" line="369"/>
         <source>Mark As Read</source>
         <translation>Oznacz jako przeczytane</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="100"/>
-        <location filename="../src/views/folderview.cpp" line="104"/>
+        <location filename="../src/views/folderview.cpp" line="101"/>
+        <location filename="../src/views/folderview.cpp" line="105"/>
         <source>Mark All As Read</source>
         <translation>Oznacz wszystkie jako przeczytane</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="101"/>
+        <location filename="../src/views/folderview.cpp" line="102"/>
         <source>Mark All As Read</source>
         <comment>icon text</comment>
         <translation>Ozn. jako przeczytane</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="108"/>
+        <location filename="../src/views/folderview.cpp" line="109"/>
         <source>Mark All As Unread</source>
         <translation>Oznacz wszystkie jako nieprzeczytane</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="113"/>
+        <location filename="../src/views/folderview.cpp" line="114"/>
         <source>Print</source>
         <translation>Drukuj</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="112"/>
+        <location filename="../src/views/folderview.cpp" line="113"/>
         <source>Print List</source>
         <translation>Drukuj listę</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="119"/>
+        <location filename="../src/views/folderview.cpp" line="120"/>
         <source>Export</source>
         <translation>Eksportuj</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="118"/>
+        <location filename="../src/views/folderview.cpp" line="119"/>
         <source>Export List</source>
         <translation>Eksportuj listę</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="122"/>
+        <location filename="../src/views/folderview.cpp" line="123"/>
         <source>Export To CSV</source>
         <translation>Eksportuj jako CSV</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="126"/>
+        <location filename="../src/views/folderview.cpp" line="127"/>
         <source>Export To HTML</source>
         <translation>Eksportuj jako HTML</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="130"/>
+        <location filename="../src/views/folderview.cpp" line="131"/>
         <source>Export To PDF</source>
         <translation>Eksportuj jako PDF</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="134"/>
+        <location filename="../src/views/folderview.cpp" line="135"/>
         <source>&amp;Manage Views...</source>
         <translation>&amp;Zarządzaj widokami...</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="138"/>
+        <location filename="../src/views/folderview.cpp" line="139"/>
         <source>Add View</source>
         <translation>Dodaj widok</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="141"/>
+        <location filename="../src/views/folderview.cpp" line="142"/>
         <source>&amp;Add View</source>
         <translation>&amp;Dodaj widok</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="145"/>
+        <location filename="../src/views/folderview.cpp" line="146"/>
         <source>&amp;Clone View</source>
         <translation>S&amp;klonuj widok</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="149"/>
+        <location filename="../src/views/folderview.cpp" line="150"/>
         <source>M&amp;odify View</source>
         <translation>Z&amp;mień widok</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="153"/>
+        <location filename="../src/views/folderview.cpp" line="154"/>
         <source>Add</source>
         <translation>Dodaj</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="157"/>
+        <location filename="../src/views/folderview.cpp" line="158"/>
         <source>Report</source>
         <translation>Raport</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="156"/>
+        <location filename="../src/views/folderview.cpp" line="157"/>
         <source>Views</source>
         <translation>Widoki</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="90"/>
+        <location filename="../src/views/folderview.cpp" line="91"/>
         <source>&amp;Delete Issue</source>
         <translation>&amp;Usuń sprawę</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="154"/>
+        <location filename="../src/views/folderview.cpp" line="155"/>
         <source>Folder</source>
         <translation>Folder</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="155"/>
+        <location filename="../src/views/folderview.cpp" line="156"/>
         <source>Issue</source>
         <translation>Sprawa</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="179"/>
-        <source>&amp;Select view:</source>
-        <translation>&amp;Wybierz widok:</translation>
-    </message>
-    <message>
-        <location filename="../src/views/folderview.cpp" line="195"/>
-        <source>&amp;Quick search:</source>
-        <translation>&amp;Szybkie wyszukiwanie:</translation>
-    </message>
-    <message>
-        <location filename="../src/views/folderview.cpp" line="359"/>
+        <location filename="../src/views/folderview.cpp" line="369"/>
         <source>Mark As Unread</source>
         <translation>Oznacz jako nieprzeczytane</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="724"/>
+        <location filename="../src/views/folderview.cpp" line="784"/>
         <source>All Issues</source>
         <translation>Wszystkie sprawy</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="740"/>
+        <location filename="../src/views/folderview.cpp" line="800"/>
         <source>Personal Views</source>
         <translation>Prywatne widoki</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="750"/>
+        <location filename="../src/views/folderview.cpp" line="810"/>
         <source>Public Views</source>
         <translation>Publiczne widoki</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="326"/>
+        <location filename="../src/views/folderview.cpp" line="336"/>
         <source>Unknown Folder</source>
         <translation>Nieznany folder</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="76"/>
+        <location filename="../src/views/folderview.cpp" line="77"/>
         <source>&amp;Edit Attributes...</source>
         <translation>&amp;Edytuj atrybuty...</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="386"/>
+        <location filename="../src/views/folderview.cpp" line="180"/>
+        <source>&amp;View:</source>
+        <translation>&amp;Widok:</translation>
+    </message>
+    <message>
+        <location filename="../src/views/folderview.cpp" line="196"/>
+        <source>&amp;Search:</source>
+        <translation>&amp;Szukaj:</translation>
+    </message>
+    <message>
+        <location filename="../src/views/folderview.cpp" line="396"/>
         <source>%1 issues</source>
         <translation>%1 spraw</translation>
     </message>
@@ -2020,42 +2024,42 @@ jeśli go zamkniesz. Czy na pewno chcesz kontynuować?</translation>
 <context>
     <name>GetAttachmentDialog</name>
     <message>
-        <location filename="../src/dialogs/issuedialogs.cpp" line="600"/>
+        <location filename="../src/dialogs/issuedialogs.cpp" line="624"/>
         <source>Download</source>
         <translation>Pobieranie</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/issuedialogs.cpp" line="602"/>
+        <location filename="../src/dialogs/issuedialogs.cpp" line="626"/>
         <source>Download attachment &lt;b&gt;%1&lt;/b&gt;:</source>
         <translation>Pobieranie załącznika &lt;b&gt;%1&lt;/b&gt;:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/issuedialogs.cpp" line="605"/>
+        <location filename="../src/dialogs/issuedialogs.cpp" line="629"/>
         <source>Open attachment &lt;b&gt;%1&lt;/b&gt;:</source>
         <translation>Otwieranie załącznika &lt;b&gt;%1&lt;/b&gt;:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/issuedialogs.cpp" line="611"/>
+        <location filename="../src/dialogs/issuedialogs.cpp" line="635"/>
         <source>Destination:</source>
         <translation>Lokalizacja:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/issuedialogs.cpp" line="622"/>
+        <location filename="../src/dialogs/issuedialogs.cpp" line="646"/>
         <source>Description:</source>
         <translation>Opis:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/issuedialogs.cpp" line="634"/>
+        <location filename="../src/dialogs/issuedialogs.cpp" line="658"/>
         <source>Size: %1</source>
         <translation>Rozmiar: %1</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/issuedialogs.cpp" line="667"/>
+        <location filename="../src/dialogs/issuedialogs.cpp" line="691"/>
         <source>Downloaded: %1 of %2</source>
         <translation>Pobrano: %1 z %2</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/issuedialogs.cpp" line="675"/>
+        <location filename="../src/dialogs/issuedialogs.cpp" line="699"/>
         <source>File could not be saved.</source>
         <translation>Nie można zapisać pliku.</translation>
     </message>
@@ -2111,143 +2115,148 @@ jeśli go zamkniesz. Czy na pewno chcesz kontynuować?</translation>
 <context>
     <name>IssueDetailsGenerator</name>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="61"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="63"/>
         <source>Properties</source>
         <translation>Właściwości</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="66"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="68"/>
         <source>Attributes</source>
         <translation>Atrybuty</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="73"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="75"/>
         <source>Issue History</source>
         <translation>Historia sprawy</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="93"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="95"/>
         <source>ID:</source>
         <translation>ID:</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="98"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="100"/>
         <source>Type:</source>
         <translation>Typ:</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="100"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="102"/>
         <source>Project:</source>
         <translation>Projekt:</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="102"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="104"/>
         <source>Folder:</source>
         <translation>Folder:</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="107"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="109"/>
         <source>Created date:</source>
         <translation>Data utworzenia:</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="109"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="111"/>
         <source>Created by:</source>
         <translation>Utworzona przez:</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="111"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="113"/>
         <source>Modified date:</source>
         <translation>Data zmiany:</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="113"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="115"/>
         <source>Modified by:</source>
         <translation>Zmieniona przez:</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="130"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="270"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="132"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="276"/>
         <source>:</source>
         <translation>:</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="183"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="187"/>
         <source>Issue Created</source>
         <translation>Utworzenie sprawy</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="194"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="198"/>
         <source>Comment #%1</source>
         <translation>Komentarz #%1</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="209"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="214"/>
         <source>Attachment #%1</source>
         <translation>Załącznik #%1</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="394"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="396"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="374"/>
+        <source>Comments &amp; Attachments</source>
+        <translation>Komentarze i załączniki</translation>
+    </message>
+    <message>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="403"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="405"/>
         <source>Edit</source>
         <translation>Edycja</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="401"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="403"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="410"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="412"/>
         <source>Delete</source>
         <translation>Usuń</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="185"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="189"/>
         <source>Issue Modified</source>
         <translation>Zmiana sprawy</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="224"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="230"/>
         <source>Issue Moved</source>
         <translation>Sprawa przeniesiona</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="241"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="247"/>
         <source>last edited:</source>
         <translation>ostatnia edycja:</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="253"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="260"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="259"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="266"/>
         <source>Name:</source>
         <translation>Nazwa:</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="279"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="289"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="285"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="295"/>
         <source>empty</source>
         <translation>pusty</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="299"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="305"/>
         <source>Folder</source>
         <translation>Folder</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="303"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="313"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="309"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="319"/>
         <source>Unknown Folder</source>
         <translation>Nieznany folder</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="359"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="365"/>
         <source>All History</source>
         <translation>Cała historia</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="362"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="368"/>
         <source>Only Comments</source>
         <translation>Tylko komentarze</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="365"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="371"/>
         <source>Only Attachments</source>
         <translation>Tylko załączniki</translation>
     </message>
@@ -2366,7 +2375,7 @@ jeśli go zamkniesz. Czy na pewno chcesz kontynuować?</translation>
         <translation>Zaznacz &amp;wszystko</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="441"/>
+        <location filename="../src/views/issueview.cpp" line="443"/>
         <source>The selected file is bigger than the maximum allowed file size
 on this server which is %1.</source>
         <translation>Wybrany plik jest większy niż maksymalny dozwolony rozmiar pliku
@@ -2449,7 +2458,7 @@ na tym serwerze, który wynosi %1.</translation>
     </message>
     <message>
         <location filename="../src/views/issueview.cpp" line="178"/>
-        <location filename="../src/views/issueview.cpp" line="371"/>
+        <location filename="../src/views/issueview.cpp" line="373"/>
         <source>Mark As Read</source>
         <translation>Oznacz jako przeczytane</translation>
     </message>
@@ -2474,68 +2483,78 @@ na tym serwerze, który wynosi %1.</translation>
         <translation>Raport</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="340"/>
+        <location filename="../src/views/issueview.cpp" line="342"/>
         <source>Unknown Issue</source>
         <translation>Nieznana sprawa</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="371"/>
+        <location filename="../src/views/issueview.cpp" line="373"/>
         <source>Mark As Unread</source>
         <translation>Oznacz jako nieprzeczytane</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="430"/>
+        <location filename="../src/views/issueview.cpp" line="432"/>
         <source>Add Attachment</source>
         <translation>Dodaj załącznik</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="440"/>
+        <location filename="../src/views/issueview.cpp" line="442"/>
         <source>Warning</source>
         <translation>Ostrzeżenie</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="869"/>
+        <location filename="../src/views/issueview.cpp" line="744"/>
+        <source>%1 comments</source>
+        <translation>%1 komentarzy</translation>
+    </message>
+    <message>
+        <location filename="../src/views/issueview.cpp" line="746"/>
+        <source>%1 attachments</source>
+        <translation>%1 załączników</translation>
+    </message>
+    <message>
+        <location filename="../src/views/issueview.cpp" line="885"/>
         <source>Attachment</source>
         <translation>Załącznik</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="870"/>
+        <location filename="../src/views/issueview.cpp" line="886"/>
         <source>Do you want to save or open attachment &lt;b&gt;%1&lt;/b&gt;?</source>
         <translation>Chcesz zapisać czy otworzyć załącznik &lt;b&gt;%1&lt;/b&gt;?</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="871"/>
+        <location filename="../src/views/issueview.cpp" line="887"/>
         <source>Do this automatically for all attachments</source>
         <translation>Rób to automatycznie dla wszystkich załączników</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="874"/>
+        <location filename="../src/views/issueview.cpp" line="890"/>
         <source>&amp;Save As...</source>
         <translation>&amp;Zapisz jako...</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="876"/>
+        <location filename="../src/views/issueview.cpp" line="892"/>
         <source>&amp;Open</source>
         <translation>&amp;Otwórz</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="903"/>
+        <location filename="../src/views/issueview.cpp" line="919"/>
         <source>Save Attachment</source>
         <translation>Zapisz załącznik</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="933"/>
-        <location filename="../src/views/issueview.cpp" line="939"/>
+        <location filename="../src/views/issueview.cpp" line="949"/>
+        <location filename="../src/views/issueview.cpp" line="955"/>
         <source>Error</source>
         <translation>Błąd</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="933"/>
+        <location filename="../src/views/issueview.cpp" line="949"/>
         <source>File could not be overwritten.</source>
         <translation>Nie można nadpisać pliku.</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="939"/>
+        <location filename="../src/views/issueview.cpp" line="955"/>
         <source>File could not be saved.</source>
         <translation>Nie można zapisać pliku.</translation>
     </message>
@@ -2624,154 +2643,159 @@ na tym serwerze, który wynosi %1.</translation>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../src/mainwindow.cpp" line="79"/>
+        <location filename="../src/mainwindow.cpp" line="85"/>
         <source>Ctrl+Q</source>
         <translation>Ctrl+Q</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="106"/>
+        <location filename="../src/mainwindow.cpp" line="112"/>
         <source>Ctrl+G</source>
         <translation>Ctrl+G</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="332"/>
+        <location filename="../src/mainwindow.cpp" line="357"/>
         <source>No folder selected</source>
         <translation>Nie wybrano folderu</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="342"/>
+        <location filename="../src/mainwindow.cpp" line="367"/>
         <source>No issue selected</source>
         <translation>Nie wybrano sprawy</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="77"/>
+        <location filename="../src/mainwindow.cpp" line="83"/>
         <source>Quit</source>
         <translation>Zakończ</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="73"/>
-        <location filename="../src/mainwindow.cpp" line="272"/>
-        <location filename="../src/mainwindow.cpp" line="289"/>
+        <location filename="../src/mainwindow.cpp" line="79"/>
+        <location filename="../src/mainwindow.cpp" line="294"/>
+        <location filename="../src/mainwindow.cpp" line="314"/>
         <source>WebIssues Desktop Client</source>
         <translation>WebIssues Desktop Client</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="83"/>
+        <location filename="../src/mainwindow.cpp" line="89"/>
         <source>Close Connection</source>
         <translation>Zamknij połączenie</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="84"/>
+        <location filename="../src/mainwindow.cpp" line="90"/>
         <source>Close</source>
         <translation>Zamknij</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="89"/>
+        <location filename="../src/mainwindow.cpp" line="95"/>
         <source>Connection Details</source>
         <translation>Szczegóły połączenia</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="90"/>
+        <location filename="../src/mainwindow.cpp" line="96"/>
         <source>Details</source>
         <translation>Szczegóły</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="96"/>
+        <location filename="../src/mainwindow.cpp" line="102"/>
         <source>Users</source>
         <translation>Użytkownicy</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="95"/>
+        <location filename="../src/mainwindow.cpp" line="101"/>
         <source>User Accounts</source>
         <translation>Konta użytkowników</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="101"/>
+        <location filename="../src/mainwindow.cpp" line="107"/>
         <source>Types</source>
         <translation>Typy spraw</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="100"/>
+        <location filename="../src/mainwindow.cpp" line="106"/>
         <source>Issue Types</source>
         <translation>Typy spraw</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="105"/>
+        <location filename="../src/mainwindow.cpp" line="111"/>
         <source>Go To Item</source>
         <translation>Idź do elementu</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="111"/>
+        <location filename="../src/mainwindow.cpp" line="117"/>
         <source>Password</source>
         <translation>Hasło</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="110"/>
+        <location filename="../src/mainwindow.cpp" line="116"/>
         <source>Change Password</source>
         <translation>Zmień hasło</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="116"/>
+        <location filename="../src/mainwindow.cpp" line="122"/>
         <source>Preferences</source>
         <translation>Ustawienia</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="115"/>
+        <location filename="../src/mainwindow.cpp" line="121"/>
         <source>User Preferences</source>
         <translation>Ustawienia użytkownika</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="120"/>
+        <location filename="../src/mainwindow.cpp" line="126"/>
         <source>WebIssues Settings</source>
         <translation>Ustawienia WebIssues</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="125"/>
+        <location filename="../src/mainwindow.cpp" line="131"/>
         <source>About WebIssues</source>
         <translation>O programie WebIssues</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="130"/>
+        <location filename="../src/mainwindow.cpp" line="136"/>
         <source>Tools</source>
         <translation>Narzędzia</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="132"/>
+        <location filename="../src/mainwindow.cpp" line="138"/>
         <source>Connection</source>
         <translation>Połączenie</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="131"/>
+        <location filename="../src/mainwindow.cpp" line="137"/>
         <source>Manage</source>
         <translation>Zarządzanie</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="159"/>
-        <location filename="../src/mainwindow.cpp" line="270"/>
+        <location filename="../src/mainwindow.cpp" line="177"/>
+        <location filename="../src/mainwindow.cpp" line="292"/>
         <source>WebIssues Desktop Client
 Not connected</source>
         <translation>WebIssues Desktop Client
 Nie połączony</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="168"/>
+        <location filename="../src/mainwindow.cpp" line="186"/>
         <source>Not connected to server.</source>
         <translation>Nie połączono z serwerem.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="274"/>
+        <location filename="../src/mainwindow.cpp" line="296"/>
         <source>Disconnected from server.</source>
         <translation>Rozłączono z serwerem.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="373"/>
+        <location filename="../src/mainwindow.cpp" line="393"/>
+        <source>Encrypted</source>
+        <translation>Zaszyfrowane</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="412"/>
         <source>WebIssues Desktop Client
 Connected to %1</source>
         <translation>WebIssues Desktop Client
 Połączony z %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="695"/>
+        <location filename="../src/mainwindow.cpp" line="735"/>
         <source>%1 - WebIssues Desktop Client</source>
         <translation>%1 - WebIssues Desktop Client</translation>
     </message>
@@ -2865,7 +2889,7 @@ Połączony z %1</translation>
     <message>
         <location filename="../src/dialogs/metadatadialog.cpp" line="39"/>
         <source>Specify details of &lt;b&gt;%1&lt;/b&gt; attribute:</source>
-        <translation>Zdefiniuj szczegóły atrybutu &lt;b&gt;%1&lt;/b&gt;:</translation>
+        <translation>Podaj szczegóły atrybutu &lt;b&gt;%1&lt;/b&gt;:</translation>
     </message>
 </context>
 <context>
@@ -2960,7 +2984,12 @@ Połączony z %1</translation>
         <translation>Przenieś folder &lt;b&gt;%1&lt;/b&gt; do innego projektu:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/projectdialogs.cpp" line="315"/>
+        <location filename="../src/dialogs/projectdialogs.cpp" line="325"/>
+        <source>There are no available destination projects.</source>
+        <translation>Nie ma dostępnych projektów docelowych.</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/projectdialogs.cpp" line="333"/>
         <source>&amp;Project:</source>
         <translation>&amp;Projekt:</translation>
     </message>
@@ -2976,6 +3005,11 @@ Połączony z %1</translation>
         <location filename="../src/dialogs/issuedialogs.cpp" line="383"/>
         <source>Move issue &lt;b&gt;%1&lt;/b&gt; to another folder of the same type:</source>
         <translation>Przenieś sprawę &lt;b&gt;%1&lt;/b&gt; do innego folderu tego samego typu:</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/issuedialogs.cpp" line="404"/>
+        <source>There are no available destination folders.</source>
+        <translation>Nie ma dostępnych folderów docelowych.</translation>
     </message>
 </context>
 <context>
@@ -3131,7 +3165,7 @@ Program Desktop Client zawsze używa języka wybranego w ustawieniach programu i
     <message>
         <location filename="../src/dialogs/preferencesdialog.cpp" line="206"/>
         <source>&amp;Do not include issues that I have already read</source>
-        <translation>&amp;Pomijaj sprawy które przeczytałem</translation>
+        <translation>&amp;Pomijaj sprawy, które przeczytałem</translation>
     </message>
     <message>
         <location filename="../src/dialogs/preferencesdialog.cpp" line="209"/>
@@ -3218,94 +3252,94 @@ Program Desktop Client zawsze używa języka wybranego w ustawieniach programu i
 <context>
     <name>ProjectsView</name>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="49"/>
+        <location filename="../src/views/projectsview.cpp" line="50"/>
         <source>&amp;Update Projects</source>
         <translation>Odś&amp;wież projekty</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="54"/>
+        <location filename="../src/views/projectsview.cpp" line="55"/>
         <source>Project &amp;Members...</source>
         <translation>&amp;Członkowie projektu...</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="55"/>
+        <location filename="../src/views/projectsview.cpp" line="56"/>
         <source>Members</source>
         <translation>Członkowie</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="60"/>
+        <location filename="../src/views/projectsview.cpp" line="61"/>
         <source>Add &amp;Project...</source>
         <translation>Dodaj &amp;projekt...</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="65"/>
+        <location filename="../src/views/projectsview.cpp" line="66"/>
         <source>Add &amp;Folder...</source>
         <translation>Dodaj &amp;folder...</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="70"/>
-        <location filename="../src/views/projectsview.cpp" line="276"/>
+        <location filename="../src/views/projectsview.cpp" line="71"/>
+        <location filename="../src/views/projectsview.cpp" line="280"/>
         <source>&amp;Rename Folder...</source>
         <translation>Z&amp;mień nazwę folderu...</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="71"/>
+        <location filename="../src/views/projectsview.cpp" line="72"/>
         <source>Rename</source>
         <translation>Zmień nazwę</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="76"/>
-        <location filename="../src/views/projectsview.cpp" line="277"/>
+        <location filename="../src/views/projectsview.cpp" line="77"/>
+        <location filename="../src/views/projectsview.cpp" line="281"/>
         <source>&amp;Delete Folder</source>
         <translation>&amp;Usuń folder</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="77"/>
+        <location filename="../src/views/projectsview.cpp" line="78"/>
         <source>Delete</source>
         <translation>Usuń</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="82"/>
+        <location filename="../src/views/projectsview.cpp" line="83"/>
         <source>&amp;Move Folder...</source>
         <translation>&amp;Przenieś folder...</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="83"/>
+        <location filename="../src/views/projectsview.cpp" line="84"/>
         <source>Move</source>
         <translation>Przenieś</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="97"/>
+        <location filename="../src/views/projectsview.cpp" line="98"/>
         <source>Projects</source>
         <translation>Projekty</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="276"/>
+        <location filename="../src/views/projectsview.cpp" line="280"/>
         <source>&amp;Rename Project...</source>
         <translation>Z&amp;mień nazwę projektu...</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="277"/>
+        <location filename="../src/views/projectsview.cpp" line="281"/>
         <source>&amp;Delete Project</source>
         <translation>&amp;Usuń projekt</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="72"/>
+        <location filename="../src/views/projectsview.cpp" line="73"/>
         <source>F2</source>
         <translation>F2</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="87"/>
+        <location filename="../src/views/projectsview.cpp" line="88"/>
         <source>&amp;Open Folder</source>
         <translation>&amp;Otwórz folder</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="92"/>
+        <location filename="../src/views/projectsview.cpp" line="93"/>
         <source>&amp;Manage Alerts...</source>
         <translation>&amp;Zarządzaj alertami...</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="96"/>
+        <location filename="../src/views/projectsview.cpp" line="97"/>
         <source>Add</source>
         <translation>Dodaj</translation>
     </message>
@@ -3349,22 +3383,22 @@ Program Desktop Client zawsze używa języka wybranego w ustawieniach programu i
 <context>
     <name>RemoveMemberDialog</name>
     <message>
-        <location filename="../src/dialogs/userdialogs.cpp" line="525"/>
+        <location filename="../src/dialogs/userdialogs.cpp" line="551"/>
         <source>Remove Member</source>
         <translation>Usuń członka</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/userdialogs.cpp" line="526"/>
+        <location filename="../src/dialogs/userdialogs.cpp" line="552"/>
         <source>Do you want to remove user &lt;b&gt;%1&lt;/b&gt; from project &lt;b&gt;%2&lt;/b&gt;?</source>
         <translation>Czy chcesz usunąć użytkownika &lt;b&gt;%1&lt;/b&gt; z projektu &lt;b&gt;%2&lt;/b&gt;?</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/userdialogs.cpp" line="528"/>
+        <location filename="../src/dialogs/userdialogs.cpp" line="554"/>
         <source>Remove Members</source>
         <translation>Usuń członków</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/userdialogs.cpp" line="529"/>
+        <location filename="../src/dialogs/userdialogs.cpp" line="555"/>
         <source>Do you want to remove %1 selected users from project &lt;b&gt;%2&lt;/b&gt;?</source>
         <translation>Czy chcesz usuńąć %1 wybranych użytkowników z projektu &lt;b&gt;%2&lt;/b&gt;?</translation>
     </message>
@@ -3480,119 +3514,119 @@ Program Desktop Client zawsze używa języka wybranego w ustawieniach programu i
 <context>
     <name>ReportDialog</name>
     <message>
-        <location filename="../src/dialogs/reportdialog.cpp" line="61"/>
+        <location filename="../src/dialogs/reportdialog.cpp" line="60"/>
         <source>Table with visible columns only</source>
         <translation>Tabela tylko z widocznymi kolumnami</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/reportdialog.cpp" line="63"/>
+        <location filename="../src/dialogs/reportdialog.cpp" line="62"/>
         <source>Table with all system and user columns</source>
         <translation>Tabela ze wszystkimi kolumnami systemowymi i użytkownika</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/reportdialog.cpp" line="71"/>
+        <location filename="../src/dialogs/reportdialog.cpp" line="70"/>
         <source>Summary report including issue details</source>
         <translation>Podsumowanie zawierające szczegóły zagadnienia</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/reportdialog.cpp" line="78"/>
+        <location filename="../src/dialogs/reportdialog.cpp" line="77"/>
         <source>Full report including issue details and history</source>
         <translation>Pełny raport zawierający szczegóły i historię zagadnienia</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/reportdialog.cpp" line="101"/>
+        <location filename="../src/dialogs/reportdialog.cpp" line="100"/>
         <source>list of issues</source>
         <translation>listę spraw</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/reportdialog.cpp" line="104"/>
+        <location filename="../src/dialogs/reportdialog.cpp" line="103"/>
         <source>issue details</source>
         <translation>szczegóły sprawy</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/reportdialog.cpp" line="110"/>
+        <location filename="../src/dialogs/reportdialog.cpp" line="109"/>
         <source>Print</source>
         <translation>Drukuj</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/reportdialog.cpp" line="115"/>
+        <location filename="../src/dialogs/reportdialog.cpp" line="114"/>
         <source>Export To CSV</source>
         <translation>Eksportuj jako CSV</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/reportdialog.cpp" line="120"/>
+        <location filename="../src/dialogs/reportdialog.cpp" line="119"/>
         <source>Export To HTML</source>
         <translation>Eksportuj jako HTML</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/reportdialog.cpp" line="125"/>
+        <location filename="../src/dialogs/reportdialog.cpp" line="124"/>
         <source>Export To PDF</source>
         <translation>Eksportuj jako PDF</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/reportdialog.cpp" line="133"/>
+        <location filename="../src/dialogs/reportdialog.cpp" line="132"/>
         <source>Select type of report.</source>
         <translation>Wybierz typ raportu.</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/reportdialog.cpp" line="215"/>
-        <location filename="../src/dialogs/reportdialog.cpp" line="236"/>
+        <location filename="../src/dialogs/reportdialog.cpp" line="213"/>
+        <location filename="../src/dialogs/reportdialog.cpp" line="234"/>
         <source>File could not be saved.</source>
         <translation>Nie można zapisać pliku.</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/reportdialog.cpp" line="85"/>
+        <location filename="../src/dialogs/reportdialog.cpp" line="84"/>
         <source>&amp;Print Preview...</source>
         <translation>&amp;Podgląd wydruku...</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/reportdialog.cpp" line="112"/>
+        <location filename="../src/dialogs/reportdialog.cpp" line="111"/>
         <source>Print %1:</source>
         <translation>Drukuj %1:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/reportdialog.cpp" line="117"/>
+        <location filename="../src/dialogs/reportdialog.cpp" line="116"/>
         <source>Export %1 to CSV file:</source>
         <translation>Eksportuj %1 jako plik CSV:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/reportdialog.cpp" line="122"/>
+        <location filename="../src/dialogs/reportdialog.cpp" line="121"/>
         <source>Export %1 to HTML file:</source>
         <translation>Eksportuj %1 jako plik HTML:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/reportdialog.cpp" line="127"/>
+        <location filename="../src/dialogs/reportdialog.cpp" line="126"/>
         <source>Export %1 to PDF file:</source>
         <translation>Eksportuj %1 jako plik PDF:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/reportdialog.cpp" line="208"/>
+        <location filename="../src/dialogs/reportdialog.cpp" line="206"/>
         <source>CSV Files (*.csv)</source>
         <translation>Pliki CSV (*.csv)</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/reportdialog.cpp" line="215"/>
-        <location filename="../src/dialogs/reportdialog.cpp" line="236"/>
+        <location filename="../src/dialogs/reportdialog.cpp" line="213"/>
+        <location filename="../src/dialogs/reportdialog.cpp" line="234"/>
         <source>Warning</source>
         <translation>Ostrzeżenie</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/reportdialog.cpp" line="229"/>
+        <location filename="../src/dialogs/reportdialog.cpp" line="227"/>
         <source>HTML Files (*.html)</source>
         <translation>Pliki HTML (*.html)</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/reportdialog.cpp" line="253"/>
+        <location filename="../src/dialogs/reportdialog.cpp" line="251"/>
         <source>PDF Files (*.pdf)</source>
         <translation>Pliki PDF (*.pdf)</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/reportdialog.cpp" line="279"/>
+        <location filename="../src/dialogs/reportdialog.cpp" line="277"/>
         <source>Print Preview</source>
         <translation>Podgląd wydruku</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/reportdialog.cpp" line="339"/>
+        <location filename="../src/dialogs/reportdialog.cpp" line="345"/>
         <source>Save As</source>
         <translation>Zapisz jako</translation>
     </message>
@@ -3664,6 +3698,11 @@ Program Desktop Client zawsze używa języka wybranego w ustawieniach programu i
     <name>SearchEditBox</name>
     <message>
         <location filename="../src/widgets/searcheditbox.cpp" line="34"/>
+        <source>Search Options</source>
+        <translation>Opcje wyszukiwania</translation>
+    </message>
+    <message>
+        <location filename="../src/widgets/searcheditbox.cpp" line="39"/>
         <source>Clear</source>
         <translation>Wyczyść</translation>
     </message>
@@ -3709,176 +3748,242 @@ Program Desktop Client zawsze używa języka wybranego w ustawieniach programu i
 <context>
     <name>SettingsDialog</name>
     <message>
-        <location filename="../src/dialogs/settingsdialog.cpp" line="159"/>
-        <location filename="../src/dialogs/settingsdialog.cpp" line="339"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="44"/>
         <source>System Default</source>
         <translation>Domyślny</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.cpp" line="77"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="77"/>
         <source>&amp;Dock main window in system tray</source>
         <translation>Za&amp;dokuj główne okno w obszarze powiadomień</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.cpp" line="42"/>
+        <location filename="../src/dialogs/settingsdialog.cpp" line="34"/>
         <source>WebIssues Settings</source>
         <translation>Ustawienia WebIssues</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.cpp" line="46"/>
+        <location filename="../src/dialogs/settingsdialog.cpp" line="38"/>
         <source>Edit program settings.</source>
         <translation>Edytuj ustawienia programu.</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.cpp" line="87"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="21"/>
+        <source>Basic</source>
+        <translation>Podstawowe</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/settingsdialog.ui" line="27"/>
+        <source>Regional Options</source>
+        <translation>Ustawienia regionalne</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/settingsdialog.ui" line="33"/>
+        <source>&amp;Language of the user interface:</source>
+        <translation>&amp;Język interfejsu użytkownika:</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/settingsdialog.ui" line="71"/>
+        <source>User Interface</source>
+        <translation>Interfejs użytkownika</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/settingsdialog.ui" line="87"/>
+        <source>Startup Options</source>
+        <translation>Opcje uruchamiania</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/settingsdialog.ui" line="93"/>
         <source>&amp;Show main window at startup:</source>
         <translation>&amp;Pokaż główne okno po uruchomieniu:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.cpp" line="91"/>
-        <location filename="../src/dialogs/settingsdialog.cpp" line="102"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="110"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="155"/>
         <source>Never</source>
         <translation>Nigdy</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.cpp" line="92"/>
-        <location filename="../src/dialogs/settingsdialog.cpp" line="103"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="115"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="160"/>
         <source>Automatically</source>
         <translation>Automatycznie</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.cpp" line="93"/>
-        <location filename="../src/dialogs/settingsdialog.cpp" line="104"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="120"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="165"/>
         <source>Always</source>
         <translation>Zawsze</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.cpp" line="98"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="144"/>
         <source>&amp;Restore last connection at startup:</source>
         <translation>P&amp;rzywróć ostatnie połączene po uruchomieniu:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.cpp" line="114"/>
-        <source>De&amp;fault action for attachments:</source>
-        <translation>Do&amp;myślna akcja dla załączików:</translation>
+        <location filename="../src/dialogs/settingsdialog.ui" line="189"/>
+        <source>Start WebIssues when I start &amp;Windows</source>
+        <translation>Uruchom WebIssues po uruchomieniu systemu &amp;Windows</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.cpp" line="130"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="199"/>
+        <source>Fonts</source>
+        <translation>Czcionki</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/settingsdialog.ui" line="218"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="257"/>
+        <source> pt</source>
+        <translation>pt</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/settingsdialog.ui" line="283"/>
+        <source>Co&amp;mment editor:</source>
+        <translation>&amp;Edytor komentarza:</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/settingsdialog.ui" line="293"/>
+        <source>Issue &amp;history:</source>
+        <translation>&amp;Historia sprawy:</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/settingsdialog.ui" line="306"/>
+        <source>Automatic Update</source>
+        <translation>Automatyczna aktualizacja</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/settingsdialog.ui" line="351"/>
+        <source>&amp;Default action for attachments:</source>
+        <translation>&amp;Domyślna akcja dla załączników:</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/settingsdialog.ui" line="396"/>
+        <source>Update Intervals</source>
+        <translation>Okresy odświeżania</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/settingsdialog.ui" line="402"/>
+        <source>&amp;Update folders every:</source>
+        <translation>Odśwież &amp;foldery co:</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/settingsdialog.ui" line="438"/>
+        <source>Update all data e&amp;very:</source>
+        <translation>Odśwież &amp;wszystko co:</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/settingsdialog.ui" line="480"/>
+        <source>Cache Settings</source>
+        <translation>Ustawienia cache&apos;u</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/settingsdialog.ui" line="486"/>
+        <source>&amp;Maximum number of cached issues:</source>
+        <translation>&amp;Maksymalna liczba przechowywanych spraw:</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/settingsdialog.ui" line="522"/>
+        <source>Maximum &amp;size of cached attachments:</source>
+        <translation>Maksymalny &amp;rozmiar przechowywanych załączników:</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/settingsdialog.ui" line="564"/>
+        <source>Proxy Settings</source>
+        <translation>Ustawienia proxy</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/settingsdialog.ui" line="570"/>
+        <source>Use custom pro&amp;xy settings:</source>
+        <translation>&amp;Użyj własnych ustawień proxy:</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/settingsdialog.ui" line="579"/>
+        <source>&amp;Host:</source>
+        <translation>&amp;Host:</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/settingsdialog.ui" line="596"/>
+        <source>&amp;Port:</source>
+        <translation>&amp;Port:</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/settingsdialog.ui" line="622"/>
+        <source>&amp;Type:</source>
+        <translation>&amp;Typ:</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/settingsdialog.ui" line="636"/>
+        <source>HTTP</source>
+        <translation>HTTP</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/settingsdialog.ui" line="641"/>
+        <source>Socks</source>
+        <translation>Socks</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/settingsdialog.ui" line="651"/>
+        <source>Do not use a proxy for the following addresses:</source>
+        <translation>Nie używaj proxy dla następujących adresów:</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/settingsdialog.ui" line="312"/>
         <source>&amp;Enable automatic checking for latest version of WebIssues</source>
         <translation>&amp;Włącz automatyczne sprawdzanie najnowszej wersji</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.cpp" line="140"/>
-        <source>Start &amp;WebIssues when I start Windows</source>
-        <translation>&amp;Uruchom WebIssues po uruchomieniu systemu Windows</translation>
-    </message>
-    <message>
-        <location filename="../src/dialogs/settingsdialog.cpp" line="154"/>
-        <source>&amp;Proxy used for Internet connections:</source>
-        <translation>&amp;Proxy używane dla połączeń internetowych:</translation>
-    </message>
-    <message>
-        <location filename="../src/dialogs/settingsdialog.cpp" line="161"/>
-        <source>No Proxy</source>
-        <translation>Bez proxy</translation>
-    </message>
-    <message>
-        <location filename="../src/dialogs/settingsdialog.cpp" line="163"/>
-        <source>SOCKS5 Proxy</source>
-        <translation>Proxy SOCKS5</translation>
-    </message>
-    <message>
-        <location filename="../src/dialogs/settingsdialog.cpp" line="162"/>
-        <source>HTTP Proxy</source>
-        <translation>Proxy HTTP</translation>
-    </message>
-    <message>
-        <location filename="../src/dialogs/settingsdialog.cpp" line="171"/>
-        <source>&amp;Host name:</source>
-        <translation>&amp;Nazwa hosta:</translation>
-    </message>
-    <message>
-        <location filename="../src/dialogs/settingsdialog.cpp" line="181"/>
-        <source>Port &amp;number:</source>
-        <translation>Nu&amp;mer portu:</translation>
-    </message>
-    <message>
-        <location filename="../src/dialogs/settingsdialog.cpp" line="149"/>
-        <source>Connection</source>
-        <translation>Połączenie</translation>
-    </message>
-    <message>
-        <location filename="../src/dialogs/settingsdialog.cpp" line="199"/>
-        <source>I&amp;nterval of periodic data updates:</source>
-        <translation>O&amp;kres odświeżania danych:</translation>
-    </message>
-    <message>
-        <location filename="../src/dialogs/settingsdialog.cpp" line="204"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="412"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="448"/>
         <source> min</source>
         <translation> min</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.cpp" line="118"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="362"/>
         <source>Ask what to do</source>
         <translation>Zapytaj co zrobić</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.cpp" line="43"/>
+        <location filename="../src/dialogs/settingsdialog.cpp" line="35"/>
         <source>Configure settings of the WebIssues Desktop Client:</source>
         <translation>Zmień ustawienia programu WebIssues Desktop Client:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.cpp" line="54"/>
-        <source>Appearance</source>
-        <translation>Wygląd</translation>
-    </message>
-    <message>
-        <location filename="../src/dialogs/settingsdialog.cpp" line="119"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="367"/>
         <source>Open</source>
         <translation>Otwórz</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.cpp" line="120"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="372"/>
         <source>Save As...</source>
         <translation>Zapisz jako...</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.cpp" line="72"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="345"/>
         <source>Behavior</source>
         <translation>Zachowanie</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.cpp" line="214"/>
-        <source>&amp;Maximum size of attachments cache:</source>
-        <translation>&amp;Maksymalny rozmiar bufora załączników:</translation>
-    </message>
-    <message>
-        <location filename="../src/dialogs/settingsdialog.cpp" line="219"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="532"/>
         <source> MB</source>
         <translation> MB</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.cpp" line="194"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="339"/>
         <source>Advanced</source>
         <translation>Zaawansowane</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.cpp" line="229"/>
+        <location filename="../src/dialogs/settingsdialog.cpp" line="77"/>
         <source>&amp;Apply</source>
         <translation>&amp;Zastosuj</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.cpp" line="291"/>
+        <location filename="../src/dialogs/settingsdialog.cpp" line="149"/>
         <source>Warning</source>
         <translation>Ostrzeżenie</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.cpp" line="59"/>
-        <source>&amp;Language of user interface:</source>
-        <translation>&amp;Język interfejsu użytkownika:</translation>
-    </message>
-    <message>
-        <location filename="../src/dialogs/settingsdialog.cpp" line="291"/>
+        <location filename="../src/dialogs/settingsdialog.cpp" line="149"/>
         <source>Language settings will be applied when the application is restarted.</source>
         <translation>Ustawienia języka zostaną zmienione po ponownym uruchomieniu programu.</translation>
     </message>
@@ -3960,7 +4065,7 @@ Program Desktop Client zawsze używa języka wybranego w ustawieniach programu i
     <message>
         <location filename="../src/dialogs/ssldialogs.cpp" line="160"/>
         <source>The authenticity of the host you are connecting to cannot be validated:</source>
-        <translation>Autentyczność serwera, do którego się łączysz, nie może być zweryfikowana:</translation>
+        <translation>Autentyczność serwera, z którym się łączysz, nie może być zweryfikowana:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/ssldialogs.cpp" line="172"/>
@@ -4257,83 +4362,83 @@ Program Desktop Client zawsze używa języka wybranego w ustawieniach programu i
 <context>
     <name>UsersView</name>
     <message>
-        <location filename="../src/views/usersview.cpp" line="40"/>
+        <location filename="../src/views/usersview.cpp" line="41"/>
         <source>&amp;Update Users</source>
         <translation>Odś&amp;wież użytkowników</translation>
     </message>
     <message>
-        <location filename="../src/views/usersview.cpp" line="45"/>
+        <location filename="../src/views/usersview.cpp" line="46"/>
         <source>&amp;Add User...</source>
         <translation>&amp;Dodaj użytkownika...</translation>
     </message>
     <message>
-        <location filename="../src/views/usersview.cpp" line="50"/>
+        <location filename="../src/views/usersview.cpp" line="51"/>
         <source>&amp;Rename User...</source>
         <translation>Z&amp;mień nazwę użytkownika...</translation>
     </message>
     <message>
-        <location filename="../src/views/usersview.cpp" line="51"/>
+        <location filename="../src/views/usersview.cpp" line="52"/>
         <source>Rename</source>
         <translation>Zmień nazwę</translation>
     </message>
     <message>
-        <location filename="../src/views/usersview.cpp" line="52"/>
+        <location filename="../src/views/usersview.cpp" line="53"/>
         <source>F2</source>
         <translation>F2</translation>
     </message>
     <message>
-        <location filename="../src/views/usersview.cpp" line="56"/>
+        <location filename="../src/views/usersview.cpp" line="57"/>
         <source>&amp;Change Access...</source>
         <translation>Zmień &amp;dostęp...</translation>
     </message>
     <message>
-        <location filename="../src/views/usersview.cpp" line="57"/>
+        <location filename="../src/views/usersview.cpp" line="58"/>
         <source>Access</source>
         <translation>Dostęp</translation>
     </message>
     <message>
-        <location filename="../src/views/usersview.cpp" line="61"/>
+        <location filename="../src/views/usersview.cpp" line="62"/>
         <source>Change &amp;Password...</source>
         <translation>Zmień &amp;hasło...</translation>
     </message>
     <message>
-        <location filename="../src/views/usersview.cpp" line="62"/>
+        <location filename="../src/views/usersview.cpp" line="63"/>
         <source>Password</source>
         <translation>Hasło</translation>
     </message>
     <message>
-        <location filename="../src/views/usersview.cpp" line="67"/>
+        <location filename="../src/views/usersview.cpp" line="68"/>
         <source>Preferences</source>
         <translation>Ustawienia</translation>
     </message>
     <message>
-        <location filename="../src/views/usersview.cpp" line="71"/>
+        <location filename="../src/views/usersview.cpp" line="72"/>
         <source>Add</source>
         <translation>Dodaj</translation>
     </message>
     <message>
-        <location filename="../src/views/usersview.cpp" line="72"/>
-        <location filename="../src/views/usersview.cpp" line="134"/>
+        <location filename="../src/views/usersview.cpp" line="73"/>
+        <location filename="../src/views/usersview.cpp" line="135"/>
         <source>User Accounts</source>
         <translation>Konta użytkowników</translation>
     </message>
     <message>
-        <location filename="../src/views/usersview.cpp" line="92"/>
+        <location filename="../src/views/usersview.cpp" line="93"/>
         <source>All Users</source>
         <translation>Wszyscy użytkownicy</translation>
     </message>
     <message>
-        <location filename="../src/views/usersview.cpp" line="93"/>
+        <location filename="../src/views/usersview.cpp" line="94"/>
         <source>Active</source>
         <translation>Aktywni</translation>
     </message>
     <message>
-        <location filename="../src/views/usersview.cpp" line="94"/>
+        <location filename="../src/views/usersview.cpp" line="95"/>
         <source>Disabled</source>
         <translation>Wyłączeni</translation>
     </message>
     <message>
-        <location filename="../src/views/usersview.cpp" line="66"/>
+        <location filename="../src/views/usersview.cpp" line="67"/>
         <source>User P&amp;references...</source>
         <translation>&amp;Ustawienia użytkownika...</translation>
     </message>
@@ -4687,27 +4792,27 @@ Program Desktop Client zawsze używa języka wybranego w ustawieniach programu i
 <context>
     <name>ViewerWindow</name>
     <message>
-        <location filename="../src/views/viewerwindow.cpp" line="45"/>
+        <location filename="../src/views/viewerwindow.cpp" line="48"/>
         <source>Close</source>
         <translation>Zamknij</translation>
     </message>
     <message>
-        <location filename="../src/views/viewerwindow.cpp" line="46"/>
+        <location filename="../src/views/viewerwindow.cpp" line="49"/>
         <source>Ctrl+W</source>
         <translation>Ctrl+W</translation>
     </message>
     <message>
-        <location filename="../src/views/viewerwindow.cpp" line="50"/>
+        <location filename="../src/views/viewerwindow.cpp" line="53"/>
         <source>WebIssues Settings</source>
         <translation>Ustawienia WebIssues</translation>
     </message>
     <message>
-        <location filename="../src/views/viewerwindow.cpp" line="54"/>
+        <location filename="../src/views/viewerwindow.cpp" line="57"/>
         <source>About WebIssues</source>
         <translation>O programie WebIssues</translation>
     </message>
     <message>
-        <location filename="../src/views/viewerwindow.cpp" line="169"/>
+        <location filename="../src/views/viewerwindow.cpp" line="180"/>
         <source>%1 - WebIssues Desktop Client</source>
         <translation>%1 - WebIssues Desktop Client</translation>
     </message>
