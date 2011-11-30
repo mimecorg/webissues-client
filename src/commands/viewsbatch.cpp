@@ -175,6 +175,7 @@ Command* ViewsBatch::setViewSettingJob( const Job& job )
     command->setKeyword( "SET VIEW SETTING" );
     command->setArgs( job.args() );
 
+    command->setAcceptNullReply( true );
     command->addRule( "OK", ReplyRule::One );
 
     connect( command, SIGNAL( commandReply( const Reply& ) ), this, SLOT( setUpdate() ) );
