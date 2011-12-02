@@ -539,7 +539,7 @@
     <message>
         <location filename="../src/dialogs/typedialogs.cpp" line="240"/>
         <source>Edit</source>
-        <translation>Edycja</translation>
+        <translation>Edytuj</translation>
     </message>
     <message>
         <location filename="../src/dialogs/typedialogs.cpp" line="243"/>
@@ -1848,7 +1848,7 @@ jeśli go zamkniesz. Czy na pewno chcesz kontynuować?</translation>
         <location filename="../src/views/folderview.cpp" line="97"/>
         <location filename="../src/views/folderview.cpp" line="369"/>
         <source>Mark As Read</source>
-        <translation>Oznacz jako przeczytane</translation>
+        <translation>Oznacz jako przeczytaną</translation>
     </message>
     <message>
         <location filename="../src/views/folderview.cpp" line="101"/>
@@ -1960,7 +1960,7 @@ jeśli go zamkniesz. Czy na pewno chcesz kontynuować?</translation>
     <message>
         <location filename="../src/views/folderview.cpp" line="369"/>
         <source>Mark As Unread</source>
-        <translation>Oznacz jako nieprzeczytane</translation>
+        <translation>Oznacz jako nieprzeczytaną</translation>
     </message>
     <message>
         <location filename="../src/views/folderview.cpp" line="784"/>
@@ -2178,7 +2178,7 @@ jeśli go zamkniesz. Czy na pewno chcesz kontynuować?</translation>
     <message>
         <location filename="../src/models/issuedetailsgenerator.cpp" line="187"/>
         <source>Issue Created</source>
-        <translation>Utworzenie sprawy</translation>
+        <translation>Sprawa utworzona</translation>
     </message>
     <message>
         <location filename="../src/models/issuedetailsgenerator.cpp" line="198"/>
@@ -2199,7 +2199,7 @@ jeśli go zamkniesz. Czy na pewno chcesz kontynuować?</translation>
         <location filename="../src/models/issuedetailsgenerator.cpp" line="403"/>
         <location filename="../src/models/issuedetailsgenerator.cpp" line="405"/>
         <source>Edit</source>
-        <translation>Edycja</translation>
+        <translation>Edytuj</translation>
     </message>
     <message>
         <location filename="../src/models/issuedetailsgenerator.cpp" line="410"/>
@@ -2210,7 +2210,7 @@ jeśli go zamkniesz. Czy na pewno chcesz kontynuować?</translation>
     <message>
         <location filename="../src/models/issuedetailsgenerator.cpp" line="189"/>
         <source>Issue Modified</source>
-        <translation>Zmiana sprawy</translation>
+        <translation>Sprawa zmieniona</translation>
     </message>
     <message>
         <location filename="../src/models/issuedetailsgenerator.cpp" line="230"/>
@@ -2294,12 +2294,12 @@ jeśli go zamkniesz. Czy na pewno chcesz kontynuować?</translation>
     <message>
         <location filename="../src/dialogs/statedialogs.cpp" line="37"/>
         <source>Mark As Read</source>
-        <translation>Oznacz jako przeczytane</translation>
+        <translation>Oznacz jako przeczytaną</translation>
     </message>
     <message>
         <location filename="../src/dialogs/statedialogs.cpp" line="39"/>
         <source>Mark As Unread</source>
-        <translation>Oznacz jako nieprzeczytane</translation>
+        <translation>Oznacz jako nieprzeczytaną</translation>
     </message>
     <message>
         <location filename="../src/dialogs/statedialogs.cpp" line="40"/>
@@ -2460,7 +2460,7 @@ na tym serwerze, który wynosi %1.</translation>
         <location filename="../src/views/issueview.cpp" line="178"/>
         <location filename="../src/views/issueview.cpp" line="373"/>
         <source>Mark As Read</source>
-        <translation>Oznacz jako przeczytane</translation>
+        <translation>Oznacz jako przeczytaną</translation>
     </message>
     <message>
         <location filename="../src/views/issueview.cpp" line="182"/>
@@ -2490,7 +2490,7 @@ na tym serwerze, który wynosi %1.</translation>
     <message>
         <location filename="../src/views/issueview.cpp" line="373"/>
         <source>Mark As Unread</source>
-        <translation>Oznacz jako nieprzeczytane</translation>
+        <translation>Oznacz jako nieprzeczytaną</translation>
     </message>
     <message>
         <location filename="../src/views/issueview.cpp" line="432"/>
