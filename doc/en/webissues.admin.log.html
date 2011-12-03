@@ -19,7 +19,7 @@
             <h1><img src="common/webissues.png" alt="WebIssues" id="logo" />WebIssues Manual</h1>
           </div>
           <div id="header-right">
-            <h2 class="subtitle">Version 1.0-beta3</h2>
+            <h2 class="subtitle">Version 1.0-beta4</h2>
           </div>
         </div>
         <div id="infobar">
@@ -42,7 +42,7 @@
           </div>
           <p>To view the event log of the WebIssues server, go to the Administration Panel and click <span class="guilabel">Event Log</span>.</p>
           <div class="figure">
-            <a id="id513256"></a>
+            <a id="id604296"></a>
             <div class="figure-contents">
               <div class="mediaobject">
                 <img src="images/ch05-fig03.png" alt="The event log" />
@@ -58,19 +58,19 @@
                 <span class="term">Errors</span>
               </dt>
               <dd>
-                <p>Errors and warnings in the system WebIssues. They may result from incorrect input data, lack of permission to perform operations, conflict between parallel changes or incorrect system configuration.</p>
+                <p>Errors and warnings in the system WebIssues. They may result from incorrect input data, lack of permission to perform some operations, conflicts between parallel changes or incorrect system configuration.</p>
               </dd>
               <dt>
                 <span class="term">Access</span>
               </dt>
               <dd>
-                <p>Information about successful and unsuccessful attempts to log into the system, as well as errors associated with the denial of access to specific pages or operations.</p>
+                <p>Information about successful and failed attempts to log into the system, as well as errors associated with the denial of access to specific pages or operations.</p>
               </dd>
               <dt>
                 <span class="term">Audit</span>
               </dt>
               <dd>
-                <p>Information about important administrative operations, such as: creating and changing passwords or permissions of user, creating, deleting and modifying issue types, attributes, projects and folders, and deleting issues.</p>
+                <p>Information about important administrative operations, such as: creating and changing passwords or permissions of users, creating, deleting and modifying issue types, attributes, projects and folders, and deleting issues.</p>
               </dd>
               <dt>
                 <span class="term">Cron</span>
@@ -82,12 +82,12 @@
           </div>
           <p>Events also have three different levels of severity: information, warning and error. They are marked with different icons.</p>
           <p>By default, the log displays all events, sorted from newest to oldest. If you are interested only in a specific type of events, click on one of the options in the upper right corner of the window to enable filtering.</p>
-          <p>Click on an event to view detailed information about it. In addition to the type, severity and full message, also the name of the user who performed the operation and the host name or IP address from which the connection was made is displayed.</p>
+          <p>Click on an event to view detailed information about it. In addition to the type, severity and full message, also the name of the user who performed the operation and the host name or IP address, from which the connection was made, are displayed.</p>
           <div class="note" title="Note" style="margin-left: 0.5in; margin-right: 0.5in;">
             <h3 class="title">Note</h3>
-            <p>Although detailed information about errors are stored in the event log, for security reasons they are not displayed on error pages. However, you can enable detailed error messages for development or troubleshooting purposes. You can also enable an additional text log which makes debugging easier. Do not enable those settings in production environment. For more information, please visit <a class="ulink" href="http://wiki.mimec.org/wiki/WebIssues/Configuration" target="_top">http://wiki.mimec.org/wiki/WebIssues/Configuration</a>.</p>
+            <p>Although detailed information about errors are stored in the event log, for security reasons they are not displayed on error pages. However, you can enable detailed error messages for development or troubleshooting purposes. You can also enable an additional text log which makes debugging easier. However, you should not enable those settings in production environment. For more information, please visit <a class="ulink" href="http://wiki.mimec.org/wiki/WebIssues/Configuration" target="_top">http://wiki.mimec.org/wiki/WebIssues/Configuration</a>.</p>
           </div>
-          <p>Events are automatically removed from the log after a specified amount of time. For more information about configuring this period, please refer to <a class="xref" href="webissues.custom.settings.html" title="Advanced settings">the section called “Advanced settings”</a>.</p>
+          <p>Events are automatically removed from the log after a specified amount of time. For more information about configuring this period, refer to <a class="xref" href="webissues.custom.settings.html" title="Advanced settings">the section called “Advanced settings”</a>.</p>
         </div>
         <div class="navlinks">
           <div class="navleft">&laquo; <a accesskey="p" href="webissues.admin.info.html">Server information</a></div>

@@ -19,7 +19,7 @@
             <h1><img src="common/webissues.png" alt="WebIssues" id="logo" />WebIssues Manual</h1>
           </div>
           <div id="header-right">
-            <h2 class="subtitle">Version 1.0-beta3</h2>
+            <h2 class="subtitle">Version 1.0-beta4</h2>
           </div>
         </div>
         <div id="infobar">
@@ -40,7 +40,7 @@
               </div>
             </div>
           </div>
-          <p>The WebIssues system has the ability to send emails informing about new and changed issues in selected views. This is optional, because the configuration of your computer or hosting service doesn't always allow this and it's not needed in all cases. If you want to use email notifications, you must perform two additional configuration steps.</p>
+          <p>The WebIssues system has the ability to send emails informing about new and changed issues in selected views. This is optional, because the configuration of your computer or hosting service doesn't always allow this, and it's not needed in all cases. If you want to use email notifications, you must perform two additional configuration steps.</p>
           <div class="sect2" title="Sending emails">
             <div class="titlepage">
               <div>
@@ -51,7 +51,7 @@
             </div>
             <p>First, go to the Administration Panel and click <span class="guilabel">Email Settings</span> to configure sending emails.</p>
             <div class="figure">
-              <a id="id506124"></a>
+              <a id="id594943"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch02-fig10.png" alt="Email settings" />
@@ -75,16 +75,16 @@
                 </div>
               </div>
             </div>
-            <p>The second step is to set up a recurring task, which will send notifications. This task should be executed at least once an hour, but in order to receive immediate notification more quickly, it's recommended that this task was performed at intervals of 5 to 15 minutes.</p>
-            <p>In case of Unix/Linux, you can use the <code class="literal">cron</code> jobs mechanism . To add a cron job, modify <code class="filename">/etc/crontab</code> or use a graphical tool for managing jobs. If you use Windows, open the Task Scheduler and create a new task. For more information, please visit <a class="ulink" href="http://wiki.mimec.org/wiki/WebIssues/Installation" target="_top">http://wiki.mimec.org/wiki/WebIssues/Installation</a>.</p>
+            <p>The second step is to set up a recurring task which will send the notifications. This task should be executed at least once an hour, but in order to receive immediate notification more quickly, it's recommended that this task is performed at intervals of 5 to 15 minutes.</p>
+            <p>In case of Unix/Linux, you can use the <code class="literal">cron</code> jobs mechanism. To add a cron job, modify <code class="filename">/etc/crontab</code> or use a graphical tool for managing jobs. If you use Windows, open the Task Scheduler and create a new task. For more information, please visit <a class="ulink" href="http://wiki.mimec.org/wiki/WebIssues/Installation" target="_top">http://wiki.mimec.org/wiki/WebIssues/Installation</a>.</p>
             <div class="note" title="Note" style="margin-left: 0.5in; margin-right: 0.5in;">
               <h3 class="title">Note</h3>
               <p>Some hosting services provide the ability to define recurring tasks via shell access, or by their administration panel. Refer to the documentation of your service for more information.</p>
-              <p>If your hosting service does not offer the ability to run periodic tasks, you can install such task on another computer. For example, you use one of the available online cron services — some of them are available for free.</p>
+              <p>If your hosting service does not offer the ability to run periodic tasks, you can install such task on another computer. For example, you can use one of the available online cron services — some of them are available for free.</p>
             </div>
             <p>If the job is executed locally, it should run the <code class="literal">cron/job.php</code> script using the PHP interpreter. For more information about running PHP from the command line, see <a class="ulink" href="http://www.php.net/manual/en/features.commandline.options.php" target="_top">http://www.php.net/manual/en/features.commandline.options.php</a>.</p>
-            <p>If you use an external cron service or run the task on another computer, the script should be run remotely through its full URL, for example <code class="literal">http://www.example.com/cron/job.php</code>. To do this, you can for example use the <code class="literal">wget</code> or <code class="literal">curl</code> program, you can also use any web browser running in text mode.</p>
-            <p>To check whether the cron job is being executed, go to the Administration Panel and click <span class="guilabel">General Information</span>. In the <span class="guilabel">Cron Job</span> section the date and time when the job was last run should be displayed. Each execution of the job is also logged in the Event Log of the WebIssues system.</p>
+            <p>If you use an external cron service or run the task from another computer, the script should be run remotely through its full URL, for example <code class="literal">http://www.example.com/cron/job.php</code>. To do this, you can for example use the <code class="literal">wget</code> or <code class="literal">curl</code> program, you can also use any web browser running in text mode.</p>
+            <p>To check whether the cron job is being executed, go to the Administration Panel and click <span class="guilabel">General Information</span>. In the <span class="guilabel">Cron Job</span> section, the date and time when the job was last run should be displayed. Each execution of the job is also logged in the Event Log of the WebIssues system.</p>
           </div>
         </div>
         <div class="navlinks">

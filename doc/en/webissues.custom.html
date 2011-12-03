@@ -19,7 +19,7 @@
             <h1><img src="common/webissues.png" alt="WebIssues" id="logo" />WebIssues Manual</h1>
           </div>
           <div id="header-right">
-            <h2 class="subtitle">Version 1.0-beta3</h2>
+            <h2 class="subtitle">Version 1.0-beta4</h2>
           </div>
         </div>
         <div id="infobar">
@@ -52,9 +52,9 @@
               </div>
             </div>
             <p>By default, the installer of WebIssues system creates several predefined types of issues, which can be used to track bugs and tasks in a typical software project, and to create discussion forums. You can modify these built-in issue types, adapting them to your needs, and create entirely new types of issues.</p>
-            <p>To manage the issue types, go to the Administration Panel and click <span class="guilabel">Issue Types</span>. In case of the Desktop Client, use the <span class="guilabel">Issue Types</span> command from the main window toolbar. Below is the list of standard issue types:</p>
+            <p>To manage the issue types, go to the Administration Panel and click <span class="guilabel">Issue Types</span>. In case of the Desktop Client, use the <span class="guilabel">Issue Types</span> command from the main window's toolbar. Below is the list of standard issue types:</p>
             <div class="figure">
-              <a id="id515950"></a>
+              <a id="id606742"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch06-fig01.png" alt="Issue types" />
@@ -63,9 +63,9 @@
               <div class="figure-title">Figure 6.1. Issue types</div>
             </div>
             <p>For each issue type its attributes are displayed. For each attribute, its type is displayed, the default value for new issues, and also information whether the attribute is required and additional details that depend on its type.</p>
-            <p>Let's start by adding a new attribute to an existing issue type. We will add the possibility of entering the module name to which the reported bug is related. Select the Bugs issue type and click <span class="guilabel">Add Attribute</span>. Then enter the name of the new attribute.</p>
+            <p>Let's start by adding a new attribute to an existing issue type. We will add the possibility of entering the name of the module to which the reported bug is related. Select the Bugs issue type and click <span class="guilabel">Add Attribute</span>. Then enter the name of the new attribute.</p>
             <div class="figure">
-              <a id="id515980"></a>
+              <a id="id606772"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch06-fig02.png" alt="Adding an attribute" />
@@ -73,9 +73,9 @@
               </div>
               <div class="figure-title">Figure 6.2. Adding an attribute</div>
             </div>
-            <p>By default, a new attribute has the <span class="guilabel">Text</span> type, which allows entering any text. Click <span class="guibutton">Edit</span> in the <span class="guilabel">Attribute Details</span> frame to change additional attribute settings that depend on its type.</p>
+            <p>By default, a new attribute has the <span class="guilabel">Text</span> type, which allows entering any text. Click <span class="guibutton">Edit</span> in the <span class="guilabel">Attribute Details</span> box to change additional attribute settings that depend on its type.</p>
             <div class="figure">
-              <a id="id516016"></a>
+              <a id="id606808"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch06-fig03.png" alt="Details of a text attribute" />
@@ -83,10 +83,10 @@
               </div>
               <div class="figure-title">Figure 6.3. Details of a text attribute</div>
             </div>
-            <p>In case of a text attribute, you can select <span class="guilabel">Allow entering multiple lines of text</span> to facilitate entering longer fragments of text which can be divided into lines. The field for editing attribute values ​​will then be bigger. You can specify the maximum length of the entered text to limit it to a specified number of characters. Remember, however, that the attribute value can never be longer than 255 characters. To enter longer fragments of text (for example, the description of the bug) it is better to use comments. In the same way, you can also specify a minimum length of the entered text.</p>
+            <p>In case of a text attribute, you can select <span class="guilabel">Allow entering multiple lines of text</span> to facilitate entering longer fragments of text, which can be divided into lines. The field for editing attribute values ​​will then become bigger. You can specify the maximum length of the entered text to limit it to a specified number of characters. Remember, however, that the attribute value can never be longer than 255 characters. To enter longer fragments of text (for example, the description of the bug) it's better to use comments. In the same way, you can also specify a minimum length of the entered text.</p>
             <p>If the list of modules, to which reported bugs are related, is known in advance, then a <span class="guilabel">Dropdown list</span> can be used instead of a text attribute. Select this type in the <span class="guilabel">Attribute Type</span> field and then click <span class="guibutton">Edit</span> to change the details of the attribute.</p>
             <div class="figure">
-              <a id="id516060"></a>
+              <a id="id606852"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch06-fig04.png" alt="Details of a dropdown list" />
@@ -94,11 +94,11 @@
               </div>
               <div class="figure-title">Figure 6.4. Details of a dropdown list</div>
             </div>
-            <p>You must provide a list of possible values ​​to select. To do this, enter each value, in this case the name of the module, in a separate line. By default it is only possible to select one of the defined values. However, if you select the <span class="guilabel">Allow entering custom values​​</span> option, then it will be possible to enter any value of the attribute when adding or editing an issue. This way, you can type the name of a module which was not included in the list. In this case, it is also possible to define the minimum and maximum length of text, like for text attributes.</p>
-            <p>The <span class="guilabel">Allow selecting multiple values​​</span> option makes it possible to select more than one values, separated by commas. This is useful if the reported bugs may be associated with several modules at the same time. Both options can be combined, in that case it is possible to enter several values​​, not necessarily selected from the list. This mode of operation, for example, allows marking issues with <span class="quote">“<span class="quote">tags</span>”</span>, which can be predefined, but can also be entered from outside the list.</p>
-            <p>Another type of attribute is <span class="guilabel">Numeric</span>. Let's assume that you want to add to the Tasks issue type a Level of effort attribute whose value is expressed in hours. Select the <span class="guilabel">Numeric</span> type from the list of attribute types and click <span class="guibutton">Edit</span>.</p>
+            <p>You must provide a list of possible values ​​to select. To do this, enter each value, in this case the name of the module, in a separate line. By default, it's only possible to select one of the defined values. However, if you select the <span class="guilabel">Allow entering custom values​​</span> option, then it will be possible to enter any value of the attribute when adding or editing an issue. This way, you can type the name of a module which was not included in the list. In this case, it's also possible to define the minimum and maximum length of text, like in case of text attributes.</p>
+            <p>The <span class="guilabel">Allow selecting multiple values​​</span> option makes it possible to select multiple values, separated by commas. This is useful if the reported bugs may be associated with several modules at the same time. Both options can be combined; in that case it's possible to enter several values​​, and not necessarily selected from the list. This mode of operation, for example, allows marking issues with <span class="quote">“<span class="quote">tags</span>”</span>, which can be predefined, but can also be entered manually.</p>
+            <p>Another type of attributes is <span class="guilabel">Numeric</span>. Let's assume that you want to extend the Tasks issue type with a Level of effort attribute whose value is expressed in hours. Select the <span class="guilabel">Numeric</span> type from the list of attribute types and click <span class="guibutton">Edit</span>.</p>
             <div class="figure">
-              <a id="id516117"></a>
+              <a id="id606910"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch06-fig05.png" alt="Details of a numeric attribute" />
@@ -106,10 +106,10 @@
               </div>
               <div class="figure-title">Figure 6.5. Details of a numeric attribute</div>
             </div>
-            <p>Numeric values can be integer or specified with a certain number of decimal places, not more than 6. You can also specify the minimum and maximum value of the attribute. For example, the Priority attribute of a task by default accepts values ​​from 1 to 3. You can also choose to <span class="guilabel">Strip trailing decimal zeros</span> to ignore the zeros after the decimal point, for example, the value <span class="quote">“<span class="quote">12.50</span>”</span> will then be displayed as <span class="quote">“<span class="quote">12.5</span>”</span>.</p>
-            <p>Attributes can also store a date or a date and time. For example, the Tasks issue type contains an Due Date attribute that stores the planned date of completion of the task. We can add a Finished attribute, storing the actual date of completion of the task. Select the <span class="guilabel">Date &amp; time</span> attribute type and click <span class="guibutton">Edit</span> to specify the details of the attribute.</p>
+            <p>Numeric values can be either integer, or specified with a certain number of decimal places; at most 6. You can also specify the minimum and maximum value of the attribute. For example, the Priority attribute of a Task by default accepts values ​​from 1 to 3. You can also choose to <span class="guilabel">Strip trailing decimal zeros</span> to ignore the zeros after the decimal point; for example, the value <span class="quote">“<span class="quote">12.50</span>”</span> will then be displayed as <span class="quote">“<span class="quote">12.5</span>”</span>.</p>
+            <p>Attributes can also store a date or a date and time. For example, the Tasks issue type contains a Due Date attribute that stores the anticipated date of completion of the task. We can add a Finished attribute, which will store the actual date of completion of the task. Select the <span class="guilabel">Date &amp; time</span> attribute type and click <span class="guibutton">Edit</span> to specify the details of the attribute.</p>
             <div class="figure">
-              <a id="id516164"></a>
+              <a id="id606956"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch06-fig06.png" alt="Details of a date &amp; time attribute" />
@@ -117,10 +117,10 @@
               </div>
               <div class="figure-title">Figure 6.6. Details of a date &amp; time attribute</div>
             </div>
-            <p>The value of the attribute can be a date, for example <span class="quote">“<span class="quote">9/5/2011</span>”</span> or date and time with an accuracy of one minute, for example <span class="quote">“<span class="quote">9/5/2011 6:34 pm</span>”</span>. If you choose the <span class="guilabel">Date and time without time zone conversion</span> option, the time will always be the same, regardless of time zone. If you choose the <span class="guilabel">Date and time using local time zone</span>, the values are stored as GMT time, and when displayed the will be automatically converted to the local time zone. This option is useful if the server is used by people in different time zones. For more information about time zones, see <a class="xref" href="webissues.custom.locale.html" title="Regional settings">the section called “Regional settings”</a>.</p>
-            <p>The last type of attribute is <span class="guilabel">User</span>. Both Bugs and Tasks include attributes named Assigned To, but you can create more attributes of this type. In case of a bug, for example, you can use separate attributes to indicate the person who reported, fixed and tested the bug.</p>
+            <p>The value of the attribute can be a date, for example <span class="quote">“<span class="quote">9/5/2011</span>”</span>, or date and time with an accuracy of one minute, for example <span class="quote">“<span class="quote">9/5/2011 6:34 pm</span>”</span>. If you choose the <span class="guilabel">Date and time without time zone conversion</span> option, the time will always be the same, regardless of the time zone. If you choose the <span class="guilabel">Date and time using local time zone</span>, the values are stored as GMT time, and when displayed, they will be automatically converted to the local time zone. This option is useful if the server is used by people in different time zones. For more information about time zones, see <a class="xref" href="webissues.custom.locale.html" title="Regional settings">the section called “Regional settings”</a>.</p>
+            <p>The last type of attributes is <span class="guilabel">User</span>. Both Bugs and Tasks include attributes named Assigned To, but you can create more attributes of this type. In case of a bug, for example, you can use separate attributes to indicate the person who reported, fixed and tested the bug.</p>
             <div class="figure">
-              <a id="id516215"></a>
+              <a id="id607008"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch06-fig07.png" alt="Details of a user attribute" />
@@ -128,12 +128,12 @@
               </div>
               <div class="figure-title">Figure 6.7. Details of a user attribute</div>
             </div>
-            <p>Two options are available in the attribute settings. The <span class="guilabel">Allow only members of the project</span> option allows you to limit the list of users who may be assigned to an issue to those who are members of the project. This option is useful if the system has many projects and many users, and most users have access only to selected projects. The option to <span class="guilabel">Allow selecting multiple values​​</span> makes it possible to select more than one values, separated by commas, just like in case of the dropdown list.</p>
+            <p>Two options are available in the attribute settings. The <span class="guilabel">Allow only members of the project</span> option allows you to limit the list of users, who may be assigned to an issue, to those who are members of the project. This option is useful if the system has many projects and many users, and most users have access only to selected projects. The <span class="guilabel">Allow selecting multiple values​​</span> option makes it possible to select multiple values, separated by commas, just like in case of the dropdown list.</p>
             <p>Regardless of the type and detailed settings, each attribute has also some common settings. If you choose the <span class="guilabel">Attribute is required</span> option, the attribute must always have a certain value. Otherwise, you can leave an empty value when creating new issues, and also clear the value for an existing issue. Required attributes are marked with an asterisk when creating or editing an issue.</p>
-            <p>In the <span class="guilabel">Default value</span> field you can specify the value of the attribute for newly created issues. When creating an issues you can leave the default values ​​of individual attributes or modify them. If the attribute is required, and does not have a default value, the value must be provided when creating the issue. When specifying the default value, you can use similar special values​​, as in the case of filter definitions. The <span class="quote">“<span class="quote">[Today]</span>”</span> value is replaced with the current date when creating the issue (with the possibility of subtracting or adding a specified number of days), while the <span class="quote">“<span class="quote">[Me]</span>”</span> value is replaced with the name of the user who creates the issue.</p>
-            <p>At any time you can change the definitions of existing attributes. Let's assume that we want that the Assigned To attribute to be required and that bugs were assigned by default to the person who created them. Select the attribute and click <span class="guilabel">Modify Attribute</span>. Select the <span class="guilabel">Attribute is required</span> option, and in the <span class="guilabel">Default Value</span> field enter <span class="quote">“<span class="quote">[Me]</span>”</span>. Then click <span class="guibutton">OK</span> to confirm the changes.</p>
+            <p>In the <span class="guilabel">Default value</span> field you can specify the value of the attribute for newly created issues. When creating an issue, you can leave the default values ​​of individual attributes, or modify them. If the attribute is required, and does not have a default value, the value must be provided when creating the issue. When specifying the default value, you can use similar special values​​, as in case of filter definitions. The <span class="quote">“<span class="quote">[Today]</span>”</span> value is replaced with the current date when creating the issue (with the possibility of subtracting or adding a specified number of days), while the <span class="quote">“<span class="quote">[Me]</span>”</span> value is replaced with the name of the user who creates the issue.</p>
+            <p>At any time you can change the definition of existing attributes. Let's assume that we want the Assigned To attribute to be required, and that bugs were assigned by default to the person who created them. Select the attribute and click <span class="guilabel">Modify Attribute</span>. Select the <span class="guilabel">Attribute is required</span> option, and in the <span class="guilabel">Default Value</span> field enter <span class="quote">“<span class="quote">[Me]</span>”</span>. Then click <span class="guibutton">OK</span> to confirm the changes.</p>
             <div class="figure">
-              <a id="id516298"></a>
+              <a id="id607091"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch06-fig08.png" alt="Modifying attribute definition" />
@@ -143,16 +143,16 @@
             </div>
             <p>Changes of definitions of existing attributes are taken into account when creating new issues and editing existing issues. They do not affect the current attribute values ​​for existing issues. In our example, if some bugs already exist in the system, then they will remain unassigned, although the Assigned To attribute is now required. However, when editing a bug, you must assign it to someone.</p>
             <p>Now let's suppose that we want the Severity of a bug to be specified on a scale from 1 to 5, not from 1 to 3. Select the attribute and click <span class="guilabel">Modify Attribute</span>. Then click <span class="guibutton">Edit</span> to go to the details of the attribute. Change the <span class="guilabel">Maximum value</span> to 5 and click <span class="guibutton">OK</span>. Then change the default attribute value to 3 and click <span class="guibutton">OK</span> again to save the changes.</p>
-            <p>To a limited extent, you can also change the type of an existing attribute. For example, let's suppose that we want to define a list of choices for the Version attribute of Bugs issue type. Select the attribute and click <span class="guilabel">Modify attribute</span> and then from the <span class="guilabel">Attribute type</span> list select <span class="guilabel">Dropdown List</span>. Then click <span class="guibutton">Edit</span> to go to the attribute details and enter a list of values ​​to select. Also select the <span class="guilabel">Allow entering own values​​</span> option to allow entering values which are not in the list. Click <span class="guibutton">OK</span> twice to confirm the changes.</p>
-            <p>The Text, Dropdown List and User attributes store the value as plain text, so they can be used interchangeably, and you can change one type to another. The Numeric and Date And Time attributes cannot be changed to another type.</p>
-            <p>To change the name of an attribute, use the <span class="guilabel">Rename Attribute</span> commands. Attribute names can be arbitrary, but must be unique within the issue type. You can also remove an existing attribute if it is no longer needed. To do this, select the attribute and click <span class="guilabel">Delete Attribute</span>.</p>
+            <p>To a limited extent, you can also change the type of an existing attribute. For example, let's suppose that we want to define a list of choices for the Version attribute of Bugs issue type. Select the attribute and click <span class="guilabel">Modify Attribute</span>, and then from the <span class="guilabel">Attribute Type</span> list select <span class="guilabel">Dropdown list</span>. Then click <span class="guibutton">Edit</span> to go to the attribute details and enter a list of values ​​to select. Also select the <span class="guilabel">Allow entering own values​​</span> option to allow entering values which are not in the list. Click <span class="guibutton">OK</span> twice to confirm the changes.</p>
+            <p>The Text, Dropdown List and User attributes store the value as plain text, so they can be used interchangeably, and you can change one type to another. However, the Numeric and Date &amp; time attributes cannot be changed to another type.</p>
+            <p>To change the name of an attribute, use the <span class="guilabel">Rename Attribute</span> command. Attribute names can be arbitrary, but must be unique within the issue type. You can also remove an existing attribute if it is no longer needed. To do this, select the attribute and click <span class="guilabel">Delete Attribute</span>.</p>
             <div class="warning" title="Warning" style="margin-left: 0.5in; margin-right: 0.5in;">
               <h3 class="title">Warning</h3>
-              <p>When deleting attributes pay particular attention whether you do not unintentionally delete the wrong data. All current and historical values of the attribute ​​are permanently and irreversibly removed from the system and there is no possibility of restoring them.</p>
+              <p>When deleting attributes, pay particular attention whether you do not unintentionally delete the wrong data. All current and historical values of the attribute ​​are permanently and irreversibly removed from the system and it's not possibile to restore them.</p>
             </div>
             <p>In addition to modifying predefined types issues, the WebIssues system also allows creating entirely new issue types. Let's suppose that we want to create a simple calendar with events related to different people. Click <span class="guilabel">Add Type</span> to create a new type of issues.</p>
             <div class="figure">
-              <a id="id516418"></a>
+              <a id="id607211"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch06-fig09.png" alt="Creating an issue type" />
@@ -160,9 +160,9 @@
               </div>
               <div class="figure-title">Figure 6.9. Creating an issue type</div>
             </div>
-            <p>Enter the name of the type and click <span class="guibutton">OK</span>. The new type has no attributes, so select it and click <span class="guilabel">Add Attribute</span>. Create an attribute named <span class="quote">“<span class="quote">Person</span>”</span> and select the User type. Mark the attribute as required and enter <span class="quote">“<span class="quote">[Me]</span>”</span> as the default value. Then add another attribute named <span class="quote">“<span class="quote">Date</span>”</span>, with the Date And Time type, setting its default value to <span class="quote">“<span class="quote">[Today]</span>”</span>. The tree of issue types, after folding default types, will look like this:</p>
+            <p>Enter the name of the type and click <span class="guibutton">OK</span>. The new type has no attributes yet, so select it and click <span class="guilabel">Add Attribute</span>. Create an attribute named <span class="quote">“<span class="quote">Person</span>”</span> and select the User type. Mark the attribute as required and enter <span class="quote">“<span class="quote">[Me]</span>”</span> as the default value. Then add another attribute named <span class="quote">“<span class="quote">Date</span>”</span>, with the Date &amp; time type, setting its default value to <span class="quote">“<span class="quote">[Today]</span>”</span>. The tree issue types, after collapsing default types, will look like this:</p>
             <div class="figure">
-              <a id="id516467"></a>
+              <a id="id607259"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch06-fig10.png" alt="Issue types with the new type" />
@@ -171,10 +171,10 @@
               <div class="figure-title">Figure 6.10. Issue types with the new type</div>
             </div>
             <p>To be able to create issues of the new type, you must also create a folder that uses this type. You can also change the order of attributes and the default view and public views for this type. For more information, refer to <a class="xref" href="webissues.custom.views.html" title="View settings">the section called “View settings”</a>.</p>
-            <p>To change the name of an issue type, use the <span class="guilabel">Rename Type</span> command. You can also remove the type issues using the <span class="guilabel">Delete Type</span> command. If there are some folders of this type in the system, a warning will be displayed.</p>
+            <p>To change the name of an issue type, use the <span class="guilabel">Rename Type</span> command. You can also remove the type of issues using the <span class="guilabel">Delete Type</span> command. If there are some folders of this type in the system, a warning will be displayed.</p>
             <div class="warning" title="Warning" style="margin-left: 0.5in; margin-right: 0.5in;">
               <h3 class="title">Warning</h3>
-              <p>When deleting issue types pay particular attention whether you do not unintentionally delete the wrong data. All folders and issues of this type ​​are permanently and irreversibly removed from the system and there is no possibility of restoring them.</p>
+              <p>When deleting issue types, pay particular attention whether you do not unintentionally delete the wrong data. All folders and issues of this type ​​are permanently and irreversibly removed from the system and it's not possibile to restore them.</p>
             </div>
           </div>
         </div>
