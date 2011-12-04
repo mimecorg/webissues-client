@@ -1,3 +1,10 @@
+1.0-beta4 (2011-12-05)
+    * fixed error in view settings if nothing changed (bug #689)
+    * status bar refactoring (task #369)
+    * updated the settings dialog
+    * added Comments & Attachments mode in issue history
+    * added quick search by any column
+
 1.0-beta3 (2011-11-02)
     * cloning issues and views
     * improved marking issues as read/unread

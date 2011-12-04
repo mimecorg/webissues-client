@@ -230,13 +230,13 @@ void Application::showUpdateState()
 
         case UpdateClient::CurrentVersionState: {
             m_updateSection->setPixmap( IconLoader::pixmap( "status-info" ) );
-            m_updateSection->setMessage( header + "<p>" + tr( "Your version of WebIssues Desktop Client is up to date." ) + "</p>" );
+            m_updateSection->setMessage( header + "<p>" + tr( "Your version of WebIssues is up to date." ) + "</p>" );
             break;
         }
 
         case UpdateClient::UpdateAvailableState: {
             m_updateSection->setPixmap( IconLoader::pixmap( "status-warning" ) );
-            m_updateSection->setMessage( header + "<p>" + tr( "The latest version of WebIssues Desktop Client is %1." ).arg( m_updateClient->updateVersion() ) + "</p>" );
+            m_updateSection->setMessage( header + "<p>" + tr( "The latest version of WebIssues is %1." ).arg( m_updateClient->updateVersion() ) + "</p>" );
 
             QPushButton* notesButton = m_updateSection->addButton( tr( "&Release Notes" ) );
             connect( notesButton, SIGNAL( clicked() ), this, SLOT( openReleaseNotes() ) );
@@ -291,12 +291,12 @@ void Application::openDownloads()
 
 QString Application::version() const
 {
-    return QString( "1.0-beta3" );
+    return QString( "1.0-beta4" );
 }
 
 QString Application::protocolVersion() const
 {
-    return QString( "1.0-beta3" );
+    return QString( "1.0-beta4" );
 }
 
 void Application::initializeLanguage()
