@@ -25,6 +25,7 @@
 #include "data/localsettings.h"
 
 #include <QRegExp>
+#include <QStringList>
 
 NetworkProxyFactory::NetworkProxyFactory()
 {
