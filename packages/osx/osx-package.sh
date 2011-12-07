@@ -41,7 +41,8 @@ APP_BASENAME=$(basename "$APP_NAME")
 BUNDLE="$APP_NAME.app"
 APP_BIN="$BUNDLE/Contents/MacOS/$APP_BASENAME"
 APP_PLUGINS_PATH="$BUNDLE/Contents/plugins"
-APP_QT_PLUGINS_PATH="$BUNDLE/Contents/Resources/qt/plugins"
+APP_RESOURCES_PATH="$BUNDLE/Contents/Resources"
+APP_QT_PLUGINS_PATH="$APP_RESOURCES_PATH/qt/plugins"
 APP_FRAMEWORKS_PATH="$BUNDLE/Contents/Frameworks"
 
 if [ ! -d "${BUNDLE}" ] ; then
@@ -199,6 +200,16 @@ relinkBinary()
 				path=`dirname "${target}"`
 				mkdir -p "${path}"
 				cp -f "${source}" "${target}"
+
+				# Copy required Cocoa nib folder for cocoa qt builds
+				if [ "x$framework" == "xQtGui" ]; then
+				    source_nib="`dirname \"${source}\"`/../../Resources/qt_menu.nib"
+				    target_nib="$APP_RESOURCES_PATH"
+
+				    if [ -d "$source_nib" ]; then
+				      cp -Rf "$source_nib" "$target_nib"
+				    fi
+				fi
 				
 				echo
 				relinkBinary "${target}" "${framework}"
@@ -219,18 +230,18 @@ prepareDmg()
 {
 	# Copy qt files
 	echo "Copying qt files"
-	cp "qt.conf" "$BUNDLE/Contents/Resources"
+	cp "qt.conf" "$APP_RESOURCES_PATH"
 	
-	#if [ ! -d "$BUNDLE/Contents/Resources/qt/doc/qch" ] ; then
-	#	mkdir -p "$BUNDLE/Contents/Resources/qt/doc/qch"
+	#if [ ! -d "$APP_RESOURCES_PATH/qt/doc/qch" ] ; then
+	#	mkdir -p "$APP_RESOURCES_PATH/qt/doc/qch"
 	#fi
-	#cp -f "${QT_LIBS_PATH}/../doc/qch/"*.qch "$BUNDLE/Contents/Resources/qt/doc/qch"
+	#cp -f "${QT_LIBS_PATH}/../doc/qch/"*.qch "$APP_RESOURCES_PATH/qt/doc/qch"
 	
-	if [ ! -d "$BUNDLE/Contents/Resources/qt/translations" ] ; then
-		mkdir -p "$BUNDLE/Contents/Resources/qt/translations"
+	if [ ! -d "$APP_RESOURCES_PATH/qt/translations" ] ; then
+		mkdir -p "$APP_RESOURCES_PATH/qt/translations"
 	fi
-	cp -f "$QT_LIBS_PATH/../translations/"qt_*.qm "$BUNDLE/Contents/Resources/qt/translations"
-	rm -f "$BUNDLE/Contents/Resources/qt/translations/"qt_help*.qm
+	cp -f "$QT_LIBS_PATH/../translations/"qt_*.qm "$APP_RESOURCES_PATH/qt/translations"
+	rm -f "$APP_RESOURCES_PATH/qt/translations/"qt_help*.qm
 	
 	# Copy original bundle
 	echo "Copying $APP_BASENAME..."
