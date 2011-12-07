@@ -55,6 +55,10 @@ mac {
     ICON = webissues.icns
 }
 
+mac:ppc {
+    LIBS *= -lgcc_eh
+}
+
 win32-msvc* {
     QMAKE_CXXFLAGS += -Fd\$(IntDir)
     CONFIG -= flat

@@ -8,7 +8,7 @@ syssqlite=no
 mac=no
 universal=no
 target=10.3
-sdk=/Developer/SDKs/MacOSX10.4u.sdk
+sdk=/Developer/SDKs/MacOSX10.6.sdk
 
 usage="Usage: configure [-prefix DIR] [-destdir DIR] [-qmake PATH] [-debug]
                  [-system-sqlite] [-universal] [-target VERSION] [-sdk PATH]
@@ -23,9 +23,9 @@ General options:
 
 OS X options:
 
-  -universal     Build for both x86 and PPC platforms
+  -universal     Build for x86_64, x86 and PPC platforms
   -target        Set OS X deployment target (default: 10.3)
-  -sdk           Set OS X SDK (default: /Developer/SDKs/MacOSX10.4u.sdk)
+  -sdk           Set OS X SDK (default: /Developer/SDKs/MacOSX10.6.sdk)
 "
 
 if test ! -f ./webissues.pro; then
@@ -151,7 +151,7 @@ if test "$mac" = "yes"; then
   echo "    QMAKE_MACOSX_DEPLOYMENT_TARGET = $target" >>config.pri
   echo "    QMAKE_MAC_SDK = $sdk" >>config.pri
   if test "$universal" = "yes"; then
-    echo "    CONFIG += x86 ppc" >>config.pri
+    echo "    CONFIG += x86_64 x86 ppc" >>config.pri
   fi
   echo "}" >>config.pri
 fi
