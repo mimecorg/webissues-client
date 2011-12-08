@@ -54,6 +54,11 @@ void LoginBatch::loginNew( const QString& login, const QString& password, const 
     m_queue.addJob( job );
 }
 
+void LoginBatch::setExpectedUuid( const QString& uuid )
+{
+    m_uuid = uuid;
+}
+
 Command* LoginBatch::fetchNext()
 {
     if ( m_queue.moreJobs() )
@@ -69,7 +74,7 @@ Command* LoginBatch::helloJob( const Job& /*job*/ )
 
 Command* LoginBatch::loginJob( const Job& job )
 {
-    if ( dataManager->isValid() )
+    if ( dataManager->isValid() && ( m_uuid.isEmpty() || m_uuid == dataManager->serverUuid() ) )
         return dataManager->login( job.argString( 0 ), job.argString( 1 ) );
     return NULL;
 }

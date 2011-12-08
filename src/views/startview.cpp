@@ -234,8 +234,10 @@ void StartView::openConnection( const QString& url, const ServerCredential& cred
 
     LoginBatch* batch = new LoginBatch();
     batch->hello();
-    if ( m_remember )
+    if ( m_remember ) {
+        batch->setExpectedUuid( credential.serverUuid() );
         batch->login( m_login, m_password );
+    }
 
     executeBatch( batch );
 }

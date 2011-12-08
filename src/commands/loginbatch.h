@@ -66,6 +66,11 @@ public:
     */
     void loginNew( const QString& login, const QString& password, const QString& newPassword );
 
+    /**
+    * Send LOGIN command only if server's unique ID matches the given value.
+    */
+    void setExpectedUuid( const QString& uuid );
+
 public: // overrides
     Command* fetchNext();
 
@@ -80,6 +85,8 @@ private:
 
 private:
     JobQueue m_queue;
+
+    QString m_uuid;
 };
 
 #endif
