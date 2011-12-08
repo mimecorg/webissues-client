@@ -125,8 +125,10 @@ QSqlQueryModel* SqlTreeModel::modelAt( int level ) const
 void SqlTreeModel::setColumnMapping( int level, const QList<int>& columnMapping )
 {
     SqlTreeModelLevel* levelData = d->m_levelData.at( level );
-    levelData->m_columnMapping = columnMapping;
-    d->m_columns = -1;
+    if ( levelData->m_columnMapping != columnMapping ) {
+        levelData->m_columnMapping = columnMapping;
+        d->m_columns = -1;
+    }
 }
 
 void SqlTreeModel::updateData()
