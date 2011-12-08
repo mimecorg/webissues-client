@@ -43,7 +43,7 @@ Command* FindItemBatch::fetchNext()
     if ( m_update ) {
         m_update = false;
         if ( dataManager->issueUpdateNeeded( m_issueId ) )
-            return dataManager->updateIssue( m_issueId );
+            return dataManager->updateIssue( m_issueId, true );
     }
 
     return NULL;

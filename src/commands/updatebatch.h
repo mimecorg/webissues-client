@@ -86,8 +86,9 @@ public:
     /**
     * Add a <tt>GET DETAILS</tt> command to the batch.
     * @param issueId Identifier of the issue to update.
+    * @param markAsRead If @c true, the issue is marked as read.
     */
-    void updateIssue( int issueId );
+    void updateIssue( int issueId, bool markAsRead );
 
     /**
     * If set to @c true, only update folders/issues when they are out of date.

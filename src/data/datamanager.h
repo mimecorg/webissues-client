@@ -341,7 +341,7 @@ public:
     /**
     * Create a command for updating the given issue.
     */
-    Command* updateIssue( int issueId );
+    Command* updateIssue( int issueId, bool markAsRead );
 
     /**
     * Lock the issue to prevent removing it from the cache.

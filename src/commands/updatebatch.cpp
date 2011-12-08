@@ -75,10 +75,11 @@ void UpdateBatch::updateFolder( int folderId )
     m_queue.addJob( job );
 }
 
-void UpdateBatch::updateIssue( int issueId )
+void UpdateBatch::updateIssue( int issueId, bool markAsRead )
 {
     Job job( &UpdateBatch::updateIssueJob );
     job.addArg( issueId );
+    job.addArg( markAsRead ? 1 : 0 );
     m_queue.addJob( job );
 }
 
@@ -149,9 +150,10 @@ Command* UpdateBatch::updateFolderJob( const Job& job )
 Command* UpdateBatch::updateIssueJob( const Job& job )
 {
     int issueId = job.argInt( 0 );
+    bool markAsRead = (bool)job.argInt( 1 );
 
     if ( !m_ifNeeded || dataManager->issueUpdateNeeded( issueId ) )
-        return dataManager->updateIssue( issueId );
+        return dataManager->updateIssue( issueId, markAsRead );
 
     return NULL;
 }

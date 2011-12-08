@@ -989,7 +989,7 @@ bool DataManager::updateFolderReply( const Reply& reply, const QSqlDatabase& dat
     return true;
 }
 
-Command* DataManager::updateIssue( int issueId )
+Command* DataManager::updateIssue( int issueId, bool markAsRead )
 {
     QSqlDatabase database = QSqlDatabase::database();
     Query query( database );
@@ -1004,6 +1004,7 @@ Command* DataManager::updateIssue( int issueId )
     command->setKeyword( "GET DETAILS" );
     command->addArg( issueId );
     command->addArg( lastStampId );
+    command->addArg( markAsRead ? 1 : 0 );
 
     command->setAcceptNullReply( true );
     command->addRule( "I iisiiiii", ReplyRule::One );
@@ -1045,6 +1046,9 @@ void DataManager::updateIssueReply( const Reply& reply )
 
 bool DataManager::updateIssueReply( const Reply& reply, const QSqlDatabase& database, QList<int>& updatedFolders, int& issueId )
 {
+    Command* command = static_cast<Command*>( sender() );
+    bool markAsRead = (bool)command->argInt( 2 );
+
     issueId = reply.at( 0 ).argInt( 0 );
     int folderId = reply.at( 0 ).argInt( 1 );
     int lastStampId = reply.at( 0 ).argInt( 3 );
@@ -1072,8 +1076,10 @@ bool DataManager::updateIssueReply( const Reply& reply, const QSqlDatabase& data
     if ( !query.execQuery( "INSERT OR REPLACE INTO issues_cache VALUES ( ?, ? )", issueId, lastStampId ) )
         return false;
 
-    if ( !query.execQuery( "INSERT OR REPLACE INTO issue_states VALUES ( ?, ?, ? )", m_currentUserId, issueId, lastStampId ) )
-        return false;
+    if ( markAsRead ) {
+        if ( !query.execQuery( "INSERT OR REPLACE INTO issue_states VALUES ( ?, ?, ? )", m_currentUserId, issueId, lastStampId ) )
+            return false;
+    }
 
     int i = 1;
 

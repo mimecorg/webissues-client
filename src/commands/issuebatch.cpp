@@ -172,7 +172,7 @@ Command* IssueBatch::fetchNext()
 
     if ( m_update ) {
         m_update = false;
-        return dataManager->updateIssue( m_issueId );
+        return dataManager->updateIssue( m_issueId, true );
     }
 
     return NULL;

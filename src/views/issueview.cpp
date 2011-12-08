@@ -380,7 +380,7 @@ void IssueView::initialUpdateIssue()
         if ( dataManager->issueUpdateNeeded( id() ) ) {
             UpdateBatch* batch = new UpdateBatch();
             batch->setIfNeeded( true );
-            batch->updateIssue( id() );
+            batch->updateIssue( id(), true );
 
             executeUpdate( batch );
         } else {
@@ -400,7 +400,7 @@ void IssueView::updateIssue()
 {
     if ( isEnabled() && !isUpdating() ) {
         UpdateBatch* batch = new UpdateBatch();
-        batch->updateIssue( id() );
+        batch->updateIssue( id(), true );
 
         executeUpdate( batch );
     }
@@ -411,7 +411,7 @@ void IssueView::cascadeUpdateIssue()
     if ( isEnabled() && !isUpdating() && dataManager->issueUpdateNeeded( id() ) ) {
         UpdateBatch* batch = new UpdateBatch( -10 );
         batch->setIfNeeded( true );
-        batch->updateIssue( id() );
+        batch->updateIssue( id(), false );
 
         executeUpdate( batch );
     }
