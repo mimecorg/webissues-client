@@ -183,6 +183,11 @@ protected:
     */
     virtual void updateEvent( UpdateEvent* e );
 
+    /**
+    * Handle an error when updating the view.
+    */
+    virtual void updateFailed();
+
 protected:
     /**
     * Set the main widget of the view.

@@ -134,12 +134,18 @@ void View::executeUpdate( AbstractBatch* batch )
 
 void View::updateCompleted( bool successful )
 {
-    if ( successful )
+    if ( successful ) {
         showInfo( tr( "View was updated successfully." ) );
-    else
+    } else {
         showError( tr( "View could not be updated: %1." ).arg( commandManager->errorMessage() ) );
+        updateFailed();
+    }
 
     m_updating = false;
+}
+
+void View::updateFailed()
+{
 }
 
 void View::showInfo( const QString& text )

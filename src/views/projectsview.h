@@ -66,6 +66,8 @@ protected: // overrides
 
     void updateEvent( UpdateEvent* e );
 
+    void updateFailed();
+
 private slots:
     void updateActions();
     void updateSelection();
@@ -111,6 +113,8 @@ private:
 
     bool m_systemAdmin;
     bool m_anyProjectAdmin;
+
+    bool m_sessionExpired;
 };
 
 #endif

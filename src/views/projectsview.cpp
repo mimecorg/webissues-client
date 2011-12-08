@@ -21,6 +21,7 @@
 
 #include "application.h"
 #include "commands/updatebatch.h"
+#include "commands/commandmanager.h"
 #include "data/datamanager.h"
 #include "data/entities.h"
 #include "data/localsettings.h"
@@ -29,6 +30,7 @@
 #include "dialogs/managealertsdialog.h"
 #include "models/projectsmodel.h"
 #include "utils/treeviewhelper.h"
+#include "utils/errorhelper.h"
 #include "utils/iconloader.h"
 #include "views/viewmanager.h"
 #include "xmlui/builder.h"
@@ -41,7 +43,8 @@
 
 ProjectsView::ProjectsView( QObject* parent, QWidget* parentWidget ) : View( parent ),
     m_folderUpdateCounter( 0 ),
-    m_updateCounter( 0 )
+    m_updateCounter( 0 ),
+    m_sessionExpired( false )
 {
     m_systemAdmin = dataManager->currentUserAccess() == AdminAccess;
 
@@ -204,6 +207,9 @@ void ProjectsView::initialUpdateData()
 
 void ProjectsView::periodicUpdateData( bool full )
 {
+    if ( m_sessionExpired )
+        return;
+
     UpdateBatch* batch = new UpdateBatch( -15 );
     if ( full ) {
         batch->updateUsers();
@@ -233,6 +239,12 @@ void ProjectsView::cascadeUpdateFolders()
 
     if ( batch )
         executeUpdate( batch );
+}
+
+void ProjectsView::updateFailed()
+{
+    if ( commandManager->error() == CommandManager::WebIssuesError && commandManager->errorCode() == ErrorHelper::LoginRequired )
+        m_sessionExpired = true;
 }
 
 void ProjectsView::updateActions()
@@ -320,6 +332,7 @@ void ProjectsView::setSelection( int folderId, int viewId )
 void ProjectsView::updateProjects()
 {
     if ( !isUpdating() ) {
+        m_folderUpdateCounter = 0;
         m_updateCounter = 0;
         m_timer->start();
 
