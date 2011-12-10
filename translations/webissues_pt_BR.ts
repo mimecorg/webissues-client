@@ -2172,7 +2172,7 @@ quando voce fechá-lo. Tem certeza de que deseja continuar?</translation>
     </message>
     <message>
         <location filename="../src/models/issuedetailsgenerator.cpp" line="132"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="276"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="288"/>
         <source>:</source>
         <translation>:</translation>
     </message>
@@ -2192,19 +2192,34 @@ quando voce fechá-lo. Tem certeza de que deseja continuar?</translation>
         <translation>Anexo #%1</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="374"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="245"/>
+        <source>There are no comments.</source>
+        <translation>Não existe nenum comentário.</translation>
+    </message>
+    <message>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="247"/>
+        <source>There are no attachments.</source>
+        <translation>Não existe nenhum anexo.</translation>
+    </message>
+    <message>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="249"/>
+        <source>There are no comments or attachments.</source>
+        <translation>Não existem comentários ou anexos.</translation>
+    </message>
+    <message>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="386"/>
         <source>Comments &amp; Attachments</source>
         <translation>Comentários &amp; Anexos</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="403"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="405"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="415"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="417"/>
         <source>Edit</source>
         <translation>Editar</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="410"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="412"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="422"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="424"/>
         <source>Delete</source>
         <translation>Excluir</translation>
     </message>
@@ -2219,45 +2234,45 @@ quando voce fechá-lo. Tem certeza de que deseja continuar?</translation>
         <translation>Ocorrência Relocada</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="247"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="259"/>
         <source>last edited:</source>
         <translation>último editado:</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="259"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="266"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="271"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="278"/>
         <source>Name:</source>
         <translation>Nome:</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="285"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="295"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="297"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="307"/>
         <source>empty</source>
         <translation>vazio</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="305"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="317"/>
         <source>Folder</source>
         <translation>Pasta</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="309"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="319"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="321"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="331"/>
         <source>Unknown Folder</source>
         <translation>Pasta Desconhecida</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="365"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="377"/>
         <source>All History</source>
         <translation>Toda o Histórico</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="368"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="380"/>
         <source>Only Comments</source>
         <translation>Somente Comentários</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="371"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="383"/>
         <source>Only Attachments</source>
         <translation>Somente Anexos</translation>
     </message>
@@ -3253,94 +3268,94 @@ O Desktop Cliente usará sempre o idioma configurado em configurações do progr
 <context>
     <name>ProjectsView</name>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="50"/>
+        <location filename="../src/views/projectsview.cpp" line="53"/>
         <source>&amp;Update Projects</source>
         <translation>&amp;Atualzar projetos</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="55"/>
+        <location filename="../src/views/projectsview.cpp" line="58"/>
         <source>Project &amp;Members...</source>
         <translation>&amp;Membros do Projeto...</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="56"/>
+        <location filename="../src/views/projectsview.cpp" line="59"/>
         <source>Members</source>
         <translation>Membros</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="61"/>
+        <location filename="../src/views/projectsview.cpp" line="64"/>
         <source>Add &amp;Project...</source>
         <translation>Adicionar &amp;projeto...</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="66"/>
+        <location filename="../src/views/projectsview.cpp" line="69"/>
         <source>Add &amp;Folder...</source>
         <translation>Adicionar &amp;pasta...</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="71"/>
-        <location filename="../src/views/projectsview.cpp" line="280"/>
+        <location filename="../src/views/projectsview.cpp" line="74"/>
+        <location filename="../src/views/projectsview.cpp" line="292"/>
         <source>&amp;Rename Folder...</source>
         <translation>&amp;Renomear Pasta...</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="72"/>
+        <location filename="../src/views/projectsview.cpp" line="75"/>
         <source>Rename</source>
         <translation>Renomear</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="77"/>
-        <location filename="../src/views/projectsview.cpp" line="281"/>
+        <location filename="../src/views/projectsview.cpp" line="80"/>
+        <location filename="../src/views/projectsview.cpp" line="293"/>
         <source>&amp;Delete Folder</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="78"/>
+        <location filename="../src/views/projectsview.cpp" line="81"/>
         <source>Delete</source>
         <translation>Excluir</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="83"/>
+        <location filename="../src/views/projectsview.cpp" line="86"/>
         <source>&amp;Move Folder...</source>
         <translation>&amp;Mover Pasta...</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="84"/>
+        <location filename="../src/views/projectsview.cpp" line="87"/>
         <source>Move</source>
         <translation>Mover</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="98"/>
+        <location filename="../src/views/projectsview.cpp" line="101"/>
         <source>Projects</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="280"/>
+        <location filename="../src/views/projectsview.cpp" line="292"/>
         <source>&amp;Rename Project...</source>
         <translation>&amp;Renomear Projeto...</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="281"/>
+        <location filename="../src/views/projectsview.cpp" line="293"/>
         <source>&amp;Delete Project</source>
         <translation>&amp;Excluir Projeto</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="73"/>
+        <location filename="../src/views/projectsview.cpp" line="76"/>
         <source>F2</source>
         <translation>F2</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="88"/>
+        <location filename="../src/views/projectsview.cpp" line="91"/>
         <source>&amp;Open Folder</source>
         <translation>&amp;Abrir pasta</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="93"/>
+        <location filename="../src/views/projectsview.cpp" line="96"/>
         <source>&amp;Manage Alerts...</source>
         <translation>&amp;Gereniar Alertas...</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="97"/>
+        <location filename="../src/views/projectsview.cpp" line="100"/>
         <source>Add</source>
         <translation>Adicionar</translation>
     </message>
@@ -4108,7 +4123,7 @@ O Desktop Cliente usará sempre o idioma configurado em configurações do progr
     </message>
     <message>
         <location filename="../src/views/startview.cpp" line="114"/>
-        <location filename="../src/views/startview.cpp" line="257"/>
+        <location filename="../src/views/startview.cpp" line="259"/>
         <source>Connect</source>
         <translation>Conectar</translation>
     </message>
@@ -4133,18 +4148,18 @@ O Desktop Cliente usará sempre o idioma configurado em configurações do progr
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/views/startview.cpp" line="273"/>
+        <location filename="../src/views/startview.cpp" line="275"/>
         <source>Local cache database cannot be opened.</source>
         <translation>Banco de dados do cache local não pode ser aberto.</translation>
     </message>
     <message>
-        <location filename="../src/views/startview.cpp" line="292"/>
+        <location filename="../src/views/startview.cpp" line="294"/>
         <source>Connection could not be opened: %1.</source>
         <translation>Conexão não pode ser aberta:%1.</translation>
     </message>
     <message>
-        <location filename="../src/views/startview.cpp" line="316"/>
-        <location filename="../src/views/startview.cpp" line="333"/>
+        <location filename="../src/views/startview.cpp" line="318"/>
+        <location filename="../src/views/startview.cpp" line="335"/>
         <source>Connection was cancelled.</source>
         <translation>Conexão cancelada.</translation>
     </message>
@@ -4159,17 +4174,17 @@ O Desktop Cliente usará sempre o idioma configurado em configurações do progr
         <translation>Abortar</translation>
     </message>
     <message>
-        <location filename="../src/views/startview.cpp" line="341"/>
+        <location filename="../src/views/startview.cpp" line="343"/>
         <source>Name</source>
         <translation>Nome</translation>
     </message>
     <message>
-        <location filename="../src/views/startview.cpp" line="342"/>
+        <location filename="../src/views/startview.cpp" line="344"/>
         <source>Address</source>
         <translation>Endereço</translation>
     </message>
     <message>
-        <location filename="../src/views/startview.cpp" line="403"/>
+        <location filename="../src/views/startview.cpp" line="405"/>
         <source>Connect As %1</source>
         <translation>Conectar Como %1</translation>
     </message>
