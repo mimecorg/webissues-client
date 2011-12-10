@@ -236,6 +236,18 @@ void IssueDetailsGenerator::writeHistory( TextWriter* writer, const IssueEntity&
 
     if ( list.count() > 0 )
         writer->writeBulletList( list );
+
+    if ( changes.count() == 0 ) {
+        int row = writer->appendLayoutRows( 1 );
+        writer->mergeLayoutCells( row, 0, 1, 4 );
+        writer->gotoLayoutCell( row, 0, TextWriter::NormalCell );
+        if ( m_history == OnlyComments )
+            writer->writeBlock( tr( "There are no comments." ), TextWriter::NormalBlock );
+        else if ( m_history == OnlyFiles )
+            writer->writeBlock( tr( "There are no attachments." ), TextWriter::NormalBlock );
+        else if ( m_history == CommentsAndFiles )
+            writer->writeBlock( tr( "There are no comments or attachments." ), TextWriter::NormalBlock );
+    }
 }
 
 QString IssueDetailsGenerator::formatStamp( const ChangeEntity& change )
