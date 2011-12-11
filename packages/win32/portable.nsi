@@ -19,8 +19,8 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************/
 
-!define VERSION "1.0-beta4"
-!define BUILDVERSION "1.0.0.4356"
+!define VERSION "1.0-rc1"
+!define BUILDVERSION "1.0.0.4363"
 
 !define SRCDIR "..\.."
 !define BUILDDIR "bin"
@@ -165,10 +165,12 @@ Section
 
     File "${SRCDIR}\translations\locale.ini"
 
+    File "${SRCDIR}\translations\webissues_de.qm"
     File "${SRCDIR}\translations\webissues_fr.qm"
     File "${SRCDIR}\translations\webissues_pl.qm"
     File "${SRCDIR}\translations\webissues_pt_BR.qm"
 
+    File "${QTDIR}\translations\qt_de.qm"
     File "${QTDIR}\translations\qt_fr.qm"
     File "${QTDIR}\translations\qt_pl.qm"
     File "${QTDIR}\translations\qt_pt.qm"

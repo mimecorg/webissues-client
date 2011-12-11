@@ -1,3 +1,10 @@
+1.0-rc1 (2011-12-12)
+    * added German translation
+    * do not mark issue as read when automatically updating
+    * prevent unselecting the current issue after update
+    * stop auto-updating when session expires
+    * show caption when no comments/attachments exist
+
 1.0-beta4 (2011-12-05)
     * fixed error in view settings if nothing changed (bug #689)
     * status bar refactoring (task #369)

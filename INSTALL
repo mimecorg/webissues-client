@@ -91,10 +91,10 @@ The typical procedure of building the program is:
     $ ./configure
     $ make
 
-To create the binary package run the attached script:
+To create the binary package you can run the attached script:
 
     $ cd packages/osx
-    $ ./osx-package.sh ../../release/webissues
+    $ ./maintainer-build-package.sh /path/to/qmake
 
 Additional options that can be passed to the configure script:
 
@@ -117,7 +117,7 @@ Additional options that can be passed to the configure script:
 
     -universal
 
-        Build both the x86 and PPC version.
+        Build for x86_64, x86 and PPC platforms.
 
     -target VERSION
 
@@ -125,4 +125,4 @@ Additional options that can be passed to the configure script:
 
     -sdk PATH
 
-        Set OS X SDK (default is /Developer/SDKs/MacOSX10.4u.sdk).
+        Set OS X SDK (default is /Developer/SDKs/MacOSX10.6.sdk).
