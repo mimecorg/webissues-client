@@ -42,6 +42,7 @@ PRECOMPILED_HEADER = precompiled.h
 
 TRANSLATIONS += \
            ../translations/webissues_untranslated.ts \
+           ../translations/webissues_de.ts \
            ../translations/webissues_fr.ts \
            ../translations/webissues_pl.ts \
            ../translations/webissues_pt_BR.ts

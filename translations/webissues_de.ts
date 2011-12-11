@@ -77,7 +77,7 @@
     <message>
         <location filename="../src/dialogs/alertdialogs.cpp" line="137"/>
         <source>Summary &amp;reports</source>
-        <translation>Zusammenfassung der &amp;Berichte</translation>
+        <translation>&amp;Übersichtsberichte</translation>
     </message>
 </context>
 <context>
@@ -435,7 +435,7 @@
     <message>
         <location filename="../src/application.cpp" line="163"/>
         <source>Website</source>
-        <translation type="unfinished"></translation>
+        <translation>Webseite</translation>
     </message>
     <message>
         <location filename="../src/application.cpp" line="164"/>
@@ -496,22 +496,22 @@
     <message>
         <location filename="../src/application.cpp" line="233"/>
         <source>Your version of WebIssues is up to date.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ihre Version von WebIssues ist aktuell.</translation>
     </message>
     <message>
         <location filename="../src/application.cpp" line="239"/>
         <source>The latest version of WebIssues is %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Die neuste Version von WebIssues ist %1.</translation>
     </message>
     <message>
         <location filename="../src/application.cpp" line="241"/>
         <source>&amp;Release Notes</source>
-        <translation>Versionshinweise</translation>
+        <translation>Ve&amp;rsionshinweise</translation>
     </message>
     <message>
         <location filename="../src/application.cpp" line="244"/>
         <source>Do&amp;wnload</source>
-        <translation type="unfinished">Do&amp;wnload</translation>
+        <translation>Do&amp;wnload</translation>
     </message>
     <message>
         <location filename="../src/application.cpp" line="174"/>
@@ -770,7 +770,7 @@
     <message>
         <location filename="../src/dialogs/issuedialogs.cpp" line="448"/>
         <source>Clone issue &lt;b&gt;%1&lt;/b&gt; to a folder of the same type:</source>
-        <translation>Aufgabe clonen &lt;b&gt;%1&lt;/b&gt; in einen Ordner von selben Typ:</translation>
+        <translation>Aufgabe klonen &lt;b&gt;%1&lt;/b&gt; in einen Ordner von selben Typ:</translation>
     </message>
 </context>
 <context>
@@ -1085,7 +1085,7 @@ gehen alle Änderungen verloren. Möchten Sie wirklich fortfahren?</translation>
     <message>
         <location filename="../src/dialogs/connectioninfodialog.cpp" line="58"/>
         <source>Encryption:</source>
-        <translation type="unfinished"></translation>
+        <translation>Verschlüsslung:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/connectioninfodialog.cpp" line="81"/>
@@ -1100,7 +1100,7 @@ gehen alle Änderungen verloren. Möchten Sie wirklich fortfahren?</translation>
     <message>
         <location filename="../src/dialogs/connectioninfodialog.cpp" line="107"/>
         <source>None</source>
-        <translation type="unfinished">Keine</translation>
+        <translation>Keine</translation>
     </message>
     <message>
         <location filename="../src/dialogs/connectioninfodialog.cpp" line="120"/>
@@ -1183,7 +1183,7 @@ gehen alle Änderungen verloren. Möchten Sie wirklich fortfahren?</translation>
     <message>
         <location filename="../src/dialogs/viewdialogs.cpp" line="835"/>
         <source>Modify the default view for type &lt;b&gt;%1&lt;/b&gt;:</source>
-        <translation>Änderung der Standardansicht in &lt;b&gt;%1&lt;/b&gt;:</translation>
+        <translation>Ändern der Standardansicht in &lt;b&gt;%1&lt;/b&gt;:</translation>
     </message>
 </context>
 <context>
@@ -1201,7 +1201,7 @@ gehen alle Änderungen verloren. Möchten Sie wirklich fortfahren?</translation>
     <message>
         <location filename="../src/dialogs/alertdialogs.cpp" line="233"/>
         <source>Are you sure you want to delete alert &lt;b&gt;%1&lt;/b&gt;?</source>
-        <translation>sind sie sicher das sie den Alarm &lt;b&gt;%1&lt;/b&gt; löschen wollen?</translation>
+        <translation>Sind sie sicher das sie den Alarm &lt;b&gt;%1&lt;/b&gt; löschen wollen?</translation>
     </message>
 </context>
 <context>
@@ -1287,7 +1287,7 @@ gehen alle Änderungen verloren. Möchten Sie wirklich fortfahren?</translation>
     <message>
         <location filename="../src/dialogs/issuedialogs.cpp" line="467"/>
         <source>The entire issue history will be permanently deleted.</source>
-        <translation>Die Komplette Aufgaben historie wird dauerhaft gelöscht.</translation>
+        <translation>Die komplette Aufgabenhistorie wird dauerhaft gelöscht.</translation>
     </message>
 </context>
 <context>
@@ -1351,12 +1351,12 @@ gehen alle Änderungen verloren. Möchten Sie wirklich fortfahren?</translation>
     <message>
         <location filename="../src/dialogs/issuedialogs.cpp" line="714"/>
         <source>Edit Attachment</source>
-        <translation>Angehängte Datei bearbeiten</translation>
+        <translation>Anhang bearbeiten</translation>
     </message>
     <message>
         <location filename="../src/dialogs/issuedialogs.cpp" line="715"/>
         <source>Edit attachment &lt;b&gt;%1&lt;/b&gt;:</source>
-        <translation>Angehängte Datei &lt;b&gt;%1&lt;/b&gt; bearbeiten:</translation>
+        <translation>Anhang &lt;b&gt;%1&lt;/b&gt; bearbeiten:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/issuedialogs.cpp" line="720"/>
@@ -1402,7 +1402,7 @@ gehen alle Änderungen verloren. Möchten Sie wirklich fortfahren?</translation>
     <message>
         <location filename="../src/widgets/metadataeditors.cpp" line="132"/>
         <source>Limits can only be used when entering custom values is allowed and selecting multiple items is not allowed.</source>
-        <translation>Limits können nur genutz gerden wenn wenn Benutzereeingaben erlaubt sind und Mehrfachauswahlen nicht erlaubt sind.</translation>
+        <translation>Limits können nur genutz werden, falls eigene Werte erlaubt sind und Mehrfachauswahlen nicht erlaubt sind.</translation>
     </message>
     <message>
         <location filename="../src/widgets/metadataeditors.cpp" line="136"/>
@@ -1435,17 +1435,17 @@ gehen alle Änderungen verloren. Möchten Sie wirklich fortfahren?</translation>
     <message>
         <location filename="../src/utils/errorhelper.cpp" line="32"/>
         <source>Project does not exist</source>
-        <translation type="unfinished"></translation>
+        <translation>Projekt existiert nicht</translation>
     </message>
     <message>
         <location filename="../src/utils/errorhelper.cpp" line="34"/>
         <source>Folder does not exist</source>
-        <translation type="unfinished"></translation>
+        <translation>Verzeichnis existiert nicht</translation>
     </message>
     <message>
         <location filename="../src/utils/errorhelper.cpp" line="36"/>
         <source>Issue does not exist</source>
-        <translation>Diese Aufgabe existiert nicht</translation>
+        <translation>Aufgabe existiert nicht</translation>
     </message>
     <message>
         <location filename="../src/utils/errorhelper.cpp" line="38"/>
@@ -1455,12 +1455,12 @@ gehen alle Änderungen verloren. Möchten Sie wirklich fortfahren?</translation>
     <message>
         <location filename="../src/utils/errorhelper.cpp" line="40"/>
         <source>User does not exist</source>
-        <translation>Der Benutzer existiert nicht</translation>
+        <translation>Benutzer existiert nicht</translation>
     </message>
     <message>
         <location filename="../src/utils/errorhelper.cpp" line="42"/>
         <source>Type does not exist</source>
-        <translation>Dieser Typ existiert nicht</translation>
+        <translation>Typ existiert nicht</translation>
     </message>
     <message>
         <location filename="../src/utils/errorhelper.cpp" line="44"/>
@@ -1485,7 +1485,7 @@ gehen alle Änderungen verloren. Möchten Sie wirklich fortfahren?</translation>
     <message>
         <location filename="../src/utils/errorhelper.cpp" line="52"/>
         <source>A user with this login or name already exists</source>
-        <translation type="unfinished"></translation>
+        <translation>Ein Benutzer mit diesem Login oder Namen existiert bereits</translation>
     </message>
     <message>
         <location filename="../src/utils/errorhelper.cpp" line="54"/>
@@ -1580,7 +1580,7 @@ gehen alle Änderungen verloren. Möchten Sie wirklich fortfahren?</translation>
     <message>
         <location filename="../src/utils/errorhelper.cpp" line="90"/>
         <source>Value has incorrect format</source>
-        <translation>Wert hat das falsche Vormat</translation>
+        <translation>Wert hat das falsche Format</translation>
     </message>
     <message>
         <location filename="../src/utils/errorhelper.cpp" line="92"/>
@@ -1595,7 +1595,7 @@ gehen alle Änderungen verloren. Möchten Sie wirklich fortfahren?</translation>
     <message>
         <location filename="../src/utils/errorhelper.cpp" line="96"/>
         <source>Email address is invalid</source>
-        <translation>Emailadresse ist falsch</translation>
+        <translation>Email-Adresse ist falsch</translation>
     </message>
     <message>
         <location filename="../src/utils/errorhelper.cpp" line="98"/>
@@ -1645,7 +1645,7 @@ gehen alle Änderungen verloren. Möchten Sie wirklich fortfahren?</translation>
     <message>
         <location filename="../src/utils/errorhelper.cpp" line="116"/>
         <source>No items are specified</source>
-        <translation>Es sind keine items festgelegt</translation>
+        <translation>Es sind keine Elemente festgelegt</translation>
     </message>
     <message>
         <location filename="../src/utils/errorhelper.cpp" line="118"/>
@@ -1665,7 +1665,7 @@ gehen alle Änderungen verloren. Möchten Sie wirklich fortfahren?</translation>
     <message>
         <location filename="../src/utils/errorhelper.cpp" line="124"/>
         <source>Invalid alert email setting</source>
-        <translation>Ungültige Emailalarm Einstellung</translation>
+        <translation>Ungültige Email-Alarm Einstellung</translation>
     </message>
     <message>
         <location filename="../src/utils/errorhelper.cpp" line="126"/>
@@ -1675,7 +1675,7 @@ gehen alle Änderungen verloren. Möchten Sie wirklich fortfahren?</translation>
     <message>
         <location filename="../src/utils/errorhelper.cpp" line="128"/>
         <source>Attribute cannot be deleted</source>
-        <translation>Eigenschaften kann nicht gelöscht werden</translation>
+        <translation>Eigenschaft kann nicht gelöscht werden</translation>
     </message>
     <message>
         <location filename="../src/utils/errorhelper.cpp" line="130"/>
@@ -1685,12 +1685,12 @@ gehen alle Änderungen verloren. Möchten Sie wirklich fortfahren?</translation>
     <message>
         <location filename="../src/utils/errorhelper.cpp" line="132"/>
         <source>Cannot reuse password; choose different password</source>
-        <translation>Passwort kann nicht wiederverwendet werden, bitte wählen sie ein Anderes</translation>
+        <translation>Passwort kann nicht wiederverwendet werden, bitte wählen sie ein anderes</translation>
     </message>
     <message>
         <location filename="../src/utils/errorhelper.cpp" line="134"/>
         <source>The specified item was not found</source>
-        <translation>Das festgelegte item kann nicht gefunden werden</translation>
+        <translation>Das ausgewählte Element kann nicht gefunden werden</translation>
     </message>
     <message>
         <location filename="../src/utils/errorhelper.cpp" line="136"/>
@@ -1748,7 +1748,7 @@ gehen alle Änderungen verloren. Möchten Sie wirklich fortfahren?</translation>
     <message>
         <location filename="../src/widgets/findbar.cpp" line="84"/>
         <source>&amp;Match case</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Gross-Kleinschreibung beachten</translation>
     </message>
     <message>
         <location filename="../src/widgets/findbar.cpp" line="95"/>
@@ -1766,7 +1766,7 @@ gehen alle Änderungen verloren. Möchten Sie wirklich fortfahren?</translation>
     <message>
         <location filename="../src/dialogs/finditemdialog.cpp" line="35"/>
         <source>Enter the identifier of an issue, comment or attachment:</source>
-        <translation>Eingabe der Kennung von einer Aufgabe, einem Kommentar oder einer angehängten Datei:</translation>
+        <translation>Eingabe der Kennung einer Aufgabe, eines Kommentars oder einer angehängten Datei:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/finditemdialog.cpp" line="38"/>
@@ -1789,7 +1789,7 @@ gehen alle Änderungen verloren. Möchten Sie wirklich fortfahren?</translation>
     <message>
         <location filename="../src/dialogs/statedialogs.cpp" line="66"/>
         <source>Are you sure you want to mark all issues in folder &lt;b&gt;%1&lt;/b&gt; as read?</source>
-        <translation>sind sie sicher, das sie alle Aufgaben im Verzeichniss &lt;b&gt;%1&lt;/b&gt;, als gelesen makieren wollen?</translation>
+        <translation>Sind sie sicher, dass Sie alle Aufgaben im Verzeichniss &lt;b&gt;%1&lt;/b&gt;, als gelesen makieren wollen?</translation>
     </message>
     <message>
         <location filename="../src/dialogs/statedialogs.cpp" line="69"/>
@@ -1799,7 +1799,7 @@ gehen alle Änderungen verloren. Möchten Sie wirklich fortfahren?</translation>
     <message>
         <location filename="../src/dialogs/statedialogs.cpp" line="70"/>
         <source>Are you sure you want to mark all issues in folder &lt;b&gt;%1&lt;/b&gt; as unread?</source>
-        <translation>Sind sie sicher, das sie alle Aufgaben im Verzeichniss &lt;b&gt;%1&lt;/b&gt;, als ungelesen makieren wollen?</translation>
+        <translation>Sind Sie sicher, das Sie alle Aufgaben im Verzeichniss &lt;b&gt;%1&lt;/b&gt;, als ungelesen makieren wollen?</translation>
     </message>
 </context>
 <context>
@@ -1822,7 +1822,7 @@ gehen alle Änderungen verloren. Möchten Sie wirklich fortfahren?</translation>
     <message>
         <location filename="../src/views/folderview.cpp" line="77"/>
         <source>&amp;Edit Attributes...</source>
-        <translation>eigenschaften bearbeiten...</translation>
+        <translation>Eigenschaften b&amp;earbeiten...</translation>
     </message>
     <message>
         <location filename="../src/views/folderview.cpp" line="78"/>
@@ -1832,7 +1832,7 @@ gehen alle Änderungen verloren. Möchten Sie wirklich fortfahren?</translation>
     <message>
         <location filename="../src/views/folderview.cpp" line="82"/>
         <source>Clone Issue...</source>
-        <translation>Aufgabe clonen...</translation>
+        <translation>Aufgabe klonen...</translation>
     </message>
     <message>
         <location filename="../src/views/folderview.cpp" line="86"/>
@@ -1864,18 +1864,18 @@ gehen alle Änderungen verloren. Möchten Sie wirklich fortfahren?</translation>
         <location filename="../src/views/folderview.cpp" line="101"/>
         <location filename="../src/views/folderview.cpp" line="105"/>
         <source>Mark All As Read</source>
-        <translation>Alles als gelesen makieren</translation>
+        <translation>Alle als gelesen makieren</translation>
     </message>
     <message>
         <location filename="../src/views/folderview.cpp" line="102"/>
         <source>Mark All As Read</source>
         <comment>icon text</comment>
-        <translation>Alles als gelesen makieren</translation>
+        <translation>Alle als gelesen makieren</translation>
     </message>
     <message>
         <location filename="../src/views/folderview.cpp" line="109"/>
         <source>Mark All As Unread</source>
-        <translation>alles als ungelesen makieren</translation>
+        <translation>Alle als ungelesen makieren</translation>
     </message>
     <message>
         <location filename="../src/views/folderview.cpp" line="113"/>
@@ -1930,7 +1930,7 @@ gehen alle Änderungen verloren. Möchten Sie wirklich fortfahren?</translation>
     <message>
         <location filename="../src/views/folderview.cpp" line="146"/>
         <source>&amp;Clone View</source>
-        <translation>Ansicht clonen</translation>
+        <translation>Ansicht &amp;klonen</translation>
     </message>
     <message>
         <location filename="../src/views/folderview.cpp" line="154"/>
@@ -1985,17 +1985,17 @@ gehen alle Änderungen verloren. Möchten Sie wirklich fortfahren?</translation>
     <message>
         <location filename="../src/views/folderview.cpp" line="180"/>
         <source>&amp;View:</source>
-        <translation type="unfinished">&amp;Ansicht:</translation>
+        <translation>&amp;Ansicht:</translation>
     </message>
     <message>
         <location filename="../src/views/folderview.cpp" line="196"/>
         <source>&amp;Search:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Suchen:</translation>
     </message>
     <message>
         <location filename="../src/views/folderview.cpp" line="369"/>
         <source>Mark As Unread</source>
-        <translation>als ungelesen makieren</translation>
+        <translation>Als ungelesen makieren</translation>
     </message>
     <message>
         <location filename="../src/views/folderview.cpp" line="396"/>
@@ -2018,7 +2018,7 @@ gehen alle Änderungen verloren. Möchten Sie wirklich fortfahren?</translation>
     <message>
         <location filename="../src/utils/formatter.cpp" line="210"/>
         <source>%1 bytes</source>
-        <translation>%1 bytes</translation>
+        <translation>%1 Bytes</translation>
     </message>
 </context>
 <context>
@@ -2041,7 +2041,7 @@ gehen alle Änderungen verloren. Möchten Sie wirklich fortfahren?</translation>
     <message>
         <location filename="../src/dialogs/issuedialogs.cpp" line="635"/>
         <source>Destination:</source>
-        <translation>Zieladresse:</translation>
+        <translation>Ziel:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/issuedialogs.cpp" line="646"/>
@@ -2061,7 +2061,7 @@ gehen alle Änderungen verloren. Möchten Sie wirklich fortfahren?</translation>
     <message>
         <location filename="../src/dialogs/issuedialogs.cpp" line="699"/>
         <source>File could not be saved.</source>
-        <translation>Verzeichnis konnte nicht gespeichert werden.</translation>
+        <translation>Datei konnte nicht gespeichert werden.</translation>
     </message>
 </context>
 <context>
@@ -2088,12 +2088,12 @@ gehen alle Änderungen verloren. Möchten Sie wirklich fortfahren?</translation>
     <message>
         <location filename="../src/widgets/inputlineedit.cpp" line="272"/>
         <source>Invalid URL address</source>
-        <translation>ungültige URL</translation>
+        <translation>Ungültige URL-Adresse</translation>
     </message>
     <message>
         <location filename="../src/widgets/inputlineedit.cpp" line="279"/>
         <source>Invalid file name</source>
-        <translation>üngüliges Datenfeld</translation>
+        <translation>Ungüliger Dateiname</translation>
     </message>
 </context>
 <context>
@@ -2152,7 +2152,7 @@ gehen alle Änderungen verloren. Möchten Sie wirklich fortfahren?</translation>
     <message>
         <location filename="../src/models/issuedetailsgenerator.cpp" line="109"/>
         <source>Created date:</source>
-        <translation>Datum erzeugen:</translation>
+        <translation>Erstellt am:</translation>
     </message>
     <message>
         <location filename="../src/models/issuedetailsgenerator.cpp" line="111"/>
@@ -2162,7 +2162,7 @@ gehen alle Änderungen verloren. Möchten Sie wirklich fortfahren?</translation>
     <message>
         <location filename="../src/models/issuedetailsgenerator.cpp" line="113"/>
         <source>Modified date:</source>
-        <translation>Geändertes Datum:</translation>
+        <translation>Geändert am:</translation>
     </message>
     <message>
         <location filename="../src/models/issuedetailsgenerator.cpp" line="115"/>
@@ -2178,12 +2178,12 @@ gehen alle Änderungen verloren. Möchten Sie wirklich fortfahren?</translation>
     <message>
         <location filename="../src/models/issuedetailsgenerator.cpp" line="187"/>
         <source>Issue Created</source>
-        <translation>Aufgabe erstellen</translation>
+        <translation>Aufgabe erstellt am</translation>
     </message>
     <message>
         <location filename="../src/models/issuedetailsgenerator.cpp" line="189"/>
         <source>Issue Modified</source>
-        <translation>Aufgabe ändern</translation>
+        <translation>Aufgabe geändert am</translation>
     </message>
     <message>
         <location filename="../src/models/issuedetailsgenerator.cpp" line="198"/>
@@ -2193,12 +2193,12 @@ gehen alle Änderungen verloren. Möchten Sie wirklich fortfahren?</translation>
     <message>
         <location filename="../src/models/issuedetailsgenerator.cpp" line="214"/>
         <source>Attachment #%1</source>
-        <translation>Dateianhang #%1</translation>
+        <translation>Anhang #%1</translation>
     </message>
     <message>
         <location filename="../src/models/issuedetailsgenerator.cpp" line="230"/>
         <source>Issue Moved</source>
-        <translation>Aufgabe verschieben</translation>
+        <translation>Aufgabe verschoben</translation>
     </message>
     <message>
         <location filename="../src/models/issuedetailsgenerator.cpp" line="245"/>
@@ -2213,12 +2213,12 @@ gehen alle Änderungen verloren. Möchten Sie wirklich fortfahren?</translation>
     <message>
         <location filename="../src/models/issuedetailsgenerator.cpp" line="249"/>
         <source>There are no comments or attachments.</source>
-        <translation type="unfinished"></translation>
+        <translation>Keine Kommentare oder Anhänge vorhanden.</translation>
     </message>
     <message>
         <location filename="../src/models/issuedetailsgenerator.cpp" line="259"/>
         <source>last edited:</source>
-        <translation>letzte Änderung:</translation>
+        <translation>zuletzt editiert am:</translation>
     </message>
     <message>
         <location filename="../src/models/issuedetailsgenerator.cpp" line="271"/>
@@ -2246,7 +2246,7 @@ gehen alle Änderungen verloren. Möchten Sie wirklich fortfahren?</translation>
     <message>
         <location filename="../src/models/issuedetailsgenerator.cpp" line="377"/>
         <source>All History</source>
-        <translation>gesamte Historie</translation>
+        <translation>Gesamte Historie</translation>
     </message>
     <message>
         <location filename="../src/models/issuedetailsgenerator.cpp" line="380"/>
@@ -2256,12 +2256,12 @@ gehen alle Änderungen verloren. Möchten Sie wirklich fortfahren?</translation>
     <message>
         <location filename="../src/models/issuedetailsgenerator.cpp" line="383"/>
         <source>Only Attachments</source>
-        <translation type="unfinished"></translation>
+        <translation>Nur Anhänge</translation>
     </message>
     <message>
         <location filename="../src/models/issuedetailsgenerator.cpp" line="386"/>
         <source>Comments &amp; Attachments</source>
-        <translation type="unfinished"></translation>
+        <translation>Kommentare &amp; Anhänge</translation>
     </message>
     <message>
         <location filename="../src/models/issuedetailsgenerator.cpp" line="415"/>
@@ -2281,7 +2281,7 @@ gehen alle Änderungen verloren. Möchten Sie wirklich fortfahren?</translation>
     <message>
         <location filename="../src/dialogs/issuedialogs.cpp" line="80"/>
         <source>There are no available project members to assign to the issue.</source>
-        <translation>Es gibt keine verfügbaren Projektmitglieder um die Aufgaben festzulegen.</translation>
+        <translation>Es gibt keine Projektmitglieder die der Aufgaben zugeordnet werden können.</translation>
     </message>
     <message>
         <location filename="../src/dialogs/issuedialogs.cpp" line="89"/>
@@ -2387,27 +2387,27 @@ gehen alle Änderungen verloren. Möchten Sie wirklich fortfahren?</translation>
     <message>
         <location filename="../src/views/issueview.cpp" line="88"/>
         <source>&amp;Edit Attributes...</source>
-        <translation>Eigenschaften bearbeiten...</translation>
+        <translation>Eigenschaften b&amp;earbeiten...</translation>
     </message>
     <message>
         <location filename="../src/views/issueview.cpp" line="93"/>
         <source>Clone Issue...</source>
-        <translation>Aufgabe clonen...</translation>
+        <translation>Aufgabe klonen...</translation>
     </message>
     <message>
         <location filename="../src/views/issueview.cpp" line="97"/>
         <source>&amp;Move Issue...</source>
-        <translation>Aufgabe verschieben...</translation>
+        <translation>Aufgabe versch&amp;ieben...</translation>
     </message>
     <message>
         <location filename="../src/views/issueview.cpp" line="98"/>
         <source>Move</source>
-        <translation>verschieben</translation>
+        <translation>Verschieben</translation>
     </message>
     <message>
         <location filename="../src/views/issueview.cpp" line="102"/>
         <source>&amp;Delete Issue</source>
-        <translation>Aufgabe löschen</translation>
+        <translation>Aufgabe l&amp;öschen</translation>
     </message>
     <message>
         <location filename="../src/views/issueview.cpp" line="103"/>
@@ -2442,12 +2442,12 @@ gehen alle Änderungen verloren. Möchten Sie wirklich fortfahren?</translation>
     <message>
         <location filename="../src/views/issueview.cpp" line="142"/>
         <source>&amp;Copy Email Address</source>
-        <translation>Emailadresse &amp;kopieren</translation>
+        <translation>Email-Adresse &amp;kopieren</translation>
     </message>
     <message>
         <location filename="../src/views/issueview.cpp" line="146"/>
         <source>&amp;Copy Link Address</source>
-        <translation>indernetadresse &amp;kopieren</translation>
+        <translation>Internet-Adresse &amp;kopieren</translation>
     </message>
     <message>
         <location filename="../src/views/issueview.cpp" line="160"/>
@@ -2514,18 +2514,18 @@ gehen alle Änderungen verloren. Möchten Sie wirklich fortfahren?</translation>
         <location filename="../src/views/issueview.cpp" line="443"/>
         <source>The selected file is bigger than the maximum allowed file size
 on this server which is %1.</source>
-        <translation>Die ausgewählte Datei ist Größer als die maximal
-erlaubete Dateigröße, auf dem server, von %1.</translation>
+        <translation>Die ausgewählte Datei ist größer als die maximal
+erlaubete Dateigröße des Servers von %1.</translation>
     </message>
     <message>
         <location filename="../src/views/issueview.cpp" line="744"/>
         <source>%1 comments</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 Kommentare</translation>
     </message>
     <message>
         <location filename="../src/views/issueview.cpp" line="746"/>
         <source>%1 attachments</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 Anhänge</translation>
     </message>
     <message>
         <location filename="../src/views/issueview.cpp" line="885"/>
@@ -2540,7 +2540,7 @@ erlaubete Dateigröße, auf dem server, von %1.</translation>
     <message>
         <location filename="../src/views/issueview.cpp" line="887"/>
         <source>Do this automatically for all attachments</source>
-        <translation>Immer diese Aktion für Anhänge verwenden</translation>
+        <translation>Diese Aktion automatisch für alle Anhänge verwenden</translation>
     </message>
     <message>
         <location filename="../src/views/issueview.cpp" line="890"/>
@@ -2637,7 +2637,7 @@ erlaubete Dateigröße, auf dem server, von %1.</translation>
     <message>
         <location filename="../src/dialogs/logindialog.cpp" line="156"/>
         <source>You have to enter a new password in order to log in:</source>
-        <translation>Sie müssen ein neues Passwort angeben um sich anzumelden:</translation>
+        <translation>Sie müssen ein neues Passwort angeben, um sich anmelden zu können:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/logindialog.cpp" line="159"/>
@@ -2682,7 +2682,7 @@ erlaubete Dateigröße, auf dem server, von %1.</translation>
     <message>
         <location filename="../src/mainwindow.cpp" line="89"/>
         <source>Close Connection</source>
-        <translation>Verbindung trennen</translation>
+        <translation>Verbindung schließen</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="90"/>
@@ -2717,7 +2717,7 @@ erlaubete Dateigröße, auf dem server, von %1.</translation>
     <message>
         <location filename="../src/mainwindow.cpp" line="107"/>
         <source>Types</source>
-        <translation type="unfinished"></translation>
+        <translation>Typen</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="111"/>
@@ -2774,18 +2774,20 @@ erlaubete Dateigröße, auf dem server, von %1.</translation>
         <location filename="../src/mainwindow.cpp" line="292"/>
         <source>WebIssues Desktop Client
 Not connected</source>
-        <translation type="unfinished"></translation>
+        <translation>WebIssues Desktop Client
+Nicht verbunden</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="393"/>
         <source>Encrypted</source>
-        <translation type="unfinished"></translation>
+        <translation>Verschlüsselt</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="412"/>
         <source>WebIssues Desktop Client
 Connected to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>WebIssues Desktop Client
+Verbunden zu %1</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="186"/>
@@ -2925,7 +2927,7 @@ Connected to %1</source>
     <message>
         <location filename="../src/dialogs/alertdialogs.cpp" line="179"/>
         <source>Type of emails:</source>
-        <translation>Emailarten:</translation>
+        <translation>Email-Arten:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/alertdialogs.cpp" line="184"/>
@@ -2976,12 +2978,12 @@ Connected to %1</source>
     <message>
         <location filename="../src/dialogs/viewdialogs.cpp" line="804"/>
         <source>Modify Personal View</source>
-        <translation>persönliche Ansicht bearbeiten</translation>
+        <translation>Persönliche Ansicht bearbeiten</translation>
     </message>
     <message>
         <location filename="../src/dialogs/viewdialogs.cpp" line="805"/>
         <source>Modify your personal view &lt;b&gt;%1&lt;/b&gt;:</source>
-        <translation>persönliche Ansicht &lt;b&gt;%1&lt;/b&gt; bearbeiten:</translation>
+        <translation>Persönliche Ansicht &lt;b&gt;%1&lt;/b&gt; bearbeiten:</translation>
     </message>
 </context>
 <context>
@@ -2999,7 +3001,7 @@ Connected to %1</source>
     <message>
         <location filename="../src/dialogs/projectdialogs.cpp" line="325"/>
         <source>There are no available destination projects.</source>
-        <translation type="unfinished"></translation>
+        <translation>Es existieren keine Zielprojekte.</translation>
     </message>
     <message>
         <location filename="../src/dialogs/projectdialogs.cpp" line="333"/>
@@ -3022,7 +3024,7 @@ Connected to %1</source>
     <message>
         <location filename="../src/dialogs/issuedialogs.cpp" line="404"/>
         <source>There are no available destination folders.</source>
-        <translation type="unfinished"></translation>
+        <translation>Es sind keine Zielverzeichnisse vorhanden.</translation>
     </message>
 </context>
 <context>
@@ -3035,7 +3037,7 @@ Connected to %1</source>
     <message>
         <location filename="../src/widgets/metadataeditors.cpp" line="219"/>
         <source>&amp;Strip trailing decimal zeros</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Lösche überflüssige Nachkommanullen</translation>
     </message>
     <message>
         <location filename="../src/widgets/metadataeditors.cpp" line="228"/>
@@ -3100,7 +3102,8 @@ Connected to %1</source>
         <location filename="../src/dialogs/preferencesdialog.cpp" line="76"/>
         <source>The following settings only affect the Web Client and email notifications.
 The Desktop Client will always use the language configured in program settings and the local time zone.</source>
-        <translation type="unfinished"></translation>
+        <translation>Die nachfolgenden Einstellungen beeinflussen nur den Web-Client und die Email-Benachrichtigungen.
+Der Desktop-Client benutzt immer die im Programm konfigurierte Sparache und die lokale Zeitzone.</translation>
     </message>
     <message>
         <location filename="../src/dialogs/preferencesdialog.cpp" line="88"/>
@@ -3110,12 +3113,12 @@ The Desktop Client will always use the language configured in program settings a
     <message>
         <location filename="../src/dialogs/preferencesdialog.cpp" line="186"/>
         <source>&amp;Email address:</source>
-        <translation>&amp;Emailadresse:</translation>
+        <translation>&amp;Email-Adresse:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/preferencesdialog.cpp" line="196"/>
         <source>This address will only be visible to the system administrator. You will not receive notifications if you leave this field empty.</source>
-        <translation>Diese Adresse ist nur für den Systemadministator sichtbar. Sie bekommen nichts angezeigt wenn sie dieses Feld leer lassen.</translation>
+        <translation>Diese Adresse ist nur für den Systemadministator sichtbar. Sie bekommen keine Benachrichtigung falls Sie dieses Feld leer lassen.</translation>
     </message>
     <message>
         <location filename="../src/dialogs/preferencesdialog.cpp" line="202"/>
@@ -3125,7 +3128,7 @@ The Desktop Client will always use the language configured in program settings a
     <message>
         <location filename="../src/dialogs/preferencesdialog.cpp" line="206"/>
         <source>&amp;Do not include issues that I have already read</source>
-        <translation>&amp;Diese Aufgabe enhält nichts was bereits gelesn wurde</translation>
+        <translation>Bereits gelesene &amp;Aufgaben nicht hinzufügen</translation>
     </message>
     <message>
         <location filename="../src/dialogs/preferencesdialog.cpp" line="209"/>
@@ -3157,7 +3160,7 @@ The Desktop Client will always use the language configured in program settings a
     <message>
         <location filename="../src/dialogs/preferencesdialog.cpp" line="288"/>
         <source>You will not receive summary emails if you do not select any day and hour.</source>
-        <translation>Sie bekommen keine email Übersicht wenn sie keinen Tag oder Uhrzeit ausgewählt haben.</translation>
+        <translation>Sie bekommen keine Email-Übersicht, wenn sie keinen Tag oder Uhrzeit ausgewählt haben.</translation>
     </message>
     <message>
         <location filename="../src/dialogs/preferencesdialog.cpp" line="337"/>
@@ -3208,12 +3211,12 @@ The Desktop Client will always use the language configured in program settings a
     <message>
         <location filename="../src/dialogs/preferencesdialog.cpp" line="103"/>
         <source>Customize the format of numbers, date and time. Default formats depend on the selected language.</source>
-        <translation>Formatanpassungen für Zahlen, Datum und Uhrzeit. Standardformate besieren auf der ausgewählten Sprache.</translation>
+        <translation>Formatanpassungen für Zahlen, Datum und Uhrzeit. Standardformate basieren auf der ausgewählten Sprache.</translation>
     </message>
     <message>
         <location filename="../src/dialogs/preferencesdialog.cpp" line="141"/>
         <source>Page Size</source>
-        <translation>Seiten größe</translation>
+        <translation>Seitengröße</translation>
     </message>
     <message>
         <location filename="../src/dialogs/preferencesdialog.cpp" line="145"/>
@@ -3318,7 +3321,7 @@ The Desktop Client will always use the language configured in program settings a
     <message>
         <location filename="../src/views/projectsview.cpp" line="87"/>
         <source>Move</source>
-        <translation>verschieben</translation>
+        <translation>Verschieben</translation>
     </message>
     <message>
         <location filename="../src/views/projectsview.cpp" line="96"/>
@@ -3379,7 +3382,7 @@ The Desktop Client will always use the language configured in program settings a
     <message>
         <location filename="../src/dialogs/viewdialogs.cpp" line="951"/>
         <source>Are you sure you want to convert your personal view &lt;b&gt;%1&lt;/b&gt; to a public view?</source>
-        <translation>Sind sie sicher das sie ihre personliche Ansicht &lt;b&gt;%1&lt;/b&gt; in eine öffentlichen Ansicht ändern wollen?</translation>
+        <translation>Sind sie sicher, dass Sie ihre personliche Ansicht &lt;b&gt;%1&lt;/b&gt; in eine öffentlichen Ansicht ändern wollen?</translation>
     </message>
     <message>
         <location filename="../src/dialogs/viewdialogs.cpp" line="954"/>
@@ -3515,7 +3518,7 @@ The Desktop Client will always use the language configured in program settings a
     <message>
         <location filename="../src/dialogs/viewdialogs.cpp" line="867"/>
         <source>Enter the new name of view &lt;b&gt;%1&lt;/b&gt;:</source>
-        <translation>Neuer Name für die Ansicht &lt;b&gt;%1&lt;/b&gt; eingeben:</translation>
+        <translation>Neuen Namen für die Ansicht &lt;b&gt;%1&lt;/b&gt; eingeben:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/viewdialogs.cpp" line="872"/>
@@ -3528,12 +3531,12 @@ The Desktop Client will always use the language configured in program settings a
     <message>
         <location filename="../src/dialogs/reportdialog.cpp" line="60"/>
         <source>Table with visible columns only</source>
-        <translation>Nur Tabellen mit sichtbaren Spalten</translation>
+        <translation>Tabelle mit den sichtbaren Spalten</translation>
     </message>
     <message>
         <location filename="../src/dialogs/reportdialog.cpp" line="62"/>
         <source>Table with all system and user columns</source>
-        <translation>Tabellen mit allen Sytem- und Benutzerspalten</translation>
+        <translation>Tabelle mit allen Sytem- und Benutzerspalten</translation>
     </message>
     <message>
         <location filename="../src/dialogs/reportdialog.cpp" line="70"/>
@@ -3584,12 +3587,12 @@ The Desktop Client will always use the language configured in program settings a
     <message>
         <location filename="../src/dialogs/reportdialog.cpp" line="100"/>
         <source>list of issues</source>
-        <translation>lieste der Aufgaben</translation>
+        <translation>Liste der Aufgaben</translation>
     </message>
     <message>
         <location filename="../src/dialogs/reportdialog.cpp" line="103"/>
         <source>issue details</source>
-        <translation>aufgabendetails</translation>
+        <translation>Aufgabendetails</translation>
     </message>
     <message>
         <location filename="../src/dialogs/reportdialog.cpp" line="109"/>
@@ -3648,27 +3651,27 @@ The Desktop Client will always use the language configured in program settings a
     <message>
         <location filename="../src/sqlite/sqlitedriver.cpp" line="519"/>
         <source>Error opening database</source>
-        <translation>Fehler beim öffen der Datenbank</translation>
+        <translation>Fehler beim Öffen der Datenbank</translation>
     </message>
     <message>
         <location filename="../src/sqlite/sqlitedriver.cpp" line="530"/>
         <source>Error closing database</source>
-        <translation>Fehler beim schließen der Datenbank</translation>
+        <translation>Fehler beim Schließen der Datenbank</translation>
     </message>
     <message>
         <location filename="../src/sqlite/sqlitedriver.cpp" line="550"/>
         <source>Unable to begin transaction</source>
-        <translation>Vorgang kann nicht begonnen werden</translation>
+        <translation>Transaktion kann nicht gestartet werden</translation>
     </message>
     <message>
         <location filename="../src/sqlite/sqlitedriver.cpp" line="565"/>
         <source>Unable to commit transaction</source>
-        <translation>Verbindung kann nicht aufgebaut werden</translation>
+        <translation>Transakion kann nicht bestätigt werden</translation>
     </message>
     <message>
         <location filename="../src/sqlite/sqlitedriver.cpp" line="580"/>
         <source>Unable to rollback transaction</source>
-        <translation>Vorgang kann nicht wiederholt werden</translation>
+        <translation>Transaktion kann nicht zuürckgerollt werden</translation>
     </message>
 </context>
 <context>
@@ -3711,7 +3714,7 @@ The Desktop Client will always use the language configured in program settings a
     <message>
         <location filename="../src/widgets/searcheditbox.cpp" line="34"/>
         <source>Search Options</source>
-        <translation type="unfinished"></translation>
+        <translation>Suchoptionen</translation>
     </message>
     <message>
         <location filename="../src/widgets/searcheditbox.cpp" line="39"/>
@@ -3762,32 +3765,32 @@ The Desktop Client will always use the language configured in program settings a
     <message>
         <location filename="../src/dialogs/settingsdialog.ui" line="21"/>
         <source>Basic</source>
-        <translation type="unfinished"></translation>
+        <translation>Basis</translation>
     </message>
     <message>
         <location filename="../src/dialogs/settingsdialog.ui" line="27"/>
         <source>Regional Options</source>
-        <translation type="unfinished">Regionale Möglichkeiten</translation>
+        <translation>Regionale Optionen</translation>
     </message>
     <message>
         <location filename="../src/dialogs/settingsdialog.ui" line="33"/>
         <source>&amp;Language of the user interface:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Sprache der Benutzeroberfläche:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/settingsdialog.ui" line="71"/>
         <source>User Interface</source>
-        <translation type="unfinished"></translation>
+        <translation>Benutzeroberfläche</translation>
     </message>
     <message>
         <location filename="../src/dialogs/settingsdialog.ui" line="77"/>
         <source>&amp;Dock main window in system tray</source>
-        <translation>Symbol im Systray &amp;anzeigen</translation>
+        <translation>Symbol in Symbolleiste &amp;anzeigen</translation>
     </message>
     <message>
         <location filename="../src/dialogs/settingsdialog.ui" line="87"/>
         <source>Startup Options</source>
-        <translation type="unfinished"></translation>
+        <translation>Startoptionen</translation>
     </message>
     <message>
         <location filename="../src/dialogs/settingsdialog.ui" line="93"/>
@@ -3820,88 +3823,88 @@ The Desktop Client will always use the language configured in program settings a
     <message>
         <location filename="../src/dialogs/settingsdialog.ui" line="189"/>
         <source>Start WebIssues when I start &amp;Windows</source>
-        <translation type="unfinished"></translation>
+        <translation>Starte WebIssues wenn &amp;Windows gestartet wird</translation>
     </message>
     <message>
         <location filename="../src/dialogs/settingsdialog.ui" line="199"/>
         <source>Fonts</source>
-        <translation type="unfinished"></translation>
+        <translation>Fonts</translation>
     </message>
     <message>
         <location filename="../src/dialogs/settingsdialog.ui" line="218"/>
         <location filename="../src/dialogs/settingsdialog.ui" line="257"/>
         <source> pt</source>
-        <translation type="unfinished"></translation>
+        <translation> pt</translation>
     </message>
     <message>
         <location filename="../src/dialogs/settingsdialog.ui" line="283"/>
         <source>Co&amp;mment editor:</source>
-        <translation type="unfinished"></translation>
+        <translation>Ko&amp;mmentareditor:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/settingsdialog.ui" line="293"/>
         <source>Issue &amp;history:</source>
-        <translation type="unfinished"></translation>
+        <translation>Aufgaben&amp;historie:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/settingsdialog.ui" line="306"/>
         <source>Automatic Update</source>
-        <translation type="unfinished"></translation>
+        <translation>Automatisches Aktualisierung</translation>
     </message>
     <message>
         <location filename="../src/dialogs/settingsdialog.ui" line="351"/>
         <source>&amp;Default action for attachments:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Standardaktion für Anhänge:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/settingsdialog.ui" line="396"/>
         <source>Update Intervals</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktualisierungsintervall</translation>
     </message>
     <message>
         <location filename="../src/dialogs/settingsdialog.ui" line="402"/>
         <source>&amp;Update folders every:</source>
-        <translation type="unfinished"></translation>
+        <translation>Akt&amp;ualisiere Verzeichnisse jede:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/settingsdialog.ui" line="438"/>
         <source>Update all data e&amp;very:</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktualisiere &amp;alle Daten jede:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/settingsdialog.ui" line="480"/>
         <source>Cache Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Cache-Einstellungen</translation>
     </message>
     <message>
         <location filename="../src/dialogs/settingsdialog.ui" line="486"/>
         <source>&amp;Maximum number of cached issues:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Maximale Anzahl von gepufferten Aufgaben:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/settingsdialog.ui" line="522"/>
         <source>Maximum &amp;size of cached attachments:</source>
-        <translation type="unfinished"></translation>
+        <translation>Maximale Gr&amp;öße der gepufferten Anhänge:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/settingsdialog.ui" line="564"/>
         <source>Proxy Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Proxy-Einstellungen</translation>
     </message>
     <message>
         <location filename="../src/dialogs/settingsdialog.ui" line="570"/>
         <source>Use custom pro&amp;xy settings:</source>
-        <translation type="unfinished"></translation>
+        <translation>Benutze spezifische Pro&amp;xy-Einstellungen:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/settingsdialog.ui" line="579"/>
         <source>&amp;Host:</source>
-        <translation type="unfinished"></translation>
+        <translation>Rec&amp;hner:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/settingsdialog.ui" line="596"/>
         <source>&amp;Port:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Port:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/settingsdialog.ui" line="622"/>
@@ -3911,17 +3914,17 @@ The Desktop Client will always use the language configured in program settings a
     <message>
         <location filename="../src/dialogs/settingsdialog.ui" line="636"/>
         <source>HTTP</source>
-        <translation type="unfinished"></translation>
+        <translation>HTTP</translation>
     </message>
     <message>
         <location filename="../src/dialogs/settingsdialog.ui" line="641"/>
         <source>Socks</source>
-        <translation type="unfinished"></translation>
+        <translation>Socks</translation>
     </message>
     <message>
         <location filename="../src/dialogs/settingsdialog.ui" line="651"/>
         <source>Do not use a proxy for the following addresses:</source>
-        <translation type="unfinished"></translation>
+        <translation>Keinen Proxy für nachfolgende Adressen benutzen:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/settingsdialog.ui" line="312"/>
@@ -4082,7 +4085,7 @@ The Desktop Client will always use the language configured in program settings a
     <message>
         <location filename="../src/dialogs/ssldialogs.cpp" line="172"/>
         <source>&amp;Accept this certificate permanently</source>
-        <translation>Dieses Zertifikat dauerhaft akzeptieren</translation>
+        <translation>Dieses Zertifikat dauerhaft &amp;akzeptieren</translation>
     </message>
     <message>
         <location filename="../src/dialogs/ssldialogs.cpp" line="177"/>
@@ -4156,7 +4159,7 @@ The Desktop Client will always use the language configured in program settings a
     <message>
         <location filename="../src/views/startview.cpp" line="275"/>
         <source>Local cache database cannot be opened.</source>
-        <translation>Der Locale DatenbankSpeicher kann nicht geöffnet werden.</translation>
+        <translation>Der lokale Datenbankspeicher kann nicht geöffnet werden.</translation>
     </message>
     <message>
         <location filename="../src/views/startview.cpp" line="294"/>
@@ -4190,7 +4193,7 @@ The Desktop Client will always use the language configured in program settings a
     <message>
         <location filename="../src/widgets/metadataeditors.cpp" line="40"/>
         <source>&amp;Allow entering multiple lines of text</source>
-        <translation>Mehrer Zeilen Text können eingeben werdem</translation>
+        <translation>&amp;Mehrzeilige Text sind erlaubt</translation>
     </message>
     <message>
         <location filename="../src/widgets/metadataeditors.cpp" line="47"/>
@@ -4270,18 +4273,18 @@ The Desktop Client will always use the language configured in program settings a
         <location filename="../src/views/typesview.cpp" line="55"/>
         <location filename="../src/views/typesview.cpp" line="152"/>
         <source>&amp;Rename Attribute...</source>
-        <translation>Attribute umbenennen...</translation>
+        <translation>Attribute &amp;umbenennen...</translation>
     </message>
     <message>
         <location filename="../src/views/typesview.cpp" line="56"/>
         <source>Rename</source>
-        <translation>umbenennen</translation>
+        <translation>Umbenennen</translation>
     </message>
     <message>
         <location filename="../src/views/typesview.cpp" line="65"/>
         <location filename="../src/views/typesview.cpp" line="153"/>
         <source>&amp;Delete Attribute</source>
-        <translation>Attribute &amp;Löschen</translation>
+        <translation>Attribute &amp;löschen</translation>
     </message>
     <message>
         <location filename="../src/views/typesview.cpp" line="66"/>
@@ -4306,7 +4309,7 @@ The Desktop Client will always use the language configured in program settings a
     <message>
         <location filename="../src/views/typesview.cpp" line="153"/>
         <source>&amp;Delete Type</source>
-        <translation>Typen &amp;Löschen</translation>
+        <translation>Typen &amp;löschen</translation>
     </message>
     <message>
         <location filename="../src/views/typesview.cpp" line="57"/>
@@ -4330,12 +4333,12 @@ The Desktop Client will always use the language configured in program settings a
     <message>
         <location filename="../src/widgets/metadataeditors.cpp" line="340"/>
         <source>&amp;Allow selecting only project members</source>
-        <translation>Erlaubt das Auswählen nur für Projektmitglieder</translation>
+        <translation>Nur &amp;Projektmitglieder können ausgewählt werden</translation>
     </message>
     <message>
         <location filename="../src/widgets/metadataeditors.cpp" line="342"/>
         <source>Allow &amp;selecting multiple itmes</source>
-        <translation>Eraubt das Auswählenvon verschiedenen Items</translation>
+        <translation>&amp;Mehrfachauswahl ist erlaubt</translation>
     </message>
 </context>
 <context>
@@ -4358,12 +4361,12 @@ The Desktop Client will always use the language configured in program settings a
     <message>
         <location filename="../src/models/usersmodel.cpp" line="66"/>
         <source>Regular user</source>
-        <translation>Normaler Benutzer</translation>
+        <translation>Regulärer Benutzer</translation>
     </message>
     <message>
         <location filename="../src/models/usersmodel.cpp" line="68"/>
         <source>System administrator</source>
-        <translation>System administrator</translation>
+        <translation>Systemadministrator</translation>
     </message>
     <message>
         <location filename="../src/models/usersmodel.cpp" line="69"/>
@@ -4421,7 +4424,7 @@ The Desktop Client will always use the language configured in program settings a
     <message>
         <location filename="../src/views/usersview.cpp" line="68"/>
         <source>Preferences</source>
-        <translation>Präferenz</translation>
+        <translation>Präferenzen</translation>
     </message>
     <message>
         <location filename="../src/views/usersview.cpp" line="72"/>
@@ -4432,7 +4435,7 @@ The Desktop Client will always use the language configured in program settings a
         <location filename="../src/views/usersview.cpp" line="73"/>
         <location filename="../src/views/usersview.cpp" line="135"/>
         <source>User Accounts</source>
-        <translation>Benutzeraccounts</translation>
+        <translation>Benutzer-Accounts</translation>
     </message>
     <message>
         <location filename="../src/views/usersview.cpp" line="93"/>
@@ -4480,7 +4483,7 @@ The Desktop Client will always use the language configured in program settings a
     <message>
         <location filename="../src/views/view.cpp" line="140"/>
         <source>View could not be updated: %1.</source>
-        <translation>Die Ansicht konnte nicht aktualisiert werden %1.</translation>
+        <translation>Die Ansicht konnte nicht aktualisiert werden: %1.</translation>
     </message>
 </context>
 <context>
@@ -4503,7 +4506,7 @@ The Desktop Client will always use the language configured in program settings a
     <message>
         <location filename="../src/dialogs/viewdialogs.cpp" line="98"/>
         <source>Select columns which will be displayed in the list of issues:</source>
-        <translation>Wählen sie Spalten aus welche in der Liste der Aufgaben angezeigt werden sollen:</translation>
+        <translation>Wählen Sie die Spalten aus, die in der Liste der Aufgaben angezeigt werden sollen:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/viewdialogs.cpp" line="112"/>
@@ -4513,7 +4516,7 @@ The Desktop Client will always use the language configured in program settings a
     <message>
         <location filename="../src/dialogs/viewdialogs.cpp" line="113"/>
         <source>Order</source>
-        <translation>Befehl</translation>
+        <translation>Reihenfolge</translation>
     </message>
     <message>
         <location filename="../src/dialogs/viewdialogs.cpp" line="115"/>
@@ -4523,22 +4526,22 @@ The Desktop Client will always use the language configured in program settings a
     <message>
         <location filename="../src/dialogs/viewdialogs.cpp" line="157"/>
         <source>Sort Order</source>
-        <translation>Befehl auslesen</translation>
+        <translation>Sortierreihenfolge</translation>
     </message>
     <message>
         <location filename="../src/dialogs/viewdialogs.cpp" line="161"/>
         <source>Select the default sort order:</source>
-        <translation>Wählt den standart Befehl aus:</translation>
+        <translation>Standardsortierung auswählen:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/viewdialogs.cpp" line="164"/>
         <source>Colu&amp;mn:</source>
-        <translation>Spalte:</translation>
+        <translation>&amp;Spalte:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/viewdialogs.cpp" line="178"/>
         <source>Order:</source>
-        <translation>Befehl:</translation>
+        <translation>Reihenfolge:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/viewdialogs.cpp" line="184"/>
@@ -4563,22 +4566,22 @@ The Desktop Client will always use the language configured in program settings a
     <message>
         <location filename="../src/dialogs/viewdialogs.cpp" line="209"/>
         <source>Select conditions which will be used to filter displayed issues:</source>
-        <translation>Wählen sie die Auswahlbedingungen wlche auf die ausgewählten Aufgaben angewendet werden sollen:</translation>
+        <translation>Wählen Sie die Kriterien, die als Filter zur Darstellung benutzt werden:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/viewdialogs.cpp" line="221"/>
         <source>Active conditions:</source>
-        <translation>Aktive Bedinungen:</translation>
+        <translation>Aktive Kriterien:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/viewdialogs.cpp" line="223"/>
         <source>Available conditions:</source>
-        <translation>Vorliegende Bedingungen:</translation>
+        <translation>Verfügbare Kriterien:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/viewdialogs.cpp" line="272"/>
         <source>Edit view settings.</source>
-        <translation>Ansichteneinstellungen bearbeiten.</translation>
+        <translation>Ansichtseinstellungen bearbeiten.</translation>
     </message>
     <message>
         <location filename="../src/dialogs/viewdialogs.cpp" line="576"/>
@@ -4596,12 +4599,12 @@ The Desktop Client will always use the language configured in program settings a
     <message>
         <location filename="../src/dialogs/viewsettingsdialog.cpp" line="58"/>
         <source>&amp;Add Personal View...</source>
-        <translation>persönliche Ansicht &amp;hinzufügen...</translation>
+        <translation>Persönliche Ansicht &amp;hinzufügen...</translation>
     </message>
     <message>
         <location filename="../src/dialogs/viewsettingsdialog.cpp" line="63"/>
         <source>&amp;Clone View...</source>
-        <translation>Ansicht &amp;clonen...</translation>
+        <translation>Ansicht &amp;klonen...</translation>
     </message>
     <message>
         <location filename="../src/dialogs/viewsettingsdialog.cpp" line="67"/>
@@ -4626,12 +4629,12 @@ The Desktop Client will always use the language configured in program settings a
     <message>
         <location filename="../src/dialogs/viewsettingsdialog.cpp" line="83"/>
         <source>&amp;Unpublish View</source>
-        <translation>&amp;Unveröffentlichete Ansicht</translation>
+        <translation>&amp;Ansicht nicht veröffentlichen</translation>
     </message>
     <message>
         <location filename="../src/dialogs/viewsettingsdialog.cpp" line="85"/>
         <source>&amp;Publish View</source>
-        <translation>öffentliche Ansicht</translation>
+        <translation>Ansicht verö&amp;ffentlichen</translation>
     </message>
     <message>
         <location filename="../src/dialogs/viewsettingsdialog.cpp" line="102"/>
@@ -4656,7 +4659,7 @@ The Desktop Client will always use the language configured in program settings a
     <message>
         <location filename="../src/dialogs/viewsettingsdialog.cpp" line="113"/>
         <source>Order of Attributes</source>
-        <translation>Verzeichnis von Attributen</translation>
+        <translation>Reihenfolge der Attribute</translation>
     </message>
     <message>
         <location filename="../src/dialogs/viewsettingsdialog.cpp" line="122"/>
@@ -4742,7 +4745,7 @@ The Desktop Client will always use the language configured in program settings a
         <location filename="../src/utils/viewsettingshelper.cpp" line="114"/>
         <location filename="../src/utils/viewsettingshelper.cpp" line="158"/>
         <source>begins with</source>
-        <translation>Beginnt mit</translation>
+        <translation>beginnt mit</translation>
     </message>
     <message>
         <location filename="../src/utils/viewsettingshelper.cpp" line="116"/>
@@ -4758,7 +4761,7 @@ The Desktop Client will always use the language configured in program settings a
     <message>
         <location filename="../src/utils/viewsettingshelper.cpp" line="133"/>
         <source>empty</source>
-        <translation>Leer</translation>
+        <translation>leer</translation>
     </message>
     <message>
         <location filename="../src/utils/viewsettingshelper.cpp" line="138"/>
@@ -4768,12 +4771,12 @@ The Desktop Client will always use the language configured in program settings a
     <message>
         <location filename="../src/utils/viewsettingshelper.cpp" line="144"/>
         <source>is equal to</source>
-        <translation>ist gleichwertig mit</translation>
+        <translation>ist gleich mit</translation>
     </message>
     <message>
         <location filename="../src/utils/viewsettingshelper.cpp" line="146"/>
         <source>is not equal to</source>
-        <translation>ist nicht gleichwertig mit</translation>
+        <translation>ist ungleich mit</translation>
     </message>
     <message>
         <location filename="../src/utils/viewsettingshelper.cpp" line="148"/>
@@ -4798,7 +4801,7 @@ The Desktop Client will always use the language configured in program settings a
     <message>
         <location filename="../src/utils/viewsettingshelper.cpp" line="162"/>
         <source>in list</source>
-        <translation>In der Liste</translation>
+        <translation>in der Liste</translation>
     </message>
 </context>
 <context>
@@ -4844,7 +4847,7 @@ The Desktop Client will always use the language configured in program settings a
     <message>
         <location filename="../src/models/viewsmodel.cpp" line="42"/>
         <source>Sort By</source>
-        <translation type="unfinished"></translation>
+        <translation>Sortiert nach</translation>
     </message>
     <message>
         <location filename="../src/models/viewsmodel.cpp" line="43"/>
