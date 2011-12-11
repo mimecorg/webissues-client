@@ -78,9 +78,9 @@ win32-msvc* {
 }
 
 target.path = $${DESTINATION}$$PREFIX/bin
-INSTALLS += target
+!mac:INSTALLS += target
 
-unix {
+unix:!mac {
     desktop.files = webissues.desktop
     desktop.path = $${DESTINATION}$$PREFIX/share/applications
     INSTALLS += desktop
