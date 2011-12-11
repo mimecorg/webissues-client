@@ -19,7 +19,7 @@
             <h1><img src="common/webissues.png" alt="WebIssues" id="logo" />WebIssues Manual</h1>
           </div>
           <div id="header-right">
-            <h2 class="subtitle">Version 1.0-beta4</h2>
+            <h2 class="subtitle">Version 1.0-rc1</h2>
           </div>
         </div>
         <div id="infobar">
@@ -44,7 +44,7 @@
           <p>The <span class="guilabel">Regional Options</span> and <span class="guilabel">Formats</span> groups of options are described in <a class="xref" href="webissues.custom.locale.html" title="Regional settings">the section called “Regional settings”</a>.</p>
           <p>The <span class="guilabel">Page Size</span> groups of options allows you to specify the default number of issues displayed on a single page in the list of issues, and the default number of elements per page in the issue history. Each user can choose their own preferred settings using the <span class="guilabel">User Preferences</span> command. These options only affect the Web Client, because the Desktop Client always displays all issues and complete history without pagination.</p>
           <div class="figure">
-            <a id="id607750"></a>
+            <a id="id583995"></a>
             <div class="figure-contents">
               <div class="mediaobject">
                 <img src="images/ch06-fig18.png" alt="Page Size" />
@@ -54,7 +54,7 @@
           </div>
           <p>Options from the <span class="guilabel">Limits</span> group allow the system administrator to specify the maximum length of comments and the maximum size of attachments that can be added by users.</p>
           <div class="figure">
-            <a id="id607776"></a>
+            <a id="id584022"></a>
             <div class="figure-contents">
               <div class="mediaobject">
                 <img src="images/ch06-fig19.png" alt="Limits" />
@@ -68,7 +68,7 @@
           </div>
           <p>By default, small attachments are stored in the database, and large ones directly in the filesystem. Depending on your needs, you can change the threshold value or force storing all attachments only in the database or file system. The maximum size of attachments stored in the database can be specified in the <span class="guilabel">Attachment Storage</span> group.</p>
           <div class="figure">
-            <a id="id607817"></a>
+            <a id="id584062"></a>
             <div class="figure-contents">
               <div class="mediaobject">
                 <img src="images/ch06-fig20.png" alt="Attachment Storage" />
@@ -82,7 +82,7 @@
           </div>
           <p>Options from the <span class="guilabel">Maximum Lifetime</span> group allow you to define the time after which inactive user sessions are removed, and the maximum amount of time the entries in the Event Log are stored by the system. The <span class="guilabel">Garbage Collection</span> setting determines the probability of running the clean up process, which removes inactive sessions and old entries in the Event Log. Reduce the probability if the server is heavily loaded, or select <span class="quote">“<span class="quote">Use cron job</span>”</span> if the mechanism of sending email notifications is active (see <a class="xref" href="webissues.prep.notifications.html#webissues.prep.nofitications.cron" title="Cron jobs">the section called “Cron jobs”</a>).</p>
           <div class="figure">
-            <a id="id607866"></a>
+            <a id="id584112"></a>
             <div class="figure-contents">
               <div class="mediaobject">
                 <img src="images/ch06-fig21.png" alt="Maximum Lifetime &amp; Garbage Collection" />
