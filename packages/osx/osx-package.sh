@@ -262,6 +262,9 @@ prepareDmg()
 	cd "$target"
 	find . | egrep "CVS" | xargs rm -rf
 	find . | egrep ".svn" | xargs rm -rf
+	cd "/Volumes/$APP_BASENAME"
+	find . | egrep "CVS" | xargs rm -rf
+	find . | egrep ".svn" | xargs rm -rf
 	cd "$curPath"
 }
 
