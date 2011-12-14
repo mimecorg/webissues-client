@@ -67,7 +67,7 @@ void FormDataMessage::finish()
 
 QString FormDataMessage::contentType()
 {
-    return QString( "multipart/form-data; boundary=\"%1\"" ).arg( m_boundary );
+    return QString( "multipart/form-data; boundary=%1" ).arg( m_boundary );
 }
 
 QString FormDataMessage::randomString( int length )
