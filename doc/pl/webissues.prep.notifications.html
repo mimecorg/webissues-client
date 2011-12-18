@@ -19,7 +19,7 @@
             <h1><img src="common/webissues.png" alt="WebIssues" id="logo" />Podręcznik WebIssues</h1>
           </div>
           <div id="header-right">
-            <h2 class="subtitle">Wersja 1.0-rc1</h2>
+            <h2 class="subtitle">Wersja 1.0</h2>
           </div>
         </div>
         <div id="infobar">
@@ -51,7 +51,7 @@
             </div>
             <p>Najpierw przejdź do Panelu administracyjnego i kliknij <span class="guilabel">Ustawienia e-maili</span>, aby skonfigurować wysyłanie poczty.</p>
             <div class="figure">
-              <a id="id595704"></a>
+              <a id="id582597"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch02-fig10.png" alt="Ustawienia e-maili" />
@@ -64,7 +64,7 @@
               <h3 class="title">Notatka</h3>
               <p>Więcej informacji na temat konfigurowania standardowego mechanizmu wysyłania e-maili wbudowanego w PHP znajdziesz na stronie <a class="ulink" href="http://php.net/manual/en/mail.configuration.php" target="_top">http://php.net/manual/en/mail.configuration.php</a>.</p>
             </div>
-            <p>Istnieje również możliwość wysyłania e-maili za pośrednictwem zewnętrznego serwera SMTP. Możesz w tym celu wykorzystać serwer pocztowy twojej firmy lub organizacji, albo dowolną publiczną usługę pocztową (np. gmail). Wybierz opcję <span class="guilabel">Własny serwer SMTP</span> i wpisz adres nadawcy wiadomości. Następnie w ramce <span class="guilabel">Serwer SMTP</span> wpisz adres serwera i numer portu usługi pocztowej (zwykle 25 lub 465 dla połączeń szyfrowanych). Wybierz tryb szyfrowania, jeśli serwer SMTP obsługuje szyfrowanie komunikacji. Podaj także nazwę użytkownika i hasło dostępu do serwera SMTP.</p>
+            <p>Istnieje również możliwość wysyłania e-maili za pośrednictwem zewnętrznego serwera SMTP. Możesz w tym celu wykorzystać serwer pocztowy twojej firmy lub organizacji albo dowolną publiczną usługę pocztową (np. gmail). Wybierz opcję <span class="guilabel">Własny serwer SMTP</span> i wpisz adres nadawcy wiadomości. Następnie w ramce <span class="guilabel">Serwer SMTP</span> wpisz adres serwera i numer portu usługi pocztowej (zwykle 25 lub 465 dla połączeń szyfrowanych). Wybierz tryb szyfrowania, jeśli serwer SMTP obsługuje szyfrowanie komunikacji. Podaj także nazwę użytkownika i hasło dostępu do serwera SMTP.</p>
             <p>Kliknij <span class="guibutton">Testuj połączenie</span> aby sprawdzić, czy konfiguracja SMTP jest poprawna. System WebIssues wyśle testową wiadomość na swój własny adres. Jeśli ją otrzymasz, oznacza to, że konfiguracja jest poprawna. Nie zapomnij również zapisać konfigurację klikając <span class="guibutton">OK</span>.</p>
           </div>
           <div class="sect2" title="Zadania cykliczne">
@@ -76,7 +76,7 @@
               </div>
             </div>
             <p>Drugim krokiem jest skonfigurowanie cyklicznego zadania, które będzie wysyłać powiadomienia. Zadanie to powinno być wykonywane przynajmniej raz na godzinę, ale żeby szybciej otrzymywać powiadomienia natychmiastowe, zaleca się, żeby zadanie to było wykonywane w odstępach od 5 do 15 minut.</p>
-            <p>W przypadku systemów Unix/Linux, możesz wykorzystać mechanizm zadań <code class="literal">cron</code>. Aby dodać zadanie, zmodyfikuj plik <code class="filename">/etc/crontab</code> lub użyj graficznego narzędzia do zarządzania zadaniami. Jeśli używasz systemu Windows, otwórz Harmonogram zadań i utwórz nowe zadanie. Więcej informacji znajdziesz na stronie <a class="ulink" href="http://wiki.mimec.org/wiki/WebIssues/Installation" target="_top">http://wiki.mimec.org/wiki/WebIssues/Installation</a>.</p>
+            <p>W przypadku systemów Unix/Linux możesz wykorzystać mechanizm zadań <code class="literal">cron</code>. Aby dodać zadanie, zmodyfikuj plik <code class="filename">/etc/crontab</code> lub użyj graficznego narzędzia do zarządzania zadaniami. Jeśli używasz systemu Windows, otwórz Harmonogram zadań i utwórz nowe zadanie. Więcej informacji znajdziesz na stronie <a class="ulink" href="http://wiki.mimec.org/wiki/WebIssues/Installation" target="_top">http://wiki.mimec.org/wiki/WebIssues/Installation</a>.</p>
             <div class="note" title="Notatka" style="margin-left: 0.5in; margin-right: 0.5in;">
               <h3 class="title">Notatka</h3>
               <p>Niektóre usługi hostingowe udostępniają możliwość definiowania zadań cyklicznych poprzez dostęp do powłoki lub przez panel administracyjny. Zapoznaj się z dokumentacją usługi, aby uzyskać więcej informacji na ten temat.</p>

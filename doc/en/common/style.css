@@ -7,7 +7,7 @@ html {
 body {
   margin: 0;
   padding: 0;
-  font: 13px/150% 'Trebuchet MS', 'Lucida Grande', Verdana, Sans-Serif;
+  font: 9pt/150% Verdana, Helvetica, Sans-Serif;
   color: #494949;
 }
 
@@ -15,7 +15,7 @@ h1, h2, h3, h4, h5, h6 {
   margin: 0;
   padding: 0;
   font-weight: normal;
-  font-family: 'Trebuchet MS', 'Lucida Grande', Verdana, Sans-Serif;
+  font-family: Verdana, Helvetica, Sans-Serif;
 }
 
 h1 {
@@ -180,7 +180,7 @@ img, a img {
   width: 945px;
   background: #ffffff url(bg-block.png) repeat-x;
   border: 1px solid #cccccc;
-  margin: 15px auto 20px auto;
+  margin: 5px auto 20px auto;
   padding: 15px;
 }
 
