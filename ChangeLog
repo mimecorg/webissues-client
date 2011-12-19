@@ -1,3 +1,7 @@
+1.0 (2011-12-19)
+    * fixed compatibility with nginx web server
+    * updated SQLite to latest version
+
 1.0-rc1 (2011-12-12)
     * added German translation
     * do not mark issue as read when automatically updating

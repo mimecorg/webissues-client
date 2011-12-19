@@ -1,5 +1,5 @@
 WebIssues Desktop Client
-Version 1.0-rc1 (2011-12-12)
+Version 1.0 (2011-12-19)
 
 Desktop Client for the WebIssues team collaboration system.
 
@@ -73,13 +73,13 @@ Contributors:
  * Patrick Matthäi (patrick.matthaei at web de)
     - Debian packaging, patches
 
- * Azevedo Filipe (pasnox at gmail com)
+ * Filipe Azevedo (pasnox at gmail com)
     - OS X packaging, patches
 
 Translators:
 
  * Flávio Veras (flaviove at gmail com)
-    - Portuguese translation
+    - Portuguese (Brazil) translation
 
  * Dara Sarnirand (dara at sarnirand fr)
     - French translation

@@ -1,5 +1,5 @@
 Extensible SQLite driver for Qt4
-Version 1.0 (2011-06-20)
+Version 1.0 (2011-12-19)
 
 This library is an alternative SQLite driver for Qt4 which includes its
 own copy of SQLite and allows extending it by implementing custom
