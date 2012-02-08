@@ -133,8 +133,10 @@ void TreeViewHelper::saveColumnWidths( const QString& key, const QList<int>& col
 
     QMap<int, int> widths = dataManager->connectionSettings()->value( key ).value<LocalSettings::IntMap>();
 
-    for ( int i = 0; i < count; i++ )
-        widths.insert( columns.at( i ), m_view->columnWidth( i ) );
+    for ( int i = 0; i < count; i++ ) {
+        if ( !m_view->isColumnHidden( i ) )
+            widths.insert( columns.at( i ), m_view->columnWidth( i ) );
+    }
 
     dataManager->connectionSettings()->setValue( key, QVariant::fromValue( widths ) );
 }

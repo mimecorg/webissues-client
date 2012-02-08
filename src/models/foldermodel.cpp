@@ -110,7 +110,7 @@ QVariant FolderModel::data( const QModelIndex& index, int role /*= Qt::DisplayRo
         }
     }
 
-    if ( role == Qt::DecorationRole && index.column() == 0 ) {
+    if ( role == Qt::DecorationRole && index.column() == 1 ) {
         int readId = rawData( level, row, 2, Qt::DisplayRole ).toInt();
         if ( readId == 0 )
             return IconLoader::pixmap( "issue-unread" );

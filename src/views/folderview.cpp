@@ -540,7 +540,7 @@ void FolderView::printReport()
 
     ReportDialog dialog( ReportDialog::FolderSource, ReportDialog::Print, mainWidget() );
     dialog.setFolder( id(), visibleIssues() );
-    dialog.setColumns( m_model->columns(), cache->availableColumns() );
+    dialog.setColumns( visibleColumns(), cache->availableColumns() );
     dialog.exec();
 }
 
@@ -550,7 +550,7 @@ void FolderView::exportCsv()
 
     ReportDialog dialog( ReportDialog::FolderSource, ReportDialog::ExportCsv, mainWidget() );
     dialog.setFolder( id(), visibleIssues() );
-    dialog.setColumns( m_model->columns(), cache->availableColumns() );
+    dialog.setColumns( visibleColumns(), cache->availableColumns() );
     dialog.exec();
 }
 
@@ -560,7 +560,7 @@ void FolderView::exportHtml()
 
     ReportDialog dialog( ReportDialog::FolderSource, ReportDialog::ExportHtml, mainWidget() );
     dialog.setFolder( id(), visibleIssues() );
-    dialog.setColumns( m_model->columns(), cache->availableColumns() );
+    dialog.setColumns( visibleColumns(), cache->availableColumns() );
     dialog.exec();
 }
 
@@ -570,7 +570,7 @@ void FolderView::exportPdf()
 
     ReportDialog dialog( ReportDialog::FolderSource, ReportDialog::ExportPdf, mainWidget() );
     dialog.setFolder( id(), visibleIssues() );
-    dialog.setColumns( m_model->columns(), cache->availableColumns() );
+    dialog.setColumns( visibleColumns(), cache->availableColumns() );
     dialog.exec();
 }
 
@@ -630,6 +630,9 @@ void FolderView::updateEvent( UpdateEvent* e )
 
         if ( e->unit() == UpdateEvent::States )
             updateActions();
+
+        if ( e->unit() == UpdateEvent::Settings )
+            loadCurrentView( false );
     }
 
     if ( isEnabled() && m_gotoIssueId != 0 && e->unit() == UpdateEvent::Folder && e->id() == id() ) {
@@ -858,6 +861,8 @@ void FolderView::loadCurrentView( bool resort )
 
     helper.loadColumnWidths( "FolderViewWidths", m_model->columns(), cache->defaultWidths() );
 
+    m_list->setColumnHidden( 0, dataManager->setting( "hide_id_column" ).toInt() != 0 );
+
     if ( resort )
         emit currentViewChanged( m_currentViewId );
 }
@@ -870,6 +875,20 @@ QList<int> FolderView::visibleIssues()
     for ( int i = 0; i < rows; i++ ) {
         int issueId = m_model->rowId( m_model->index( i, 0 ) );
         list.append( issueId );
+    }
+
+    return list;
+}
+
+QList<int> FolderView::visibleColumns()
+{
+    QList<int> list;
+
+    QList<int> columns = m_model->columns();
+
+    for ( int i = 0; i < columns.count(); i++ ) {
+        if ( !m_list->isColumnHidden( i ) )
+            list.append( columns.at( i ) );
     }
 
     return list;

@@ -155,6 +155,7 @@ private:
     void loadCurrentView( bool resort );
 
     QList<int> visibleIssues();
+    QList<int> visibleColumns();
 
 private:
     QTreeView* m_list;
