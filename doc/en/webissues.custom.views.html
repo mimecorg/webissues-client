@@ -19,7 +19,7 @@
             <h1><img src="common/webissues.png" alt="WebIssues" id="logo" />WebIssues Manual</h1>
           </div>
           <div id="header-right">
-            <h2 class="subtitle">Version 1.0</h2>
+            <h2 class="subtitle">Version 1.0.1</h2>
           </div>
         </div>
         <div id="infobar">
@@ -43,7 +43,7 @@
           <p>For each type of issues you can define the order of attributes, the default view and any number of public views, which are available to all users. By default, the WebIssues system installer creates predefined view settings for standard types of issues. You can change those settings for both standard and custom issue types.</p>
           <p>Let's start with changing the view settings of the standard Bugs issue type. Go to Administration Panel and click <span class="guilabel">Issue Types</span>, then select the Bugs type and click <span class="guilabel">View Settings</span>. In case of the Desktop Client, use the <span class="guilabel">Issue Types</span> command from the main window's toolbar to open the list of issue types. The default view settings for this issue type are as follows:</p>
           <div class="figure">
-            <a id="id601061"></a>
+            <a id="id541076"></a>
             <div class="figure-contents">
               <div class="mediaobject">
                 <img src="images/ch06-fig11.png" alt="View settings" />
@@ -53,7 +53,7 @@
           </div>
           <p>You can change the order of attributes, that will be taken into account both when displaying the details of issues, and when creating and editing issues of that type. Click <span class="guilabel">Modify</span> to change the default order:</p>
           <div class="figure">
-            <a id="id601087"></a>
+            <a id="id541103"></a>
             <div class="figure-contents">
               <div class="mediaobject">
                 <img src="images/ch06-fig12.png" alt="Order of attributes" />
@@ -65,7 +65,7 @@
           <p>If you add new attributes to an issue type, they will be added to the end of the list of those attributes, whose sequence was previously defined. New attributes are by default sorted in alphabetical order.</p>
           <p>The default view specifies the displayed columns and the default sort order for folders of that type. So this is simply the <span class="quote">“<span class="quote">All Issues</span>”</span> view, which exists for each issue type and has no filter conditions. Also all new public and personal views are based on this view. Click <span class="guilabel">Modify</span> in the <span class="guilabel">Default View</span> box to change this view:</p>
           <div class="figure">
-            <a id="id601139"></a>
+            <a id="id541154"></a>
             <div class="figure-contents">
               <div class="mediaobject">
                 <img src="images/ch06-fig13.png" alt="Default view" />
@@ -74,11 +74,15 @@
             <div class="figure-title">Figure 6.13. Default view</div>
           </div>
           <p>Changing the settings of the view works the same as creating personal views, as described in <a class="xref" href="webissues.work.views.html" title="Filtering issues">the section called “Filtering issues”</a>. So you can unselect the columns you want to remove and select the columns you want to add, and change the values defining their order. For example, to add the Reason column to the default view, select the column and set its order to 7, to place it after the Status column. Click <span class="guibutton">Update</span> to see the new order of columns. You can also change the default sort order of issues. Finally, click <span class="guibutton">OK</span> to save your view.</p>
+          <div class="tip" title="Tip" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <h3 class="title">Tip</h3>
+            <p>Each view contains the ID and Name columns, which you can't delete or move. However, you can hide the ID column from all views, if you think that it's unnecessary. To do this, select the <span class="guibutton">Hide the ID Column</span> option described in <a class="xref" href="webissues.custom.settings.html" title="Advanced settings">the section called “Advanced settings”</a>. The column will then be hidden from all public and private views.</p>
+          </div>
           <p>Just like each user can define any number of personal views for each issue type, the administrator of WebIssues system can define public views for each type. Everyone can use public views, but only the administrator has the right to create and modify them.</p>
           <p>For standard issue types, Bugs and Tasks, there are several default public views; for example, Active Bugs and Created By Me. You can change these standard views and create new ones. The Forum issue type has no views, because it has no attributes, but you can define views using the built-in columns. For example, you can create the Created By Me view, analogous to the one that exists for Bugs and Tasks. However, you cannot define the order of attributes, unless you add some attributes to this type.</p>
           <p>Now let's create a new view called <span class="quote">“<span class="quote">Critical Bugs</span>”</span>, similar to the personal view with the same name, which we created in <a class="xref" href="webissues.work.views.html" title="Filtering issues">the section called “Filtering issues”</a>. Click <span class="guilabel">Add Public View</span> to create a new view. Unselect the Severity column and select the Created By and Created Date columns. To move Assigned To and Status columns to the end, set the values ​​that determine their order to 10 and 11</p>
           <div class="figure">
-            <a id="id601197"></a>
+            <a id="id541231"></a>
             <div class="figure-contents">
               <div class="mediaobject">
                 <img src="images/ch06-fig14.png" alt="Editing view columns" />
@@ -88,7 +92,7 @@
           </div>
           <p>Click <span class="guibutton">Update</span> to see how the new column layout of the view will look. Leave the default sort order and proceed to editing the filters. Enable the filter for the Severity column and type 1 as the parameter of the condition:</p>
           <div class="figure">
-            <a id="id601223"></a>
+            <a id="id541258"></a>
             <div class="figure-contents">
               <div class="mediaobject">
                 <img src="images/ch06-fig15.png" alt="Editing the filter" />
@@ -106,7 +110,7 @@
           <div class="navright"><a accesskey="n" href="webissues.custom.locale.html">Regional settings</a> &raquo;</div>
         </div>
         <div id="footer">
-          <p class="copyright">Copyright © 2007-2011 WebIssues Team</p>
+          <p class="copyright">Copyright © 2007-2012 WebIssues Team</p>
         </div>
       </div>
     </div>

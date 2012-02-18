@@ -19,7 +19,7 @@
             <h1><img src="common/webissues.png" alt="WebIssues" id="logo" />Podręcznik WebIssues</h1>
           </div>
           <div id="header-right">
-            <h2 class="subtitle">Wersja 1.0</h2>
+            <h2 class="subtitle">Wersja 1.0.1</h2>
           </div>
         </div>
         <div id="infobar">
@@ -40,7 +40,7 @@
               </div>
             </div>
           </div>
-          <p>Jedną z czynności konserwacyjnych jest aktualizacja systemu WebIssues do nowej wersji. Nowe wersje rozwiązują problemy i dodają nowe funkcje, więc zalecana jest okresowa aktualizacja oprogramowania.</p>
+          <p>Jedną z czynności konserwacyjnych jest aktualizacja systemu WebIssues do nowszej wersji. Nowe wersje rozwiązują problemy i dodają nowe funkcje, więc zalecana jest okresowa aktualizacja oprogramowania. Aby szybko sprawdzić, czy jest dostępna nowsza wersja systemu, kliknij <span class="guilabel">Narzędzia</span> i <span class="guilabel">O programie WebIssues</span>, a następnie w grupie <span class="guilabel">Najnowsza wersja</span> kliknij przycisk <span class="guibutton">Sprawdź</span>. Program Desktop Client domyślnie automatycznie sprawdza, czy jest dostępna nowa wersja (patrz sekcja <a class="xref" href="webissues.work.personal.html#webissues.work.personal.client" title="Ustawienia programu Desktop Client">„Ustawienia programu Desktop Client”</a>).</p>
           <p>Przed rozpoczęciem aktualizacji, zaleca się utworzyć kopię zapasową bazy danych i plików systemu WebIssues, a także wyłączyć serwer WWW, aby zapobiec korzystaniu z systemu w trakcie aktualizacji.</p>
           <div class="note" title="Notatka" style="margin-left: 0.5in; margin-right: 0.5in;">
             <h3 class="title">Notatka</h3>
@@ -52,16 +52,22 @@
           <p>Zaleca się również aktualizować program Desktop Client do nowszej wersji na komputerach osób, które z niego korzystają. Generalnie jednak program Desktop Client może się komunikować zarówno ze starszą, jak i nowszą wersją serwera, pod warunkiem że dwie pierwsze cyfry numeru wersji są zgodne. Klient w wersji 0.9.x nie będzie zatem działał z systemem 1.0, a klient 1.0 z systemem 0.8.x, ale można te wersje zainstalować równolegle na jednym komputerze.</p>
           <div class="note" title="Notatka" style="margin-left: 0.5in; margin-right: 0.5in;">
             <h3 class="title">Notatka</h3>
-            <p>Wersje systemu oznaczone jako <code class="literal">alpha</code> lub <code class="literal">beta</code> to tak zwane wersje deweloperskie. Umożliwiają one testowanie nowych funkcji przed wydaniem oficjalnej wersji, jednak nie zaleca się ich używać do celów produkcyjnych. Wersja deweloperska systemu może być używana tylko z tą samą wersją programu Desktop Client. Dodatkowo w przypadku wersji <code class="literal">alpha</code> nie ma możliwości aktualizacji bazy danych do nowszej wersji.</p>
+            <p>Wersje systemu oznaczone jako <code class="literal">alpha</code> lub <code class="literal">beta</code> to tak zwane wersje deweloperskie. Umożliwiają one testowanie nowych funkcji przed wydaniem oficjalnej wersji, jednak nie zaleca się ich używać do celów produkcyjnych. Wersja deweloperska systemu może być używana tylko z tą samą wersją programu Desktop Client. Dodatkowo w przypadku wersji <code class="literal">alpha</code> nie ma możliwości aktualizacji bazy danych do nowszej wersji. Natomiast wersja <code class="literal">1.0-beta1</code> i późniejsze mogą być zaktualizowane do wersji produkcyjnej.</p>
           </div>
-          <p>Bezpośrednia aktualizacja z wersji 0.8.5 serwera nie jest możliwa, jednak istnieje możliwość zaimportowania instniejących danych z serwera WebIssues w wersji 0.8.5 podczas instalacji nowej wersji systemu. Więcej informacji na ten temat znajdziesz w sekcji <a class="xref" href="webissues.prep.installation.html" title="Instalacja">„Instalacja”</a>.</p>
+          <p>Procedura aktualizacji serwera z wersji 0.8.5 jest nieco inna, ponieważ w tym przypadku istniejące dane muszą zostać zaimportowane do nowych tabel w bazie danych. Po utworzeniu kopii zapasowej i wyłączeniu serwera WWW, usuń pliki i podkatalogi z katalogu, w którym został zainstalowany serwer WebIssues, z wyjątkiem podkatalogu <code class="literal">storage</code>. Następnie rozpakuj pakiet nowej wersji w odpowiednie miejsce i nadaj prawo zapisu do podkatalogu <code class="literal">data/sites</code> wszystkim użytkownikom lub użytkownikowi, w kontekście którego działa usługa WWW. Włącz serwer WWW i otwórz główną stronę systemu WebIssues w przeglądarce. Powinna zostać wyświetlona informacja, że serwer nie jest skonfigurowany.</p>
+          <p>Wykonaj wszystkie kroki podobnie jak podczas instalowania nowej instancji serwera. Pamiętaj, że nowy serwer musi być zainstalowany w tej samej bazie danych, co jego poprzednia wersja, ale nowe tabele muszą mieć inny prefiks niż ten, który był użyty w wersji 0.8.5. W grupie opcji <span class="guilabel">Początkowa konfiguracja</span> wybierz opcję <span class="guilabel">Importuj dane z serwera WebIssues 0.8.5</span> i podaj prefiks tabel źródłowych. Więcej informacji na ten temat znajdziesz w sekcji <a class="xref" href="webissues.prep.installation.html" title="Instalacja">„Instalacja”</a>.</p>
+          <p>Upewnij się, że katalogi <code class="literal">data</code> oraz <code class="literal">common/data</code> są zabezpieczone przed dostępem przez przeglądarkę internetową, a plik konfiguracyjny systemu WebIssues jest chroniony przed niepowołanym dostępem. Jeśli w wersji 0.8.5 załączniki były przechowywane w systemie plików, to po zakończeniu instalacji musisz je także przenieść do odpowiedniego katalogu w nowej wersji serwera. W przypadku domyślnej konfiguracji będzie to katalog <code class="literal">data/sites/default/storage</code>.</p>
+          <div class="note" title="Notatka" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <h3 class="title">Notatka</h3>
+            <p>Ponieważ baza danych w wersji 0.8.5 nie wymuszała ścisłej integralności danych, może się zdarzyć, że podczas importu danych do nowych tabel wystąpi błąd integralności. W takim wypadku popraw dane źródłowe, usuń tabele docelowe i ponów proces importu. Aby sprawdzić, w których tabelach występują błędy, przydatne może być włączenie debugowania. Więcej informacji na ten temat znajdziesz na stronie <a class="ulink" href="http://wiki.mimec.org/wiki/WebIssues/Configuration" target="_top">http://wiki.mimec.org/wiki/WebIssues/Configuration</a>.</p>
+          </div>
         </div>
         <div class="navlinks">
           <div class="navleft">&laquo; <a accesskey="p" href="webissues.admin.projects.html">Zarządzanie projektami</a></div>
           <div class="navright"><a accesskey="n" href="webissues.custom.html">Dostosowywanie systemu</a> &raquo;</div>
         </div>
         <div id="footer">
-          <p class="copyright">Copyright © 2007-2011 Zespół WebIssues</p>
+          <p class="copyright">Copyright © 2007-2012 Zespół WebIssues</p>
         </div>
       </div>
     </div>

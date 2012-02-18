@@ -19,7 +19,7 @@
             <h1><img src="common/webissues.png" alt="WebIssues" id="logo" />Podręcznik WebIssues</h1>
           </div>
           <div id="header-right">
-            <h2 class="subtitle">Wersja 1.0</h2>
+            <h2 class="subtitle">Wersja 1.0.1</h2>
           </div>
         </div>
         <div id="infobar">
@@ -44,7 +44,7 @@
           <p>Grupy opcji <span class="guilabel">Ustawienia regionalne</span> oraz <span class="guilabel">Formaty</span> zostały opisane w sekcji <a class="xref" href="webissues.custom.locale.html" title="Ustawienia regionalne">„Ustawienia regionalne”</a>.</p>
           <p>Grupa opcji <span class="guilabel">Rozmiar strony</span> umożliwia określenie domyślnej liczby spraw wyświetlanych na pojedynczej stronie w liście spraw oraz domyślnej liczby elementów na stronie historii sprawy. Każdy użytkownik może natomiast wybrać własne preferowane ustawienia, korzystając z polecenia <span class="guilabel">Ustawienia użytkownika</span>. Opcje te wpływają jedynie na program Web Client, ponieważ program Desktop Client zawsze wyświetla wszystkie sprawy i pełną historię, bez podziału na strony.</p>
           <div class="figure">
-            <a id="id596742"></a>
+            <a id="id530097"></a>
             <div class="figure-contents">
               <div class="mediaobject">
                 <img src="images/ch06-fig18.png" alt="Rozmiar strony" />
@@ -52,15 +52,25 @@
             </div>
             <div class="figure-title">Rysunek 6.18. Rozmiar strony</div>
           </div>
+          <p>W grupie <span class="guilabel">Ustawienia widoków</span> dostępna jest opcja <span class="guilabel">Ukryj kolumnę ID</span>. Jej zaznaczenie powoduje, że kolumna ID nie będzie wyświetlona w liście spraw. Zmiana ta wpłynie na wszystkich użytkowników i wszystkie typy spraw. Po ukryciu kolumny ID, sprawy w dalszym ciągu mogą być domyślnie posortowane po tej kolumnie, a identyfikator wybranej sprawy będzie nadal wyświetlany w polu <span class="guilabel">Właściwości</span> szczegółów sprawy.</p>
+          <div class="figure">
+            <a id="id530133"></a>
+            <div class="figure-contents">
+              <div class="mediaobject">
+                <img src="images/ch06-fig18-01.png" alt="Ustawienia widoków" />
+              </div>
+            </div>
+            <div class="figure-title">Rysunek 6.19. Ustawienia widoków</div>
+          </div>
           <p>Opcje z grupy <span class="guilabel">Ograniczenia</span> umożliwiają administratorowi systemu określenie maksymalnej długości komentarzy oraz maksymalnej wielkości załączników, jakie mogą być dodawane przez użytkowników.</p>
           <div class="figure">
-            <a id="id596768"></a>
+            <a id="id530159"></a>
             <div class="figure-contents">
               <div class="mediaobject">
                 <img src="images/ch06-fig19.png" alt="Ograniczenia" />
               </div>
             </div>
-            <div class="figure-title">Rysunek 6.19. Ograniczenia</div>
+            <div class="figure-title">Rysunek 6.20. Ograniczenia</div>
           </div>
           <div class="note" title="Notatka" style="margin-left: 0.5in; margin-right: 0.5in;">
             <h3 class="title">Notatka</h3>
@@ -68,13 +78,13 @@
           </div>
           <p>Domyślnie małe załączniki są przechowywane w bazie danych, a duże bezpośrednio w systemie plików. W zależności od potrzeb możesz zmienić wartość progową lub wymusić przechowywanie wszystkich załączników tylko w bazie danych lub w systemie plików. Maksymalny rozmiar załączników przechowywanych w bazie danych możesz określić w grupie <span class="guilabel">Przechowywanie załączników</span>.</p>
           <div class="figure">
-            <a id="id596810"></a>
+            <a id="id530201"></a>
             <div class="figure-contents">
               <div class="mediaobject">
                 <img src="images/ch06-fig20.png" alt="Przechowywanie załączników" />
               </div>
             </div>
-            <div class="figure-title">Rysunek 6.20. Przechowywanie załączników</div>
+            <div class="figure-title">Rysunek 6.21. Przechowywanie załączników</div>
           </div>
           <div class="note" title="Notatka" style="margin-left: 0.5in; margin-right: 0.5in;">
             <h3 class="title">Notatka</h3>
@@ -82,13 +92,13 @@
           </div>
           <p>Opcje z grupy <span class="guilabel">Maksymalny czas życia</span> pozwalają na zdefiniowanie czasu, po jakim nieaktywne sesje użytkowników są usuwane, a także czasu, przez jaki w systemie przechowywane są wpisy w Dzienniku zdarzeń. Natomiast ustawienie <span class="guilabel">Usuwanie śmieci</span> pozwala określić prawdopodobieństwo, z jakim uruchamiany jest proces usuwania nieaktywnych sesji i starych wpisów w Dzienniku zdarzeń. Zmniejsz to prawdopodobieństwo, jeśli serwer jest mocno obciążony, lub wybierz opcję <span class="quote">„<span class="quote">Użyj zadania cyklicznego</span>”</span>, jeśli w systemie jest aktywny mechanizm wysyłania powiadomień mailowych (patrz sekcja <a class="xref" href="webissues.prep.notifications.html#webissues.prep.nofitications.cron" title="Zadania cykliczne">„Zadania cykliczne”</a>).</p>
           <div class="figure">
-            <a id="id596861"></a>
+            <a id="id530252"></a>
             <div class="figure-contents">
               <div class="mediaobject">
                 <img src="images/ch06-fig21.png" alt="Maksymalny czas życia i Usuwanie śmieci" />
               </div>
             </div>
-            <div class="figure-title">Rysunek 6.21. Maksymalny czas życia i Usuwanie śmieci</div>
+            <div class="figure-title">Rysunek 6.22. Maksymalny czas życia i Usuwanie śmieci</div>
           </div>
         </div>
         <div class="navlinks">
@@ -96,7 +106,7 @@
           <div class="navright"><a accesskey="n" href="webissues.resources.html">Zasoby</a> &raquo;</div>
         </div>
         <div id="footer">
-          <p class="copyright">Copyright © 2007-2011 Zespół WebIssues</p>
+          <p class="copyright">Copyright © 2007-2012 Zespół WebIssues</p>
         </div>
       </div>
     </div>

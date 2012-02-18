@@ -19,7 +19,7 @@
             <h1><img src="common/webissues.png" alt="WebIssues" id="logo" />Podręcznik WebIssues</h1>
           </div>
           <div id="header-right">
-            <h2 class="subtitle">Wersja 1.0</h2>
+            <h2 class="subtitle">Wersja 1.0.1</h2>
           </div>
         </div>
         <div id="infobar">
@@ -43,7 +43,7 @@
           <p>Dla każdego typu spraw można zdefiniować kolejność atrybutów, domyślny widok oraz dowolną liczbę publicznych widoków, dostępnych dla wszystkich użytkowników. Domyślnie instalator systemu WebIssues tworzy predefiniowane ustawienia widoków dla standardowych typów spraw. Możesz zmieniać te ustawienia zarówno dla standardowych, jak i własnych typów spraw.</p>
           <p>Zacznijmy od zmiany ustawień widoków dla standardowego typu Błędy. Przejdź do Panelu administracyjnego i kliknij <span class="guilabel">Typy spraw</span>, a następnie wybierz typ Błędy i kliknij <span class="guilabel">Ustawienia widoków</span>. W przypadku programu Desktop Client, użyj polecenia <span class="guilabel">Typy spraw</span> z paska narzędzi głównego okna, aby otworzyć listę typów spraw. Domyślne ustawienia widoków dla tego typu spraw wyglądają następująco:</p>
           <div class="figure">
-            <a id="id596333"></a>
+            <a id="id529668"></a>
             <div class="figure-contents">
               <div class="mediaobject">
                 <img src="images/ch06-fig11.png" alt="Ustawienia widoków" />
@@ -53,7 +53,7 @@
           </div>
           <p>Możesz zmienić kolejność atrybutów, która będzie brana pod uwagę zarówno przy wyświetlaniu szczegółów spraw, jak i przy tworzeniu i edycji spraw danego typu. Kliknij <span class="guilabel">Zmień</span>, aby zmienić domyślną kolejność:</p>
           <div class="figure">
-            <a id="id596359"></a>
+            <a id="id529695"></a>
             <div class="figure-contents">
               <div class="mediaobject">
                 <img src="images/ch06-fig12.png" alt="Kolejność atrybutów" />
@@ -65,7 +65,7 @@
           <p>Jeśli dodasz nowe atrybuty do typu spraw, to zostaną one dołączone na końcu listy atrybutów, dla których wcześniej została zdefiniowana kolejność. Nowe atrybuty będą domyślnie posortowane w porządku alfabetycznym.</p>
           <p>Domyślny widok określa wyświetlane kolumny oraz domyślny porządek sortowania dla folderów danego typu. Jest to więc po prostu widok <span class="quote">„<span class="quote">Wszystkie sprawy</span>”</span>, który istnieje dla każdego typu spraw i nie posiada warunków filtrowania. Widok ten stanowi również wzór, na podstawie którego tworzone są wszystkie nowe widoki publiczne i prywatne. Kliknij <span class="guilabel">Zmień</span> w ramce <span class="guilabel">Domyślny widok</span>, aby zmienić ten widok:</p>
           <div class="figure">
-            <a id="id596411"></a>
+            <a id="id529746"></a>
             <div class="figure-contents">
               <div class="mediaobject">
                 <img src="images/ch06-fig13.png" alt="Domyślny widok" />
@@ -74,11 +74,15 @@
             <div class="figure-title">Rysunek 6.13. Domyślny widok</div>
           </div>
           <p>Zmiana ustawień widoku działa podobnie, jak tworzenie prywatnych widoków, opisane w sekcji <a class="xref" href="webissues.work.views.html" title="Filtrowanie spraw">„Filtrowanie spraw”</a>. Możesz więc odznaczyć kolumny, które chcesz usunąć i zaznaczyć kolumny, które chcesz dodać, a także zmieniać wartości określające kolejność kolumn. Aby na przykład dodać kolumnę Powód do domyślnego widoku, zaznacz tą kolumnę i ustaw jej kolejność na 7, aby wyświetlać ją po kolumnie Status. Kliknij <span class="guibutton">Odśwież</span>, aby zobaczyć nową kolejność kolumn. Możesz również zmienić domyślny porządek sortowania spraw. Na końcu kliknij <span class="guibutton">OK</span>, aby zapisać widok.</p>
+          <div class="tip" title="Wskazówka" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <h3 class="title">Wskazówka</h3>
+            <p>Każdy widok zawiera kolumny ID oraz Nazwa, których nie możesz usunąć ani przenieść. Możesz jednak ukryć kolumnę ID we wszystkich widokach, jeśli uważasz, że jest ona niepotrzebna. W tym celu zaznacz opcję <span class="guibutton">Ukryj kolumnę ID</span> opisaną w sekcji <a class="xref" href="webissues.custom.settings.html" title="Ustawienia zaawansowane">„Ustawienia zaawansowane”</a>. Kolumna zostanie wtedy ukryta we wszystkich publicznych i prywatnych widokach.</p>
+          </div>
           <p>Podobnie jak każdy użytkownik może dla każdego typu spraw zdefiniować dowolną liczbę widoków prywatnych, tak administrator systemu WebIssues może dla każdego typu zdefiniować widoki publiczne. Każdy może korzystać z publicznych widoków, ale tylko administrator ma prawo je tworzyć i zmieniać.</p>
           <p>Dla standardowych typów Błędy i Zadania istnieje już kilka domyślnych widoków publicznych, na przykład Aktywne błędy czy Utworzone przeze mnie. Możesz zmieniać te standardowe widoki lub tworzyć nowe. Dla typu spraw Forum nie ma żadnych widoków, ponieważ nie ma on żadnych atrybutów, ale możesz definiować widoki za pomocą wbudowanych kolumn. Możesz na przykład utworzyć widok Utworzone przeze mnie, analogiczny do tych, które istnieją dla Błędów i Zadań. Nie możesz jednak definiować kolejności atrybutów, chyba że dodasz atrybuty do tego typu.</p>
           <p>Utwórzmy teraz nowy widok o nazwie <span class="quote">„<span class="quote">Krytyczne błędy</span>”</span>, podobny do prywatnego widoku o tej samej nazwie, który tworzyliśmy w sekcji <a class="xref" href="webissues.work.views.html" title="Filtrowanie spraw">„Filtrowanie spraw”</a>. Kliknij <span class="guilabel">Dodaj publiczny widok</span>, aby utworzyć nowy widok. Odznacz kolumnę Krytyczność i zaznacz kolumny Utworzona przez oraz Data utworzenia. Aby przenieść kolumny Przypisany do i Status na koniec, ustaw wartości określające ich kolejność na 10 i 11.</p>
           <div class="figure">
-            <a id="id596468"></a>
+            <a id="id529823"></a>
             <div class="figure-contents">
               <div class="mediaobject">
                 <img src="images/ch06-fig14.png" alt="Edycja kolumn widoku" />
@@ -88,7 +92,7 @@
           </div>
           <p>Kliknij <span class="guibutton">Odśwież</span>, aby zobaczyć jak będzie wyglądać układ kolumn w widoku. Pozostaw domyślny porządek sortowania i przejdź do edycji filtrów. Włącz filtr dla kolumny Krytyczność i wpisz wartość 1 jako parametr warunku:</p>
           <div class="figure">
-            <a id="id596495"></a>
+            <a id="id529850"></a>
             <div class="figure-contents">
               <div class="mediaobject">
                 <img src="images/ch06-fig15.png" alt="Edycja filtra" />
@@ -106,7 +110,7 @@
           <div class="navright"><a accesskey="n" href="webissues.custom.locale.html">Ustawienia regionalne</a> &raquo;</div>
         </div>
         <div id="footer">
-          <p class="copyright">Copyright © 2007-2011 Zespół WebIssues</p>
+          <p class="copyright">Copyright © 2007-2012 Zespół WebIssues</p>
         </div>
       </div>
     </div>

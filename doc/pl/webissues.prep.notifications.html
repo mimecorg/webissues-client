@@ -19,7 +19,7 @@
             <h1><img src="common/webissues.png" alt="WebIssues" id="logo" />Podręcznik WebIssues</h1>
           </div>
           <div id="header-right">
-            <h2 class="subtitle">Wersja 1.0</h2>
+            <h2 class="subtitle">Wersja 1.0.1</h2>
           </div>
         </div>
         <div id="infobar">
@@ -51,7 +51,7 @@
             </div>
             <p>Najpierw przejdź do Panelu administracyjnego i kliknij <span class="guilabel">Ustawienia e-maili</span>, aby skonfigurować wysyłanie poczty.</p>
             <div class="figure">
-              <a id="id582597"></a>
+              <a id="id516377"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch02-fig10.png" alt="Ustawienia e-maili" />
@@ -66,6 +66,16 @@
             </div>
             <p>Istnieje również możliwość wysyłania e-maili za pośrednictwem zewnętrznego serwera SMTP. Możesz w tym celu wykorzystać serwer pocztowy twojej firmy lub organizacji albo dowolną publiczną usługę pocztową (np. gmail). Wybierz opcję <span class="guilabel">Własny serwer SMTP</span> i wpisz adres nadawcy wiadomości. Następnie w ramce <span class="guilabel">Serwer SMTP</span> wpisz adres serwera i numer portu usługi pocztowej (zwykle 25 lub 465 dla połączeń szyfrowanych). Wybierz tryb szyfrowania, jeśli serwer SMTP obsługuje szyfrowanie komunikacji. Podaj także nazwę użytkownika i hasło dostępu do serwera SMTP.</p>
             <p>Kliknij <span class="guibutton">Testuj połączenie</span> aby sprawdzić, czy konfiguracja SMTP jest poprawna. System WebIssues wyśle testową wiadomość na swój własny adres. Jeśli ją otrzymasz, oznacza to, że konfiguracja jest poprawna. Nie zapomnij również zapisać konfigurację klikając <span class="guibutton">OK</span>.</p>
+            <p>Ponieważ e-maile są wysyłane w formacie HTML, możliwe jest umieszczenie w nich odnośników do folderu, którego dotyczy powiadomienie, a także do poszczególnych spraw. Aby włączyć odnośniki, musisz wpisać bazowy adres URL, pod jakim zainstalowany jest serwer WebIssues. Adres powinien zawierać protokół oraz końcowy znak <span class="quote">„<span class="quote">/</span>”</span>, na przykład <code class="literal">http://www.example.com/</code>. Kliknij <span class="guibutton">Wykryj</span>, aby automatycznie wprowadzić adres bieżącej strony. Pamiętaj, że adres powinien zawierać pełną, jednoznaczną nazwę domenową serwera, aby był on dostępny dla wszystkich użytkowników. Jeśli adres URL będzie pozostawiony pusty, e-maile będą wysyłane bez odnośników.</p>
+            <div class="figure">
+              <a id="id516466"></a>
+              <div class="figure-contents">
+                <div class="mediaobject">
+                  <img src="images/ch02-fig10-01.png" alt="Odnośniki" />
+                </div>
+              </div>
+              <div class="figure-title">Rysunek 2.11. Odnośniki</div>
+            </div>
           </div>
           <div class="sect2" title="Zadania cykliczne">
             <div class="titlepage">
@@ -92,7 +102,7 @@
           <div class="navright"><a accesskey="n" href="webissues.work.html">Praca ze sprawami</a> &raquo;</div>
         </div>
         <div id="footer">
-          <p class="copyright">Copyright © 2007-2011 Zespół WebIssues</p>
+          <p class="copyright">Copyright © 2007-2012 Zespół WebIssues</p>
         </div>
       </div>
     </div>
