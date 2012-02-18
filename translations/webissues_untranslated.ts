@@ -1146,10 +1146,10 @@ when you close it. Are you sure you want to continue?</source>
 <context>
     <name>DateTimeLineEdit</name>
     <message>
-        <location filename="../src/widgets/inputlineedit.cpp" line="562"/>
-        <location filename="../src/widgets/inputlineedit.cpp" line="572"/>
-        <location filename="../src/widgets/inputlineedit.cpp" line="587"/>
-        <location filename="../src/widgets/inputlineedit.cpp" line="640"/>
+        <location filename="../src/widgets/inputlineedit.cpp" line="566"/>
+        <location filename="../src/widgets/inputlineedit.cpp" line="576"/>
+        <location filename="../src/widgets/inputlineedit.cpp" line="591"/>
+        <location filename="../src/widgets/inputlineedit.cpp" line="644"/>
         <source>Today</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1962,17 +1962,17 @@ when you close it. Are you sure you want to continue?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="784"/>
+        <location filename="../src/views/folderview.cpp" line="787"/>
         <source>All Issues</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="800"/>
+        <location filename="../src/views/folderview.cpp" line="803"/>
         <source>Personal Views</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="810"/>
+        <location filename="../src/views/folderview.cpp" line="813"/>
         <source>Public Views</source>
         <translation type="unfinished"></translation>
     </message>
