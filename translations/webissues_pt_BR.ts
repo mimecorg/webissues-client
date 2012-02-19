@@ -398,11 +398,6 @@
 </context>
 <context>
     <name>Application</name>
-    <message utf8="true">
-        <location filename="../src/application.cpp" line="154"/>
-        <source>Copyright (C) 2006 Michał Męciński</source>
-        <translation>Copyright (C) 2006 Michal Męciński</translation>
-    </message>
     <message>
         <location filename="../src/application.cpp" line="148"/>
         <source>WebIssues Desktop Client %1</source>
@@ -417,6 +412,16 @@
         <location filename="../src/application.cpp" line="150"/>
         <source>This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.</source>
         <translation>Este programa é software livre: você pode redistribuí-lo e/ou modificá-lo sob os termos da Licença Pública Geral GNU conforme publicada pela Free Software Foundation, tanto a versão 3 da Licença, ou (a seu critério) qualquer versão posterior.</translation>
+    </message>
+    <message utf8="true">
+        <location filename="../src/application.cpp" line="154"/>
+        <source>Copyright &amp;copy; 2006 Michał Męciński</source>
+        <translation>Copyright &amp;copy; 2006 Michał Męciński</translation>
+    </message>
+    <message>
+        <location filename="../src/application.cpp" line="154"/>
+        <source>Copyright &amp;copy; 2007-2012 WebIssues Team</source>
+        <translation>Copyright &amp;copy; 2007-2012 Equipe WebIssues</translation>
     </message>
     <message>
         <location filename="../src/application.cpp" line="159"/>
@@ -503,11 +508,6 @@
         <location filename="../src/application.cpp" line="244"/>
         <source>Do&amp;wnload</source>
         <translation>Do&amp;wnload</translation>
-    </message>
-    <message>
-        <location filename="../src/application.cpp" line="154"/>
-        <source>Copyright (C) 2007-2011 WebIssues Team</source>
-        <translation>Copyright (C) 2007-2011 Equipe WebIssues</translation>
     </message>
     <message>
         <location filename="../src/application.cpp" line="163"/>

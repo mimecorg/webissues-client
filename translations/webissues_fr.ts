@@ -415,8 +415,13 @@
     </message>
     <message utf8="true">
         <location filename="../src/application.cpp" line="154"/>
-        <source>Copyright (C) 2006 Michał Męciński</source>
-        <translation></translation>
+        <source>Copyright &amp;copy; 2006 Michał Męciński</source>
+        <translation>Copyright &amp;copy; 2006 Michał Męciński</translation>
+    </message>
+    <message>
+        <location filename="../src/application.cpp" line="154"/>
+        <source>Copyright &amp;copy; 2007-2012 WebIssues Team</source>
+        <translation>Copyright &amp;copy; 2007-2012 Equipe WebIssues</translation>
     </message>
     <message>
         <location filename="../src/application.cpp" line="159"/>
@@ -503,11 +508,6 @@
         <location filename="../src/application.cpp" line="244"/>
         <source>Do&amp;wnload</source>
         <translation>&amp;Télécharger</translation>
-    </message>
-    <message>
-        <location filename="../src/application.cpp" line="154"/>
-        <source>Copyright (C) 2007-2011 WebIssues Team</source>
-        <translation>Copyright(c) 2007-2011 Equipe WebIssues</translation>
     </message>
     <message>
         <location filename="../src/application.cpp" line="163"/>

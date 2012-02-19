@@ -414,13 +414,13 @@
     </message>
     <message utf8="true">
         <location filename="../src/application.cpp" line="154"/>
-        <source>Copyright (C) 2006 Michał Męciński</source>
-        <translation>Copyright (C) 2006 Michał Męciński</translation>
+        <source>Copyright &amp;copy; 2006 Michał Męciński</source>
+        <translation>Copyright &amp;copy; 2006 Michał Męciński</translation>
     </message>
     <message>
         <location filename="../src/application.cpp" line="154"/>
-        <source>Copyright (C) 2007-2011 WebIssues Team</source>
-        <translation>Copyright (C) 2007-2011 WebIssues Team</translation>
+        <source>Copyright &amp;copy; 2007-2012 WebIssues Team</source>
+        <translation>Copyright &amp;copy; 2007-2012 WebIssues Team</translation>
     </message>
     <message>
         <location filename="../src/application.cpp" line="159"/>

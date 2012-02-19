@@ -397,11 +397,6 @@
 </context>
 <context>
     <name>Application</name>
-    <message utf8="true">
-        <location filename="../src/application.cpp" line="154"/>
-        <source>Copyright (C) 2006 Michał Męciński</source>
-        <translation>Copyright (C) 2006 Michał Męciński</translation>
-    </message>
     <message>
         <location filename="../src/application.cpp" line="149"/>
         <source>Desktop Client for the WebIssues team collaboration system.</source>
@@ -416,6 +411,16 @@
         <location filename="../src/application.cpp" line="150"/>
         <source>This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.</source>
         <translation>Niniejszy program jest wolnym oprogramowaniem; możesz go rozprowadzać dalej i/lub modyfikować na warunkach Powszechnej Licencji Publicznej GNU, wydanej przez Fundację Wolnego Oprogramowania - według wersji 3-ciej tej Licencji lub (według twojego wyboru) którejś z późniejszych wersji.</translation>
+    </message>
+    <message utf8="true">
+        <location filename="../src/application.cpp" line="154"/>
+        <source>Copyright &amp;copy; 2006 Michał Męciński</source>
+        <translation>Copyright &amp;copy; 2006 Michał Męciński</translation>
+    </message>
+    <message>
+        <location filename="../src/application.cpp" line="154"/>
+        <source>Copyright &amp;copy; 2007-2012 Zespół WebIssues</source>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/application.cpp" line="159"/>
@@ -502,11 +507,6 @@
         <location filename="../src/application.cpp" line="244"/>
         <source>Do&amp;wnload</source>
         <translation>Po&amp;bierz</translation>
-    </message>
-    <message>
-        <location filename="../src/application.cpp" line="154"/>
-        <source>Copyright (C) 2007-2011 WebIssues Team</source>
-        <translation>Copyright (C) 2007-2011 Zespół WebIssues</translation>
     </message>
     <message>
         <location filename="../src/application.cpp" line="163"/>

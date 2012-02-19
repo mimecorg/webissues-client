@@ -397,11 +397,6 @@
 </context>
 <context>
     <name>Application</name>
-    <message utf8="true">
-        <location filename="../src/application.cpp" line="154"/>
-        <source>Copyright (C) 2006 Michał Męciński</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <location filename="../src/application.cpp" line="149"/>
         <source>Desktop Client for the WebIssues team collaboration system.</source>
@@ -415,6 +410,16 @@
     <message>
         <location filename="../src/application.cpp" line="150"/>
         <source>This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <location filename="../src/application.cpp" line="154"/>
+        <source>Copyright &amp;copy; 2006 Michał Męciński</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/application.cpp" line="154"/>
+        <source>Copyright &amp;copy; 2007-2012 WebIssues Team</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -501,11 +506,6 @@
     <message>
         <location filename="../src/application.cpp" line="244"/>
         <source>Do&amp;wnload</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/application.cpp" line="154"/>
-        <source>Copyright (C) 2007-2011 WebIssues Team</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
