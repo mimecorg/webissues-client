@@ -1,3 +1,7 @@
+1.0.1 (2012-02-20)
+    * hiding the ID column in all views
+    * increased the number of visible dropdown items
+
 1.0 (2011-12-19)
     * fixed compatibility with nginx web server
     * updated SQLite to latest version

@@ -1,7 +1,7 @@
 /**************************************************************************
 * This file is part of the WebIssues Desktop Client program
 * Copyright (C) 2006 Michał Męciński
-* Copyright (C) 2007-2011 WebIssues Team
+* Copyright (C) 2007-2012 WebIssues Team
 *
 * This program is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -17,8 +17,8 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************/
 
-!define VERSION "1.0"
-!define BUILDVERSION "1.0.0.4370"
+!define VERSION "1.0.1"
+!define BUILDVERSION "1.0.1.4433"
 
 !define SRCDIR "..\.."
 !define BUILDDIR "..\..\release"
@@ -92,7 +92,7 @@ VIProductVersion "${BUILDVERSION}"
 VIAddVersionKey /LANG=${LANG_ENGLISH} "CompanyName" "WebIssues Team"
 VIAddVersionKey /LANG=${LANG_ENGLISH} "FileDescription" "WebIssues Desktop Client Setup"
 VIAddVersionKey /LANG=${LANG_ENGLISH} "FileVersion" "${VERSION}"
-VIAddVersionKey /LANG=${LANG_ENGLISH} "LegalCopyright" "Copyright (C) 2007-2011 WebIssues Team"
+VIAddVersionKey /LANG=${LANG_ENGLISH} "LegalCopyright" "Copyright (C) 2007-2012 WebIssues Team"
 VIAddVersionKey /LANG=${LANG_ENGLISH} "OriginalFilename" "webissues-${VERSION}-${ARCHITECTURE}.exe"
 VIAddVersionKey /LANG=${LANG_ENGLISH} "ProductName" "WebIssues Desktop Client"
 VIAddVersionKey /LANG=${LANG_ENGLISH} "ProductVersion" "${VERSION}"
