@@ -418,11 +418,6 @@
         <translation>Copyright &amp;copy; 2006 Michał Męciński</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="154"/>
-        <source>Copyright &amp;copy; 2007-2012 Zespół WebIssues</source>
-        <translation></translation>
-    </message>
-    <message>
         <location filename="../src/application.cpp" line="159"/>
         <source>Help</source>
         <translation>Pomoc</translation>
@@ -512,6 +507,11 @@
         <location filename="../src/application.cpp" line="163"/>
         <source>Website</source>
         <translation>Strona internetowa</translation>
+    </message>
+    <message>
+        <location filename="../src/application.cpp" line="154"/>
+        <source>Copyright &amp;copy; 2007-2012 WebIssues Team</source>
+        <translation>Copyright &amp;copy; 2007-2012 Zespół WebIssues</translation>
     </message>
     <message>
         <location filename="../src/application.cpp" line="174"/>
