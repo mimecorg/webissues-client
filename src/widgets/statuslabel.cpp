@@ -34,7 +34,7 @@ StatusLabel::StatusLabel( QWidget* parent ) : QWidget( parent )
     layout->addWidget( m_pixmapLabel );
 
     m_label = new ElidedLabel( this );
-    layout->addWidget( m_label );
+    layout->addWidget( m_label, 1 );
 
     layout->addSpacing( 6 );
 }
