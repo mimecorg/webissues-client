@@ -22,6 +22,7 @@
 #include "application.h"
 #include "data/datamanager.h"
 #include "data/localsettings.h"
+#include "dialogs/messagebox.h"
 #include "models/reportgenerator.h"
 #include "utils/textwriter.h"
 #include "utils/csvwriter.h"
@@ -35,7 +36,6 @@
 #include <QTextDocument>
 #include <QPrintDialog>
 #include <QFileDialog>
-#include <QMessageBox>
 #include <QTextStream>
 #include <QTextCodec>
 #include <QSettings>
@@ -210,7 +210,7 @@ bool ReportDialog::exportCsv()
 
     QFile file( fileName );
     if ( !file.open( QIODevice::WriteOnly ) ) {
-        QMessageBox::warning( this, tr( "Warning" ), tr( "File could not be saved." ) );
+        MessageBox::warning( this, tr( "Warning" ), tr( "File could not be saved." ) );
         return false;
     }
 
@@ -231,7 +231,7 @@ bool ReportDialog::exportHtml()
 
     QFile file( fileName );
     if ( !file.open( QIODevice::WriteOnly ) ) {
-        QMessageBox::warning( this, tr( "Warning" ), tr( "File could not be saved." ) );
+        MessageBox::warning( this, tr( "Warning" ), tr( "File could not be saved." ) );
         return false;
     }
 

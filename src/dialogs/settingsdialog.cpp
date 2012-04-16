@@ -21,12 +21,12 @@
 
 #include "application.h"
 #include "data/localsettings.h"
+#include "dialogs/messagebox.h"
 #include "utils/networkproxyfactory.h"
 #include "utils/iconloader.h"
 
 #include <QDialogButtonBox>
 #include <QPushButton>
-#include <QMessageBox>
 #include <QNetworkProxy>
 
 SettingsDialog::SettingsDialog( QWidget* parent ) : CommandDialog( parent )
@@ -146,7 +146,7 @@ bool SettingsDialog::apply()
 
     QString language = m_ui.languageComboBox->itemData( m_ui.languageComboBox->currentIndex() ).toString();
     if ( language != settings->value( "Language" ).toString() )
-        QMessageBox::warning( this, tr( "Warning" ), tr( "Language settings will be applied when the application is restarted." ) );
+        MessageBox::warning( this, tr( "Warning" ), tr( "Language settings will be applied when the application is restarted." ) );
     settings->setValue( "Language", language );
 
     settings->setValue( "Docked", m_ui.dockCheckBox->isChecked() );

@@ -27,6 +27,7 @@
 #include "data/credentialsstore.h"
 #include "data/bookmark.h"
 #include "dialogs/logindialog.h"
+#include "dialogs/messagebox.h"
 #include "utils/treeviewhelper.h"
 #include "utils/errorhelper.h"
 #include "utils/iconloader.h"
@@ -40,7 +41,6 @@
 #include <QTreeWidget>
 #include <QMenu>
 #include <QAction>
-#include <QMessageBox>
 
 StartView::StartView( QObject* parent, QWidget* parentWidget ) : View( parent ),
     m_batch( NULL ),
@@ -185,7 +185,7 @@ void StartView::removeConnection()
 {
     Bookmark bookmark = selectedBookmark();
     if ( !bookmark.url().isEmpty() ) {
-        if ( QMessageBox::warning( mainWidget(), tr( "Warning" ),
+        if ( MessageBox::warning( mainWidget(), tr( "Warning" ),
              tr( "Are you sure you want to remove the selected connection?" ),
              QMessageBox::Ok | QMessageBox::Cancel ) == QMessageBox::Ok ) {
             application->bookmarksStore()->deleteBookmark( bookmark );

@@ -25,6 +25,7 @@
 #include "data/entities.h"
 #include "data/issuetypecache.h"
 #include "data/localsettings.h"
+#include "dialogs/messagebox.h"
 #include "utils/definitioninfo.h"
 #include "utils/viewsettingshelper.h"
 #include "utils/attributehelper.h"
@@ -44,7 +45,6 @@
 #include <QLineEdit>
 #include <QFileInfo>
 #include <QRegExp>
-#include <QMessageBox>
 
 IssueDialog::IssueDialog( QWidget* parent ) : CommandDialog( parent ),
     m_nameEdit( NULL )
@@ -525,7 +525,7 @@ AddAttachmentDialog::AddAttachmentDialog( int issueId, const QString& path, cons
     }
 
     if ( fileName != info.fileName() ) {
-        QMessageBox::warning( parent, tr( "Warning" ),
+        MessageBox::warning( parent, tr( "Warning" ),
             tr( "The name of the selected file is longer than %1 characters and will be truncated." ).arg( 40 ) );
     }
 

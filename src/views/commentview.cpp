@@ -26,6 +26,7 @@
 #include "data/entities.h"
 #include "data/updateevent.h"
 #include "data/localsettings.h"
+#include "dialogs/messagebox.h"
 #include "utils/formatter.h"
 #include "utils/iconloader.h"
 #include "views/viewmanager.h"
@@ -37,7 +38,6 @@
 #include <QMenu>
 #include <QApplication>
 #include <QClipboard>
-#include <QMessageBox>
 
 CommentView::CommentView( QObject* parent, QWidget* parentWidget ) : View( parent ),
     m_sending( false ),
@@ -244,8 +244,8 @@ void CommentView::sendCompleted( bool successful )
 bool CommentView::queryClose()
 {
     if ( isEnabled() && m_edit->document()->isModified() && !m_sending ) {
-        if ( QMessageBox::warning( mainWidget(), tr( "Warning" ),
-            tr( "This comment has not been sent. You will lose all changes\n"
+        if ( MessageBox::warning( mainWidget(), tr( "Warning" ),
+            tr( "This comment has not been sent. You will lose all changes "
             "when you close it. Are you sure you want to continue?" ),
             QMessageBox::Ok | QMessageBox::Cancel ) != QMessageBox::Ok )
             return false;

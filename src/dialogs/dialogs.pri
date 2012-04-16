@@ -9,6 +9,7 @@ HEADERS += dialogs/aboutbox.h \
            dialogs/logindialog.h \
            dialogs/managealertsdialog.h \
            dialogs/membersdialog.h \
+           dialogs/messagebox.h \
            dialogs/metadatadialog.h \
            dialogs/preferencesdialog.h \
            dialogs/projectdialogs.h \
@@ -30,8 +31,9 @@ SOURCES += dialogs/aboutbox.cpp \
            dialogs/issuedialogs.cpp \
            dialogs/logindialog.cpp \
            dialogs/managealertsdialog.cpp \
-           dialogs/metadatadialog.cpp \
            dialogs/membersdialog.cpp \
+           dialogs/messagebox.cpp \
+           dialogs/metadatadialog.cpp \
            dialogs/preferencesdialog.cpp \
            dialogs/projectdialogs.cpp \
            dialogs/reportdialog.cpp \

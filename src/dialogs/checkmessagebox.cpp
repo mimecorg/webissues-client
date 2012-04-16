@@ -19,56 +19,20 @@
 
 #include "checkmessagebox.h"
 
-#include <QLayout>
-#include <QLabel>
 #include <QCheckBox>
-#include <QPushButton>
-#include <QDialogButtonBox>
-#include <QAccessible>
 
-CheckMessageBox::CheckMessageBox( QWidget* parent ) : QDialog( parent ),
-    m_icon( QMessageBox::NoIcon )
+CheckMessageBox::CheckMessageBox( QWidget* parent ) : MessageBox( parent )
 {
-    QVBoxLayout* mainLayout = new QVBoxLayout( this );
-    mainLayout->setSpacing( 15 );
-
-    QHBoxLayout* iconLayout = new QHBoxLayout();
-
-    m_pixmap = new QLabel( this );
-    iconLayout->addWidget( m_pixmap );
-    iconLayout->setAlignment( m_pixmap, Qt::AlignTop );
-
     QVBoxLayout* checkLayout = new QVBoxLayout();
-
-    m_prompt = new QLabel( this );
-    checkLayout->addWidget( m_prompt );
 
     m_checkBox = new QCheckBox( tr( "&Do not show this message again" ), this );
     checkLayout->addWidget( m_checkBox );
 
-    iconLayout->addLayout( checkLayout );
-    mainLayout->addLayout( iconLayout );
-
-    m_buttonBox = new QDialogButtonBox( QDialogButtonBox::Ok, Qt::Horizontal, this );
-    m_buttonBox->setCenterButtons( true );
-    mainLayout->addWidget( m_buttonBox );
-
-    connect( m_buttonBox, SIGNAL( clicked( QAbstractButton* ) ), this, SLOT( buttonClicked( QAbstractButton* ) ) );
+    setContentLayout( checkLayout, true );
 }
 
 CheckMessageBox::~CheckMessageBox()
 {
-}
-
-void CheckMessageBox::setText( const QString& text )
-{
-    m_prompt->setText( text );
-}
-
-void CheckMessageBox::setIcon( QMessageBox::Icon icon )
-{
-    m_icon = icon;
-    m_pixmap->setPixmap( QMessageBox::standardIcon( icon ) );
 }
 
 void CheckMessageBox::setCheckBoxText( const QString& text )
@@ -84,39 +48,4 @@ void CheckMessageBox::setChecked( bool checked )
 bool CheckMessageBox::isChecked()
 {
     return m_checkBox->isChecked();
-}
-
-void CheckMessageBox::setStandardButtons( QMessageBox::StandardButtons buttons )
-{
-    m_buttonBox->setStandardButtons( (QDialogButtonBox::StandardButtons)(int)buttons );
-}
-
-QPushButton* CheckMessageBox::button( QMessageBox::StandardButton button )
-{
-    return m_buttonBox->button( (QDialogButtonBox::StandardButton)button );
-}
-
-int CheckMessageBox::exec()
-{
-    setMaximumSize( sizeHint() );
-
-    // hack emulating the message box sound effect
-    QMessageBox box;
-    box.setIcon( m_icon );
-    QAccessible::updateAccessibility( &box, 0, QAccessible::Alert );
-
-    return QDialog::exec();
-}
-
-void CheckMessageBox::reject()
-{
-    if ( m_buttonBox->buttons().count() == 1 )
-        done ( m_buttonBox->standardButton( m_buttonBox->buttons().first() ) );
-    else if ( m_buttonBox->button( QDialogButtonBox::Cancel ) )
-        done( QDialogButtonBox::Cancel );
-}
-
-void CheckMessageBox::buttonClicked( QAbstractButton* button )
-{
-    done( m_buttonBox->standardButton( button ) );
 }

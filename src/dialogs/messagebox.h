@@ -17,17 +17,17 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************/
 
-#ifndef CHECKMESSAGEBOX_H
-#define CHECKMESSAGEBOX_H
+#ifndef MESSAGEBOX_H
+#define MESSAGEBOX_H
 
-#include "messagebox.h"
+#include "informationdialog.h"
 
-class QCheckBox;
+#include <QMessageBox>
 
 /**
-* Message box with a checkbox.
+* Simple message box.
 */
-class CheckMessageBox : public MessageBox
+class MessageBox : public InformationDialog
 {
     Q_OBJECT
 public:
@@ -35,32 +35,48 @@ public:
     * Constructor.
     * @param parent The parent widget.
     */
-    CheckMessageBox( QWidget* parent );
+    MessageBox( QWidget* parent );
 
     /**
     * Destructor.
     */
-    ~CheckMessageBox();
+    ~MessageBox();
 
 public:
     /**
-    * Set the checkbox text.
-    * The default text is "Do not show this message again".
+    * Set the prompt text.
+    * The prompt text is displayed in the top part of the dialog. HTML tags
+    * can be used.
     */
-    void setCheckBoxText( const QString& text );
+    void setPrompt( const QString& text );
 
     /**
-    * Set the state of the checkbox.
+    * Set the prompt pixmap.
     */
-    void setChecked( bool checked );
+    void setPromptPixmap( const QPixmap& pixmap );
 
     /**
-    * Return the state of the checkbox.
+    * Set the buttons of the message box.
+    * By default only the OK button is displayed.
     */
-    bool isChecked();
+    void setStandardButtons( QMessageBox::StandardButtons buttons );
 
-private:
-    QCheckBox* m_checkBox;
+    /**
+    * Return the given button.
+    */
+    QPushButton* button( QMessageBox::StandardButton button );
+
+public:
+    /**
+    * Display a warning message box with given parameters.
+    */
+    static QMessageBox::StandardButton warning( QWidget* parent, const QString& title, const QString& prompt, QMessageBox::StandardButtons buttons = QMessageBox::Ok );
+
+public: // overrides
+    void reject();
+
+private slots:
+    void buttonClicked( QAbstractButton* button );
 };
 
 #endif

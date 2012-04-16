@@ -31,6 +31,7 @@
 #include "dialogs/checkmessagebox.h"
 #include "dialogs/reportdialog.h"
 #include "dialogs/statedialogs.h"
+#include "dialogs/messagebox.h"
 #include "models/issuedetailsgenerator.h"
 #include "utils/datetimehelper.h"
 #include "utils/treeviewhelper.h"
@@ -45,7 +46,6 @@
 #include <QTextBrowser>
 #include <QAction>
 #include <QMenu>
-#include <QMessageBox>
 #include <QFileDialog>
 #include <QApplication>
 #include <QClipboard>
@@ -58,6 +58,7 @@
 
 #if defined( Q_WS_WIN )
 #include <qt_windows.h>
+#undef MessageBox
 #endif
 
 IssueView::IssueView( QObject* parent, QWidget* parentWidget ) : View( parent ),
@@ -439,7 +440,7 @@ void IssueView::addAttachment()
 
             if ( size > maxSize ) {
                 Formatter formatter;
-                QMessageBox::warning( mainWidget(), tr( "Warning" ),
+                MessageBox::warning( mainWidget(), tr( "Warning" ),
                     tr( "The selected file is bigger than the maximum allowed file size\non this server which is %1." ).arg( formatter.formatSize( maxSize ) ) );
                 return;
             }
@@ -881,23 +882,23 @@ void IssueView::handleAttachment( int fileId, AttachmentAction action )
     if ( action == ActionAsk ) {
         CheckMessageBox box( mainWidget() );
 
-        box.setIcon( QMessageBox::Question );
         box.setWindowTitle( tr( "Attachment" ) );
-        box.setText( tr( "Do you want to save or open attachment <b>%1</b>?" ).arg( file.name() ) );
+        box.setPrompt( tr( "Do you want to save or open attachment <b>%1</b>?" ).arg( file.name() ) );
+        box.setPromptPixmap( IconLoader::pixmap( "status-question", 22 ) );
         box.setCheckBoxText( tr( "Do this automatically for all attachments" ) );
-        box.setStandardButtons( QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel );
+        box.setStandardButtons( QMessageBox::Save | QMessageBox::Open | QMessageBox::Cancel );
 
-        box.button( QMessageBox::Yes )->setText( tr( "&Save As..." ) );
-        box.button( QMessageBox::Yes )->setIcon( IconLoader::icon( "file-save-as" ) );
-        box.button( QMessageBox::No )->setText( tr( "&Open" ) );
-        box.button( QMessageBox::No )->setIcon( IconLoader::icon( "file-open" ) );
-        box.button( QMessageBox::Cancel )->setMinimumHeight( box.button( QMessageBox::Yes )->sizeHint().height() );
+        box.button( QMessageBox::Save )->setText( tr( "&Save As..." ) );
+        box.button( QMessageBox::Save )->setIcon( IconLoader::icon( "file-save-as" ) );
+        box.button( QMessageBox::Open )->setText( tr( "&Open" ) );
+        box.button( QMessageBox::Open )->setIcon( IconLoader::icon( "file-open" ) );
+        box.button( QMessageBox::Cancel )->setMinimumHeight( box.button( QMessageBox::Save )->sizeHint().height() );
 
         int result = box.exec();
 
-        if ( result == QMessageBox::Yes )
+        if ( result == QMessageBox::Save )
             action = ActionSaveAs;
-        else if ( result == QMessageBox::No )
+        else if ( result == QMessageBox::Open )
             action = ActionOpen;
         else
             return;
@@ -946,12 +947,12 @@ void IssueView::handleAttachment( int fileId, AttachmentAction action )
     } else {
         if ( QFile::exists( path ) ) {
             if ( !QFile::remove( path ) ) {
-                QMessageBox::warning( mainWidget(), tr( "Error" ), tr( "File could not be overwritten." ) );
+                MessageBox::warning( mainWidget(), tr( "Error" ), tr( "File could not be overwritten." ) );
                 return;
             }
         }
 
         if ( !QFile::copy( cachePath, path ) )
-            QMessageBox::warning( mainWidget(), tr( "Error" ), tr( "File could not be saved." ) );
+            MessageBox::warning( mainWidget(), tr( "Error" ), tr( "File could not be saved." ) );
     }
 }
