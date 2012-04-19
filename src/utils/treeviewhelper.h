@@ -36,7 +36,8 @@ public:
     {
         TreeStyle = 1,
         MultiSelect = 2,
-        NotSortable = 4
+        NotSortable = 4,
+        NoAutoToolTip = 8
     };
 
     Q_DECLARE_FLAGS( ViewFlags, ViewFlag )
@@ -99,5 +100,16 @@ private:
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS( TreeViewHelper::ViewFlags )
+
+class AutoToolTipDelegate : public QStyledItemDelegate
+{
+    Q_OBJECT
+public:
+    AutoToolTipDelegate( QObject* parent );
+    ~AutoToolTipDelegate();
+
+public slots:
+    bool helpEvent( QHelpEvent* e, QAbstractItemView* view, const QStyleOptionViewItem& option, const QModelIndex& index );
+};
 
 #endif

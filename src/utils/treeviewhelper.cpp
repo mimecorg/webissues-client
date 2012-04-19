@@ -26,6 +26,7 @@
 
 #include <QTreeView>
 #include <QHeaderView>
+#include <QTextDocument>
 
 class ExpandedNode
 {
@@ -89,6 +90,9 @@ void TreeViewHelper::initializeView( ViewFlags flags /*= 0*/ )
 
     m_view->setContextMenuPolicy( Qt::CustomContextMenu );
     m_view->header()->setContextMenuPolicy( Qt::CustomContextMenu );
+
+    if ( ( flags & NoAutoToolTip ) == 0 )
+        m_view->setItemDelegate( new AutoToolTipDelegate( m_view ) );
 }
 
 QModelIndex TreeViewHelper::selectedIndex()
@@ -192,4 +196,35 @@ void TreeViewHelper::loadExpandedNodes( const QString& key )
         if ( index.isValid() )
             m_view->setExpanded( index, true );
     }
+}
+
+AutoToolTipDelegate::AutoToolTipDelegate( QObject* parent ) : QStyledItemDelegate( parent )
+{
+}
+
+AutoToolTipDelegate::~AutoToolTipDelegate()
+{
+}
+
+bool AutoToolTipDelegate::helpEvent( QHelpEvent* e, QAbstractItemView* view, const QStyleOptionViewItem& option, const QModelIndex& index )
+{
+    if ( !e || !view )
+        return false;
+
+    if ( e->type() == QEvent::ToolTip ) {
+        QRect rect = view->visualRect( index );
+        QSize size = sizeHint( option, index );
+        if ( rect.width() < size.width() ) {
+            QVariant tooltip = index.data( Qt::DisplayRole );
+            if ( tooltip.canConvert<QString>() ) {
+                QToolTip::showText( e->globalPos(), QString( "<div>%1</div>" ).arg( Qt::escape( tooltip.toString() ) ), view );
+                return true;
+            }
+        }
+        if ( !QStyledItemDelegate::helpEvent( e, view, option, index ) )
+            QToolTip::hideText();
+        return true;
+    }
+
+    return QStyledItemDelegate::helpEvent( e, view, option, index );
 }
