@@ -22,9 +22,13 @@
 
 #include <QMap>
 #include <QPair>
+#include <QStyledItemDelegate>
 
 class QTreeView;
 class QModelIndex;
+class QHelpEvent;
+class QAbstractItemView;
+class QStyleOptionViewItem;
 
 /**
 * Helper class for reading and applying settings of a tree view.

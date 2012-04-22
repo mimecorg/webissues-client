@@ -20,6 +20,7 @@
 #include "checkmessagebox.h"
 
 #include <QCheckBox>
+#include <QVBoxLayout>
 
 CheckMessageBox::CheckMessageBox( QWidget* parent ) : MessageBox( parent )
 {

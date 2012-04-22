@@ -23,6 +23,7 @@
 
 #include <QDialogButtonBox>
 #include <QPushButton>
+#include <QAccessible>
 
 MessageBox::MessageBox( QWidget* parent ) : InformationDialog( parent )
 {

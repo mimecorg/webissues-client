@@ -27,6 +27,8 @@
 #include <QTreeView>
 #include <QHeaderView>
 #include <QTextDocument>
+#include <QHelpEvent>
+#include <QToolTip>
 
 class ExpandedNode
 {
