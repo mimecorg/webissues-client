@@ -14,3 +14,9 @@ win32 {
     HEADERS += xmlui/windowsstyle.h
     SOURCES += xmlui/windowsstyle.cpp
 }
+
+# todo: mac
+#mac {
+    HEADERS += xmlui/macstyle.h
+    SOURCES += xmlui/macstyle.cpp
+#}
