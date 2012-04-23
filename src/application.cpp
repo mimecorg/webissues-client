@@ -80,6 +80,8 @@ Application::Application( int& argc, char** argv ) : QApplication( argc, argv ),
 
 #if defined( Q_WS_WIN )
     setStyle( "XmlUi::WindowsStyle" );
+#elif defined( Q_WS_MAC )
+    setStyle( "XmlUi::MacStyle" );
 #endif
 
     setWindowIcon( IconLoader::icon( "webissues" ) );
