@@ -1,12 +1,15 @@
-HEADERS += sqlite/sqlcachedresult.h \
-           sqlite/sqlitedriver.h \
-           sqlite/sqliteextension.h
+HEADERS += $$PWD/sqlcachedresult.h \
+           $$PWD/sqlitedriver.h \
+           $$PWD/sqliteextension.h
 
-SOURCES += sqlite/sqlcachedresult.cpp \
-           sqlite/sqlitedriver.cpp \
-           sqlite/sqliteextension.cpp
+SOURCES += $$PWD/sqlcachedresult.cpp \
+           $$PWD/sqlitedriver.cpp \
+           $$PWD/sqliteextension.cpp
 
-!system-sqlite {
-    HEADERS += sqlite/sqlite3.h
-    SOURCES += sqlite/sqlite3.c
+system-sqlite {
+    DEFINES += HAVE_SYSTEM_SQLITE
+    LIBS += -lsqlite3
+} else {
+    HEADERS += $$PWD/sqlite3.h
+    SOURCES += $$PWD/sqlite3.c
 }

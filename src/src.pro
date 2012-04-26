@@ -33,11 +33,6 @@ contains( QT_CONFIG, openssl ) | contains( QT_CONFIG, openssl-linked ) {
     DEFINES += HAVE_OPENSSL
 }
 
-system-sqlite {
-    DEFINES += HAVE_SYSTEM_SQLITE
-    LIBS += -lsqlite3
-}
-
 PRECOMPILED_HEADER = precompiled.h
 
 TRANSLATIONS += \

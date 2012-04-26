@@ -1,6 +1,6 @@
 /**************************************************************************
 * Extensible SQLite driver for Qt4
-* Copyright (C) 2011 Michał Męciński
+* Copyright (C) 2011-2012 Michał Męciński
 *
 * This library is free software: you can redistribute it and/or modify
 * it under the terms of the GNU Lesser General Public License version 2.1
@@ -75,11 +75,23 @@ static QVariant::Type qGetColumnType(const QString &tpName)
     return QVariant::String;
 }
 
+static QString stringFromUnicode(const QChar* unicode)
+{
+#if (QT_VERSION >= 0x040700)
+    return QString(unicode);
+#else
+    int size = 0;
+    while (unicode[size] != 0)
+        size++;
+    return QString(unicode, size);
+#endif
+}
+
 static QSqlError qMakeError(sqlite3 *access, const QString &descr, QSqlError::ErrorType type,
                             int errorCode = -1)
 {
     return QSqlError(descr,
-                     QString::fromUtf16(static_cast<const ushort *>(sqlite3_errmsg16(access))),
+                     stringFromUnicode(reinterpret_cast<const QChar *>(sqlite3_errmsg16(access))),
                      type, errorCode);
 }
 
@@ -155,12 +167,12 @@ void SQLiteResultPrivate::initColumns(bool emptyResultset)
     q->init(nCols);
 
     for (int i = 0; i < nCols; ++i) {
-        QString colName = QString::fromUtf16(static_cast<const ushort *>(
+        QString colName = stringFromUnicode(reinterpret_cast<const QChar *>(
                     sqlite3_column_name16(stmt, i))
                     ).remove(QLatin1Char('"'));
 
         // must use typeName for resolving the type to match SQLiteDriver::record
-        QString typeName = QString::fromUtf16(static_cast<const ushort *>(
+        QString typeName = stringFromUnicode(reinterpret_cast<const QChar *>(
                     sqlite3_column_decltype16(stmt, i)));
 
         int dotIdx = colName.lastIndexOf(QLatin1Char('.'));
@@ -220,7 +232,19 @@ bool SQLiteResultPrivate::fetchNext(SqlCachedResult::ValueCache &values, int idx
                 values[i + idx] = sqlite3_column_int64(stmt, i);
                 break;
             case SQLITE_FLOAT:
-                values[i + idx] = sqlite3_column_double(stmt, i);
+                switch(q->numericalPrecisionPolicy()) {
+                    case QSql::LowPrecisionInt32:
+                        values[i + idx] = sqlite3_column_int(stmt, i);
+                        break;
+                    case QSql::LowPrecisionInt64:
+                        values[i + idx] = sqlite3_column_int64(stmt, i);
+                        break;
+                    case QSql::LowPrecisionDouble:
+                    case QSql::HighPrecision:
+                    default:
+                        values[i + idx] = sqlite3_column_double(stmt, i);
+                        break;
+                };
                 break;
             case SQLITE_NULL:
                 values[i + idx] = QVariant(QVariant::String);
@@ -303,12 +327,14 @@ bool SQLiteResult::prepare(const QString &query)
 
     setSelect(false);
 
+    const void *pzTail = NULL;
+
 #if (SQLITE_VERSION_NUMBER >= 3003011)
     int res = sqlite3_prepare16_v2(d->access, query.constData(), (query.size() + 1) * sizeof(QChar),
-                                   &d->stmt, 0);
+                                   &d->stmt, &pzTail);
 #else
     int res = sqlite3_prepare16(d->access, query.constData(), (query.size() + 1) * sizeof(QChar),
-                                &d->stmt, 0);
+                                &d->stmt, &pzTail);
 #endif
 
     if (res != SQLITE_OK) {
@@ -317,6 +343,11 @@ bool SQLiteResult::prepare(const QString &query)
 #endif
         setLastError(qMakeError(d->access, QCoreApplication::translate("SQLiteResult",
                      "Unable to execute statement"), QSqlError::StatementError, res));
+        d->finalize();
+        return false;
+    } else if (pzTail && !stringFromUnicode(reinterpret_cast<const QChar *>(pzTail)).trimmed().isEmpty()) {
+        setLastError(qMakeError(d->access, QCoreApplication::translate("SQLiteResult",
+            "Unable to execute multiple statements at a time"), QSqlError::StatementError, SQLITE_MISUSE));
         d->finalize();
         return false;
     }
@@ -681,7 +712,7 @@ QSqlRecord SQLiteDriver::record(const QString &tbl) const
 
 QVariant SQLiteDriver::handle() const
 {
-    return qVariantFromValue(d->access);
+    return QVariant::fromValue(d->access);
 }
 
 QString SQLiteDriver::escapeIdentifier(const QString &identifier, IdentifierType type) const

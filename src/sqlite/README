@@ -1,14 +1,16 @@
 Extensible SQLite driver for Qt4
-Version 1.0 (2011-12-19)
+Version 1.1 (2012-04-26)
 
 This library is an alternative SQLite driver for Qt4 which includes its
 own copy of SQLite and allows extending it by implementing custom
 functions, collations, etc.
 
+Website: http://www.mimec.org/components/sqlitex
+
 Copyright
 =========
 
-Copyright (C) 2011 Michał Męciński
+Copyright (C) 2011-2012 Michał Męciński
 
 This library is free software: you can redistribute it and/or modify
 it under the terms of the GNU Lesser General Public License version 2.1
@@ -23,4 +25,4 @@ You should have received a copy of the GNU Lesser General Public License
 along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 This library is based on the QtSql module of the Qt Toolkit
-Copyright (C) 2010 Nokia Corporation and/or its subsidiary(-ies).
+Copyright (C) 2012 Nokia Corporation and/or its subsidiary(-ies).

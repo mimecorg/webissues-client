@@ -1,6 +1,6 @@
 /**************************************************************************
 * Extensible SQLite driver for Qt4
-* Copyright (C) 2011 Michał Męciński
+* Copyright (C) 2011-2012 Michał Męciński
 *
 * This library is free software: you can redistribute it and/or modify
 * it under the terms of the GNU Lesser General Public License version 2.1
