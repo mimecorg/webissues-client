@@ -88,6 +88,7 @@ private:
     SeparatorComboBox* m_historyPageComboBox;
 
     InputLineEdit* m_emailEdit;
+    QCheckBox* m_detailsCheckBox;
     QCheckBox* m_noReadCheckBox;
     QButtonGroup* m_daysGroup;
     QButtonGroup* m_hoursGroup;

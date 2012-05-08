@@ -44,6 +44,7 @@ PreferencesDialog::PreferencesDialog( int userId, QWidget* parent ) : CommandDia
     m_userId( userId ),
     m_initialized( false ),
     m_emailEdit( NULL ),
+    m_detailsCheckBox( NULL ),
     m_noReadCheckBox( NULL ),
     m_daysGroup( NULL ),
     m_hoursGroup( NULL )
@@ -199,11 +200,16 @@ PreferencesDialog::PreferencesDialog( int userId, QWidget* parent ) : CommandDia
 
         notifyLayout->setRowMinimumHeight( 2, 5 );
 
-        QGroupBox* alertGroup = new QGroupBox( tr( "Alert Notifications" ), notifyTab );
+        QGroupBox* alertGroup = new QGroupBox( tr( "Settings" ), notifyTab );
         QVBoxLayout* alertLayout = new QVBoxLayout( alertGroup );
         notifyLayout->addWidget( alertGroup, 3, 0, 1, 2 );
 
-        m_noReadCheckBox = new QCheckBox( tr( "&Do not include issues that I have already read" ), alertGroup );
+        if ( dataManager->checkServerVersion( "1.0.2" ) ) {
+            m_detailsCheckBox = new QCheckBox( tr( "I&nclude issue details in notificatons and summary reports" ), alertGroup );
+            alertLayout->addWidget( m_detailsCheckBox );
+        }
+
+        m_noReadCheckBox = new QCheckBox( tr( "&Do not notify about issues that I have already read" ), alertGroup );
         alertLayout->addWidget( m_noReadCheckBox );
 
         QGroupBox* summaryGroup = new QGroupBox( tr( "Summary Schedule" ), notifyTab );
@@ -463,6 +469,9 @@ void PreferencesDialog::initialize()
     if ( m_emailEdit )
         m_emailEdit->setInputValue( m_preferences.value( "email" ) );
 
+    if ( m_detailsCheckBox )
+        m_detailsCheckBox->setChecked( m_preferences.value( "notify_details" ).toInt() != 0 );
+
     if ( m_noReadCheckBox )
         m_noReadCheckBox->setChecked( m_preferences.value( "notify_no_read" ).toInt() != 0 );
 
@@ -507,6 +516,9 @@ void PreferencesDialog::accept()
 
     if ( m_emailEdit )
         preferences.insert( "email", m_emailEdit->inputValue() );
+
+    if ( m_detailsCheckBox )
+        preferences.insert( "notify_details", m_detailsCheckBox->isChecked() ? "1" : "0" );
 
     if ( m_noReadCheckBox )
         preferences.insert( "notify_no_read", m_noReadCheckBox->isChecked() ? "1" : "0" );
