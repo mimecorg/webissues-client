@@ -38,16 +38,16 @@
 #if !defined( XMLUI_NO_STYLE_MAC )
 
 // TODO: QMacStyle
-#include <QWindowsStyle>
-typedef QWindowsStyle MacBaseStyle;
+#include <QMacStyle>
+typedef QMacStyle MacBaseStyle;
 
 namespace XmlUi
 {
 
 /**
-* Modern Qt style for Windows.
+* Better Qt style for Mac.
 *
-* The style imitates the look of MS Office.
+* The style override default QToolButton rendering which are ugly on mac os x.
 */
 class MacStyle : public MacBaseStyle
 {
