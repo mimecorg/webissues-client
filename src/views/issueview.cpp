@@ -243,6 +243,9 @@ IssueView::IssueView( QObject* parent, QWidget* parentWidget ) : View( parent ),
     connect( m_populateTimer, SIGNAL( timeout() ), this, SLOT( populateDetails() ) );
 
     connect( application->applicationSettings(), SIGNAL( settingsChanged() ), this, SLOT( populateDetails() ) );
+
+    LocalSettings* settings = application->applicationSettings();
+    m_history = (IssueDetailsGenerator::History)settings->value( "IssueHistoryFilter", (int)IssueDetailsGenerator::AllHistory ).toInt();
 }
 
 IssueView::~IssueView()
@@ -832,6 +835,7 @@ void IssueView::handleCommand( const QString& command, int argument )
 {
     if ( command == QLatin1String( "filter" ) ) {
         m_history = (IssueDetailsGenerator::History)argument;
+        application->applicationSettings()->setValue( "IssueHistoryFilter", (int)m_history );
         populateDetails();
     } else if ( command == QLatin1String( "edit-comment" ) ) {
         viewManager->openCommentView( argument );
