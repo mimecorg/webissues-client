@@ -143,6 +143,11 @@ public:
     */
     void setContentsMargins( int left, int top, int right, int bottom );
 
+    /**
+    * Execute the popup menu associated with given action.
+    */
+    void execMenu( QAction* action );
+
 protected: // overrides
     void childEvent( QChildEvent* e );
     void paintEvent( QPaintEvent* e );

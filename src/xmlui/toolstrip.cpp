@@ -173,6 +173,18 @@ void ToolStrip::setContentsMargins( int left, int top, int right, int bottom )
     m_layout->setContentsMargins( left, top, right, bottom );
 }
 
+void ToolStrip::execMenu( QAction* action )
+{
+    foreach ( QToolButton* button, m_toolButtons ) {
+        if ( button->defaultAction() == action ) {
+            button->setDown( true );
+            action->menu()->exec( button->mapToGlobal( button->rect().bottomLeft() + QPoint( 0, 1 ) ) );
+            button->setDown( false );
+            break;
+        }
+    }
+}
+
 QToolButton* ToolStrip::createButton( QAction* action, ButtonSize size )
 {
     ActionButton* button = new ActionButton( this );
