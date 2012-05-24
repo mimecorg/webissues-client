@@ -246,6 +246,11 @@ void Builder::registerToolStrip( const QString& id, ToolStrip* strip )
     }
 }
 
+ToolStrip* Builder::toolStrip( const QString& id ) const
+{
+    return m_toolStrips.value( id );
+}
+
 void Builder::populateToolStrip( const Node& node )
 {
     ToolStrip* strip = m_toolStrips.value( node.id() );

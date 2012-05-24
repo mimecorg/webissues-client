@@ -109,6 +109,11 @@ public:
     void registerToolStrip( const QString& id, ToolStrip* strip );
 
     /**
+    * Return the toolstrip with given identifier.
+    */
+    ToolStrip* toolStrip( const QString& id ) const;
+
+    /**
     * Supress rebuilding the UI.
     */
     void supressUpdate();
