@@ -801,8 +801,16 @@ void ActionButton::adjustText()
     }
 
     QKeySequence shortcut = defaultAction()->shortcut();
-    if ( !shortcut.isEmpty() )
+    if ( !shortcut.isEmpty() ) {
         setToolTip( QString( "%1 (%2)" ).arg( defaultAction()->toolTip(), shortcut.toString( QKeySequence::NativeText ) ) );
+    } else if ( popupMode() == QToolButton::MenuButtonPopup && defaultAction()->menu() != NULL ) {
+        QAction* defAction = defaultAction()->menu()->defaultAction();
+        if ( defAction != NULL ) {
+            shortcut = defAction->shortcut();
+            if ( !shortcut.isEmpty() )
+                setToolTip( QString( "%1 (%2)" ).arg( defaultAction()->toolTip(), shortcut.toString( QKeySequence::NativeText ) ) );
+        }
+    }
 }
 
 void ActionButton::actionEvent( QActionEvent* e )
