@@ -32,12 +32,11 @@
 #include <QtGlobal>
 
 #if !defined( Q_WS_MAC ) || defined( QT_NO_STYLE_AQUA )
-//#define XMLUI_NO_STYLE_MAC
+#define XMLUI_NO_STYLE_MAC
 #endif
 
 #if !defined( XMLUI_NO_STYLE_MAC )
 
-// TODO: QMacStyle
 #include <QMacStyle>
 typedef QMacStyle MacBaseStyle;
 
@@ -64,50 +63,8 @@ public:
     ~MacStyle();
 
 public: // overrides
-    void polish( QPalette& palette );
-
-    void polish( QWidget* widget );
-    void unpolish( QWidget* widget );
-
-    /*int pixelMetric( PixelMetric metric, const QStyleOption* option, const QWidget* widget ) const;
-
-    int styleHint( StyleHint hint, const QStyleOption* option, const QWidget* widget,
-        QStyleHintReturn* returnData = NULL ) const;
-
-    QSize sizeFromContents( ContentsType type, const QStyleOption* option,
-        const QSize& contentsSize, const QWidget* widget ) const;
-
-    QRect subElementRect( SubElement element, const QStyleOption* option, const QWidget* widget ) const;
-    QRect subControlRect( ComplexControl control, const QStyleOptionComplex* option,
-        SubControl subControl, const QWidget* widget ) const;
-
-    void drawPrimitive( PrimitiveElement element, const QStyleOption* option,
-        QPainter* painter, const QWidget* widget ) const;
-    void drawControl( ControlElement element, const QStyleOption* option,
-        QPainter* painter, const QWidget* widget ) const;
-    */
     void drawComplexControl( ComplexControl control, const QStyleOptionComplex* option,
         QPainter* painter, const QWidget* widget ) const;
-
-private:
-    QColor m_colorBackgroundBegin;
-    QColor m_colorBackgroundEnd;
-    QColor m_colorMenuBorder;
-    QColor m_colorMenuBackground;
-    QColor m_colorBarBegin;
-    QColor m_colorBarEnd;
-    QColor m_colorSeparator;
-    QColor m_colorItemBorder;
-    QColor m_colorItemBackgroundBegin;
-    QColor m_colorItemBackgroundMiddle;
-    QColor m_colorItemBackgroundEnd;
-    QColor m_colorItemCheckedBegin;
-    QColor m_colorItemCheckedMiddle;
-    QColor m_colorItemCheckedEnd;
-    QColor m_colorItemSunkenBegin;
-    QColor m_colorItemSunkenMiddle;
-    QColor m_colorItemSunkenEnd;
-    QColor m_colorToolStripLabel;
 };
 
 }

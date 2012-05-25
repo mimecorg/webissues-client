@@ -30,9 +30,6 @@
 
 #if !defined( XMLUI_NO_STYLE_MAC )
 
-#include "gradientwidget.h"
-#include "toolstrip.h"
-
 #include <QStyleOption>
 #include <QPainter>
 #include <QLibrary>
@@ -60,18 +57,9 @@ MacStyle::~MacStyle()
 {
 }
 
-static QColor blendColors( const QColor& src, const QColor& dest, double alpha )
-{
-    double red = alpha * src.red() + ( 1.0 - alpha ) * dest.red();
-    double green = alpha * src.green() + ( 1.0 - alpha ) * dest.green();
-    double blue = alpha * src.blue() + ( 1.0 - alpha ) * dest.blue();
-    return QColor( (int)( red + 0.5 ), (int)( green + 0.5 ), (int)( blue + 0.5 ) );
-}
-
-static void drawHighlightFrameMac( QPainter* painter, const QWidget* widget, const QStyleOptionComplex* option, const QRect& rect, const QColor& begin, const QColor& middle, const QColor& end, const QColor& border, const QColor& inner, bool roundLeft, bool roundRight )
+static void drawHighlightFrameMac( QPainter* painter, const QWidget* widget, const QStyleOptionComplex* option, const QRect& rect )
 {
     const QSize size( 50, 34 );
-    int margin = 6;
     
     QStyleOptionButton opt;
     opt.initFrom( widget );
@@ -89,52 +77,68 @@ static void drawHighlightFrameMac( QPainter* painter, const QWidget* widget, con
         widget->style()->drawControl( QStyle::CE_PushButton, &opt, &p, 0 );
     }
     
-    // create box pixmap
+    pixmap = pixmap.copy( QRect( QPoint(), size ).adjusted( 6, 6, -6, -6 ) ); // 38x22
+    
+    // create circle pixmap
     {
-        QPixmap pix = QPixmap( 34, 34 );
+        QPixmap pix = QPixmap( pixmap.height(), pixmap.height() );
+        const QSize pixSize( pix.width() /2, pix.height() );
         pix.fill( QColor( Qt::transparent ) );
         {
             QPainter p( &pix );
             
-            p.drawPixmap( QPoint(), pixmap.copy( QRect( QPoint(), QSize( 17, 34 ) ) ) );
-            p.drawPixmap( QPoint( 16, 0 ), pixmap.copy( QRect( QPoint( pixmap.width() -16, 0 ), QSize( 17, 34 ) ) ) );
+            p.drawPixmap( QPoint(), pixmap.copy( QRect( QPoint(), pixSize ) ) );
+            p.drawPixmap( QPoint( pix.width() /2, 0 ), pixmap.copy( QRect( QPoint( pixmap.width() -pix.width() /2, 0 ), pixSize ) ) );
         }
         
         pixmap = pix;
     }
     
-    QRect r = QRect( QPoint(), rect.size() ).adjusted( -margin, -margin, margin, margin );
-    
     // paint final pixmap
     {
-        const QSize s16( rect.width() >= 26 ? 16 : rect.width() /2, rect.height() >= 26 ? 16 : rect.height() /2 );
-        const QPixmap topLeft = pixmap.copy( QRect( QPoint(), s16 ) );
-        const QPixmap topRight = pixmap.copy( QRect( QPoint( pixmap.width() -( s16.width() +2 ), 0 ), s16 ) );
-        const QPixmap bottomLeft = pixmap.copy( QRect( QPoint( 0, pixmap.height() -( s16.height() +2 ) ), s16 ) );
-        const QPixmap bottomRight = pixmap.copy( QRect( QPoint( pixmap.width() -( s16.width() +2 ), pixmap.height() -( s16.height() +2 ) ), s16 ) );
-        const QPixmap left = pixmap.copy( QRect( QPoint( 0, pixmap.height() /2 ), QSize( s16.width(), 1 ) ) );
-        const QPixmap top = pixmap.copy( QRect( QPoint( pixmap.width() /2, 0 ), QSize( 1, s16.height() ) ) );
-        const QPixmap right = pixmap.copy( QRect( QPoint( pixmap.width() /2, pixmap.height() /2 ), QSize( s16.width(), 1 ) ) );
-        const QPixmap bottom = pixmap.copy( QRect( QPoint( pixmap.width() /2, pixmap.height() /2 ), QSize( 1, s16.height() ) ) );
-        const QPixmap center = pixmap.copy( QRect( QPoint( pixmap.width() /2, pixmap.height() /2 ), QSize( 2, 2 ) ) );
+        QPixmap topLeft;
+        QPixmap topRight;
+        QPixmap bottomLeft;
+        QPixmap bottomRight;
+        QPixmap left;
+        QPixmap top;
+        QPixmap right;
+        QPixmap bottom;
+        QPixmap center;
         
-        QPixmap pix = QPixmap( r.size() );
+        const int width = qBound( 0, rect.width() /2, pixmap.width() /2 );
+        const int height = qBound( 0, rect.height() /2, pixmap.height() /2 );
+        const QSize pixSize( width, height );
+        
+        topLeft = pixmap.copy( QRect( QPoint(), pixSize ) );
+        topRight = pixmap.copy( QRect( QPoint( pixmap.width() -pixSize.width(), 0 ), pixSize ) );
+        bottomLeft = pixmap.copy( QRect( QPoint( 0, pixmap.height() -pixSize.height() ), pixSize ) );
+        bottomRight = pixmap.copy( QRect( QPoint( pixmap.width() -pixSize.width(), pixmap.height() -pixSize.height() ), pixSize ) );
+        left = pixmap.copy( QRect( QPoint( 0, pixmap.height() /2 ), QSize( pixSize.width(), 1 ) ) );
+        top = pixmap.copy( QRect( QPoint( pixmap.width() /2, 0 ), QSize( 1, pixSize.height() ) ) );
+        right = pixmap.copy( QRect( QPoint( pixmap.width() -pixSize.width(), pixmap.height() /2 ), QSize( pixSize.width(), 1 ) ) );
+        bottom = pixmap.copy( QRect( QPoint( pixmap.width() /2, pixmap.height() -pixSize.height() ), QSize( 1, pixSize.height() ) ) );
+        center = pixmap.copy( QRect( QPoint( pixmap.width() /2, pixmap.height() /2 ), QSize( 1, 1 ) ) );
+        
+        QPixmap pix = QPixmap( rect.size() );
         pix.fill( QColor( Qt::transparent ) );
+        
+        QRect r( QPoint(), rect.size() );
         
         {
             QPainter p( &pix );
             
-            p.drawPixmap( r.topLeft() +QPoint( margin, margin ), topLeft );
-            p.drawPixmap( r.topRight() +QPoint( -s16.width() +margin, 0 +margin ), topRight );
-            p.drawPixmap( r.bottomLeft() +QPoint( 0 +margin, -s16.height() +margin ), bottomLeft );
-            p.drawPixmap( r.bottomRight() +QPoint( -s16.width() +margin, -s16.height() +margin ), bottomRight );
+            p.drawPixmap( r.topLeft(), topLeft );
+            p.drawPixmap( r.topRight() +QPoint( -topRight.width(), 0 ), topRight );
+            p.drawPixmap( r.bottomLeft() +QPoint( 0, -bottomLeft.height() ), bottomLeft );
+            p.drawPixmap( r.bottomRight() +QPoint( -bottomRight.width(), -bottomRight.height() ), bottomRight );
             
-            p.drawPixmap( QRect( QPoint( 0, s16.height() ), QSize( s16.width(), r.height() -( s16.height() *2 ) ) ), left );
-            p.drawPixmap( QRect( QPoint( s16.width(), 0 ), QSize( r.width() -( s16.width() *2 ), s16.height() ) ), top );
-            p.drawPixmap( QRect( QPoint( r.width() -s16.width(), s16.height() ), QSize( s16.width(), r.height() -( s16.height() *2 ) ) ), right );
-            p.drawPixmap( QRect( QPoint( s16.width(), r.height() -s16.height() ), QSize( r.width() -( s16.width() *2 ), s16.height() ) ), bottom );
+            p.drawPixmap( QRect( QPoint( 0, topRight.height() ), QSize( left.width(), rect.height() -( topRight.height() +bottomRight.height() ) ) ), left );
+            p.drawPixmap( QRect( QPoint( topLeft.width(), 0 ), QSize( r.width() -( topLeft.width() +topRight.width() ), top.height() ) ), top );
+            p.drawPixmap( QRect( QPoint( r.width() -topRight.width() -1, topRight.height() ), QSize( right.width(), r.height() -( topRight.height() +bottomRight.height() ) ) ), right );
+            p.drawPixmap( QRect( QPoint( bottomLeft.width(), r.height() -bottom.height() -1 ), QSize( r.width() -( bottomLeft.width() +bottomRight.width() ), bottom.height() ) ), bottom );
             
-            p.drawPixmap( r.adjusted( s16.width() +margin, s16.height() +margin, -s16.width() +margin, -s16.height() +margin ), center );
+            p.drawPixmap( rect.adjusted( left.width(), top.height(), -right.width(), -bottom.height() ), center );
         }
         
         pixmap = pix;
@@ -142,132 +146,7 @@ static void drawHighlightFrameMac( QPainter* painter, const QWidget* widget, con
     
     // draw scaled content
     painter->setRenderHint( QPainter::SmoothPixmapTransform );
-    painter->drawPixmap( rect.topLeft() -QPoint( margin, margin ), pixmap );
-}
-
-static void drawHighlightFrame( QPainter* painter, const QWidget* widget, const QStyleOptionComplex* option, const QRect& rect, const QColor& begin, const QColor& middle, const QColor& end, const QColor& border, const QColor& inner, bool roundLeft, bool roundRight )
-{
-    if ( rect.size() != QSize( 26, 26 ) ) {
-        drawHighlightFrameMac( painter, widget, option, rect, begin, middle, end, border, inner, roundLeft, roundRight );
-        return;
-    }
-    
-    painter->save();
-
-    QRect frameRect = rect.adjusted( 0, 0, -1, -1 );
-
-    QLinearGradient gradient( frameRect.topLeft(), frameRect.bottomLeft() );
-    gradient.setColorAt( 0.0, begin );
-    gradient.setColorAt( 0.5, middle );
-    gradient.setColorAt( 1.0, end );
-
-    QRegion region = rect;
-    if ( roundLeft ) {
-        region -= QRect( rect.topLeft(), QSize( 1, 1 ) );
-        region -= QRect( rect.bottomLeft(), QSize( 1, 1 ) );
-    }
-    if ( roundRight ) {
-        region -= QRect( rect.topRight(), QSize( 1, 1 ) );
-        region -= QRect( rect.bottomRight(), QSize( 1, 1 ) );
-    }
-    painter->setClipRegion( region );
-
-    painter->setPen( border );
-    painter->setBrush( gradient );
-    painter->drawRect( frameRect );
-
-    painter->setPen( inner );
-    painter->setBrush( QBrush() );
-    painter->drawRect( frameRect.adjusted( 1, 1, -1, -1 ) );
-    if ( roundLeft ) {
-        painter->drawPoint( rect.left() + 2, rect.top() + 2 );
-        painter->drawPoint( rect.left() + 2, rect.bottom() - 2 );
-    }
-    if ( roundRight ) {
-        painter->drawPoint( rect.right() - 2, rect.top() + 2 );
-        painter->drawPoint( rect.right() - 2, rect.bottom() - 2 );
-    }
-
-    painter->setPen( border );
-    if ( roundLeft ) {
-        painter->drawPoint( rect.left() + 1, rect.top() + 1 );
-        painter->drawPoint( rect.left() + 1, rect.bottom() - 1 );
-    }
-    if ( roundRight ) {
-        painter->drawPoint( rect.right() - 1, rect.top() + 1 );
-        painter->drawPoint( rect.right() - 1, rect.bottom() - 1 );
-    }
-
-    painter->restore();
-}
-
-void MacStyle::polish( QPalette& palette )
-{
-    MacBaseStyle::polish( palette );
-
-    QColor button = palette.color( QPalette::Button );
-    QColor base = palette.color( QPalette::Base );
-    QColor text = palette.color( QPalette::Text );
-    QColor dark = palette.color( QPalette::Dark );
-    QColor light = palette.color( QPalette::Light );
-    QColor shadow = palette.color( QPalette::Shadow );
-    QColor highlight = palette.color( QPalette::Highlight );
-
-    highlight = QColor::fromHsv( highlight.hue(), 204, 255 ).toRgb();
-
-    m_colorBackgroundBegin = button;
-    m_colorBackgroundEnd = blendColors( button, base, 0.205 );
-    m_colorMenuBorder = blendColors( text, dark, 0.2 );
-    m_colorMenuBackground = blendColors( button, base, 0.143 );
-    m_colorBarBegin = blendColors( button, base, 0.2 );
-    m_colorBarEnd = blendColors( button, dark, 0.8 );
-    m_colorSeparator = blendColors( dark, base, 0.5 );
-    m_colorItemBorder = highlight;
-    
-    m_colorItemBackgroundBegin = blendColors( highlight, base, 0.2 );
-    m_colorItemBackgroundMiddle = blendColors( highlight, base, 0.4 );
-    m_colorItemBackgroundEnd = blendColors( highlight, light, 0.1 );
-
-    m_colorItemCheckedBegin = blendColors( highlight, base, 0.2 );
-    m_colorItemCheckedMiddle = blendColors( highlight, light, 0.1 );
-    m_colorItemCheckedEnd = blendColors( highlight, base, 0.4 );
-    
-    m_colorItemSunkenBegin = blendColors( highlight, base, 0.3 );
-    m_colorItemSunkenMiddle = blendColors( highlight, base, 0.5 );
-    m_colorItemSunkenEnd = blendColors( highlight, light, 0.2 );
-    
-    m_colorToolStripLabel = blendColors( highlight, shadow, 0.3 );
-}
-
-void MacStyle::polish( QWidget* widget )
-{
-    if ( qobject_cast<QMainWindow*>( widget ) )
-        widget->setAttribute( Qt::WA_StyledBackground );
-
-    if ( qobject_cast<GradientWidget*>( widget ) )
-        widget->setAttribute( Qt::WA_StyledBackground );
-
-    /*if ( qobject_cast<ToolStrip*>( widget ) ) {
-        QPalette palette = widget->palette();
-        palette.setColor( QPalette::Text, m_colorToolStripLabel );
-        widget->setPalette( palette );
-    }*/
-
-    MacBaseStyle::polish( widget );
-}
-
-void MacStyle::unpolish( QWidget* widget )
-{
-    if ( qobject_cast<QMainWindow*>( widget ) )
-        widget->setAttribute( Qt::WA_StyledBackground, false );
-
-    if ( qobject_cast<GradientWidget*>( widget ) )
-        widget->setAttribute( Qt::WA_StyledBackground, false );
-
-    /*if ( qobject_cast<ToolStrip*>( widget ) )
-        widget->setPalette( QApplication::palette( widget ) );*/
-
-    MacBaseStyle::unpolish( widget );
+    painter->drawPixmap( rect.topLeft(), pixmap );
 }
 
 void MacStyle::drawComplexControl( ComplexControl control, const QStyleOptionComplex* option,
@@ -289,13 +168,12 @@ void MacStyle::drawComplexControl( ComplexControl control, const QStyleOptionCom
                     bool checked = buttonState & State_On;
                     bool sunken = buttonState & State_Sunken;
                     if ( selected || checked || sunken ) {
-                        bool roundRight = !( optionToolButton->subControls & SC_ToolButtonMenu );
                         if ( sunken || selected && checked )
-                            drawHighlightFrame( painter, widget, option, buttonRect, m_colorItemSunkenBegin, m_colorItemSunkenMiddle, m_colorItemSunkenEnd, m_colorItemBorder, m_colorItemSunkenBegin, true, roundRight );
+                            drawHighlightFrameMac( painter, widget, option, buttonRect );
                         else if ( checked )
-                            drawHighlightFrame( painter, widget, option, buttonRect, m_colorItemCheckedBegin, m_colorItemCheckedMiddle, m_colorItemCheckedEnd, m_colorItemBorder, m_colorItemCheckedEnd, true, roundRight );
+                            drawHighlightFrameMac( painter, widget, option, buttonRect );
                         else
-                            drawHighlightFrame( painter, widget, option, buttonRect, m_colorItemBackgroundBegin, m_colorItemBackgroundMiddle, m_colorItemBackgroundEnd, m_colorItemBorder, m_colorItemBackgroundEnd, true, roundRight );
+                            drawHighlightFrameMac( painter, widget, option, buttonRect );
                     }
                     QStyleOptionToolButton optionLabel = *optionToolButton;
                     optionLabel.state = buttonState;
@@ -306,11 +184,11 @@ void MacStyle::drawComplexControl( ComplexControl control, const QStyleOptionCom
                         QRect menuRect = subControlRect( control, option, SC_ToolButtonMenu, widget );
                         menuRect.adjust( -1, 0, 0, 0 );
                         if ( sunken || optionToolButton->state & State_Sunken && optionToolButton->activeSubControls & SC_ToolButtonMenu )
-                            drawHighlightFrame( painter, widget, option, menuRect, m_colorItemSunkenBegin, m_colorItemSunkenMiddle, m_colorItemSunkenEnd, m_colorItemBorder, m_colorItemSunkenBegin, false, true );
+                            drawHighlightFrameMac( painter, widget, option, menuRect );
                         else if ( selected )
-                            drawHighlightFrame( painter, widget, option, menuRect, m_colorItemBackgroundBegin, m_colorItemBackgroundMiddle, m_colorItemBackgroundEnd, m_colorItemBorder, m_colorItemBackgroundEnd, false, true );
+                            drawHighlightFrameMac( painter, widget, option, menuRect );
                         QStyleOptionToolButton optionArrow = *optionToolButton;
-                        optionArrow.rect = menuRect.adjusted( 2, 3, -1, -3 );
+                        optionArrow.rect = menuRect.adjusted( 2, 3, -5, -5 );
                         drawPrimitive( PE_IndicatorArrowDown, &optionArrow, painter, widget );
                     } else if ( optionToolButton->features & QStyleOptionToolButton::HasMenu ) {
                         int size = pixelMetric( PM_MenuButtonIndicator, option, widget );
@@ -328,7 +206,6 @@ void MacStyle::drawComplexControl( ComplexControl control, const QStyleOptionCom
             break;
     }
 
-    // TODO: QMacStyle
     MacBaseStyle::drawComplexControl( control, option, painter, widget );
 }
 
