@@ -1,6 +1,6 @@
 /****************************************************************************
 * Simple XML-based UI builder for Qt4
-* Copyright (C) 2007-2011 Michał Męciński
+* Copyright (C) 2007-2012 Michał Męciński
 *
 * Redistribution and use in source and binary forms, with or without
 * modification, are permitted provided that the following conditions are met:
@@ -49,7 +49,7 @@
 
 using namespace XmlUi;
 
-MacStyle::MacStyle() : MacBaseStyle()
+MacStyle::MacStyle() : QMacStyle()
 {
 }
 
@@ -206,7 +206,7 @@ void MacStyle::drawComplexControl( ComplexControl control, const QStyleOptionCom
             break;
     }
 
-    MacBaseStyle::drawComplexControl( control, option, painter, widget );
+    QMacStyle::drawComplexControl( control, option, painter, widget );
 }
 
 #if !defined( XMLUI_NO_STYLE_PLUGIN )
