@@ -19,7 +19,7 @@
             <h1><img src="common/webissues.png" alt="WebIssues" id="logo" />WebIssues Manual</h1>
           </div>
           <div id="header-right">
-            <h2 class="subtitle">Version 1.0.1</h2>
+            <h2 class="subtitle">Version 1.0.2</h2>
           </div>
         </div>
         <div id="infobar">
@@ -51,7 +51,7 @@
             </div>
             <p>First, go to the Administration Panel and click <span class="guilabel">Email Settings</span> to configure sending emails.</p>
             <div class="figure">
-              <a id="id525108"></a>
+              <a id="id584639"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch02-fig10.png" alt="Email settings" />
@@ -68,7 +68,7 @@
             <p>Click <span class="guibutton">Test Connection</span> to check whether the SMTP configuration is correct. The WebIssues system will send a test message to its own address. If you receive it, it means that the configuration is correct. Don't forget to save the configuration by clicking <span class="guibutton">OK</span>.</p>
             <p>Since emails are sent in HTML format, it is possible to include hyperlinks to the folder related to the notification, as well as to individual issues. To enable hyperlinks, you need to enter the base URL at which the WebIssues server is installed. The URL should include the protocol and the trailing slash, for instance <code class="literal">http://www.example.com/</code>. Click <span class="guibutton">Detect</span> to automatically enter the address of the current page. Note that the URL should contain the fully qualified domain name of the server to make it available to all users. If the URL is left blank, emails will be sent without links.</p>
             <div class="figure">
-              <a id="id525194"></a>
+              <a id="id584725"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch02-fig10-01.png" alt="Hyperlinks" />
@@ -95,6 +95,10 @@
             <p>If the job is executed locally, it should run the <code class="literal">cron/job.php</code> script using the PHP interpreter. For more information about running PHP from the command line, see <a class="ulink" href="http://www.php.net/manual/en/features.commandline.options.php" target="_top">http://www.php.net/manual/en/features.commandline.options.php</a>.</p>
             <p>If you use an external cron service or run the task from another computer, the script should be run remotely through its full URL, for example <code class="literal">http://www.example.com/cron/job.php</code>. To do this, you can for example use the <code class="literal">wget</code> or <code class="literal">curl</code> program, you can also use any web browser running in text mode.</p>
             <p>To check whether the cron job is being executed, go to the Administration Panel and click <span class="guilabel">General Information</span>. In the <span class="guilabel">Cron Job</span> section, the date and time when the job was last run should be displayed. Each execution of the job is also logged in the Event Log of the WebIssues system.</p>
+            <div class="tip" title="Tip" style="margin-left: 0.5in; margin-right: 0.5in;">
+              <h3 class="title">Tip</h3>
+              <p>You can find more information about using email notifications in <a class="xref" href="webissues.track.alerts.html" title="Managing alerts">the section called “Managing alerts”</a>.</p>
+            </div>
           </div>
         </div>
         <div class="navlinks">
