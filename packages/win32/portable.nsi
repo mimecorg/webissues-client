@@ -25,7 +25,7 @@
 !define SRCDIR "..\.."
 !define BUILDDIR "bin"
 
-!define QTDIR "D:\Qt4-msvc\win32-static"
+!define QTDIR "D:\Qt4-msvc\x86-static"
 
 !include "MUI2.nsh"
 !include "FileFunc.nsh"
