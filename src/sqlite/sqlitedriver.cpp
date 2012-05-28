@@ -232,6 +232,7 @@ bool SQLiteResultPrivate::fetchNext(SqlCachedResult::ValueCache &values, int idx
                 values[i + idx] = sqlite3_column_int64(stmt, i);
                 break;
             case SQLITE_FLOAT:
+#if ( QT_VERSION >= 0x040600 )
                 switch(q->numericalPrecisionPolicy()) {
                     case QSql::LowPrecisionInt32:
                         values[i + idx] = sqlite3_column_int(stmt, i);
@@ -245,6 +246,9 @@ bool SQLiteResultPrivate::fetchNext(SqlCachedResult::ValueCache &values, int idx
                         values[i + idx] = sqlite3_column_double(stmt, i);
                         break;
                 };
+#else
+                values[i + idx] = sqlite3_column_double(stmt, i);
+#endif
                 break;
             case SQLITE_NULL:
                 values[i + idx] = QVariant(QVariant::String);
