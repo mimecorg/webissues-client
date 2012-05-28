@@ -1,3 +1,9 @@
+1.0.2 (2012-05-28)
+    * added Chinese translation
+    * remember last selected history filter
+    * automatically display tooltip for truncated values
+    * fixed toolstrip appearance on Mac OS X (bug #713)
+
 1.0.1 (2012-02-20)
     * hiding the ID column in all views
     * increased the number of visible dropdown items

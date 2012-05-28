@@ -17,8 +17,8 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************/
 
-!define VERSION "1.0.1"
-!define BUILDVERSION "1.0.1.4433"
+!define VERSION "1.0.2"
+!define BUILDVERSION "1.0.1.4531"
 
 !define SRCDIR "..\.."
 !define BUILDDIR "..\..\release"
@@ -137,11 +137,13 @@ Section
     File "${SRCDIR}\translations\webissues_fr.qm"
     File "${SRCDIR}\translations\webissues_pl.qm"
     File "${SRCDIR}\translations\webissues_pt_BR.qm"
+    File "${SRCDIR}\translations\webissues_zh_CN.qm"
 
     File "${QTDIR}\translations\qt_de.qm"
     File "${QTDIR}\translations\qt_fr.qm"
     File "${QTDIR}\translations\qt_pl.qm"
     File "${QTDIR}\translations\qt_pt.qm"
+    File "${QTDIR}\translations\qt_zh_CN.qm"
 
     SetOutPath "$INSTDIR\bin"
 
