@@ -3239,17 +3239,17 @@ Der Desktop-Client benutzt immer die im Programm konfigurierte Sparache und die 
     <message>
         <location filename="../src/dialogs/preferencesdialog.cpp" line="203"/>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Einstellungen</translation>
     </message>
     <message>
         <location filename="../src/dialogs/preferencesdialog.cpp" line="208"/>
         <source>I&amp;nclude issue details in notificatons and summary reports</source>
-        <translation type="unfinished"></translation>
+        <translation>Füge Aufgabendetails &amp;in Benachrichtigungen und Übersichtsberichten ein </translation>
     </message>
     <message>
         <location filename="../src/dialogs/preferencesdialog.cpp" line="212"/>
         <source>&amp;Do not notify about issues that I have already read</source>
-        <translation type="unfinished"></translation>
+        <translation>Informiere nicht &amp;über Aufgaben, die bereits gelesen wurden</translation>
     </message>
     <message>
         <location filename="../src/dialogs/preferencesdialog.cpp" line="306"/>
@@ -3660,27 +3660,27 @@ Der Desktop-Client benutzt immer die im Programm konfigurierte Sparache und die 
 <context>
     <name>SQLiteDriver</name>
     <message>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="550"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="554"/>
         <source>Error opening database</source>
         <translation>Fehler beim Öffen der Datenbank</translation>
     </message>
     <message>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="561"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="565"/>
         <source>Error closing database</source>
         <translation>Fehler beim Schließen der Datenbank</translation>
     </message>
     <message>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="581"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="585"/>
         <source>Unable to begin transaction</source>
         <translation>Transaktion kann nicht gestartet werden</translation>
     </message>
     <message>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="596"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="600"/>
         <source>Unable to commit transaction</source>
         <translation>Transakion kann nicht bestätigt werden</translation>
     </message>
     <message>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="611"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="615"/>
         <source>Unable to rollback transaction</source>
         <translation>Transaktion kann nicht zuürckgerollt werden</translation>
     </message>
@@ -3689,8 +3689,8 @@ Der Desktop-Client benutzt immer die im Programm konfigurierte Sparache und die 
     <name>SQLiteResult</name>
     <message>
         <location filename="../src/sqlite/sqlitedriver.cpp" line="209"/>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="272"/>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="280"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="276"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="284"/>
         <source>Unable to fetch row</source>
         <translation>Zeile kann nicht Abgerufen werden</translation>
     </message>
@@ -3700,27 +3700,27 @@ Der Desktop-Client benutzt immer die im Programm konfigurierte Sparache und die 
         <translation>keine Abfrage</translation>
     </message>
     <message>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="344"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="348"/>
         <source>Unable to execute statement</source>
         <translation>Die Anwendung kann nicht ausgeführt werden</translation>
     </message>
     <message>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="349"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="353"/>
         <source>Unable to execute multiple statements at a time</source>
-        <translation type="unfinished"></translation>
+        <translation>Mehrfachanweisungen könnten nicht auf einmal ausgeführt werden</translation>
     </message>
     <message>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="369"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="373"/>
         <source>Unable to reset statement</source>
         <translation>Die Anwendung kann nicht zurückgesetzt werden</translation>
     </message>
     <message>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="414"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="418"/>
         <source>Unable to bind parameters</source>
         <translation>Die Parameter können nicht verknüpft werden</translation>
     </message>
     <message>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="421"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="425"/>
         <source>Parameter count mismatch</source>
         <translation>Parameter zählen ist fehlgeschlagen</translation>
     </message>

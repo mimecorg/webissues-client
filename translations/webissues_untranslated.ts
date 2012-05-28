@@ -3656,27 +3656,27 @@ The Desktop Client will always use the language configured in program settings a
 <context>
     <name>SQLiteDriver</name>
     <message>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="550"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="554"/>
         <source>Error opening database</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="561"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="565"/>
         <source>Error closing database</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="581"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="585"/>
         <source>Unable to begin transaction</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="596"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="600"/>
         <source>Unable to commit transaction</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="611"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="615"/>
         <source>Unable to rollback transaction</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3685,8 +3685,8 @@ The Desktop Client will always use the language configured in program settings a
     <name>SQLiteResult</name>
     <message>
         <location filename="../src/sqlite/sqlitedriver.cpp" line="209"/>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="272"/>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="280"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="276"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="284"/>
         <source>Unable to fetch row</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3696,27 +3696,27 @@ The Desktop Client will always use the language configured in program settings a
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="344"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="348"/>
         <source>Unable to execute statement</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="349"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="353"/>
         <source>Unable to execute multiple statements at a time</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="369"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="373"/>
         <source>Unable to reset statement</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="414"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="418"/>
         <source>Unable to bind parameters</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="421"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="425"/>
         <source>Parameter count mismatch</source>
         <translation type="unfinished"></translation>
     </message>

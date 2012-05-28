@@ -3660,27 +3660,27 @@ Program Desktop Client zawsze używa języka wybranego w ustawieniach programu i
 <context>
     <name>SQLiteDriver</name>
     <message>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="550"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="554"/>
         <source>Error opening database</source>
         <translation>Błąd otwarcia bazy danych</translation>
     </message>
     <message>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="561"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="565"/>
         <source>Error closing database</source>
         <translation>Błąd zamknięcia bazy danych</translation>
     </message>
     <message>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="581"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="585"/>
         <source>Unable to begin transaction</source>
         <translation>Nie można rozpocząć transakcji</translation>
     </message>
     <message>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="596"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="600"/>
         <source>Unable to commit transaction</source>
         <translation>Nie można zatwierdzić transakcji</translation>
     </message>
     <message>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="611"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="615"/>
         <source>Unable to rollback transaction</source>
         <translation>Nie można cofnąć transakcji</translation>
     </message>
@@ -3689,8 +3689,8 @@ Program Desktop Client zawsze używa języka wybranego w ustawieniach programu i
     <name>SQLiteResult</name>
     <message>
         <location filename="../src/sqlite/sqlitedriver.cpp" line="209"/>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="272"/>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="280"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="276"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="284"/>
         <source>Unable to fetch row</source>
         <translation>Nie można pobrać wiersza</translation>
     </message>
@@ -3700,27 +3700,27 @@ Program Desktop Client zawsze używa języka wybranego w ustawieniach programu i
         <translation>Brak zapytania</translation>
     </message>
     <message>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="344"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="348"/>
         <source>Unable to execute statement</source>
         <translation>Nie można wykonać polecenia</translation>
     </message>
     <message>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="349"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="353"/>
         <source>Unable to execute multiple statements at a time</source>
         <translation>Nie można wykonać wielu poleceń jednocześnie</translation>
     </message>
     <message>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="369"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="373"/>
         <source>Unable to reset statement</source>
         <translation>Nie można zresetować polecenia</translation>
     </message>
     <message>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="414"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="418"/>
         <source>Unable to bind parameters</source>
         <translation>Nie można dowiązać parametrów</translation>
     </message>
     <message>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="421"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="425"/>
         <source>Parameter count mismatch</source>
         <translation>Nieprawidłowa liczba parametrów</translation>
     </message>

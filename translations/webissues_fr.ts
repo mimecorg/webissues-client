@@ -3661,27 +3661,27 @@ Desktop Client utilisera uniquement la langue et le fuseau horaire locale config
 <context>
     <name>SQLiteDriver</name>
     <message>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="550"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="554"/>
         <source>Error opening database</source>
         <translation>Erreur lors de l&apos;ouverture de la base de données</translation>
     </message>
     <message>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="561"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="565"/>
         <source>Error closing database</source>
         <translation>Erreur lors de la fermeture de la base de données</translation>
     </message>
     <message>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="581"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="585"/>
         <source>Unable to begin transaction</source>
         <translation>Impossible d&apos;initialiser une transaction</translation>
     </message>
     <message>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="596"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="600"/>
         <source>Unable to commit transaction</source>
         <translation>Impossible d&apos;enregistrer (COMMIT) une transaction</translation>
     </message>
     <message>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="611"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="615"/>
         <source>Unable to rollback transaction</source>
         <translation>Impossible d&apos;annuler (ROLLBACK) une transaction</translation>
     </message>
@@ -3690,8 +3690,8 @@ Desktop Client utilisera uniquement la langue et le fuseau horaire locale config
     <name>SQLiteResult</name>
     <message>
         <location filename="../src/sqlite/sqlitedriver.cpp" line="209"/>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="272"/>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="280"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="276"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="284"/>
         <source>Unable to fetch row</source>
         <translation>Impossible de lire le résultat d&apos;une requête</translation>
     </message>
@@ -3701,27 +3701,27 @@ Desktop Client utilisera uniquement la langue et le fuseau horaire locale config
         <translation>Pas de requête</translation>
     </message>
     <message>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="344"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="348"/>
         <source>Unable to execute statement</source>
         <translation>Impossible d&apos;exécuter l&apos;instruction</translation>
     </message>
     <message>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="349"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="353"/>
         <source>Unable to execute multiple statements at a time</source>
         <translation>Impossible d&apos;exécuter plusieurs instructions à un moment</translation>
     </message>
     <message>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="369"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="373"/>
         <source>Unable to reset statement</source>
         <translation>Impossible de réinitialiser l&apos;instruction</translation>
     </message>
     <message>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="414"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="418"/>
         <source>Unable to bind parameters</source>
         <translation>Impossible de lier des variables à une requête</translation>
     </message>
     <message>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="421"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="425"/>
         <source>Parameter count mismatch</source>
         <translation>Différence dans le nombre de paramètres</translation>
     </message>
