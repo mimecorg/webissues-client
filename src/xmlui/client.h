@@ -115,7 +115,7 @@ public:
 
     /**
     * Return popup menu for the given action.
-    * @param id The identifier of the action.
+    * @param actionId The identifier of the action.
     * @return The identifier of the menu.
     */
     QString popupMenu( const QString& actionId );
