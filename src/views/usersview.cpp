@@ -22,6 +22,7 @@
 #include "commands/updatebatch.h"
 #include "data/datamanager.h"
 #include "dialogs/userdialogs.h"
+#include "dialogs/userprojectsdialog.h"
 #include "dialogs/preferencesdialog.h"
 #include "models/usersmodel.h"
 #include "utils/treeviewhelper.h"
@@ -55,7 +56,6 @@ UsersView::UsersView( QObject* parent, QWidget* parentWidget ) : View( parent )
     setAction( "editRename", action );
 
     action = new QAction( IconLoader::icon( "edit-access" ), tr( "&Change Access..." ), this );
-    action->setIconText( tr( "Access" ) );
     connect( action, SIGNAL( triggered() ), this, SLOT( changeAccess() ), Qt::QueuedConnection );
     setAction( "changeAccess", action );
 
@@ -63,6 +63,11 @@ UsersView::UsersView( QObject* parent, QWidget* parentWidget ) : View( parent )
     action->setIconText( tr( "Password" ) );
     connect( action, SIGNAL( triggered() ), this, SLOT( changePassword() ), Qt::QueuedConnection );
     setAction( "changePassword", action );
+
+    action = new QAction( IconLoader::icon( "view-members" ), tr( "User Pr&ojects..." ), this );
+    action->setIconText( tr( "Projects" ) );
+    connect( action, SIGNAL( triggered() ), this, SLOT( userProjects() ), Qt::QueuedConnection );
+    setAction( "userProjects", action );
 
     action = new QAction( IconLoader::icon( "preferences" ), tr( "User P&references..." ), this );
     action->setIconText( tr( "Preferences" ) );
@@ -154,6 +159,7 @@ void UsersView::updateActions()
     action( "editRename" )->setEnabled( m_selectedUserId != 0 );
     action( "changeAccess" )->setEnabled( m_selectedUserId != 0 && m_selectedUserId != dataManager->currentUserId() );
     action( "changePassword" )->setEnabled( m_selectedUserId != 0 );
+    action( "userProjects" )->setEnabled( m_selectedUserId != 0 );
     action( "userPreferences" )->setEnabled( m_selectedUserId != 0 );
 }
 
@@ -193,6 +199,14 @@ void UsersView::changePassword()
 {
     if ( m_selectedUserId != 0 ) {
         SetPasswordDialog dialog( m_selectedUserId, mainWidget() );
+        dialog.exec();
+    }
+}
+
+void UsersView::userProjects()
+{
+    if ( m_selectedUserId != 0 ) {
+        UserProjectsDialog dialog( m_selectedUserId, mainWidget() );
         dialog.exec();
     }
 }

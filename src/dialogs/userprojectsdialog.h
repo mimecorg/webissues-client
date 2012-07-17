@@ -17,64 +17,53 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************/
 
-#ifndef USERSVIEW_H
-#define USERSVIEW_H
+#ifndef USERPROJECTSDIALOG_H
+#define USERPROJECTSDIALOG_H
 
-#include "views/view.h"
+#include "dialogs/informationdialog.h"
+#include "xmlui/client.h"
 
-class UsersModel;
-class FilterLabel;
+class UserProjectsModel;
 
 class QTreeView;
 class QModelIndex;
 
 /**
-* View for displaying and managing users.
+* Dialog for managing user projects.
 */
-class UsersView : public View
+class UserProjectsDialog : public InformationDialog, public XmlUi::Client
 {
     Q_OBJECT
 public:
     /**
     * Constructor.
-    * @param parent The parent object.
-    * @param parentWidget The parent widget of the view's main widget.
+    * @param userId Identifier of the user.
+    * @param parent The parent widget.
     */
-    UsersView( QObject* parent, QWidget* parentWidget );
+    UserProjectsDialog( int userId, QWidget* parent );
 
     /**
     * Destructor.
     */
-    ~UsersView();
-
-public: // overrides
-    void initialUpdate();
+    ~UserProjectsDialog();
 
 private slots:
+    void addProjects();
+    void changeAccess();
+    void removeProjects();
+
     void updateActions();
 
-    void updateUsers();
-    void addUser();
-    void editRename();
-    void changeAccess();
-    void changePassword();
-    void userProjects();
-    void userPreferences();
-
-    void filterChanged( int index );
-
-    void contextMenu( const QPoint& pos );
     void doubleClicked( const QModelIndex& index );
+    void listContextMenu( const QPoint& pos );
 
 private:
+    int m_userId;
+
     QTreeView* m_list;
-    UsersModel* m_model;
+    UserProjectsModel* m_model;
 
-    FilterLabel* m_filterLabel;
-
-    int m_selectedUserId;
-
-    bool m_systemAdmin;
+    QList<int> m_selectedProjects;
 };
 
 #endif

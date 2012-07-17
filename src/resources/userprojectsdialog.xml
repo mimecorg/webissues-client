@@ -1,0 +1,16 @@
+<xmlui>
+  <strip id="stripMemberProjects">
+    <action id="addProjects"/>
+    <action id="changeAccess"/>
+    <action id="removeProjects"/>
+  </strip>
+  <menu id="menuNull">
+    <action id="addProjects"/>
+  </menu>
+  <menu id="menuMemberProject">
+    <action id="changeAccess"/>
+    <action id="removeProjects"/>
+    <separator/>
+    <action id="addProjects"/>
+  </menu>
+</xmlui>

@@ -8,6 +8,7 @@ HEADERS += models/alertsmodel.h \
            models/reportgenerator.h \
            models/sqltreemodel.h \
            models/typesmodel.h \
+           models/userprojectsmodel.h \
            models/usersmodel.h \
            models/viewsmodel.h
 
@@ -21,5 +22,6 @@ SOURCES += models/alertsmodel.cpp \
            models/reportgenerator.cpp \
            models/sqltreemodel.cpp \
            models/typesmodel.cpp \
+           models/userprojectsmodel.cpp \
            models/usersmodel.cpp \
            models/viewsmodel.cpp

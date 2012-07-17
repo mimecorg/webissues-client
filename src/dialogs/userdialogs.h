@@ -243,4 +243,101 @@ private:
     int m_projectId;
 };
 
+/**
+* Dialog for executing the <tt>GRANT MEMBER</tt> command.
+*
+* This dialog allows to select new projects for a user.
+*/
+class AddUserProjectsDialog : public CommandDialog
+{
+    Q_OBJECT
+public:
+    /**
+    * Constructor.
+    * @param userId Identifier of the user.
+    * @param parent The parent widget.
+    */
+    AddUserProjectsDialog( int userId, QWidget* parent );
+
+    /**
+    * Destructor.
+    */
+    ~AddUserProjectsDialog();
+
+public: // overrides
+    void accept();
+
+private slots:
+    void allProjectsActivated();
+    void noProjectsActivated();
+
+private:
+    int m_userId;
+
+    QListWidget* m_list;
+    QButtonGroup* m_accessGroup;
+};
+
+/**
+* Dialog for executing the <tt>GRANT MEMBER</tt> command.
+*
+* This dialog allows to change the access level for existing projects.
+*/
+class ChangeUserProjectsAccessDialog : public CommandDialog
+{
+    Q_OBJECT
+public:
+    /**
+    * Constructor.
+    * @param userId Identifier of the user.
+    * @param projects Identifiers of the projects.
+    * @param parent The parent widget.
+    */
+    ChangeUserProjectsAccessDialog( int userId, const QList<int>& projects, QWidget* parent );
+
+    /**
+    * Destructor.
+    */
+    ~ChangeUserProjectsAccessDialog();
+
+public: // overrides
+    void accept();
+
+private:
+    int m_userId;
+    QList<int> m_projects;
+
+    QButtonGroup* m_accessGroup;
+};
+
+/**
+* Dialog for executing the <tt>GRANT MEMBER</tt> command.
+*
+* This dialog allows to remove membership from projects.
+*/
+class RemoveUserProjectsDialog : public CommandDialog
+{
+    Q_OBJECT
+public:
+    /**
+    * Constructor.
+    * @param userId Identifier of the user.
+    * @param projects Identifiers of the projects.
+    * @param parent The parent widget.
+    */
+    RemoveUserProjectsDialog( int userId, const QList<int>& projects, QWidget* parent );
+
+    /**
+    * Destructor.
+    */
+    ~RemoveUserProjectsDialog();
+
+public: // overrides
+    void accept();
+
+private:
+    int m_userId;
+    QList<int> m_projects;
+};
+
 #endif

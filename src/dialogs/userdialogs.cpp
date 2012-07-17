@@ -574,3 +574,239 @@ void RemoveMemberDialog::accept()
 
     executeBatch( batch );
 }
+
+AddUserProjectsDialog::AddUserProjectsDialog( int userId, QWidget* parent ) : CommandDialog( parent ),
+    m_userId( userId ),
+    m_list( NULL ),
+    m_accessGroup( NULL )
+{
+    UserEntity user = UserEntity::find( userId );
+
+    setWindowTitle( tr( "Add Projects" ) );
+    setPrompt( tr( "Add user <b>%1</b> to the selected projects:" ).arg( user.name() ) );
+    setPromptPixmap( IconLoader::pixmap( "project-new", 22 ) );
+
+    QList<int> projects;
+    foreach ( const ProjectEntity& project, user.projects() )
+        projects.append( project.id() );
+
+    QList<ProjectEntity> available;
+
+    foreach ( const ProjectEntity& project, ProjectEntity::list() ) {
+        if ( projects.contains( project.id() ) )
+            continue;
+        available.append( project );
+    }
+
+    if ( available.empty() ) {
+        showWarning( tr( "There are no more available projects to add." ) );
+        showCloseButton();
+        setContentLayout( NULL, true );
+        return;
+    }
+
+    QGridLayout* layout = new QGridLayout();
+
+    QHBoxLayout* selectLayout = new QHBoxLayout();
+    layout->addLayout( selectLayout, 0, 1 );
+
+    selectLayout->addStretch( 1 );
+
+    QLabel* allProjectsLabel = new QLabel( "<a href=\"#\">" + tr( "Select All" ) + "</a>", this );
+    selectLayout->addWidget( allProjectsLabel );
+
+    QLabel* noProjectsLabel = new QLabel( "<a href=\"#\">" + tr( "Unselect All" ) + "</a>", this );
+    selectLayout->addWidget( noProjectsLabel );
+
+    connect( allProjectsLabel, SIGNAL( linkActivated( const QString& ) ), this, SLOT( allProjectsActivated() ) );
+    connect( noProjectsLabel, SIGNAL( linkActivated( const QString& ) ), this, SLOT( noProjectsActivated() ) );
+
+    QLabel* projectsLabel = new QLabel( tr( "&Projects:" ), this );
+    layout->addWidget( projectsLabel, 1, 0 );
+
+    m_list = new QListWidget( this );
+    layout->addWidget( m_list, 1, 1 );
+
+    projectsLabel->setBuddy( m_list );
+
+    foreach ( const ProjectEntity& project, available ) {
+        QListWidgetItem* item = new QListWidgetItem( m_list );
+        item->setText( project.name() );
+        item->setData( Qt::UserRole, project.id() );
+        item->setCheckState( Qt::Unchecked );
+    }
+
+    QLabel* accessLabel = new QLabel( tr( "Access:" ), this );
+    layout->addWidget( accessLabel, 2, 0 );
+
+    QHBoxLayout* buttonsLayout = new QHBoxLayout();
+    layout->addLayout( buttonsLayout, 2, 1 );
+
+    m_accessGroup = new QButtonGroup( this );
+
+    QRadioButton* normalButton = new QRadioButton( tr( "&Regular member" ), this );
+    m_accessGroup->addButton( normalButton, NormalAccess );
+    buttonsLayout->addWidget( normalButton );
+
+    QRadioButton* adminButton = new QRadioButton( tr( "&Project administrator" ), this );
+    m_accessGroup->addButton( adminButton, AdminAccess );
+    buttonsLayout->addWidget( adminButton );
+
+    buttonsLayout->addStretch( 1 );
+
+    m_accessGroup->button( NormalAccess )->setChecked( true );
+
+    setContentLayout( layout, false );
+
+    m_list->setFocus();
+}
+
+AddUserProjectsDialog::~AddUserProjectsDialog()
+{
+}
+
+void AddUserProjectsDialog::accept()
+{
+    QList<int> projects;
+
+    for ( int i = 0; i < m_list->count(); i++ ) {
+        if ( m_list->item( i )->checkState() == Qt::Checked ) {
+            int projectId = m_list->item( i )->data( Qt::UserRole ).toInt();
+            projects.append( projectId );
+        }
+    }
+
+    if ( projects.isEmpty() ) {
+        showWarning( tr( "No project selected." ) );
+        return;
+    }
+
+    int access = m_accessGroup->checkedId();
+
+    UsersBatch* batch = new UsersBatch();
+    for ( int i = 0; i < projects.count(); i++ )
+        batch->grantMember( m_userId, projects.at( i ), (Access)access );
+
+    executeBatch( batch );
+}
+
+void AddUserProjectsDialog::allProjectsActivated()
+{
+    for ( int i = 0; i < m_list->count(); i++ )
+        m_list->item( i )->setCheckState( Qt::Checked );
+}
+
+void AddUserProjectsDialog::noProjectsActivated()
+{
+    for ( int i = 0; i < m_list->count(); i++ )
+        m_list->item( i )->setCheckState( Qt::Unchecked );
+}
+
+ChangeUserProjectsAccessDialog::ChangeUserProjectsAccessDialog( int userId, const QList<int>& projects, QWidget* parent ) :
+    CommandDialog( parent ),
+    m_userId( userId ),
+    m_projects( projects )
+{
+    UserEntity user = UserEntity::find( userId );
+    ProjectEntity project = ProjectEntity::find( projects.first() );
+    MemberEntity member = MemberEntity::find( projects.first(), userId );
+
+    setWindowTitle( tr( "Change Access" ) );
+    if ( projects.count() == 1 )
+        setPrompt( tr( "Set new access level to project <b>%1</b> for user <b>%2</b>:" ).arg( project.name(), user.name() ) );
+    else
+        setPrompt( tr( "Set new access level to %1 selected projects for user <b>%2</b>:" ).arg( projects.count() ).arg( user.name() ) );
+    setPromptPixmap( IconLoader::pixmap( "edit-access", 22 ) );
+
+    QHBoxLayout* layout = new QHBoxLayout();
+
+    QLabel* label = new QLabel( tr( "Access:" ), this );
+    layout->addWidget( label );
+
+    QHBoxLayout* buttonsLayout = new QHBoxLayout();
+    layout->addLayout( buttonsLayout );
+
+    m_accessGroup = new QButtonGroup( this );
+
+    QRadioButton* normalButton = new QRadioButton( tr( "&Regular member" ), this );
+    m_accessGroup->addButton( normalButton, NormalAccess );
+    buttonsLayout->addWidget( normalButton );
+
+    QRadioButton* adminButton = new QRadioButton( tr( "&Project administrator" ), this );
+    m_accessGroup->addButton( adminButton, AdminAccess );
+    buttonsLayout->addWidget( adminButton );
+
+    buttonsLayout->addStretch( 1 );
+
+    m_accessGroup->button( member.access() )->setChecked( true );
+
+    setContentLayout( layout, true );
+
+    m_accessGroup->checkedButton()->setFocus();
+}
+
+ChangeUserProjectsAccessDialog::~ChangeUserProjectsAccessDialog()
+{
+}
+
+void ChangeUserProjectsAccessDialog::accept()
+{
+    int access = m_accessGroup->checkedId();
+
+    QList<int> changed;
+
+    for ( int i = 0; i < m_projects.count(); i++ ) {    
+        int projectId = m_projects.at( i );
+        MemberEntity member = MemberEntity::find( projectId, m_userId );
+        if ( member.access() != access )
+            changed.append( projectId );
+    }
+
+    if ( changed.isEmpty() ) {
+        QDialog::accept();
+        return;
+    }
+
+    UsersBatch* batch = new UsersBatch();
+    for ( int i = 0; i < changed.count(); i++ ) {
+        int projectId = changed.at( i );
+        batch->grantMember( m_userId, projectId, (Access)access );
+    }
+
+    executeBatch( batch );
+}
+
+RemoveUserProjectsDialog::RemoveUserProjectsDialog( int userId, const QList<int>& projects, QWidget* parent ) : CommandDialog( parent ),
+    m_userId( userId ),
+    m_projects( projects )
+{
+    UserEntity user = UserEntity::find( userId );
+    ProjectEntity project = ProjectEntity::find( projects.first() );
+
+    if ( projects.count() == 1 ) {
+        setWindowTitle( tr( "Remove Project" ) );
+        setPrompt( tr( "Do you want to remove user <b>%1</b> from project <b>%2</b>?" ).arg( user.name(), project.name() ) );
+    } else {
+        setWindowTitle( tr( "Remove Projects" ) );
+        setPrompt( tr( "Do you want to remove user <b>%1</b> from %2 projects?" ).arg( user.name() ).arg( projects.count() ) );
+    }
+    setPromptPixmap( IconLoader::pixmap( "edit-delete", 22 ) );
+
+    setContentLayout( NULL, true );
+}
+
+RemoveUserProjectsDialog::~RemoveUserProjectsDialog()
+{
+}
+
+void RemoveUserProjectsDialog::accept()
+{
+    UsersBatch* batch = new UsersBatch();
+
+    for ( int i = 0; i < m_projects.count(); i++ ) {
+        int projectId = m_projects.at( i );
+        batch->grantMember( m_userId, projectId, NoAccess );
+    }
+
+    executeBatch( batch );
+}

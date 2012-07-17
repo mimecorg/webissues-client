@@ -5,10 +5,11 @@
     </section>
     <section id="sectionUsers">
       <action id="updateUsers"/>
+      <action id="changeAccess"/>
       <grid>
-        <action id="changeAccess"/>
         <action id="changePassword"/>
         <action id="editRename"/>
+        <action id="userProjects"/>
         <action id="userPreferences"/>
       </grid>
     </section>
@@ -23,6 +24,7 @@
     <action id="changePassword"/>
     <separator/>
     <action id="editRename"/>
+    <action id="userProjects"/>
     <action id="userPreferences"/>
     <separator/>
     <action id="addUser"/>

@@ -17,7 +17,7 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************/
 
-#include "membersmodel.h"
+#include "userprojectsmodel.h"
 
 #include "data/datamanager.h"
 #include "utils/iconloader.h"
@@ -26,8 +26,8 @@
 #include <QSqlQuery>
 #include <QPixmap>
 
-MembersModel::MembersModel( int projectId, QObject* parent ) : BaseModel( parent ),
-    m_projectId( projectId )
+UserProjectsModel::UserProjectsModel( int userId, QObject* parent ) : BaseModel( parent ),
+    m_userId( userId )
 {
     appendModel( new QSqlQueryModel( this ) );
 
@@ -39,11 +39,11 @@ MembersModel::MembersModel( int projectId, QObject* parent ) : BaseModel( parent
     updateQueries();
 }
 
-MembersModel::~MembersModel()
+UserProjectsModel::~UserProjectsModel()
 {
 }
 
-QVariant MembersModel::data( const QModelIndex& index, int role /*= Qt::DisplayRole*/ ) const
+QVariant UserProjectsModel::data( const QModelIndex& index, int role /*= Qt::DisplayRole*/ ) const
 {
     int level = levelOf( index );
     int row = mappedRow( index );
@@ -66,20 +66,20 @@ QVariant MembersModel::data( const QModelIndex& index, int role /*= Qt::DisplayR
     if ( role == Qt::DecorationRole && index.column() == 0 ) {
         int access = rawData( level, row, 2, Qt::DisplayRole ).toInt();
         if ( access == AdminAccess )
-            return IconLoader::overlayedPixmap( "user", "overlay-admin" );
-        return IconLoader::pixmap( "user" );
+            return IconLoader::overlayedPixmap( "project", "overlay-admin" );
+        return IconLoader::pixmap( "project" );
     }
 
     return QVariant();
 }
 
-void MembersModel::updateQueries()
+void UserProjectsModel::updateQueries()
 {
     QString order = ( sortOrder() == Qt::AscendingOrder ) ? "ASC" : "DESC";
 
     switch ( sortColumn() ) {
         case 0:
-            m_order = QString( "user_name COLLATE LOCALE %1" ).arg( order );
+            m_order = QString( "project_name COLLATE LOCALE %1" ).arg( order );
             break;
 
         case 1:
@@ -90,16 +90,16 @@ void MembersModel::updateQueries()
     refresh();
 }
 
-void MembersModel::refresh()
+void UserProjectsModel::refresh()
 {
-    QString query = "SELECT u.user_id, u.user_name, r.project_access"
-        " FROM users AS u"
-        " JOIN rights AS r ON r.user_id = u.user_id"
-        " WHERE r.project_id = ?";
+    QString query = "SELECT p.project_id, p.project_name, r.project_access"
+        " FROM projects AS p"
+        " JOIN rights AS r ON r.project_id = p.project_id"
+        " WHERE r.user_id = ?";
 
     QSqlQuery sqlQuery;
     sqlQuery.prepare( QString( "%1 ORDER BY %2" ).arg( query, m_order ) );
-    sqlQuery.addBindValue( m_projectId );
+    sqlQuery.addBindValue( m_userId );
     sqlQuery.exec();
 
     modelAt( 0 )->setQuery( sqlQuery );
@@ -107,8 +107,8 @@ void MembersModel::refresh()
     updateData();
 }
 
-void MembersModel::updateEvent( UpdateEvent* e )
+void UserProjectsModel::updateEvent( UpdateEvent* e )
 {
-    if ( e->unit() == UpdateEvent::Users )
+    if ( e->unit() == UpdateEvent::Users || e->unit() == UpdateEvent::Projects )
         refresh();
 }

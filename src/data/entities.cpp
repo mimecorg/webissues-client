@@ -100,6 +100,28 @@ QList<ProjectEntity> ProjectEntity::list()
     return result;
 }
 
+QList<ProjectEntity> UserEntity::projects() const
+{
+    QList<ProjectEntity> result;
+
+    if ( d->m_id != 0 ) {
+        Query query( "SELECT p.project_id, p.project_name"
+            " FROM projects AS p"
+            " JOIN rights AS r ON r.project_id = p.project_id"
+            " WHERE r.user_id = ?"
+            " ORDER BY p.project_name COLLATE LOCALE" );
+        query.exec( d->m_id );
+
+        while ( query.next() ) {
+            ProjectEntity entity;
+            entity.d->read( query );
+            result.append( entity );
+        }
+    }
+
+    return result;
+}
+
 void ProjectEntityData::read( const Query& query )
 {
     m_id = query.value( 0 ).toInt();

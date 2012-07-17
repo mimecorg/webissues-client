@@ -93,6 +93,8 @@ public:
 
 private:
     QExplicitlySharedDataPointer<ProjectEntityData> d;
+
+    friend class UserEntity;
 };
 
 class FolderEntity
@@ -273,6 +275,8 @@ public:
     const QString& login() const;
     const QString& name() const;
     Access access() const;
+
+    QList<ProjectEntity> projects() const;
 
 public:
     static UserEntity find( int id );

@@ -18,6 +18,7 @@ HEADERS += dialogs/aboutbox.h \
            dialogs/statedialogs.h \
            dialogs/typedialogs.h \
            dialogs/userdialogs.h \
+           dialogs/userprojectsdialog.h \
            dialogs/viewdialogs.h \
            dialogs/viewsettingsdialog.h
 
@@ -41,6 +42,7 @@ SOURCES += dialogs/aboutbox.cpp \
            dialogs/statedialogs.cpp \
            dialogs/typedialogs.cpp \
            dialogs/userdialogs.cpp \
+           dialogs/userprojectsdialog.cpp \
            dialogs/viewdialogs.cpp \
            dialogs/viewsettingsdialog.cpp
 

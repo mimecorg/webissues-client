@@ -17,64 +17,45 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************/
 
-#ifndef USERSVIEW_H
-#define USERSVIEW_H
+#ifndef USERPROJECTSMODEL_H
+#define USERPROJECTSMODEL_H
 
-#include "views/view.h"
-
-class UsersModel;
-class FilterLabel;
-
-class QTreeView;
-class QModelIndex;
+#include "models/basemodel.h"
 
 /**
-* View for displaying and managing users.
+* Model for a list of projects of a user.
 */
-class UsersView : public View
+class UserProjectsModel : public BaseModel
 {
     Q_OBJECT
 public:
     /**
     * Constructor.
+    * @param projectId Identifier of the project.
     * @param parent The parent object.
-    * @param parentWidget The parent widget of the view's main widget.
     */
-    UsersView( QObject* parent, QWidget* parentWidget );
+    UserProjectsModel( int userId, QObject* parent );
 
     /**
     * Destructor.
     */
-    ~UsersView();
+    ~UserProjectsModel();
 
 public: // overrides
-    void initialUpdate();
+    QVariant data( const QModelIndex& index, int role = Qt::DisplayRole ) const;
 
-private slots:
-    void updateActions();
+protected: // overrides
+    void updateQueries();
 
-    void updateUsers();
-    void addUser();
-    void editRename();
-    void changeAccess();
-    void changePassword();
-    void userProjects();
-    void userPreferences();
-
-    void filterChanged( int index );
-
-    void contextMenu( const QPoint& pos );
-    void doubleClicked( const QModelIndex& index );
+    void updateEvent( UpdateEvent* e );
 
 private:
-    QTreeView* m_list;
-    UsersModel* m_model;
+    void refresh();
 
-    FilterLabel* m_filterLabel;
+private:
+    int m_userId;
 
-    int m_selectedUserId;
-
-    bool m_systemAdmin;
+    QString m_order;
 };
 
 #endif
