@@ -134,7 +134,7 @@ Section
     File "${SRCDIR}\translations\locale.ini"
 
     File "${SRCDIR}\translations\webissues_de.qm"
-    File "${SRCDIR}\translations\webissues_es_MX.qm"
+    File "${SRCDIR}\translations\webissues_es.qm"
     File "${SRCDIR}\translations\webissues_fr.qm"
     File "${SRCDIR}\translations\webissues_nl.qm"
     File "${SRCDIR}\translations\webissues_pl.qm"
