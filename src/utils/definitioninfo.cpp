@@ -32,7 +32,7 @@ DefinitionInfo::~DefinitionInfo()
 
 void DefinitionInfo::setMetadata( const QString& key, const QVariant& value )
 {
-    if ( !value.isNull() )
+    if ( value.isValid() )
         m_metadata.insert( key, value );
     else
         m_metadata.remove( key );
