@@ -247,6 +247,11 @@ QString QueryGenerator::generateConditions()
                 break;
         }
 
+        if ( value.isEmpty() ) {
+            conditions.append( makeNullCondition( expression, type ) );
+            continue;
+        }
+
         switch ( column ) {
             case Column_ID:
                 conditions.append( makeNumericCondition( expression, type, value.toInt() ) );
@@ -346,6 +351,17 @@ QString QueryGenerator::makeStringCondition( const QString& expression, const QS
             return QString( "%1 COLLATE NOCASE = ?" ).arg( expression );
         }
     }
+
+    m_valid = false;
+    return QString();
+}
+
+QString QueryGenerator::makeNullCondition( const QString& expression, const QString& type )
+{
+    if ( type == QLatin1String( "EQ" ) )
+        return QString( "%1 IS NULL" ).arg( expression );
+    if ( type == QLatin1String( "NEQ" ) )
+        return QString( "%1 IS NOT NULL" ).arg( expression );
 
     m_valid = false;
     return QString();

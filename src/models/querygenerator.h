@@ -106,6 +106,7 @@ private:
     QString convertUserValue( const QString& value ) const;
     QDateTime convertDateTimeValue( const QString& value, bool local ) const;
 
+    QString makeNullCondition( const QString& expression, const QString& type );
     QString makeStringCondition( const QString& expression, const QString& type, const QString& value );
     QString makeNumericCondition( const QString& expression, const QString& type, const QVariant& value );
     QString makeDateCondition( const QString& expression, const QString& type, const QDateTime& value );
