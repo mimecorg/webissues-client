@@ -118,6 +118,8 @@ private:
 
     void setActiveView( View* view );
 
+    void showFromTray( bool toggle );
+
 private:
     StartView* m_startView;
 

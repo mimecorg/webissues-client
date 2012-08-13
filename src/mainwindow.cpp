@@ -679,6 +679,9 @@ void MainWindow::gotoIssue( int issueId, int itemId )
             m_folderView->gotoIssue( issueId, itemId );
         else
             m_issueView->gotoItem( itemId );
+
+        if ( m_trayIcon->isVisible() )
+            showFromTray( false );
     } else {
         viewManager->openIssueView( issueId, itemId );
     }
@@ -704,25 +707,36 @@ void MainWindow::userPreferences()
 
 void MainWindow::trayIconActivated( QSystemTrayIcon::ActivationReason reason )
 {
-    if ( reason == QSystemTrayIcon::Trigger ) {
-        if ( isMinimized() ) {
-            // hide needed when changing desktop
-            hide();
-            showNormal();
-            raise();
-            activateWindow();
-        } else if ( !isVisible() ) {
-            show();
-            raise();
-            activateWindow();
-        } else {
-            hide();
-        }
-    }
+    if ( reason == QSystemTrayIcon::Trigger )
+        showFromTray( true );
 
     // workaround for [QTBUG-14807]
     if ( reason == QSystemTrayIcon::Context )
         m_trayIcon->contextMenu()->activateWindow();
+}
+
+void MainWindow::showFromTray( bool toggle )
+{
+    if ( isMinimized() ) {
+#if defined( Q_WS_WIN )
+        setWindowState( windowState() & ~Qt::WindowMinimized );
+#else
+        // hide needed when changing desktop
+        hide();
+        showNormal();
+#endif
+        raise();
+        activateWindow();
+    } else if ( !isVisible() ) {
+        show();
+        raise();
+        activateWindow();
+    } else if ( !toggle ) {
+        raise();
+        activateWindow();
+    } else {
+        hide();
+    }
 }
 
 void MainWindow::captionChanged( const QString& /*caption*/ )
