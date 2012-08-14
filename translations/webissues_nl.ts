@@ -320,6 +320,59 @@
     </message>
 </context>
 <context>
+    <name>AddUserProjectsDialog</name>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="585"/>
+        <source>Add Projects</source>
+        <translation>Projecten toevoegen</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="586"/>
+        <source>Add user &lt;b&gt;%1&lt;/b&gt; to the selected projects:</source>
+        <translation>Gebruiker &lt;b&gt;%1&lt;/b&gt; aan de geselecteerde projecten toevoegen:</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="602"/>
+        <source>There are no more available projects to add.</source>
+        <translation>Er zijn geen projecten meer beschikbaar om toe voegen.</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="615"/>
+        <source>Select All</source>
+        <translation>Alles selecteren</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="618"/>
+        <source>Unselect All</source>
+        <translation>Selectie ongedaan maken</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="624"/>
+        <source>&amp;Projects:</source>
+        <translation>&amp;Projecten:</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="639"/>
+        <source>Access:</source>
+        <translation>Toegang:</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="647"/>
+        <source>&amp;Regular member</source>
+        <translation>&amp;Normaal lid</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="651"/>
+        <source>&amp;Project administrator</source>
+        <translation>&amp;Project beheerder</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="680"/>
+        <source>No project selected.</source>
+        <translation>Geen project geselecteerd.</translation>
+    </message>
+</context>
+<context>
     <name>AddViewDialog</name>
     <message>
         <location filename="../src/dialogs/viewdialogs.cpp" line="701"/>
@@ -750,6 +803,39 @@
         <location filename="../src/dialogs/userdialogs.cpp" line="234"/>
         <source>Change Access</source>
         <translation>Wijzig toegang</translation>
+    </message>
+</context>
+<context>
+    <name>ChangeUserProjectsAccessDialog</name>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="714"/>
+        <source>Change Access</source>
+        <translation>Toegang wijzigen</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="716"/>
+        <source>Set new access level to project &lt;b&gt;%1&lt;/b&gt; for user &lt;b&gt;%2&lt;/b&gt;:</source>
+        <translation>Stel een nieuwe bevoegdheid in op project &lt;b&gt;%1&lt;/b&gt; voor gebruiker &lt;b&gt;%2&lt;/b&gt;:</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="718"/>
+        <source>Set new access level to %1 selected projects for user &lt;b&gt;%2&lt;/b&gt;:</source>
+        <translation>Stel op de geselecteerde projecten nieuwe bevoegdheid %1  in voor gebruiker &lt;b&gt;%2&lt;/b&gt;:</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="723"/>
+        <source>Access:</source>
+        <translation>Toegang:</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="731"/>
+        <source>&amp;Regular member</source>
+        <translation>&amp;Normaal lid</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="735"/>
+        <source>&amp;Project administrator</source>
+        <translation>&amp;Project beheerder</translation>
     </message>
 </context>
 <context>
@@ -1256,7 +1342,7 @@
     <message>
         <location filename="../src/dialogs/projectdialogs.cpp" line="390"/>
         <source>Are you sure you want to delete folder &lt;b&gt;%1&lt;/b&gt;?</source>
-        <translation>Weet u zeker dat u deze map &lt;b&gt;%1&lt;/b&gt; wilt verwijderen?</translation>
+        <translation>Weet je zeker dat je deze map &lt;b&gt;%1&lt;/b&gt; wil verwijderen?</translation>
     </message>
     <message>
         <location filename="../src/dialogs/projectdialogs.cpp" line="394"/>
@@ -1312,7 +1398,7 @@
     <message>
         <location filename="../src/dialogs/typedialogs.cpp" line="153"/>
         <source>Are you sure you want to delete type &lt;b&gt;%1&lt;/b&gt; and all its attributes?</source>
-        <translation>Weet u zeker dat u het soort&lt;b&gt;%1&lt;/b&gt;  inclusief alle attributen wilt verwijderen?</translation>
+        <translation>Weet je zeker dat je het soort&lt;b&gt;%1&lt;/b&gt;  inclusief alle attributen wil verwijderen?</translation>
     </message>
     <message>
         <location filename="../src/dialogs/typedialogs.cpp" line="157"/>
@@ -2347,7 +2433,7 @@
     <message>
         <location filename="../src/views/issueview.cpp" line="890"/>
         <source>Do you want to save or open attachment &lt;b&gt;%1&lt;/b&gt;?</source>
-        <translation>Wilt u de bijlage &lt;b&gt;%1&lt;/b&gt;  openen of opslaan?</translation>
+        <translation>Wil je de bijlage &lt;b&gt;%1&lt;/b&gt;  openen of opslaan?</translation>
     </message>
     <message>
         <location filename="../src/views/issueview.cpp" line="892"/>
@@ -2793,7 +2879,7 @@ Connected to %1</source>
 Verbonden met %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="735"/>
+        <location filename="../src/mainwindow.cpp" line="749"/>
         <source>%1 - WebIssues Desktop Client</source>
         <translation>%1 - WebIssues Desktop Client</translation>
     </message>
@@ -3418,17 +3504,40 @@ De Desktop Client zal altijd de taal en tijdzone instellingen gebruiken zoals op
     <message>
         <location filename="../src/dialogs/userdialogs.cpp" line="552"/>
         <source>Do you want to remove user &lt;b&gt;%1&lt;/b&gt; from project &lt;b&gt;%2&lt;/b&gt;?</source>
-        <translation>Wilt u de gebruiker &lt;b&gt;%1&lt;/b&gt; van het project &lt;b&gt;%2&lt;/b&gt; verwijderen?</translation>
+        <translation>Wil je gebruiker &lt;b&gt;%1&lt;/b&gt; van het project &lt;b&gt;%2&lt;/b&gt; verwijderen?</translation>
     </message>
     <message>
         <location filename="../src/dialogs/userdialogs.cpp" line="555"/>
         <source>Do you want to remove %1 selected users from project &lt;b&gt;%2&lt;/b&gt;?</source>
-        <translation>Wilt u de geselecteerde gebruikers %1 verwijderen van poject &lt;b&gt;%2&lt;/b&gt;?</translation>
+        <translation>Wil je %1 geselecteerde gebruikers verwijderen van poject &lt;b&gt;%2&lt;/b&gt;?</translation>
     </message>
     <message>
         <location filename="../src/dialogs/userdialogs.cpp" line="551"/>
         <source>Remove Member</source>
         <translation>Lid verwijderen</translation>
+    </message>
+</context>
+<context>
+    <name>RemoveUserProjectsDialog</name>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="787"/>
+        <source>Remove Project</source>
+        <translation>Project verwijderen</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="788"/>
+        <source>Do you want to remove user &lt;b&gt;%1&lt;/b&gt; from project &lt;b&gt;%2&lt;/b&gt;?</source>
+        <translation>Wil je gebruiker &lt;b&gt;%1&lt;/b&gt; van het project &lt;b&gt;%2&lt;/b&gt; verwijderen?</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="790"/>
+        <source>Remove Projects</source>
+        <translation>Projecten verwijderen</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="791"/>
+        <source>Do you want to remove user &lt;b&gt;%1&lt;/b&gt; from %2 projects?</source>
+        <translation>Wil je gebruiker &lt;b&gt;%1&lt;/b&gt; van %2  projecten verwijderen?</translation>
     </message>
 </context>
 <context>
@@ -4093,7 +4202,7 @@ De Desktop Client zal altijd de taal en tijdzone instellingen gebruiken zoals op
     <message>
         <location filename="../src/dialogs/ssldialogs.cpp" line="160"/>
         <source>The authenticity of the host you are connecting to cannot be validated:</source>
-        <translation>De authenticiteit van de host waarmee u verbinding maakt kan niet worden gevalideerd:</translation>
+        <translation>De authenticiteit van de host waarmee je verbinding maakt kan niet worden gevalideerd:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/ssldialogs.cpp" line="172"/>
@@ -4360,6 +4469,57 @@ De Desktop Client zal altijd de taal en tijdzone instellingen gebruiken zoals op
     </message>
 </context>
 <context>
+    <name>UserProjectsDialog</name>
+    <message>
+        <location filename="../src/dialogs/userprojectsdialog.cpp" line="46"/>
+        <source>&amp;Add Projects...</source>
+        <translation>Projecten &amp;toevoegen...</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userprojectsdialog.cpp" line="51"/>
+        <source>&amp;Change Access...</source>
+        <translation>Toegang &amp;wijzigen...</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userprojectsdialog.cpp" line="55"/>
+        <source>&amp;Remove Projects</source>
+        <translation>Projecten &amp;verwijderen</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userprojectsdialog.cpp" line="67"/>
+        <source>User Projects</source>
+        <translation>Gebruiker projecten</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userprojectsdialog.cpp" line="69"/>
+        <source>Projects of user &lt;b&gt;%1&lt;/b&gt;:</source>
+        <translation>Projecten van gebruiker &lt;b&gt;%1&lt;/b&gt;:</translation>
+    </message>
+</context>
+<context>
+    <name>UserProjectsModel</name>
+    <message>
+        <location filename="../src/models/userprojectsmodel.cpp" line="34"/>
+        <source>Name</source>
+        <translation>Naam</translation>
+    </message>
+    <message>
+        <location filename="../src/models/userprojectsmodel.cpp" line="35"/>
+        <source>Access</source>
+        <translation>Toegang</translation>
+    </message>
+    <message>
+        <location filename="../src/models/userprojectsmodel.cpp" line="57"/>
+        <source>Regular member</source>
+        <translation>Normaal lid</translation>
+    </message>
+    <message>
+        <location filename="../src/models/userprojectsmodel.cpp" line="59"/>
+        <source>Project administrator</source>
+        <translation>Project beheerder</translation>
+    </message>
+</context>
+<context>
     <name>UsersModel</name>
     <message>
         <location filename="../src/models/usersmodel.cpp" line="34"/>
@@ -4395,35 +4555,30 @@ De Desktop Client zal altijd de taal en tijdzone instellingen gebruiken zoals op
 <context>
     <name>UsersView</name>
     <message>
-        <location filename="../src/views/usersview.cpp" line="53"/>
+        <location filename="../src/views/usersview.cpp" line="54"/>
         <source>F2</source>
         <translation>F2</translation>
     </message>
     <message>
-        <location filename="../src/views/usersview.cpp" line="73"/>
-        <location filename="../src/views/usersview.cpp" line="135"/>
+        <location filename="../src/views/usersview.cpp" line="78"/>
+        <location filename="../src/views/usersview.cpp" line="140"/>
         <source>User Accounts</source>
         <translation>Gebruikersaccounts</translation>
     </message>
     <message>
-        <location filename="../src/views/usersview.cpp" line="67"/>
+        <location filename="../src/views/usersview.cpp" line="72"/>
         <source>User P&amp;references...</source>
         <translation>Gebruiker &amp;voorkeuren...</translation>
     </message>
     <message>
-        <location filename="../src/views/usersview.cpp" line="51"/>
+        <location filename="../src/views/usersview.cpp" line="52"/>
         <source>&amp;Rename User...</source>
         <translation>Gebruiker &amp;hernoemen</translation>
     </message>
     <message>
-        <location filename="../src/views/usersview.cpp" line="52"/>
+        <location filename="../src/views/usersview.cpp" line="53"/>
         <source>Rename</source>
         <translation>Hernoemen</translation>
-    </message>
-    <message>
-        <location filename="../src/views/usersview.cpp" line="58"/>
-        <source>Access</source>
-        <translation>Toegang</translation>
     </message>
     <message>
         <location filename="../src/views/usersview.cpp" line="62"/>
@@ -4436,42 +4591,52 @@ De Desktop Client zal altijd de taal en tijdzone instellingen gebruiken zoals op
         <translation>Wachtwoord</translation>
     </message>
     <message>
+        <location filename="../src/views/usersview.cpp" line="67"/>
+        <source>User Pr&amp;ojects...</source>
+        <translation>Gebruiker pr&amp;ojecten</translation>
+    </message>
+    <message>
         <location filename="../src/views/usersview.cpp" line="68"/>
+        <source>Projects</source>
+        <translation>Projecten</translation>
+    </message>
+    <message>
+        <location filename="../src/views/usersview.cpp" line="73"/>
         <source>Preferences</source>
         <translation>Voorkeuren</translation>
     </message>
     <message>
-        <location filename="../src/views/usersview.cpp" line="72"/>
+        <location filename="../src/views/usersview.cpp" line="77"/>
         <source>Add</source>
         <translation>Toevoegen</translation>
     </message>
     <message>
-        <location filename="../src/views/usersview.cpp" line="93"/>
+        <location filename="../src/views/usersview.cpp" line="98"/>
         <source>All Users</source>
         <translation>Alle gebruikers</translation>
     </message>
     <message>
-        <location filename="../src/views/usersview.cpp" line="94"/>
+        <location filename="../src/views/usersview.cpp" line="99"/>
         <source>Active</source>
         <translation>Actief</translation>
     </message>
     <message>
-        <location filename="../src/views/usersview.cpp" line="95"/>
+        <location filename="../src/views/usersview.cpp" line="100"/>
         <source>Disabled</source>
         <translation>Uitgeschakeld</translation>
     </message>
     <message>
-        <location filename="../src/views/usersview.cpp" line="41"/>
+        <location filename="../src/views/usersview.cpp" line="42"/>
         <source>&amp;Update Users</source>
         <translation>Gebruikers &amp;bijwerken</translation>
     </message>
     <message>
-        <location filename="../src/views/usersview.cpp" line="57"/>
+        <location filename="../src/views/usersview.cpp" line="58"/>
         <source>&amp;Change Access...</source>
         <translation>Toegang &amp;wijzigen...</translation>
     </message>
     <message>
-        <location filename="../src/views/usersview.cpp" line="46"/>
+        <location filename="../src/views/usersview.cpp" line="47"/>
         <source>&amp;Add User...</source>
         <translation>Gebruiker &amp;toevoegen...</translation>
     </message>

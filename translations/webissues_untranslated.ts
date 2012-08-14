@@ -320,6 +320,59 @@
     </message>
 </context>
 <context>
+    <name>AddUserProjectsDialog</name>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="585"/>
+        <source>Add Projects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="586"/>
+        <source>Add user &lt;b&gt;%1&lt;/b&gt; to the selected projects:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="602"/>
+        <source>There are no more available projects to add.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="615"/>
+        <source>Select All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="618"/>
+        <source>Unselect All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="624"/>
+        <source>&amp;Projects:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="639"/>
+        <source>Access:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="647"/>
+        <source>&amp;Regular member</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="651"/>
+        <source>&amp;Project administrator</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="680"/>
+        <source>No project selected.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>AddViewDialog</name>
     <message>
         <location filename="../src/dialogs/viewdialogs.cpp" line="701"/>
@@ -749,6 +802,39 @@
     <message>
         <location filename="../src/dialogs/userdialogs.cpp" line="256"/>
         <source>&amp;System administrator</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ChangeUserProjectsAccessDialog</name>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="714"/>
+        <source>Change Access</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="716"/>
+        <source>Set new access level to project &lt;b&gt;%1&lt;/b&gt; for user &lt;b&gt;%2&lt;/b&gt;:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="718"/>
+        <source>Set new access level to %1 selected projects for user &lt;b&gt;%2&lt;/b&gt;:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="723"/>
+        <source>Access:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="731"/>
+        <source>&amp;Regular member</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="735"/>
+        <source>&amp;Project administrator</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2805,7 +2891,7 @@ Connected to %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="735"/>
+        <location filename="../src/mainwindow.cpp" line="749"/>
         <source>%1 - WebIssues Desktop Client</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3422,6 +3508,29 @@ The Desktop Client will always use the language configured in program settings a
     <message>
         <location filename="../src/dialogs/userdialogs.cpp" line="555"/>
         <source>Do you want to remove %1 selected users from project &lt;b&gt;%2&lt;/b&gt;?</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>RemoveUserProjectsDialog</name>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="787"/>
+        <source>Remove Project</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="788"/>
+        <source>Do you want to remove user &lt;b&gt;%1&lt;/b&gt; from project &lt;b&gt;%2&lt;/b&gt;?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="790"/>
+        <source>Remove Projects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="791"/>
+        <source>Do you want to remove user &lt;b&gt;%1&lt;/b&gt; from %2 projects?</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4354,6 +4463,57 @@ The Desktop Client will always use the language configured in program settings a
     </message>
 </context>
 <context>
+    <name>UserProjectsDialog</name>
+    <message>
+        <location filename="../src/dialogs/userprojectsdialog.cpp" line="46"/>
+        <source>&amp;Add Projects...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userprojectsdialog.cpp" line="51"/>
+        <source>&amp;Change Access...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userprojectsdialog.cpp" line="55"/>
+        <source>&amp;Remove Projects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userprojectsdialog.cpp" line="67"/>
+        <source>User Projects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userprojectsdialog.cpp" line="69"/>
+        <source>Projects of user &lt;b&gt;%1&lt;/b&gt;:</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>UserProjectsModel</name>
+    <message>
+        <location filename="../src/models/userprojectsmodel.cpp" line="34"/>
+        <source>Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/models/userprojectsmodel.cpp" line="35"/>
+        <source>Access</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/models/userprojectsmodel.cpp" line="57"/>
+        <source>Regular member</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/models/userprojectsmodel.cpp" line="59"/>
+        <source>Project administrator</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>UsersModel</name>
     <message>
         <location filename="../src/models/usersmodel.cpp" line="34"/>
@@ -4389,38 +4549,33 @@ The Desktop Client will always use the language configured in program settings a
 <context>
     <name>UsersView</name>
     <message>
-        <location filename="../src/views/usersview.cpp" line="41"/>
+        <location filename="../src/views/usersview.cpp" line="42"/>
         <source>&amp;Update Users</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/usersview.cpp" line="46"/>
+        <location filename="../src/views/usersview.cpp" line="47"/>
         <source>&amp;Add User...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/usersview.cpp" line="51"/>
+        <location filename="../src/views/usersview.cpp" line="52"/>
         <source>&amp;Rename User...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/usersview.cpp" line="52"/>
+        <location filename="../src/views/usersview.cpp" line="53"/>
         <source>Rename</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/usersview.cpp" line="53"/>
+        <location filename="../src/views/usersview.cpp" line="54"/>
         <source>F2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/usersview.cpp" line="57"/>
-        <source>&amp;Change Access...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../src/views/usersview.cpp" line="58"/>
-        <source>Access</source>
+        <source>&amp;Change Access...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4434,38 +4589,48 @@ The Desktop Client will always use the language configured in program settings a
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/usersview.cpp" line="68"/>
-        <source>Preferences</source>
+        <location filename="../src/views/usersview.cpp" line="67"/>
+        <source>User Pr&amp;ojects...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/usersview.cpp" line="72"/>
-        <source>Add</source>
+        <location filename="../src/views/usersview.cpp" line="68"/>
+        <source>Projects</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/views/usersview.cpp" line="73"/>
-        <location filename="../src/views/usersview.cpp" line="135"/>
+        <source>Preferences</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/usersview.cpp" line="77"/>
+        <source>Add</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/usersview.cpp" line="78"/>
+        <location filename="../src/views/usersview.cpp" line="140"/>
         <source>User Accounts</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/usersview.cpp" line="93"/>
+        <location filename="../src/views/usersview.cpp" line="98"/>
         <source>All Users</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/usersview.cpp" line="94"/>
+        <location filename="../src/views/usersview.cpp" line="99"/>
         <source>Active</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/usersview.cpp" line="95"/>
+        <location filename="../src/views/usersview.cpp" line="100"/>
         <source>Disabled</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/usersview.cpp" line="67"/>
+        <location filename="../src/views/usersview.cpp" line="72"/>
         <source>User P&amp;references...</source>
         <translation type="unfinished"></translation>
     </message>

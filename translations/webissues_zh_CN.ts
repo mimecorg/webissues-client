@@ -320,6 +320,59 @@
     </message>
 </context>
 <context>
+    <name>AddUserProjectsDialog</name>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="585"/>
+        <source>Add Projects</source>
+        <translation>添加多个项目</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="586"/>
+        <source>Add user &lt;b&gt;%1&lt;/b&gt; to the selected projects:</source>
+        <translation>将用户&lt;b&gt;%1&lt;/b&gt;添加到选中的项目：</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="602"/>
+        <source>There are no more available projects to add.</source>
+        <translation>没有更多的项目可以添加。</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="615"/>
+        <source>Select All</source>
+        <translation>全选</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="618"/>
+        <source>Unselect All</source>
+        <translation>全取消选择</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="624"/>
+        <source>&amp;Projects:</source>
+        <translation>项目(&amp;P)：</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="639"/>
+        <source>Access:</source>
+        <translation>访问：</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="647"/>
+        <source>&amp;Regular member</source>
+        <translation>一般成员(&amp;R)</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="651"/>
+        <source>&amp;Project administrator</source>
+        <translation>项目管理员(&amp;P)</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="680"/>
+        <source>No project selected.</source>
+        <translation>没有选择任何项目。</translation>
+    </message>
+</context>
+<context>
     <name>AddViewDialog</name>
     <message>
         <location filename="../src/dialogs/viewdialogs.cpp" line="701"/>
@@ -750,6 +803,39 @@
         <location filename="../src/dialogs/userdialogs.cpp" line="256"/>
         <source>&amp;System administrator</source>
         <translation>系统管理员(&amp;S)</translation>
+    </message>
+</context>
+<context>
+    <name>ChangeUserProjectsAccessDialog</name>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="714"/>
+        <source>Change Access</source>
+        <translation>修改访问权限</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="716"/>
+        <source>Set new access level to project &lt;b&gt;%1&lt;/b&gt; for user &lt;b&gt;%2&lt;/b&gt;:</source>
+        <translation>为项目&lt;b&gt;%1&lt;/b&gt;设置用户&lt;b&gt;%2&lt;/b&gt;的访问权限：</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="718"/>
+        <source>Set new access level to %1 selected projects for user &lt;b&gt;%2&lt;/b&gt;:</source>
+        <translation>为用户&lt;b&gt;%2&lt;/b&gt;选择对%1新的访问权限：</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="723"/>
+        <source>Access:</source>
+        <translation>访问：</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="731"/>
+        <source>&amp;Regular member</source>
+        <translation>一般成员(&amp;R)</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="735"/>
+        <source>&amp;Project administrator</source>
+        <translation>项目管理员(&amp;P)</translation>
     </message>
 </context>
 <context>
@@ -2805,7 +2891,7 @@ Connected to %1</source>
         <translation>WebIssues客户端已连接到%1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="735"/>
+        <location filename="../src/mainwindow.cpp" line="749"/>
         <source>%1 - WebIssues Desktop Client</source>
         <translation>%1 －WebIssues客户端</translation>
     </message>
@@ -3424,6 +3510,29 @@ The Desktop Client will always use the language configured in program settings a
         <location filename="../src/dialogs/userdialogs.cpp" line="555"/>
         <source>Do you want to remove %1 selected users from project &lt;b&gt;%2&lt;/b&gt;?</source>
         <translation>您确实要将%1个选择的用户从项目&lt;b&gt;%2&lt;/b&gt;删除吗？</translation>
+    </message>
+</context>
+<context>
+    <name>RemoveUserProjectsDialog</name>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="787"/>
+        <source>Remove Project</source>
+        <translation>删除项目</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="788"/>
+        <source>Do you want to remove user &lt;b&gt;%1&lt;/b&gt; from project &lt;b&gt;%2&lt;/b&gt;?</source>
+        <translation>您确实要将用户&lt;b&gt;%1&lt;/b&gt;从项目&lt;b&gt;%2&lt;/b&gt;删除吗？</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="790"/>
+        <source>Remove Projects</source>
+        <translation>删除项目</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="791"/>
+        <source>Do you want to remove user &lt;b&gt;%1&lt;/b&gt; from %2 projects?</source>
+        <translation>您确实要将用户&lt;b&gt;%1&lt;/b&gt;从项目&lt;b&gt;%2&lt;/b&gt;删除吗？</translation>
     </message>
 </context>
 <context>
@@ -4355,6 +4464,57 @@ The Desktop Client will always use the language configured in program settings a
     </message>
 </context>
 <context>
+    <name>UserProjectsDialog</name>
+    <message>
+        <location filename="../src/dialogs/userprojectsdialog.cpp" line="46"/>
+        <source>&amp;Add Projects...</source>
+        <translation>添加项目(&amp;A)...</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userprojectsdialog.cpp" line="51"/>
+        <source>&amp;Change Access...</source>
+        <translation>修改访问权限(&amp;C)...</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userprojectsdialog.cpp" line="55"/>
+        <source>&amp;Remove Projects</source>
+        <translation>删除项目(&amp;R)</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userprojectsdialog.cpp" line="67"/>
+        <source>User Projects</source>
+        <translation>用户项目</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userprojectsdialog.cpp" line="69"/>
+        <source>Projects of user &lt;b&gt;%1&lt;/b&gt;:</source>
+        <translation>用户&lt;b&gt;%1&lt;/b&gt;的项目：</translation>
+    </message>
+</context>
+<context>
+    <name>UserProjectsModel</name>
+    <message>
+        <location filename="../src/models/userprojectsmodel.cpp" line="34"/>
+        <source>Name</source>
+        <translation>名称</translation>
+    </message>
+    <message>
+        <location filename="../src/models/userprojectsmodel.cpp" line="35"/>
+        <source>Access</source>
+        <translation>访问</translation>
+    </message>
+    <message>
+        <location filename="../src/models/userprojectsmodel.cpp" line="57"/>
+        <source>Regular member</source>
+        <translation>普通成员</translation>
+    </message>
+    <message>
+        <location filename="../src/models/userprojectsmodel.cpp" line="59"/>
+        <source>Project administrator</source>
+        <translation>项目管理员</translation>
+    </message>
+</context>
+<context>
     <name>UsersModel</name>
     <message>
         <location filename="../src/models/usersmodel.cpp" line="34"/>
@@ -4390,39 +4550,34 @@ The Desktop Client will always use the language configured in program settings a
 <context>
     <name>UsersView</name>
     <message>
-        <location filename="../src/views/usersview.cpp" line="41"/>
+        <location filename="../src/views/usersview.cpp" line="42"/>
         <source>&amp;Update Users</source>
         <translation>更新用户(&amp;U)</translation>
     </message>
     <message>
-        <location filename="../src/views/usersview.cpp" line="46"/>
+        <location filename="../src/views/usersview.cpp" line="47"/>
         <source>&amp;Add User...</source>
         <translation>添加用户(&amp;A)...</translation>
     </message>
     <message>
-        <location filename="../src/views/usersview.cpp" line="51"/>
+        <location filename="../src/views/usersview.cpp" line="52"/>
         <source>&amp;Rename User...</source>
         <translation>重命名用户(&amp;R)...</translation>
     </message>
     <message>
-        <location filename="../src/views/usersview.cpp" line="52"/>
+        <location filename="../src/views/usersview.cpp" line="53"/>
         <source>Rename</source>
         <translation>重命名</translation>
     </message>
     <message>
-        <location filename="../src/views/usersview.cpp" line="53"/>
+        <location filename="../src/views/usersview.cpp" line="54"/>
         <source>F2</source>
         <translation>F2</translation>
     </message>
     <message>
-        <location filename="../src/views/usersview.cpp" line="57"/>
+        <location filename="../src/views/usersview.cpp" line="58"/>
         <source>&amp;Change Access...</source>
         <translation>修改访问权限(&amp;C)...</translation>
-    </message>
-    <message>
-        <location filename="../src/views/usersview.cpp" line="58"/>
-        <source>Access</source>
-        <translation>访问</translation>
     </message>
     <message>
         <location filename="../src/views/usersview.cpp" line="62"/>
@@ -4436,37 +4591,47 @@ The Desktop Client will always use the language configured in program settings a
     </message>
     <message>
         <location filename="../src/views/usersview.cpp" line="67"/>
+        <source>User Pr&amp;ojects...</source>
+        <translation>用户项目(&amp;O)...</translation>
+    </message>
+    <message>
+        <location filename="../src/views/usersview.cpp" line="68"/>
+        <source>Projects</source>
+        <translation>项目</translation>
+    </message>
+    <message>
+        <location filename="../src/views/usersview.cpp" line="72"/>
         <source>User P&amp;references...</source>
         <translation>编辑用户偏好设置(&amp;P)...</translation>
     </message>
     <message>
-        <location filename="../src/views/usersview.cpp" line="68"/>
+        <location filename="../src/views/usersview.cpp" line="73"/>
         <source>Preferences</source>
         <translation>偏好设置</translation>
     </message>
     <message>
-        <location filename="../src/views/usersview.cpp" line="72"/>
+        <location filename="../src/views/usersview.cpp" line="77"/>
         <source>Add</source>
         <translation>添加</translation>
     </message>
     <message>
-        <location filename="../src/views/usersview.cpp" line="73"/>
-        <location filename="../src/views/usersview.cpp" line="135"/>
+        <location filename="../src/views/usersview.cpp" line="78"/>
+        <location filename="../src/views/usersview.cpp" line="140"/>
         <source>User Accounts</source>
         <translation>用户账户</translation>
     </message>
     <message>
-        <location filename="../src/views/usersview.cpp" line="93"/>
+        <location filename="../src/views/usersview.cpp" line="98"/>
         <source>All Users</source>
         <translation>所有用户</translation>
     </message>
     <message>
-        <location filename="../src/views/usersview.cpp" line="94"/>
+        <location filename="../src/views/usersview.cpp" line="99"/>
         <source>Active</source>
         <translation>活跃</translation>
     </message>
     <message>
-        <location filename="../src/views/usersview.cpp" line="95"/>
+        <location filename="../src/views/usersview.cpp" line="100"/>
         <source>Disabled</source>
         <translation>禁用</translation>
     </message>

@@ -320,6 +320,59 @@
     </message>
 </context>
 <context>
+    <name>AddUserProjectsDialog</name>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="585"/>
+        <source>Add Projects</source>
+        <translation>Projekte hinzufügen</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="586"/>
+        <source>Add user &lt;b&gt;%1&lt;/b&gt; to the selected projects:</source>
+        <translation>Benutzer &lt;b&gt;%1&lt;/b&gt; zum ausgewählten Projekt hinzufügen:</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="602"/>
+        <source>There are no more available projects to add.</source>
+        <translation>Es sind keine weiteren Projekte zum Hinzufügen verfügbar.</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="615"/>
+        <source>Select All</source>
+        <translation>Alles auswählen</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="618"/>
+        <source>Unselect All</source>
+        <translation>Alles abwählen</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="624"/>
+        <source>&amp;Projects:</source>
+        <translation>&amp;Projekte:</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="639"/>
+        <source>Access:</source>
+        <translation>Zugriff:</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="647"/>
+        <source>&amp;Regular member</source>
+        <translation>&amp;Regulärer Benutzer</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="651"/>
+        <source>&amp;Project administrator</source>
+        <translation>&amp;Projektadministrator</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="680"/>
+        <source>No project selected.</source>
+        <translation>Kein Projekt ausgewählt</translation>
+    </message>
+</context>
+<context>
     <name>AddViewDialog</name>
     <message>
         <location filename="../src/dialogs/viewdialogs.cpp" line="701"/>
@@ -750,6 +803,40 @@
         <location filename="../src/dialogs/userdialogs.cpp" line="256"/>
         <source>&amp;System administrator</source>
         <translation>&amp;Systemadministrator</translation>
+    </message>
+</context>
+<context>
+    <name>ChangeUserProjectsAccessDialog</name>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="714"/>
+        <source>Change Access</source>
+        <translation>Zugriff ändern</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="716"/>
+        <source>Set new access level to project &lt;b&gt;%1&lt;/b&gt; for user &lt;b&gt;%2&lt;/b&gt;:</source>
+        <translation>Neue Zugriffsrechte für Benutzer &lt;b&gt;%2&lt;/b&gt; bei Projekt &lt;b&gt;%1&lt;/b&gt; setzen:</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="718"/>
+        <source>Set new access level to %1 selected projects for user &lt;b&gt;%2&lt;/b&gt;:</source>
+        <translatorcomment>Is this correct???</translatorcomment>
+        <translation>Neue Zugriffsrechte für Benutzer &lt;b&gt;%2&lt;/b&gt; bei ausgewählten Projekten (%1) setzen:</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="723"/>
+        <source>Access:</source>
+        <translation>Zugriff:</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="731"/>
+        <source>&amp;Regular member</source>
+        <translation>&amp;Regulärer Benutzer</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="735"/>
+        <source>&amp;Project administrator</source>
+        <translation>&amp;Projektadministrator</translation>
     </message>
 </context>
 <context>
@@ -2808,7 +2895,7 @@ Verbunden zu %1</translation>
         <translation>Keine Aufgabe ausgewählt</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="735"/>
+        <location filename="../src/mainwindow.cpp" line="749"/>
         <source>%1 - WebIssues Desktop Client</source>
         <translation>%1 - WebIssues Desktop Client</translation>
     </message>
@@ -2889,7 +2976,7 @@ Verbunden zu %1</translation>
     <message>
         <location filename="../src/models/membersmodel.cpp" line="59"/>
         <source>Project administrator</source>
-        <translation>Projekt Administraton</translation>
+        <translation>Projektadministrator</translation>
     </message>
 </context>
 <context>
@@ -3427,6 +3514,29 @@ Der Desktop-Client benutzt immer die im Programm konfigurierte Sparache und die 
         <location filename="../src/dialogs/userdialogs.cpp" line="555"/>
         <source>Do you want to remove %1 selected users from project &lt;b&gt;%2&lt;/b&gt;?</source>
         <translation>Wollen Sie die ausgewählten Benutzer %1 aus dem Projekt &lt;b&gt;%2&lt;/b&gt; löschen?</translation>
+    </message>
+</context>
+<context>
+    <name>RemoveUserProjectsDialog</name>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="787"/>
+        <source>Remove Project</source>
+        <translation>Projekt löschen</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="788"/>
+        <source>Do you want to remove user &lt;b&gt;%1&lt;/b&gt; from project &lt;b&gt;%2&lt;/b&gt;?</source>
+        <translation>Wollen Sie den Benutzer &lt;b&gt;%1&lt;/b&gt; aus dem Projekt &lt;b&gt;%2&lt;/b&gt; löschen?</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="790"/>
+        <source>Remove Projects</source>
+        <translation>Projekte löschen</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="791"/>
+        <source>Do you want to remove user &lt;b&gt;%1&lt;/b&gt; from %2 projects?</source>
+        <translation>Wollen Sie den Benutzer &lt;b&gt;%1&lt;/b&gt; aus %2 Projekt(en) löschen?</translation>
     </message>
 </context>
 <context>
@@ -4358,6 +4468,57 @@ Der Desktop-Client benutzt immer die im Programm konfigurierte Sparache und die 
     </message>
 </context>
 <context>
+    <name>UserProjectsDialog</name>
+    <message>
+        <location filename="../src/dialogs/userprojectsdialog.cpp" line="46"/>
+        <source>&amp;Add Projects...</source>
+        <translation>Projekt &amp;hinzufügen</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userprojectsdialog.cpp" line="51"/>
+        <source>&amp;Change Access...</source>
+        <translation>Zugriff &amp;ändern...</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userprojectsdialog.cpp" line="55"/>
+        <source>&amp;Remove Projects</source>
+        <translation>Projekte l&amp;öschen</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userprojectsdialog.cpp" line="67"/>
+        <source>User Projects</source>
+        <translation>Benutzerprojekte</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/userprojectsdialog.cpp" line="69"/>
+        <source>Projects of user &lt;b&gt;%1&lt;/b&gt;:</source>
+        <translation>Projekte des Benutzers &lt;b&gt;%1&lt;/b&gt;:</translation>
+    </message>
+</context>
+<context>
+    <name>UserProjectsModel</name>
+    <message>
+        <location filename="../src/models/userprojectsmodel.cpp" line="34"/>
+        <source>Name</source>
+        <translation>Name</translation>
+    </message>
+    <message>
+        <location filename="../src/models/userprojectsmodel.cpp" line="35"/>
+        <source>Access</source>
+        <translation>Zugriff</translation>
+    </message>
+    <message>
+        <location filename="../src/models/userprojectsmodel.cpp" line="57"/>
+        <source>Regular member</source>
+        <translation>Reguläres Mitglied</translation>
+    </message>
+    <message>
+        <location filename="../src/models/userprojectsmodel.cpp" line="59"/>
+        <source>Project administrator</source>
+        <translation>Projektadministrator</translation>
+    </message>
+</context>
+<context>
     <name>UsersModel</name>
     <message>
         <location filename="../src/models/usersmodel.cpp" line="34"/>
@@ -4393,39 +4554,34 @@ Der Desktop-Client benutzt immer die im Programm konfigurierte Sparache und die 
 <context>
     <name>UsersView</name>
     <message>
-        <location filename="../src/views/usersview.cpp" line="41"/>
+        <location filename="../src/views/usersview.cpp" line="42"/>
         <source>&amp;Update Users</source>
         <translation>Benutzer akt&amp;ualisieren</translation>
     </message>
     <message>
-        <location filename="../src/views/usersview.cpp" line="46"/>
+        <location filename="../src/views/usersview.cpp" line="47"/>
         <source>&amp;Add User...</source>
         <translation>Benutzer hinz&amp;ufügen...</translation>
     </message>
     <message>
-        <location filename="../src/views/usersview.cpp" line="51"/>
+        <location filename="../src/views/usersview.cpp" line="52"/>
         <source>&amp;Rename User...</source>
         <translation>Benuter &amp;umbenennen...</translation>
     </message>
     <message>
-        <location filename="../src/views/usersview.cpp" line="52"/>
+        <location filename="../src/views/usersview.cpp" line="53"/>
         <source>Rename</source>
         <translation>Umbenennen</translation>
     </message>
     <message>
-        <location filename="../src/views/usersview.cpp" line="53"/>
+        <location filename="../src/views/usersview.cpp" line="54"/>
         <source>F2</source>
         <translation>F2</translation>
     </message>
     <message>
-        <location filename="../src/views/usersview.cpp" line="57"/>
+        <location filename="../src/views/usersview.cpp" line="58"/>
         <source>&amp;Change Access...</source>
         <translation>Zugriff &amp;ändern...</translation>
-    </message>
-    <message>
-        <location filename="../src/views/usersview.cpp" line="58"/>
-        <source>Access</source>
-        <translation>Zugriff</translation>
     </message>
     <message>
         <location filename="../src/views/usersview.cpp" line="62"/>
@@ -4438,38 +4594,48 @@ Der Desktop-Client benutzt immer die im Programm konfigurierte Sparache und die 
         <translation>Passwort</translation>
     </message>
     <message>
+        <location filename="../src/views/usersview.cpp" line="67"/>
+        <source>User Pr&amp;ojects...</source>
+        <translation>Benutzerpr&amp;ojekte...</translation>
+    </message>
+    <message>
         <location filename="../src/views/usersview.cpp" line="68"/>
+        <source>Projects</source>
+        <translation>Projekte</translation>
+    </message>
+    <message>
+        <location filename="../src/views/usersview.cpp" line="73"/>
         <source>Preferences</source>
         <translation>Präferenzen</translation>
     </message>
     <message>
-        <location filename="../src/views/usersview.cpp" line="72"/>
+        <location filename="../src/views/usersview.cpp" line="77"/>
         <source>Add</source>
         <translation>Hinzufügen</translation>
     </message>
     <message>
-        <location filename="../src/views/usersview.cpp" line="73"/>
-        <location filename="../src/views/usersview.cpp" line="135"/>
+        <location filename="../src/views/usersview.cpp" line="78"/>
+        <location filename="../src/views/usersview.cpp" line="140"/>
         <source>User Accounts</source>
         <translation>Benutzer-Accounts</translation>
     </message>
     <message>
-        <location filename="../src/views/usersview.cpp" line="93"/>
+        <location filename="../src/views/usersview.cpp" line="98"/>
         <source>All Users</source>
         <translation>Alle Benutzer</translation>
     </message>
     <message>
-        <location filename="../src/views/usersview.cpp" line="94"/>
+        <location filename="../src/views/usersview.cpp" line="99"/>
         <source>Active</source>
         <translation>Aktiv</translation>
     </message>
     <message>
-        <location filename="../src/views/usersview.cpp" line="95"/>
+        <location filename="../src/views/usersview.cpp" line="100"/>
         <source>Disabled</source>
         <translation>Gesperrt</translation>
     </message>
     <message>
-        <location filename="../src/views/usersview.cpp" line="67"/>
+        <location filename="../src/views/usersview.cpp" line="72"/>
         <source>User P&amp;references...</source>
         <translation>Benutze&amp;reinstellungen...</translation>
     </message>
