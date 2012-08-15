@@ -1,3 +1,9 @@
+1.0.3 (2012-08-15)
+    * added Dutch and Spanish translations
+    * managing projects for the selected user
+    * fixed filtering issues with empty operands
+    * fixed showing main window after calling 'go to item' from tray
+
 1.0.2 (2012-05-28)
     * added Chinese translation
     * remember last selected history filter
