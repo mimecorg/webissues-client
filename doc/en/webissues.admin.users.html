@@ -9,7 +9,7 @@
     <link rel="home" href="index.html" title="WebIssues Manual" />
     <link rel="up" href="webissues.admin.html" title="Chapter 5. System administration" />
     <link rel="prev" href="webissues.admin.log.html" title="Event log" />
-    <link rel="next" href="webissues.admin.projects.html" title="Managing projects" />
+    <link rel="next" href="webissues.admin.register.html" title="Registration requests" />
   </head>
   <body>
     <div id="wrapper">
@@ -19,7 +19,7 @@
             <h1><img src="common/webissues.png" alt="WebIssues" id="logo" />WebIssues Manual</h1>
           </div>
           <div id="header-right">
-            <h2 class="subtitle">Version 1.0.2</h2>
+            <h2 class="subtitle">Version 1.0.3</h2>
           </div>
         </div>
         <div id="infobar">
@@ -30,7 +30,7 @@
       <div id="body">
         <div class="navlinks">
           <div class="navleft">&laquo; <a accesskey="p" href="webissues.admin.log.html">Event log</a></div>
-          <div class="navright"><a accesskey="n" href="webissues.admin.projects.html">Managing projects</a> &raquo;</div>
+          <div class="navright"><a accesskey="n" href="webissues.admin.register.html">Registration requests</a> &raquo;</div>
         </div>
         <div class="sect1" title="Managing users">
           <div class="titlepage">
@@ -51,7 +51,7 @@
             </div>
             <p>To manage the users of WebIssues system, go to the Administration Panel and click <span class="guilabel">User Accounts</span>. In case of the Desktop Client, use the <span class="guilabel">Users</span> command from the main window toolbar.</p>
             <div class="figure">
-              <a id="id593169"></a>
+              <a id="id539025"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch05-fig04.png" alt="User accounts" />
@@ -85,7 +85,7 @@
             </div>
             <p>To create a new user account, select <span class="guilabel">Add User</span>.</p>
             <div class="figure">
-              <a id="id593249"></a>
+              <a id="id539106"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch05-fig05.png" alt="Creating a user account" />
@@ -96,7 +96,7 @@
             <p>Enter the name of the user, the login and initial password. To avoid mistakes, you must enter the password twice. You can select <span class="guilabel">User must change password at next logon</span> to force the user to change password when logging into the system for the first time.</p>
             <p>If the user doesn't remember their password, you can reset it by selecting the user from the list and clicking <span class="guilabel">Change Password</span>. You will be asked to enter a new password twice. Also in this case you can select <span class="guilabel">User must change password at next logon</span>.</p>
             <div class="figure">
-              <a id="id593289"></a>
+              <a id="id539145"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch05-fig06.png" alt="Changing user's password" />
@@ -111,7 +111,7 @@
             </div>
             <p>To change the global access level of a user, select that user on the list and click <span class="guilabel">Change Access</span>. Then choose the new access level and click <span class="guibutton">OK</span>. You can't deprive your own administrator right, because the system must have at least one active administrator account.</p>
             <div class="figure">
-              <a id="id593363"></a>
+              <a id="id539220"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch05-fig07.png" alt="Changing user's access" />
@@ -124,8 +124,10 @@
               <h3 class="title">Tip</h3>
               <p>Avoid changing the names of users who have assigned issues. Attribute values ​​are stored as text, so changing the user name will not automatically change the values ​​of <span class="quote">“<span class="quote">Assigned to</span>”</span> attributes. This may cause the user to no longer see those assigned issues.</p>
             </div>
+            <p>To manage the list of projects available for the selected user, use the <span class="guilabel">User Projects</span> command. You can also manage the list of users who have access to the selected project. For more information, please refer to <a class="xref" href="webissues.admin.users.html#webissues.admin.users.members" title="Project members">the section called “Project members”</a>.</p>
             <p>You can also change the preferences of any user using the <span class="guilabel">User Preferences</span> command. All users can also change their own settings, using the <span class="guilabel">User Prererences</span> command in the <span class="guilabel">Tools</span> window or in the toolbar of the Desktop Client main window. For more information about user preferences, see <a class="xref" href="webissues.work.personal.html" title="Personalization">the section called “Personalization”</a>.</p>
-            <p>The WebIssues system does not allow to delete existing users, because it keeps all the historical information; for example, changes made by individual users. Instead, you can change the access level of users to disabled, when they should no longer be able to use the system.</p>
+            <p>The WebIssues system does not allow to delete existing users, because it keeps all the historical information; for example, changes made by individual users. Instead, you can change the access level of users to disabled, when they should no longer be able to use the system. Use the filtering options in the upper right corner of the list to hide disabled user accounts.</p>
+            <p>The WebIssues system allows users to register new accounts by themselves. In this case it is necessary for the system administrator to the approve registration requests. For more information, see <a class="xref" href="webissues.admin.register.html" title="Registration requests">the section called “Registration requests”</a> and <a class="xref" href="webissues.custom.settings.html" title="Advanced settings">the section called “Advanced settings”</a>.</p>
           </div>
           <div class="sect2" title="Project members">
             <div class="titlepage">
@@ -137,7 +139,7 @@
             </div>
             <p>A newly created user has no access to any project, unless he is the system administrator. To manage user privileges for specific projects, go to <span class="guilabel">Manage Projects</span> from the main window, select the project, and then click <span class="guilabel">Project Members</span>. In case of the Desktop Client, this command is available directly from the main window if you activate the projects tree.</p>
             <div class="figure">
-              <a id="id593458"></a>
+              <a id="id539337"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch05-fig08.png" alt="List of project members" />
@@ -165,7 +167,7 @@
             <p>The global access level is always more important than permissions for a given project. A system administrator automatically becomes the administrator of all projects, and a disabled user has no access to any project. Regular users only have access to projects that they are members of, according to the permissions that were assigned to them.</p>
             <p>To add members of the project, select <span class="guilabel">Add Members</span>.</p>
             <div class="figure">
-              <a id="id593524"></a>
+              <a id="id539403"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch05-fig09.png" alt="Adding project members" />
@@ -176,7 +178,7 @@
             <p>Select one or more users who are not yet members of the project. Then select the appropriate level of access and click <span class="guibutton">OK</span>.</p>
             <p>To change the access level of a member, select the member on the list and click <span class="guilabel">Change Access</span>. Then select the new access level and click <span class="guibutton">OK </span>. You can't deprive your own project administrator rights, unless you are a system administrator.</p>
             <div class="figure">
-              <a id="id593564"></a>
+              <a id="id539443"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch05-fig10.png" alt="Changing member's access" />
@@ -185,11 +187,23 @@
               <div class="figure-title">Figure 5.10. Changing member's access</div>
             </div>
             <p>To remove a member of the project, select the member on the list and click <span class="guilabel">Remove Member</span>. In case of the Desktop Client, you can choose several members on the list, and change their access level or remove them from the project simultaneously.</p>
+            <p>You can also view a list of available projects for the selected user, as well as to add a user to the selected projects, remove and change the access level. It is especially useful when creating new user accounts. However, unlike the project members management function, it is available only to system administrators.</p>
+            <p>To manage user projects, go to the Administration Panel and click and click <span class="guilabel">User Accounts</span>. In the Desktop Client, use the <span class="guilabel">Users</span> command from the toolbar of the main window. Then select the user from the list and click <span class="guilabel">User Projects</span>. The list of user projects is analogous to the list of project members.</p>
+            <div class="figure">
+              <a id="id539491"></a>
+              <div class="figure-contents">
+                <div class="mediaobject">
+                  <img src="images/ch05-fig10-01.png" alt="List of user projects" />
+                </div>
+              </div>
+              <div class="figure-title">Figure 5.11. List of user projects</div>
+            </div>
+            <p>To add a user to some projects, use the <span class="guilabel">Add Projects</span> command. Select one or more projects, choose the appropriate access level and click <span class="guibutton">OK</span>. To change the access level to a project, select a project from the list and click <span class="guilabel">Change Access</span>. Then choose the new access level and click <span class="guibutton">OK</span>. To remove a user from a project, select it from the list and click <span class="guilabel">Remove Project</span>. In the Desktop Client, you can select several projects at once and change or remove access to them.</p>
           </div>
         </div>
         <div class="navlinks">
           <div class="navleft">&laquo; <a accesskey="p" href="webissues.admin.log.html">Event log</a></div>
-          <div class="navright"><a accesskey="n" href="webissues.admin.projects.html">Managing projects</a> &raquo;</div>
+          <div class="navright"><a accesskey="n" href="webissues.admin.register.html">Registration requests</a> &raquo;</div>
         </div>
         <div id="footer">
           <p class="copyright">Copyright © 2007-2012 WebIssues Team</p>

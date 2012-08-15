@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Registration requests</title>
+    <link rel="stylesheet" type="text/css" href="common/style.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.76.1" />
+    <link rel="home" href="index.html" title="WebIssues Manual" />
+    <link rel="up" href="webissues.admin.html" title="Chapter 5. System administration" />
+    <link rel="prev" href="webissues.admin.users.html" title="Managing users" />
+    <link rel="next" href="webissues.admin.projects.html" title="Managing projects" />
+  </head>
+  <body>
+    <div id="wrapper">
+      <div id="header">
+        <div id="header-top">
+          <div id="header-left">
+            <h1><img src="common/webissues.png" alt="WebIssues" id="logo" />WebIssues Manual</h1>
+          </div>
+          <div id="header-right">
+            <h2 class="subtitle">Version 1.0.3</h2>
+          </div>
+        </div>
+        <div id="infobar">
+          <div id="infobar-left"><a accesskey="h" href="index.html">Home</a> &raquo; <a accesskey="u" href="webissues.admin.html">System administration</a></div>
+          <div id="infobar-right"></div>
+        </div>
+      </div>
+      <div id="body">
+        <div class="navlinks">
+          <div class="navleft">&laquo; <a accesskey="p" href="webissues.admin.users.html">Managing users</a></div>
+          <div class="navright"><a accesskey="n" href="webissues.admin.projects.html">Managing projects</a> &raquo;</div>
+        </div>
+        <div class="sect1" title="Registration requests">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h2 class="title" style="clear: both"><a id="webissues.admin.register"></a>Registration requests</h2>
+              </div>
+            </div>
+          </div>
+          <p>The WebIssues system administator can enable an option that allows users to register new accounts. A new user has to provide the name, login and password, and the email address, which is verified by sending an activation message. Active registration requests must then be approved by the administrator. Also the projets that the new user has access must be specified. Only then the user will be able to log into the system.</p>
+          <div class="note" title="Note" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <h3 class="title">Note</h3>
+            <p>For more information about user registration, please refer to <a class="xref" href="webissues.work.login.html" title="Logging into the system">the section called “Logging into the system”</a>. You will find more information about enabling and configuring the user registration module in <a class="xref" href="webissues.custom.settings.html" title="Advanced settings">the section called “Advanced settings”</a>.</p>
+          </div>
+          <p>To see active registration requests, that awail approval, go to the Administration Panel and click <span class="guilabel">Registration Requests</span>. This function is not available in the Desktop Client.</p>
+          <div class="figure">
+            <a id="id539577"></a>
+            <div class="figure-contents">
+              <div class="mediaobject">
+                <img src="images/ch05-fig10-02.png" alt="Registration requests" />
+              </div>
+            </div>
+            <div class="figure-title">Figure 5.12. Registration requests</div>
+          </div>
+          <p>To approve a registration request, select it from the list, and use the <span class="guilabel">Approve Request</span> command. Select the projects to which the user will have access and click <span class="guibutton">OK</span>. The registration request will disappear from the list, and a new user will appear in the list of user accounts, where you can change the name, access level, settings and password, just like for accounts created directly by the admininistrator. The user will also receive an email notification that the request was approved.</p>
+          <p>To reject the selected registration request, use the <span class="guilabel">Reject Request</span> command. The request will be removed from the list, and the user will receive an email notification that the request was rejected.</p>
+          <p>If you want to receive automatic notifications about new registration requests that are waiting for approval, enter your e-mail in <a class="xref" href="webissues.custom.settings.html" title="Advanced settings">the section called “Advanced settings”</a>.</p>
+        </div>
+        <div class="navlinks">
+          <div class="navleft">&laquo; <a accesskey="p" href="webissues.admin.users.html">Managing users</a></div>
+          <div class="navright"><a accesskey="n" href="webissues.admin.projects.html">Managing projects</a> &raquo;</div>
+        </div>
+        <div id="footer">
+          <p class="copyright">Copyright © 2007-2012 WebIssues Team</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
