@@ -176,7 +176,7 @@ Section
     File "${QTDIR}\translations\qt_de.qm"
     File "${QTDIR}\translations\qt_es.qm"
     File "${QTDIR}\translations\qt_fr.qm"
-    File "${QTDIR}\translations\qt_nl.qm"
+    ;File "${QTDIR}\translations\qt_nl.qm"
     File "${QTDIR}\translations\qt_pl.qm"
     File "${QTDIR}\translations\qt_pt.qm"
     File "${QTDIR}\translations\qt_zh_CN.qm"
