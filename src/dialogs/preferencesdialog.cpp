@@ -23,6 +23,7 @@
 #include "commands/preferencesbatch.h"
 #include "data/datamanager.h"
 #include "data/entities.h"
+#include "models/issuedetailsgenerator.h"
 #include "utils/validator.h"
 #include "utils/formatter.h"
 #include "utils/iconloader.h"
@@ -65,14 +66,14 @@ PreferencesDialog::PreferencesDialog( int userId, QWidget* parent ) : CommandDia
     m_tabWidget = new QTabWidget( this );
     layout->addWidget( m_tabWidget );
 
-    QWidget* generalTab = new QWidget( m_tabWidget );
-    m_tabWidget->addTab( generalTab, IconLoader::icon( "preferences" ), tr( "General" ) );
+    QWidget* regionalTab = new QWidget( m_tabWidget );
+    m_tabWidget->addTab( regionalTab, IconLoader::icon( "web" ), tr( "Regional" ) );
 
-    QVBoxLayout* generalLayout = new QVBoxLayout( generalTab );
+    QVBoxLayout* regionalTabLayout = new QVBoxLayout( regionalTab );
 
-    QGroupBox* regionalGroup = new QGroupBox( tr( "Regional Options" ), generalTab );
+    QGroupBox* regionalGroup = new QGroupBox( tr( "Regional Options" ), regionalTab );
     QGridLayout* regionalLayout = new QGridLayout( regionalGroup );
-    generalLayout->addWidget( regionalGroup );
+    regionalTabLayout->addWidget( regionalGroup );
 
     QLabel* noteRegionalLabel = new QLabel( tr( "The following settings only affect the Web Client and email notifications.\n"
         "The Desktop Client will always use the language configured in program settings and the local time zone." ), regionalGroup );
@@ -97,9 +98,9 @@ PreferencesDialog::PreferencesDialog( int userId, QWidget* parent ) : CommandDia
 
     regionalLayout->setColumnStretch( 2, 1 );
 
-    QGroupBox* formatsGroup = new QGroupBox( tr( "Formats" ), generalTab );
+    QGroupBox* formatsGroup = new QGroupBox( tr( "Formats" ), regionalTab );
     QGridLayout* formatsLayout = new QGridLayout( formatsGroup );
-    generalLayout->addWidget( formatsGroup );
+    regionalTabLayout->addWidget( formatsGroup );
 
     QLabel* noteFormatsLabel = new QLabel( tr( "Customize the format of numbers, date and time. "
         "Default formats depend on the selected language." ), regionalGroup );
@@ -139,9 +140,16 @@ PreferencesDialog::PreferencesDialog( int userId, QWidget* parent ) : CommandDia
 
     formatsLayout->setColumnStretch( 2, 1 );
 
-    QGroupBox* pageGroup = new QGroupBox( tr( "Page Size" ), generalTab );
+    regionalTabLayout->addStretch( 1 );
+
+    QWidget* viewTab = new QWidget( m_tabWidget );
+    m_tabWidget->addTab( viewTab, IconLoader::icon( "view" ), tr( "View" ) );
+
+    QVBoxLayout* viewTabLayout = new QVBoxLayout( viewTab );
+
+    QGroupBox* pageGroup = new QGroupBox( tr( "Page Size" ), viewTab );
     QGridLayout* pageLayout = new QGridLayout( pageGroup );
-    generalLayout->addWidget( pageGroup );
+    viewTabLayout->addWidget( pageGroup );
 
     QLabel* notePageLabel = new QLabel( tr( "The following settings only affect the Web Client." ), pageGroup );
     pageLayout->addWidget( notePageLabel, 0, 0, 1, 3 );
@@ -174,7 +182,42 @@ PreferencesDialog::PreferencesDialog( int userId, QWidget* parent ) : CommandDia
 
     pageLayout->setColumnStretch( 2, 1 );
 
-    generalLayout->addStretch( 1 );
+    QGroupBox* viewGroup = new QGroupBox( tr( "View Settings" ), viewTab );
+    QGridLayout* viewLayout = new QGridLayout( viewGroup );
+    viewTabLayout->addWidget( viewGroup );
+
+    QLabel* noteViewLabel = new QLabel( tr( "Global view settings that affect all issue types." ), viewGroup );
+    viewLayout->addWidget( noteViewLabel, 0, 0, 1, 3 );
+
+    QLabel* orderLabel = new QLabel( tr( "Order of issue history:" ), viewGroup );
+    viewLayout->addWidget( orderLabel, 1, 0 );
+
+    m_orderComboBox = new SeparatorComboBox( viewGroup );
+    viewLayout->addWidget( m_orderComboBox, 1, 1 );
+
+    orderLabel->setBuddy( m_orderComboBox );
+
+    m_orderComboBox->addItem( tr( "Default", "order" ) );
+    m_orderComboBox->addSeparator();
+    m_orderComboBox->addItem( tr( "Oldest First" ), "asc" );
+    m_orderComboBox->addItem( tr( "Newest First" ), "desc" );
+
+    QLabel* filterLabel = new QLabel( tr( "Default filter in issue history:" ), viewGroup );
+    viewLayout->addWidget( filterLabel, 2, 0 );
+
+    m_filterComboBox = new SeparatorComboBox( viewGroup );
+    viewLayout->addWidget( m_filterComboBox, 2, 1 );
+
+    m_filterComboBox->addItem( tr( "Default", "filter" ) );
+    m_filterComboBox->addSeparator();
+    m_filterComboBox->addItem( tr( "Full History" ), IssueDetailsGenerator::AllHistory );
+    m_filterComboBox->addItem( tr( "Comments & Attachments" ), IssueDetailsGenerator::CommentsAndFiles );
+
+    filterLabel->setBuddy( m_filterComboBox );
+
+    viewLayout->setColumnStretch( 2, 1 );
+
+    viewTabLayout->addStretch( 1 );
 
     int emailEnabled = dataManager->setting( "email_enabled" ).toInt();
 
@@ -453,6 +496,10 @@ void PreferencesDialog::initialize()
     m_folderPageComboBox->setCurrentIndex( index >= 2 ? index : 0 );
     index = m_historyPageComboBox->findData( m_preferences.value( "history_page_size" ) );
     m_historyPageComboBox->setCurrentIndex( index >= 2 ? index : 0 );
+    index = m_orderComboBox->findData( m_preferences.value( "history_order" ) );
+    m_orderComboBox->setCurrentIndex( index >= 2 ? index : 0 );
+    index = m_filterComboBox->findData( m_preferences.value( "history_filter" ) );
+    m_filterComboBox->setCurrentIndex( index >= 2 ? index : 0 );
 
     m_languageComboBox->setSizeAdjustPolicy( QComboBox::AdjustToContents );
     m_numberComboBox->setSizeAdjustPolicy( QComboBox::AdjustToContents );
@@ -513,6 +560,8 @@ void PreferencesDialog::accept()
     preferences.insert( "time_zone", m_timeZoneComboBox->itemData( m_timeZoneComboBox->currentIndex() ).toString() );
     preferences.insert( "folder_page_size", m_folderPageComboBox->itemData( m_folderPageComboBox->currentIndex() ).toString() );
     preferences.insert( "history_page_size", m_historyPageComboBox->itemData( m_historyPageComboBox->currentIndex() ).toString() );
+    preferences.insert( "history_order", m_orderComboBox->itemData( m_orderComboBox->currentIndex() ).toString() );
+    preferences.insert( "history_filter", m_filterComboBox->itemData( m_filterComboBox->currentIndex() ).toString() );
 
     if ( m_emailEdit )
         preferences.insert( "email", m_emailEdit->inputValue() );

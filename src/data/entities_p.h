@@ -159,7 +159,7 @@ public:
 public:
     void read( const Query& query );
 
-    QList<ChangeEntity> changes( bool all ) const;
+    QList<ChangeEntity> changes( bool all, Qt::SortOrder order ) const;
 
 public:
     int m_id;

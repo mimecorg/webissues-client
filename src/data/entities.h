@@ -347,11 +347,12 @@ public:
     const QString& modifiedUser() const;
 
     QList<ValueEntity> values() const;
+    QList<ValueEntity> nonEmptyValues() const;
 
-    QList<ChangeEntity> changes() const;
-    QList<ChangeEntity> commentsAndFiles() const;
-    QList<ChangeEntity> comments() const;
-    QList<ChangeEntity> files() const;
+    QList<ChangeEntity> changes( Qt::SortOrder order ) const;
+    QList<ChangeEntity> commentsAndFiles( Qt::SortOrder order ) const;
+    QList<ChangeEntity> comments( Qt::SortOrder order ) const;
+    QList<ChangeEntity> files( Qt::SortOrder order ) const;
 
 public:
     static IssueEntity find( int id );

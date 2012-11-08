@@ -29,6 +29,7 @@ class TextWriter;
 class IssueEntity;
 class ChangeEntity;
 class FileEntity;
+class ValueEntity;
 
 /**
 * Class providing issue details to the TextWriter.
@@ -81,7 +82,7 @@ public:
 
 private:
     void writeProperties( TextWriter* writer, const IssueEntity& issue );
-    void writeAttributes( TextWriter* writer, const IssueEntity& issue, TextWithLinks::Flags flags );
+    void writeAttributes( TextWriter* writer, const QList<ValueEntity>& values, TextWithLinks::Flags flags );
     void writeHistory( TextWriter* writer, const IssueEntity& issue, TextWithLinks::Flags flags );
 
     QString formatStamp( const ChangeEntity& change );
@@ -91,7 +92,6 @@ private:
 
     TextWithLinks historyLinks( TextWithLinks::Flags flags );
 
-    bool checkChangeLinks( const ChangeEntity& change );
     TextWithLinks changeLinks( const ChangeEntity& change, TextWithLinks::Flags flags );
 
 private:

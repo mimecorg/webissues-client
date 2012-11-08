@@ -1317,6 +1317,32 @@ QList<ValueEntity> IssueEntity::values() const
     return result;
 }
 
+QList<ValueEntity> IssueEntity::nonEmptyValues() const
+{
+    QList<ValueEntity> result;
+
+    if ( d->m_id != 0 && d->m_typeId != 0 ) {
+        Query query( "SELECT a.attr_id, v.attr_value"
+            " FROM attr_types AS a"
+            " JOIN attr_values AS v ON v.attr_id = a.attr_id AND v.issue_id = ?"
+            " WHERE a.type_id = ?" );
+        query.exec( d->m_id, d->m_typeId );
+
+        while ( query.next() ) {
+            ValueEntity entity;
+            entity.d->read( query );
+            entity.d->m_typeId = d->m_typeId;
+            result.append( entity );
+        }
+
+        IssueTypeCache* cache = dataManager->issueTypeCache( d->m_typeId );
+
+        qSort( result.begin(), result.end(), ValueEntityLessThan( cache->attributes() ) );
+    }
+
+    return result;
+}
+
 QList<ValueEntity> AttributeEntity::values() const
 {
     QList<ValueEntity> result;
@@ -1608,17 +1634,17 @@ FileEntity ChangeEntity::file() const
     return entity;
 }
 
-QList<ChangeEntity> IssueEntity::changes() const
+QList<ChangeEntity> IssueEntity::changes( Qt::SortOrder order ) const
 {
-    return d->changes( true );
+    return d->changes( true, order );
 }
 
-QList<ChangeEntity> IssueEntity::commentsAndFiles() const
+QList<ChangeEntity> IssueEntity::commentsAndFiles( Qt::SortOrder order ) const
 {
-    return d->changes( false );
+    return d->changes( false, order );
 }
 
-QList<ChangeEntity> IssueEntityData::changes( bool all ) const
+QList<ChangeEntity> IssueEntityData::changes( bool all, Qt::SortOrder order ) const
 {
     QList<ChangeEntity> result;
 
@@ -1640,6 +1666,7 @@ QList<ChangeEntity> IssueEntityData::changes( bool all ) const
         if ( !all )
             sql += " AND ( c.comment_id IS NOT NULL OR f.file_id IS NOT NULL )";
         sql += " ORDER BY ch.change_id";
+        sql += ( order == Qt::DescendingOrder ) ? " DESC" : " ASC";
 
         Query query( sql );
         query.exec( CommentAdded, FileAdded, m_id );
@@ -1708,12 +1735,12 @@ ChangeEntity ChangeEntity::findComment( int id )
     return entity;
 }
 
-QList<ChangeEntity> IssueEntity::comments() const
+QList<ChangeEntity> IssueEntity::comments( Qt::SortOrder order ) const
 {
     QList<ChangeEntity> result;
 
     if ( d->m_id != 0 ) {
-        Query query( "SELECT ch.change_id, ch.issue_id, ch.stamp_id,"
+        QString sql = "SELECT ch.change_id, ch.issue_id, ch.stamp_id,"
             " ch.created_time, uc.user_name AS created_user, ch.created_user_id,"
             " ch.modified_time, um.user_name AS modified_user,"
             " c.comment_text"
@@ -1722,7 +1749,10 @@ QList<ChangeEntity> IssueEntity::comments() const
             " LEFT OUTER JOIN users AS um ON um.user_id = ch.modified_user_id"
             " JOIN comments AS c ON c.comment_id = ch.change_id AND ch.change_type = ?"
             " WHERE ch.issue_id = ?"
-            " ORDER BY ch.change_id" );
+            " ORDER BY ch.change_id";
+        sql += ( order == Qt::DescendingOrder ) ? " DESC" : " ASC";
+
+        Query query( sql );
         query.exec( CommentAdded, d->m_id );
 
         while ( query.next() ) {
@@ -1772,12 +1802,12 @@ ChangeEntity ChangeEntity::findFile( int id )
     return entity;
 }
 
-QList<ChangeEntity> IssueEntity::files() const
+QList<ChangeEntity> IssueEntity::files( Qt::SortOrder order ) const
 {
     QList<ChangeEntity> result;
 
     if ( d->m_id != 0 ) {
-        Query query( "SELECT ch.change_id, ch.issue_id, ch.stamp_id,"
+        QString sql = "SELECT ch.change_id, ch.issue_id, ch.stamp_id,"
             " ch.created_time, ch.created_user_id, uc.user_name AS created_user,"
             " ch.modified_time, um.user_name AS modified_user,"
             " f.file_name, f.file_size, f.file_descr"
@@ -1786,7 +1816,10 @@ QList<ChangeEntity> IssueEntity::files() const
             " LEFT OUTER JOIN users AS um ON um.user_id = ch.modified_user_id"
             " JOIN files AS f ON f.file_id = ch.change_id AND ch.change_type = ?"
             " WHERE ch.issue_id = ?"
-            " ORDER BY ch.change_id" );
+            " ORDER BY ch.change_id";
+        sql += ( order == Qt::DescendingOrder ) ? " DESC" : " ASC";
+
+        Query query( sql );
         query.exec( FileAdded, d->m_id );
 
         while ( query.next() ) {

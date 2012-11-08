@@ -87,6 +87,9 @@ private:
     SeparatorComboBox* m_folderPageComboBox;
     SeparatorComboBox* m_historyPageComboBox;
 
+    SeparatorComboBox* m_orderComboBox;
+    SeparatorComboBox* m_filterComboBox;
+
     InputLineEdit* m_emailEdit;
     QCheckBox* m_detailsCheckBox;
     QCheckBox* m_noReadCheckBox;

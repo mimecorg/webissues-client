@@ -56,17 +56,26 @@ void IssueDetailsGenerator::write( TextWriter* writer, TextWithLinks::Flags flag
     if ( issue.isValid() ) {
         writer->writeBlock( issue.name(), TextWriter::Header1Block );
 
-        writer->createLayout( 1, 4 );
+        writer->createLayout( 1, 2 );
 
-        writer->mergeLayoutCells( 0, 0, 1, 2 );
+        QList<ValueEntity> values;
+        if ( dataManager->setting( "hide_empty_values" ) == "1" )
+            values = issue.nonEmptyValues();
+        else
+            values = issue.values();
+
+        if ( values.isEmpty() )
+            writer->mergeLayoutCells( 0, 0, 1, 2 );
+
         writer->gotoLayoutCell( 0, 0, TextWriter::NormalCell );
         writer->writeBlock( tr( "Properties" ), TextWriter::Header2Block );
         writeProperties( writer, issue );
 
-        writer->mergeLayoutCells( 0, 2, 1, 2 );
-        writer->gotoLayoutCell( 0, 2, TextWriter::NormalCell );
-        writer->writeBlock( tr( "Attributes" ), TextWriter::Header2Block );
-        writeAttributes( writer, issue, flags );
+        if ( !values.isEmpty() ) {
+            writer->gotoLayoutCell( 0, 1, TextWriter::NormalCell );
+            writer->writeBlock( tr( "Attributes" ), TextWriter::Header2Block );
+            writeAttributes( writer, values, flags );
+        }
 
         if ( m_history != NoHistory ) {
             writer->appendLayoutRows( 1 );
@@ -75,7 +84,6 @@ void IssueDetailsGenerator::write( TextWriter* writer, TextWithLinks::Flags flag
             writer->writeBlock( tr( "Issue History" ), TextWriter::Header2Block );
 
             if ( !flags.testFlag( TextWithLinks::NoInternalLinks ) ) {
-                writer->mergeLayoutCells( 1, 1, 1, 3 );
                 writer->gotoLayoutCell( 1, 1, TextWriter::LinksCell );
                 writer->writeBlock( historyLinks( flags ), TextWriter::LinksBlock );
             }
@@ -99,29 +107,21 @@ void IssueDetailsGenerator::writeProperties( TextWriter* writer, const IssueEnti
 
     headers.append( tr( "Type:" ) );
     items.append( folder.type().name() );
-    headers.append( tr( "Project:" ) );
-    items.append( folder.project().name() );
-    headers.append( tr( "Folder:" ) );
-    items.append( folder.name() );
+    headers.append( tr( "Location:" ) );
+    items.append( folder.project().name() + QString::fromUtf8( " — " ) + folder.name() );
 
     Formatter formatter;
 
-    headers.append( tr( "Created date:" ) );
-    items.append( formatter.formatDateTime( issue.createdDate(), true ) );
-    headers.append( tr( "Created by:" ) );
-    items.append( issue.createdUser() );
-    headers.append( tr( "Modified date:" ) );
-    items.append( formatter.formatDateTime( issue.modifiedDate(), true ) );
-    headers.append( tr( "Modified by:" ) );
-    items.append( issue.modifiedUser() );
+    headers.append( tr( "Created:" ) );
+    items.append( QString::fromUtf8( "%1 — %2" ).arg( formatter.formatDateTime( issue.createdDate(), true ), issue.createdUser() ) );
+    headers.append( tr( "Last Modified:" ) );
+    items.append( QString::fromUtf8( "%1 — %2" ).arg( formatter.formatDateTime( issue.modifiedDate(), true ), issue.modifiedUser() ) );
 
     writer->writeInfoList( headers, items );
 }
 
-void IssueDetailsGenerator::writeAttributes( TextWriter* writer, const IssueEntity& issue, TextWithLinks::Flags flags )
+void IssueDetailsGenerator::writeAttributes( TextWriter* writer, const QList<ValueEntity>& values, TextWithLinks::Flags flags )
 {
-    QList<ValueEntity> values = issue.values();
-
     QStringList headers;
     QList<TextWithLinks> items;
 
@@ -139,15 +139,20 @@ void IssueDetailsGenerator::writeAttributes( TextWriter* writer, const IssueEnti
 
 void IssueDetailsGenerator::writeHistory( TextWriter* writer, const IssueEntity& issue, TextWithLinks::Flags flags )
 {
+    Qt::SortOrder order = Qt::AscendingOrder;
+
+    if ( dataManager->setting( "history_order" ) == "desc" )
+        order = Qt::DescendingOrder;
+
     QList<ChangeEntity> changes;
     if ( m_history == AllHistory )
-        changes = issue.changes();
+        changes = issue.changes( order );
     else if ( m_history == OnlyComments )
-        changes = issue.comments();
+        changes = issue.comments( order );
     else if ( m_history == OnlyFiles )
-        changes = issue.files();
+        changes = issue.files( order );
     else if ( m_history == CommentsAndFiles )
-        changes = issue.commentsAndFiles();
+        changes = issue.commentsAndFiles( order );
 
     QList<TextWithLinks> list;
 
@@ -179,29 +184,21 @@ void IssueDetailsGenerator::writeHistory( TextWriter* writer, const IssueEntity&
             case IssueRenamed:
             case ValueChanged:
                 row = writer->appendLayoutRows( 1 );
-                writer->mergeLayoutCells( row, 0, 1, 4 );
+                writer->mergeLayoutCells( row, 0, 1, 2 );
                 writer->gotoLayoutCell( row, 0, TextWriter::NormalCell );
                 lastUserId = change.createdUserId();
                 lastDate = change.createdDate();
-                if ( change.type() == IssueCreated )
-                    writer->writeBlock( tr( "Issue Created" ), TextWriter::Header3Block );
-                else
-                    writer->writeBlock( tr( "Issue Modified" ), TextWriter::Header3Block );
-                writer->writeBlock( formatStamp( change ), TextWriter::SmallBlock );
+                writer->writeBlock( formatStamp( change ), TextWriter::Header3Block );
                 list.append( formatChange( change, flags ) );
                 break;
 
             case CommentAdded:
                 row = writer->appendLayoutRows( 2 );
-                writer->mergeLayoutCells( row, 0, 1, 3 );
                 writer->gotoLayoutCell( row, 0, TextWriter::NormalCell );
-                writer->writeBlock( tr( "Comment #%1" ).arg( change.id() ), TextWriter::Header3Block, QString( "id%1" ).arg( change.id() ) );
-                writer->writeBlock( formatStamp( change ), TextWriter::SmallBlock );
-                if ( !flags.testFlag( TextWithLinks::NoInternalLinks ) && checkChangeLinks( change ) ) {
-                    writer->gotoLayoutCell( row, 3, TextWriter::LinksCell );
-                    writer->writeBlock( changeLinks( change, flags ), TextWriter::LinksBlock );
-                }
-                writer->mergeLayoutCells( row + 1, 0, 1, 4 );
+                writer->writeBlock( formatStamp( change ), TextWriter::Header3Block, QString( "id%1" ).arg( change.id() ) );
+                writer->gotoLayoutCell( row, 1, TextWriter::LinksCell );
+                writer->writeBlock( changeLinks( change, flags ), TextWriter::LinksBlock );
+                writer->mergeLayoutCells( row + 1, 0, 1, 2 );
                 writer->gotoLayoutCell( row + 1, 0, TextWriter::CommentCell );
                 writer->writeBlock( TextWithLinks::parse( change.comment().text(), flags ), TextWriter::NormalBlock );
                 m_commentsCount++;
@@ -209,15 +206,11 @@ void IssueDetailsGenerator::writeHistory( TextWriter* writer, const IssueEntity&
 
             case FileAdded:
                 row = writer->appendLayoutRows( 2 );
-                writer->mergeLayoutCells( row, 0, 1, 3 );
                 writer->gotoLayoutCell( row, 0, TextWriter::NormalCell );
-                writer->writeBlock( tr( "Attachment #%1" ).arg( change.id() ), TextWriter::Header3Block, QString( "id%1" ).arg( change.id() ) );
-                writer->writeBlock( formatStamp( change ), TextWriter::SmallBlock );
-                if ( !flags.testFlag( TextWithLinks::NoInternalLinks ) && checkChangeLinks( change ) ) {
-                    writer->gotoLayoutCell( row, 3, TextWriter::LinksCell );
-                    writer->writeBlock( changeLinks( change, flags ), TextWriter::LinksBlock );
-                }
-                writer->mergeLayoutCells( row + 1, 0, 1, 4 );
+                writer->writeBlock( formatStamp( change ), TextWriter::Header3Block, QString( "id%1" ).arg( change.id() ) );
+                writer->gotoLayoutCell( row, 1, TextWriter::LinksCell );
+                writer->writeBlock( changeLinks( change, flags ), TextWriter::LinksBlock );
+                writer->mergeLayoutCells( row + 1, 0, 1, 2 );
                 writer->gotoLayoutCell( row + 1, 0, TextWriter::FileCell );
                 writer->writeBlock( formatFile( change.file(), flags ), TextWriter::NormalBlock );
                 m_filesCount++;
@@ -225,10 +218,9 @@ void IssueDetailsGenerator::writeHistory( TextWriter* writer, const IssueEntity&
 
             case IssueMoved:
                 row = writer->appendLayoutRows( 1 );
-                writer->mergeLayoutCells( row, 0, 1, 4 );
+                writer->mergeLayoutCells( row, 0, 1, 2 );
                 writer->gotoLayoutCell( row, 0, TextWriter::NormalCell );
-                writer->writeBlock( tr( "Issue Moved" ), TextWriter::Header3Block );
-                writer->writeBlock( formatStamp( change ), TextWriter::SmallBlock );
+                writer->writeBlock( formatStamp( change ), TextWriter::Header3Block );
                 writer->writeBulletList( QList<TextWithLinks>() << formatChange( change, flags ) );
                 break;
         }
@@ -239,7 +231,7 @@ void IssueDetailsGenerator::writeHistory( TextWriter* writer, const IssueEntity&
 
     if ( changes.count() == 0 ) {
         int row = writer->appendLayoutRows( 1 );
-        writer->mergeLayoutCells( row, 0, 1, 4 );
+        writer->mergeLayoutCells( row, 0, 1, 2 );
         writer->gotoLayoutCell( row, 0, TextWriter::NormalCell );
         if ( m_history == OnlyComments )
             writer->writeBlock( tr( "There are no comments." ), TextWriter::NormalBlock );
@@ -253,13 +245,7 @@ void IssueDetailsGenerator::writeHistory( TextWriter* writer, const IssueEntity&
 QString IssueDetailsGenerator::formatStamp( const ChangeEntity& change )
 {
     Formatter formatter;
-    QString stamp = QString::fromUtf8( "%1 — %2" ).arg( formatter.formatDateTime( change.createdDate(), true ), change.createdUser() );
-    if ( change.stampId() != change.id() ) {
-        stamp += QLatin1String( " (" );
-        stamp += tr( "last edited:" );
-        stamp += QString::fromUtf8( " %1 — %2)" ).arg( formatter.formatDateTime( change.modifiedDate(), true ), change.modifiedUser() );
-    }
-    return stamp;
+    return QString::fromUtf8( "%1 — %2" ).arg( formatter.formatDateTime( change.createdDate(), true ), change.createdUser() );
 }
 
 TextWithLinks IssueDetailsGenerator::formatChange( const ChangeEntity& change, TextWithLinks::Flags flags )
@@ -314,8 +300,8 @@ TextWithLinks IssueDetailsGenerator::formatChange( const ChangeEntity& change, T
         }
 
         case IssueMoved:
-            result.appendText( tr( "Folder" ) );
-            result.appendText( ": " );
+            result.appendText( tr( "Issue moved from" ) );
+            result.appendText( " " );
 
             if ( change.fromFolder().isEmpty() ) {
                 result.appendText( tr( "Unknown Folder" ) );
@@ -325,7 +311,9 @@ TextWithLinks IssueDetailsGenerator::formatChange( const ChangeEntity& change, T
                 result.appendText( "\"" );
             }
 
-            result.appendText( QString::fromUtf8( " → " ) );
+            result.appendText( " " );
+            result.appendText( tr( "to" ) );
+            result.appendText( " " );
 
             if ( change.toFolder().isEmpty() ) {
                 result.appendText( tr( "Unknown Folder" ) );
@@ -396,32 +384,35 @@ TextWithLinks IssueDetailsGenerator::historyLinks( TextWithLinks::Flags flags )
     return result;
 }
 
-bool IssueDetailsGenerator::checkChangeLinks( const ChangeEntity& change )
-{
-    if ( m_isAdmin )
-        return true;
-
-    if ( change.createdUserId() == dataManager->currentUserId() )
-        return true;
-
-    return false;
-}
-
 TextWithLinks IssueDetailsGenerator::changeLinks( const ChangeEntity& change, TextWithLinks::Flags flags )
 {
     TextWithLinks result( flags );
 
-    if ( change.type() == CommentAdded )
-        result.appendLink( tr( "Edit" ), QString( "command://edit-comment/%1" ).arg( change.id() ) );
-    else
-        result.appendLink( tr( "Edit" ), QString( "command://edit-file/%1" ).arg( change.id() ) );
+    if ( change.stampId() != change.id() ) {
+        Formatter formatter;
+        result.appendText( tr( "Last Edited:" ) );
+        result.appendText( QString::fromUtf8( " %1 — %2" ).arg( formatter.formatDateTime( change.modifiedDate(), true ), change.modifiedUser() ) );
+        result.appendText( " | " );
+    }
 
-    result.appendText( " | " );
-
     if ( change.type() == CommentAdded )
-        result.appendLink( tr( "Delete" ), QString( "command://delete-comment/%1" ).arg( change.id() ) );
+        result.appendText( tr( "Comment #%1" ).arg( change.id() ) );
     else
-        result.appendLink( tr( "Delete" ), QString( "command://delete-file/%1" ).arg( change.id() ) );
+        result.appendText( tr( "Attachment #%1" ).arg( change.id() ) );
+
+    if ( !flags.testFlag( TextWithLinks::NoInternalLinks ) && ( m_isAdmin || change.createdUserId() == dataManager->currentUserId() ) ) {
+        result.appendText( " | " );
+        if ( change.type() == CommentAdded )
+            result.appendLink( tr( "Edit" ), QString( "command://edit-comment/%1" ).arg( change.id() ) );
+        else
+            result.appendLink( tr( "Edit" ), QString( "command://edit-file/%1" ).arg( change.id() ) );
+
+        result.appendText( " | " );
+        if ( change.type() == CommentAdded )
+            result.appendLink( tr( "Delete" ), QString( "command://delete-comment/%1" ).arg( change.id() ) );
+        else
+            result.appendLink( tr( "Delete" ), QString( "command://delete-file/%1" ).arg( change.id() ) );
+    }
 
     return result;
 }
