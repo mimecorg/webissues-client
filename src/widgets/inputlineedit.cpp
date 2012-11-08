@@ -640,13 +640,11 @@ void DateTimeLineEdit::popup()
         layout->setSpacing( 0 );
         layout->addWidget( m_calendar );
 
-        if ( ( functions() & TodayFunction ) ) {
-            QPushButton* todayButton = new QPushButton( tr( "Today" ), m_popup );
+        QPushButton* todayButton = new QPushButton( tr( "Today" ), m_popup );
 
-            connect( todayButton, SIGNAL( clicked() ), this, SLOT( setToday() ) );
+        connect( todayButton, SIGNAL( clicked() ), this, SLOT( setToday() ) );
 
-            layout->addWidget( todayButton, 0, Qt::AlignHCenter );
-        }
+        layout->addWidget( todayButton, 0, Qt::AlignHCenter );
     }
 
     QString value = text();
@@ -706,7 +704,15 @@ void DateTimeLineEdit::setDate( const QDate& date )
 
 void DateTimeLineEdit::setToday()
 {
-    setInputValue( "[Today]" );
+    if ( ( functions() & TodayFunction ) ) {
+        setInputValue( "[Today]" );
+    } else {
+        Formatter formatter;
+        if ( m_withTime )
+            setText( formatter.formatDateTime( QDateTime::currentDateTime(), false ) );
+        else
+            setText( formatter.formatDate( QDate::currentDate() ) );
+    }
 
     m_popup->hide();
 }
