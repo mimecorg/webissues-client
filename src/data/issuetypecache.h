@@ -100,6 +100,11 @@ public:
     */
     QMap<int, int> defaultWidths() const;
 
+    /**
+    * Return the identifier of the initial view.
+    */
+    int initialViewId() const { return m_initialViewId; }
+
 private:
     QList<int> m_attributes;
 
@@ -107,6 +112,8 @@ private:
     QHash<int, DefinitionInfo> m_attributeDefinitions;
 
     DefinitionInfo m_defaultView;
+
+    int m_initialViewId;
 };
 
 #endif

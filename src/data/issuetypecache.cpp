@@ -19,12 +19,14 @@
 
 #include "issuetypecache.h"
 
+#include "data/entities.h"
 #include "models/foldermodel.h"
 #include "utils/attributehelper.h"
 
 #include <QSqlQuery>
 
-IssueTypeCache::IssueTypeCache( int typeId, QObject* parent ) : QObject( parent )
+IssueTypeCache::IssueTypeCache( int typeId, QObject* parent ) : QObject( parent ),
+    m_initialViewId( 0 )
 {
     QString query = "SELECT attr_id, attr_name, attr_def"
         " FROM attr_types"
@@ -65,6 +67,8 @@ IssueTypeCache::IssueTypeCache( int typeId, QObject* parent ) : QObject( parent 
             list = value.split( ',' );
         else if ( key == QLatin1String( "default_view" ) )
             m_defaultView = DefinitionInfo::fromString( value );
+        else if ( key == QLatin1String( "initial_view" ) )
+            m_initialViewId = value.toInt();
     }
 
     for ( int i = 0; i < list.count(); i++ ) {
@@ -77,6 +81,12 @@ IssueTypeCache::IssueTypeCache( int typeId, QObject* parent ) : QObject( parent 
     }
 
     m_attributes += remaining;
+
+    if ( m_initialViewId != 0 ) {
+        ViewEntity view = ViewEntity::find( m_initialViewId );
+        if ( !view.isValid() || !view.isPublic() || view.typeId() != typeId )
+            m_initialViewId = 0;
+    }
 }
 
 IssueTypeCache::~IssueTypeCache()

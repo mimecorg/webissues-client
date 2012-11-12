@@ -25,6 +25,7 @@
 #include "data/datamanager.h"
 #include "data/entities.h"
 #include "data/localsettings.h"
+#include "data/issuetypecache.h"
 #include "dialogs/projectdialogs.h"
 #include "dialogs/membersdialog.h"
 #include "dialogs/managealertsdialog.h"
@@ -270,6 +271,8 @@ void ProjectsView::updateActions()
             m_currentFolderId = rowId;
             FolderEntity folder = FolderEntity::find( rowId );
             m_currentProjectId = folder.projectId();
+            IssueTypeCache* cache = dataManager->issueTypeCache( folder.typeId() );
+            m_selectedViewId = cache->initialViewId();
         } else {
             AlertEntity alert = AlertEntity::find( rowId );
             FolderEntity folder = alert.folder();
@@ -305,8 +308,11 @@ void ProjectsView::setSelection( int folderId, int viewId )
     if ( m_currentFolderId == folderId && m_selectedViewId == viewId )
         return;
 
-    if ( viewId != 0 ) {
-        FolderEntity folder = FolderEntity::find( folderId );
+    FolderEntity folder = FolderEntity::find( folderId );
+    IssueTypeCache* cache = dataManager->issueTypeCache( folder.typeId() );
+    int initialViewId = cache->initialViewId();
+
+    if ( viewId != initialViewId ) {
         foreach ( const AlertEntity& alert, folder.alerts() ) {
             if ( alert.viewId() == viewId ) {
                 QModelIndex index = m_model->findIndex( 2, alert.id(), 0 );

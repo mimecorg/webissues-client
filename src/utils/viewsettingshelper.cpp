@@ -21,6 +21,7 @@
 
 #include "data/datamanager.h"
 #include "data/issuetypecache.h"
+#include "data/entities.h"
 #include "models/foldermodel.h"
 #include "utils/attributehelper.h"
 
@@ -161,4 +162,14 @@ QString ViewSettingsHelper::operatorName( const QString& type ) const
     if ( type == QLatin1String( "IN" ) )
         return tr( "in list" );
     return QString();
+}
+
+QString ViewSettingsHelper::viewName( int viewId ) const
+{
+    if ( viewId != 0 ) {
+        ViewEntity view = ViewEntity::find( viewId );
+        if ( view.isValid() )
+            return view.name();
+    }
+    return tr( "All Issues" );
 }

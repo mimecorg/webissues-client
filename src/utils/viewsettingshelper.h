@@ -70,9 +70,14 @@ public:
     QString filtersInfo( const QList<DefinitionInfo>& filters ) const;
 
     /**
-    * Return the user-friendly name of the operato
+    * Return the user-friendly name of the operator.
     */
     QString operatorName( const QString& type ) const;
+
+    /**
+    * Return the name of the view or All Issues.
+    */
+    QString viewName( int viewId ) const;
 
 private:
     int m_typeId;

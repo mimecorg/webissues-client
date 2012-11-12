@@ -59,6 +59,7 @@ protected: // overrides
 private slots:
     void modifyOrder();
     void modifyDefaultView();
+    void modifyInitialView();
 
     void addView();
     void cloneView();
@@ -85,6 +86,7 @@ private:
     QLineEdit* m_orderEdit;
     QLineEdit* m_columnsEdit;
     QLineEdit* m_sortByEdit;
+    QLineEdit* m_initialEdit;
 
     QTreeView* m_list;
     ViewsModel* m_model;

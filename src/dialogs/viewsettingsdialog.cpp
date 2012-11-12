@@ -48,7 +48,8 @@ ViewSettingsDialog::ViewSettingsDialog( int typeId, bool isPublic, QWidget* pare
     m_selectedViewId( 0 ),
     m_orderEdit( NULL ),
     m_columnsEdit( NULL ),
-    m_sortByEdit( NULL )
+    m_sortByEdit( NULL ),
+    m_initialEdit( NULL )
 {
     QAction* action;
 
@@ -153,6 +154,22 @@ ViewSettingsDialog::ViewSettingsDialog( int typeId, bool isPublic, QWidget* pare
 
         connect( defaultButton, SIGNAL( clicked() ), this, SLOT( modifyDefaultView() ) );
 
+        QGroupBox* initialGroup = new QGroupBox( tr( "Initial View" ), this );
+        layout->addWidget( initialGroup );
+
+        QHBoxLayout* initialLayout = new QHBoxLayout( initialGroup );
+
+        m_initialEdit = new QLineEdit( initialGroup );
+        m_initialEdit->setReadOnly( true );
+        initialLayout->addWidget( m_initialEdit );
+
+        QPushButton* initialButton = new QPushButton( tr( "Modify..." ), initialGroup );
+        initialButton->setIcon( IconLoader::icon( "edit-modify" ) );
+        initialButton->setIconSize( QSize( 16, 16 ) );
+        initialLayout->addWidget( initialButton );
+
+        connect( initialButton, SIGNAL( clicked() ), this, SLOT( modifyInitialView() ) );
+
         layout->addSpacing( 5 );
     }
 
@@ -232,6 +249,12 @@ void ViewSettingsDialog::modifyDefaultView()
     dialog.exec();
 }
 
+void ViewSettingsDialog::modifyInitialView()
+{
+    InitialViewDialog dialog( m_typeId, this );
+    dialog.exec();
+}
+
 void ViewSettingsDialog::addView()
 {
     AddViewDialog dialog( m_typeId, m_isPublic, this );
@@ -301,6 +324,7 @@ void ViewSettingsDialog::updateViewSettings()
     if ( m_isPublic ) {
         m_columnsEdit->setText( helper.columnNames( cache->viewColumns( cache->defaultView() ) ) );
         m_sortByEdit->setText( helper.sortOrderInfo( cache->viewSortOrder( cache->defaultView() ) ) );
+        m_initialEdit->setText( helper.viewName( cache->initialViewId() ) );
     }
 }
 

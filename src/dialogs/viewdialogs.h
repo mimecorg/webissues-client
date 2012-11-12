@@ -26,6 +26,7 @@
 
 class DefinitionInfo;
 class InputLineEdit;
+class SeparatorComboBox;
 
 class QCheckBox;
 class QComboBox;
@@ -376,6 +377,35 @@ private:
     QList<int> m_attributes;
 
     bool m_updatingLayout;
+};
+
+/**
+* Dialog for selecting the initial view.
+*/
+class InitialViewDialog : public CommandDialog
+{
+    Q_OBJECT
+public:
+    /**
+    * Constructor.
+    * @param typeId Identifier of the type associated with view setting.
+    * @param parent The parent widget.
+    */
+    InitialViewDialog( int typeId, QWidget* parent );
+
+    /**
+    * Destructor.
+    */
+    ~InitialViewDialog();
+
+public: // overrides
+    void accept();
+
+private:
+    int m_typeId;
+    int m_oldViewId;
+
+    SeparatorComboBox* m_comboBox;
 };
 
 #endif

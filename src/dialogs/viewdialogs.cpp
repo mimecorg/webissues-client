@@ -32,6 +32,7 @@
 #include "utils/errorhelper.h"
 #include "utils/iconloader.h"
 #include "widgets/inputlineedit.h"
+#include "widgets/separatorcombobox.h"
 
 #include <QLayout>
 #include <QLabel>
@@ -1104,4 +1105,69 @@ void AttributeOrderDialog::updateLayout()
     layout->setRowStretch( row, 1 );
 
     m_updatingLayout = false;
+}
+
+InitialViewDialog::InitialViewDialog( int typeId, QWidget* parent ) : CommandDialog( parent ),
+    m_typeId( typeId ),
+    m_oldViewId( 0 )
+{
+    TypeEntity type = TypeEntity::find( typeId );
+
+    QList<ViewEntity> views = type.views();
+    QList<ViewEntity> publicViews;
+
+    foreach ( ViewEntity view, views ) {
+        if ( view.isPublic() )
+            publicViews.append( view );
+    }
+
+    IssueTypeCache* cache = dataManager->issueTypeCache( typeId );
+    m_oldViewId = cache->initialViewId();
+
+    setWindowTitle( tr( "Initial View" ) );
+    setPrompt( tr( "Select initial view for type <b>%1</b>:" ).arg( type.name() ) );
+    setPromptPixmap( IconLoader::pixmap( "edit-modify", 22 ) );
+
+    QHBoxLayout* layout = new QHBoxLayout();
+
+    QLabel* label = new QLabel( tr( "&View:" ), this );
+    layout->addWidget( label, 0 );
+
+    m_comboBox = new SeparatorComboBox( this );
+    m_comboBox->addItem( tr( "All Issues" ), 0 );
+
+    if ( !publicViews.isEmpty() ) {
+        m_comboBox->addSeparator();
+        foreach ( ViewEntity view, publicViews )
+            m_comboBox->addItem( view.name(), view.id() );
+    }
+
+    m_comboBox->setCurrentIndex( m_comboBox->findData( m_oldViewId ) );
+
+    layout->addWidget( m_comboBox, 1 );
+
+    label->setBuddy( m_comboBox );
+
+    setContentLayout( layout, true );
+
+    m_comboBox->setFocus();
+}
+
+InitialViewDialog::~InitialViewDialog()
+{
+}
+
+void InitialViewDialog::accept()
+{
+    int viewId = m_comboBox->itemData( m_comboBox->currentIndex() ).toInt();
+
+    if ( viewId == m_oldViewId ) {
+        QDialog::accept();
+        return;
+    }
+
+    ViewsBatch* batch = new ViewsBatch();
+    batch->setViewSetting( m_typeId, "initial_view", viewId != 0 ? QString::number( viewId ) : "" );
+
+    executeBatch( batch );
 }
