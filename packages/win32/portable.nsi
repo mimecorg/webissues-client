@@ -27,6 +27,23 @@
 
 !define QTDIR "D:\Qt4-msvc\x86-static"
 
+!ifndef SIGN
+    !verbose 2
+
+    !system "$\"${NSISDIR}\makensis$\" /V2 /DSIGN ${__FILE__}" = 0
+
+    !system "..\..\..\sign.bat webissues-portable-${VERSION}.paf.exe" = 0
+
+    SetCompress off
+
+    OutFile "$%TEMP%\signinst.exe"
+
+    Section
+    SectionEnd
+!else
+
+!verbose 4
+
 !include "MUI2.nsh"
 !include "FileFunc.nsh"
 
@@ -192,3 +209,5 @@ Section
     CreateDirectory "$INSTDIR\Data\cache"
 
 SectionEnd
+
+!endif

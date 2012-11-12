@@ -20,6 +20,8 @@
 !define ARCHITECTURE "win_x86"
 !define SUFFIX ""
 
+!define SCRIPTNAME "${__FILE__}"
+
 !define QTDIR "D:\Qt4-msvc\x86-static"
 
 !include "webissues.nsh"

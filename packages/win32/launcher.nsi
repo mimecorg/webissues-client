@@ -24,6 +24,23 @@
 
 !define SRCDIR "..\.."
 
+!ifndef SIGN
+    !verbose 2
+
+    !system "$\"${NSISDIR}\makensis$\" /V2 /DSIGN ${__FILE__}" = 0
+
+    !system "..\..\..\sign.bat portable\WebIssuesPortable.exe" = 0
+
+    SetCompress off
+
+    OutFile "$%TEMP%\signinst.exe"
+
+    Section
+    SectionEnd
+!else
+
+!verbose 4
+
 !include "MUI2.nsh"
 !include "FileFunc.nsh"
 
@@ -261,3 +278,5 @@ Section
     ${EndIf}
 
 SectionEnd
+
+!endif
