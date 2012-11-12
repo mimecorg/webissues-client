@@ -210,7 +210,7 @@ PreferencesDialog::PreferencesDialog( int userId, QWidget* parent ) : CommandDia
 
     m_filterComboBox->addItem( tr( "Default", "filter" ) );
     m_filterComboBox->addSeparator();
-    m_filterComboBox->addItem( tr( "Full History" ), IssueDetailsGenerator::AllHistory );
+    m_filterComboBox->addItem( tr( "All History" ), IssueDetailsGenerator::AllHistory );
     m_filterComboBox->addItem( tr( "Comments & Attachments" ), IssueDetailsGenerator::CommentsAndFiles );
 
     filterLabel->setBuddy( m_filterComboBox );
