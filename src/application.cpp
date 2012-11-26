@@ -46,6 +46,7 @@
 #include <QNetworkAccessManager>
 #include <QPushButton>
 #include <QPrinter>
+#include <QTimer>
 
 #if defined( Q_WS_WIN )
 #define _WIN32_IE 0x0400
@@ -545,7 +546,7 @@ void Application::restoreState()
 
     if ( m_settings->value( "LastVersion" ).toString() != version() ) {
         m_settings->setValue( "LastVersion", version() );
-        about();
+        QTimer::singleShot( 100, this, SLOT( about() ) );
     }
 }
 
