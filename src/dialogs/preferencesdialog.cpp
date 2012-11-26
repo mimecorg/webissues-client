@@ -44,6 +44,8 @@
 PreferencesDialog::PreferencesDialog( int userId, QWidget* parent ) : CommandDialog( parent ),
     m_userId( userId ),
     m_initialized( false ),
+    m_orderComboBox( NULL ),
+    m_filterComboBox( NULL ),
     m_emailEdit( NULL ),
     m_detailsCheckBox( NULL ),
     m_noReadCheckBox( NULL ),
@@ -182,40 +184,42 @@ PreferencesDialog::PreferencesDialog( int userId, QWidget* parent ) : CommandDia
 
     pageLayout->setColumnStretch( 2, 1 );
 
-    QGroupBox* viewGroup = new QGroupBox( tr( "View Settings" ), viewTab );
-    QGridLayout* viewLayout = new QGridLayout( viewGroup );
-    viewTabLayout->addWidget( viewGroup );
+    if ( dataManager->checkServerVersion( "1.0.4" ) ) {
+        QGroupBox* viewGroup = new QGroupBox( tr( "View Settings" ), viewTab );
+        QGridLayout* viewLayout = new QGridLayout( viewGroup );
+        viewTabLayout->addWidget( viewGroup );
 
-    QLabel* noteViewLabel = new QLabel( tr( "Global view settings that affect all issue types." ), viewGroup );
-    viewLayout->addWidget( noteViewLabel, 0, 0, 1, 3 );
+        QLabel* noteViewLabel = new QLabel( tr( "Global view settings that affect all issue types." ), viewGroup );
+        viewLayout->addWidget( noteViewLabel, 0, 0, 1, 3 );
 
-    QLabel* orderLabel = new QLabel( tr( "Order of issue history:" ), viewGroup );
-    viewLayout->addWidget( orderLabel, 1, 0 );
+        QLabel* orderLabel = new QLabel( tr( "Order of issue history:" ), viewGroup );
+        viewLayout->addWidget( orderLabel, 1, 0 );
 
-    m_orderComboBox = new SeparatorComboBox( viewGroup );
-    viewLayout->addWidget( m_orderComboBox, 1, 1 );
+        m_orderComboBox = new SeparatorComboBox( viewGroup );
+        viewLayout->addWidget( m_orderComboBox, 1, 1 );
 
-    orderLabel->setBuddy( m_orderComboBox );
+        orderLabel->setBuddy( m_orderComboBox );
 
-    m_orderComboBox->addItem( tr( "Default", "order" ) );
-    m_orderComboBox->addSeparator();
-    m_orderComboBox->addItem( tr( "Oldest First" ), "asc" );
-    m_orderComboBox->addItem( tr( "Newest First" ), "desc" );
+        m_orderComboBox->addItem( tr( "Default", "order" ) );
+        m_orderComboBox->addSeparator();
+        m_orderComboBox->addItem( tr( "Oldest First" ), "asc" );
+        m_orderComboBox->addItem( tr( "Newest First" ), "desc" );
 
-    QLabel* filterLabel = new QLabel( tr( "Default filter in issue history:" ), viewGroup );
-    viewLayout->addWidget( filterLabel, 2, 0 );
+        QLabel* filterLabel = new QLabel( tr( "Default filter in issue history:" ), viewGroup );
+        viewLayout->addWidget( filterLabel, 2, 0 );
 
-    m_filterComboBox = new SeparatorComboBox( viewGroup );
-    viewLayout->addWidget( m_filterComboBox, 2, 1 );
+        m_filterComboBox = new SeparatorComboBox( viewGroup );
+        viewLayout->addWidget( m_filterComboBox, 2, 1 );
 
-    m_filterComboBox->addItem( tr( "Default", "filter" ) );
-    m_filterComboBox->addSeparator();
-    m_filterComboBox->addItem( tr( "All History" ), IssueDetailsGenerator::AllHistory );
-    m_filterComboBox->addItem( tr( "Comments & Attachments" ), IssueDetailsGenerator::CommentsAndFiles );
+        m_filterComboBox->addItem( tr( "Default", "filter" ) );
+        m_filterComboBox->addSeparator();
+        m_filterComboBox->addItem( tr( "All History" ), IssueDetailsGenerator::AllHistory );
+        m_filterComboBox->addItem( tr( "Comments & Attachments" ), IssueDetailsGenerator::CommentsAndFiles );
 
-    filterLabel->setBuddy( m_filterComboBox );
+        filterLabel->setBuddy( m_filterComboBox );
 
-    viewLayout->setColumnStretch( 2, 1 );
+        viewLayout->setColumnStretch( 2, 1 );
+    }
 
     viewTabLayout->addStretch( 1 );
 
@@ -496,10 +500,14 @@ void PreferencesDialog::initialize()
     m_folderPageComboBox->setCurrentIndex( index >= 2 ? index : 0 );
     index = m_historyPageComboBox->findData( m_preferences.value( "history_page_size" ) );
     m_historyPageComboBox->setCurrentIndex( index >= 2 ? index : 0 );
-    index = m_orderComboBox->findData( m_preferences.value( "history_order" ) );
-    m_orderComboBox->setCurrentIndex( index >= 2 ? index : 0 );
-    index = m_filterComboBox->findData( m_preferences.value( "history_filter" ) );
-    m_filterComboBox->setCurrentIndex( index >= 2 ? index : 0 );
+    if ( m_orderComboBox ) {
+        index = m_orderComboBox->findData( m_preferences.value( "history_order" ) );
+        m_orderComboBox->setCurrentIndex( index >= 2 ? index : 0 );
+    }
+    if ( m_filterComboBox ) {
+        index = m_filterComboBox->findData( m_preferences.value( "history_filter" ) );
+        m_filterComboBox->setCurrentIndex( index >= 2 ? index : 0 );
+    }
 
     m_languageComboBox->setSizeAdjustPolicy( QComboBox::AdjustToContents );
     m_numberComboBox->setSizeAdjustPolicy( QComboBox::AdjustToContents );
@@ -560,8 +568,10 @@ void PreferencesDialog::accept()
     preferences.insert( "time_zone", m_timeZoneComboBox->itemData( m_timeZoneComboBox->currentIndex() ).toString() );
     preferences.insert( "folder_page_size", m_folderPageComboBox->itemData( m_folderPageComboBox->currentIndex() ).toString() );
     preferences.insert( "history_page_size", m_historyPageComboBox->itemData( m_historyPageComboBox->currentIndex() ).toString() );
-    preferences.insert( "history_order", m_orderComboBox->itemData( m_orderComboBox->currentIndex() ).toString() );
-    preferences.insert( "history_filter", m_filterComboBox->itemData( m_filterComboBox->currentIndex() ).toString() );
+    if ( m_orderComboBox )
+        preferences.insert( "history_order", m_orderComboBox->itemData( m_orderComboBox->currentIndex() ).toString() );
+    if ( m_filterComboBox )
+        preferences.insert( "history_filter", m_filterComboBox->itemData( m_filterComboBox->currentIndex() ).toString() );
 
     if ( m_emailEdit )
         preferences.insert( "email", m_emailEdit->inputValue() );

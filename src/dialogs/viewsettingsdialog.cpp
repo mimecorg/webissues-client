@@ -154,21 +154,23 @@ ViewSettingsDialog::ViewSettingsDialog( int typeId, bool isPublic, QWidget* pare
 
         connect( defaultButton, SIGNAL( clicked() ), this, SLOT( modifyDefaultView() ) );
 
-        QGroupBox* initialGroup = new QGroupBox( tr( "Initial View" ), this );
-        layout->addWidget( initialGroup );
+        if ( dataManager->checkServerVersion( "1.0.4" ) ) {
+            QGroupBox* initialGroup = new QGroupBox( tr( "Initial View" ), this );
+            layout->addWidget( initialGroup );
 
-        QHBoxLayout* initialLayout = new QHBoxLayout( initialGroup );
+            QHBoxLayout* initialLayout = new QHBoxLayout( initialGroup );
 
-        m_initialEdit = new QLineEdit( initialGroup );
-        m_initialEdit->setReadOnly( true );
-        initialLayout->addWidget( m_initialEdit );
+            m_initialEdit = new QLineEdit( initialGroup );
+            m_initialEdit->setReadOnly( true );
+            initialLayout->addWidget( m_initialEdit );
 
-        QPushButton* initialButton = new QPushButton( tr( "Modify..." ), initialGroup );
-        initialButton->setIcon( IconLoader::icon( "edit-modify" ) );
-        initialButton->setIconSize( QSize( 16, 16 ) );
-        initialLayout->addWidget( initialButton );
+            QPushButton* initialButton = new QPushButton( tr( "Modify..." ), initialGroup );
+            initialButton->setIcon( IconLoader::icon( "edit-modify" ) );
+            initialButton->setIconSize( QSize( 16, 16 ) );
+            initialLayout->addWidget( initialButton );
 
-        connect( initialButton, SIGNAL( clicked() ), this, SLOT( modifyInitialView() ) );
+            connect( initialButton, SIGNAL( clicked() ), this, SLOT( modifyInitialView() ) );
+        }
 
         layout->addSpacing( 5 );
     }
@@ -324,7 +326,8 @@ void ViewSettingsDialog::updateViewSettings()
     if ( m_isPublic ) {
         m_columnsEdit->setText( helper.columnNames( cache->viewColumns( cache->defaultView() ) ) );
         m_sortByEdit->setText( helper.sortOrderInfo( cache->viewSortOrder( cache->defaultView() ) ) );
-        m_initialEdit->setText( helper.viewName( cache->initialViewId() ) );
+        if ( m_initialEdit )
+            m_initialEdit->setText( helper.viewName( cache->initialViewId() ) );
     }
 }
 
