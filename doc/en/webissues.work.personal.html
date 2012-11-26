@@ -19,7 +19,7 @@
             <h1><img src="common/webissues.png" alt="WebIssues" id="logo" />WebIssues Manual</h1>
           </div>
           <div id="header-right">
-            <h2 class="subtitle">Version 1.0.3</h2>
+            <h2 class="subtitle">Version 1.0.4</h2>
           </div>
         </div>
         <div id="infobar">
@@ -57,7 +57,7 @@
             <p>The <span class="guilabel">Regional Options</span> allow you to select the language for the Web Client (after logging into the system), and the language in which you will receive email notifications. In case of the Destkop Client, the language of the user interface depends on the program settings and do not change when you connect to a server. Use the WebIssues Settings command (see below) to change these settings.</p>
             <p>You can also select your preferred time zone. This setting determines the time zone for dates displayed in the Web Client, and for email notifications. However the Desktop Client always displays dates according to local time zone the computer on which it is running, and it does not take into account server settings or user preferences.</p>
             <div class="figure">
-              <a id="id534511"></a>
+              <a id="id596438"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch03-fig25.png" alt="Regional options" />
@@ -67,7 +67,7 @@
             </div>
             <p>The format in which numbers, dates and times are displayed, and the first day of the week in the calendar, depend on the current language of the user interface. You can change these settings using the <span class="guilabel">Formats</span> group of options. These changes will impact both the Web Client and the Desktop Client (after connecting to the specific server).</p>
             <div class="figure">
-              <a id="id534538"></a>
+              <a id="id596465"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch03-fig26.png" alt="Formats" />
@@ -77,13 +77,23 @@
             </div>
             <p>Using the <span class="guilabel">Page Size</span> options, you can specify the number of issues to be displayed on a single page in the list of issues, and the number of elements per page in the issue history. These options only affect the Web Client, because the Desktop Client always displays all issues and the entire history without pagination.</p>
             <div class="figure">
-              <a id="id534564"></a>
+              <a id="id596491"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch03-fig27.png" alt="Page size" />
                 </div>
               </div>
               <div class="figure-title">Figure 3.27. Page size</div>
+            </div>
+            <p>Options in the <span class="guilabel">View Settings</span> group make it possible to select the order in which changes are displayed in the issue history view. Also it is possible to select the default filter in the issue history; you can display all history or just comments and attachments. The default values of these options depend on server settings.</p>
+            <div class="figure">
+              <a id="id596517"></a>
+              <div class="figure-contents">
+                <div class="mediaobject">
+                  <img src="images/ch03-fig27-01.png" alt="View settings" />
+                </div>
+              </div>
+              <div class="figure-title">Figure 3.28. View settings</div>
             </div>
             <p>If the administrator of the WebIssues system enabled email notifications, you can also configure these notifications in the preferences window. For more information, see <a class="xref" href="webissues.track.alerts.html" title="Managing alerts">the section called “Managing alerts”</a>.</p>
             <p>The system administrator can not only change the global settings, but also the individual settings for any user. To do this, open the list of user accounts, select the user whose settings you want to change, and use the <span class="guilabel">User Preferences</span> command.</p>
@@ -99,13 +109,13 @@
             <p>To change the Desktop Client settings, click the little wrench icon in the right upper corner of the window. These settings do not depend on which WebIssues server you are connected to; they are stored on the local computer. You can change them even if you are not connected to any server.</p>
             <p>The first tab contains basic program settings:</p>
             <div class="figure">
-              <a id="id534613"></a>
+              <a id="id596567"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch03-fig28.png" alt="Basic settings" />
                 </div>
               </div>
-              <div class="figure-title">Figure 3.28. Basic settings</div>
+              <div class="figure-title">Figure 3.29. Basic settings</div>
             </div>
             <p>The <span class="guilabel">Regional Settings</span> allow you to select the language of the user interface for the Desktop Client. By default, it depends on the operating system settings. After changing the language you must close and restart the program.</p>
             <p>If you enable the <span class="guilabel">Dock main window in system tray</span> option, the program keeps running in the background even when you close the main window. You can always re-open this window by clicking on the icon in the system notifications area. To exit the program, instead of closing the window, click the <span class="guibutton">Quit</span> button, available in the upper right corner of the window when you enable this option.</p>
@@ -115,13 +125,13 @@
             <p>If the <span class="guilabel">Enable automatic checking for latest version</span> option is active, the program will notify you if a newer version available. If you disable this option, you can still manually check if an update is available. To do this, open the window with information about the program. In the Web Client, click <span class="guilabel">Tools</span> and then <span class="guilabel">About WebIssues</span> if you are the system administrator. In the Desktop Client, click the question mark icon in the upper right corner of the window or press <span class="shortcut"><strong><span class="keycap"><strong>F1</strong></span></strong></span>. Then click the <span class="guibutton">Check Now</span> button. If an update is available, you can open a page containing information about it, and also a page that allows you to download it.</p>
             <p>The second tab allows you to change more advanced settings of the Desktop Client:</p>
             <div class="figure">
-              <a id="id534707"></a>
+              <a id="id596660"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch03-fig29.png" alt="Advanced settings" />
                 </div>
               </div>
-              <div class="figure-title">Figure 3.29. Advanced settings</div>
+              <div class="figure-title">Figure 3.30. Advanced settings</div>
             </div>
             <p>The <span class="guilabel">Behavior</span> group of options allows you to select the default action when you click on a link to an attachment. By default the program will ask whether you want to open it using the default application, or save it in a selected location on the disk. You can also right-click on the link to quickly select the desired operation.</p>
             <p>The <span class="guilabel">Update Intervals</span> determine the intervals at which the program automatically retrieves data from the server (in minutes). The first interval determines how often the program updates the tree of projects and folders, lists of issues and the state of active alerts. The second interval specifies how often it updates issue types, views and other data that do not change very often.</p>

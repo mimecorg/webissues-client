@@ -19,7 +19,7 @@
             <h1><img src="common/webissues.png" alt="WebIssues" id="logo" />WebIssues Manual</h1>
           </div>
           <div id="header-right">
-            <h2 class="subtitle">Version 1.0.3</h2>
+            <h2 class="subtitle">Version 1.0.4</h2>
           </div>
         </div>
         <div id="infobar">
@@ -82,7 +82,7 @@
             </div>
             <p>In order to install the system, you must create a database on one of these servers and a user account with sufficient permissions to create tables and indexes in the database.</p>
             <p>In case of MySQL, support for the InnoDB engine is required. The PostgreSQL database should be created with Unicode character encoding. Also remember that you can only use the SQL Server database if the WebIssues server is installed on a computer running Windows.</p>
-            <p>The WebIssues server also requires PHP, version 5.2.1 or newer, integrated with the web server. In case of IIS server, to get the best performance it's recommended to use the <code class="literal">fastcgi</code> module and the <code class="literal">wincache</code> extension. PHP must also have the <code class="literal">mbstring</code> extension installed, and if you're using a MySQL or PostrgreSQL database, also the <code class="literal">mysqli</code> or <code class="literal">pgsql</code> extension, respectively.</p>
+            <p>The WebIssues server also requires PHP, version 5.2.1 or newer, integrated with the web server. In case of IIS server, to get the best performance it's recommended to use the <code class="literal">fastcgi</code> module and the <code class="literal">wincache</code> extension. PHP must also have the <code class="literal">mbstring</code> extension installed, and if you're using a MySQL or PostrgreSQL database, also the <code class="literal">mysqli</code> or <code class="literal">pgsql</code> extension, respectively. In case of a SQL Server database, the <code class="literal">com_dotnet</code> is required; it is not enabled by default since version 5.3.15 and 5.4.5 of PHP.</p>
             <p>If you're installing the WebIssues server using an external web hosting service, make sure that it meets all these requirements. To create a database and configure the web server, use the tools provided by hosting provider and refer to the available documentation.</p>
             <div class="warning" title="Warning" style="margin-left: 0.5in; margin-right: 0.5in;">
               <h3 class="title">Warning</h3>
