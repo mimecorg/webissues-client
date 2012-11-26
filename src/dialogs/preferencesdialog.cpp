@@ -577,10 +577,10 @@ void PreferencesDialog::accept()
         preferences.insert( "email", m_emailEdit->inputValue() );
 
     if ( m_detailsCheckBox )
-        preferences.insert( "notify_details", m_detailsCheckBox->isChecked() ? "1" : "0" );
+        preferences.insert( "notify_details", m_detailsCheckBox->isChecked() ? "1" : "" );
 
     if ( m_noReadCheckBox )
-        preferences.insert( "notify_no_read", m_noReadCheckBox->isChecked() ? "1" : "0" );
+        preferences.insert( "notify_no_read", m_noReadCheckBox->isChecked() ? "1" : "" );
 
     if ( m_daysGroup ) {
         QStringList list;
