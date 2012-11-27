@@ -375,22 +375,22 @@
 <context>
     <name>AddViewDialog</name>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="701"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="702"/>
         <source>Add Public View</source>
         <translation>添加公共视图</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="702"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="703"/>
         <source>Create a new public view for type &lt;b&gt;%1&lt;/b&gt;:</source>
         <translation>为类型〈b&gt;%1&lt;/b&gt;创建一个新的公共视图：</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="704"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="705"/>
         <source>Add Personal View</source>
         <translation>添加个人视图</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="705"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="706"/>
         <source>Create a new personal view for type &lt;b&gt;%1&lt;/b&gt;:</source>
         <translation>为类型〈b&gt;%1&lt;/b&gt;创建一个新的个人视图：</translation>
     </message>
@@ -451,123 +451,123 @@
 <context>
     <name>Application</name>
     <message>
-        <location filename="../src/application.cpp" line="150"/>
+        <location filename="../src/application.cpp" line="151"/>
         <source>WebIssues Desktop Client %1</source>
         <translation>WebIssues客户端 %1</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="151"/>
+        <location filename="../src/application.cpp" line="152"/>
         <source>Desktop Client for the WebIssues team collaboration system.</source>
         <translation>WebIssues团队协作系统桌面版客户端。</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="152"/>
+        <location filename="../src/application.cpp" line="153"/>
         <source>This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.</source>
         <translation>此程序是一个免费软件：你可以在GNU协议（版本3或更新）下使用，传播或者修改它。</translation>
     </message>
     <message utf8="true">
-        <location filename="../src/application.cpp" line="156"/>
+        <location filename="../src/application.cpp" line="157"/>
         <source>Copyright &amp;copy; 2006 Michał Męciński</source>
         <translation>Michał Męciński版权所有 2006</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="156"/>
+        <location filename="../src/application.cpp" line="157"/>
         <source>Copyright &amp;copy; 2007-2012 WebIssues Team</source>
         <translation>WebIssues团队 版权所有  2007-2011</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="161"/>
+        <location filename="../src/application.cpp" line="162"/>
         <source>Help</source>
         <translation>帮助</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="162"/>
+        <location filename="../src/application.cpp" line="163"/>
         <source>Open the WebIssues Manual for help.</source>
         <translation>打开用户手册。</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="165"/>
+        <location filename="../src/application.cpp" line="166"/>
         <source>Website</source>
         <translation>站点</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="166"/>
+        <location filename="../src/application.cpp" line="167"/>
         <source>Visit %1 for more information about WebIssues.</source>
         <translation>访问%1以获得更多关于WebIssues的信息。</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="169"/>
+        <location filename="../src/application.cpp" line="170"/>
         <source>Donations</source>
         <translation>捐赠</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="170"/>
+        <location filename="../src/application.cpp" line="171"/>
         <source>If you like this program, your donation will help us dedicate more time for it, support it and implement new features.</source>
         <translation>如果您喜欢本系统， 您的捐赠将帮助我们花更多的时间去完善它，增强它。</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="173"/>
-        <location filename="../src/application.cpp" line="215"/>
+        <location filename="../src/application.cpp" line="174"/>
+        <location filename="../src/application.cpp" line="216"/>
         <source>Latest Version</source>
         <translation>最新版本</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="174"/>
+        <location filename="../src/application.cpp" line="175"/>
         <source>Automatic checking for latest version is disabled. You can enable it in program settings.</source>
         <translation>自动检查更新已禁用。您可以在程序设置中启用它。</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="176"/>
+        <location filename="../src/application.cpp" line="177"/>
         <source>About WebIssues</source>
         <translation>关于WebIssues</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="180"/>
+        <location filename="../src/application.cpp" line="181"/>
         <source>&amp;Manual</source>
         <translation>手册(&amp;M)</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="187"/>
+        <location filename="../src/application.cpp" line="188"/>
         <source>&amp;Donate</source>
         <translation>捐赠(&amp;D)</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="197"/>
+        <location filename="../src/application.cpp" line="198"/>
         <source>&amp;Check Now</source>
         <translation>立即检查(&amp;C)</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="220"/>
+        <location filename="../src/application.cpp" line="221"/>
         <source>Checking for latest version...</source>
         <translation>正在检查最新版本...</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="226"/>
+        <location filename="../src/application.cpp" line="227"/>
         <source>Checking for latest version failed.</source>
         <translation>检查最新版本出错。</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="228"/>
+        <location filename="../src/application.cpp" line="229"/>
         <source>&amp;Retry</source>
         <translation>重试(&amp;R)</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="235"/>
+        <location filename="../src/application.cpp" line="236"/>
         <source>Your version of WebIssues is up to date.</source>
         <translation>您的WebIssues已经是最新版。</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="241"/>
+        <location filename="../src/application.cpp" line="242"/>
         <source>The latest version of WebIssues is %1.</source>
         <translation>当前最新版WebIssues是 %1。</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="243"/>
+        <location filename="../src/application.cpp" line="244"/>
         <source>&amp;Release Notes</source>
         <translation>发布须知(&amp;R)</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="246"/>
+        <location filename="../src/application.cpp" line="247"/>
         <source>Do&amp;wnload</source>
         <translation>下载(&amp;D)</translation>
     </message>
@@ -714,27 +714,27 @@
 <context>
     <name>AttributeOrderDialog</name>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="992"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="993"/>
         <source>Order of Attributes</source>
         <translation>属性顺序</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="993"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="994"/>
         <source>Modify order of attributes for type &lt;b&gt;%1&lt;/b&gt;:</source>
         <translation>修改类型&lt;b&gt;%1&lt;/b&gt;属性的顺序：</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="1009"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="1010"/>
         <source>Name</source>
         <translation>名称</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="1010"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="1011"/>
         <source>Order</source>
         <translation>顺序</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="1040"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="1041"/>
         <source>Edit view settings.</source>
         <translation>编辑视图设置。</translation>
     </message>
@@ -862,17 +862,17 @@
 <context>
     <name>CloneViewDialog</name>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="751"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="752"/>
         <source>Clone View</source>
         <translation>复制视图</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="753"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="754"/>
         <source>Clone view &lt;b&gt;%1&lt;/b&gt; as a new public view:</source>
         <translation>复制视图&lt;b&gt;%1&lt;/b&gt;为一个公共视图：</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="755"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="756"/>
         <source>Clone view &lt;b&gt;%1&lt;/b&gt; as a new personal  view:</source>
         <translation>复制视图&lt;b&gt;%1&lt;/b&gt;为一个个人视图：</translation>
     </message>
@@ -1234,7 +1234,7 @@
         <location filename="../src/widgets/inputlineedit.cpp" line="566"/>
         <location filename="../src/widgets/inputlineedit.cpp" line="576"/>
         <location filename="../src/widgets/inputlineedit.cpp" line="591"/>
-        <location filename="../src/widgets/inputlineedit.cpp" line="644"/>
+        <location filename="../src/widgets/inputlineedit.cpp" line="643"/>
         <source>Today</source>
         <translation>今天</translation>
     </message>
@@ -1260,12 +1260,12 @@
 <context>
     <name>DefaultViewDialog</name>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="834"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="835"/>
         <source>Default View</source>
         <translation>默认视图</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="835"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="836"/>
         <source>Modify the default view for type &lt;b&gt;%1&lt;/b&gt;:</source>
         <translation>修改类型&lt;b&gt;%1&lt;/b&gt;的默认视图：</translation>
     </message>
@@ -1415,17 +1415,17 @@
 <context>
     <name>DeleteViewDialog</name>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="921"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="922"/>
         <source>Delete View</source>
         <translation>删除视图</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="923"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="924"/>
         <source>Are you sure you want to delete public view &lt;b&gt;%1&lt;/b&gt;?</source>
         <translation>您确定要删除公共视图&lt;b&gt;%1&lt;/b&gt;吗？</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="925"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="926"/>
         <source>Are you sure you want to delete your personal view &lt;b&gt;%1&lt;/b&gt;?</source>
         <translation>您确定要删除个人视图&lt;b&gt;%1&lt;/b&gt;吗？</translation>
     </message>
@@ -2157,6 +2157,29 @@
     </message>
 </context>
 <context>
+    <name>InitialViewDialog</name>
+    <message>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="1127"/>
+        <source>Initial View</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="1128"/>
+        <source>Select initial view for type &lt;b&gt;%1&lt;/b&gt;:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="1133"/>
+        <source>&amp;View:</source>
+        <translation>视图(&amp;V)：</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="1137"/>
+        <source>All Issues</source>
+        <translation>所有工作项</translation>
+    </message>
+</context>
+<context>
     <name>InputLineEdit</name>
     <message>
         <location filename="../src/widgets/inputlineedit.cpp" line="225"/>
@@ -2199,163 +2222,138 @@
 <context>
     <name>IssueDetailsGenerator</name>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="63"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="71"/>
         <source>Properties</source>
         <translation>属性</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="68"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="76"/>
         <source>Attributes</source>
         <translation>属性</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="75"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="84"/>
         <source>Issue History</source>
         <translation>工作项历史</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="95"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="103"/>
         <source>ID:</source>
         <translation>ID：</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="100"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="108"/>
         <source>Type:</source>
         <translation>类型：</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="102"/>
-        <source>Project:</source>
-        <translation>项目：</translation>
-    </message>
-    <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="104"/>
-        <source>Folder:</source>
-        <translation>目录：</translation>
-    </message>
-    <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="109"/>
-        <source>Created date:</source>
-        <translation>创建日期：</translation>
-    </message>
-    <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="111"/>
-        <source>Created by:</source>
-        <translation>创建人：</translation>
-    </message>
-    <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="113"/>
-        <source>Modified date:</source>
-        <translation>修改时间：</translation>
-    </message>
-    <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="115"/>
-        <source>Modified by:</source>
-        <translation>修改人：</translation>
-    </message>
-    <message>
         <location filename="../src/models/issuedetailsgenerator.cpp" line="132"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="288"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="274"/>
         <source>:</source>
         <translation>：</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="187"/>
-        <source>Issue Created</source>
-        <translation>工作项已创建</translation>
-    </message>
-    <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="189"/>
-        <source>Issue Modified</source>
-        <translation>工作项已修改</translation>
-    </message>
-    <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="198"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="399"/>
         <source>Comment #%1</source>
         <translation>评论 #%1</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="214"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="401"/>
         <source>Attachment #%1</source>
         <translation>附件 #%1</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="230"/>
-        <source>Issue Moved</source>
-        <translation>工作项已移动</translation>
-    </message>
-    <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="245"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="237"/>
         <source>There are no comments.</source>
         <translation>没有评论。</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="247"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="239"/>
         <source>There are no attachments.</source>
         <translation>没有附件。</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="249"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="241"/>
         <source>There are no comments or attachments.</source>
         <translation>没有评论和附件。</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="259"/>
-        <source>last edited:</source>
-        <translation>上次编辑：</translation>
-    </message>
-    <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="271"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="278"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="257"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="264"/>
         <source>Name:</source>
         <translation>名称：</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="297"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="307"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="283"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="293"/>
         <source>empty</source>
         <translation>空</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="317"/>
-        <source>Folder</source>
-        <translation>目录</translation>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="110"/>
+        <source>Location:</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="321"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="331"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="115"/>
+        <source>Created:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="117"/>
+        <source>Last Modified:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="303"/>
+        <source>Issue moved from</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="307"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="319"/>
         <source>Unknown Folder</source>
         <translation>未知目录</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="377"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="315"/>
+        <source>to</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="365"/>
         <source>All History</source>
         <translation>所有历史</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="380"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="368"/>
         <source>Only Comments</source>
         <translation>仅评论</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="383"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="371"/>
         <source>Only Attachments</source>
         <translation>仅附件</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="386"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="374"/>
         <source>Comments &amp; Attachments</source>
         <translation>评论和附件</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="415"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="417"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="393"/>
+        <source>Last Edited:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="406"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="408"/>
         <source>Edit</source>
         <translation>编辑</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="422"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="424"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="412"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="414"/>
         <source>Delete</source>
         <translation>删除</translation>
     </message>
@@ -2550,7 +2548,7 @@
     </message>
     <message>
         <location filename="../src/views/issueview.cpp" line="179"/>
-        <location filename="../src/views/issueview.cpp" line="377"/>
+        <location filename="../src/views/issueview.cpp" line="376"/>
         <source>Mark As Read</source>
         <translation>标记为已读</translation>
     </message>
@@ -2575,84 +2573,84 @@
         <translation>报告</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="346"/>
+        <location filename="../src/views/issueview.cpp" line="345"/>
         <source>Unknown Issue</source>
         <translation>未知工作项</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="377"/>
+        <location filename="../src/views/issueview.cpp" line="376"/>
         <source>Mark As Unread</source>
         <translation>标记为未读</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="436"/>
+        <location filename="../src/views/issueview.cpp" line="435"/>
         <source>Add Attachment</source>
         <translation>添加附件</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="446"/>
+        <location filename="../src/views/issueview.cpp" line="445"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="447"/>
+        <location filename="../src/views/issueview.cpp" line="446"/>
         <source>The selected file is bigger than the maximum allowed file size
 on this server which is %1.</source>
         <translation>所选择的文件大小超过了服务器上文件大小限制，限制为%1。</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="748"/>
+        <location filename="../src/views/issueview.cpp" line="747"/>
         <source>%1 comments</source>
         <translation>%1条评论</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="750"/>
+        <location filename="../src/views/issueview.cpp" line="749"/>
         <source>%1 attachments</source>
         <translation>%1个附件</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="889"/>
+        <location filename="../src/views/issueview.cpp" line="887"/>
         <source>Attachment</source>
         <translation>附件</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="890"/>
+        <location filename="../src/views/issueview.cpp" line="888"/>
         <source>Do you want to save or open attachment &lt;b&gt;%1&lt;/b&gt;?</source>
         <translation>您是要保存还是打开附件&lt;b&gt;%1&lt;/b&gt;？</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="892"/>
+        <location filename="../src/views/issueview.cpp" line="890"/>
         <source>Do this automatically for all attachments</source>
         <translation>自动对所有附件执行此项</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="895"/>
+        <location filename="../src/views/issueview.cpp" line="893"/>
         <source>&amp;Save As...</source>
         <translation>另存为(&amp;S)...</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="897"/>
+        <location filename="../src/views/issueview.cpp" line="895"/>
         <source>&amp;Open</source>
         <translation>打开(&amp;O)</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="924"/>
+        <location filename="../src/views/issueview.cpp" line="922"/>
         <source>Save Attachment</source>
         <translation>保存附件</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="954"/>
-        <location filename="../src/views/issueview.cpp" line="960"/>
+        <location filename="../src/views/issueview.cpp" line="952"/>
+        <location filename="../src/views/issueview.cpp" line="958"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="954"/>
+        <location filename="../src/views/issueview.cpp" line="952"/>
         <source>File could not be overwritten.</source>
         <translation>文件无法被覆盖。</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="960"/>
+        <location filename="../src/views/issueview.cpp" line="958"/>
         <source>File could not be saved.</source>
         <translation>文件无法保存。</translation>
     </message>
@@ -3055,22 +3053,22 @@ Connected to %1</source>
 <context>
     <name>ModifyViewDialog</name>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="801"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="802"/>
         <source>Modify Public View</source>
         <translation>修改公共视图</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="802"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="803"/>
         <source>Modify the public view &lt;b&gt;%1&lt;/b&gt;:</source>
         <translation>修改公共视图&lt;b&gt;%1&lt;/b&gt;：</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="804"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="805"/>
         <source>Modify Personal View</source>
         <translation>修改个人视图</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="805"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="806"/>
         <source>Modify your personal view &lt;b&gt;%1&lt;/b&gt;:</source>
         <translation>修改您的的个人视图&lt;b&gt;%1&lt;/b&gt;：</translation>
     </message>
@@ -3142,199 +3140,256 @@ Connected to %1</source>
 <context>
     <name>PreferencesDialog</name>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="54"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="55"/>
         <source>User Preferences</source>
         <translation>用户偏好设置</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="56"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="57"/>
         <source>Configure your user preferences:</source>
         <translation>配置您的偏好设置：</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="58"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="59"/>
         <source>Configure preferences for user &lt;b&gt;%1&lt;/b&gt;:</source>
         <translation>配置用户&lt;b&gt;%1&lt;/b&gt;的偏好设置：</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="61"/>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="317"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="62"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="360"/>
         <source>Edit user preferences.</source>
         <translation>编辑用户偏好设置。</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="69"/>
-        <source>General</source>
-        <translation>一般</translation>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="70"/>
+        <source>Regional</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="73"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="74"/>
         <source>Regional Options</source>
         <translation>常规选项</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="77"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="78"/>
         <source>The following settings only affect the Web Client and email notifications.
 The Desktop Client will always use the language configured in program settings and the local time zone.</source>
         <translation>下列设置仅作用于Web客户端和邮件通知。
 桌面客户端总是使用程序设置或本机时区设置的语言。</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="81"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="82"/>
         <source>&amp;Language:</source>
         <translation>语言(&amp;L)：</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="89"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="90"/>
         <source>Time &amp;zone:</source>
         <translation>时区(&amp;Z)：</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="100"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="101"/>
         <source>Formats</source>
         <translation>格式</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="104"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="105"/>
         <source>Customize the format of numbers, date and time. Default formats depend on the selected language.</source>
         <translation>自定义数字格式，日期和时间。默认格式取决于所选择的语言。</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="108"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="109"/>
         <source>&amp;Number format:</source>
         <translation>数字格式(&amp;N)：</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="116"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="117"/>
         <source>&amp;Date format:</source>
         <translation>日期格式(&amp;D)：</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="124"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="125"/>
         <source>&amp;Time format:</source>
         <translation>时间格式(&amp;T)：</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="132"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="133"/>
         <source>&amp;First day of week:</source>
         <translation>每周第一天(&amp;F)：</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="142"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="146"/>
+        <source>View</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="150"/>
         <source>Page Size</source>
         <translation>页面大小</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="146"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="154"/>
         <source>The following settings only affect the Web Client.</source>
         <translation>下列设置仅作用于Web官户端。</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="149"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="157"/>
         <source>List of issues:</source>
         <translation>工作项列表：</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="157"/>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="168"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="165"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="176"/>
         <source>Default</source>
         <comment>page size</comment>
         <translation>默认</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="162"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="170"/>
         <source>Issue history:</source>
         <translation>工作项历史：</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="183"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="185"/>
+        <source>View Settings</source>
+        <translation>查看设置</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="189"/>
+        <source>Global view settings that affect all issue types.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="192"/>
+        <source>Order of issue history:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="200"/>
+        <source>Default</source>
+        <comment>order</comment>
+        <translation>默认</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="202"/>
+        <source>Oldest First</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="203"/>
+        <source>Newest First</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="205"/>
+        <source>Default filter in issue history:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="211"/>
+        <source>Default</source>
+        <comment>filter</comment>
+        <translation>默认</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="213"/>
+        <source>All History</source>
+        <translation>所有历史</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="214"/>
+        <source>Comments &amp; Attachments</source>
+        <translation>评论和附件</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="226"/>
         <source>Notifications</source>
         <translation>通知</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="187"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="230"/>
         <source>&amp;Email address:</source>
         <translation>邮件地址(&amp;E)：</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="197"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="240"/>
         <source>This address will only be visible to the system administrator. You will not receive notifications if you leave this field empty.</source>
         <translation>此邮件地址仅会对系统管理员可见。如果您将此处留空，您将不会收到通知。</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="203"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="246"/>
         <source>Settings</source>
         <translation>设置</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="208"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="251"/>
         <source>I&amp;nclude issue details in notificatons and summary reports</source>
         <translation>将工作项详细情况包含在通知和简报中(&amp;N)</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="212"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="255"/>
         <source>&amp;Do not notify about issues that I have already read</source>
         <translation>不要通知我已经阅读的工作项(&amp;D)</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="215"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="258"/>
         <source>Summary Schedule</source>
         <translation>安排概括</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="222"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="265"/>
         <source>Send on the following days:</source>
         <translation>在下列日期发送：</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="227"/>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="264"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="270"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="307"/>
         <source>Select All</source>
         <translation>全选</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="230"/>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="267"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="273"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="310"/>
         <source>Unselect All</source>
         <translation>全取消选择</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="259"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="302"/>
         <source>Send at the following hours:</source>
         <translation>在下列时间发送：</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="294"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="337"/>
         <source>You will not receive summary emails if you do not select any day and hour.</source>
         <translation>如果您不选择任何日期和日间您将不会收到总结邮件。</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="306"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="349"/>
         <source>Loading preferences...</source>
         <translation>正在加载偏好设置...</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="343"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="386"/>
         <source>Default</source>
         <comment>language</comment>
         <translation>默认</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="349"/>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="362"/>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="381"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="392"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="405"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="424"/>
         <source>Default</source>
         <comment>format</comment>
         <translation>默认</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="397"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="440"/>
         <source>Default</source>
         <comment>day of week</comment>
         <translation>默认</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="404"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="447"/>
         <source>Default</source>
         <comment>time zone</comment>
         <translation>默认</translation>
@@ -3361,94 +3416,94 @@ The Desktop Client will always use the language configured in program settings a
 <context>
     <name>ProjectsView</name>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="53"/>
+        <location filename="../src/views/projectsview.cpp" line="54"/>
         <source>&amp;Update Projects</source>
         <translation>更新项目(&amp;U)</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="58"/>
+        <location filename="../src/views/projectsview.cpp" line="59"/>
         <source>Project &amp;Members...</source>
         <translation>项目成员(&amp;M)...</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="59"/>
+        <location filename="../src/views/projectsview.cpp" line="60"/>
         <source>Members</source>
         <translation>成员</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="64"/>
+        <location filename="../src/views/projectsview.cpp" line="65"/>
         <source>Add &amp;Project...</source>
         <translation>添加项目(&amp;P)...</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="69"/>
+        <location filename="../src/views/projectsview.cpp" line="70"/>
         <source>Add &amp;Folder...</source>
         <translation>添加目录(&amp;F)...</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="74"/>
-        <location filename="../src/views/projectsview.cpp" line="292"/>
+        <location filename="../src/views/projectsview.cpp" line="75"/>
+        <location filename="../src/views/projectsview.cpp" line="295"/>
         <source>&amp;Rename Folder...</source>
         <translation>重命名目录(&amp;R)...</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="75"/>
+        <location filename="../src/views/projectsview.cpp" line="76"/>
         <source>Rename</source>
         <translation>重命名</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="76"/>
+        <location filename="../src/views/projectsview.cpp" line="77"/>
         <source>F2</source>
         <translation>F2</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="80"/>
-        <location filename="../src/views/projectsview.cpp" line="293"/>
+        <location filename="../src/views/projectsview.cpp" line="81"/>
+        <location filename="../src/views/projectsview.cpp" line="296"/>
         <source>&amp;Delete Folder</source>
         <translation>删除目录(&amp;D)</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="81"/>
+        <location filename="../src/views/projectsview.cpp" line="82"/>
         <source>Delete</source>
         <translation>删除</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="86"/>
+        <location filename="../src/views/projectsview.cpp" line="87"/>
         <source>&amp;Move Folder...</source>
         <translation>移动目录(&amp;M)...</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="87"/>
+        <location filename="../src/views/projectsview.cpp" line="88"/>
         <source>Move</source>
         <translation>移动</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="91"/>
+        <location filename="../src/views/projectsview.cpp" line="92"/>
         <source>&amp;Open Folder</source>
         <translation>打开目录(&amp;O)</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="96"/>
+        <location filename="../src/views/projectsview.cpp" line="97"/>
         <source>&amp;Manage Alerts...</source>
         <translation>管理警告(&amp;M)...</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="100"/>
+        <location filename="../src/views/projectsview.cpp" line="101"/>
         <source>Add</source>
         <translation>添加</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="101"/>
+        <location filename="../src/views/projectsview.cpp" line="102"/>
         <source>Projects</source>
         <translation>项目</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="292"/>
+        <location filename="../src/views/projectsview.cpp" line="295"/>
         <source>&amp;Rename Project...</source>
         <translation>重命名项目(&amp;R)...</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="293"/>
+        <location filename="../src/views/projectsview.cpp" line="296"/>
         <source>&amp;Delete Project</source>
         <translation>删除项目(&amp;D)</translation>
     </message>
@@ -3469,22 +3524,22 @@ The Desktop Client will always use the language configured in program settings a
 <context>
     <name>PublishViewDialog</name>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="950"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="951"/>
         <source>Publish View</source>
         <translation>发布视图</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="951"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="952"/>
         <source>Are you sure you want to convert your personal view &lt;b&gt;%1&lt;/b&gt; to a public view?</source>
         <translation>您确定要将您的个人视图&lt;b&gt;%1&lt;/b&gt;转换为公共视图吗？</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="954"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="955"/>
         <source>Unpublish View</source>
         <translation>取消发布视图</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="955"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="956"/>
         <source>Are you sure you want to convert public view &lt;b&gt;%1&lt;/b&gt; to your personal view?</source>
         <translation>您确定要将公共视图&lt;b&gt;%1&lt;/b&gt;转换为个人视图吗？</translation>
     </message>
@@ -3628,17 +3683,17 @@ The Desktop Client will always use the language configured in program settings a
 <context>
     <name>RenameViewDialog</name>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="866"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="867"/>
         <source>Rename View</source>
         <translation>重命名视图</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="867"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="868"/>
         <source>Enter the new name of view &lt;b&gt;%1&lt;/b&gt;:</source>
         <translation>请输入视图&lt;b&gt;%1&lt;/b&gt;的新名称：</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="872"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="873"/>
         <source>&amp;Name:</source>
         <translation>名称(&amp;N)：</translation>
     </message>
@@ -4667,102 +4722,102 @@ The Desktop Client will always use the language configured in program settings a
 <context>
     <name>ViewDialog</name>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="76"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="77"/>
         <source>&amp;Name:</source>
         <translation>名称(&amp;N)：</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="92"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="93"/>
         <source>General</source>
         <translation>一般</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="94"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="95"/>
         <source>Columns</source>
         <translation>列</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="98"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="99"/>
         <source>Select columns which will be displayed in the list of issues:</source>
         <translation>选择将在工作项列表中显示的列：</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="112"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="113"/>
         <source>Selected columns:</source>
         <translation>选择列：</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="113"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="114"/>
         <source>Order</source>
         <translation>顺序</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="115"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="116"/>
         <source>Available columns:</source>
         <translation>可用的列：</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="157"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="158"/>
         <source>Sort Order</source>
         <translation>排序</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="161"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="162"/>
         <source>Select the default sort order:</source>
         <translation>选择默认的排序顺序：</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="164"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="165"/>
         <source>Colu&amp;mn:</source>
         <translation>列(&amp;N)：</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="178"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="179"/>
         <source>Order:</source>
         <translation>顺序：</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="184"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="185"/>
         <source>&amp;Ascending</source>
         <translation>升序(&amp;A)</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="187"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="188"/>
         <source>&amp;Descending</source>
         <translation>降序(&amp;D)</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="203"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="204"/>
         <source>Filters</source>
         <translation>过滤</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="205"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="206"/>
         <source>Filter Conditions</source>
         <translation>过滤条件</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="209"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="210"/>
         <source>Select conditions which will be used to filter displayed issues:</source>
         <translation>选择将被用于过滤显示工作项的条件：</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="221"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="222"/>
         <source>Active conditions:</source>
         <translation>当前条件：</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="223"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="224"/>
         <source>Available conditions:</source>
         <translation>可用条件：</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="272"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="273"/>
         <source>Edit view settings.</source>
         <translation>编辑视力设置。</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="576"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="577"/>
         <source>Me</source>
         <translation>我</translation>
     </message>
@@ -4770,103 +4825,109 @@ The Desktop Client will always use the language configured in program settings a
 <context>
     <name>ViewSettingsDialog</name>
     <message>
-        <location filename="../src/dialogs/viewsettingsdialog.cpp" line="56"/>
+        <location filename="../src/dialogs/viewsettingsdialog.cpp" line="57"/>
         <source>&amp;Add Public View...</source>
         <translation>添加公共视图(&amp;A)...</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewsettingsdialog.cpp" line="58"/>
+        <location filename="../src/dialogs/viewsettingsdialog.cpp" line="59"/>
         <source>&amp;Add Personal View...</source>
         <translation>添加个人视图(&amp;A)...</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewsettingsdialog.cpp" line="63"/>
+        <location filename="../src/dialogs/viewsettingsdialog.cpp" line="64"/>
         <source>&amp;Clone View...</source>
         <translation>复制视图(&amp;C)...</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewsettingsdialog.cpp" line="67"/>
+        <location filename="../src/dialogs/viewsettingsdialog.cpp" line="68"/>
         <source>&amp;Rename View...</source>
         <translation>重命名视图(&amp;R)...</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewsettingsdialog.cpp" line="68"/>
+        <location filename="../src/dialogs/viewsettingsdialog.cpp" line="69"/>
         <source>F2</source>
         <translation>F2</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewsettingsdialog.cpp" line="72"/>
+        <location filename="../src/dialogs/viewsettingsdialog.cpp" line="73"/>
         <source>&amp;Delete View</source>
         <translation>删除视图(&amp;D)</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewsettingsdialog.cpp" line="77"/>
+        <location filename="../src/dialogs/viewsettingsdialog.cpp" line="78"/>
         <source>&amp;Modify View...</source>
         <translation>修改视图(&amp;M)...</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewsettingsdialog.cpp" line="83"/>
+        <location filename="../src/dialogs/viewsettingsdialog.cpp" line="84"/>
         <source>&amp;Unpublish View</source>
         <translation>取消发布视图(&amp;U)</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewsettingsdialog.cpp" line="85"/>
+        <location filename="../src/dialogs/viewsettingsdialog.cpp" line="86"/>
         <source>&amp;Publish View</source>
         <translation>发布视图(&amp;P)</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewsettingsdialog.cpp" line="102"/>
+        <location filename="../src/dialogs/viewsettingsdialog.cpp" line="103"/>
         <source>View Settings</source>
         <translation>查看设置</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewsettingsdialog.cpp" line="103"/>
+        <location filename="../src/dialogs/viewsettingsdialog.cpp" line="104"/>
         <source>Edit public view settings for type &lt;b&gt;%1&lt;/b&gt;:</source>
         <translation>修改类型&lt;b&gt;%1&lt;/b&gt;的公共视图：</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewsettingsdialog.cpp" line="105"/>
+        <location filename="../src/dialogs/viewsettingsdialog.cpp" line="106"/>
         <source>Manage Views</source>
         <translation>管理视图</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewsettingsdialog.cpp" line="106"/>
+        <location filename="../src/dialogs/viewsettingsdialog.cpp" line="107"/>
         <source>Edit personal view settings for type &lt;b&gt;%1&lt;/b&gt;:</source>
         <translation>修改类型&lt;b&gt;%1&lt;/b&gt;的个人视图：</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewsettingsdialog.cpp" line="113"/>
+        <location filename="../src/dialogs/viewsettingsdialog.cpp" line="114"/>
         <source>Order of Attributes</source>
         <translation>属性顺序</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewsettingsdialog.cpp" line="122"/>
-        <location filename="../src/dialogs/viewsettingsdialog.cpp" line="149"/>
+        <location filename="../src/dialogs/viewsettingsdialog.cpp" line="123"/>
+        <location filename="../src/dialogs/viewsettingsdialog.cpp" line="150"/>
+        <location filename="../src/dialogs/viewsettingsdialog.cpp" line="166"/>
         <source>Modify...</source>
         <translation>修改...</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewsettingsdialog.cpp" line="130"/>
+        <location filename="../src/dialogs/viewsettingsdialog.cpp" line="131"/>
         <source>Default View</source>
         <translation>默认视图</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewsettingsdialog.cpp" line="135"/>
+        <location filename="../src/dialogs/viewsettingsdialog.cpp" line="136"/>
         <source>Columns:</source>
         <translation>列：</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewsettingsdialog.cpp" line="142"/>
+        <location filename="../src/dialogs/viewsettingsdialog.cpp" line="143"/>
         <source>Sort By:</source>
         <translation>排序：</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewsettingsdialog.cpp" line="189"/>
+        <location filename="../src/dialogs/viewsettingsdialog.cpp" line="157"/>
+        <source>Initial View</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/viewsettingsdialog.cpp" line="206"/>
         <source>&amp;Manage Personal Views...</source>
         <translation>修改个人视图(&amp;M)...</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewsettingsdialog.cpp" line="189"/>
+        <location filename="../src/dialogs/viewsettingsdialog.cpp" line="206"/>
         <source>&amp;Public View Settings...</source>
         <translation>公共视图设置(&amp;P)...</translation>
     </message>
@@ -4874,112 +4935,117 @@ The Desktop Client will always use the language configured in program settings a
 <context>
     <name>ViewSettingsHelper</name>
     <message>
-        <location filename="../src/utils/viewsettingshelper.cpp" line="50"/>
+        <location filename="../src/utils/viewsettingshelper.cpp" line="51"/>
         <source>Name</source>
         <translation>名称</translation>
     </message>
     <message>
-        <location filename="../src/utils/viewsettingshelper.cpp" line="52"/>
+        <location filename="../src/utils/viewsettingshelper.cpp" line="53"/>
         <source>ID</source>
         <translation>ID</translation>
     </message>
     <message>
-        <location filename="../src/utils/viewsettingshelper.cpp" line="54"/>
+        <location filename="../src/utils/viewsettingshelper.cpp" line="55"/>
         <source>Created Date</source>
         <translation>创建日期</translation>
     </message>
     <message>
-        <location filename="../src/utils/viewsettingshelper.cpp" line="56"/>
+        <location filename="../src/utils/viewsettingshelper.cpp" line="57"/>
         <source>Created By</source>
         <translation>创建人</translation>
     </message>
     <message>
-        <location filename="../src/utils/viewsettingshelper.cpp" line="58"/>
+        <location filename="../src/utils/viewsettingshelper.cpp" line="59"/>
         <source>Modified Date</source>
         <translation>修改时间</translation>
     </message>
     <message>
-        <location filename="../src/utils/viewsettingshelper.cpp" line="60"/>
+        <location filename="../src/utils/viewsettingshelper.cpp" line="61"/>
         <source>Modified By</source>
         <translation>修改人</translation>
     </message>
     <message>
-        <location filename="../src/utils/viewsettingshelper.cpp" line="83"/>
+        <location filename="../src/utils/viewsettingshelper.cpp" line="84"/>
         <source>%1 (ascending)</source>
         <translation>%1 （升序）</translation>
     </message>
     <message>
-        <location filename="../src/utils/viewsettingshelper.cpp" line="85"/>
+        <location filename="../src/utils/viewsettingshelper.cpp" line="86"/>
         <source>%1 (descending)</source>
         <translation>%1 （降序）</translation>
     </message>
     <message>
-        <location filename="../src/utils/viewsettingshelper.cpp" line="112"/>
-        <location filename="../src/utils/viewsettingshelper.cpp" line="156"/>
+        <location filename="../src/utils/viewsettingshelper.cpp" line="113"/>
+        <location filename="../src/utils/viewsettingshelper.cpp" line="157"/>
         <source>contains</source>
         <translation>包含</translation>
     </message>
     <message>
-        <location filename="../src/utils/viewsettingshelper.cpp" line="114"/>
-        <location filename="../src/utils/viewsettingshelper.cpp" line="158"/>
+        <location filename="../src/utils/viewsettingshelper.cpp" line="115"/>
+        <location filename="../src/utils/viewsettingshelper.cpp" line="159"/>
         <source>begins with</source>
         <translation>开始于</translation>
     </message>
     <message>
-        <location filename="../src/utils/viewsettingshelper.cpp" line="116"/>
-        <location filename="../src/utils/viewsettingshelper.cpp" line="160"/>
+        <location filename="../src/utils/viewsettingshelper.cpp" line="117"/>
+        <location filename="../src/utils/viewsettingshelper.cpp" line="161"/>
         <source>ends with</source>
         <translation>结束于</translation>
     </message>
     <message>
-        <location filename="../src/utils/viewsettingshelper.cpp" line="118"/>
+        <location filename="../src/utils/viewsettingshelper.cpp" line="119"/>
         <source>in</source>
         <translation>在</translation>
     </message>
     <message>
-        <location filename="../src/utils/viewsettingshelper.cpp" line="133"/>
+        <location filename="../src/utils/viewsettingshelper.cpp" line="134"/>
         <source>empty</source>
         <translation>空</translation>
     </message>
     <message>
-        <location filename="../src/utils/viewsettingshelper.cpp" line="138"/>
+        <location filename="../src/utils/viewsettingshelper.cpp" line="139"/>
         <source>AND</source>
         <translation>和</translation>
     </message>
     <message>
-        <location filename="../src/utils/viewsettingshelper.cpp" line="144"/>
+        <location filename="../src/utils/viewsettingshelper.cpp" line="145"/>
         <source>is equal to</source>
         <translation>相等于</translation>
     </message>
     <message>
-        <location filename="../src/utils/viewsettingshelper.cpp" line="146"/>
+        <location filename="../src/utils/viewsettingshelper.cpp" line="147"/>
         <source>is not equal to</source>
         <translation>不等于</translation>
     </message>
     <message>
-        <location filename="../src/utils/viewsettingshelper.cpp" line="148"/>
+        <location filename="../src/utils/viewsettingshelper.cpp" line="149"/>
         <source>is less than</source>
         <translation>小于</translation>
     </message>
     <message>
-        <location filename="../src/utils/viewsettingshelper.cpp" line="150"/>
+        <location filename="../src/utils/viewsettingshelper.cpp" line="151"/>
         <source>is less than or equal to</source>
         <translation>小于等于</translation>
     </message>
     <message>
-        <location filename="../src/utils/viewsettingshelper.cpp" line="152"/>
+        <location filename="../src/utils/viewsettingshelper.cpp" line="153"/>
         <source>is greater than</source>
         <translation>大于</translation>
     </message>
     <message>
-        <location filename="../src/utils/viewsettingshelper.cpp" line="154"/>
+        <location filename="../src/utils/viewsettingshelper.cpp" line="155"/>
         <source>is greater than or equal to</source>
         <translation>大于等于</translation>
     </message>
     <message>
-        <location filename="../src/utils/viewsettingshelper.cpp" line="162"/>
+        <location filename="../src/utils/viewsettingshelper.cpp" line="163"/>
         <source>in list</source>
         <translation>在列</translation>
+    </message>
+    <message>
+        <location filename="../src/utils/viewsettingshelper.cpp" line="174"/>
+        <source>All Issues</source>
+        <translation>所有工作项</translation>
     </message>
 </context>
 <context>
