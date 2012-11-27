@@ -1,3 +1,9 @@
+1.0.4 (2012-11-27)
+    * simplified issue properties and history
+    * added settings and preferences for history order and filter
+    * added initial view for issue type
+    * added Today button when adding and editing an issue
+
 1.0.3 (2012-08-15)
     * added Dutch and Spanish translations
     * managing projects for the selected user

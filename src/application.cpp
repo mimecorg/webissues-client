@@ -294,7 +294,7 @@ void Application::openDownloads()
 
 QString Application::version() const
 {
-    return QString( "1.0.3" );
+    return QString( "1.0.4" );
 }
 
 QString Application::protocolVersion() const
