@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="nl_NL" sourcelanguage="de_DE">
+<TS version="2.0" language="nl">
 <context>
     <name>AboutBox</name>
     <message>
@@ -72,7 +72,7 @@
     <message>
         <location filename="../src/dialogs/alertdialogs.cpp" line="133"/>
         <source>&amp;Summary of notifications</source>
-        <translation>&amp;Samenvating van de berichten</translation>
+        <translation>Samenvating van de berichten</translation>
     </message>
     <message>
         <location filename="../src/dialogs/alertdialogs.cpp" line="137"/>
@@ -451,123 +451,123 @@
 <context>
     <name>Application</name>
     <message>
-        <location filename="../src/application.cpp" line="151"/>
+        <location filename="../src/application.cpp" line="150"/>
         <source>WebIssues Desktop Client %1</source>
         <translation>WebIssues Desktop Client %1</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="152"/>
+        <location filename="../src/application.cpp" line="151"/>
         <source>Desktop Client for the WebIssues team collaboration system.</source>
         <translation>Desktop Client voor het WebIssues team collaboration systeem.</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="153"/>
+        <location filename="../src/application.cpp" line="152"/>
         <source>This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.</source>
         <translation>Dit programma is vrije software: je kunt het herdistribueren en / of wijzigen onder de voorwaarden van de GNU Affero General Public License zoals gepubliceerd door de Free Software Foundation, versie 3 van de Licentie, of (naar keuze) een latere versie.</translation>
     </message>
     <message utf8="true">
-        <location filename="../src/application.cpp" line="157"/>
+        <location filename="../src/application.cpp" line="156"/>
         <source>Copyright &amp;copy; 2006 Michał Męciński</source>
         <translation>Copyright &amp;copy; 2006 Michał Męciński</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="157"/>
+        <location filename="../src/application.cpp" line="156"/>
         <source>Copyright &amp;copy; 2007-2012 WebIssues Team</source>
         <translation>Copyright &amp;copy; 2007-2012 WebIssues Team</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="162"/>
+        <location filename="../src/application.cpp" line="161"/>
         <source>Help</source>
         <translation>Help</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="163"/>
+        <location filename="../src/application.cpp" line="162"/>
         <source>Open the WebIssues Manual for help.</source>
         <translation>Open het WebIssues handboek voor hulp.</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="166"/>
+        <location filename="../src/application.cpp" line="165"/>
         <source>Website</source>
         <translation>Website</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="167"/>
+        <location filename="../src/application.cpp" line="166"/>
         <source>Visit %1 for more information about WebIssues.</source>
         <translation>Bezoek %1 voor meer informatie over WebIssues.</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="170"/>
+        <location filename="../src/application.cpp" line="169"/>
         <source>Donations</source>
         <translation>Donaties</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="171"/>
+        <location filename="../src/application.cpp" line="170"/>
         <source>If you like this program, your donation will help us dedicate more time for it, support it and implement new features.</source>
         <translation>Als dit programma je bevalt, dan zal je donatie ons helpen er meer tijd aan te besteden, het te ondersteunen en nieuwe functies te  implementeren.</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="174"/>
-        <location filename="../src/application.cpp" line="216"/>
+        <location filename="../src/application.cpp" line="173"/>
+        <location filename="../src/application.cpp" line="215"/>
         <source>Latest Version</source>
         <translation>Laatste versie</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="175"/>
+        <location filename="../src/application.cpp" line="174"/>
         <source>Automatic checking for latest version is disabled. You can enable it in program settings.</source>
         <translation>Automaistch controleren op de laatste versie is uitgeschakeld. Je kan het activeren in de programma instellingen.</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="177"/>
+        <location filename="../src/application.cpp" line="176"/>
         <source>About WebIssues</source>
         <translation>Over WebIssues</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="181"/>
+        <location filename="../src/application.cpp" line="180"/>
         <source>&amp;Manual</source>
         <translation>&amp;Handboek</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="188"/>
+        <location filename="../src/application.cpp" line="187"/>
         <source>&amp;Donate</source>
         <translation>&amp;Doneer</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="198"/>
+        <location filename="../src/application.cpp" line="197"/>
         <source>&amp;Check Now</source>
         <translation>Nu &amp;Controleren</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="221"/>
+        <location filename="../src/application.cpp" line="220"/>
         <source>Checking for latest version...</source>
         <translation>Controleren op recente versie...</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="227"/>
+        <location filename="../src/application.cpp" line="226"/>
         <source>Checking for latest version failed.</source>
         <translation>Controleren op recente versie mislukt.</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="229"/>
+        <location filename="../src/application.cpp" line="228"/>
         <source>&amp;Retry</source>
         <translation>&amp;Nogmaals</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="236"/>
+        <location filename="../src/application.cpp" line="235"/>
         <source>Your version of WebIssues is up to date.</source>
         <translation>Jouw versie van WebIssues is up-to-date.</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="242"/>
+        <location filename="../src/application.cpp" line="241"/>
         <source>The latest version of WebIssues is %1.</source>
         <translation>De meest recente versie van WebIssues is %1.</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="244"/>
+        <location filename="../src/application.cpp" line="243"/>
         <source>&amp;Release Notes</source>
         <translation>&amp;Release notes</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="247"/>
+        <location filename="../src/application.cpp" line="246"/>
         <source>Do&amp;wnload</source>
         <translation>Do&amp;wnload</translation>
     </message>
@@ -887,7 +887,7 @@
     <message>
         <location filename="../src/dialogs/commanddialog.cpp" line="129"/>
         <source>Please enter values.</source>
-        <translation>Graag waarden invullen.</translation>
+        <translation>Graag waarden invullen</translation>
     </message>
     <message>
         <location filename="../src/dialogs/commanddialog.cpp" line="129"/>
@@ -1185,7 +1185,7 @@
     <message>
         <location filename="../src/dialogs/connectioninfodialog.cpp" line="65"/>
         <source>&amp;View Certificate...</source>
-        <translation>Certificaat &amp;bekijken...</translation>
+        <translation>Certificaat &amp;bekijken</translation>
     </message>
     <message>
         <location filename="../src/dialogs/connectioninfodialog.cpp" line="81"/>
@@ -1249,12 +1249,12 @@
     <message>
         <location filename="../src/widgets/metadataeditors.cpp" line="297"/>
         <source>Date and &amp;time without time zone conversion</source>
-        <translation>Datum en &amp;tijd zonder tijdzone correctie</translation>
+        <translation>Datum en tijd zonder tijdzone correctie</translation>
     </message>
     <message>
         <location filename="../src/widgets/metadataeditors.cpp" line="299"/>
         <source>Date and time &amp;using local time zone</source>
-        <translation>Datum en tijd &amp;volgens de locale tijd zone</translation>
+        <translation>Datum en tijd volgens de locale tijd zone</translation>
     </message>
 </context>
 <context>
@@ -1912,12 +1912,12 @@
     <message>
         <location filename="../src/views/folderview.cpp" line="82"/>
         <source>Clone Issue...</source>
-        <translation>Issue kopieëren...</translation>
+        <translation>Issue kopieëren</translation>
     </message>
     <message>
         <location filename="../src/views/folderview.cpp" line="86"/>
         <source>&amp;Move Issue...</source>
-        <translation>Issue &amp;verplaatsen...</translation>
+        <translation>Issue &amp;verplaatsen</translation>
     </message>
     <message>
         <location filename="../src/views/folderview.cpp" line="87"/>
@@ -1995,7 +1995,7 @@
     <message>
         <location filename="../src/views/folderview.cpp" line="135"/>
         <source>&amp;Manage Views...</source>
-        <translation>Views &amp;beheren...</translation>
+        <translation>Views &amp;beheren</translation>
     </message>
     <message>
         <location filename="../src/views/folderview.cpp" line="139"/>
@@ -2146,7 +2146,7 @@
     <message>
         <location filename="../src/dialogs/issuedialogs.cpp" line="699"/>
         <source>File could not be saved.</source>
-        <translation>Bestand kon niet worden opgeslagen.</translation>
+        <translation>Bestand kon niet worden opgeslagen</translation>
     </message>
 </context>
 <context>
@@ -2162,12 +2162,12 @@
     <message>
         <location filename="../src/dialogs/viewdialogs.cpp" line="1127"/>
         <source>Initial View</source>
-        <translation type="unfinished"></translation>
+        <translation>Initiele view</translation>
     </message>
     <message>
         <location filename="../src/dialogs/viewdialogs.cpp" line="1128"/>
         <source>Select initial view for type &lt;b&gt;%1&lt;/b&gt;:</source>
-        <translation type="unfinished"></translation>
+        <translation>Selecteer de initiele view voor type &lt;b&gt;%1&lt;/b&gt;:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/viewdialogs.cpp" line="1133"/>
@@ -2266,12 +2266,12 @@
     <message>
         <location filename="../src/models/issuedetailsgenerator.cpp" line="237"/>
         <source>There are no comments.</source>
-        <translation>Er zijn geen opmerkingen.</translation>
+        <translation>Er zijn geen opmerkingen</translation>
     </message>
     <message>
         <location filename="../src/models/issuedetailsgenerator.cpp" line="239"/>
         <source>There are no attachments.</source>
-        <translation>Er zijn geen bijlagen.</translation>
+        <translation>Er zijn geen bijlagen</translation>
     </message>
     <message>
         <location filename="../src/models/issuedetailsgenerator.cpp" line="241"/>
@@ -2293,22 +2293,22 @@
     <message>
         <location filename="../src/models/issuedetailsgenerator.cpp" line="110"/>
         <source>Location:</source>
-        <translation type="unfinished"></translation>
+        <translation>Locatie:</translation>
     </message>
     <message>
         <location filename="../src/models/issuedetailsgenerator.cpp" line="115"/>
         <source>Created:</source>
-        <translation type="unfinished"></translation>
+        <translation>Aangemaakt:</translation>
     </message>
     <message>
         <location filename="../src/models/issuedetailsgenerator.cpp" line="117"/>
         <source>Last Modified:</source>
-        <translation type="unfinished"></translation>
+        <translation>Laatst aangepast:</translation>
     </message>
     <message>
         <location filename="../src/models/issuedetailsgenerator.cpp" line="303"/>
         <source>Issue moved from</source>
-        <translation type="unfinished"></translation>
+        <translation>Issue verplaatst van </translation>
     </message>
     <message>
         <location filename="../src/models/issuedetailsgenerator.cpp" line="307"/>
@@ -2319,7 +2319,7 @@
     <message>
         <location filename="../src/models/issuedetailsgenerator.cpp" line="315"/>
         <source>to</source>
-        <translation type="unfinished"></translation>
+        <translation>naar</translation>
     </message>
     <message>
         <location filename="../src/models/issuedetailsgenerator.cpp" line="365"/>
@@ -2344,7 +2344,7 @@
     <message>
         <location filename="../src/models/issuedetailsgenerator.cpp" line="393"/>
         <source>Last Edited:</source>
-        <translation type="unfinished"></translation>
+        <translation>Laatst bewerkt:</translation>
     </message>
     <message>
         <location filename="../src/models/issuedetailsgenerator.cpp" line="406"/>
@@ -2456,12 +2456,12 @@
     <message>
         <location filename="../src/views/issueview.cpp" line="80"/>
         <source>Add &amp;Comment...</source>
-        <translation>&amp;Opmerking toevoegen...</translation>
+        <translation>&amp;Opmerking toevoegen</translation>
     </message>
     <message>
         <location filename="../src/views/issueview.cpp" line="89"/>
         <source>&amp;Edit Attributes...</source>
-        <translation>Attributen &amp;bewerken...</translation>
+        <translation>Attributen &amp;bewerken</translation>
     </message>
     <message>
         <location filename="../src/views/issueview.cpp" line="94"/>
@@ -2471,7 +2471,7 @@
     <message>
         <location filename="../src/views/issueview.cpp" line="98"/>
         <source>&amp;Move Issue...</source>
-        <translation>&amp;Verplaats issue...</translation>
+        <translation>&amp;Verplaats issue</translation>
     </message>
     <message>
         <location filename="../src/views/issueview.cpp" line="99"/>
@@ -2506,7 +2506,7 @@
     <message>
         <location filename="../src/views/issueview.cpp" line="131"/>
         <source>&amp;Save Attachment As...</source>
-        <translation>Bijlage opslaan &amp;als...</translation>
+        <translation>Bijlage opslaan &amp;als</translation>
     </message>
     <message>
         <location filename="../src/views/issueview.cpp" line="135"/>
@@ -2608,12 +2608,12 @@ on this server which is %1.</source>
     <message>
         <location filename="../src/views/issueview.cpp" line="952"/>
         <source>File could not be overwritten.</source>
-        <translation>Bestand kon worden overschreven.</translation>
+        <translation>Bestand kon worden overschreven</translation>
     </message>
     <message>
         <location filename="../src/views/issueview.cpp" line="958"/>
         <source>File could not be saved.</source>
-        <translation>Bestand kon niet worden opgeslagen.</translation>
+        <translation>Bestand kon niet worden opgeslagen</translation>
     </message>
     <message>
         <location filename="../src/views/issueview.cpp" line="156"/>
@@ -2691,7 +2691,7 @@ on this server which is %1.</source>
     <message>
         <location filename="../src/dialogs/logindialog.cpp" line="60"/>
         <source>Enter login and password.</source>
-        <translation>Login en wachtwoord opgeven.</translation>
+        <translation>Login en wachtwoord opgeven</translation>
     </message>
     <message>
         <location filename="../src/dialogs/logindialog.cpp" line="64"/>
@@ -2719,7 +2719,7 @@ on this server which is %1.</source>
     <message>
         <location filename="../src/dialogs/logindialog.cpp" line="156"/>
         <source>You have to enter a new password in order to log in:</source>
-        <translation>Je moet een nieuw wachtwoord opgeven om aan te kunnen melden:</translation>
+        <translation>Je moet een nieuw wachtwoord opgeven om aan te kunnen melden.</translation>
     </message>
     <message>
         <location filename="../src/dialogs/logindialog.cpp" line="159"/>
@@ -2852,12 +2852,12 @@ Niet verbonden</translation>
     <message>
         <location filename="../src/mainwindow.cpp" line="186"/>
         <source>Not connected to server.</source>
-        <translation>Niet verbonden met de server.</translation>
+        <translation>Niet verbonden met de server</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="296"/>
         <source>Disconnected from server.</source>
-        <translation>Verbinding met de server verbroken.</translation>
+        <translation>Verbinding met de server verbroken</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="367"/>
@@ -3156,7 +3156,7 @@ Verbonden met %1</translation>
     <message>
         <location filename="../src/dialogs/preferencesdialog.cpp" line="70"/>
         <source>Regional</source>
-        <translation type="unfinished"></translation>
+        <translation>Regionale</translation>
     </message>
     <message>
         <location filename="../src/dialogs/preferencesdialog.cpp" line="74"/>
@@ -3251,12 +3251,12 @@ De Desktop Client zal altijd de taal en tijdzone instellingen gebruiken zoals op
     <message>
         <location filename="../src/dialogs/preferencesdialog.cpp" line="189"/>
         <source>Global view settings that affect all issue types.</source>
-        <translation type="unfinished"></translation>
+        <translation>Globale view instellingen die betrekking hebben op alle typen.</translation>
     </message>
     <message>
         <location filename="../src/dialogs/preferencesdialog.cpp" line="192"/>
         <source>Order of issue history:</source>
-        <translation type="unfinished"></translation>
+        <translation>Volgorde van de issue historie:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/preferencesdialog.cpp" line="200"/>
@@ -3267,22 +3267,23 @@ De Desktop Client zal altijd de taal en tijdzone instellingen gebruiken zoals op
     <message>
         <location filename="../src/dialogs/preferencesdialog.cpp" line="202"/>
         <source>Oldest First</source>
-        <translation type="unfinished"></translation>
+        <translation>Oudste eerst</translation>
     </message>
     <message>
         <location filename="../src/dialogs/preferencesdialog.cpp" line="203"/>
         <source>Newest First</source>
-        <translation type="unfinished"></translation>
+        <translation>Nieuwste eerst</translation>
     </message>
     <message>
         <location filename="../src/dialogs/preferencesdialog.cpp" line="205"/>
         <source>Default filter in issue history:</source>
-        <translation type="unfinished"></translation>
+        <translation>Standaard filter van de order historie:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/preferencesdialog.cpp" line="211"/>
         <source>Default</source>
         <comment>filter</comment>
+        <translatorcomment>filter</translatorcomment>
         <translation>Standaard</translation>
     </message>
     <message>
@@ -3308,7 +3309,7 @@ De Desktop Client zal altijd de taal en tijdzone instellingen gebruiken zoals op
     <message>
         <location filename="../src/dialogs/preferencesdialog.cpp" line="251"/>
         <source>I&amp;nclude issue details in notificatons and summary reports</source>
-        <translation>&amp;Neem issue details op in notificaties en overzichtsrapporten</translation>
+        <translation>&amp;Neem issue details op in notificaties en overzichtsrapporten.</translation>
     </message>
     <message>
         <location filename="../src/dialogs/preferencesdialog.cpp" line="255"/>
@@ -3459,7 +3460,7 @@ De Desktop Client zal altijd de taal en tijdzone instellingen gebruiken zoals op
         <location filename="../src/views/projectsview.cpp" line="75"/>
         <location filename="../src/views/projectsview.cpp" line="295"/>
         <source>&amp;Rename Folder...</source>
-        <translation>Folder &amp;hernoemen...</translation>
+        <translation>Folder &amp;hernoemen</translation>
     </message>
     <message>
         <location filename="../src/views/projectsview.cpp" line="76"/>
@@ -3505,7 +3506,7 @@ De Desktop Client zal altijd de taal en tijdzone instellingen gebruiken zoals op
     <message>
         <location filename="../src/views/projectsview.cpp" line="295"/>
         <source>&amp;Rename Project...</source>
-        <translation>Project &amp;hernoemen...</translation>
+        <translation>Project &amp;hernoemen</translation>
     </message>
     <message>
         <location filename="../src/views/projectsview.cpp" line="296"/>
@@ -3759,7 +3760,7 @@ De Desktop Client zal altijd de taal en tijdzone instellingen gebruiken zoals op
         <location filename="../src/dialogs/reportdialog.cpp" line="213"/>
         <location filename="../src/dialogs/reportdialog.cpp" line="234"/>
         <source>File could not be saved.</source>
-        <translation>Bestand kon niet worden opgeslagen.</translation>
+        <translation>Bestand kon niet worden opgeslagen</translation>
     </message>
     <message>
         <location filename="../src/dialogs/reportdialog.cpp" line="251"/>
@@ -3929,7 +3930,7 @@ De Desktop Client zal altijd de taal en tijdzone instellingen gebruiken zoals op
     <message>
         <location filename="../src/dialogs/userdialogs.cpp" line="179"/>
         <source>&amp;User must change password at next logon</source>
-        <translation>&amp;Gebruiker moet bij volgende keer aanmelden het wachtwoord aanpassen</translation>
+        <translation>Gebruiker moet bij volgende keer aanmelden het wachtwoord aanpassen</translation>
     </message>
     <message>
         <location filename="../src/dialogs/userdialogs.cpp" line="134"/>
@@ -4003,7 +4004,7 @@ De Desktop Client zal altijd de taal en tijdzone instellingen gebruiken zoals op
     <message>
         <location filename="../src/dialogs/settingsdialog.ui" line="402"/>
         <source>&amp;Update folders every:</source>
-        <translation>&amp;Bijwerken folders elke:</translation>
+        <translation>Bijwerken folders elke:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/settingsdialog.ui" line="412"/>
@@ -4267,7 +4268,7 @@ De Desktop Client zal altijd de taal en tijdzone instellingen gebruiken zoals op
     <message>
         <location filename="../src/dialogs/ssldialogs.cpp" line="177"/>
         <source>&amp;View Certificate...</source>
-        <translation>Certificaat &amp;bekijken...</translation>
+        <translation>Certificaat &amp;bekijken</translation>
     </message>
     <message>
         <location filename="../src/dialogs/ssldialogs.cpp" line="185"/>
@@ -4375,7 +4376,7 @@ De Desktop Client zal altijd de taal en tijdzone instellingen gebruiken zoals op
     <message>
         <location filename="../src/widgets/metadataeditors.cpp" line="40"/>
         <source>&amp;Allow entering multiple lines of text</source>
-        <translation>&amp;Meerdere regels tekst toestaan</translation>
+        <translation>Meerdere regels tekst toestaan</translation>
     </message>
     <message>
         <location filename="../src/widgets/metadataeditors.cpp" line="47"/>
@@ -4455,7 +4456,7 @@ De Desktop Client zal altijd de taal en tijdzone instellingen gebruiken zoals op
         <location filename="../src/views/typesview.cpp" line="55"/>
         <location filename="../src/views/typesview.cpp" line="152"/>
         <source>&amp;Rename Attribute...</source>
-        <translation>Attribuut &amp;hernoemen...</translation>
+        <translation>Attribuut hernoemen</translation>
     </message>
     <message>
         <location filename="../src/views/typesview.cpp" line="56"/>
@@ -4628,7 +4629,7 @@ De Desktop Client zal altijd de taal en tijdzone instellingen gebruiken zoals op
     <message>
         <location filename="../src/views/usersview.cpp" line="52"/>
         <source>&amp;Rename User...</source>
-        <translation>Gebruiker &amp;hernoemen...</translation>
+        <translation>Gebruiker &amp;hernoemen</translation>
     </message>
     <message>
         <location filename="../src/views/usersview.cpp" line="53"/>
@@ -4648,7 +4649,7 @@ De Desktop Client zal altijd de taal en tijdzone instellingen gebruiken zoals op
     <message>
         <location filename="../src/views/usersview.cpp" line="67"/>
         <source>User Pr&amp;ojects...</source>
-        <translation>Gebruiker pr&amp;ojecten...</translation>
+        <translation>Gebruiker pr&amp;ojecten</translation>
     </message>
     <message>
         <location filename="../src/views/usersview.cpp" line="68"/>
@@ -4862,7 +4863,7 @@ De Desktop Client zal altijd de taal en tijdzone instellingen gebruiken zoals op
     <message>
         <location filename="../src/dialogs/viewsettingsdialog.cpp" line="78"/>
         <source>&amp;Modify View...</source>
-        <translation>View &amp;bewerken...</translation>
+        <translation>View &amp;bewerken</translation>
     </message>
     <message>
         <location filename="../src/dialogs/viewsettingsdialog.cpp" line="84"/>
@@ -4924,7 +4925,7 @@ De Desktop Client zal altijd de taal en tijdzone instellingen gebruiken zoals op
     <message>
         <location filename="../src/dialogs/viewsettingsdialog.cpp" line="157"/>
         <source>Initial View</source>
-        <translation type="unfinished"></translation>
+        <translation>Initiele view</translation>
     </message>
     <message>
         <location filename="../src/dialogs/viewsettingsdialog.cpp" line="206"/>
