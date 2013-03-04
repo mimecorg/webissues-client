@@ -427,7 +427,7 @@ bool SqlTreeModel::setHeaderData( int section, Qt::Orientation orientation, cons
         return false;
 
     if ( d->m_headers.size() <= section )
-        d->m_headers.resize( qMax( section, 16 ) );
+        d->m_headers.resize( qMax( section + 1, 16 ) );
 
     d->m_headers[ section ][ role ] = value;
 
