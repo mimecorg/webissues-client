@@ -95,15 +95,7 @@ QStringList Validator::normalizeStringList( const QStringList& list, int maxLeng
 
 bool Validator::checkEmail( const QString& email )
 {
-    QRegExp emailRegExp(
-        "[a-zA-Z0-9_\\-\\.\\+\\^!#\\$%&*+\\/\\=\\?\\`\\|\\{\\}~\\']+" // user
-        "@("
-        "(?:(?:[a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\\-]*[a-zA-Z0-9])\\.?)+" // domain
-        "|(\\[("
-        "[0-9]{1,3}(\\.[0-9]{1,3}){3}" // IPv4
-        "|"
-        "[0-9a-fA-F]{1,4}(\\:[0-9a-fA-F]{1,4}){7}" // IPv6
-        ")\\]))" );
+    QRegExp emailRegExp( "[\\w.%+-]+@[\\w.-]+\\.[a-z]{2,4}", Qt::CaseInsensitive );
 
     if ( !emailRegExp.exactMatch( email ) ) {
         appendError( ErrorHelper::InvalidEmail );

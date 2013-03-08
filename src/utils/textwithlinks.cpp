@@ -61,12 +61,9 @@ void TextWithLinks::appendLink( const QString& text, const QString& url )
 
 void TextWithLinks::appendParsed( const QString& text )
 {
-    // \b \w [^\s@]* @ [^\s@]* \w
-    // \b ( mailto: | https?:// | ftp:// | file:// | www\. | ftp\. ) \S* [\w/\\]
-    // \\ \\ \S* [\w/\\]
-    // # \d+ \b
-
-    QRegExp linkExp( "\\b\\w[^\\s@]*@[^\\s@]*\\w|\\b(mailto:|https?://|ftp://|file://|www\\.|ftp\\.)\\S*[\\w/\\\\]|\\\\\\\\\\S*[\\w/\\\\]|#\\d+\\b" );
+    QRegExp linkExp( "\\b(?:mailto:)?[\\w.%+-]+@[\\w.-]+\\.[a-z]{2,4}\\b"
+        "|(?:\\b(?:(?:https?|ftp|file):\\/\\/|www\\.|ftp\\.)|\\\\\\\\)(?:\\([\\w+&@#\\/\\\\%=~|$?!:,.-]*\\)|[\\w+&@#\\/\\\\%=~|$?!:,.-])*(?:\\([\\w+&@#\\/\\\\%=~|$?!:,.-]*\\)|[\\w+&@#\\/\\\\%=~|$])"
+        "|#\\d+\\b", Qt::CaseInsensitive );
 
     int pos = 0;
     for ( ; ; ) {
@@ -86,14 +83,14 @@ void TextWithLinks::appendParsed( const QString& text )
         QString url;
         if ( link[ 0 ] == QLatin1Char( '#' ) )
             url = ( ( m_flags & NoInternalLinks ) ? "#id" : "id://" ) + link.mid( 1 );
+        else if ( link.startsWith( QLatin1String( "www." ), Qt::CaseInsensitive ) )
+            url = "http://" + link;
+        else if ( link.startsWith( QLatin1String( "ftp." ), Qt::CaseInsensitive ) )
+            url = "ftp://" + link;
         else if ( link.startsWith( QLatin1String( "\\\\" ) ) )
             url = "file:///" + link;
-        else if ( linkExp.cap( 1 ).isEmpty() )
+        else if ( !link.contains( QLatin1Char( ':' ) ) )
             url = "mailto:" + link;
-        else if ( link.startsWith( QLatin1String( "www." ) ) )
-            url = "http://" + link;
-        else if ( link.startsWith( QLatin1String( "ftp." ) ) )
-            url = "ftp://" + link;
         else
             url = link;
 
