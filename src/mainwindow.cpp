@@ -53,6 +53,7 @@
 #include <QMenu>
 #include <QStatusBar>
 #include <QAccessible>
+#include <QDesktopWidget>
 
 #if defined( HAVE_OPENSSL )
 #include <QSslCipher>
@@ -165,10 +166,13 @@ MainWindow::MainWindow() :
     showStartPage();
 
     LocalSettings* settings = application->applicationSettings();
-    if ( settings->contains( "MainWindowGeometry" ) )
+    if ( settings->contains( "MainWindowGeometry" ) ) {
         restoreGeometry( settings->value( "MainWindowGeometry" ).toByteArray() );
-    else
-        resize( QSize( 750, 500 ) );
+    } else {
+        QRect available = QApplication::desktop()->availableGeometry( this );
+        resize( available.width() * 4 / 5, available.height() * 4 / 5 );
+        setWindowState( Qt::WindowMaximized );
+    }
 
     connect( settings, SIGNAL( settingsChanged() ), this, SLOT( settingsChanged() ) );
 
@@ -439,10 +443,23 @@ void MainWindow::connectionOpened()
 void MainWindow::restoreViewState()
 {
     LocalSettings* settings = application->applicationSettings();
+
     if ( QSplitter* horizSplitter = qobject_cast<QSplitter*>( centralWidget() ) ) {
-        horizSplitter->restoreState( settings->value( "MainWindowHSplit" ).toByteArray() );
-        if ( QSplitter* vertSplitter = qobject_cast<QSplitter*>( horizSplitter->widget( 1 ) ) )
-            vertSplitter->restoreState( settings->value( "MainWindowVSplit" ).toByteArray() );
+        QByteArray horizData = settings->value( "MainWindowHSplit" ).toByteArray();
+
+        if ( !horizData.isEmpty() )
+            horizSplitter->restoreState( horizData );
+        else
+            horizSplitter->setSizes( QList<int>() << 350 << width() - 350 );
+
+        if ( QSplitter* vertSplitter = qobject_cast<QSplitter*>( horizSplitter->widget( 1 ) ) ) {
+            QByteArray vertData = settings->value( "MainWindowVSplit" ).toByteArray();
+
+            if ( !vertData.isEmpty() )
+                vertSplitter->restoreState( vertData );
+            else
+                vertSplitter->setSizes( QList<int>() << height() / 3 << height() * 2 / 3 );
+        }
     }
 }
 
