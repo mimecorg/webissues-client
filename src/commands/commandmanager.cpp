@@ -303,6 +303,11 @@ void CommandManager::sendCommandRequest( Command* command )
 
     request.setHeader( QNetworkRequest::ContentTypeHeader, m_currentMessage->contentType() );
 
+    if ( command->binaryResponseOutput() )
+        request.setRawHeader( "Accept", "application/octet-stream,*/*" );
+    else
+        request.setRawHeader( "Accept", "text/plain,*/*" );
+
     m_statusCode = 0;
     setError( NoError );
 
