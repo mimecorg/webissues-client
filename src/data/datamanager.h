@@ -112,6 +112,21 @@ enum AlertEmail
 };
 
 /**
+* Format of comment or description.
+*/
+enum TextFormat
+{
+    /**
+    * Plain text format.
+    */
+    PlainText = 0,
+    /**
+    * Text with markup.
+    */
+    TextWithMarkup = 1
+};
+
+/**
 * Class for storing data retrieved from the Webissues server.
 *
 * This class stores data tables which reflect the structure of the server's database.

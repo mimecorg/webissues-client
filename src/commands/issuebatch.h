@@ -20,8 +20,9 @@
 #ifndef ISSUEBATCH_H
 #define ISSUEBATCH_H
 
-#include "abstractbatch.h"
-#include "batchjob.h"
+#include "commands/abstractbatch.h"
+#include "commands/batchjob.h"
+#include "data/datamanager.h"
 
 class Reply;
 
@@ -86,15 +87,17 @@ public:
     /**
     * Add the <tt>ADD COMMENT</tt> command to the batch.
     * @param text Text of the comment.
+    * @param format Format of the text.
     */
-    void addComment( const QString& text );
+    void addComment( const QString& text, TextFormat format );
 
     /**
     * Add the <tt>EDIT COMMENT</tt> command to the batch.
     * @param commentId Identifier of the comment.
     * @param newText New text of the comment.
+    * @param newFormat New format of the text.
     */
-    void editComment( int commentId, const QString& newText );
+    void editComment( int commentId, const QString& newText, TextFormat newFormat );
 
     /**
     * Add the <tt>DELETE COMMENT</tt> command to the batch.

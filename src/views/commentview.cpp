@@ -221,9 +221,9 @@ void CommentView::sendComment()
 
         IssueBatch* batch = new IssueBatch( m_issueId );
         if ( id() == m_issueId )
-            batch->addComment( text );
+            batch->addComment( text, PlainText );
         else
-            batch->editComment( id(), text );
+            batch->editComment( id(), text, PlainText );
 
         connect( batch, SIGNAL( completed( bool ) ), this, SLOT( sendCompleted( bool ) ) );
 

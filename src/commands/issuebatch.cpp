@@ -86,18 +86,20 @@ void IssueBatch::deleteIssue()
     setUpdateFolder( true );
 }
 
-void IssueBatch::addComment( const QString& text )
+void IssueBatch::addComment( const QString& text, TextFormat format )
 {
     Job job( &IssueBatch::addCommentJob );
     job.addArg( text );
+    job.addArg( format );
     m_queue.addJob( job );
 }
 
-void IssueBatch::editComment( int commentId, const QString& newText )
+void IssueBatch::editComment( int commentId, const QString& newText, TextFormat newFormat )
 {
     Job job( &IssueBatch::editCommentJob );
     job.addArg( commentId );
     job.addArg( newText );
+    job.addArg( newFormat );
     m_queue.addJob( job );
 }
 
@@ -263,6 +265,7 @@ Command* IssueBatch::addCommentJob( const Job& job )
     command->setKeyword( "ADD COMMENT" );
     command->addArg( m_issueId );
     command->addArg( job.argString( 0 ) );
+    command->addArg( job.argInt( 1 ) );
 
     command->addRule( "ID i", ReplyRule::One );
 

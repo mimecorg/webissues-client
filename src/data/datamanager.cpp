@@ -160,7 +160,7 @@ bool DataManager::lockDatabase( const QSqlDatabase& database )
 
 bool DataManager::installSchema( const QSqlDatabase& database )
 {
-    const int schemaVersion = 2;
+    const int schemaVersion = 3;
 
     Query query( database );
 
@@ -184,7 +184,7 @@ bool DataManager::installSchema( const QSqlDatabase& database )
             "CREATE TABLE changes ( change_id integer UNIQUE, issue_id integer, change_type integer, stamp_id integer, created_time integer, created_user_id integer, "
                 "modified_time integer, modified_user_id integer, attr_id integer, old_value text, new_value text, from_folder_id integer, to_folder_id integer )",
             "CREATE INDEX changes_issue_idx ON changes ( issue_id )",
-            "CREATE TABLE comments ( comment_id integer UNIQUE, comment_text text )",
+            "CREATE TABLE comments ( comment_id integer UNIQUE, comment_text text, comment_format integer )",
             "CREATE TABLE files ( file_id integer UNIQUE, file_name text, file_size integer, file_descr text )",
             "CREATE TABLE folders ( folder_id integer UNIQUE, project_id integer, folder_name text, type_id integer, stamp_id integer )",
             "CREATE TABLE folders_cache ( folder_id integer UNIQUE, list_id integer )",
@@ -232,6 +232,11 @@ bool DataManager::installSchema( const QSqlDatabase& database )
         m_fileCache->flush();
 
         if ( !query.execQuery( "DROP TABLE files_cache" ) )
+            return false;
+    }
+
+    if ( currentVersion < 3 ) {
+        if ( !query.execQuery( "ALTER TABLE comments ADD comment_format integer" ) )
             return false;
     }
 
@@ -1010,7 +1015,7 @@ Command* DataManager::updateIssue( int issueId, bool markAsRead )
     command->addRule( "I iisiiiii", ReplyRule::One );
     command->addRule( "V iis", ReplyRule::ZeroOrMore );
     command->addRule( "H iiiiiiiiissii", ReplyRule::ZeroOrMore );
-    command->addRule( "C is", ReplyRule::ZeroOrMore );
+    command->addRule( "C isi", ReplyRule::ZeroOrMore );
     command->addRule( "A isis", ReplyRule::ZeroOrMore );
     command->addRule( "X i", ReplyRule::ZeroOrMore );
 
@@ -1097,7 +1102,7 @@ bool DataManager::updateIssueReply( const Reply& reply, const QSqlDatabase& data
             return false;
     }
 
-    query.setQuery( "INSERT OR REPLACE INTO comments VALUES ( ?, ? )" );
+    query.setQuery( "INSERT OR REPLACE INTO comments VALUES ( ?, ?, ? )" );
 
     for ( ; i < reply.count() && reply.at( i ).keyword() == QLatin1String( "C" ); i++ ) {
         if ( !query.exec( reply.at( i ).args() ) )
