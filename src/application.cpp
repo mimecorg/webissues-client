@@ -294,12 +294,12 @@ void Application::openDownloads()
 
 QString Application::version() const
 {
-    return QString( "1.0.4" );
+    return QString( "1.1-beta1" );
 }
 
 QString Application::protocolVersion() const
 {
-    return QString( "1.0" );
+    return QString( "1.1-beta1" );
 }
 
 void Application::initializeLanguage()
@@ -395,7 +395,7 @@ void Application::initializeDefaultPaths()
     else
         m_dataPath = QDir::homePath();
 
-    m_dataPath += QLatin1String( "/WebIssues Client/1.0" );
+    m_dataPath += QLatin1String( "/WebIssues Client/1.1" );
 
     wchar_t localAppDataPath[ MAX_PATH ];
     if ( SHGetSpecialFolderPath( 0, localAppDataPath, CSIDL_LOCAL_APPDATA, FALSE ) )
@@ -403,15 +403,15 @@ void Application::initializeDefaultPaths()
     else
         m_cachePath = QDir::homePath();
 
-    m_cachePath += QLatin1String( "/WebIssues Client/1.0/cache" );
+    m_cachePath += QLatin1String( "/WebIssues Client/1.1/cache" );
 
     m_tempPath = QDir::tempPath() + "/WebIssues Client";
 #else
     m_dataPath = QDesktopServices::storageLocation( QDesktopServices::DataLocation );
-    m_dataPath += QLatin1String( "/webissues-1.0" );
+    m_dataPath += QLatin1String( "/webissues-1.1" );
 
     m_cachePath = QDesktopServices::storageLocation( QDesktopServices::CacheLocation );
-    m_cachePath += QLatin1String( "/webissues-1.0" );
+    m_cachePath += QLatin1String( "/webissues-1.1" );
 
     m_tempPath = QDir::tempPath() + "/webissues";
 #endif
