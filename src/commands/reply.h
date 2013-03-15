@@ -166,7 +166,9 @@ public:
         /** The line must occur exactly once. */
         One,
         /** The line can occur zero or more times. */
-        ZeroOrMore
+        ZeroOrMore,
+        /** The line can occur zero or one time. */
+        ZeroOrOne,
     };
 
 public:

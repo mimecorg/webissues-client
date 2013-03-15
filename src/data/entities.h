@@ -35,6 +35,7 @@ class UserEntity;
 class MemberEntity;
 class IssueEntity;
 class ValueEntity;
+class IssueDescriptionEntity;
 class CommentEntity;
 class FileEntity;
 class ChangeEntity;
@@ -53,6 +54,7 @@ class UserEntityData;
 class MemberEntityData;
 class IssueEntityData;
 class ValueEntityData;
+class IssueDescriptionEntityData;
 class CommentEntityData;
 class FileEntityData;
 class ChangeEntityData;
@@ -349,6 +351,8 @@ public:
     QList<ValueEntity> values() const;
     QList<ValueEntity> nonEmptyValues() const;
 
+    IssueDescriptionEntity description() const;
+
     QList<ChangeEntity> changes( Qt::SortOrder order ) const;
     QList<ChangeEntity> commentsAndFiles( Qt::SortOrder order ) const;
     QList<ChangeEntity> comments( Qt::SortOrder order ) const;
@@ -395,6 +399,32 @@ private:
     friend class AttributeEntity;
 };
 
+class IssueDescriptionEntity
+{
+public:
+    IssueDescriptionEntity();
+    ~IssueDescriptionEntity();
+
+    IssueDescriptionEntity( const IssueDescriptionEntity& other );
+    IssueDescriptionEntity& operator =( const IssueDescriptionEntity& other );
+
+public:
+    bool isValid() const;
+
+    int issueId() const;
+    const QString& text() const;
+    TextFormat format() const;
+
+    const QDateTime& modifiedDate() const;
+    const QString& modifiedUser() const;
+
+private:
+    QExplicitlySharedDataPointer<IssueDescriptionEntityData> d;
+
+    friend class IssueEntity;
+    friend class IssueEntityData;
+};
+
 class CommentEntity
 {
 public:
@@ -409,6 +439,7 @@ public:
 
     int id() const;
     const QString& text() const;
+    TextFormat format() const;
 
 private:
     QExplicitlySharedDataPointer<CommentEntityData> d;

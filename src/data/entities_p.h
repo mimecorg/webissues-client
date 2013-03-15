@@ -189,6 +189,23 @@ public:
     QString m_value;
 };
 
+class IssueDescriptionEntityData : public QSharedData
+{
+public:
+    IssueDescriptionEntityData();
+    ~IssueDescriptionEntityData();
+
+public:
+    void read( const Query& query );
+
+public:
+    int m_issueId;
+    QString m_text;
+    TextFormat m_format;
+    QDateTime m_modifiedDate;
+    QString m_modifiedUser;
+};
+
 class CommentEntityData : public QSharedData
 {
 public:
@@ -201,6 +218,7 @@ public:
 public:
     int m_id;
     QString m_text;
+    TextFormat m_format;
 };
 
 class FileEntityData : public QSharedData
@@ -254,6 +272,7 @@ public:
     QString m_toFolder;
 
     QString m_commentText;
+    TextFormat m_commentFormat;
 
     QString m_fileName;
     int m_fileSize;

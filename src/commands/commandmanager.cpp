@@ -490,7 +490,7 @@ bool CommandManager::validateReply( const Reply& reply )
         ReplyRule replyRule = m_currentCommand->rules().at( rule );
         if ( makeSignature( reply.lines().at( line ) ) == replyRule.signature() ) {
             line++;
-            if ( replyRule.multiplicity() == ReplyRule::One )
+            if ( replyRule.multiplicity() == ReplyRule::One || replyRule.multiplicity() == ReplyRule::ZeroOrOne )
                 rule++;
         } else {
             if ( replyRule.multiplicity() == ReplyRule::One )

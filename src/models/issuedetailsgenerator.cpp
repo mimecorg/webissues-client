@@ -78,13 +78,34 @@ void IssueDetailsGenerator::write( TextWriter* writer, TextWithLinks::Flags flag
         }
 
         if ( m_history != NoHistory ) {
-            writer->appendLayoutRows( 1 );
+            IssueDescriptionEntity description = issue.description();
 
-            writer->gotoLayoutCell( 1, 0, TextWriter::NormalCell );
+            if ( description.isValid() ) {
+                writer->appendLayoutRows( 2 );
+
+                writer->gotoLayoutCell( 1, 0, TextWriter::NormalCell );
+                writer->writeBlock( tr( "Description" ), TextWriter::Header2Block );
+
+                TextWithLinks result( flags );
+                Formatter formatter;
+                result.appendText( tr( "Last Edited:" ) );
+                result.appendText( QString::fromUtf8( " %1 — %2" ).arg( formatter.formatDateTime( description.modifiedDate(), true ), description.modifiedUser() ) );
+
+                writer->gotoLayoutCell( 1, 1, TextWriter::NormalCell );
+                writer->writeBlock( result, TextWriter::LinksBlock );
+
+                writer->mergeLayoutCells( 2, 0, 1, 2 );
+                writer->gotoLayoutCell( 2, 0, TextWriter::CommentCell );
+                writer->writeBlock( TextWithLinks::parse( description.text(), flags ), TextWriter::NormalBlock );
+            }
+
+            int row = writer->appendLayoutRows( 1 );
+
+            writer->gotoLayoutCell( row, 0, TextWriter::NormalCell );
             writer->writeBlock( tr( "Issue History" ), TextWriter::Header2Block );
 
             if ( !flags.testFlag( TextWithLinks::NoInternalLinks ) ) {
-                writer->gotoLayoutCell( 1, 1, TextWriter::LinksCell );
+                writer->gotoLayoutCell( row, 1, TextWriter::LinksCell );
                 writer->writeBlock( historyLinks( flags ), TextWriter::LinksBlock );
             }
 

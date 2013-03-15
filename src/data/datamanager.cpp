@@ -189,6 +189,7 @@ bool DataManager::installSchema( const QSqlDatabase& database )
             "CREATE TABLE folders ( folder_id integer UNIQUE, project_id integer, folder_name text, type_id integer, stamp_id integer )",
             "CREATE TABLE folders_cache ( folder_id integer UNIQUE, list_id integer )",
             "CREATE TABLE formats ( format_type text, format_key text, format_def text )",
+            "CREATE TABLE issue_descriptions ( issue_id integer UNIQUE, descr_text text, descr_format integer, modified_time integer, modified_user_id integer )",
             "CREATE TABLE issue_locks ( issue_id integer UNIQUE, lock_count integer, last_access integer )",
             "CREATE TABLE issue_states ( user_id integer, issue_id integer, read_id integer, UNIQUE ( user_id, issue_id ) )",
             "CREATE TABLE issue_types ( type_id integer UNIQUE, type_name text )",
@@ -236,8 +237,15 @@ bool DataManager::installSchema( const QSqlDatabase& database )
     }
 
     if ( currentVersion < 3 ) {
-        if ( !query.execQuery( "ALTER TABLE comments ADD comment_format integer" ) )
-            return false;
+        const char* queries[] = {
+            "ALTER TABLE comments ADD comment_format integer",
+            "CREATE TABLE issue_descriptions ( issue_id integer UNIQUE, descr_text text, descr_format integer, modified_time integer, modified_user_id integer )"
+        };
+
+        for ( int i = 0; i < (int)( sizeof( queries ) / sizeof( queries[ 0 ] ) ); i++ ) {
+            if ( !query.execQuery( queries[ i ] ) )
+                return false;
+        }
     }
 
     QString sql = QString( "PRAGMA user_version = %1" ).arg( schemaVersion );
@@ -1014,6 +1022,8 @@ Command* DataManager::updateIssue( int issueId, bool markAsRead )
     command->setAcceptNullReply( true );
     command->addRule( "I iisiiiii", ReplyRule::One );
     command->addRule( "V iis", ReplyRule::ZeroOrMore );
+    command->addRule( "D isiii", ReplyRule::ZeroOrOne );
+    command->addRule( "DX i", ReplyRule::ZeroOrOne );
     command->addRule( "H iiiiiiiiissii", ReplyRule::ZeroOrMore );
     command->addRule( "C isi", ReplyRule::ZeroOrMore );
     command->addRule( "A isis", ReplyRule::ZeroOrMore );
@@ -1093,6 +1103,18 @@ bool DataManager::updateIssueReply( const Reply& reply, const QSqlDatabase& data
     for ( ; i < reply.count() && reply.at( i ).keyword() == QLatin1String( "V" ); i++ ) {
         if ( !query.exec( reply.at( i ).args() ) )
             return false;
+    }
+
+    if ( i < reply.count() && reply.at( i ).keyword() == QLatin1String( "D" ) ) {
+        if ( !query.execQuery( "INSERT OR REPLACE INTO issue_descriptions VALUES ( ?, ?, ?, ?, ? )", reply.at( i ).args() ) )
+            return false;
+        i++;
+    }
+
+    if ( i < reply.count() && reply.at( i ).keyword() == QLatin1String( "DX" ) ) {
+        if ( !query.execQuery( "DELETE FROM issue_descriptions WHERE issue_id = ?", reply.at( i ).args() ) )
+            return false;
+        i++;
     }
 
     query.setQuery( "INSERT OR REPLACE INTO changes VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )" );
