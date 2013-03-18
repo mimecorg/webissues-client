@@ -307,7 +307,7 @@ bool DataManager::folderUpdateNeeded( int folderId ) const
     int stampId = query.readScalar().toInt();
 
     if ( stampId == 0 )
-        return true;
+        return false;
 
     if ( !query.execQuery( "SELECT list_id FROM folders_cache WHERE folder_id = ?", folderId ) )
         return false;
