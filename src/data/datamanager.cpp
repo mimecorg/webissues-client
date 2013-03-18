@@ -199,7 +199,9 @@ bool DataManager::installSchema( const QSqlDatabase& database )
             "CREATE TABLE issues_cache ( issue_id integer UNIQUE, details_id integer )",
             "CREATE TABLE languages ( lang_code text, lang_name text )",
             "CREATE TABLE preferences ( user_id integer, pref_key text, pref_value text, UNIQUE ( user_id, pref_key ) )",
-            "CREATE TABLE projects ( project_id integer UNIQUE, project_name text )",
+            "CREATE TABLE project_descriptions ( project_id integer UNIQUE, descr_text text, descr_format integer, modified_time integer, modified_user_id integer )",
+            "CREATE TABLE projects ( project_id integer UNIQUE, project_name text, stamp_id integer )",
+            "CREATE TABLE projects_cache ( project_id integer UNIQUE, summary_id integer )",
             "CREATE TABLE rights ( project_id integer, user_id integer, project_access integer, UNIQUE ( project_id, user_id ) )",
             "CREATE TABLE settings ( set_key text UNIQUE, set_value text )",
             "CREATE TABLE time_zones ( tz_name text, tz_offset integer )",
@@ -240,6 +242,9 @@ bool DataManager::installSchema( const QSqlDatabase& database )
         const char* queries[] = {
             "ALTER TABLE comments ADD comment_format integer",
             "CREATE TABLE issue_descriptions ( issue_id integer UNIQUE, descr_text text, descr_format integer, modified_time integer, modified_user_id integer )"
+            "CREATE TABLE project_descriptions ( project_id integer UNIQUE, descr_text text, descr_format integer, modified_time integer, modified_user_id integer )",
+            "ALTER TABLE projects ADD stamp_id integer",
+            "CREATE TABLE projects_cache ( project_id integer UNIQUE, summary_id integer )",
         };
 
         for ( int i = 0; i < (int)( sizeof( queries ) / sizeof( queries[ 0 ] ) ); i++ ) {
@@ -265,6 +270,30 @@ void DataManager::closeDatabase()
 bool DataManager::localeUpdateNeeded() const
 {
     return !m_localeUpdated;
+}
+
+bool DataManager::summaryUpdateNeeded( int projectId ) const
+{
+    QSqlDatabase database = QSqlDatabase::database();
+    Query query( database );
+
+    if ( !query.execQuery( "SELECT stamp_id FROM projects WHERE project_id = ?", projectId ) )
+        return false;
+
+    int stampId = query.readScalar().toInt();
+
+    if ( stampId == 0 )
+        return false;
+
+    if ( !query.execQuery( "SELECT summary_id FROM projects_cache WHERE project_id = ?", projectId ) )
+        return false;
+
+    int lastStampId = query.readScalar().toInt();
+
+    if ( stampId > lastStampId )
+        return true;
+
+    return false;
 }
 
 bool DataManager::folderUpdateNeeded( int folderId ) const
@@ -723,7 +752,7 @@ Command* DataManager::updateProjects()
 
     command->setAcceptNullReply( true );
     command->setReportNullReply( true );
-    command->addRule( "P is", ReplyRule::ZeroOrMore );
+    command->addRule( "P isi", ReplyRule::ZeroOrMore );
     command->addRule( "F iisii", ReplyRule::ZeroOrMore );
     command->addRule( "A iiii", ReplyRule::ZeroOrMore );
 
@@ -757,7 +786,7 @@ bool DataManager::updateProjectsReply( const Reply& reply, const QSqlDatabase& d
 
     int i = 0;
 
-    query.setQuery( "INSERT INTO projects VALUES ( ?, ? )" );
+    query.setQuery( "INSERT INTO projects VALUES ( ?, ?, ? )" );
 
     for ( ; i < reply.count() && reply.at( i ).keyword() == QLatin1String( "P" ); i++ ) {
         if ( !query.exec( reply.at( i ).args() ) )
@@ -852,6 +881,81 @@ bool DataManager::updateStatesReply( const Reply& reply, int lastStateId, const 
 
     if ( !recalculateAllAlerts( database ) )
         return false;
+
+    return true;
+}
+
+Command* DataManager::updateSummary( int projectId )
+{
+    QSqlDatabase database = QSqlDatabase::database();
+    Query query( database );
+
+    if ( !query.execQuery( "SELECT summary_id FROM projects_cache WHERE project_id = ?", projectId ) )
+        return false;
+
+    int lastStampId = query.readScalar().toInt();
+
+    Command* command = new Command();
+
+    command->setKeyword( "GET SUMMARY" );
+    command->addArg( projectId );
+    command->addArg( lastStampId );
+
+    command->setAcceptNullReply( true );
+    command->addRule( "P isi", ReplyRule::One );
+    command->addRule( "D isiii", ReplyRule::ZeroOrOne );
+    command->addRule( "DX i", ReplyRule::ZeroOrOne );
+
+    connect( command, SIGNAL( commandReply( const Reply& ) ), this, SLOT( updateSummaryReply( const Reply& ) ) );
+
+    return command;
+}
+
+void DataManager::updateSummaryReply( const Reply& reply )
+{
+    int projectId;
+
+    QSqlDatabase database = QSqlDatabase::database();
+    database.transaction();
+
+    bool ok = updateSummaryReply( reply, database, projectId );
+    if ( ok )
+        ok = database.commit();
+
+    if ( !ok )
+        database.rollback();
+
+    if ( ok ) {
+        notifyObservers( UpdateEvent::Summary, projectId );
+    }
+}
+
+bool DataManager::updateSummaryReply( const Reply& reply, const QSqlDatabase& database, int& projectId )
+{
+    projectId = reply.at( 0 ).argInt( 0 );
+    int lastStampId = reply.at( 0 ).argInt( 2 );
+
+    Query query( database );
+
+    if ( !query.execQuery( "INSERT OR REPLACE INTO projects VALUES ( ?, ?, ? )", reply.at( 0 ).args() ) )
+        return false;
+
+    if ( !query.execQuery( "INSERT OR REPLACE INTO projects_cache VALUES ( ?, ? )", projectId, lastStampId ) )
+        return false;
+
+    int i = 1;
+
+    if ( i < reply.count() && reply.at( i ).keyword() == QLatin1String( "D" ) ) {
+        if ( !query.execQuery( "INSERT OR REPLACE INTO project_descriptions VALUES ( ?, ?, ?, ?, ? )", reply.at( i ).args() ) )
+            return false;
+        i++;
+    }
+
+    if ( i < reply.count() && reply.at( i ).keyword() == QLatin1String( "DX" ) ) {
+        if ( !query.execQuery( "DELETE FROM project_descriptions WHERE project_id = ?", reply.at( i ).args() ) )
+            return false;
+        i++;
+    }
 
     return true;
 }

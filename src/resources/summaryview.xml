@@ -1,0 +1,7 @@
+<xmlui>
+  <strip id="stripMain">
+    <section id="sectionProject">
+      <action id="updateProject"/>
+    </section>
+  </strip>
+</xmlui>

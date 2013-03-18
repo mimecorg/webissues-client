@@ -4,6 +4,7 @@ HEADERS += models/alertsmodel.h \
            models/issuedetailsgenerator.h \
            models/membersmodel.h \
            models/projectsmodel.h \
+           models/projectsummarygenerator.h \
            models/querygenerator.h \
            models/reportgenerator.h \
            models/sqltreemodel.h \
@@ -18,6 +19,7 @@ SOURCES += models/alertsmodel.cpp \
            models/issuedetailsgenerator.cpp \
            models/membersmodel.cpp \
            models/projectsmodel.cpp \
+           models/projectsummarygenerator.cpp \
            models/querygenerator.cpp \
            models/reportgenerator.cpp \
            models/sqltreemodel.cpp \

@@ -78,7 +78,7 @@ void IssueDetailsGenerator::write( TextWriter* writer, TextWithLinks::Flags flag
         }
 
         if ( m_history != NoHistory ) {
-            IssueDescriptionEntity description = issue.description();
+            DescriptionEntity description = issue.description();
 
             if ( description.isValid() ) {
                 writer->appendLayoutRows( 2 );

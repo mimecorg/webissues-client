@@ -31,6 +31,7 @@
 #include "dialogs/connectioninfodialog.h"
 #include "utils/iconloader.h"
 #include "views/projectsview.h"
+#include "views/summaryview.h"
 #include "views/folderview.h"
 #include "views/issueview.h"
 #include "views/startview.h"
@@ -67,11 +68,14 @@ static const int TrayIconSize = 22;
 
 MainWindow::MainWindow() :
     m_view( NULL ),
+    m_summaryView( NULL ),
     m_folderView( NULL ),
     m_issueView( NULL ),
     m_activeView( NULL ),
     m_folderPane( NULL ),
     m_issuePane( NULL ),
+    m_stackedWidget( NULL ),
+    m_selectedProjectId( 0 ),
     m_selectedFolderId( 0 ),
     m_selectedIssueId( 0 ),
     m_currentViewId( 0 ),
@@ -213,6 +217,9 @@ MainWindow::~MainWindow()
     delete m_view;
     m_view = NULL;
 
+    delete m_summaryView;
+    m_summaryView = NULL;
+
     delete m_folderView;
     m_folderView = NULL;
 
@@ -266,6 +273,9 @@ void MainWindow::closeConnection()
     delete m_view;
     m_view = NULL;
 
+    delete m_summaryView;
+    m_summaryView = NULL;
+
     delete m_folderView;
     m_folderView = NULL;
 
@@ -287,6 +297,7 @@ void MainWindow::closeConnection()
 
     builder()->resumeUpdate();
 
+    m_selectedProjectId = 0;
     m_selectedFolderId = 0;
     m_selectedIssueId = 0;
 
@@ -355,7 +366,14 @@ void MainWindow::connectionOpened()
 
     horizSplitter->addWidget( m_view->mainWidget() );
 
-    QSplitter* vertSplitter = new QSplitter( Qt::Vertical, horizSplitter );
+    m_stackedWidget = new QStackedWidget( horizSplitter );
+
+    m_summaryView = new SummaryView( this, m_stackedWidget );
+    viewManager->addView( m_summaryView );
+
+    m_stackedWidget->addWidget( m_summaryView->mainWidget() );
+
+    QSplitter* vertSplitter = new QSplitter( Qt::Vertical, m_stackedWidget );
 
     m_folderPane = new PaneWidget( vertSplitter );
     m_folderPane->setPlaceholderText( tr( "No folder selected" ) );
@@ -377,10 +395,14 @@ void MainWindow::connectionOpened()
 
     m_issuePane->setMainWidget( m_issueView->mainWidget() );
 
-    horizSplitter->addWidget( vertSplitter );
+    m_stackedWidget->addWidget( vertSplitter );
+
+    horizSplitter->addWidget( m_stackedWidget );
 
     setCentralWidget( horizSplitter );
     restoreViewState();
+
+    m_stackedWidget->setCurrentIndex( 1 );
     horizSplitter->show();
 
     updateActions( true );
@@ -421,8 +443,10 @@ void MainWindow::connectionOpened()
     connect( m_issueView, SIGNAL( enabledChanged( bool ) ), this, SLOT( issueEnabledChanged( bool ) ) );
 
     connect( m_folderView, SIGNAL( captionChanged( const QString& ) ), this, SLOT( captionChanged( const QString& ) ) );
+    connect( m_summaryView, SIGNAL( captionChanged( const QString& ) ), this, SLOT( captionChanged( const QString& ) ) );
 
     connect( m_view, SIGNAL( selectionChanged( int, int ) ), this, SLOT( selectionChanged( int, int ) ) );
+    connect( m_view, SIGNAL( projectSelected( int ) ), this, SLOT( projectSelected( int ) ) );
 
     connect( m_folderView, SIGNAL( selectedIssueChanged( int ) ), this, SLOT( selectedIssueChanged( int ) ) );
     connect( m_folderView, SIGNAL( currentViewChanged( int ) ), this, SLOT( currentViewChanged( int ) ) );
@@ -452,7 +476,7 @@ void MainWindow::restoreViewState()
         else
             horizSplitter->setSizes( QList<int>() << 350 << width() - 350 );
 
-        if ( QSplitter* vertSplitter = qobject_cast<QSplitter*>( horizSplitter->widget( 1 ) ) ) {
+        if ( QSplitter* vertSplitter = qobject_cast<QSplitter*>( m_stackedWidget->widget( 1 ) ) ) {
             QByteArray vertData = settings->value( "MainWindowVSplit" ).toByteArray();
 
             if ( !vertData.isEmpty() )
@@ -468,7 +492,7 @@ void MainWindow::storeViewState()
     LocalSettings* settings = application->applicationSettings();
     if ( QSplitter* horizSplitter = qobject_cast<QSplitter*>( centralWidget() ) ) {
         settings->setValue( "MainWindowHSplit", horizSplitter->saveState() );
-        if ( QSplitter* vertSplitter = qobject_cast<QSplitter*>( horizSplitter->widget( 1 ) ) )
+        if ( QSplitter* vertSplitter = qobject_cast<QSplitter*>( m_stackedWidget->widget( 1 ) ) )
             settings->setValue( "MainWindowVSplit", vertSplitter->saveState() );
     }
 }
@@ -512,6 +536,8 @@ bool MainWindow::eventFilter( QObject* object, QEvent* e )
         View* view = NULL;
         if ( m_view->mainWidget() == widget )
             view = m_view;
+        else if ( m_summaryView && m_summaryView->mainWidget() == widget )
+            view = m_summaryView;
         else if ( m_folderView && m_folderView->mainWidget() == widget )
             view = m_folderView;
         else if ( m_issueView && m_issueView->mainWidget() == widget )
@@ -584,8 +610,19 @@ void MainWindow::issueEnabledChanged( bool enabled )
 void MainWindow::selectionChanged( int folderId, int viewId )
 {
     if ( !m_supressFilter && ( m_selectedFolderId != folderId || m_currentViewId != viewId ) ) {
+        m_selectedProjectId = 0;
         m_selectedFolderId = folderId;
         m_currentViewId = viewId;
+        m_selectionTimer->start();
+    }
+}
+
+void MainWindow::projectSelected( int projectId )
+{
+    if ( m_selectedProjectId != projectId ) {
+        m_selectedProjectId = projectId;
+        m_selectedFolderId = 0;
+        m_currentViewId = 0;
         m_selectionTimer->start();
     }
 }
@@ -608,9 +645,20 @@ void MainWindow::currentViewChanged( int viewId )
 
 void MainWindow::updateSelection()
 {
-    m_supressFilter = true;
-    m_view->setSelection( m_selectedFolderId, m_currentViewId );
-    m_supressFilter = false;
+    if ( m_selectedProjectId != 0 ) {
+        m_stackedWidget->setCurrentIndex( 0 );
+    } else {
+        m_stackedWidget->setCurrentIndex( 1 );
+
+        m_supressFilter = true;
+        m_view->setSelection( m_selectedFolderId, m_currentViewId );
+        m_supressFilter = false;
+    }
+
+    if ( m_summaryView->id() != m_selectedProjectId ) {
+        m_summaryView->setId( m_selectedProjectId );
+        m_summaryView->initialUpdate();
+    }
 
     if ( m_folderView->id() != m_selectedFolderId ) {
         m_supressFilter = true;
@@ -685,6 +733,7 @@ void MainWindow::gotoIssue( int issueId, int itemId )
         int folderId = issue.folderId();
 
         if ( folderId != m_folderView->id() ) {
+            m_selectedProjectId = 0;
             m_selectedFolderId = folderId;
             m_currentViewId = 0;
             m_view->setSelection( folderId, 0 );
@@ -760,7 +809,9 @@ void MainWindow::captionChanged( const QString& /*caption*/ )
 {
     QString caption = m_view->caption();
 
-    if ( m_folderView->isEnabled() )
+    if ( m_summaryView->isEnabled() )
+        caption = QString( "%1 - %2" ).arg( m_summaryView->caption(), caption );
+    else if ( m_folderView->isEnabled() )
         caption = QString( "%1 - %2" ).arg( m_folderView->caption(), caption );
 
     setWindowTitle( tr( "%1 - WebIssues Desktop Client" ).arg( caption ) );

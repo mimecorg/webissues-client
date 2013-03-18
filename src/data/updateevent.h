@@ -44,6 +44,8 @@ public:
         Types,
         /** Update projects, folders and alerts. */
         Projects,
+        /** Update project summary. */
+        Summary,
         /** Update states of all issues. */
         States,
         /** Update states of alerts. */

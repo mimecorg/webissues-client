@@ -78,6 +78,11 @@ public:
     void updateStates();
 
     /**
+    * Add a <tt>GET SUMMARY</tt> command to the batch.
+    */
+    void updateSummary( int projectId );
+
+    /**
     * Add a <tt>LIST ISSUES</tt> command to the batch.
     * @param folderId Identifier of the folder to update.
     */
@@ -115,6 +120,7 @@ private:
     Command* updateTypesJob( const Job& job );
     Command* updateProjectsJob( const Job& job );
     Command* updateStatesJob( const Job& job );
+    Command* updateSummaryJob( const Job& job );
     Command* updateFolderJob( const Job& job );
     Command* updateIssueJob( const Job& job );
 

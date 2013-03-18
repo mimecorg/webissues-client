@@ -1368,69 +1368,87 @@ void ValueEntityData::read( const Query& query )
     m_value = query.value( 1 ).toString();
 }
 
-IssueDescriptionEntity::IssueDescriptionEntity() :
-    d ( new IssueDescriptionEntityData() )
+DescriptionEntity::DescriptionEntity() :
+    d ( new DescriptionEntityData() )
 {
 }
 
-IssueDescriptionEntity::~IssueDescriptionEntity()
+DescriptionEntity::~DescriptionEntity()
 {
 }
 
-IssueDescriptionEntity::IssueDescriptionEntity( const IssueDescriptionEntity& other ) :
+DescriptionEntity::DescriptionEntity( const DescriptionEntity& other ) :
     d( other.d )
 {
 }
 
-IssueDescriptionEntity& IssueDescriptionEntity::operator =( const IssueDescriptionEntity& other )
+DescriptionEntity& DescriptionEntity::operator =( const DescriptionEntity& other )
 {
     d = other.d;
     return *this;
 }
 
-IssueDescriptionEntityData::IssueDescriptionEntityData() :
-    m_issueId( 0 ),
+DescriptionEntityData::DescriptionEntityData() :
+    m_id( 0 ),
     m_format( PlainText )
 {
 }
 
-IssueDescriptionEntityData::~IssueDescriptionEntityData()
+DescriptionEntityData::~DescriptionEntityData()
 {
 }
 
-bool IssueDescriptionEntity::isValid() const
+bool DescriptionEntity::isValid() const
 {
-    return d->m_issueId != 0;
+    return d->m_id != 0;
 }
 
-int IssueDescriptionEntity::issueId() const
+int DescriptionEntity::id() const
 {
-    return d->m_issueId;
+    return d->m_id;
 }
 
-const QString& IssueDescriptionEntity::text() const
+const QString& DescriptionEntity::text() const
 {
     return d->m_text;
 }
 
-TextFormat IssueDescriptionEntity::format() const
+TextFormat DescriptionEntity::format() const
 {
     return d->m_format;
 }
 
-const QDateTime& IssueDescriptionEntity::modifiedDate() const
+const QDateTime& DescriptionEntity::modifiedDate() const
 {
     return d->m_modifiedDate;
 }
 
-const QString& IssueDescriptionEntity::modifiedUser() const
+const QString& DescriptionEntity::modifiedUser() const
 {
     return d->m_modifiedUser;
 }
 
-IssueDescriptionEntity IssueEntity::description() const
+DescriptionEntity ProjectEntity::description() const
 {
-    IssueDescriptionEntity result;
+    DescriptionEntity result;
+
+    if ( d->m_id != 0 ) {
+        Query query( "SELECT pd.project_id, pd.descr_text, pd.descr_format, pd.modified_time, um.user_name AS modified_user"
+            " FROM project_descriptions AS pd"
+            " LEFT OUTER JOIN users AS um ON um.user_id = pd.modified_user_id"
+            " WHERE pd.project_id = ?" );
+        query.exec( d->m_id );
+
+        if ( query.next() )
+            result.d->read( query );
+    }
+
+    return result;
+}
+
+DescriptionEntity IssueEntity::description() const
+{
+    DescriptionEntity result;
 
     if ( d->m_id != 0 ) {
         Query query( "SELECT id.issue_id, id.descr_text, id.descr_format, id.modified_time, um.user_name AS modified_user"
@@ -1446,9 +1464,9 @@ IssueDescriptionEntity IssueEntity::description() const
     return result;
 }
 
-void IssueDescriptionEntityData::read( const Query& query )
+void DescriptionEntityData::read( const Query& query )
 {
-    m_issueId = query.value( 0 ).toInt();
+    m_id = query.value( 0 ).toInt();
     m_text = query.value( 1 ).toString();
     m_format = (TextFormat)query.value( 2 ).toInt();
     m_modifiedDate.setTime_t( query.value( 3 ).toInt() );

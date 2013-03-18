@@ -61,6 +61,11 @@ signals:
     */
     void selectionChanged( int folderId, int viewId );
 
+    /**
+    * Emitted when the selected project is changed.
+    */
+    void projectSelected( int projectId );
+
 protected: // overrides
     void updateAccess( Access access );
 

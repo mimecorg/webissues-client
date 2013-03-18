@@ -3,6 +3,7 @@ HEADERS += views/commentview.h \
            views/issueview.h \
            views/projectsview.h \
            views/startview.h \
+           views/summaryview.h \
            views/typesview.h \
            views/usersview.h \
            views/view.h \
@@ -15,6 +16,7 @@ SOURCES += views/commentview.cpp \
            views/issueview.cpp \
            views/projectsview.cpp \
            views/startview.cpp \
+           views/summaryview.cpp \
            views/typesview.cpp \
            views/usersview.cpp \
            views/view.cpp \

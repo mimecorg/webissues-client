@@ -151,6 +151,6 @@ void ProjectsModel::refresh()
 
 void ProjectsModel::updateEvent( UpdateEvent* e )
 {
-    if ( e->unit() == UpdateEvent::Projects || e->unit() == UpdateEvent::Types || e->unit() == UpdateEvent::AlertStates || e->unit() == UpdateEvent::States )
+    if ( e->unit() == UpdateEvent::Projects || e->unit() == UpdateEvent::Types || e->unit() == UpdateEvent::AlertStates || e->unit() == UpdateEvent::States || e->unit() == UpdateEvent::Summary )
         refresh();
 }

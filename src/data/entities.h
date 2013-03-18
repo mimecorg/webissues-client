@@ -35,7 +35,7 @@ class UserEntity;
 class MemberEntity;
 class IssueEntity;
 class ValueEntity;
-class IssueDescriptionEntity;
+class DescriptionEntity;
 class CommentEntity;
 class FileEntity;
 class ChangeEntity;
@@ -54,7 +54,7 @@ class UserEntityData;
 class MemberEntityData;
 class IssueEntityData;
 class ValueEntityData;
-class IssueDescriptionEntityData;
+class DescriptionEntityData;
 class CommentEntityData;
 class FileEntityData;
 class ChangeEntityData;
@@ -79,6 +79,8 @@ public:
 
     int id() const;
     const QString& name() const;
+
+    DescriptionEntity description() const;
 
     QList<FolderEntity> folders() const;
 
@@ -351,7 +353,7 @@ public:
     QList<ValueEntity> values() const;
     QList<ValueEntity> nonEmptyValues() const;
 
-    IssueDescriptionEntity description() const;
+    DescriptionEntity description() const;
 
     QList<ChangeEntity> changes( Qt::SortOrder order ) const;
     QList<ChangeEntity> commentsAndFiles( Qt::SortOrder order ) const;
@@ -399,19 +401,19 @@ private:
     friend class AttributeEntity;
 };
 
-class IssueDescriptionEntity
+class DescriptionEntity
 {
 public:
-    IssueDescriptionEntity();
-    ~IssueDescriptionEntity();
+    DescriptionEntity();
+    ~DescriptionEntity();
 
-    IssueDescriptionEntity( const IssueDescriptionEntity& other );
-    IssueDescriptionEntity& operator =( const IssueDescriptionEntity& other );
+    DescriptionEntity( const DescriptionEntity& other );
+    DescriptionEntity& operator =( const DescriptionEntity& other );
 
 public:
     bool isValid() const;
 
-    int issueId() const;
+    int id() const;
     const QString& text() const;
     TextFormat format() const;
 
@@ -419,10 +421,10 @@ public:
     const QString& modifiedUser() const;
 
 private:
-    QExplicitlySharedDataPointer<IssueDescriptionEntityData> d;
+    QExplicitlySharedDataPointer<DescriptionEntityData> d;
 
+    friend class ProjectEntity;
     friend class IssueEntity;
-    friend class IssueEntityData;
 };
 
 class CommentEntity

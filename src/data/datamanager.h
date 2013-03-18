@@ -276,6 +276,13 @@ public:
     bool localeUpdateNeeded() const;
 
     /**
+    * Check if the project summary needs updating.
+    * @param projectId Identifier of the project.
+    * @return @c True if the project summary needs updating.
+    */
+    bool summaryUpdateNeeded( int projectId ) const;
+
+    /**
     * Check if the folder needs updating.
     * This method compares the stamp of the last modification of the folder with
     * the stamp of the last update of its issues.
@@ -349,6 +356,11 @@ public:
     Command* updateStates();
 
     /**
+    * Create a command for updating the given project summary.
+    */
+    Command* updateSummary( int projectId );
+
+    /**
     * Create a command for updating the given folder.
     */
     Command* updateFolder( int folderId );
@@ -409,6 +421,7 @@ private slots:
     void updateTypesReply( const Reply& reply );
     void updateProjectsReply( const Reply& reply );
     void updateStatesReply( const Reply& reply );
+    void updateSummaryReply( const Reply& reply );
     void updateFolderReply( const Reply& reply );
     void updateIssueReply( const Reply& reply );
 
@@ -430,6 +443,7 @@ private:
     bool updateTypesReply( const Reply& reply, const QSqlDatabase& database );
     bool updateProjectsReply( const Reply& reply, const QSqlDatabase& database );
     bool updateStatesReply( const Reply& reply, int lastStateId, const QSqlDatabase& database );
+    bool updateSummaryReply( const Reply& reply, const QSqlDatabase& database, int& projectId );
     bool updateFolderReply( const Reply& reply, const QSqlDatabase& database, QList<int>& updatedFolders );
     bool updateIssueReply( const Reply& reply, const QSqlDatabase& database, QList<int>& updatedFolders, int& issueId );
 

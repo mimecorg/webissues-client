@@ -300,7 +300,10 @@ void ProjectsView::updateSelection()
 {
     updateActions();
 
-    emit selectionChanged( m_currentFolderId, m_selectedViewId );
+    if ( m_selectedProjectId != 0 )
+        emit projectSelected( m_selectedProjectId );
+    else
+        emit selectionChanged( m_currentFolderId, m_selectedViewId );
 }
 
 void ProjectsView::setSelection( int folderId, int viewId )

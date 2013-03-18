@@ -28,6 +28,7 @@
 class StartView;
 class View;
 class ProjectsView;
+class SummaryView;
 class FolderView;
 class IssueView;
 class PaneWidget;
@@ -100,6 +101,7 @@ private slots:
     void issueEnabledChanged( bool enabled );
 
     void selectionChanged( int folderId, int viewId );
+    void projectSelected( int projectId );
     void selectedIssueChanged( int issueId );
     void currentViewChanged( int viewId );
 
@@ -124,10 +126,13 @@ private:
     StartView* m_startView;
 
     ProjectsView* m_view;
+    SummaryView* m_summaryView;
     FolderView* m_folderView;
     IssueView* m_issueView;
 
     View* m_activeView;
+
+    QStackedWidget* m_stackedWidget;
 
     PaneWidget* m_folderPane;
     PaneWidget* m_issuePane;
@@ -141,6 +146,7 @@ private:
 
     QTimer* m_selectionTimer;
 
+    int m_selectedProjectId;
     int m_selectedFolderId;
     int m_selectedIssueId;
     int m_currentViewId;

@@ -189,17 +189,17 @@ public:
     QString m_value;
 };
 
-class IssueDescriptionEntityData : public QSharedData
+class DescriptionEntityData : public QSharedData
 {
 public:
-    IssueDescriptionEntityData();
-    ~IssueDescriptionEntityData();
+    DescriptionEntityData();
+    ~DescriptionEntityData();
 
 public:
     void read( const Query& query );
 
 public:
-    int m_issueId;
+    int m_id;
     QString m_text;
     TextFormat m_format;
     QDateTime m_modifiedDate;

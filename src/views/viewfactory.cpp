@@ -20,6 +20,7 @@
 #include "viewfactory.h"
 #include "usersview.h"
 #include "typesview.h"
+#include "summaryview.h"
 #include "folderview.h"
 #include "issueview.h"
 #include "commentview.h"
@@ -32,6 +33,8 @@ View* ViewFactory::createView( const char* className, QObject* parent, QWidget* 
         return new UsersView( parent, parentWidget );
     if ( !qstrcmp( className, TypesView::staticMetaObject.className() ) )
         return new TypesView( parent, parentWidget );
+    if ( !qstrcmp( className, SummaryView::staticMetaObject.className() ) )
+        return new SummaryView( parent, parentWidget );
     if ( !qstrcmp( className, FolderView::staticMetaObject.className() ) )
         return new FolderView( parent, parentWidget );
     if ( !qstrcmp( className, IssueView::staticMetaObject.className() ) )

@@ -68,6 +68,13 @@ void UpdateBatch::updateStates()
     m_queue.addJob( &UpdateBatch::updateStatesJob );
 }
 
+void UpdateBatch::updateSummary( int projectId )
+{
+    Job job( &UpdateBatch::updateSummaryJob );
+    job.addArg( projectId );
+    m_queue.addJob( job );
+}
+
 void UpdateBatch::updateFolder( int folderId )
 {
     Job job( &UpdateBatch::updateFolderJob );
@@ -135,6 +142,16 @@ Command* UpdateBatch::updateProjectsJob( const Job& /*job*/ )
 Command* UpdateBatch::updateStatesJob( const Job& /*job*/ )
 {
     return dataManager->updateStates();
+}
+
+Command* UpdateBatch::updateSummaryJob( const Job& job )
+{
+    int projectId = job.argInt( 0 );
+
+    if ( !m_ifNeeded || dataManager->summaryUpdateNeeded( projectId ) )
+        return dataManager->updateSummary( projectId );
+
+    return NULL;
 }
 
 Command* UpdateBatch::updateFolderJob( const Job& job )
