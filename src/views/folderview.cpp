@@ -398,7 +398,7 @@ void FolderView::updateSummary()
 
 void FolderView::initialUpdateFolder()
 {
-    if ( isEnabled() && dataManager->issueUpdateNeeded( id() ) ) {
+    if ( isEnabled() && dataManager->folderUpdateNeeded( id() ) ) {
         UpdateBatch* batch = new UpdateBatch();
         batch->setIfNeeded( true );
         batch->updateFolder( id() );
