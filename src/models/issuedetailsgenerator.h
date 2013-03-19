@@ -25,7 +25,7 @@
 #include <QObject>
 #include <QList>
 
-class TextWriter;
+class HtmlWriter;
 class IssueEntity;
 class ChangeEntity;
 class FileEntity;
@@ -74,16 +74,16 @@ public:
     * @param writer The text document writer to output the details to.
     * @param flags Optional flags affecting extracting of links.
     */
-    void write( TextWriter* writer, TextWithLinks::Flags flags = 0 );
+    void write( HtmlWriter* writer, TextWithLinks::Flags flags = 0 );
 
     int commentsCount() const { return m_commentsCount; }
 
     int filesCount() const { return m_filesCount; }
 
 private:
-    void writeProperties( TextWriter* writer, const IssueEntity& issue );
-    void writeAttributes( TextWriter* writer, const QList<ValueEntity>& values, TextWithLinks::Flags flags );
-    void writeHistory( TextWriter* writer, const IssueEntity& issue, TextWithLinks::Flags flags );
+    void writeProperties( HtmlWriter* writer, const IssueEntity& issue );
+    void writeAttributes( HtmlWriter* writer, const QList<ValueEntity>& values, TextWithLinks::Flags flags );
+    void writeHistory( HtmlWriter* writer, const IssueEntity& issue, TextWithLinks::Flags flags );
 
     QString formatStamp( const ChangeEntity& change );
 

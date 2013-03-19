@@ -122,19 +122,16 @@ QString FindBar::text() const
     return m_edit->text();
 }
 
-void FindBar::setFlags( QTextDocument::FindFlags flags )
+void FindBar::setCaseSensitive( bool on )
 {
     bool old = blockSignals( true );
-    m_caseCheckBox->setChecked( ( flags & QTextDocument::FindCaseSensitively ) != 0 );
+    m_caseCheckBox->setChecked( on );
     blockSignals( old );
 }
 
-QTextDocument::FindFlags FindBar::flags() const
+bool FindBar::isCaseSensitive() const
 {
-    QTextDocument::FindFlags flags = 0;
-    if ( m_caseCheckBox->isChecked() )
-        flags |= QTextDocument::FindCaseSensitively;
-    return flags;
+    return m_caseCheckBox->isChecked();
 }
 
 void FindBar::showWarning( bool on )

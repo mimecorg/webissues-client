@@ -58,14 +58,14 @@ public:
     QString text() const;
 
     /**
-    * Set the find flags.
+    * Set the case sensitivity setting.
     */
-    void setFlags( QTextDocument::FindFlags flags );
+    void setCaseSensitive( bool on );
 
     /**
-    * Return the find flags.
+    * Return the case sensitivity setting.
     */
-    QTextDocument::FindFlags flags() const;
+    bool isCaseSensitive() const;
 
     /**
     * Return @c true if find is enabled.

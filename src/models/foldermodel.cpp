@@ -24,7 +24,6 @@
 #include "models/querygenerator.h"
 #include "models/issuedetailsgenerator.h"
 #include "utils/formatter.h"
-#include "utils/textwriter.h"
 #include "utils/viewsettingshelper.h"
 #include "utils/iconloader.h"
 
@@ -135,19 +134,6 @@ QVariant FolderModel::data( const QModelIndex& index, int role /*= Qt::DisplayRo
             font.setBold( true );
             return font;
         }
-    }
-
-    if ( role == Qt::ToolTipRole ) {
-        int issueId = rowId( index );
-
-        QTextDocument document;
-        TextWriter writer( &document, TextWriter::UseSmallHeaders );
-
-        IssueDetailsGenerator generator;
-        generator.setIssue( issueId, IssueDetailsGenerator::NoHistory );
-        generator.write( &writer );
-
-        return document.toHtml( "UTF-8" );
     }
 
     return QVariant();

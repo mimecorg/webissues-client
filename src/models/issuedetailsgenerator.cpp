@@ -23,7 +23,7 @@
 #include "data/entities.h"
 #include "utils/datetimehelper.h"
 #include "utils/viewsettingshelper.h"
-#include "utils/textwriter.h"
+#include "utils/htmlwriter.h"
 #include "utils/formatter.h"
 
 #include <QtAlgorithms>
@@ -49,14 +49,14 @@ void IssueDetailsGenerator::setIssue( int issueId, History history )
     m_isAdmin = IssueEntity::isAdmin( issueId );
 }
 
-void IssueDetailsGenerator::write( TextWriter* writer, TextWithLinks::Flags flags /*= 0*/ )
+void IssueDetailsGenerator::write( HtmlWriter* writer, TextWithLinks::Flags flags /*= 0*/ )
 {
     IssueEntity issue = IssueEntity::find( m_issueId );
 
     if ( issue.isValid() ) {
-        writer->writeBlock( issue.name(), TextWriter::Header1Block );
+        writer->writeBlock( issue.name(), HtmlWriter::Header2Block );
 
-        writer->createLayout( 1, 2 );
+        writer->createLayout();
 
         QList<ValueEntity> values;
         if ( dataManager->setting( "hide_empty_values" ) == "1" )
@@ -64,16 +64,11 @@ void IssueDetailsGenerator::write( TextWriter* writer, TextWithLinks::Flags flag
         else
             values = issue.values();
 
-        if ( values.isEmpty() )
-            writer->mergeLayoutCells( 0, 0, 1, 2 );
-
-        writer->gotoLayoutCell( 0, 0, TextWriter::NormalCell );
-        writer->writeBlock( tr( "Properties" ), TextWriter::Header2Block );
+        writer->beginCell( HtmlWriter::TopPane, values.isEmpty() ? 2 : 1 );
         writeProperties( writer, issue );
 
         if ( !values.isEmpty() ) {
-            writer->gotoLayoutCell( 0, 1, TextWriter::NormalCell );
-            writer->writeBlock( tr( "Attributes" ), TextWriter::Header2Block );
+            writer->beginCell( HtmlWriter::TopPane );
             writeAttributes( writer, values, flags );
         }
 
@@ -81,33 +76,28 @@ void IssueDetailsGenerator::write( TextWriter* writer, TextWithLinks::Flags flag
             DescriptionEntity description = issue.description();
 
             if ( description.isValid() ) {
-                writer->appendLayoutRows( 2 );
+                writer->appendLayoutRow();
+                writer->beginCell( HtmlWriter::BottomPane, 2 );
 
-                writer->gotoLayoutCell( 1, 0, TextWriter::NormalCell );
-                writer->writeBlock( tr( "Description" ), TextWriter::Header2Block );
-
-                TextWithLinks result( flags );
+                TextWithLinks info( flags );
                 Formatter formatter;
-                result.appendText( tr( "Last Edited:" ) );
-                result.appendText( QString::fromUtf8( " %1 — %2" ).arg( formatter.formatDateTime( description.modifiedDate(), true ), description.modifiedUser() ) );
+                info.appendText( tr( "Last Edited:" ) );
+                info.appendText( QString::fromUtf8( " %1 — %2" ).arg( formatter.formatDateTime( description.modifiedDate(), true ), description.modifiedUser() ) );
 
-                writer->gotoLayoutCell( 1, 1, TextWriter::NormalCell );
-                writer->writeBlock( result, TextWriter::LinksBlock );
+                writer->writeBlock( info, HtmlWriter::FloatBlock );
 
-                writer->mergeLayoutCells( 2, 0, 1, 2 );
-                writer->gotoLayoutCell( 2, 0, TextWriter::CommentCell );
-                writer->writeBlock( TextWithLinks::parse( description.text(), flags ), TextWriter::NormalBlock );
+                writer->writeBlock( tr( "Description" ), HtmlWriter::Header3Block );
+
+                writer->writeBlock( TextWithLinks::parse( description.text(), flags ), HtmlWriter::CommentBlock );
             }
 
-            int row = writer->appendLayoutRows( 1 );
+            writer->appendLayoutRow();
+            writer->beginCell( HtmlWriter::BottomPane, 2 );
 
-            writer->gotoLayoutCell( row, 0, TextWriter::NormalCell );
-            writer->writeBlock( tr( "Issue History" ), TextWriter::Header2Block );
+            if ( !flags.testFlag( TextWithLinks::NoInternalLinks ) )
+                writer->writeBlock( historyLinks( flags ), HtmlWriter::FloatBlock );
 
-            if ( !flags.testFlag( TextWithLinks::NoInternalLinks ) ) {
-                writer->gotoLayoutCell( row, 1, TextWriter::LinksCell );
-                writer->writeBlock( historyLinks( flags ), TextWriter::LinksBlock );
-            }
+            writer->writeBlock( tr( "Issue History" ), HtmlWriter::Header3Block );
 
             writeHistory( writer, issue, flags );
         }
@@ -116,7 +106,7 @@ void IssueDetailsGenerator::write( TextWriter* writer, TextWithLinks::Flags flag
     }
 }
 
-void IssueDetailsGenerator::writeProperties( TextWriter* writer, const IssueEntity& issue )
+void IssueDetailsGenerator::writeProperties( HtmlWriter* writer, const IssueEntity& issue )
 {
     QStringList headers;
     QList<TextWithLinks> items;
@@ -138,10 +128,10 @@ void IssueDetailsGenerator::writeProperties( TextWriter* writer, const IssueEnti
     headers.append( tr( "Last Modified:" ) );
     items.append( QString::fromUtf8( "%1 — %2" ).arg( formatter.formatDateTime( issue.modifiedDate(), true ), issue.modifiedUser() ) );
 
-    writer->writeInfoList( headers, items );
+    writer->writeInfoList( headers, items, false );
 }
 
-void IssueDetailsGenerator::writeAttributes( TextWriter* writer, const QList<ValueEntity>& values, TextWithLinks::Flags flags )
+void IssueDetailsGenerator::writeAttributes( HtmlWriter* writer, const QList<ValueEntity>& values, TextWithLinks::Flags flags )
 {
     QStringList headers;
     QList<TextWithLinks> items;
@@ -155,10 +145,10 @@ void IssueDetailsGenerator::writeAttributes( TextWriter* writer, const QList<Val
         items.append( TextWithLinks::parse( formattedValue, flags ) );
     }
 
-    writer->writeInfoList( headers, items );
+    writer->writeInfoList( headers, items, true );
 }
 
-void IssueDetailsGenerator::writeHistory( TextWriter* writer, const IssueEntity& issue, TextWithLinks::Flags flags )
+void IssueDetailsGenerator::writeHistory( HtmlWriter* writer, const IssueEntity& issue, TextWithLinks::Flags flags )
 {
     Qt::SortOrder order = Qt::AscendingOrder;
 
@@ -195,71 +185,60 @@ void IssueDetailsGenerator::writeHistory( TextWriter* writer, const IssueEntity&
 
         if ( list.count() > 0 ) {
             writer->writeBulletList( list );
+            writer->endHistoryItem();
             list.clear();
         }
-
-        int row;
 
         switch ( change.type() ) {
             case IssueCreated:
             case IssueRenamed:
             case ValueChanged:
-                row = writer->appendLayoutRows( 1 );
-                writer->mergeLayoutCells( row, 0, 1, 2 );
-                writer->gotoLayoutCell( row, 0, TextWriter::NormalCell );
                 lastUserId = change.createdUserId();
                 lastDate = change.createdDate();
-                writer->writeBlock( formatStamp( change ), TextWriter::Header3Block );
+                writer->beginHistoryItem();
+                writer->writeBlock( formatStamp( change ), HtmlWriter::Header4Block );
                 list.append( formatChange( change, flags ) );
                 break;
 
             case CommentAdded:
-                row = writer->appendLayoutRows( 2 );
-                writer->gotoLayoutCell( row, 0, TextWriter::NormalCell );
-                writer->writeBlock( formatStamp( change ), TextWriter::Header3Block, QString( "id%1" ).arg( change.id() ) );
-                writer->gotoLayoutCell( row, 1, TextWriter::LinksCell );
-                writer->writeBlock( changeLinks( change, flags ), TextWriter::LinksBlock );
-                writer->mergeLayoutCells( row + 1, 0, 1, 2 );
-                writer->gotoLayoutCell( row + 1, 0, TextWriter::CommentCell );
-                writer->writeBlock( TextWithLinks::parse( change.comment().text(), flags ), TextWriter::NormalBlock );
+                writer->beginHistoryItem();
+                writer->writeBlock( changeLinks( change, flags ), HtmlWriter::HistoryInfoBlock );
+                writer->writeBlock( formatStamp( change ), HtmlWriter::Header4Block );
+                writer->writeBlock( TextWithLinks::parse( change.comment().text(), flags ), HtmlWriter::CommentBlock );
+                writer->endHistoryItem();
                 m_commentsCount++;
                 break;
 
             case FileAdded:
-                row = writer->appendLayoutRows( 2 );
-                writer->gotoLayoutCell( row, 0, TextWriter::NormalCell );
-                writer->writeBlock( formatStamp( change ), TextWriter::Header3Block, QString( "id%1" ).arg( change.id() ) );
-                writer->gotoLayoutCell( row, 1, TextWriter::LinksCell );
-                writer->writeBlock( changeLinks( change, flags ), TextWriter::LinksBlock );
-                writer->mergeLayoutCells( row + 1, 0, 1, 2 );
-                writer->gotoLayoutCell( row + 1, 0, TextWriter::FileCell );
-                writer->writeBlock( formatFile( change.file(), flags ), TextWriter::NormalBlock );
+                writer->beginHistoryItem();
+                writer->writeBlock( changeLinks( change, flags ), HtmlWriter::HistoryInfoBlock );
+                writer->writeBlock( formatStamp( change ), HtmlWriter::Header4Block );
+                writer->writeBlock( formatFile( change.file(), flags ), HtmlWriter::AttachmentBlock );
+                writer->endHistoryItem();
                 m_filesCount++;
                 break;
 
             case IssueMoved:
-                row = writer->appendLayoutRows( 1 );
-                writer->mergeLayoutCells( row, 0, 1, 2 );
-                writer->gotoLayoutCell( row, 0, TextWriter::NormalCell );
-                writer->writeBlock( formatStamp( change ), TextWriter::Header3Block );
+                writer->beginHistoryItem();
+                writer->writeBlock( formatStamp( change ), HtmlWriter::Header4Block );
                 writer->writeBulletList( QList<TextWithLinks>() << formatChange( change, flags ) );
+                writer->endHistoryItem();
                 break;
         }
     }
 
-    if ( list.count() > 0 )
+    if ( list.count() > 0 ) {
         writer->writeBulletList( list );
+        writer->endHistoryItem();
+    }
 
     if ( changes.count() == 0 ) {
-        int row = writer->appendLayoutRows( 1 );
-        writer->mergeLayoutCells( row, 0, 1, 2 );
-        writer->gotoLayoutCell( row, 0, TextWriter::NormalCell );
         if ( m_history == OnlyComments )
-            writer->writeBlock( tr( "There are no comments." ), TextWriter::NormalBlock );
+            writer->writeBlock( tr( "There are no comments." ), HtmlWriter::NoItemsBlock );
         else if ( m_history == OnlyFiles )
-            writer->writeBlock( tr( "There are no attachments." ), TextWriter::NormalBlock );
+            writer->writeBlock( tr( "There are no attachments." ), HtmlWriter::NoItemsBlock );
         else if ( m_history == CommentsAndFiles )
-            writer->writeBlock( tr( "There are no comments or attachments." ), TextWriter::NormalBlock );
+            writer->writeBlock( tr( "There are no comments or attachments." ), HtmlWriter::NoItemsBlock );
     }
 }
 

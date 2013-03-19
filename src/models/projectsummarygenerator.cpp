@@ -22,7 +22,7 @@
 #include "data/datamanager.h"
 #include "data/entities.h"
 #include "utils/datetimehelper.h"
-#include "utils/textwriter.h"
+#include "utils/htmlwriter.h"
 #include "utils/formatter.h"
 
 ProjectSummaryGenerator::ProjectSummaryGenerator() :
@@ -42,32 +42,26 @@ void ProjectSummaryGenerator::setProject( int projectId )
     m_isAdmin = ProjectEntity::isAdmin( projectId );
 }
 
-void ProjectSummaryGenerator::write( TextWriter* writer, TextWithLinks::Flags flags /*= 0*/ )
+void ProjectSummaryGenerator::write( HtmlWriter* writer, TextWithLinks::Flags flags /*= 0*/ )
 {
     ProjectEntity project = ProjectEntity::find( m_projectId );
 
     if ( project.isValid() ) {
-        writer->writeBlock( project.name(), TextWriter::Header1Block );
+        writer->writeBlock( project.name(), HtmlWriter::Header2Block );
 
         DescriptionEntity description = project.description();
 
         if ( description.isValid() ) {
-            writer->createLayout( 2, 2 );
-
-            writer->gotoLayoutCell( 0, 0, TextWriter::NormalCell );
-            writer->writeBlock( tr( "Description" ), TextWriter::Header2Block );
-
-            TextWithLinks result( flags );
+            TextWithLinks info( flags );
             Formatter formatter;
-            result.appendText( tr( "Last Edited:" ) );
-            result.appendText( QString::fromUtf8( " %1 — %2" ).arg( formatter.formatDateTime( description.modifiedDate(), true ), description.modifiedUser() ) );
+            info.appendText( tr( "Last Edited:" ) );
+            info.appendText( QString::fromUtf8( " %1 — %2" ).arg( formatter.formatDateTime( description.modifiedDate(), true ), description.modifiedUser() ) );
 
-            writer->gotoLayoutCell( 0, 1, TextWriter::NormalCell );
-            writer->writeBlock( result, TextWriter::LinksBlock );
+            writer->writeBlock( info, HtmlWriter::FloatBlock );
 
-            writer->mergeLayoutCells( 1, 0, 1, 2 );
-            writer->gotoLayoutCell( 1, 0, TextWriter::CommentCell );
-            writer->writeBlock( TextWithLinks::parse( description.text(), flags ), TextWriter::NormalBlock );
+            writer->writeBlock( tr( "Description" ), HtmlWriter::Header3Block );
+
+            writer->writeBlock( TextWithLinks::parse( description.text(), flags ), HtmlWriter::CommentBlock );
         }
     }
 }

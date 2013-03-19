@@ -217,7 +217,7 @@ FolderView::FolderView( QObject* parent, QWidget* parentWidget ) : View( parent 
     mainLayout->addWidget( m_list );
 
     TreeViewHelper helper( m_list );
-    helper.initializeView( TreeViewHelper::NoAutoToolTip );
+    helper.initializeView();
 
     connect( m_list, SIGNAL( customContextMenuRequested( const QPoint& ) ),
         this, SLOT( listContextMenu( const QPoint& ) ) );

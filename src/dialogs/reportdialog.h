@@ -23,10 +23,7 @@
 #include "dialogs/commanddialog.h"
 #include "models/issuedetailsgenerator.h"
 
-class QPrinter;
 class QRadioButton;
-class QTextDocument;
-class QTextStream;
 
 /**
 * Dialog for printing or exporting a report.
@@ -102,16 +99,14 @@ public: // overrides
 private slots:
     void showPreview();
 
-    void paintRequested( QPrinter* printer );
-
 private:
     bool print();
     bool exportCsv();
     bool exportHtml();
     bool exportPdf();
 
-    void generateCsvReport( QTextStream& stream );
-    void generateHtmlReport( QTextDocument* document );
+    QString generateCsvReport();
+    QString generateHtmlReport();
 
     QString getReportFileName( const QString& extension, const QString& filter );
 
@@ -131,8 +126,6 @@ private:
     QRadioButton* m_fullTableButton;
     QRadioButton* m_summaryButton;
     QRadioButton* m_fullReportButton;
-
-    QTextDocument* m_document;
 };
 
 #endif

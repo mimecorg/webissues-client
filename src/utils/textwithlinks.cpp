@@ -100,23 +100,18 @@ void TextWithLinks::appendParsed( const QString& text )
     }
 }
 
-void TextWithLinks::write( QTextCursor& cursor, const QTextCharFormat& format /*= QTextCharFormat()*/ ) const
+QString TextWithLinks::toHtml() const
 {
-    QTextCharFormat normalFormat = format;
-    QTextCharFormat linkFormat = format;
-
-    linkFormat.setAnchor( true );
-    linkFormat.setUnderlineStyle( QTextCharFormat::SingleUnderline );
-    linkFormat.setForeground( QColor( 0x02, 0x7a, 0xc6 ) );
+    QString result;
 
     for ( int i = 0; i < m_texts.count(); i++ ) {
-        if ( !m_urls.at( i ).isEmpty() ) {
-            linkFormat.setAnchorHref( m_urls.at( i ) );
-            cursor.insertText( m_texts.at( i ), linkFormat );
-        } else {
-            cursor.insertText( m_texts.at( i ), normalFormat );
-        }
+        if ( !m_urls.at( i ).isEmpty() )
+            result += QString( "<a href=\"%1\">%2</a>" ).arg( Qt::escape( m_urls.at( i ) ), Qt::escape( m_texts.at( i ) ) );
+        else
+            result += Qt::escape( m_texts.at( i ) );
     }
+
+    return result;
 }
 
 TextWithLinks TextWithLinks::parse( const QString& text, Flags flags /*= 0*/ )

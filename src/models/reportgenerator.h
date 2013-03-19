@@ -22,7 +22,7 @@
 
 #include "issuedetailsgenerator.h"
 
-class TextWriter;
+class HtmlWriter;
 class CsvWriter;
 class FolderRow;
 class IssueRow;
@@ -33,7 +33,7 @@ class QDateTime;
 * Class for generating  reports.
 *
 * This class exctracts the information about a folder or an issue and outputs it
-* to the ReportWriter or CsvWriter.
+* to the HtmlWriter or CsvWriter.
 */
 class ReportGenerator : public QObject
 {
@@ -76,10 +76,15 @@ public:
     void setSummaryMode( IssueDetailsGenerator::History history );
 
     /**
+    * Return the title of the report.
+    */
+    QString title() const { return m_title; }
+
+    /**
     * Write the report as a text document.
     * @param writer The text document writer to output the report to.
     */
-    void write( TextWriter* writer );
+    void write( HtmlWriter* writer );
 
     /**
     * Write the report as a CSV file.
@@ -94,6 +99,8 @@ private:
     QList<int> m_columns;
     bool m_summary;
     IssueDetailsGenerator::History m_history;
+
+    QString m_title;
 };
 
 #endif

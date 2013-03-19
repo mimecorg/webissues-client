@@ -4,7 +4,7 @@ TEMPLATE = app
 TARGET   = webissues
 
 CONFIG  += qt
-QT      += network xml sql
+QT      += network xml sql webkit
 
 HEADERS += application.h \
            mainwindow.h
@@ -34,6 +34,7 @@ contains( QT_CONFIG, openssl ) | contains( QT_CONFIG, openssl-linked ) {
 }
 
 PRECOMPILED_HEADER = precompiled.h
+PRECOMPILED_SOURCE = precompiled.cpp
 
 TRANSLATIONS += \
            ../translations/webissues_untranslated.ts \
@@ -63,16 +64,18 @@ win32-msvc* {
 }
 
 !win32 | build_pass {
-    MOC_DIR = ../tmp
-    RCC_DIR = ../tmp
-    UI_DIR = ../tmp
     CONFIG( debug, debug|release ) {
-        OBJECTS_DIR = ../tmp/debug
+        OBJECTS_DIR = ../tmp/obj/debug
+        MOC_DIR = ../tmp/moc/debug
+        RCC_DIR = ../tmp/rcc/debug
         DESTDIR = ../debug
     } else {
-        OBJECTS_DIR = ../tmp/release
+        OBJECTS_DIR = ../tmp/obj/release
+        MOC_DIR = ../tmp/moc/release
+        RCC_DIR = ../tmp/rcc/release
         DESTDIR = ../release
     }
+    UI_DIR = ../tmp/ui
 }
 
 target.path = $${DESTINATION}$$PREFIX/bin

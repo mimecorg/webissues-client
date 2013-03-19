@@ -24,7 +24,7 @@
 #include "data/localsettings.h"
 #include "dialogs/messagebox.h"
 #include "models/reportgenerator.h"
-#include "utils/textwriter.h"
+#include "utils/htmlwriter.h"
 #include "utils/csvwriter.h"
 #include "utils/iconloader.h"
 
@@ -33,7 +33,7 @@
 #include <QRadioButton>
 #include <QPushButton>
 #include <QDialogButtonBox>
-#include <QTextDocument>
+#include <QWebPage>
 #include <QPrintDialog>
 #include <QFileDialog>
 #include <QTextStream>
@@ -48,8 +48,7 @@ ReportDialog::ReportDialog( SourceType source, ReportMode mode, QWidget* parent 
     m_source( source ),
     m_mode( mode ),
     m_folderId( 0 ),
-    m_history( IssueDetailsGenerator::NoHistory ),
-    m_document( NULL )
+    m_history( IssueDetailsGenerator::NoHistory )
 {
     QHBoxLayout* layout = new QHBoxLayout();
 
@@ -193,10 +192,12 @@ bool ReportDialog::print()
     if ( dialog.exec() != QDialog::Accepted )
         return false;
 
-    QTextDocument document;
-    generateHtmlReport( &document );
+    QString html = generateHtmlReport();
 
-    document.print( printer );
+    QWebPage page;
+    page.mainFrame()->setHtml( html );
+
+    page.mainFrame()->print( printer );
 
     return true;
 }
@@ -217,7 +218,7 @@ bool ReportDialog::exportCsv()
     QTextStream stream( &file );
     stream.setCodec( QTextCodec::codecForName( "UTF-8" ) );
 
-    generateCsvReport( stream );
+    stream << generateCsvReport();
 
     return true;
 }
@@ -238,10 +239,7 @@ bool ReportDialog::exportHtml()
     QTextStream stream( &file );
     stream.setCodec( QTextCodec::codecForName( "UTF-8" ) );
 
-    QTextDocument document;
-    generateHtmlReport( &document );
-
-    stream << document.toHtml( "UTF-8" );
+    stream << generateHtmlReport();
 
     return true;
 }
@@ -257,10 +255,12 @@ bool ReportDialog::exportPdf()
     printer.setOutputFileName( fileName );
     printer.setOutputFormat( QPrinter::PdfFormat );
 
-    QTextDocument document;
-    generateHtmlReport( &document );
+    QString html = generateHtmlReport();
 
-    document.print( &printer );
+    QWebPage page;
+    page.mainFrame()->setHtml( html );
+
+    page.mainFrame()->print( &printer );
 
     return true;
 }
@@ -270,8 +270,10 @@ void ReportDialog::showPreview()
     QPrinter* printer = application->printer();
     printer->setFromTo( 0, 0 );
 
-    m_document = new QTextDocument( this );
-    generateHtmlReport( m_document );
+    QString html = generateHtmlReport();
+
+    QWebPage page;
+    page.mainFrame()->setHtml( html );
 
     QPrintPreviewDialog dialog( printer, this );
     dialog.setWindowTitle( tr( "Print Preview" ) );
@@ -282,12 +284,9 @@ void ReportDialog::showPreview()
     else
         dialog.resize( QApplication::desktop()->screenGeometry( this ).size() * 4 / 5 );
 
-    connect( &dialog, SIGNAL( paintRequested( QPrinter* ) ), this, SLOT( paintRequested( QPrinter* ) ) );
+    connect( &dialog, SIGNAL( paintRequested( QPrinter* ) ), page.mainFrame(), SLOT( print( QPrinter* ) ) );
 
     int result = dialog.exec();
-
-    delete m_document;
-    m_document = NULL;
 
     settings->setValue( "PrintPreviewGeometry", dialog.saveGeometry() );
 
@@ -295,12 +294,7 @@ void ReportDialog::showPreview()
         QDialog::accept();
 }
 
-void ReportDialog::paintRequested( QPrinter* printer )
-{
-    m_document->print( printer );
-}
-
-void ReportDialog::generateCsvReport( QTextStream& stream )
+QString ReportDialog::generateCsvReport()
 {
     ReportGenerator generator;
 
@@ -313,10 +307,10 @@ void ReportDialog::generateCsvReport( QTextStream& stream )
     CsvWriter writer;
     generator.write( &writer );
 
-    stream << writer.toString();
+    return writer.toString();
 }
 
-void ReportDialog::generateHtmlReport( QTextDocument* document )
+QString ReportDialog::generateHtmlReport()
 {
     ReportGenerator generator;
 
@@ -333,8 +327,13 @@ void ReportDialog::generateHtmlReport( QTextDocument* document )
         generator.setSummaryMode( m_fullReportButton->isChecked() ? m_history : IssueDetailsGenerator::NoHistory );
     }
 
-    TextWriter writer( document );
+    HtmlWriter writer;
+    writer.setTitle( generator.title() );
+    writer.setEmbeddedCss( true );
+
     generator.write( &writer );
+
+    return writer.toHtml();
 }
 
 QString ReportDialog::getReportFileName( const QString& extension, const QString& filter )

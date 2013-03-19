@@ -17,7 +17,7 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************/
 
-#include "SummaryView.h"
+#include "summaryview.h"
 
 #include "application.h"
 #include "commands/updatebatch.h"
@@ -26,7 +26,7 @@
 #include "data/updateevent.h"
 #include "data/localsettings.h"
 #include "models/projectsummarygenerator.h"
-#include "utils/textwriter.h"
+#include "utils/htmlwriter.h"
 #include "utils/iconloader.h"
 #include "xmlui/builder.h"
 
@@ -34,8 +34,7 @@
 #include <QAction>
 #include <QMenu>
 
-SummaryView::SummaryView( QObject* parent, QWidget* parentWidget ) : View( parent ),
-    m_document( NULL )
+SummaryView::SummaryView( QObject* parent, QWidget* parentWidget ) : View( parent )
 {
     QAction* action;
 
@@ -48,17 +47,24 @@ SummaryView::SummaryView( QObject* parent, QWidget* parentWidget ) : View( paren
 
     loadXmlUiFile( ":/resources/summaryview.xml" );
 
-    m_browser = new QTextBrowser( parentWidget );
+    QFrame* main = new QFrame( parentWidget );
+    main->setFrameStyle( QFrame::StyledPanel | QFrame::Sunken );
+
+    QVBoxLayout* mainLayout = new QVBoxLayout( main );
+    mainLayout->setMargin( 0 );
+    mainLayout->setSpacing( 0 );
+
+    m_browser = new QWebView( main );
     m_browser->setContextMenuPolicy( Qt::CustomContextMenu );
 
     QPalette palette = m_browser->palette();
-    palette.setBrush( QPalette::Base, QColor( 0xff, 0xff, 0xff ) );
-    palette.setBrush( QPalette::Text, QColor( 0x49, 0x49, 0x49 ) );
     palette.setBrush( QPalette::Inactive, QPalette::Highlight, palette.brush( QPalette::Active, QPalette::Highlight ) );
     palette.setBrush( QPalette::Inactive, QPalette::HighlightedText, palette.brush( QPalette::Active, QPalette::HighlightedText ) );
     m_browser->setPalette( palette );
 
-    setMainWidget( m_browser );
+    mainLayout->addWidget( m_browser );
+
+    setMainWidget( main );
 
     setViewerSizeHint( QSize( 700, 500 ) );
 
@@ -110,7 +116,7 @@ void SummaryView::enableView()
 
 void SummaryView::disableView()
 {
-    m_browser->clear();
+    m_browser->setHtml( QString() );
 
     updateCaption();
 }
@@ -205,25 +211,17 @@ void SummaryView::populateSummary()
 
     QApplication::setOverrideCursor( Qt::WaitCursor );
 
-    int pos = m_browser->verticalScrollBar()->sliderPosition();
+    QPoint pos = m_browser->page()->mainFrame()->scrollPosition();
 
     ProjectSummaryGenerator generator;
     generator.setProject( id() );
 
-    if ( m_document )
-        m_document->clear();
-
-    QTextDocument* document = new QTextDocument( m_browser );
-
-    TextWriter writer( document );
+    HtmlWriter writer;
     generator.write( &writer );
 
-    m_browser->setDocument( document );
+    m_browser->setHtml( writer.toHtml() );
 
-    delete m_document;
-    m_document = document;
-
-    m_browser->verticalScrollBar()->setSliderPosition( pos );
+    m_browser->page()->mainFrame()->setScrollPosition( pos );
 
     QApplication::restoreOverrideCursor();
 }

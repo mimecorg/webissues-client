@@ -67,8 +67,7 @@ private:
     void cascadeUpdateProject();
 
 private:
-    QTextBrowser* m_browser;
-    QTextDocument* m_document;
+    QWebView* m_browser;
 
     QTimer* m_populateTimer;
 };

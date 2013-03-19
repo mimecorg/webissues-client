@@ -21,7 +21,6 @@
 #define TEXTWITHLINKS_H 
 
 #include <QStringList>
-#include <QTextCursor>
 
 /**
 * Class representing a fragment of text containing hyperlinks.
@@ -88,9 +87,9 @@ public:
     void appendParsed( const QString& text );
 
     /**
-    * Write the entire text at the cursor position.
+    * Convert the entire text to HTML.
     */
-    void write( QTextCursor& cursor, const QTextCharFormat& format = QTextCharFormat() ) const;
+    QString toHtml() const;
 
     /**
     * Extract links from the given fragment of text.

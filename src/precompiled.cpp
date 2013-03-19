@@ -17,14 +17,4 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************/
 
-#ifndef PRECOMPILED_H
-#define PRECOMPILED_H
-
-#include <QtCore>
-#include <QtGui>
-#include <QtNetwork>
-#include <QtXml>
-#include <QtSql>
-#include <QtWebKit>
-
-#endif
+#include "precompiled.h"

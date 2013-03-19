@@ -25,7 +25,7 @@
 #include "data/entities.h"
 #include "models/issuedetailsgenerator.h"
 #include "models/foldermodel.h"
-#include "utils/textwriter.h"
+#include "utils/htmlwriter.h"
 #include "utils/csvwriter.h"
 
 ReportGenerator::ReportGenerator() :
@@ -44,12 +44,18 @@ void ReportGenerator::setIssueSource( int issueId )
     m_folderId = 0;
     m_issues.clear();
     m_issues.append( issueId );
+
+    IssueEntity issue = IssueEntity::find( issueId );
+    m_title = issue.name();
 }
 
 void ReportGenerator::setFolderSource( int folderId, const QList<int>& issues )
 {
     m_folderId = folderId;
     m_issues = issues;
+
+    FolderEntity folder = FolderEntity::find( folderId );
+    m_title = folder.name();
 }
 
 void ReportGenerator::setTableMode( const QList<int>& columns )
@@ -64,11 +70,11 @@ void ReportGenerator::setSummaryMode( IssueDetailsGenerator::History history )
     m_history = history;
 }
 
-void ReportGenerator::write( TextWriter* writer )
+void ReportGenerator::write( HtmlWriter* writer )
 {
     if ( m_folderId != 0 && !m_summary ) {
         FolderEntity folder = FolderEntity::find( m_folderId );
-        writer->writeBlock( folder.name(), TextWriter::Header1Block );
+        writer->writeBlock( folder.name(), HtmlWriter::Header2Block );
 
         FolderModel model( m_folderId, NULL );
         model.setColumns( m_columns );

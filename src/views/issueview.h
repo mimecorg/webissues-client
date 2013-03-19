@@ -112,7 +112,7 @@ private slots:
     void exportHtml();
     void exportPdf();
 
-    void linkContextMenu( const QString& link, const QPoint& pos );
+    void linkContextMenu( const QUrl& link, const QPoint& pos );
     void historyContextMenu( const QPoint& pos );
 
     void anchorClicked( const QUrl& url );
@@ -133,7 +133,7 @@ private:
 
     void findItem( int itemId );
 
-    void findText( const QString& text, int from, QTextDocument::FindFlags flags );
+    void findText( const QString& text, int flags );
 
     void handleAttachment( int fileId );
     void handleAttachment( int fileId, AttachmentAction action );
@@ -141,8 +141,7 @@ private:
     void handleCommand( const QString& command, int argument );
 
 private:
-    QTextBrowser* m_browser;
-    QTextDocument* m_document;
+    QWebView* m_browser;
 
     FindBar* m_findBar;
 
@@ -154,7 +153,7 @@ private:
 
     IssueDetailsGenerator::History m_history;
 
-    QString m_actionLink;
+    QUrl m_actionLink;
 
     bool m_isFindEnabled;
 

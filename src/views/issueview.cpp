@@ -35,7 +35,7 @@
 #include "models/issuedetailsgenerator.h"
 #include "utils/datetimehelper.h"
 #include "utils/treeviewhelper.h"
-#include "utils/textwriter.h"
+#include "utils/htmlwriter.h"
 #include "utils/formatter.h"
 #include "utils/iconloader.h"
 #include "views/viewmanager.h"
@@ -62,7 +62,6 @@
 #endif
 
 IssueView::IssueView( QObject* parent, QWidget* parentWidget ) : View( parent ),
-    m_document( NULL ),
     m_gotoItemId( 0 ),
     m_folderId( 0 ),
     m_typeId( 0 ),
@@ -193,29 +192,27 @@ IssueView::IssueView( QObject* parent, QWidget* parentWidget ) : View( parent ),
 
     loadXmlUiFile( ":/resources/issueview.xml" );
 
-    QWidget* main = new QWidget( parentWidget );
+    QFrame* main = new QFrame( parentWidget );
+    main->setFrameStyle( QFrame::StyledPanel | QFrame::Sunken );
+
     QVBoxLayout* mainLayout = new QVBoxLayout( main );
     mainLayout->setMargin( 0 );
     mainLayout->setSpacing( 0 );
 
-    m_browser = new QTextBrowser( main );
+    m_browser = new QWebView( main );
     m_browser->setContextMenuPolicy( Qt::CustomContextMenu );
+    m_browser->page()->setLinkDelegationPolicy( QWebPage::DelegateAllLinks );
 
     QPalette palette = m_browser->palette();
-    palette.setBrush( QPalette::Base, QColor( 0xff, 0xff, 0xff ) );
-    palette.setBrush( QPalette::Text, QColor( 0x49, 0x49, 0x49 ) );
     palette.setBrush( QPalette::Inactive, QPalette::Highlight, palette.brush( QPalette::Active, QPalette::Highlight ) );
     palette.setBrush( QPalette::Inactive, QPalette::HighlightedText, palette.brush( QPalette::Active, QPalette::HighlightedText ) );
     m_browser->setPalette( palette );
 
     mainLayout->addWidget( m_browser );
 
-    m_browser->addAction( this->action( "findNext" ) );
-    m_browser->addAction( this->action( "findPrevious" ) );
-
     connect( m_browser, SIGNAL( customContextMenuRequested( const QPoint& ) ),
         this, SLOT( historyContextMenu( const QPoint& ) ) );
-    connect( m_browser, SIGNAL( anchorClicked( const QUrl& ) ), this, SLOT( anchorClicked( const QUrl& ) ) );
+    connect( m_browser, SIGNAL( linkClicked( const QUrl& ) ), this, SLOT( anchorClicked( const QUrl& ) ) );
     connect( m_browser, SIGNAL( selectionChanged() ), this, SLOT( updateActions() ) );
 
     m_findBar = new FindBar( main );
@@ -319,7 +316,7 @@ void IssueView::enableView()
 
 void IssueView::disableView()
 {
-    m_browser->clear();
+    m_browser->setHtml( QString() );
     m_findBar->hide();
 
     updateCaption();
@@ -334,7 +331,7 @@ void IssueView::updateAccess( Access access )
 void IssueView::gotoItem( int itemId )
 {
     if ( itemId == id() ) {
-        m_browser->verticalScrollBar()->setSliderPosition( 0 );
+        m_browser->page()->mainFrame()->setScrollPosition( QPoint( 0, 0 ) );
         return;
     }
 
@@ -342,7 +339,7 @@ void IssueView::gotoItem( int itemId )
         m_gotoItemId = itemId;
 
     if ( IssueEntity::findItem( itemId ) == id() )
-        m_browser->scrollToAnchor( QString( "id%1" ).arg( itemId ) );
+        m_browser->page()->mainFrame()->scrollToAnchor( QString( "id%1" ).arg( itemId ) );
 }
 
 void IssueView::updateCaption()
@@ -360,7 +357,8 @@ void IssueView::updateActions()
 {
     m_isFindEnabled = m_findBar->isFindEnabled();
 
-    bool hasSelection = m_browser->textCursor().hasSelection();
+    // NOTE: hasSelection() is currently broken and always returns true, so using this workaround
+    bool hasSelection = m_browser->pageAction( QWebPage::Copy )->isEnabled();
 
     bool linkNotEmpty = !m_actionLink.isEmpty();
 
@@ -526,13 +524,13 @@ void IssueView::markAsRead()
 void IssueView::copy()
 {
     if ( isEnabled() )
-        m_browser->copy();
+        m_browser->triggerPageAction( QWebPage::Copy );
 }
 
 void IssueView::selectAll()
 {
     if ( isEnabled() )
-        m_browser->selectAll();
+        m_browser->triggerPageAction( QWebPage::SelectAll );
 }
 
 void IssueView::find()
@@ -547,13 +545,13 @@ void IssueView::find()
 void IssueView::findText( const QString& text )
 {
     if ( isEnabled() )
-        findText( text, m_browser->textCursor().selectionStart(), m_findBar->flags() );
+        findText( text, m_findBar->isCaseSensitive() ? QWebPage::FindCaseSensitively : 0 );
 }
 
 void IssueView::findNext()
 {
     if ( isEnabled() && m_isFindEnabled ) {
-        findText( m_findBar->text(), m_browser->textCursor().selectionStart() + 1, m_findBar->flags() );
+        findText( m_findBar->text(), m_findBar->isCaseSensitive() ? QWebPage::FindCaseSensitively : 0 );
         m_findBar->selectAll();
     }
 }
@@ -561,45 +559,20 @@ void IssueView::findNext()
 void IssueView::findPrevious()
 {
     if ( isEnabled() && m_isFindEnabled ) {
-        findText( m_findBar->text(), m_browser->textCursor().selectionStart(), m_findBar->flags() | QTextDocument::FindBackward );
+        findText( m_findBar->text(), ( m_findBar->isCaseSensitive() ? QWebPage::FindCaseSensitively : 0 ) | QTextDocument::FindBackward );
         m_findBar->selectAll();
     }
 }
 
-void IssueView::findText( const QString& text, int from, QTextDocument::FindFlags flags )
+void IssueView::findText( const QString& text, int flags )
 {
-    QTextCursor found;
     bool warn = false;
 
-    if ( !text.isEmpty() ) {
-        found = m_browser->document()->find( text, from, flags );
-
-        if ( found.isNull() ) {
-            if ( flags & QTextDocument::FindBackward ) {
-                QTextCursor end( m_browser->document() );
-                end.movePosition( QTextCursor::End );
-                from = end.position();
-            } else {
-                from = 0;
-            }
-
-            found = m_browser->document()->find( text, from, flags );
-
-            if ( found.isNull() )
-                warn = true;
-        }
-    }
-
-    if ( found.isNull() ) {
-        found = m_browser->textCursor();
-        found.setPosition( found.selectionStart() );
-    }
+    if ( !text.isEmpty() )
+        warn = !m_browser->findText( text, (QWebPage::FindFlags)flags | QWebPage::FindWrapsAroundDocument );
 
     m_findBar->show();
     m_findBar->setFocus();
-
-    m_browser->setTextCursor( found );
-
     m_findBar->showWarning( warn );
 }
 
@@ -623,30 +596,30 @@ bool IssueView::eventFilter( QObject* obj, QEvent* e )
 void IssueView::openAttachment()
 {
     if ( isEnabled() && !m_actionLink.isEmpty() )
-        handleAttachment( QUrl( m_actionLink ).host().toInt(), ActionOpen );
+        handleAttachment( m_actionLink.host().toInt(), ActionOpen );
 }
 
 void IssueView::saveAttachment()
 {
     if ( isEnabled() && !m_actionLink.isEmpty() )
-        handleAttachment( QUrl( m_actionLink ).host().toInt(), ActionSaveAs );
+        handleAttachment( m_actionLink.host().toInt(), ActionSaveAs );
 }
 
 void IssueView::openLink()
 {
     if ( isEnabled() && !m_actionLink.isEmpty() )
-        anchorClicked( QUrl( m_actionLink ) );
+        anchorClicked( m_actionLink );
 }
 
 void IssueView::copyLink()
 {
     if ( isEnabled() && !m_actionLink.isEmpty() ) {
-        QString url = m_actionLink;
+        QString link = m_actionLink.toString();
 
-        if ( url.startsWith( "mailto:" ) )
-            url = url.mid( 7 );
+        if ( link.startsWith( "mailto:", Qt::CaseInsensitive ) )
+            link = link.mid( 7 );
 
-        QApplication::clipboard()->setText( url, QClipboard::Clipboard );
+        QApplication::clipboard()->setText( link, QClipboard::Clipboard );
     }
 }
 
@@ -727,25 +700,17 @@ void IssueView::populateDetails()
 
     QApplication::setOverrideCursor( Qt::WaitCursor );
 
-    int pos = m_browser->verticalScrollBar()->sliderPosition();
+    QPoint pos = m_browser->page()->mainFrame()->scrollPosition();
 
     IssueDetailsGenerator generator;
     generator.setIssue( id(), m_history );
 
-    if ( m_document )
-        m_document->clear();
-
-    QTextDocument* document = new QTextDocument( m_browser );
-
-    TextWriter writer( document );
+    HtmlWriter writer;
     generator.write( &writer );
 
-    m_browser->setDocument( document );
+    m_browser->setHtml( writer.toHtml() );
 
-    delete m_document;
-    m_document = document;
-
-    m_browser->verticalScrollBar()->setSliderPosition( pos );
+    m_browser->page()->mainFrame()->setScrollPosition( pos );
 
     QStringList status;
     if ( m_history != IssueDetailsGenerator::OnlyFiles )
@@ -757,22 +722,22 @@ void IssueView::populateDetails()
     QApplication::restoreOverrideCursor();
 }
 
-void IssueView::linkContextMenu( const QString& link, const QPoint& pos )
+void IssueView::linkContextMenu( const QUrl& link, const QPoint& pos )
 {
     m_actionLink = link;
     updateActions();
 
-    QUrl url( link );
-
     QString menuName;
-    if ( url.scheme() == QLatin1String( "id" ) )
+    QString scheme = link.scheme().toLower();
+
+    if ( scheme == QLatin1String( "id" ) )
         menuName = "menuLinkItem";
-    else if ( url.scheme() == QLatin1String( "attachment" ) )
+    else if ( scheme == QLatin1String( "attachment" ) )
         menuName = "menuLinkAttachment";
-    else if ( url.scheme() == QLatin1String( "mailto" ) )
-        menuName = "menuLinkEmail";
-    else if ( url.scheme() == QLatin1String( "command" ) )
+    else if ( scheme == QLatin1String( "command" ) )
         menuName = "menuHistory";
+    else if ( scheme == QLatin1String( "mailto" ) )
+        menuName = "menuLinkEmail";
     else
         menuName = "menuLink";
 
@@ -783,14 +748,16 @@ void IssueView::linkContextMenu( const QString& link, const QPoint& pos )
 
 void IssueView::historyContextMenu( const QPoint& pos )
 {
-    QString link = m_browser->anchorAt( pos );
+    QWebHitTestResult result = m_browser->page()->mainFrame()->hitTestContent( pos );
+    QUrl link = result.linkUrl();
+
     if ( !link.isEmpty() ) {
         linkContextMenu( link, m_browser->mapToGlobal( pos ) );
         return;
     }
 
     QString menuName;
-    if ( m_browser->textCursor().hasSelection() )
+    if ( m_browser->pageAction( QWebPage::Copy )->isEnabled() )
         menuName = "menuSelection";
     else
         menuName = "menuHistory";
@@ -802,22 +769,20 @@ void IssueView::historyContextMenu( const QPoint& pos )
 
 void IssueView::anchorClicked( const QUrl& url )
 {
-    int pos = m_browser->verticalScrollBar()->sliderPosition();
-    m_browser->setSource( QUrl() );
-    m_browser->verticalScrollBar()->setSliderPosition( pos );
+    QString scheme = url.scheme().toLower();
 
-    if ( url.scheme() == QLatin1String( "id" ) ) {
+    if ( scheme == QLatin1String( "id" ) ) {
         int itemId = url.host().toInt();
         findItem( itemId );
-    } else if ( url.scheme() == QLatin1String( "attachment" ) ) {
+    } else if ( scheme == QLatin1String( "attachment" ) ) {
         int attachmentId = url.host().toInt();
         handleAttachment( attachmentId );
-    } else if ( url.scheme() == QLatin1String( "command" ) ) {
+    } else if ( scheme == QLatin1String( "command" ) ) {
         int argument = url.path().mid( 1 ).toInt();
         handleCommand( url.host(), argument );
     } else {
 #if defined( Q_WS_WIN )
-        if ( url.scheme() == QLatin1String( "file" ) ) {
+        if ( scheme == QLatin1String( "file" ) ) {
             if ( url.isValid() ) {
                 QString path = url.path();
                 if ( path.startsWith( QLatin1Char( '/' ) ) )

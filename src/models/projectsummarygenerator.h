@@ -24,10 +24,10 @@
 
 #include <QObject>
 
-class TextWriter;
+class HtmlWriter;
 
 /**
-* Class providing project summary to the TextWriter.
+* Class providing project summary to the HtmlWriter.
 *
 * This class extracts the summary of a project and outputs it
 * to the TextWriter.
@@ -58,7 +58,7 @@ public:
     * @param writer The text document writer to output the details to.
     * @param flags Optional flags affecting extracting of links.
     */
-    void write( TextWriter* writer, TextWithLinks::Flags flags = 0 );
+    void write( HtmlWriter* writer, TextWithLinks::Flags flags = 0 );
 
 private:
     int m_projectId;
