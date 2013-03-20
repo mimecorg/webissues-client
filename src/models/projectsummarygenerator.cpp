@@ -21,7 +21,7 @@
 
 #include "data/datamanager.h"
 #include "data/entities.h"
-#include "utils/datetimehelper.h"
+#include "utils/markupprocessor.h"
 #include "utils/htmlwriter.h"
 #include "utils/formatter.h"
 
@@ -61,7 +61,10 @@ void ProjectSummaryGenerator::write( HtmlWriter* writer, TextWithLinks::Flags fl
 
             writer->writeBlock( tr( "Description" ), HtmlWriter::Header3Block );
 
-            writer->writeBlock( TextWithLinks::parse( description.text(), flags ), HtmlWriter::CommentBlock );
+            if ( description.format() == TextWithMarkup )
+                writer->writeBlock( MarkupProcessor::parse( description.text(), flags ), HtmlWriter::CommentBlock );
+            else
+                writer->writeBlock( TextWithLinks::parse( description.text(), flags ), HtmlWriter::CommentBlock );
         }
     }
 }

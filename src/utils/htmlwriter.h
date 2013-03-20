@@ -59,8 +59,8 @@ public:
     void setTitle( const QString& title );
     const QString title() const { return m_title; }
 
-    void setEmbeddedCss( bool on );
-    bool isEmbeddedCss() const { return m_embeddedCss; }
+    void setEmbedded( bool on );
+    bool isEmbedded() const { return m_embedded; }
 
     void createLayout();
     void appendLayoutRow();
@@ -71,7 +71,6 @@ public:
     void endHistoryItem();
 
     void writeBlock( const TextWithLinks& text, BlockStyle style );
-    void writeRawBlock( const QString& html, BlockStyle style );
 
     void writeBulletList( const QList<TextWithLinks>& items );
 
@@ -93,7 +92,7 @@ private:
     
 private:
     QString m_title;
-    bool m_embeddedCss;
+    bool m_embedded;
 
     QString m_body;
 

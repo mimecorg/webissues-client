@@ -23,6 +23,7 @@
 #include "data/entities.h"
 #include "utils/datetimehelper.h"
 #include "utils/viewsettingshelper.h"
+#include "utils/markupprocessor.h"
 #include "utils/htmlwriter.h"
 #include "utils/formatter.h"
 
@@ -88,7 +89,10 @@ void IssueDetailsGenerator::write( HtmlWriter* writer, TextWithLinks::Flags flag
 
                 writer->writeBlock( tr( "Description" ), HtmlWriter::Header3Block );
 
-                writer->writeBlock( TextWithLinks::parse( description.text(), flags ), HtmlWriter::CommentBlock );
+                if ( description.format() == TextWithMarkup )
+                    writer->writeBlock( MarkupProcessor::parse( description.text(), flags ), HtmlWriter::CommentBlock );
+                else
+                    writer->writeBlock( TextWithLinks::parse( description.text(), flags ), HtmlWriter::CommentBlock );
             }
 
             writer->appendLayoutRow();
@@ -204,7 +208,10 @@ void IssueDetailsGenerator::writeHistory( HtmlWriter* writer, const IssueEntity&
                 writer->beginHistoryItem();
                 writer->writeBlock( changeLinks( change, flags ), HtmlWriter::HistoryInfoBlock );
                 writer->writeBlock( formatStamp( change ), HtmlWriter::Header4Block );
-                writer->writeBlock( TextWithLinks::parse( change.comment().text(), flags ), HtmlWriter::CommentBlock );
+                if ( change.comment().format() == TextWithMarkup )
+                    writer->writeBlock( MarkupProcessor::parse( change.comment().text(), flags ), HtmlWriter::CommentBlock );
+                else
+                    writer->writeBlock( TextWithLinks::parse( change.comment().text(), flags ), HtmlWriter::CommentBlock );
                 writer->endHistoryItem();
                 m_commentsCount++;
                 break;

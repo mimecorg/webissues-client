@@ -22,7 +22,7 @@
 #include "utils/textwithlinks.h"
 
 HtmlWriter::HtmlWriter() :
-    m_embeddedCss( false )
+    m_embedded( false )
 {
 }
 
@@ -35,9 +35,9 @@ void HtmlWriter::setTitle( const QString& title )
     m_title = title;
 }
 
-void HtmlWriter::setEmbeddedCss( bool on )
+void HtmlWriter::setEmbedded( bool on )
 {
-    m_embeddedCss = on;
+    m_embedded = on;
 }
 
 void HtmlWriter::createLayout()
@@ -95,11 +95,6 @@ void HtmlWriter::endHistoryItem()
 
 void HtmlWriter::writeBlock( const TextWithLinks& text, BlockStyle style )
 {
-    writeRawBlock( text.toHtml(), style );
-}
-
-void HtmlWriter::writeRawBlock( const QString& html, BlockStyle style )
-{
     QString tag;
     QString attributes;
 
@@ -136,7 +131,7 @@ void HtmlWriter::writeRawBlock( const QString& html, BlockStyle style )
     }
 
     pushTag( tag, attributes );
-    m_body += html;
+    m_body += text.toHtml();
     popTag( tag );
 }
 
@@ -225,12 +220,14 @@ QString HtmlWriter::toHtml()
     html += QLatin1String( "<head>\n" );
     html += QLatin1String( "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\n" );
     html += QString( "<title>%1</title>\n" ).arg( Qt::escape( m_title ) );
-    if ( m_embeddedCss ) {
+    if ( m_embedded ) {
         html += QLatin1String( "<style type=\"text/css\">\n" );
         html += readFile( ":/resources/style.css" );
         html += QLatin1String( "</style>\n" );
     } else {
         html += QLatin1String( "<link rel=\"stylesheet\" href=\"qrc:/resources/style.css\" type=\"text/css\" />\n" );
+        html += QLatin1String( "<script type=\"text/javascript\" src=\"qrc:/resources/prettify.js\"></script>\n" );
+        html += QLatin1String( "<script type=\"text/javascript\">addEventListener( 'load', function () { prettyPrint(); }, false );</script>\n" );
     }
     html += QLatin1String( "</head>\n" );
     html += QLatin1String( "<body>\n" );

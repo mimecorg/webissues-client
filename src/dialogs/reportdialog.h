@@ -106,7 +106,7 @@ private:
     bool exportPdf();
 
     QString generateCsvReport();
-    QString generateHtmlReport();
+    QString generateHtmlReport( bool embedded );
 
     QString getReportFileName( const QString& extension, const QString& filter );
 

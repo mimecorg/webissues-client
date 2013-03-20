@@ -6,6 +6,7 @@
   <file>mainwindow.xml</file>
   <file>managealertsdialog.xml</file>
   <file>membersdialog.xml</file>
+  <file>prettify.js</file>
   <file>projectsview.xml</file>
   <file>startview.xml</file>
   <file>style.css</file>

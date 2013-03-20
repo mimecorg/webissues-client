@@ -20,7 +20,7 @@
 #ifndef TEXTWITHLINKS_H 
 #define TEXTWITHLINKS_H 
 
-#include <QStringList>
+#include <QString>
 
 /**
 * Class representing a fragment of text containing hyperlinks.
@@ -87,9 +87,9 @@ public:
     void appendParsed( const QString& text );
 
     /**
-    * Convert the entire text to HTML.
+    * Return the entire text as HTML.
     */
-    QString toHtml() const;
+    QString toHtml() const { return m_html; }
 
     /**
     * Extract links from the given fragment of text.
@@ -100,8 +100,9 @@ public:
 
 private:
     Flags m_flags;
-    QStringList m_texts;
-    QStringList m_urls;
+    QString m_html;
+
+    friend class MarkupProcessor;
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS( TextWithLinks::Flags )

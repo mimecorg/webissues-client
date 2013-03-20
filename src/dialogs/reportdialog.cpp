@@ -192,7 +192,7 @@ bool ReportDialog::print()
     if ( dialog.exec() != QDialog::Accepted )
         return false;
 
-    QString html = generateHtmlReport();
+    QString html = generateHtmlReport( false );
 
     QWebPage page;
     page.mainFrame()->setHtml( html );
@@ -239,7 +239,7 @@ bool ReportDialog::exportHtml()
     QTextStream stream( &file );
     stream.setCodec( QTextCodec::codecForName( "UTF-8" ) );
 
-    stream << generateHtmlReport();
+    stream << generateHtmlReport( true );
 
     return true;
 }
@@ -255,7 +255,7 @@ bool ReportDialog::exportPdf()
     printer.setOutputFileName( fileName );
     printer.setOutputFormat( QPrinter::PdfFormat );
 
-    QString html = generateHtmlReport();
+    QString html = generateHtmlReport( false );
 
     QWebPage page;
     page.mainFrame()->setHtml( html );
@@ -270,7 +270,7 @@ void ReportDialog::showPreview()
     QPrinter* printer = application->printer();
     printer->setFromTo( 0, 0 );
 
-    QString html = generateHtmlReport();
+    QString html = generateHtmlReport( false );
 
     QWebPage page;
     page.mainFrame()->setHtml( html );
@@ -310,7 +310,7 @@ QString ReportDialog::generateCsvReport()
     return writer.toString();
 }
 
-QString ReportDialog::generateHtmlReport()
+QString ReportDialog::generateHtmlReport( bool embedded )
 {
     ReportGenerator generator;
 
@@ -329,7 +329,7 @@ QString ReportDialog::generateHtmlReport()
 
     HtmlWriter writer;
     writer.setTitle( generator.title() );
-    writer.setEmbeddedCss( true );
+    writer.setEmbedded( embedded );
 
     generator.write( &writer );
 

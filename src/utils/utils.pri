@@ -7,6 +7,7 @@ HEADERS += utils/attributehelper.h \
            utils/formatter.h \
            utils/htmlwriter.cpp \
            utils/iconloader.h \
+           utils/markupprocessor.h \
            utils/multiselectcompleter.h \
            utils/networkproxyfactory.h \
            utils/textwithlinks.h \
@@ -24,6 +25,7 @@ SOURCES += utils/attributehelper.cpp \
            utils/formatter.cpp \
            utils/htmlwriter.cpp \
            utils/iconloader.cpp \
+           utils/markupprocessor.cpp \
            utils/multiselectcompleter.cpp \
            utils/networkproxyfactory.cpp \
            utils/textwithlinks.cpp \

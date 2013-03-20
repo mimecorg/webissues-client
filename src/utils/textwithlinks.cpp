@@ -27,10 +27,9 @@ TextWithLinks::TextWithLinks( Flags flags /*= 0*/ ) :
 }
 
 TextWithLinks::TextWithLinks( const QString& text ) :
-    m_flags( 0 )
+    m_flags( 0 ),
+    m_html( Qt::escape( text ) )
 {
-    m_texts.append( text );
-    m_urls.append( QString() );
 }
 
 TextWithLinks::~TextWithLinks()
@@ -39,24 +38,17 @@ TextWithLinks::~TextWithLinks()
 
 void TextWithLinks::clear()
 {
-    m_texts.clear();
-    m_urls.clear();
+    m_html.clear();
 }
 
 void TextWithLinks::appendText( const QString& text )
 {
-    if ( !m_texts.isEmpty() && m_urls.last().isEmpty() ) {
-        m_texts.last().append( text );
-    } else {
-        m_texts.append( text );
-        m_urls.append( QString() );
-    }
+    m_html += Qt::escape( text );
 }
 
 void TextWithLinks::appendLink( const QString& text, const QString& url )
 {
-    m_texts.append( text );
-    m_urls.append( url );
+    m_html += QString( "<a href=\"%1\">%2</a>" ).arg( Qt::escape( url ), Qt::escape( text ) );
 }
 
 void TextWithLinks::appendParsed( const QString& text )
@@ -81,7 +73,7 @@ void TextWithLinks::appendParsed( const QString& text )
         QString link = linkExp.cap( 0 );
 
         QString url;
-        if ( link[ 0 ] == QLatin1Char( '#' ) )
+        if ( link.at( 0 ) == QLatin1Char( '#' ) )
             url = ( ( m_flags & NoInternalLinks ) ? "#id" : "id://" ) + link.mid( 1 );
         else if ( link.startsWith( QLatin1String( "www." ), Qt::CaseInsensitive ) )
             url = "http://" + link;
@@ -98,20 +90,6 @@ void TextWithLinks::appendParsed( const QString& text )
 
         pos += linkExp.matchedLength();
     }
-}
-
-QString TextWithLinks::toHtml() const
-{
-    QString result;
-
-    for ( int i = 0; i < m_texts.count(); i++ ) {
-        if ( !m_urls.at( i ).isEmpty() )
-            result += QString( "<a href=\"%1\">%2</a>" ).arg( Qt::escape( m_urls.at( i ) ), Qt::escape( m_texts.at( i ) ) );
-        else
-            result += Qt::escape( m_texts.at( i ) );
-    }
-
-    return result;
 }
 
 TextWithLinks TextWithLinks::parse( const QString& text, Flags flags /*= 0*/ )
