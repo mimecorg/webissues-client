@@ -17,19 +17,19 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************/
 
-#ifndef TEXTWITHLINKS_H 
-#define TEXTWITHLINKS_H 
+#ifndef HTMLTEXT_H 
+#define HTMLTEXT_H 
 
 #include <QString>
 
 /**
-* Class representing a fragment of text containing hyperlinks.
+* Class representing a fragment of HTML text containing links and images.
 *
 * Text can be parsed to automatically convert URLs and e-mail addresses
 * to hyperlinks. Item identifiers prefixed with a # character are converted
 * to links using the <tt>id://{number}</tt> URL.
 */
-class TextWithLinks
+class HtmlText
 {
 public:
     /**
@@ -48,18 +48,18 @@ public:
     * Default constructor.
     * @param flags Flags affecting extracting of links.
     */
-    TextWithLinks( Flags flags = 0 );
+    HtmlText( Flags flags = 0 );
 
     /**
     * Conversion constructor.
     * @param text Plain text to convert.
     */
-    TextWithLinks( const QString& text );
+    HtmlText( const QString& text );
 
     /**
     * Destructor.
     */
-    ~TextWithLinks();
+    ~HtmlText();
 
 public:
     /**
@@ -87,16 +87,49 @@ public:
     void appendParsed( const QString& text );
 
     /**
+    * Create an image.
+    * @param image Name of the image icon.
+    * @param text Text of the alt attribute.
+    */
+    void appendImage( const QString& image, const QString& text );
+
+    /**
+    * Create an image and text label.
+    * @param image Name of the image icon.
+    * @param text Text of the label.
+    */
+    void appendImageAndText( const QString& image, const QString& text );
+
+    /**
+    * Create an image and text link.
+    * @param image Name of the image icon.
+    * @param text Text of the link.
+    * @param url Destination URL of the link.
+    */
+    void appendImageAndTextLink( const QString& image, const QString& text, const QString& url );
+
+    /**
+    * Start an anchor.
+    * @param name Name of the anchor.
+    */
+    void createAnchor( const QString& name );
+
+    /**
+    * End the anchor.
+    */
+    void endAnchor();
+
+    /**
     * Return the entire text as HTML.
     */
-    QString toHtml() const { return m_html; }
+    QString toString() const { return m_html; }
 
     /**
     * Extract links from the given fragment of text.
     * @param text Text containing URLs and item references.
     * @param flags Flags affecting extracting of links.
     */
-    static TextWithLinks parse( const QString& text, Flags flags = 0 );
+    static HtmlText parse( const QString& text, Flags flags = 0 );
 
 private:
     Flags m_flags;
@@ -105,6 +138,6 @@ private:
     friend class MarkupProcessor;
 };
 
-Q_DECLARE_OPERATORS_FOR_FLAGS( TextWithLinks::Flags )
+Q_DECLARE_OPERATORS_FOR_FLAGS( HtmlText::Flags )
 
 #endif

@@ -363,6 +363,7 @@ public:
 public:
     static IssueEntity find( int id );
 
+    static bool isOwner( int id );
     static bool isAdmin( int id );
 
     static int findItem( int itemId );

@@ -42,7 +42,7 @@ void ProjectSummaryGenerator::setProject( int projectId )
     m_isAdmin = ProjectEntity::isAdmin( projectId );
 }
 
-void ProjectSummaryGenerator::write( HtmlWriter* writer, TextWithLinks::Flags flags /*= 0*/ )
+void ProjectSummaryGenerator::write( HtmlWriter* writer, HtmlText::Flags flags /*= 0*/ )
 {
     ProjectEntity project = ProjectEntity::find( m_projectId );
 
@@ -52,19 +52,35 @@ void ProjectSummaryGenerator::write( HtmlWriter* writer, TextWithLinks::Flags fl
         DescriptionEntity description = project.description();
 
         if ( description.isValid() ) {
-            TextWithLinks info( flags );
-            Formatter formatter;
-            info.appendText( tr( "Last Edited:" ) );
-            info.appendText( QString::fromUtf8( " %1 — %2" ).arg( formatter.formatDateTime( description.modifiedDate(), true ), description.modifiedUser() ) );
-
-            writer->writeBlock( info, HtmlWriter::FloatBlock );
-
+            writer->writeBlock( descriptionLinks( description, flags ), HtmlWriter::FloatBlock );
             writer->writeBlock( tr( "Description" ), HtmlWriter::Header3Block );
-
-            if ( description.format() == TextWithMarkup )
-                writer->writeBlock( MarkupProcessor::parse( description.text(), flags ), HtmlWriter::CommentBlock );
-            else
-                writer->writeBlock( TextWithLinks::parse( description.text(), flags ), HtmlWriter::CommentBlock );
+            writer->writeBlock( descriptionText( description, flags ), HtmlWriter::CommentBlock );
         }
     }
+}
+
+HtmlText ProjectSummaryGenerator::descriptionLinks( const DescriptionEntity& description, HtmlText::Flags flags )
+{
+    HtmlText result( flags );
+
+    Formatter formatter;
+    result.appendText( tr( "Last Edited:" ) );
+    result.appendText( QString::fromUtf8( " %1 — %2" ).arg( formatter.formatDateTime( description.modifiedDate(), true ), description.modifiedUser() ) );
+
+    if ( !flags.testFlag( HtmlText::NoInternalLinks ) && m_isAdmin ) {
+        result.appendText( " | " );
+        result.appendImageAndTextLink( "edit-modify", tr( "Edit" ), "command://edit-descr/" );
+        result.appendText( " | " );
+        result.appendImageAndTextLink( "edit-delete", tr( "Delete" ), "command://delete-descr/" );
+    }
+
+    return result;
+}
+
+HtmlText ProjectSummaryGenerator::descriptionText( const DescriptionEntity& description, HtmlText::Flags flags )
+{
+    if ( description.format() == TextWithMarkup )
+        return MarkupProcessor::parse( description.text(), flags );
+    else
+        return HtmlText::parse( description.text(), flags );
 }

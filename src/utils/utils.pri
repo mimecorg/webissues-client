@@ -5,12 +5,12 @@ HEADERS += utils/attributehelper.h \
            utils/definitioninfo.h \
            utils/errorhelper.h \
            utils/formatter.h \
+           utils/htmltext.h \
            utils/htmlwriter.cpp \
            utils/iconloader.h \
            utils/markupprocessor.h \
            utils/multiselectcompleter.h \
            utils/networkproxyfactory.h \
-           utils/textwithlinks.h \
            utils/treeviewhelper.h \
            utils/updateclient.h \
            utils/validator.h \
@@ -23,12 +23,12 @@ SOURCES += utils/attributehelper.cpp \
            utils/definitioninfo.cpp \
            utils/errorhelper.cpp \
            utils/formatter.cpp \
+           utils/htmltext.cpp \
            utils/htmlwriter.cpp \
            utils/iconloader.cpp \
            utils/markupprocessor.cpp \
            utils/multiselectcompleter.cpp \
            utils/networkproxyfactory.cpp \
-           utils/textwithlinks.cpp \
            utils/treeviewhelper.cpp \
            utils/updateclient.cpp \
            utils/validator.cpp \

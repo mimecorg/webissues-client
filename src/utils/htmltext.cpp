@@ -17,41 +17,41 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************/
 
-#include "textwithlinks.h"
+#include "htmltext.h"
 
 #include <QRegExp>
 
-TextWithLinks::TextWithLinks( Flags flags /*= 0*/ ) :
+HtmlText::HtmlText( Flags flags /*= 0*/ ) :
     m_flags( flags )
 {
 }
 
-TextWithLinks::TextWithLinks( const QString& text ) :
+HtmlText::HtmlText( const QString& text ) :
     m_flags( 0 ),
     m_html( Qt::escape( text ) )
 {
 }
 
-TextWithLinks::~TextWithLinks()
+HtmlText::~HtmlText()
 {
 }
 
-void TextWithLinks::clear()
+void HtmlText::clear()
 {
     m_html.clear();
 }
 
-void TextWithLinks::appendText( const QString& text )
+void HtmlText::appendText( const QString& text )
 {
     m_html += Qt::escape( text );
 }
 
-void TextWithLinks::appendLink( const QString& text, const QString& url )
+void HtmlText::appendLink( const QString& text, const QString& url )
 {
     m_html += QString( "<a href=\"%1\">%2</a>" ).arg( Qt::escape( url ), Qt::escape( text ) );
 }
 
-void TextWithLinks::appendParsed( const QString& text )
+void HtmlText::appendParsed( const QString& text )
 {
     QRegExp linkExp( "\\b(?:mailto:)?[\\w.%+-]+@[\\w.-]+\\.[a-z]{2,4}\\b"
         "|(?:\\b(?:(?:https?|ftp|file):\\/\\/|www\\.|ftp\\.)|\\\\\\\\)(?:\\([\\w+&@#\\/\\\\%=~|$?!:,.-]*\\)|[\\w+&@#\\/\\\\%=~|$?!:,.-])*(?:\\([\\w+&@#\\/\\\\%=~|$?!:,.-]*\\)|[\\w+&@#\\/\\\\%=~|$])"
@@ -92,9 +92,39 @@ void TextWithLinks::appendParsed( const QString& text )
     }
 }
 
-TextWithLinks TextWithLinks::parse( const QString& text, Flags flags /*= 0*/ )
+HtmlText HtmlText::parse( const QString& text, Flags flags /*= 0*/ )
 {
-    TextWithLinks result( flags );
+    HtmlText result( flags );
     result.appendParsed( text );
     return result;
+}
+
+void HtmlText::appendImage( const QString& image, const QString& text )
+{
+    m_html += QString( "<img src=\"qrc:/icons/%1-16.png\" alt=\"%2\" title=\"%2\" width=\"16\" height=\"16\" class=\"icon\" />" ).arg( image, Qt::escape( text ) );
+}
+
+void HtmlText::appendImageAndText( const QString& image, const QString& text )
+{
+    appendImage( image, text );
+    m_html += QLatin1Char( ' ' );
+    appendText( text );
+}
+
+void HtmlText::appendImageAndTextLink( const QString& image, const QString& text, const QString& url )
+{
+    m_html += QString( "<a href=\"%1\">" ).arg( Qt::escape( url ) );
+    appendImage( image, text );
+    m_html += QLatin1String( "</a>\n" );
+    appendLink( text, url );
+}
+
+void HtmlText::createAnchor( const QString& name )
+{
+    m_html += QString( "<a class=\"anchor\" name=\"%1\">" ).arg( Qt::escape( name ) );
+}
+
+void HtmlText::endAnchor()
+{
+    m_html += QLatin1String( "</a>\n" );;
 }

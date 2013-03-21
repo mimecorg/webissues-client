@@ -89,10 +89,10 @@ void ReportGenerator::write( HtmlWriter* writer )
         for ( int i = 0; i < m_issues.count(); i++ ) {
             QModelIndex index = model.findIndex( 0, m_issues.at( i ), 0 );
             if ( index.isValid() ) {
-                QList<TextWithLinks> cells;
+                QList<HtmlText> cells;
                 for ( int j = 0; j < m_columns.count(); j++ ) {
                     QString text = model.data( model.index( index.row(), j ), Qt::DisplayRole ).toString();
-                    cells.append( TextWithLinks::parse( text, TextWithLinks::NoInternalLinks ) );
+                    cells.append( HtmlText::parse( text, HtmlText::NoInternalLinks ) );
                 }
                 writer->appendTableRow( cells );
             }
@@ -106,7 +106,7 @@ void ReportGenerator::write( HtmlWriter* writer )
 
         for ( int i = 0; i < m_issues.count(); i++ ) {
             generator.setIssue( m_issues.at( i ), m_history );
-            generator.write( writer, TextWithLinks::NoInternalLinks );
+            generator.write( writer, HtmlText::NoInternalLinks );
         }
     }
 }

@@ -20,7 +20,7 @@
 #ifndef HTMLWRITER_H
 #define HTMLWRITER_H
 
-class TextWithLinks;
+class HtmlText;
 
 /**
 * Class for writing documents in HTML format.
@@ -70,14 +70,14 @@ public:
     void beginHistoryItem();
     void endHistoryItem();
 
-    void writeBlock( const TextWithLinks& text, BlockStyle style );
+    void writeBlock( const HtmlText& text, BlockStyle style );
 
-    void writeBulletList( const QList<TextWithLinks>& items );
+    void writeBulletList( const QList<HtmlText>& items );
 
-    void writeInfoList( const QStringList& headers, const QList<TextWithLinks>& values, bool multiLine );
+    void writeInfoList( const QStringList& headers, const QList<HtmlText>& values, bool multiLine );
 
     void createTable( const QStringList& headers );
-    void appendTableRow( const QList<TextWithLinks>& cells );
+    void appendTableRow( const QList<HtmlText>& cells );
     void endTable();
 
     /**

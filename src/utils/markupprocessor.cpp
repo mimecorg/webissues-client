@@ -55,7 +55,7 @@ static int strcspn( const QString& text )
     return i;
 }
 
-static QString parseText( const QString& text, TextWithLinks::Flags flags, MarkupState& state )
+static QString parseText( const QString& text, HtmlText::Flags flags, MarkupState& state )
 {
     if ( text.isEmpty() )
         return QString();
@@ -106,12 +106,12 @@ static QString parseText( const QString& text, TextWithLinks::Flags flags, Marku
         pos = subtokenExp.indexIn( text, pos );
 
         if ( pos < 0 ) {
-            result += TextWithLinks::parse( text.mid( oldpos ), flags ).toHtml();
+            result += HtmlText::parse( text.mid( oldpos ), flags ).toString();
             break;
         }
 
         if ( pos > oldpos )
-            result += TextWithLinks::parse( text.mid( oldpos, pos - oldpos ), flags ).toHtml();
+            result += HtmlText::parse( text.mid( oldpos, pos - oldpos ), flags ).toString();
 
         pos += subtokenExp.matchedLength();
 
@@ -149,7 +149,7 @@ static QString parseText( const QString& text, TextWithLinks::Flags flags, Marku
                 title = url;
 
             if ( url.at( 0 ) == QLatin1Char( '#' ) )
-                url = ( ( flags & TextWithLinks::NoInternalLinks ) ? "#id" : "id://" ) + url.mid( 1 );
+                url = ( ( flags & HtmlText::NoInternalLinks ) ? "#id" : "id://" ) + url.mid( 1 );
             else if ( url.startsWith( QLatin1String( "www." ), Qt::CaseInsensitive ) )
                 url = "http://" + url;
             else if ( url.startsWith( QLatin1String( "ftp." ), Qt::CaseInsensitive ) )
@@ -175,7 +175,7 @@ static QString parseText( const QString& text, TextWithLinks::Flags flags, Marku
     return result;
 }
 
-TextWithLinks MarkupProcessor::parse( const QString& text, TextWithLinks::Flags flags /* = 0 */ )
+HtmlText MarkupProcessor::parse( const QString& text, HtmlText::Flags flags /* = 0 */ )
 {
     MarkupState state( NormalMode );
     QStack<MarkupState> stack;
@@ -286,7 +286,7 @@ TextWithLinks MarkupProcessor::parse( const QString& text, TextWithLinks::Flags 
                 state = MarkupState( QuoteMode );
                 result += QLatin1String( "<div class=\"quote\">" );
                 if ( !extra.isEmpty() ) {
-                    QString title = TextWithLinks::parse( extra, flags ).toHtml();
+                    QString title = HtmlText::parse( extra, flags ).toString();
                     if ( title.at( title.length() - 1 ) != QLatin1Char( ':' ) )
                         title += QLatin1Char( ':' );
                     result += QString( "<div class=\"quote-title\">%1</div>" ).arg( title );
@@ -309,8 +309,8 @@ TextWithLinks MarkupProcessor::parse( const QString& text, TextWithLinks::Flags 
         state = stack.pop();
     }
 
-    TextWithLinks textWithLinks( flags );
-    textWithLinks.m_html = result;
+    HtmlText htmlText( flags );
+    htmlText.m_html = result;
 
-    return textWithLinks;
+    return htmlText;
 }

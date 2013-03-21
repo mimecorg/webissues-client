@@ -20,11 +20,12 @@
 #ifndef PROJECTSUMMARYGENERATOR_H
 #define PROJECTSUMMARYGENERATOR_H
 
-#include "utils/textwithlinks.h"
+#include "utils/htmltext.h"
 
 #include <QObject>
 
 class HtmlWriter;
+class DescriptionEntity;
 
 /**
 * Class providing project summary to the HtmlWriter.
@@ -58,7 +59,12 @@ public:
     * @param writer The text document writer to output the details to.
     * @param flags Optional flags affecting extracting of links.
     */
-    void write( HtmlWriter* writer, TextWithLinks::Flags flags = 0 );
+    void write( HtmlWriter* writer, HtmlText::Flags flags = 0 );
+
+private:
+    HtmlText descriptionLinks( const DescriptionEntity& description, HtmlText::Flags flags );
+
+    HtmlText descriptionText( const DescriptionEntity& description, HtmlText::Flags flags );
 
 private:
     int m_projectId;

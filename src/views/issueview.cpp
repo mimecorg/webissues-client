@@ -339,7 +339,7 @@ void IssueView::gotoItem( int itemId )
         m_gotoItemId = itemId;
 
     if ( IssueEntity::findItem( itemId ) == id() )
-        m_browser->page()->mainFrame()->scrollToAnchor( QString( "id%1" ).arg( itemId ) );
+        m_browser->page()->mainFrame()->scrollToAnchor( QString( "item%1" ).arg( itemId ) );
 }
 
 void IssueView::updateCaption()

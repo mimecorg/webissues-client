@@ -1159,6 +1159,17 @@ void IssueEntityData::read( const Query& query )
     m_modifiedUser = query.value( 9 ).toString();
 }
 
+bool IssueEntity::isOwner( int id )
+{
+    Query query( "SELECT created_user_id FROM issues WHERE issue_id = ?" );
+    query.exec( id );
+
+    if ( query.next() && query.value( 0 ).toInt() == dataManager->currentUserId() )
+        return true;
+
+    return false;
+}
+
 bool IssueEntity::isAdmin( int id )
 {
     if ( dataManager->currentUserAccess() == AdminAccess )

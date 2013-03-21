@@ -20,7 +20,7 @@
 #ifndef ISSUEDETAILSGENERATOR_H
 #define ISSUEDETAILSGENERATOR_H
 
-#include "utils/textwithlinks.h"
+#include "utils/htmltext.h"
 
 #include <QObject>
 #include <QList>
@@ -30,6 +30,8 @@ class IssueEntity;
 class ChangeEntity;
 class FileEntity;
 class ValueEntity;
+class DescriptionEntity;
+class CommentEntity;
 
 /**
 * Class providing issue details to the TextWriter.
@@ -74,7 +76,7 @@ public:
     * @param writer The text document writer to output the details to.
     * @param flags Optional flags affecting extracting of links.
     */
-    void write( HtmlWriter* writer, TextWithLinks::Flags flags = 0 );
+    void write( HtmlWriter* writer, HtmlText::Flags flags = 0 );
 
     int commentsCount() const { return m_commentsCount; }
 
@@ -82,22 +84,27 @@ public:
 
 private:
     void writeProperties( HtmlWriter* writer, const IssueEntity& issue );
-    void writeAttributes( HtmlWriter* writer, const QList<ValueEntity>& values, TextWithLinks::Flags flags );
-    void writeHistory( HtmlWriter* writer, const IssueEntity& issue, TextWithLinks::Flags flags );
+    void writeAttributes( HtmlWriter* writer, const QList<ValueEntity>& values, HtmlText::Flags flags );
+    void writeHistory( HtmlWriter* writer, const IssueEntity& issue, HtmlText::Flags flags );
 
     QString formatStamp( const ChangeEntity& change );
 
-    TextWithLinks formatChange( const ChangeEntity& change, TextWithLinks::Flags flags );
-    TextWithLinks formatFile( const FileEntity& file, TextWithLinks::Flags flags );
+    HtmlText formatChange( const ChangeEntity& change, HtmlText::Flags flags );
+    HtmlText formatFile( const FileEntity& file, HtmlText::Flags flags );
 
-    TextWithLinks historyLinks( TextWithLinks::Flags flags );
+    HtmlText historyLinks( HtmlText::Flags flags );
 
-    TextWithLinks changeLinks( const ChangeEntity& change, TextWithLinks::Flags flags );
+    HtmlText descriptionLinks( const DescriptionEntity& description, HtmlText::Flags flags );
+    HtmlText changeLinks( const ChangeEntity& change, HtmlText::Flags flags );
+
+    HtmlText descriptionText( const DescriptionEntity& description, HtmlText::Flags flags );
+    HtmlText commentText( const CommentEntity& comment, HtmlText::Flags flags );
 
 private:
     int m_issueId;
     History m_history;
 
+    bool m_isOwner;
     bool m_isAdmin;
 
     int m_commentsCount;

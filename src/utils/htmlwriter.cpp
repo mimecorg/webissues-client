@@ -19,7 +19,7 @@
 
 #include "htmlwriter.h"
 
-#include "utils/textwithlinks.h"
+#include "utils/htmltext.h"
 
 HtmlWriter::HtmlWriter() :
     m_embedded( false )
@@ -93,7 +93,7 @@ void HtmlWriter::endHistoryItem()
     popTag( "div" );
 }
 
-void HtmlWriter::writeBlock( const TextWithLinks& text, BlockStyle style )
+void HtmlWriter::writeBlock( const HtmlText& text, BlockStyle style )
 {
     QString tag;
     QString attributes;
@@ -131,24 +131,24 @@ void HtmlWriter::writeBlock( const TextWithLinks& text, BlockStyle style )
     }
 
     pushTag( tag, attributes );
-    m_body += text.toHtml();
+    m_body += text.toString();
     popTag( tag );
 }
 
-void HtmlWriter::writeBulletList( const QList<TextWithLinks>& items )
+void HtmlWriter::writeBulletList( const QList<HtmlText>& items )
 {
     pushTag( "ul" );
 
-    foreach ( const TextWithLinks& item, items ) {
+    foreach ( const HtmlText& item, items ) {
         pushTag( "li", "class=\"changes\"" );
-        m_body += item.toHtml();
+        m_body += item.toString();
         popTag( "li" );
     }
 
     popTag( "ul" );
 }
 
-void HtmlWriter::writeInfoList( const QStringList& headers, const QList<TextWithLinks>& values, bool multiLine )
+void HtmlWriter::writeInfoList( const QStringList& headers, const QList<HtmlText>& values, bool multiLine )
 {
     pushTag( "table", "class=\"info-list\"" );
 
@@ -160,7 +160,7 @@ void HtmlWriter::writeInfoList( const QStringList& headers, const QList<TextWith
         popTag( "td" );
 
         pushTag( "td", multiLine ? "class=\"multi-line\"" : QString() );
-        m_body += values.at( i ).toHtml();
+        m_body += values.at( i ).toString();
         popTag( "td" );
 
         popTag( "tr" );
@@ -183,13 +183,13 @@ void HtmlWriter::createTable( const QStringList& headers )
     popTag( "tr" );
 }
 
-void HtmlWriter::appendTableRow( const QList<TextWithLinks>& cells )
+void HtmlWriter::appendTableRow( const QList<HtmlText>& cells )
 {
     pushTag( "tr" );
 
-    foreach ( const TextWithLinks& cell, cells ) {
+    foreach ( const HtmlText& cell, cells ) {
         pushTag( "td" );
-        m_body += cell.toHtml();
+        m_body += cell.toString();
         popTag( "td" );
     }
 

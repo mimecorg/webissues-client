@@ -32,6 +32,7 @@
 IssueDetailsGenerator::IssueDetailsGenerator() :
     m_issueId( 0 ),
     m_history( NoHistory ),
+    m_isOwner( false ),
     m_isAdmin( false ),
     m_commentsCount( 0 ),
     m_filesCount( 0 )
@@ -47,10 +48,11 @@ void IssueDetailsGenerator::setIssue( int issueId, History history )
     m_issueId = issueId;
     m_history = history;
 
+    m_isOwner = IssueEntity::isOwner( issueId );
     m_isAdmin = IssueEntity::isAdmin( issueId );
 }
 
-void IssueDetailsGenerator::write( HtmlWriter* writer, TextWithLinks::Flags flags /*= 0*/ )
+void IssueDetailsGenerator::write( HtmlWriter* writer, HtmlText::Flags flags /*= 0*/ )
 {
     IssueEntity issue = IssueEntity::find( m_issueId );
 
@@ -80,25 +82,15 @@ void IssueDetailsGenerator::write( HtmlWriter* writer, TextWithLinks::Flags flag
                 writer->appendLayoutRow();
                 writer->beginCell( HtmlWriter::BottomPane, 2 );
 
-                TextWithLinks info( flags );
-                Formatter formatter;
-                info.appendText( tr( "Last Edited:" ) );
-                info.appendText( QString::fromUtf8( " %1 — %2" ).arg( formatter.formatDateTime( description.modifiedDate(), true ), description.modifiedUser() ) );
-
-                writer->writeBlock( info, HtmlWriter::FloatBlock );
-
+                writer->writeBlock( descriptionLinks( description, flags ), HtmlWriter::FloatBlock );
                 writer->writeBlock( tr( "Description" ), HtmlWriter::Header3Block );
-
-                if ( description.format() == TextWithMarkup )
-                    writer->writeBlock( MarkupProcessor::parse( description.text(), flags ), HtmlWriter::CommentBlock );
-                else
-                    writer->writeBlock( TextWithLinks::parse( description.text(), flags ), HtmlWriter::CommentBlock );
+                writer->writeBlock( descriptionText( description, flags ), HtmlWriter::CommentBlock );
             }
 
             writer->appendLayoutRow();
             writer->beginCell( HtmlWriter::BottomPane, 2 );
 
-            if ( !flags.testFlag( TextWithLinks::NoInternalLinks ) )
+            if ( !flags.testFlag( HtmlText::NoInternalLinks ) )
                 writer->writeBlock( historyLinks( flags ), HtmlWriter::FloatBlock );
 
             writer->writeBlock( tr( "Issue History" ), HtmlWriter::Header3Block );
@@ -113,7 +105,7 @@ void IssueDetailsGenerator::write( HtmlWriter* writer, TextWithLinks::Flags flag
 void IssueDetailsGenerator::writeProperties( HtmlWriter* writer, const IssueEntity& issue )
 {
     QStringList headers;
-    QList<TextWithLinks> items;
+    QList<HtmlText> items;
 
     headers.append( tr( "ID:" ) );
     items.append( QString( "#%1" ).arg( issue.id() ) );
@@ -135,10 +127,10 @@ void IssueDetailsGenerator::writeProperties( HtmlWriter* writer, const IssueEnti
     writer->writeInfoList( headers, items, false );
 }
 
-void IssueDetailsGenerator::writeAttributes( HtmlWriter* writer, const QList<ValueEntity>& values, TextWithLinks::Flags flags )
+void IssueDetailsGenerator::writeAttributes( HtmlWriter* writer, const QList<ValueEntity>& values, HtmlText::Flags flags )
 {
     QStringList headers;
-    QList<TextWithLinks> items;
+    QList<HtmlText> items;
 
     Formatter formatter;
 
@@ -146,13 +138,13 @@ void IssueDetailsGenerator::writeAttributes( HtmlWriter* writer, const QList<Val
         const ValueEntity& value = values.at( i );
         headers.append( value.name() + tr( ":" ) );
         QString formattedValue = formatter.convertAttributeValue( value.definition(), value.value(), true );
-        items.append( TextWithLinks::parse( formattedValue, flags ) );
+        items.append( HtmlText::parse( formattedValue, flags ) );
     }
 
     writer->writeInfoList( headers, items, true );
 }
 
-void IssueDetailsGenerator::writeHistory( HtmlWriter* writer, const IssueEntity& issue, TextWithLinks::Flags flags )
+void IssueDetailsGenerator::writeHistory( HtmlWriter* writer, const IssueEntity& issue, HtmlText::Flags flags )
 {
     Qt::SortOrder order = Qt::AscendingOrder;
 
@@ -169,7 +161,7 @@ void IssueDetailsGenerator::writeHistory( HtmlWriter* writer, const IssueEntity&
     else if ( m_history == CommentsAndFiles )
         changes = issue.commentsAndFiles( order );
 
-    QList<TextWithLinks> list;
+    QList<HtmlText> list;
 
     int lastUserId = 0;
     QDateTime lastDate;
@@ -211,7 +203,7 @@ void IssueDetailsGenerator::writeHistory( HtmlWriter* writer, const IssueEntity&
                 if ( change.comment().format() == TextWithMarkup )
                     writer->writeBlock( MarkupProcessor::parse( change.comment().text(), flags ), HtmlWriter::CommentBlock );
                 else
-                    writer->writeBlock( TextWithLinks::parse( change.comment().text(), flags ), HtmlWriter::CommentBlock );
+                    writer->writeBlock( HtmlText::parse( change.comment().text(), flags ), HtmlWriter::CommentBlock );
                 writer->endHistoryItem();
                 m_commentsCount++;
                 break;
@@ -228,7 +220,7 @@ void IssueDetailsGenerator::writeHistory( HtmlWriter* writer, const IssueEntity&
             case IssueMoved:
                 writer->beginHistoryItem();
                 writer->writeBlock( formatStamp( change ), HtmlWriter::Header4Block );
-                writer->writeBulletList( QList<TextWithLinks>() << formatChange( change, flags ) );
+                writer->writeBulletList( QList<HtmlText>() << formatChange( change, flags ) );
                 writer->endHistoryItem();
                 break;
         }
@@ -255,9 +247,9 @@ QString IssueDetailsGenerator::formatStamp( const ChangeEntity& change )
     return QString::fromUtf8( "%1 — %2" ).arg( formatter.formatDateTime( change.createdDate(), true ), change.createdUser() );
 }
 
-TextWithLinks IssueDetailsGenerator::formatChange( const ChangeEntity& change, TextWithLinks::Flags flags )
+HtmlText IssueDetailsGenerator::formatChange( const ChangeEntity& change, HtmlText::Flags flags )
 {
-    TextWithLinks result( flags );
+    HtmlText result( flags );
 
     switch ( change.type() ) {
         case IssueCreated:
@@ -338,9 +330,9 @@ TextWithLinks IssueDetailsGenerator::formatChange( const ChangeEntity& change, T
     return result;
 }
 
-TextWithLinks IssueDetailsGenerator::formatFile( const FileEntity& file, TextWithLinks::Flags flags )
+HtmlText IssueDetailsGenerator::formatFile( const FileEntity& file, HtmlText::Flags flags )
 {
-    TextWithLinks result( flags );
+    HtmlText result( flags );
 
     result.appendLink( file.name(), QString( "attachment://%1" ).arg( file.id() ) );
     result.appendText( " (" );
@@ -358,9 +350,9 @@ TextWithLinks IssueDetailsGenerator::formatFile( const FileEntity& file, TextWit
     return result;
 }
 
-TextWithLinks IssueDetailsGenerator::historyLinks( TextWithLinks::Flags flags )
+HtmlText IssueDetailsGenerator::historyLinks( HtmlText::Flags flags )
 {
-    TextWithLinks result( flags );
+    HtmlText result( flags );
 
     for ( int i = AllHistory; i <= CommentsAndFiles; i++ ) {
         if ( i != AllHistory )
@@ -391,9 +383,27 @@ TextWithLinks IssueDetailsGenerator::historyLinks( TextWithLinks::Flags flags )
     return result;
 }
 
-TextWithLinks IssueDetailsGenerator::changeLinks( const ChangeEntity& change, TextWithLinks::Flags flags )
+HtmlText IssueDetailsGenerator::descriptionLinks( const DescriptionEntity& description, HtmlText::Flags flags )
 {
-    TextWithLinks result( flags );
+    HtmlText result( flags );
+
+    Formatter formatter;
+    result.appendText( tr( "Last Edited:" ) );
+    result.appendText( QString::fromUtf8( " %1 — %2" ).arg( formatter.formatDateTime( description.modifiedDate(), true ), description.modifiedUser() ) );
+
+    if ( !flags.testFlag( HtmlText::NoInternalLinks ) && ( m_isOwner || m_isAdmin ) ) {
+        result.appendText( " | " );
+        result.appendImageAndTextLink( "edit-modify", tr( "Edit" ), "command://edit-descr/" );
+        result.appendText( " | " );
+        result.appendImageAndTextLink( "edit-delete", tr( "Delete" ), "command://delete-descr/" );
+    }
+
+    return result;
+}
+
+HtmlText IssueDetailsGenerator::changeLinks( const ChangeEntity& change, HtmlText::Flags flags )
+{
+    HtmlText result( flags );
 
     if ( change.stampId() != change.id() ) {
         Formatter formatter;
@@ -402,24 +412,49 @@ TextWithLinks IssueDetailsGenerator::changeLinks( const ChangeEntity& change, Te
         result.appendText( " | " );
     }
 
-    if ( change.type() == CommentAdded )
-        result.appendText( tr( "Comment #%1" ).arg( change.id() ) );
-    else
-        result.appendText( tr( "Attachment #%1" ).arg( change.id() ) );
+    result.createAnchor( QString( "item%1" ).arg( change.id() ) );
+    if ( flags.testFlag( HtmlText::NoInternalLinks ) ) {
+        if ( change.type() == CommentAdded )
+            result.appendText( tr( "Comment #%1" ).arg( change.id() ) );
+        else
+            result.appendText( tr( "Attachment #%1" ).arg( change.id() ) );
+    } else {
+        if ( change.type() == CommentAdded )
+            result.appendImageAndText( "comment", tr( "Comment #%1" ).arg( change.id() ) );
+        else
+            result.appendImageAndText( "file-attach", tr( "Attachment #%1" ).arg( change.id() ) );
+    }
+    result.endAnchor();
 
-    if ( !flags.testFlag( TextWithLinks::NoInternalLinks ) && ( m_isAdmin || change.createdUserId() == dataManager->currentUserId() ) ) {
+    if ( !flags.testFlag( HtmlText::NoInternalLinks ) && ( m_isAdmin || change.createdUserId() == dataManager->currentUserId() ) ) {
         result.appendText( " | " );
         if ( change.type() == CommentAdded )
-            result.appendLink( tr( "Edit" ), QString( "command://edit-comment/%1" ).arg( change.id() ) );
+            result.appendImageAndTextLink( "edit-modify", tr( "Edit" ), QString( "command://edit-comment/%1" ).arg( change.id() ) );
         else
-            result.appendLink( tr( "Edit" ), QString( "command://edit-file/%1" ).arg( change.id() ) );
+            result.appendImageAndTextLink( "edit-modify", tr( "Edit" ), QString( "command://edit-file/%1" ).arg( change.id() ) );
 
         result.appendText( " | " );
         if ( change.type() == CommentAdded )
-            result.appendLink( tr( "Delete" ), QString( "command://delete-comment/%1" ).arg( change.id() ) );
+            result.appendImageAndTextLink( "edit-delete", tr( "Delete" ), QString( "command://delete-comment/%1" ).arg( change.id() ) );
         else
-            result.appendLink( tr( "Delete" ), QString( "command://delete-file/%1" ).arg( change.id() ) );
+            result.appendImageAndTextLink( "edit-delete", tr( "Delete" ), QString( "command://delete-file/%1" ).arg( change.id() ) );
     }
 
     return result;
+}
+
+HtmlText IssueDetailsGenerator::descriptionText( const DescriptionEntity& description, HtmlText::Flags flags )
+{
+    if ( description.format() == TextWithMarkup )
+        return MarkupProcessor::parse( description.text(), flags );
+    else
+        return HtmlText::parse( description.text(), flags );
+}
+
+HtmlText IssueDetailsGenerator::commentText( const CommentEntity& comment, HtmlText::Flags flags )
+{
+    if ( comment.format() == TextWithMarkup )
+        return MarkupProcessor::parse( comment.text(), flags );
+    else
+        return HtmlText::parse( comment.text(), flags );
 }

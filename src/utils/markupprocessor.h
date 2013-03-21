@@ -20,7 +20,7 @@
 #ifndef MARKUPPROCESSOR_H 
 #define MARKUPPROCESSOR_H 
 
-#include "utils/textwithlinks.h"
+#include "utils/htmltext.h"
 
 /**
 * Convert text with markup to HTML formatting.
@@ -28,7 +28,7 @@
 class MarkupProcessor
 {
 public:
-    static TextWithLinks parse( const QString& text, TextWithLinks::Flags flags = 0 );
+    static HtmlText parse( const QString& text, HtmlText::Flags flags = 0 );
 };
 
 #endif
