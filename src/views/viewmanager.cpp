@@ -47,6 +47,11 @@ void ViewManager::openUsersView()
     openView( "UsersView", 0 );
 }
 
+void ViewManager::openSummaryView( int projectId )
+{
+    openView( "SummaryView", projectId );
+}
+
 void ViewManager::openFolderView( int folderId )
 {
     openView( "FolderView", folderId );

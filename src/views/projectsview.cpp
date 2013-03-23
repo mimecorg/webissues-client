@@ -89,6 +89,11 @@ ProjectsView::ProjectsView( QObject* parent, QWidget* parentWidget ) : View( par
     connect( action, SIGNAL( triggered() ), this, SLOT( moveFolder() ), Qt::QueuedConnection );
     setAction( "moveFolder", action );
 
+    action = new QAction( IconLoader::icon( "project" ), tr( "&Open Project" ), this );
+    action->setShortcut( QKeySequence::Open );
+    connect( action, SIGNAL( triggered() ), this, SLOT( openProject() ), Qt::QueuedConnection );
+    setAction( "openProject", action );
+
     action = new QAction( IconLoader::icon( "folder-open" ), tr( "&Open Folder" ), this );
     action->setShortcut( QKeySequence::Open );
     connect( action, SIGNAL( triggered() ), this, SLOT( openFolder() ), Qt::QueuedConnection );
@@ -101,6 +106,8 @@ ProjectsView::ProjectsView( QObject* parent, QWidget* parentWidget ) : View( par
     setTitle( "sectionAdd", tr( "Add" ) );
     setTitle( "sectionProjects", tr( "Projects" ) );
 
+    setDefaultMenuAction( "menuProject", "openProject" );
+    setDefaultMenuAction( "menuProjectAdmin", "openProject" );
     setDefaultMenuAction( "menuFolder", "openFolder" );
 
     loadXmlUiFile( ":/resources/projectsview.xml" );
@@ -285,6 +292,7 @@ void ProjectsView::updateActions()
     m_currentProjectAdmin = ProjectEntity::isAdmin( m_currentProjectId );
 
     action( "showMembers" )->setEnabled( m_selectedProjectId && m_currentProjectAdmin );
+    action( "openProject" )->setEnabled( m_selectedProjectId != 0 );
     action( "openFolder" )->setEnabled( m_selectedFolderId != 0 );
     action( "addFolder" )->setEnabled( m_currentProjectId != 0 && m_currentProjectAdmin );
     action( "editRename" )->setEnabled( ( m_selectedProjectId != 0 && m_systemAdmin ) || ( m_selectedFolderId != 0 && m_currentProjectAdmin ) );
@@ -412,6 +420,12 @@ void ProjectsView::moveFolder()
     }
 }
 
+void ProjectsView::openProject()
+{
+    if ( m_selectedProjectId != 0  )
+        viewManager->openSummaryView( m_selectedProjectId );
+}
+
 void ProjectsView::openFolder()
 {
     if ( m_selectedFolderId != 0  )
@@ -467,7 +481,9 @@ void ProjectsView::doubleClicked( const QModelIndex& index )
         int level = m_model->levelOf( index );
         int rowId = m_model->rowId( index );
 
-        if ( level == 1 )
+        if ( level == 0 )
+            viewManager->openSummaryView( rowId );
+        else if ( level == 1 )
             viewManager->openFolderView( rowId );
     }
 }

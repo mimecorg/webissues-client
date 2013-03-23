@@ -21,6 +21,8 @@
     <action id="updateProjects"/>
   </menu>
   <menu id="menuProject">
+    <action id="openProject"/>
+    <separator/>
     <action id="addFolder"/>
     <separator/>
     <action id="showMembers"/>
@@ -28,6 +30,8 @@
     <action id="updateProjects"/>
   </menu>
   <menu id="menuProjectAdmin">
+    <action id="openProject"/>
+    <separator/>
     <action id="addFolder"/>
     <separator/>
     <action id="editRename"/>

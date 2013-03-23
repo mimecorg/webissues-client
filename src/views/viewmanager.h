@@ -70,6 +70,11 @@ public:
     void openUsersView();
 
     /**
+    * Open the project summary view for the given project.
+    */
+    void openSummaryView( int projectId );
+
+    /**
     * Open the folder view for the given folder.
     */
     void openFolderView( int folderId );

@@ -86,6 +86,7 @@ private slots:
     void editRename();
     void editDelete();
     void moveFolder();
+    void openProject();
     void openFolder();
     void manageAlerts();
 
