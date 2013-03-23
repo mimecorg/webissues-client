@@ -22,6 +22,8 @@
 
 #include "views/view.h"
 
+class FindBar;
+
 /**
 * View for displaying summary of a project.
 */
@@ -44,6 +46,8 @@ public:
 public: // overrides
     void initialUpdate();
 
+    bool eventFilter( QObject* obj, QEvent* e );
+
 protected: // overrides
     void enableView();
     void disableView();
@@ -57,7 +61,17 @@ private slots:
 
     void updateProject();
 
-    void populateSummaryDelayed();
+    void copy();
+    void selectAll();
+
+    void find();
+    void findNext();
+    void findPrevious();
+
+    void findText( const QString& text );
+
+    void summaryContextMenu( const QPoint& pos );
+
     void populateSummary();
 
 private:
@@ -66,8 +80,16 @@ private:
     void initialUpdateProject();
     void cascadeUpdateProject();
 
+    void populateSummaryDelayed();
+
+    void findText( const QString& text, int flags );
+
 private:
     QWebView* m_browser;
+
+    FindBar* m_findBar;
+
+    bool m_isFindEnabled;
 
     QTimer* m_populateTimer;
 };

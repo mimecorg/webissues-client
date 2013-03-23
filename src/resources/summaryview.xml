@@ -3,5 +3,23 @@
     <section id="sectionProject">
       <action id="updateProject"/>
     </section>
+    <section id="sectionEdit">
+      <grid>
+        <action id="editCopy"/>
+        <action id="find"/>
+      </grid>
+    </section>
   </strip>
+  <menu id="menuSelection">
+    <action id="editCopy"/>
+    <separator/>
+    <action id="editSelectAll"/>
+  </menu>
+  <menu id="menuSummary">
+    <action id="editSelectAll"/>
+    <separator/>
+    <action id="find"/>
+    <action id="findNext"/>
+    <action id="findPrevious"/>
+  </menu>
 </xmlui>

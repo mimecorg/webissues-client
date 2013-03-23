@@ -67,6 +67,7 @@ IssueView::IssueView( QObject* parent, QWidget* parentWidget ) : View( parent ),
     m_typeId( 0 ),
     m_isRead( false ),
     m_history( IssueDetailsGenerator::AllHistory ),
+    m_isFindEnabled( false ),
     m_lockedIssueId( 0 )
 {
     QAction* action;
@@ -208,7 +209,7 @@ IssueView::IssueView( QObject* parent, QWidget* parentWidget ) : View( parent ),
     palette.setBrush( QPalette::Inactive, QPalette::HighlightedText, palette.brush( QPalette::Active, QPalette::HighlightedText ) );
     m_browser->setPalette( palette );
 
-    mainLayout->addWidget( m_browser );
+    mainLayout->addWidget( m_browser, 1 );
 
     connect( m_browser, SIGNAL( customContextMenuRequested( const QPoint& ) ),
         this, SLOT( historyContextMenu( const QPoint& ) ) );

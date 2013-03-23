@@ -28,13 +28,15 @@
 #include "models/projectsummarygenerator.h"
 #include "utils/htmlwriter.h"
 #include "utils/iconloader.h"
+#include "widgets/findbar.h"
 #include "xmlui/builder.h"
 
 #include <QTextBrowser>
 #include <QAction>
 #include <QMenu>
 
-SummaryView::SummaryView( QObject* parent, QWidget* parentWidget ) : View( parent )
+SummaryView::SummaryView( QObject* parent, QWidget* parentWidget ) : View( parent ),
+    m_isFindEnabled( false )
 {
     QAction* action;
 
@@ -43,7 +45,33 @@ SummaryView::SummaryView( QObject* parent, QWidget* parentWidget ) : View( paren
     connect( action, SIGNAL( triggered() ), this, SLOT( updateProject() ), Qt::QueuedConnection );
     setAction( "updateProject", action );
 
+    action = new QAction( IconLoader::icon( "find" ), tr( "&Find..." ), this );
+    action->setShortcut( QKeySequence::Find );
+    connect( action, SIGNAL( triggered() ), this, SLOT( find() ) );
+    setAction( "find", action );
+
+    action = new QAction( IconLoader::icon( "find-next" ), tr( "Find &Next" ), this );
+    action->setShortcut( QKeySequence::FindNext );
+    connect( action, SIGNAL( triggered() ), this, SLOT( findNext() ) );
+    setAction( "findNext", action );
+
+    action = new QAction( IconLoader::icon( "find-previous" ), tr( "Find &Previous" ), this );
+    action->setShortcut( QKeySequence::FindPrevious );
+    connect( action, SIGNAL( triggered() ), this, SLOT( findPrevious() ) );
+    setAction( "findPrevious", action );
+
+    action = new QAction( IconLoader::icon( "edit-copy" ), tr( "&Copy" ), this );
+    action->setShortcut( QKeySequence::Copy );
+    connect( action, SIGNAL( triggered() ), this, SLOT( copy() ) );
+    setAction( "editCopy", action );
+
+    action = new QAction( tr( "Select &All" ), this );
+    action->setShortcut( QKeySequence::SelectAll );
+    connect( action, SIGNAL( triggered() ), this, SLOT( selectAll() ) );
+    setAction( "editSelectAll", action );
+
     setTitle( "sectionProject", tr( "Project" ) );
+    setTitle( "sectionEdit", tr( "Edit" ) );
 
     loadXmlUiFile( ":/resources/summaryview.xml" );
 
@@ -56,15 +84,34 @@ SummaryView::SummaryView( QObject* parent, QWidget* parentWidget ) : View( paren
 
     m_browser = new QWebView( main );
     m_browser->setContextMenuPolicy( Qt::CustomContextMenu );
+    m_browser->page()->setLinkDelegationPolicy( QWebPage::DelegateAllLinks );
 
     QPalette palette = m_browser->palette();
     palette.setBrush( QPalette::Inactive, QPalette::Highlight, palette.brush( QPalette::Active, QPalette::Highlight ) );
     palette.setBrush( QPalette::Inactive, QPalette::HighlightedText, palette.brush( QPalette::Active, QPalette::HighlightedText ) );
     m_browser->setPalette( palette );
 
-    mainLayout->addWidget( m_browser );
+    mainLayout->addWidget( m_browser, 1 );
+
+    connect( m_browser, SIGNAL( customContextMenuRequested( const QPoint& ) ),
+        this, SLOT( summaryContextMenu( const QPoint& ) ) );
+    connect( m_browser, SIGNAL( selectionChanged() ), this, SLOT( updateActions() ) );
+
+    m_findBar = new FindBar( main );
+    m_findBar->setBoundWidget( m_browser );
+    m_findBar->setAutoFillBackground( true );
+    m_findBar->hide();
+
+    mainLayout->addWidget( m_findBar );
+
+    connect( m_findBar, SIGNAL( find( const QString& ) ), this, SLOT( findText( const QString& ) ) );
+    connect( m_findBar, SIGNAL( findPrevious() ), this, SLOT( findPrevious() ) );
+    connect( m_findBar, SIGNAL( findNext() ), this, SLOT( findNext() ) );
+    connect( m_findBar, SIGNAL( findEnabled( bool ) ), this, SLOT( updateActions() ) );
 
     setMainWidget( main );
+
+    main->installEventFilter( this );
 
     setViewerSizeHint( QSize( 700, 500 ) );
 
@@ -117,6 +164,7 @@ void SummaryView::enableView()
 void SummaryView::disableView()
 {
     m_browser->setHtml( QString() );
+    m_findBar->hide();
 
     updateCaption();
 }
@@ -138,6 +186,14 @@ void SummaryView::updateCaption()
 
 void SummaryView::updateActions()
 {
+    m_isFindEnabled = m_findBar->isFindEnabled();
+
+    // NOTE: hasSelection() is currently broken and always returns true, so using this workaround
+    bool hasSelection = m_browser->pageAction( QWebPage::Copy )->isEnabled();
+
+    action( "editCopy" )->setEnabled( hasSelection );
+    action( "findNext" )->setEnabled( m_isFindEnabled );
+    action( "findPrevious" )->setEnabled( m_isFindEnabled );
 }
 
 void SummaryView::initialUpdateProject()
@@ -170,6 +226,78 @@ void SummaryView::cascadeUpdateProject()
 
         executeUpdate( batch );
     }
+}
+
+void SummaryView::copy()
+{
+    if ( isEnabled() )
+        m_browser->triggerPageAction( QWebPage::Copy );
+}
+
+void SummaryView::selectAll()
+{
+    if ( isEnabled() )
+        m_browser->triggerPageAction( QWebPage::SelectAll );
+}
+
+void SummaryView::find()
+{
+    if ( isEnabled() ) {
+        m_findBar->show();
+        m_findBar->setFocus();
+        m_findBar->selectAll();
+    }
+}
+
+void SummaryView::findText( const QString& text )
+{
+    if ( isEnabled() )
+        findText( text, m_findBar->isCaseSensitive() ? QWebPage::FindCaseSensitively : 0 );
+}
+
+void SummaryView::findNext()
+{
+    if ( isEnabled() && m_isFindEnabled ) {
+        findText( m_findBar->text(), m_findBar->isCaseSensitive() ? QWebPage::FindCaseSensitively : 0 );
+        m_findBar->selectAll();
+    }
+}
+
+void SummaryView::findPrevious()
+{
+    if ( isEnabled() && m_isFindEnabled ) {
+        findText( m_findBar->text(), ( m_findBar->isCaseSensitive() ? QWebPage::FindCaseSensitively : 0 ) | QTextDocument::FindBackward );
+        m_findBar->selectAll();
+    }
+}
+
+void SummaryView::findText( const QString& text, int flags )
+{
+    bool warn = false;
+
+    if ( !text.isEmpty() )
+        warn = !m_browser->findText( text, (QWebPage::FindFlags)flags | QWebPage::FindWrapsAroundDocument );
+
+    m_findBar->show();
+    m_findBar->setFocus();
+    m_findBar->showWarning( warn );
+}
+
+bool SummaryView::eventFilter( QObject* obj, QEvent* e )
+{
+    if ( obj == mainWidget() ) {
+        if ( e->type() == QEvent::ShortcutOverride ) {
+            QKeyEvent* ke = (QKeyEvent*)e;
+            if ( ke->key() == Qt::Key_F3 && ( ke->modifiers() & ~Qt::ShiftModifier ) == 0 ) {
+                if ( isEnabled() && !m_isFindEnabled ) {
+                    find();
+                    ke->accept();
+                    return true;
+                }
+            }
+        }
+    }
+    return View::eventFilter( obj, e );
 }
 
 void SummaryView::updateEvent( UpdateEvent* e )
@@ -224,4 +352,17 @@ void SummaryView::populateSummary()
     m_browser->page()->mainFrame()->setScrollPosition( pos );
 
     QApplication::restoreOverrideCursor();
+}
+
+void SummaryView::summaryContextMenu( const QPoint& pos )
+{
+    QString menuName;
+    if ( m_browser->pageAction( QWebPage::Copy )->isEnabled() )
+        menuName = "menuSelection";
+    else
+        menuName = "menuSummary";
+
+    QMenu* menu = builder()->contextMenu( menuName );
+    if ( menu )
+        menu->popup( m_browser->mapToGlobal( pos ) );
 }
