@@ -25,15 +25,21 @@
 #include "data/entities.h"
 #include "data/updateevent.h"
 #include "data/localsettings.h"
+#include "dialogs/finditemdialog.h"
 #include "models/projectsummarygenerator.h"
 #include "utils/htmlwriter.h"
 #include "utils/iconloader.h"
 #include "widgets/findbar.h"
+#include "views/viewmanager.h"
 #include "xmlui/builder.h"
 
 #include <QTextBrowser>
 #include <QAction>
 #include <QMenu>
+
+#if defined( Q_WS_WIN )
+#include <qt_windows.h>
+#endif
 
 SummaryView::SummaryView( QObject* parent, QWidget* parentWidget ) : View( parent ),
     m_isFindEnabled( false )
@@ -60,6 +66,26 @@ SummaryView::SummaryView( QObject* parent, QWidget* parentWidget ) : View( paren
     connect( action, SIGNAL( triggered() ), this, SLOT( findPrevious() ) );
     setAction( "findPrevious", action );
 
+    action = new QAction( IconLoader::icon( "edit-goto" ), tr( "&Go To Item..." ), this );
+    connect( action, SIGNAL( triggered() ), this, SLOT( openLink() ), Qt::QueuedConnection );
+    setAction( "gotoLinkItem", action );
+
+    action = new QAction( IconLoader::icon( "mail-send" ), tr( "&Send Email" ), this );
+    connect( action, SIGNAL( triggered() ), this, SLOT( openLink() ) );
+    setAction( "sendEmail", action );
+
+    action = new QAction( IconLoader::icon( "window-new" ), tr( "&Open Link in Browser" ), this );
+    connect( action, SIGNAL( triggered() ), this, SLOT( openLink() ) );
+    setAction( "openLink", action );
+
+    action = new QAction( IconLoader::icon( "edit-copy" ), tr( "&Copy Email Address" ), this );
+    connect( action, SIGNAL( triggered() ), this, SLOT( copyLink() ) );
+    setAction( "copyEmail", action );
+
+    action = new QAction( IconLoader::icon( "edit-copy" ), tr( "&Copy Link Address" ), this );
+    connect( action, SIGNAL( triggered() ), this, SLOT( copyLink() ) );
+    setAction( "copyLink", action );
+
     action = new QAction( IconLoader::icon( "edit-copy" ), tr( "&Copy" ), this );
     action->setShortcut( QKeySequence::Copy );
     connect( action, SIGNAL( triggered() ), this, SLOT( copy() ) );
@@ -72,6 +98,10 @@ SummaryView::SummaryView( QObject* parent, QWidget* parentWidget ) : View( paren
 
     setTitle( "sectionProject", tr( "Project" ) );
     setTitle( "sectionEdit", tr( "Edit" ) );
+
+    setDefaultMenuAction( "menuLink", "openLink" );
+    setDefaultMenuAction( "menuLinkItem", "gotoLinkItem" );
+    setDefaultMenuAction( "menuLinkEmail", "sendEmail" );
 
     loadXmlUiFile( ":/resources/summaryview.xml" );
 
@@ -95,6 +125,7 @@ SummaryView::SummaryView( QObject* parent, QWidget* parentWidget ) : View( paren
 
     connect( m_browser, SIGNAL( customContextMenuRequested( const QPoint& ) ),
         this, SLOT( summaryContextMenu( const QPoint& ) ) );
+    connect( m_browser, SIGNAL( linkClicked( const QUrl& ) ), this, SLOT( linkClicked( const QUrl& ) ) );
     connect( m_browser, SIGNAL( selectionChanged() ), this, SLOT( updateActions() ) );
 
     m_findBar = new FindBar( main );
@@ -191,9 +222,16 @@ void SummaryView::updateActions()
     // NOTE: hasSelection() is currently broken and always returns true, so using this workaround
     bool hasSelection = m_browser->pageAction( QWebPage::Copy )->isEnabled();
 
+    bool linkNotEmpty = !m_actionLink.isEmpty();
+
     action( "editCopy" )->setEnabled( hasSelection );
     action( "findNext" )->setEnabled( m_isFindEnabled );
     action( "findPrevious" )->setEnabled( m_isFindEnabled );
+    action( "gotoLinkItem" )->setEnabled( linkNotEmpty );
+    action( "sendEmail" )->setEnabled( linkNotEmpty );
+    action( "openLink" )->setEnabled( linkNotEmpty );
+    action( "copyEmail" )->setEnabled( linkNotEmpty );
+    action( "copyLink" )->setEnabled( linkNotEmpty );
 }
 
 void SummaryView::initialUpdateProject()
@@ -300,6 +338,24 @@ bool SummaryView::eventFilter( QObject* obj, QEvent* e )
     return View::eventFilter( obj, e );
 }
 
+void SummaryView::openLink()
+{
+    if ( isEnabled() && !m_actionLink.isEmpty() )
+        linkClicked( m_actionLink );
+}
+
+void SummaryView::copyLink()
+{
+    if ( isEnabled() && !m_actionLink.isEmpty() ) {
+        QString link = m_actionLink.toString();
+
+        if ( link.startsWith( "mailto:", Qt::CaseInsensitive ) )
+            link = link.mid( 7 );
+
+        QApplication::clipboard()->setText( link, QClipboard::Clipboard );
+    }
+}
+
 void SummaryView::updateEvent( UpdateEvent* e )
 {
     setAccess( checkDataAccess() );
@@ -354,8 +410,42 @@ void SummaryView::populateSummary()
     QApplication::restoreOverrideCursor();
 }
 
+bool SummaryView::linkContextMenu( const QUrl& link, const QPoint& pos )
+{
+    m_actionLink = link;
+    updateActions();
+
+    QString menuName;
+    QString scheme = link.scheme().toLower();
+
+    if ( scheme == QLatin1String( "id" ) )
+        menuName = "menuLinkItem";
+    else if ( scheme == QLatin1String( "mailto" ) )
+        menuName = "menuLinkEmail";
+    else if ( scheme != QLatin1String( "command" ) )
+        menuName = "menuLink";
+
+    if ( !menuName.isEmpty() ) {
+        QMenu* menu = builder()->contextMenu( menuName );
+        if ( menu ) {
+            menu->exec( pos );
+            return true;
+        }
+    }
+
+    return false;
+}
+
 void SummaryView::summaryContextMenu( const QPoint& pos )
 {
+    QWebHitTestResult result = m_browser->page()->mainFrame()->hitTestContent( pos );
+    QUrl link = result.linkUrl();
+
+    if ( !link.isEmpty() ) {
+        if ( linkContextMenu( link, m_browser->mapToGlobal( pos ) ) )
+            return;
+    }
+
     QString menuName;
     if ( m_browser->pageAction( QWebPage::Copy )->isEnabled() )
         menuName = "menuSelection";
@@ -365,4 +455,56 @@ void SummaryView::summaryContextMenu( const QPoint& pos )
     QMenu* menu = builder()->contextMenu( menuName );
     if ( menu )
         menu->popup( m_browser->mapToGlobal( pos ) );
+}
+
+void SummaryView::linkClicked( const QUrl& url )
+{
+    QString scheme = url.scheme().toLower();
+
+    if ( scheme == QLatin1String( "id" ) ) {
+        int itemId = url.host().toInt();
+        findItem( itemId );
+    } else if ( scheme == QLatin1String( "command" ) ) {
+        handleCommand( url.host() );
+    } else {
+#if defined( Q_WS_WIN )
+        if ( scheme == QLatin1String( "file" ) ) {
+            if ( url.isValid() ) {
+                QString path = url.path();
+                if ( path.startsWith( QLatin1Char( '/' ) ) )
+                    path = path.mid( 1 );
+                path = QDir::toNativeSeparators( path );
+                QString host = url.host();
+                if ( !host.isEmpty() )
+                    path = QLatin1String( "\\\\" ) + host + QLatin1String( "\\" ) + path;
+                if ( !path.isEmpty() )
+                    ShellExecute( mainWidget()->effectiveWinId(), NULL, (LPCTSTR)path.utf16(), NULL, NULL, SW_NORMAL );
+            }
+        } else
+#endif
+        QDesktopServices::openUrl( url );
+    }
+}
+
+void SummaryView::handleCommand( const QString& /*command*/ )
+{
+}
+
+void SummaryView::findItem( int itemId )
+{
+    int issueId = IssueEntity::findItem( itemId );
+
+    if ( issueId == 0 ) {
+        FindItemDialog dialog( mainWidget() );
+        dialog.findItem( itemId );
+        if ( dialog.exec() == QDialog::Accepted )
+            issueId = dialog.issueId();
+        else
+            return;
+    }
+
+    else if ( viewManager->isStandAlone( this ) )
+        viewManager->openIssueView( issueId, itemId );
+    else
+        emit issueActivated( issueId, itemId );
 }

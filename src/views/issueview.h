@@ -112,10 +112,9 @@ private slots:
     void exportHtml();
     void exportPdf();
 
-    void linkContextMenu( const QUrl& link, const QPoint& pos );
     void historyContextMenu( const QPoint& pos );
 
-    void anchorClicked( const QUrl& url );
+    void linkClicked( const QUrl& url );
 
     void findText( const QString& text );
 
@@ -134,6 +133,8 @@ private:
     void findItem( int itemId );
 
     void findText( const QString& text, int flags );
+
+    bool linkContextMenu( const QUrl& link, const QPoint& pos );
 
     void handleAttachment( int fileId );
     void handleAttachment( int fileId, AttachmentAction action );

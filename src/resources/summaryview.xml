@@ -10,6 +10,17 @@
       </grid>
     </section>
   </strip>
+  <menu id="menuLink">
+    <action id="openLink"/>
+    <action id="copyLink"/>
+  </menu>
+  <menu id="menuLinkItem">
+    <action id="gotoLinkItem"/>
+  </menu>
+  <menu id="menuLinkEmail">
+    <action id="sendEmail"/>
+    <action id="copyEmail"/>
+  </menu>
   <menu id="menuSelection">
     <action id="editCopy"/>
     <separator/>

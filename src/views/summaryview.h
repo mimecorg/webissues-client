@@ -48,6 +48,12 @@ public: // overrides
 
     bool eventFilter( QObject* obj, QEvent* e );
 
+signals:
+    /**
+    * Emitted when a link to an issue is clicked.
+    */
+    void issueActivated( int issueId, int itemId );
+
 protected: // overrides
     void enableView();
     void disableView();
@@ -70,7 +76,12 @@ private slots:
 
     void findText( const QString& text );
 
+    void openLink();
+    void copyLink();
+
     void summaryContextMenu( const QPoint& pos );
+
+    void linkClicked( const QUrl& url );
 
     void populateSummary();
 
@@ -82,12 +93,20 @@ private:
 
     void populateSummaryDelayed();
 
+    void findItem( int itemId );
+
     void findText( const QString& text, int flags );
+
+    bool linkContextMenu( const QUrl& link, const QPoint& pos );
+
+    void handleCommand( const QString& command );
 
 private:
     QWebView* m_browser;
 
     FindBar* m_findBar;
+
+    QUrl m_actionLink;
 
     bool m_isFindEnabled;
 

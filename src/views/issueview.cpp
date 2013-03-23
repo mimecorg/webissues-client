@@ -213,7 +213,7 @@ IssueView::IssueView( QObject* parent, QWidget* parentWidget ) : View( parent ),
 
     connect( m_browser, SIGNAL( customContextMenuRequested( const QPoint& ) ),
         this, SLOT( historyContextMenu( const QPoint& ) ) );
-    connect( m_browser, SIGNAL( linkClicked( const QUrl& ) ), this, SLOT( anchorClicked( const QUrl& ) ) );
+    connect( m_browser, SIGNAL( linkClicked( const QUrl& ) ), this, SLOT( linkClicked( const QUrl& ) ) );
     connect( m_browser, SIGNAL( selectionChanged() ), this, SLOT( updateActions() ) );
 
     m_findBar = new FindBar( main );
@@ -609,7 +609,7 @@ void IssueView::saveAttachment()
 void IssueView::openLink()
 {
     if ( isEnabled() && !m_actionLink.isEmpty() )
-        anchorClicked( m_actionLink );
+        linkClicked( m_actionLink );
 }
 
 void IssueView::copyLink()
@@ -723,7 +723,7 @@ void IssueView::populateDetails()
     QApplication::restoreOverrideCursor();
 }
 
-void IssueView::linkContextMenu( const QUrl& link, const QPoint& pos )
+bool IssueView::linkContextMenu( const QUrl& link, const QPoint& pos )
 {
     m_actionLink = link;
     updateActions();
@@ -735,16 +735,20 @@ void IssueView::linkContextMenu( const QUrl& link, const QPoint& pos )
         menuName = "menuLinkItem";
     else if ( scheme == QLatin1String( "attachment" ) )
         menuName = "menuLinkAttachment";
-    else if ( scheme == QLatin1String( "command" ) )
-        menuName = "menuHistory";
     else if ( scheme == QLatin1String( "mailto" ) )
         menuName = "menuLinkEmail";
-    else
+    else if ( scheme != QLatin1String( "command" ) )
         menuName = "menuLink";
 
-    QMenu* menu = builder()->contextMenu( menuName );
-    if ( menu )
-        menu->exec( pos );
+    if ( !menuName.isEmpty() ) {
+        QMenu* menu = builder()->contextMenu( menuName );
+        if ( menu ) {
+            menu->exec( pos );
+            return true;
+        }
+    }
+
+    return false;
 }
 
 void IssueView::historyContextMenu( const QPoint& pos )
@@ -753,8 +757,8 @@ void IssueView::historyContextMenu( const QPoint& pos )
     QUrl link = result.linkUrl();
 
     if ( !link.isEmpty() ) {
-        linkContextMenu( link, m_browser->mapToGlobal( pos ) );
-        return;
+        if ( linkContextMenu( link, m_browser->mapToGlobal( pos ) ) )
+            return;
     }
 
     QString menuName;
@@ -768,7 +772,7 @@ void IssueView::historyContextMenu( const QPoint& pos )
         menu->popup( m_browser->mapToGlobal( pos ) );
 }
 
-void IssueView::anchorClicked( const QUrl& url )
+void IssueView::linkClicked( const QUrl& url )
 {
     QString scheme = url.scheme().toLower();
 
