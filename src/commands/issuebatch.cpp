@@ -143,6 +143,14 @@ void IssueBatch::deleteAttachment( int fileId )
     m_queue.addJob( job );
 }
 
+void IssueBatch::addDescription( const QString& text, TextFormat format )
+{
+    Job job( &IssueBatch::addDescriptionJob );
+    job.addArg( text );
+    job.addArg( format );
+    m_queue.addJob( job );
+}
+
 void IssueBatch::setUpdateFolder( bool update )
 {
     if ( update ) {
@@ -375,6 +383,22 @@ Command* IssueBatch::deleteAttachmentJob( const Job& job )
 
     command->setKeyword( "DELETE ATTACHMENT" );
     command->setArgs( job.args() );
+
+    command->addRule( "ID i", ReplyRule::One );
+
+    connect( command, SIGNAL( commandReply( const Reply& ) ), this, SLOT( setUpdate() ) );
+
+    return command;
+}
+
+Command* IssueBatch::addDescriptionJob( const Job& job )
+{
+    Command* command = new Command();
+
+    command->setKeyword( "ADD DESCRIPTION" );
+    command->addArg( m_issueId );
+    command->addArg( job.argString( 0 ) );
+    command->addArg( job.argInt( 1 ) );
 
     command->addRule( "ID i", ReplyRule::One );
 

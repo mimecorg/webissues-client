@@ -32,6 +32,7 @@
 #include "utils/formatter.h"
 #include "utils/iconloader.h"
 #include "widgets/inputlineedit.h"
+#include "widgets/markuptextedit.h"
 #include "widgets/abstractvalueeditor.h"
 #include "widgets/valueeditorfactory.h"
 #include "widgets/separatorcombobox.h"
@@ -47,7 +48,8 @@
 #include <QRegExp>
 
 IssueDialog::IssueDialog( QWidget* parent ) : CommandDialog( parent ),
-    m_nameEdit( NULL )
+    m_nameEdit( NULL ),
+    m_descriptionEdit( NULL )
 {
 }
 
@@ -57,7 +59,7 @@ IssueDialog::~IssueDialog()
         application->applicationSettings()->setValue( "IssueDialogSize", size() );
 }
 
-bool IssueDialog::initialize( int typeId, int projectId )
+bool IssueDialog::initialize( int typeId, int projectId, bool withDescription )
 {
     IssueTypeCache* cache = dataManager->issueTypeCache( typeId );
     QList<int> attributes = cache->attributes();
@@ -96,12 +98,20 @@ bool IssueDialog::initialize( int typeId, int projectId )
 
     nameLabel->setBuddy( m_nameEdit );
 
-    if ( !attributes.isEmpty() ) {
-        QGroupBox* attributeGroup = new QGroupBox( tr( "Attributes" ), this );
-        QVBoxLayout* attributeLayout = new QVBoxLayout( attributeGroup );
-        layout->addWidget( attributeGroup, 1, 0, 1, 2 );
+    QTabWidget* tabWidget = NULL;
 
-        QScrollArea* attributeScroll = new QScrollArea( attributeGroup );
+    if ( !attributes.isEmpty() || withDescription ) {
+        tabWidget = new QTabWidget( this );
+        layout->addWidget( tabWidget, 1, 0, 1, 2 );
+    }
+
+    if ( !attributes.isEmpty() ) {
+        QWidget* attributeTab = new QWidget( tabWidget );
+        tabWidget->addTab( attributeTab, IconLoader::icon( "attribute" ), tr( "Attributes" ) );
+
+        QVBoxLayout* attributeLayout = new QVBoxLayout( attributeTab );
+
+        QScrollArea* attributeScroll = new QScrollArea( attributeTab );
         attributeScroll->setWidgetResizable( true );
         attributeLayout->addWidget( attributeScroll );
 
@@ -141,11 +151,20 @@ bool IssueDialog::initialize( int typeId, int projectId )
         }
 
         valuesLayout->setRowStretch( attributes.count() + 2, 1 );
-
-        setContentLayout( layout, false );
-    } else {
-        setContentLayout( layout, true );
     }
+
+    if ( withDescription ) {
+        QWidget* descriptionTab = new QWidget( tabWidget );
+        tabWidget->addTab( descriptionTab, IconLoader::icon( "description-new" ), tr( "Description" ) );
+
+        QVBoxLayout* descriptionLayout = new QVBoxLayout( descriptionTab );
+
+        m_descriptionEdit = new MarkupTextEdit( descriptionTab );
+        m_descriptionEdit->setRequired( false );
+        descriptionLayout->addWidget( m_descriptionEdit );
+    }
+
+    setContentLayout( layout, tabWidget == NULL );
 
     m_nameEdit->setFocus();
 
@@ -184,6 +203,26 @@ QList<int> IssueDialog::attributeIds() const
     return m_editors.keys();
 }
 
+void IssueDialog::setDescriptionText( const QString& text )
+{
+    m_descriptionEdit->setInputValue( text );
+}
+
+QString IssueDialog::descriptionText() const
+{
+    return m_descriptionEdit->inputValue();
+}
+
+void IssueDialog::setDescriptionFormat( TextFormat format )
+{
+    m_descriptionEdit->setTextFormat( format );
+}
+
+TextFormat IssueDialog::descriptionFormat() const
+{
+    return m_descriptionEdit->textFormat();
+}
+
 AddIssueDialog::AddIssueDialog( int folderId, int cloneIssueId, QWidget* parent ) : IssueDialog( parent ),
     m_folderId( folderId )
 {
@@ -200,7 +239,7 @@ AddIssueDialog::AddIssueDialog( int folderId, int cloneIssueId, QWidget* parent 
         setPromptPixmap( IconLoader::pixmap( "issue-new", 22 ) );
     }
 
-    if ( !initialize( folder.typeId(), folder.projectId() ) )
+    if ( !initialize( folder.typeId(), folder.projectId(), true ) )
         return;
 
     if ( cloneIssueId != 0 )
@@ -248,6 +287,10 @@ void AddIssueDialog::accept()
             batch->setValue( it.key(), value );
     }
 
+    QString description = descriptionText();
+    if ( !description.isEmpty() )
+        batch->addDescription( description, descriptionFormat() );
+
     executeBatch( batch );
 }
 
@@ -270,7 +313,7 @@ EditIssueDialog::EditIssueDialog( int issueId, QWidget* parent ) : IssueDialog( 
     setPrompt( tr( "Edit attributes of issue <b>%1</b>:" ).arg( m_oldName ) );
     setPromptPixmap( IconLoader::pixmap( "edit-modify", 22 ) );
 
-    if ( !initialize( folder.typeId(), folder.projectId() ) )
+    if ( !initialize( folder.typeId(), folder.projectId(), false ) )
         return;
 
     setIssueName( m_oldName );

@@ -135,6 +135,13 @@ public:
     void deleteAttachment( int fileId );
 
     /**
+    * Add the <tt>ADD DESCRIPTION</tt> command to the batch.
+    * @param text Text of the description.
+    * @param format Format of the description.
+    */
+    void addDescription( const QString& text, TextFormat format );
+
+    /**
     * If @c true, update folder instead of issue details after making the changes.
     */
     void setUpdateFolder( bool update );
@@ -190,6 +197,8 @@ private:
     Command* getAttachmentJob( const Job& job );
     Command* editAttachmentJob( const Job& job );
     Command* deleteAttachmentJob( const Job& job );
+
+    Command* addDescriptionJob( const Job& job );
 
 private slots:
     void addIssueReply( const Reply& reply );

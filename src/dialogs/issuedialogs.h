@@ -20,6 +20,7 @@
 #ifndef ISSUEDIALOGS_H
 #define ISSUEDIALOGS_H
 
+#include "data/datamanager.h"
 #include "dialogs/commanddialog.h"
 
 #include <QMap>
@@ -27,6 +28,7 @@
 class InputLineEdit;
 class AbstractValueEditor;
 class SeparatorComboBox;
+class MarkupTextEdit;
 
 class QButtonGroup;
 class QLineEdit;
@@ -50,7 +52,7 @@ public:
     ~IssueDialog();
 
 protected:
-    bool initialize( int typeId, int projectId );
+    bool initialize( int typeId, int projectId, bool withDescription );
 
     void setIssueName( const QString& name );
     QString issueName() const;
@@ -60,9 +62,16 @@ protected:
 
     QList<int> attributeIds() const;
 
+    void setDescriptionText( const QString& text );
+    QString descriptionText() const;
+
+    void setDescriptionFormat( TextFormat format );
+    TextFormat descriptionFormat() const;
+
 private:
     InputLineEdit* m_nameEdit;
     QMap<int, AbstractValueEditor*> m_editors;
+    MarkupTextEdit* m_descriptionEdit;
 };
 
 /**

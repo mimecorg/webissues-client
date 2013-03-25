@@ -6,6 +6,7 @@ HEADERS += widgets/abstractmetadataeditor.h \
            widgets/findbar.h \
            widgets/inputlineedit.h \
            widgets/inputtextedit.h \
+           widgets/markuptextedit.h \
            widgets/metadataeditorfactory.h \
            widgets/metadataeditors.h \
            widgets/panewidget.h \
@@ -24,6 +25,7 @@ SOURCES += widgets/abstractmetadataeditor.cpp \
            widgets/findbar.cpp \
            widgets/inputlineedit.cpp \
            widgets/inputtextedit.cpp \
+           widgets/markuptextedit.cpp \
            widgets/metadataeditorfactory.cpp \
            widgets/metadataeditors.cpp \
            widgets/panewidget.cpp \
