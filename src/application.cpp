@@ -558,3 +558,21 @@ QPrinter* Application::printer()
     }
     return m_printer;
 }
+
+void Application::openUrl( QWidget* parent, const QUrl& url )
+{
+#if defined( Q_WS_WIN )
+    if ( url.isValid() && url.scheme().toLower() == QLatin1String( "file" ) ) {
+        QString path = url.path();
+        if ( path.startsWith( QLatin1Char( '/' ) ) )
+            path = path.mid( 1 );
+        path = QDir::toNativeSeparators( path );
+        QString host = url.host();
+        if ( !host.isEmpty() )
+            path = QLatin1String( "\\\\" ) + host + QLatin1String( "\\" ) + path;
+        if ( !path.isEmpty() )
+            ShellExecute( parent->effectiveWinId(), NULL, (LPCTSTR)path.utf16(), NULL, NULL, SW_NORMAL );
+    } else
+#endif
+    QDesktopServices::openUrl( url );
+}

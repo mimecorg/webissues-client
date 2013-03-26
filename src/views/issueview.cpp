@@ -56,11 +56,6 @@
 #include <QPushButton>
 #include <QTimer>
 
-#if defined( Q_WS_WIN )
-#include <qt_windows.h>
-#undef MessageBox
-#endif
-
 IssueView::IssueView( QObject* parent, QWidget* parentWidget ) : View( parent ),
     m_gotoItemId( 0 ),
     m_folderId( 0 ),
@@ -786,22 +781,7 @@ void IssueView::linkClicked( const QUrl& url )
         int argument = url.path().mid( 1 ).toInt();
         handleCommand( url.host(), argument );
     } else {
-#if defined( Q_WS_WIN )
-        if ( scheme == QLatin1String( "file" ) ) {
-            if ( url.isValid() ) {
-                QString path = url.path();
-                if ( path.startsWith( QLatin1Char( '/' ) ) )
-                    path = path.mid( 1 );
-                path = QDir::toNativeSeparators( path );
-                QString host = url.host();
-                if ( !host.isEmpty() )
-                    path = QLatin1String( "\\\\" ) + host + QLatin1String( "\\" ) + path;
-                if ( !path.isEmpty() )
-                    ShellExecute( mainWidget()->effectiveWinId(), NULL, (LPCTSTR)path.utf16(), NULL, NULL, SW_NORMAL );
-            }
-        } else
-#endif
-        QDesktopServices::openUrl( url );
+        Application::openUrl( mainWidget(), url );
     }
 }
 
@@ -827,16 +807,10 @@ void IssueView::handleCommand( const QString& command, int argument )
 
 void IssueView::findItem( int itemId )
 {
-    int issueId = IssueEntity::findItem( itemId );
+    int issueId = FindItemDialog::getFindItem( mainWidget(), itemId );
 
-    if ( issueId == 0 ) {
-        FindItemDialog dialog( mainWidget() );
-        dialog.findItem( itemId );
-        if ( dialog.exec() == QDialog::Accepted )
-            issueId = dialog.issueId();
-        else
-            return;
-    }
+    if ( issueId == 0 )
+        return;
 
     if ( issueId == id() )
         gotoItem( itemId );

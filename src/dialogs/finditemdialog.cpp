@@ -93,3 +93,17 @@ bool FindItemDialog::batchSuccessful( AbstractBatch* batch )
 
     return true;
 }
+
+int FindItemDialog::getFindItem( QWidget* parent, int itemId )
+{
+    int issueId = IssueEntity::findItem( itemId );
+
+    if ( issueId == 0 ) {
+        FindItemDialog dialog( parent );
+        dialog.findItem( itemId );
+        if ( dialog.exec() == QDialog::Accepted )
+            issueId = dialog.issueId();
+    }
+
+    return issueId;
+}

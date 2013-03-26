@@ -144,6 +144,11 @@ public:
     */
     QPrinter* printer();
 
+    /**
+    * Wrapper for QDesktopServices::openUrl.
+    */
+    static void openUrl( QWidget* parent, const QUrl& url );
+
 public slots:
     /**
     * Show the About WebIssues dialog.

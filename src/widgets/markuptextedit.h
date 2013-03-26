@@ -27,6 +27,7 @@
 class InputTextEdit;
 
 class QComboBox;
+class QWebView;
 
 class MarkupTextEdit : public QWidget
 {
@@ -47,10 +48,35 @@ public:
     void setRequired( bool required );
     bool isRequired() const;
 
+private slots:
+    void markupBold();
+    void markupItalic();
+    void markupMonospace();
+    void markupLink();
+    void markupList();
+    void markupQuote();
+    void markupCode();
+
+    void showPreview();
+
+    void linkClicked( const QUrl& url );
+
+    void formatChanged( int format );
+
+private:
+    void markup( const QString& openWith, const QString& closeWith, const QString& placeholder = QString() );
+    void markupBlock( const QString& openBlockWith, const QString& closeBlockWith, const QString& openWith, const QString& closeWith );
+
+    void findItem( int itemId );
+
 private:
     InputTextEdit* m_edit;
 
+    QWidget* m_toolBar;
     QComboBox* m_comboBox;
+
+    QWebView* m_preview;
+    QWidget* m_previewWindow;
 };
 
 #endif

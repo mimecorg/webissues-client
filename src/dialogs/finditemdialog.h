@@ -60,6 +60,11 @@ public:
     */
     int issueId() const { return m_issueId; }
 
+    /**
+    * Execute the command if necessary and return the identifier of the issue.
+    */
+    static int getFindItem( QWidget* parent, int itemId );
+
 public: // overrides
     void accept();
 

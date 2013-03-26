@@ -37,10 +37,6 @@
 #include <QAction>
 #include <QMenu>
 
-#if defined( Q_WS_WIN )
-#include <qt_windows.h>
-#endif
-
 SummaryView::SummaryView( QObject* parent, QWidget* parentWidget ) : View( parent ),
     m_isFindEnabled( false )
 {
@@ -467,22 +463,7 @@ void SummaryView::linkClicked( const QUrl& url )
     } else if ( scheme == QLatin1String( "command" ) ) {
         handleCommand( url.host() );
     } else {
-#if defined( Q_WS_WIN )
-        if ( scheme == QLatin1String( "file" ) ) {
-            if ( url.isValid() ) {
-                QString path = url.path();
-                if ( path.startsWith( QLatin1Char( '/' ) ) )
-                    path = path.mid( 1 );
-                path = QDir::toNativeSeparators( path );
-                QString host = url.host();
-                if ( !host.isEmpty() )
-                    path = QLatin1String( "\\\\" ) + host + QLatin1String( "\\" ) + path;
-                if ( !path.isEmpty() )
-                    ShellExecute( mainWidget()->effectiveWinId(), NULL, (LPCTSTR)path.utf16(), NULL, NULL, SW_NORMAL );
-            }
-        } else
-#endif
-        QDesktopServices::openUrl( url );
+        Application::openUrl( mainWidget(), url );
     }
 }
 
@@ -492,18 +473,12 @@ void SummaryView::handleCommand( const QString& /*command*/ )
 
 void SummaryView::findItem( int itemId )
 {
-    int issueId = IssueEntity::findItem( itemId );
+    int issueId = FindItemDialog::getFindItem( mainWidget(), itemId );
 
-    if ( issueId == 0 ) {
-        FindItemDialog dialog( mainWidget() );
-        dialog.findItem( itemId );
-        if ( dialog.exec() == QDialog::Accepted )
-            issueId = dialog.issueId();
-        else
-            return;
-    }
+    if ( issueId == 0 )
+        return;
 
-    else if ( viewManager->isStandAlone( this ) )
+    if ( viewManager->isStandAlone( this ) )
         viewManager->openIssueView( issueId, itemId );
     else
         emit issueActivated( issueId, itemId );
