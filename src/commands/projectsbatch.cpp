@@ -18,9 +18,8 @@
 **************************************************************************/
 
 #include "projectsbatch.h"
-#include "command.h"
 
-#include "data/datamanager.h"
+#include "commands/command.h"
 
 ProjectsBatch::ProjectsBatch() : AbstractBatch( 0 ),
     m_update( false )
@@ -83,6 +82,31 @@ void ProjectsBatch::moveFolder( int folderId, int projectId )
 {
     Job job( &ProjectsBatch::moveFolderJob );
     job.addArg( folderId );
+    job.addArg( projectId );
+    m_queue.addJob( job );
+}
+
+void ProjectsBatch::addProjectDescription( int projectId, const QString& text, TextFormat format )
+{
+    Job job( &ProjectsBatch::addProjectDescriptionJob );
+    job.addArg( projectId );
+    job.addArg( text );
+    job.addArg( format );
+    m_queue.addJob( job );
+}
+
+void ProjectsBatch::editProjectDescription( int projectId, const QString& newText, TextFormat newFormat )
+{
+    Job job( &ProjectsBatch::editProjectDescriptionJob );
+    job.addArg( projectId );
+    job.addArg( newText );
+    job.addArg( newFormat );
+    m_queue.addJob( job );
+}
+
+void ProjectsBatch::deleteProjectDescription( int projectId )
+{
+    Job job( &ProjectsBatch::deleteProjectDescriptionJob );
     job.addArg( projectId );
     m_queue.addJob( job );
 }
@@ -195,6 +219,49 @@ Command* ProjectsBatch::moveFolderJob( const Job& job )
 
     command->setAcceptNullReply( true );
     command->addRule( "OK", ReplyRule::One );
+
+    connect( command, SIGNAL( commandReply( const Reply& ) ), this, SLOT( setUpdate() ) );
+
+    return command;
+}
+
+Command* ProjectsBatch::addProjectDescriptionJob( const Job& job )
+{
+    Command* command = new Command();
+
+    command->setKeyword( "ADD PROJECT DESCRIPTION" );
+    command->setArgs( job.args() );
+
+    command->addRule( "ID i", ReplyRule::One );
+
+    connect( command, SIGNAL( commandReply( const Reply& ) ), this, SLOT( setUpdate() ) );
+
+    return command;
+}
+
+Command* ProjectsBatch::editProjectDescriptionJob( const Job& job )
+{
+    Command* command = new Command();
+
+    command->setKeyword( "EDIT PROJECT DESCRIPTION" );
+    command->setArgs( job.args() );
+
+    command->setAcceptNullReply( true );
+    command->addRule( "ID i", ReplyRule::One );
+
+    connect( command, SIGNAL( commandReply( const Reply& ) ), this, SLOT( setUpdate() ) );
+
+    return command;
+}
+
+Command* ProjectsBatch::deleteProjectDescriptionJob( const Job& job )
+{
+    Command* command = new Command();
+
+    command->setKeyword( "DELETE PROJECT DESCRIPTION" );
+    command->setArgs( job.args() );
+
+    command->addRule( "ID i", ReplyRule::One );
 
     connect( command, SIGNAL( commandReply( const Reply& ) ), this, SLOT( setUpdate() ) );
 

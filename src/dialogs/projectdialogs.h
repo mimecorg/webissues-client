@@ -20,9 +20,12 @@
 #ifndef PROJECTDIALOGS_H
 #define PROJECTDIALOGS_H
 
+#include "data/datamanager.h"
 #include "dialogs/commanddialog.h"
 
 class InputLineEdit;
+class MarkupTextEdit;
+
 class QComboBox;
 
 /**
@@ -227,6 +230,91 @@ private:
     int m_folderId;
 
     bool m_force;
+};
+
+/**
+* Dialog for executing the <tt>ADD PROJECT DESCRIPTION</tt> command.
+*/
+class AddProjectDescriptionDialog : public CommandDialog
+{
+    Q_OBJECT
+public:
+    /**
+    * Constructor.
+    * @param projectId Identifier of the project.
+    * @param parent The parent widget.
+    */
+    AddProjectDescriptionDialog( int projectId, QWidget* parent );
+
+    /**
+    * Destructor.
+    */
+    ~AddProjectDescriptionDialog();
+
+public: // overrides
+    void accept();
+
+private:
+    int m_projectId;
+
+    MarkupTextEdit* m_descriptionEdit;
+};
+
+/**
+* Dialog for executing the <tt>EDIT PROJECT DESCRIPTION</tt> command.
+*/
+class EditProjectDescriptionDialog : public CommandDialog
+{
+    Q_OBJECT
+public:
+    /**
+    * Constructor.
+    * @param projectId Identifier of the project.
+    * @param parent The parent widget.
+    */
+    EditProjectDescriptionDialog( int projectId, QWidget* parent );
+
+    /**
+    * Destructor.
+    */
+    ~EditProjectDescriptionDialog();
+
+public: // overrides
+    void accept();
+
+private:
+    int m_projectId;
+
+    QString m_oldText;
+    TextFormat m_oldFormat;
+
+    MarkupTextEdit* m_descriptionEdit;
+};
+
+/**
+* Dialog for executing the <tt>DELETE PROJECT DESCRIPTION</tt> command.
+*/
+class DeleteProjectDescriptionDialog : public CommandDialog
+{
+    Q_OBJECT
+public:
+    /**
+    * Constructor.
+    * @param projectId Identifier of the project.
+    * @param parent The parent widget.
+    */
+    DeleteProjectDescriptionDialog( int projectId, QWidget* parent );
+
+    /**
+    * Destructor.
+    */
+    ~DeleteProjectDescriptionDialog();
+
+public: // overrides
+    void accept();
+
+private:
+    int m_projectId;
 };
 
 #endif

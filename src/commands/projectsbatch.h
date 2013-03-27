@@ -20,8 +20,9 @@
 #ifndef PROJECTSBATCH_H
 #define PROJECTSBATCH_H
 
-#include "abstractbatch.h"
-#include "batchjob.h"
+#include "commands/abstractbatch.h"
+#include "commands/batchjob.h"
+#include "data/datamanager.h"
 
 /**
 * Batch for operations on projects and folders.
@@ -94,6 +95,28 @@ public:
     */
     void moveFolder( int folderId, int projectId );
 
+    /**
+    * Add the <tt>ADD PROJECT DESCRIPTION</tt> command to the batch.
+    * @param projectId Identifier of the project.
+    * @param text Text of the description.
+    * @param format Format of the description.
+    */
+    void addProjectDescription( int projectId, const QString& text, TextFormat format );
+
+    /**
+    * Add the <tt>EDIT PROJECT DESCRIPTION</tt> command to the batch.
+    * @param projectId Identifier of the project.
+    * @param newText New text of the description.
+    * @param newFormat New format of the description.
+    */
+    void editProjectDescription( int projectId, const QString& newText, TextFormat newFormat );
+
+    /**
+    * Add the <tt>DELETE PROJECT DESCRIPTION</tt> command to the batch.
+    * @param projectId Identifier of the project.
+    */
+    void deleteProjectDescription( int projectId );
+
 public: // overrides
     Command* fetchNext();
 
@@ -110,6 +133,10 @@ private:
     Command* renameFolderJob( const Job& job );
     Command* deleteFolderJob( const Job& job );
     Command* moveFolderJob( const Job& job );
+
+    Command* addProjectDescriptionJob( const Job& job );
+    Command* editProjectDescriptionJob( const Job& job );
+    Command* deleteProjectDescriptionJob( const Job& job );
 
 private slots:
     void setUpdate();

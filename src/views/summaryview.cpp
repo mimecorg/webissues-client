@@ -26,6 +26,7 @@
 #include "data/updateevent.h"
 #include "data/localsettings.h"
 #include "dialogs/finditemdialog.h"
+#include "dialogs/projectdialogs.h"
 #include "models/projectsummarygenerator.h"
 #include "utils/htmlwriter.h"
 #include "utils/iconloader.h"
@@ -46,6 +47,10 @@ SummaryView::SummaryView( QObject* parent, QWidget* parentWidget ) : View( paren
     action->setShortcut( QKeySequence::Refresh );
     connect( action, SIGNAL( triggered() ), this, SLOT( updateProject() ), Qt::QueuedConnection );
     setAction( "updateProject", action );
+
+    action = new QAction( IconLoader::icon( "description-new" ), tr( "Add &Description..." ), this );
+    connect( action, SIGNAL( triggered() ), this, SLOT( addDescription() ), Qt::QueuedConnection );
+    setAction( "addDescription", action );
 
     action = new QAction( IconLoader::icon( "find" ), tr( "&Find..." ), this );
     action->setShortcut( QKeySequence::Find );
@@ -92,6 +97,7 @@ SummaryView::SummaryView( QObject* parent, QWidget* parentWidget ) : View( paren
     connect( action, SIGNAL( triggered() ), this, SLOT( selectAll() ) );
     setAction( "editSelectAll", action );
 
+    setTitle( "sectionAdd", tr( "Add" ) );
     setTitle( "sectionProject", tr( "Project" ) );
     setTitle( "sectionEdit", tr( "Edit" ) );
 
@@ -220,6 +226,9 @@ void SummaryView::updateActions()
 
     bool linkNotEmpty = !m_actionLink.isEmpty();
 
+    ProjectEntity project = ProjectEntity::find( id() );
+
+    action( "addDescription" )->setEnabled( access() == AdminAccess && !project.description().isValid() );
     action( "editCopy" )->setEnabled( hasSelection );
     action( "findNext" )->setEnabled( m_isFindEnabled );
     action( "findPrevious" )->setEnabled( m_isFindEnabled );
@@ -259,6 +268,14 @@ void SummaryView::cascadeUpdateProject()
         batch->updateSummary( id() );
 
         executeUpdate( batch );
+    }
+}
+
+void SummaryView::addDescription()
+{
+    if ( isEnabled() ) {
+        AddProjectDescriptionDialog dialog( id(), mainWidget() );
+        dialog.exec();
     }
 }
 
@@ -467,8 +484,15 @@ void SummaryView::linkClicked( const QUrl& url )
     }
 }
 
-void SummaryView::handleCommand( const QString& /*command*/ )
+void SummaryView::handleCommand( const QString& command )
 {
+    if ( command == QLatin1String( "edit-description" ) ) {
+        EditProjectDescriptionDialog dialog( id(), mainWidget() );
+        dialog.exec();
+    } else if ( command == QLatin1String( "delete-description" ) ) {
+        DeleteProjectDescriptionDialog dialog( id(), mainWidget() );
+        dialog.exec();
+    }
 }
 
 void SummaryView::findItem( int itemId )

@@ -21,11 +21,11 @@
 
 #include "commands/projectsbatch.h"
 #include "commands/commandmanager.h"
-#include "data/datamanager.h"
 #include "data/entities.h"
 #include "utils/errorhelper.h"
 #include "utils/iconloader.h"
 #include "widgets/inputlineedit.h"
+#include "widgets/markuptextedit.h"
 
 #include <QLayout>
 #include <QLabel>
@@ -418,4 +418,110 @@ bool DeleteFolderDialog::batchFailed( AbstractBatch* /*batch*/ )
     }
 
     return true;
+}
+
+AddProjectDescriptionDialog::AddProjectDescriptionDialog( int projectId, QWidget* parent ) : CommandDialog( parent ),
+    m_projectId( projectId )
+{
+    ProjectEntity project = ProjectEntity::find( projectId );
+
+    setWindowTitle( tr( "Add Description" ) );
+    setPrompt( tr( "Add description to project <b>%1</b>:" ).arg( project.name() ) );
+    setPromptPixmap( IconLoader::pixmap( "description-new", 22 ) );
+
+    QVBoxLayout* layout = new QVBoxLayout();
+
+    m_descriptionEdit = new MarkupTextEdit( this );
+    layout->addWidget( m_descriptionEdit );
+
+    setContentLayout( layout, false );
+
+    m_descriptionEdit->setFocus();
+}
+
+AddProjectDescriptionDialog::~AddProjectDescriptionDialog()
+{
+}
+
+void AddProjectDescriptionDialog::accept()
+{
+    if ( !validate() )
+        return;
+
+    ProjectsBatch* batch = new ProjectsBatch();
+    batch->addProjectDescription( m_projectId, m_descriptionEdit->inputValue(), m_descriptionEdit->textFormat() );
+
+    executeBatch( batch );
+}
+
+EditProjectDescriptionDialog::EditProjectDescriptionDialog( int projectId, QWidget* parent ) : CommandDialog( parent ),
+    m_projectId( projectId )
+{
+    ProjectEntity project = ProjectEntity::find( projectId );
+    DescriptionEntity description = project.description();
+    m_oldText = description.text();
+    m_oldFormat = description.format();
+
+    setWindowTitle( tr( "Edit Description" ) );
+    setPrompt( tr( "Edit description of project <b>%1</b>:" ).arg( project.name() ) );
+    setPromptPixmap( IconLoader::pixmap( "edit-modify", 22 ) );
+
+    QVBoxLayout* layout = new QVBoxLayout();
+
+    m_descriptionEdit = new MarkupTextEdit( this );
+    layout->addWidget( m_descriptionEdit );
+
+    setContentLayout( layout, false );
+
+    m_descriptionEdit->setInputValue( m_oldText );
+    m_descriptionEdit->setTextFormat( m_oldFormat );
+
+    m_descriptionEdit->setFocus();
+}
+
+EditProjectDescriptionDialog::~EditProjectDescriptionDialog()
+{
+}
+
+void EditProjectDescriptionDialog::accept()
+{
+    if ( !validate() )
+        return;
+
+    QString text = m_descriptionEdit->inputValue();
+    TextFormat format = m_descriptionEdit->textFormat();
+
+    if ( text == m_oldText && format == m_oldFormat ) {
+        QDialog::accept();
+        return;
+    }
+
+    ProjectsBatch* batch = new ProjectsBatch();
+    batch->editProjectDescription( m_projectId, text, format );
+
+    executeBatch( batch );
+}
+
+DeleteProjectDescriptionDialog::DeleteProjectDescriptionDialog( int projectId, QWidget* parent ) : CommandDialog( parent ),
+    m_projectId( projectId )
+{
+    ProjectEntity project = ProjectEntity::find( projectId );
+
+    setWindowTitle( tr( "Delete Description" ) );
+    setPrompt( tr( "Are you sure you want to delete description of project <b>%1</b>?" ).arg( project.name() ) );
+    setPromptPixmap( IconLoader::pixmap( "edit-delete", 22 ) );
+
+    setContentLayout( NULL, true );
+}
+
+DeleteProjectDescriptionDialog::~DeleteProjectDescriptionDialog()
+{
+}
+
+void DeleteProjectDescriptionDialog::accept()
+{
+    ProjectsBatch* batch = new ProjectsBatch();
+    batch->deleteProjectDescription( m_projectId );
+
+    executeBatch( batch );
 }

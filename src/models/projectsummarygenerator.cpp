@@ -69,9 +69,9 @@ HtmlText ProjectSummaryGenerator::descriptionLinks( const DescriptionEntity& des
 
     if ( !flags.testFlag( HtmlText::NoInternalLinks ) && m_isAdmin ) {
         result.appendText( " | " );
-        result.appendImageAndTextLink( "edit-modify", tr( "Edit" ), "command://edit-descr/" );
+        result.appendImageAndTextLink( "edit-modify", tr( "Edit" ), "command://edit-description/" );
         result.appendText( " | " );
-        result.appendImageAndTextLink( "edit-delete", tr( "Delete" ), "command://delete-descr/" );
+        result.appendImageAndTextLink( "edit-delete", tr( "Delete" ), "command://delete-description/" );
     }
 
     return result;

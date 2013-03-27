@@ -66,6 +66,7 @@ private slots:
     void updateActions();
 
     void updateProject();
+    void addDescription();
 
     void copy();
     void selectAll();
