@@ -97,6 +97,14 @@ public:
 
     /**
     * Add the <tt>ADD PROJECT DESCRIPTION</tt> command to the batch.
+    * The project must be first created using the addProject method.
+    * @param text Text of the description.
+    * @param format Format of the description.
+    */
+    void addInitialDescription( const QString& text, TextFormat format );
+
+    /**
+    * Add the <tt>ADD PROJECT DESCRIPTION</tt> command to the batch.
     * @param projectId Identifier of the project.
     * @param text Text of the description.
     * @param format Format of the description.
@@ -134,17 +142,22 @@ private:
     Command* deleteFolderJob( const Job& job );
     Command* moveFolderJob( const Job& job );
 
+    Command* addInitialDescriptionJob( const Job& job );
     Command* addProjectDescriptionJob( const Job& job );
     Command* editProjectDescriptionJob( const Job& job );
     Command* deleteProjectDescriptionJob( const Job& job );
 
 private slots:
+    void addProjectReply( const Reply& reply );
+
     void setUpdate();
 
 private:
     JobQueue m_queue;
 
     bool m_update;
+
+    int m_newProjectId;
 };
 
 #endif

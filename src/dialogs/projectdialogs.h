@@ -51,6 +51,8 @@ public: // overrides
 
 private:
     InputLineEdit* m_nameEdit;
+
+    MarkupTextEdit* m_descriptionEdit;
 };
 
 /**

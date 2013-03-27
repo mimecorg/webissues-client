@@ -37,19 +37,31 @@ AddProjectDialog::AddProjectDialog( QWidget* parent ) : CommandDialog( parent )
     setPrompt( tr( "Create a new project:" ) );
     setPromptPixmap( IconLoader::pixmap( "project-new", 22 ) );
 
-    QHBoxLayout* layout = new QHBoxLayout();
+    QGridLayout* layout = new QGridLayout();
 
     QLabel* label = new QLabel( tr( "&Name:" ), this );
-    layout->addWidget( label, 0 );
+    layout->addWidget( label, 0, 0 );
 
     m_nameEdit = new InputLineEdit( this );
     m_nameEdit->setMaxLength( 40 );
     m_nameEdit->setRequired( true );
-    layout->addWidget( m_nameEdit, 1 );
+    layout->addWidget( m_nameEdit, 0, 1 );
 
     label->setBuddy( m_nameEdit );
 
-    setContentLayout( layout, true );
+    QTabWidget* tabWidget = new QTabWidget( this );
+    layout->addWidget( tabWidget, 1, 0, 1, 2 );
+
+    QWidget* descriptionTab = new QWidget( tabWidget );
+    tabWidget->addTab( descriptionTab, IconLoader::icon( "description-new" ), tr( "Description" ) );
+
+    QVBoxLayout* descriptionLayout = new QVBoxLayout( descriptionTab );
+
+    m_descriptionEdit = new MarkupTextEdit( descriptionTab );
+    m_descriptionEdit->setRequired( false );
+    descriptionLayout->addWidget( m_descriptionEdit );
+
+    setContentLayout( layout, false );
 
     m_nameEdit->setFocus();
 }
@@ -72,6 +84,10 @@ void AddProjectDialog::accept()
 
     ProjectsBatch* batch = new ProjectsBatch();
     batch->addProject( name );
+
+    QString description = m_descriptionEdit->inputValue();
+    if ( !description.isEmpty() )
+        batch->addInitialDescription( description, m_descriptionEdit->textFormat() );
 
     executeBatch( batch );
 }

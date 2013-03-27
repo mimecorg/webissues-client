@@ -22,7 +22,8 @@
 #include "commands/command.h"
 
 ProjectsBatch::ProjectsBatch() : AbstractBatch( 0 ),
-    m_update( false )
+    m_update( false ),
+    m_newProjectId( 0 )
 {
 }
 
@@ -86,6 +87,14 @@ void ProjectsBatch::moveFolder( int folderId, int projectId )
     m_queue.addJob( job );
 }
 
+void ProjectsBatch::addInitialDescription( const QString& text, TextFormat format )
+{
+    Job job( &ProjectsBatch::addInitialDescriptionJob );
+    job.addArg( text );
+    job.addArg( format );
+    m_queue.addJob( job );
+}
+
 void ProjectsBatch::addProjectDescription( int projectId, const QString& text, TextFormat format )
 {
     Job job( &ProjectsBatch::addProjectDescriptionJob );
@@ -133,7 +142,7 @@ Command* ProjectsBatch::addProjectJob( const Job& job )
 
     command->addRule( "ID i", ReplyRule::One );
 
-    connect( command, SIGNAL( commandReply( const Reply& ) ), this, SLOT( setUpdate() ) );
+    connect( command, SIGNAL( commandReply( const Reply& ) ), this, SLOT( addProjectReply( const Reply& ) ) );
 
     return command;
 }
@@ -225,6 +234,22 @@ Command* ProjectsBatch::moveFolderJob( const Job& job )
     return command;
 }
 
+Command* ProjectsBatch::addInitialDescriptionJob( const Job& job )
+{
+    Command* command = new Command();
+
+    command->setKeyword( "ADD PROJECT DESCRIPTION" );
+    command->addArg( m_newProjectId );
+    command->addArg( job.argString( 0 ) );
+    command->addArg( job.argInt( 1 ) );
+
+    command->addRule( "ID i", ReplyRule::One );
+
+    connect( command, SIGNAL( commandReply( const Reply& ) ), this, SLOT( setUpdate() ) );
+
+    return command;
+}
+
 Command* ProjectsBatch::addProjectDescriptionJob( const Job& job )
 {
     Command* command = new Command();
@@ -270,5 +295,13 @@ Command* ProjectsBatch::deleteProjectDescriptionJob( const Job& job )
 
 void ProjectsBatch::setUpdate()
 {
+    m_update = true;
+}
+
+void ProjectsBatch::addProjectReply( const Reply& reply )
+{
+    ReplyLine line = reply.lines().at( 0 );
+    m_newProjectId = line.argInt( 0 );
+
     m_update = true;
 }
