@@ -94,6 +94,7 @@ private slots:
     void cloneIssue();
     void moveIssue();
     void deleteIssue();
+    void addDescription();
     void markAsRead();
 
     void copy();

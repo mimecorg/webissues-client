@@ -837,3 +837,109 @@ void DeleteAttachmentDialog::accept()
 
     executeBatch( batch );
 }
+
+AddDescriptionDialog::AddDescriptionDialog( int issueId, QWidget* parent ) : CommandDialog( parent ),
+    m_issueId( issueId )
+{
+    IssueEntity issue = IssueEntity::find( issueId );
+
+    setWindowTitle( tr( "Add Description" ) );
+    setPrompt( tr( "Add description to issue <b>%1</b>:" ).arg( issue.name() ) );
+    setPromptPixmap( IconLoader::pixmap( "description-new", 22 ) );
+
+    QVBoxLayout* layout = new QVBoxLayout();
+
+    m_descriptionEdit = new MarkupTextEdit( this );
+    layout->addWidget( m_descriptionEdit );
+
+    setContentLayout( layout, false );
+
+    m_descriptionEdit->setFocus();
+}
+
+AddDescriptionDialog::~AddDescriptionDialog()
+{
+}
+
+void AddDescriptionDialog::accept()
+{
+    if ( !validate() )
+        return;
+
+    IssueBatch* batch = new IssueBatch( m_issueId );
+    batch->addDescription( m_descriptionEdit->inputValue(), m_descriptionEdit->textFormat() );
+
+    executeBatch( batch );
+}
+
+EditDescriptionDialog::EditDescriptionDialog( int issueId, QWidget* parent ) : CommandDialog( parent ),
+    m_issueId( issueId )
+{
+    IssueEntity issue = IssueEntity::find( issueId );
+    DescriptionEntity description = issue.description();
+    m_oldText = description.text();
+    m_oldFormat = description.format();
+
+    setWindowTitle( tr( "Edit Description" ) );
+    setPrompt( tr( "Edit description of issue <b>%1</b>:" ).arg( issue.name() ) );
+    setPromptPixmap( IconLoader::pixmap( "edit-modify", 22 ) );
+
+    QVBoxLayout* layout = new QVBoxLayout();
+
+    m_descriptionEdit = new MarkupTextEdit( this );
+    layout->addWidget( m_descriptionEdit );
+
+    setContentLayout( layout, false );
+
+    m_descriptionEdit->setInputValue( m_oldText );
+    m_descriptionEdit->setTextFormat( m_oldFormat );
+
+    m_descriptionEdit->setFocus();
+}
+
+EditDescriptionDialog::~EditDescriptionDialog()
+{
+}
+
+void EditDescriptionDialog::accept()
+{
+    if ( !validate() )
+        return;
+
+    QString text = m_descriptionEdit->inputValue();
+    TextFormat format = m_descriptionEdit->textFormat();
+
+    if ( text == m_oldText && format == m_oldFormat ) {
+        QDialog::accept();
+        return;
+    }
+
+    IssueBatch* batch = new IssueBatch( m_issueId );
+    batch->editDescription( text, format );
+
+    executeBatch( batch );
+}
+
+DeleteDescriptionDialog::DeleteDescriptionDialog( int issueId, QWidget* parent ) : CommandDialog( parent ),
+    m_issueId( issueId )
+{
+    IssueEntity issue = IssueEntity::find( issueId );
+
+    setWindowTitle( tr( "Delete Description" ) );
+    setPrompt( tr( "Are you sure you want to delete description of issue <b>%1</b>?" ).arg( issue.name() ) );
+    setPromptPixmap( IconLoader::pixmap( "edit-delete", 22 ) );
+
+    setContentLayout( NULL, true );
+}
+
+DeleteDescriptionDialog::~DeleteDescriptionDialog()
+{
+}
+
+void DeleteDescriptionDialog::accept()
+{
+    IssueBatch* batch = new IssueBatch( m_issueId );
+    batch->deleteDescription();
+
+    executeBatch( batch );
+}

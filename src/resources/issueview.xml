@@ -3,6 +3,7 @@
     <section id="sectionAdd">
       <action id="addComment"/>
       <action id="addAttachment"/>
+      <action id="addDescription"/>
     </section>
     <section id="sectionIssue">
       <action id="updateIssue"/>
@@ -52,6 +53,7 @@
     <separator/>
     <action id="addComment"/>
     <action id="addAttachment"/>
+    <action id="addDescription"/>
     <separator/>
     <action id="markAsRead"/>
     <separator/>

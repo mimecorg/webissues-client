@@ -81,6 +81,10 @@ IssueView::IssueView( QObject* parent, QWidget* parentWidget ) : View( parent ),
     connect( action, SIGNAL( triggered() ), this, SLOT( addAttachment() ), Qt::QueuedConnection );
     setAction( "addAttachment", action );
 
+    action = new QAction( IconLoader::icon( "description-new" ), tr( "Add &Description..." ), this );
+    connect( action, SIGNAL( triggered() ), this, SLOT( addDescription() ), Qt::QueuedConnection );
+    setAction( "addDescription", action );
+
     action = new QAction( IconLoader::icon( "edit-modify" ), tr( "&Edit Attributes..." ), this );
     action->setShortcut( tr( "F2" ) );
     connect( action, SIGNAL( triggered() ), this, SLOT( editIssue() ), Qt::QueuedConnection );
@@ -361,6 +365,7 @@ void IssueView::updateActions()
     IssueEntity issue = IssueEntity::find( id() );
     m_isRead = issue.isValid() ? issue.readId() >= issue.stampId() : false;
 
+    action( "addDescription" )->setEnabled( ( access() == AdminAccess || IssueEntity::isOwner( id() ) ) && !issue.description().isValid() );
     action( "editCopy" )->setEnabled( hasSelection );
     action( "findNext" )->setEnabled( m_isFindEnabled );
     action( "findPrevious" )->setEnabled( m_isFindEnabled );
@@ -497,6 +502,14 @@ void IssueView::deleteIssue()
 
         if ( dialog.exec() == QDialog::Accepted && viewManager->isStandAlone( this ) )
             viewManager->closeView( this );
+    }
+}
+
+void IssueView::addDescription()
+{
+    if ( isEnabled() ) {
+        AddDescriptionDialog dialog( id(), mainWidget() );
+        dialog.exec();
     }
 }
 
@@ -791,6 +804,12 @@ void IssueView::handleCommand( const QString& command, int argument )
         m_history = (IssueDetailsGenerator::History)argument;
         application->applicationSettings()->setValue( "IssueHistoryFilter", (int)m_history );
         populateDetails();
+    } else if ( command == QLatin1String( "edit-description" ) ) {
+        EditDescriptionDialog dialog( id(), mainWidget() );
+        dialog.exec();
+    } else if ( command == QLatin1String( "delete-description" ) ) {
+        DeleteDescriptionDialog dialog( id(), mainWidget() );
+        dialog.exec();
     } else if ( command == QLatin1String( "edit-comment" ) ) {
         viewManager->openCommentView( argument );
     } else if ( command == QLatin1String( "edit-file" ) ) {

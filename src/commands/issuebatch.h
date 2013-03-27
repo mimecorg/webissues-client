@@ -142,6 +142,18 @@ public:
     void addDescription( const QString& text, TextFormat format );
 
     /**
+    * Add the <tt>EDIT DESCRIPTION</tt> command to the batch.
+    * @param newText New text of the description.
+    * @param newFormat New format of the description.
+    */
+    void editDescription( const QString& newText, TextFormat newFormat );
+
+    /**
+    * Add the <tt>DELETE DESCRIPTION</tt> command to the batch.
+    */
+    void deleteDescription();
+
+    /**
     * If @c true, update folder instead of issue details after making the changes.
     */
     void setUpdateFolder( bool update );
@@ -199,6 +211,8 @@ private:
     Command* deleteAttachmentJob( const Job& job );
 
     Command* addDescriptionJob( const Job& job );
+    Command* editDescriptionJob( const Job& job );
+    Command* deleteDescriptionJob( const Job& job );
 
 private slots:
     void addIssueReply( const Reply& reply );

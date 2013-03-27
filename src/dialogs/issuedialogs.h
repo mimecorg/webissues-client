@@ -427,4 +427,89 @@ private:
     int m_fileId;
 };
 
+/**
+* Dialog for executing the <tt>ADD DESCRIPTION</tt> command.
+*/
+class AddDescriptionDialog : public CommandDialog
+{
+    Q_OBJECT
+public:
+    /**
+    * Constructor.
+    * @param issueId Identifier of the issue.
+    * @param parent The parent widget.
+    */
+    AddDescriptionDialog( int issueId, QWidget* parent );
+
+    /**
+    * Destructor.
+    */
+    ~AddDescriptionDialog();
+
+public: // overrides
+    void accept();
+
+private:
+    int m_issueId;
+
+    MarkupTextEdit* m_descriptionEdit;
+};
+
+/**
+* Dialog for executing the <tt>EDIT DESCRIPTION</tt> command.
+*/
+class EditDescriptionDialog : public CommandDialog
+{
+    Q_OBJECT
+public:
+    /**
+    * Constructor.
+    * @param issueId Identifier of the issue.
+    * @param parent The parent widget.
+    */
+    EditDescriptionDialog( int issueId, QWidget* parent );
+
+    /**
+    * Destructor.
+    */
+    ~EditDescriptionDialog();
+
+public: // overrides
+    void accept();
+
+private:
+    int m_issueId;
+
+    QString m_oldText;
+    TextFormat m_oldFormat;
+
+    MarkupTextEdit* m_descriptionEdit;
+};
+
+/**
+* Dialog for executing the <tt>DELETE DESCRIPTION</tt> command.
+*/
+class DeleteDescriptionDialog : public CommandDialog
+{
+    Q_OBJECT
+public:
+    /**
+    * Constructor.
+    * @param issueId Identifier of the issue.
+    * @param parent The parent widget.
+    */
+    DeleteDescriptionDialog( int issueId, QWidget* parent );
+
+    /**
+    * Destructor.
+    */
+    ~DeleteDescriptionDialog();
+
+public: // overrides
+    void accept();
+
+private:
+    int m_issueId;
+};
+
 #endif

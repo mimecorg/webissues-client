@@ -151,6 +151,19 @@ void IssueBatch::addDescription( const QString& text, TextFormat format )
     m_queue.addJob( job );
 }
 
+void IssueBatch::editDescription( const QString& newText, TextFormat newFormat )
+{
+    Job job( &IssueBatch::editDescriptionJob );
+    job.addArg( newText );
+    job.addArg( newFormat );
+    m_queue.addJob( job );
+}
+
+void IssueBatch::deleteDescription()
+{
+    m_queue.addJob( &IssueBatch::deleteDescriptionJob );
+}
+
 void IssueBatch::setUpdateFolder( bool update )
 {
     if ( update ) {
@@ -399,6 +412,37 @@ Command* IssueBatch::addDescriptionJob( const Job& job )
     command->addArg( m_issueId );
     command->addArg( job.argString( 0 ) );
     command->addArg( job.argInt( 1 ) );
+
+    command->addRule( "ID i", ReplyRule::One );
+
+    connect( command, SIGNAL( commandReply( const Reply& ) ), this, SLOT( setUpdate() ) );
+
+    return command;
+}
+
+Command* IssueBatch::editDescriptionJob( const Job& job )
+{
+    Command* command = new Command();
+
+    command->setKeyword( "EDIT DESCRIPTION" );
+    command->addArg( m_issueId );
+    command->addArg( job.argString( 0 ) );
+    command->addArg( job.argInt( 1 ) );
+
+    command->setAcceptNullReply( true );
+    command->addRule( "ID i", ReplyRule::One );
+
+    connect( command, SIGNAL( commandReply( const Reply& ) ), this, SLOT( setUpdate() ) );
+
+    return command;
+}
+
+Command* IssueBatch::deleteDescriptionJob( const Job& /*job*/ )
+{
+    Command* command = new Command();
+
+    command->setKeyword( "DELETE DESCRIPTION" );
+    command->addArg( m_issueId );
 
     command->addRule( "ID i", ReplyRule::One );
 

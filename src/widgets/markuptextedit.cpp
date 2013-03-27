@@ -120,6 +120,8 @@ MarkupTextEdit::MarkupTextEdit( QWidget* parent ) : QWidget( parent ),
     formatLayout->addStretch( 1 );
 
     connect( m_comboBox, SIGNAL( currentIndexChanged( int ) ), this, SLOT( formatChanged( int ) ) );
+
+    setFocusProxy( m_edit );
 }
 
 MarkupTextEdit::~MarkupTextEdit()
