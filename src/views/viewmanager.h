@@ -85,11 +85,6 @@ public:
     void openIssueView( int issueId, int itemId = 0 );
 
     /**
-    * Open the add comment view for the given issue.
-    */
-    void openCommentView( int issueId );
-
-    /**
     * Add the view to the view manager.
     */
     void addView( View* view );

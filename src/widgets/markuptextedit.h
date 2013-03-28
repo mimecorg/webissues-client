@@ -48,6 +48,9 @@ public:
     void setRequired( bool required );
     bool isRequired() const;
 
+public: // overrides
+    QSize sizeHint() const;
+
 private slots:
     void markupBold();
     void markupItalic();

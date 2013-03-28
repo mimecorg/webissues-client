@@ -426,8 +426,10 @@ void IssueView::cascadeUpdateIssue()
 
 void IssueView::addComment()
 {
-    if ( isEnabled() )
-        viewManager->openCommentView( id() );
+    if ( isEnabled() ) {
+        AddCommentDialog dialog( id(), mainWidget() );
+        dialog.exec();
+    }
 }
 
 void IssueView::addAttachment()
@@ -811,7 +813,8 @@ void IssueView::handleCommand( const QString& command, int argument )
         DeleteDescriptionDialog dialog( id(), mainWidget() );
         dialog.exec();
     } else if ( command == QLatin1String( "edit-comment" ) ) {
-        viewManager->openCommentView( argument );
+        EditCommentDialog dialog( argument, mainWidget() );
+        dialog.exec();
     } else if ( command == QLatin1String( "edit-file" ) ) {
         EditAttachmentDialog dialog( argument, mainWidget() );
         dialog.exec();

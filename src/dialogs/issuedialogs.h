@@ -261,6 +261,66 @@ private:
 };
 
 /**
+* Dialog for executing the <tt>ADD COMMENT</tt> command.
+*/
+class AddCommentDialog : public CommandDialog
+{
+    Q_OBJECT
+public:
+    /**
+    * Constructor.
+    * @param issueId Identifier of the issue.
+    * @param parent The parent widget.
+    */
+    AddCommentDialog( int issueId, QWidget* parent );
+
+    /**
+    * Destructor.
+    */
+    ~AddCommentDialog();
+
+public: // overrides
+    void accept();
+
+private:
+    int m_issueId;
+
+    MarkupTextEdit* m_commentEdit;
+};
+
+/**
+* Dialog for executing the <tt>EDIT COMMENT</tt> command.
+*/
+class EditCommentDialog : public CommandDialog
+{
+    Q_OBJECT
+public:
+    /**
+    * Constructor.
+    * @param commentId Identifier of the comment.
+    * @param parent The parent widget.
+    */
+    EditCommentDialog( int commentId, QWidget* parent );
+
+    /**
+    * Destructor.
+    */
+    ~EditCommentDialog();
+
+public: // overrides
+    void accept();
+
+private:
+    int m_commentId;
+    int m_issueId;
+
+    QString m_oldText;
+    TextFormat m_oldFormat;
+
+    MarkupTextEdit* m_commentEdit;
+};
+
+/**
 * Dialog for executing the <tt>DELETE COMMENT</tt> command.
 */
 class DeleteCommentDialog : public CommandDialog

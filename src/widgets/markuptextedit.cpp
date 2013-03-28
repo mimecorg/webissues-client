@@ -248,7 +248,6 @@ void MarkupTextEdit::showPreview()
         m_preview->setContextMenuPolicy( Qt::NoContextMenu );
         m_preview->page()->setLinkDelegationPolicy( QWebPage::DelegateAllLinks );
 
-        m_previewWindow->move( m_edit->mapToGlobal( m_edit->rect().topRight() ) + QPoint( 2, 0 ) );
         m_previewWindow->resize( m_edit->size() );
 
         connect( m_preview, SIGNAL( linkClicked( const QUrl& ) ), this, SLOT( linkClicked( const QUrl& ) ) );
@@ -287,4 +286,9 @@ void MarkupTextEdit::formatChanged( int format )
 
     if ( format == PlainText && m_previewWindow != NULL )
         m_previewWindow->close();
+}
+
+QSize MarkupTextEdit::sizeHint() const
+{
+    return QSize( 700, 350 );
 }

@@ -64,11 +64,6 @@ void ViewManager::openIssueView( int issueId, int itemId /*= 0*/ )
         view->gotoItem( itemId );
 }
 
-void ViewManager::openCommentView( int issueId )
-{
-    openView( "CommentView", issueId );
-}
-
 bool ViewManager::queryCloseViews()
 {
     QList<View*> views = m_views.keys();

@@ -168,7 +168,7 @@ bool IssueDialog::initialize( int typeId, int projectId, bool withDescription )
 
     m_nameEdit->setFocus();
 
-    resize( application->applicationSettings()->value( "IssueDialogSize", QSize( 500, 500 ) ).toSize() );
+    resize( application->applicationSettings()->value( "IssueDialogSize", QSize( 740, 550 ) ).toSize() );
 
     return true;
 }
@@ -520,6 +520,90 @@ void DeleteIssueDialog::accept()
 {
     IssueBatch* batch = new IssueBatch( m_issueId );
     batch->deleteIssue();
+
+    executeBatch( batch );
+}
+
+AddCommentDialog::AddCommentDialog( int issueId, QWidget* parent ) : CommandDialog( parent ),
+    m_issueId( issueId )
+{
+    IssueEntity issue = IssueEntity::find( issueId );
+
+    setWindowTitle( tr( "Add Comment" ) );
+    setPrompt( tr( "Add comment to issue <b>%1</b>:" ).arg( issue.name() ) );
+    setPromptPixmap( IconLoader::pixmap( "comment", 22 ) );
+
+    QVBoxLayout* layout = new QVBoxLayout();
+
+    m_commentEdit = new MarkupTextEdit( this );
+    layout->addWidget( m_commentEdit );
+
+    setContentLayout( layout, false );
+
+    m_commentEdit->setFocus();
+}
+
+AddCommentDialog::~AddCommentDialog()
+{
+}
+
+void AddCommentDialog::accept()
+{
+    if ( !validate() )
+        return;
+
+    IssueBatch* batch = new IssueBatch( m_issueId );
+    batch->addComment( m_commentEdit->inputValue(), m_commentEdit->textFormat() );
+
+    executeBatch( batch );
+}
+
+EditCommentDialog::EditCommentDialog( int commentId, QWidget* parent ) : CommandDialog( parent ),
+    m_commentId( commentId )
+{
+    ChangeEntity change = ChangeEntity::findComment( commentId );
+    m_issueId = change.issueId();
+    CommentEntity comment = change.comment();
+    m_oldText = comment.text();
+    m_oldFormat = comment.format();
+    QString identifier = QString( "#%1" ).arg( commentId );
+
+    setWindowTitle( tr( "Edit Comment" ) );
+    setPrompt( tr( "Edit comment <b>%1</b>:" ).arg( identifier ) );
+    setPromptPixmap( IconLoader::pixmap( "edit-modify", 22 ) );
+
+    QVBoxLayout* layout = new QVBoxLayout();
+
+    m_commentEdit = new MarkupTextEdit( this );
+    layout->addWidget( m_commentEdit );
+
+    setContentLayout( layout, false );
+
+    m_commentEdit->setInputValue( m_oldText );
+    m_commentEdit->setTextFormat( m_oldFormat );
+
+    m_commentEdit->setFocus();
+}
+
+EditCommentDialog::~EditCommentDialog()
+{
+}
+
+void EditCommentDialog::accept()
+{
+    if ( !validate() )
+        return;
+
+    QString text = m_commentEdit->inputValue();
+    TextFormat format = m_commentEdit->textFormat();
+
+    if ( text == m_oldText && format == m_oldFormat ) {
+        QDialog::accept();
+        return;
+    }
+
+    IssueBatch* batch = new IssueBatch( m_issueId );
+    batch->editComment( m_commentId, text, format );
 
     executeBatch( batch );
 }

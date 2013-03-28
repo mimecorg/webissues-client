@@ -1,5 +1,4 @@
-HEADERS += views/commentview.h \
-           views/folderview.h \
+HEADERS += views/folderview.h \
            views/issueview.h \
            views/projectsview.h \
            views/startview.h \
@@ -11,8 +10,7 @@ HEADERS += views/commentview.h \
            views/viewfactory.h \
            views/viewmanager.h
 
-SOURCES += views/commentview.cpp \
-           views/folderview.cpp \
+SOURCES += views/folderview.cpp \
            views/issueview.cpp \
            views/projectsview.cpp \
            views/startview.cpp \

@@ -1,6 +1,5 @@
 <RCC version="1.0">
 <qresource prefix="/resources">
-  <file>commentview.xml</file>
   <file>folderview.xml</file>
   <file>issueview.xml</file>
   <file>mainwindow.xml</file>

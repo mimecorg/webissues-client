@@ -23,7 +23,6 @@
 #include "summaryview.h"
 #include "folderview.h"
 #include "issueview.h"
-#include "commentview.h"
 
 #include <QMetaObject>
 
@@ -39,7 +38,5 @@ View* ViewFactory::createView( const char* className, QObject* parent, QWidget* 
         return new FolderView( parent, parentWidget );
     if ( !qstrcmp( className, IssueView::staticMetaObject.className() ) )
         return new IssueView( parent, parentWidget );
-    if ( !qstrcmp( className, CommentView::staticMetaObject.className() ) )
-        return new CommentView( parent, parentWidget );
     return NULL;
 }
