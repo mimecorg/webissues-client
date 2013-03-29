@@ -93,6 +93,12 @@ public:
         CommaNotAllowed = 355,
         TransactionDeadlock = 356,
         ConstraintConflict = 357,
+        EmailAlreadyExists = 358,
+        InvalidActivationKey = 359,
+        UnknownRequest = 360,
+        UnknownDescription = 361,
+        DescriptionAlreadyExists = 362,
+        InvalidTextFormat = 363,
     };
 
 public:

@@ -138,6 +138,12 @@ QString ErrorHelper::errorMessage( ErrorCode code ) const
             return tr( "Concurrency error; please try again" );
         case ConstraintConflict:
             return tr( "One of the dependent objects no longer exists" );
+        case UnknownDescription:
+            return tr( "Description does not exist" );
+        case DescriptionAlreadyExists:
+            return tr( "Description already exists" );
+        case InvalidTextFormat:
+            return tr( "Text format is invalid" );
         default:
             return QString();
     }
