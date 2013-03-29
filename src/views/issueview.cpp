@@ -824,6 +824,14 @@ void IssueView::handleCommand( const QString& command, int argument )
     } else if ( command == QLatin1String( "delete-file" ) ) {
         DeleteAttachmentDialog dialog( argument, mainWidget() );
         dialog.exec();
+    } else if ( command == QLatin1String( "reply-description" ) ) {
+        AddCommentDialog dialog( id(), mainWidget() );
+        dialog.setQuote( tr( "Description" ), IssueEntity::find( id() ).description().text() );
+        dialog.exec();
+    } else if ( command == QLatin1String( "reply-comment" ) ) {
+        AddCommentDialog dialog( id(), mainWidget() );
+        dialog.setQuote( tr( "Comment #%1" ).arg( argument ), ChangeEntity::findComment( argument ).comment().text() );
+        dialog.exec();
     }
 }
 

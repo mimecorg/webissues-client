@@ -547,6 +547,16 @@ AddCommentDialog::~AddCommentDialog()
 {
 }
 
+void AddCommentDialog::setQuote( const QString& title, const QString& text )
+{
+    QString quote = QString( "[quote %1]\n%2\n[/quote]\n\n" ).arg( title, text );
+
+    m_commentEdit->setInputValue( quote );
+    m_commentEdit->setTextFormat( TextWithMarkup );
+
+    m_commentEdit->goToEnd();
+}
+
 void AddCommentDialog::accept()
 {
     if ( !validate() )

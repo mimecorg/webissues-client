@@ -391,11 +391,15 @@ HtmlText IssueDetailsGenerator::descriptionLinks( const DescriptionEntity& descr
     result.appendText( tr( "Last Edited:" ) );
     result.appendText( QString::fromUtf8( " %1 — %2" ).arg( formatter.formatDateTime( description.modifiedDate(), true ), description.modifiedUser() ) );
 
-    if ( !flags.testFlag( HtmlText::NoInternalLinks ) && ( m_isOwner || m_isAdmin ) ) {
+    if ( !flags.testFlag( HtmlText::NoInternalLinks ) ) {
         result.appendText( " | " );
-        result.appendImageAndTextLink( "edit-modify", tr( "Edit" ), "command://edit-description/" );
-        result.appendText( " | " );
-        result.appendImageAndTextLink( "edit-delete", tr( "Delete" ), "command://delete-description/" );
+        result.appendImageAndTextLink( "comment-reply", tr( "Reply" ), "command://reply-description/" );
+        if ( m_isOwner || m_isAdmin ) {
+            result.appendText( " | " );
+            result.appendImageAndTextLink( "edit-modify", tr( "Edit" ), "command://edit-description/" );
+            result.appendText( " | " );
+            result.appendImageAndTextLink( "edit-delete", tr( "Delete" ), "command://delete-description/" );
+        }
     }
 
     return result;
@@ -426,18 +430,25 @@ HtmlText IssueDetailsGenerator::changeLinks( const ChangeEntity& change, HtmlTex
     }
     result.endAnchor();
 
-    if ( !flags.testFlag( HtmlText::NoInternalLinks ) && ( m_isAdmin || change.createdUserId() == dataManager->currentUserId() ) ) {
-        result.appendText( " | " );
-        if ( change.type() == CommentAdded )
-            result.appendImageAndTextLink( "edit-modify", tr( "Edit" ), QString( "command://edit-comment/%1" ).arg( change.id() ) );
-        else
-            result.appendImageAndTextLink( "edit-modify", tr( "Edit" ), QString( "command://edit-file/%1" ).arg( change.id() ) );
+    if ( !flags.testFlag( HtmlText::NoInternalLinks ) ) {
+        if ( change.type() == CommentAdded ) {
+            result.appendText( " | " );
+            result.appendImageAndTextLink( "comment-reply", tr( "Reply" ), QString( "command://reply-comment/%1" ).arg( change.id() ) );
+        }
 
-        result.appendText( " | " );
-        if ( change.type() == CommentAdded )
-            result.appendImageAndTextLink( "edit-delete", tr( "Delete" ), QString( "command://delete-comment/%1" ).arg( change.id() ) );
-        else
-            result.appendImageAndTextLink( "edit-delete", tr( "Delete" ), QString( "command://delete-file/%1" ).arg( change.id() ) );
+        if ( m_isAdmin || change.createdUserId() == dataManager->currentUserId() ) {
+            result.appendText( " | " );
+            if ( change.type() == CommentAdded )
+                result.appendImageAndTextLink( "edit-modify", tr( "Edit" ), QString( "command://edit-comment/%1" ).arg( change.id() ) );
+            else
+                result.appendImageAndTextLink( "edit-modify", tr( "Edit" ), QString( "command://edit-file/%1" ).arg( change.id() ) );
+
+            result.appendText( " | " );
+            if ( change.type() == CommentAdded )
+                result.appendImageAndTextLink( "edit-delete", tr( "Delete" ), QString( "command://delete-comment/%1" ).arg( change.id() ) );
+            else
+                result.appendImageAndTextLink( "edit-delete", tr( "Delete" ), QString( "command://delete-file/%1" ).arg( change.id() ) );
+        }
     }
 
     return result;

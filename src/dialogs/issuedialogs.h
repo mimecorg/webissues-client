@@ -279,6 +279,9 @@ public:
     */
     ~AddCommentDialog();
 
+public:
+    void setQuote( const QString& title, const QString& text );
+
 public: // overrides
     void accept();
 

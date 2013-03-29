@@ -48,6 +48,8 @@ public:
     void setRequired( bool required );
     bool isRequired() const;
 
+    void goToEnd();
+
 public: // overrides
     QSize sizeHint() const;
 

@@ -163,6 +163,13 @@ TextFormat MarkupTextEdit::textFormat() const
     return (TextFormat)m_comboBox->currentIndex();
 }
 
+void MarkupTextEdit::goToEnd()
+{
+    QTextCursor cursor = m_edit->textCursor();
+    cursor.movePosition( QTextCursor::End );
+    m_edit->setTextCursor( cursor );
+}
+
 void MarkupTextEdit::markupBold()
 {
     markup( "**", "**" );
