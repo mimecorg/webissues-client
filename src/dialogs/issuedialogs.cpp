@@ -242,8 +242,15 @@ AddIssueDialog::AddIssueDialog( int folderId, int cloneIssueId, QWidget* parent 
     if ( !initialize( folder.typeId(), folder.projectId(), true ) )
         return;
 
-    if ( cloneIssueId != 0 )
+    if ( cloneIssueId != 0 ) {
         setIssueName( issue.name() );
+
+        DescriptionEntity description = issue.description();
+        if ( description.isValid() ) {
+            setDescriptionText( description.text() );
+            setDescriptionFormat( description.format() );
+        }
+    }
 
     IssueTypeCache* cache = dataManager->issueTypeCache( folder.typeId() );
     QList<int> attributes = attributeIds();
