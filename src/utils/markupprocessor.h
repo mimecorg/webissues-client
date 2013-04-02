@@ -22,13 +22,63 @@
 
 #include "utils/htmltext.h"
 
+#include <QRegExp>
+
 /**
 * Convert text with markup to HTML formatting.
 */
 class MarkupProcessor
 {
+private:
+    MarkupProcessor( const QString& text, HtmlText::Flags flags );
+    ~MarkupProcessor();
+
 public:
     static HtmlText parse( const QString& text, HtmlText::Flags flags = 0 );
+
+private:
+    enum Tokens
+    {
+        T_END,
+        T_TEXT,
+        T_START_CODE,
+        T_START_LIST,
+        T_START_QUOTE,
+        T_END_CODE,
+        T_END_LIST,
+        T_END_QUOTE,
+        T_LINK,
+        T_BACKTICK,
+        T_NEWLINE
+    };
+
+private:
+    void next();
+
+    void parse();
+    void parseBlock();
+    void parseText();
+    void parseCode();
+    void parseList();
+    void parseQuote();
+
+    int itemLevel();
+
+private:
+    QString m_text;
+    HtmlText::Flags m_flags;
+
+    QRegExp m_regExp;
+
+    int m_index;
+    bool m_matched;
+    
+    int m_token;
+    QString m_value;
+    QString m_extra;
+    QString m_rawValue;
+
+    QString m_result;
 };
 
 #endif

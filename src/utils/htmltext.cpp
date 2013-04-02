@@ -71,20 +71,7 @@ void HtmlText::appendParsed( const QString& text )
             appendText( text.mid( oldpos, pos - oldpos ) );
 
         QString link = linkExp.cap( 0 );
-
-        QString url;
-        if ( link.at( 0 ) == QLatin1Char( '#' ) )
-            url = ( ( m_flags & NoInternalLinks ) ? "#id" : "id://" ) + link.mid( 1 );
-        else if ( link.startsWith( QLatin1String( "www." ), Qt::CaseInsensitive ) )
-            url = "http://" + link;
-        else if ( link.startsWith( QLatin1String( "ftp." ), Qt::CaseInsensitive ) )
-            url = "ftp://" + link;
-        else if ( link.startsWith( QLatin1String( "\\\\" ) ) )
-            url = "file:///" + link;
-        else if ( !link.contains( QLatin1Char( ':' ) ) )
-            url = "mailto:" + link;
-        else
-            url = link;
+        QString url = convertUrl( link, m_flags );
 
         appendLink( link, url );
 
@@ -128,3 +115,20 @@ void HtmlText::endAnchor()
 {
     m_html += QLatin1String( "</a>\n" );;
 }
+
+QString HtmlText::convertUrl( const QString& url, Flags flags )
+{
+    if ( url.at( 0 ) == QLatin1Char( '#' ) )
+        return ( ( flags & NoInternalLinks ) ? "#id" : "id://" ) + url.mid( 1 );
+    else if ( url.startsWith( QLatin1String( "www." ), Qt::CaseInsensitive ) )
+        return "http://" + url;
+    else if ( url.startsWith( QLatin1String( "ftp." ), Qt::CaseInsensitive ) )
+        return "ftp://" + url;
+    else if ( url.startsWith( QLatin1String( "\\\\" ) ) )
+        return "file:///" + url;
+    else if ( !url.contains( QLatin1Char( ':' ) ) )
+        return "mailto:" + url;
+    else
+        return url;
+}
+

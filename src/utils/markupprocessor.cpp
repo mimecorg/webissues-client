@@ -19,29 +19,34 @@
 
 #include "markupprocessor.h"
 
-#include <QRegExp>
-
-enum MarkupMode
+HtmlText MarkupProcessor::parse( const QString& text, HtmlText::Flags flags /* = 0 */ )
 {
-    NormalMode,
-    ListMode,
-    CodeMode,
-    QuoteMode
-};
+    MarkupProcessor processor( text, flags );
 
-struct MarkupState
+    processor.next();
+    processor.parse();
+
+    HtmlText result( flags );
+    result.m_html = processor.m_result;
+    return result;
+}
+
+MarkupProcessor::MarkupProcessor( const QString& text, HtmlText::Flags flags ) :
+    m_text( text ),
+    m_flags( flags ),
+    m_index( 0 ),
+    m_matched( false ),
+    m_token( 0 )
 {
-    MarkupState( MarkupMode mode = NormalMode, int nest = 0, bool start = false ) :
-        m_mode( mode ),
-        m_nest( nest ),
-        m_start( start )
-    {
-    }
+    m_regExp.setPattern( "\\n|`[^`\\n]+`"
+        "|\\[\\/?(?:list|code|quote)(?:[ \\t][^]\\n]*)?\\](?:[ \\t]*\\n)?"
+        "|\\[(?:(?:mailto:)?[\\w.%+-]+@[\\w.-]+\\.[a-z]{2,4}|(?:(?:https?|ftp|file):\\/\\/|www\\.|ftp\\.|\\\\\\\\)[\\w+&@#\\/\\\\%=~|$?!:,.()-]+|#\\d+)(?:[ \\t][^]\\n]*)?\\]");
+    m_regExp.setCaseSensitivity( Qt::CaseInsensitive );
+}
 
-    MarkupMode m_mode;
-    int m_nest;
-    bool m_start;
-};
+MarkupProcessor::~MarkupProcessor()
+{
+}
 
 static int strcspn( const QString& text )
 {
@@ -55,262 +60,265 @@ static int strcspn( const QString& text )
     return i;
 }
 
-static QString parseText( const QString& text, HtmlText::Flags flags, MarkupState& state )
+void MarkupProcessor::next()
 {
-    if ( text.isEmpty() )
-        return QString();
+    if ( m_index >= m_text.length() ) {
+        m_token = T_END;
+        return;
+    }
 
-    // ignore any formatting in a code block
-    if ( state.m_mode == CodeMode )
-        return Qt::escape( text );
+    if ( !m_matched ) {
+        int lastIndex = m_index;
+        m_index = m_regExp.indexIn( m_text, m_index );
 
-    QString result;
-    int pos = 0;
+        if ( m_index < 0 ) {
+            m_index = m_text.length();
+            m_token = T_TEXT;
+            m_value = m_rawValue = m_text.mid( lastIndex );
+            return;
+        }
 
-    // handle initial asterisks in a list block
-    if ( state.m_mode == ListMode ) {
-        QRegExp listExp( "[ \\t]*(\\*{1,6})[ \\t](.*)" );
-
-        if ( listExp.exactMatch( text ) ) {
-            int nest = listExp.cap( 1 ).length();
-            pos = listExp.pos( 2 );
-
-            if ( nest > state.m_nest ) {
-                result += QString( "<ul><li>" ).repeated( nest - state.m_nest );
-            } else {
-                if ( state.m_nest > nest )
-                    result += QString( "</li></ul>" ).repeated( state.m_nest - nest );
-                if ( !state.m_start )
-                    result += "</li><li>";
-            }
-
-            state.m_nest = nest;
+        if ( m_index > lastIndex ) {
+            m_token = T_TEXT;
+            m_value = m_rawValue = m_text.mid( lastIndex, m_index - lastIndex );
+            m_matched = true;
+            return;
         }
     }
 
-    if ( state.m_mode == ListMode )
-        state.m_start = false;
+    m_index += m_regExp.matchedLength();
+    m_matched = false;
 
-    if ( pos < 0 )
-        return result;
+    m_rawValue = m_regExp.cap( 0 );
 
-    QStack<QString> tags;
+    if ( m_rawValue.at( 0 ) == QLatin1Char( '[' ) ) {
+        int index = strcspn( m_rawValue );
+        m_value = m_rawValue.mid( 1, index - 1 );
+        m_extra = m_rawValue.mid( index, m_rawValue.lastIndexOf( ']' ) - index ).trimmed();
 
-    QRegExp subtokenExp( "\\*\\*+|__+|`[^`]+`|\\["
-        "(?:(?:mailto:)?[\\w.%+-]+@[\\w.-]+\\.[a-z]{2,4}"
-        "|(?:(?:https?|ftp|file):\\/\\/|www\\.|ftp\\.|\\\\\\\\)[\\w+&@#\\/\\\\%=~|$?!:,.()-]+"
-        "|#\\d+)(?:[ \\t][^]]*)?\\]", Qt::CaseInsensitive );
-    
-    for ( ; ; ) {
-        int oldpos = pos;
-        pos = subtokenExp.indexIn( text, pos );
-
-        if ( pos < 0 ) {
-            result += HtmlText::parse( text.mid( oldpos ), flags ).toString();
-            break;
-        }
-
-        if ( pos > oldpos )
-            result += HtmlText::parse( text.mid( oldpos, pos - oldpos ), flags ).toString();
-
-        pos += subtokenExp.matchedLength();
-
-        QString subtoken = subtokenExp.cap( 0 );
-
-        if ( subtoken == QLatin1String( "**" ) || subtoken == QLatin1String( "__" ) ) {
-            QString tag = subtoken.at( 0 ) == QLatin1Char( '*' ) ? "strong" : "em";
-
-            // find a matching opening tag
-            int key = tags.indexOf( tag );
-            if ( key < 0 ) {
-                tags.push( tag );
-                result += QString( "<%1>" ).arg( tag );
-            } else {
-                while ( tags.count() > key ) {
-                    tag = tags.pop();
-                    result += QString( "</%1>" ).arg( tag );
-                }
-            }
-            continue;
-        }
-
-        if ( subtoken.at( 0 ) == QLatin1Char( '`' ) ) {
-            // display monotype text without further processing
-            result += QString( "<code>%1</code>" ).arg( Qt::escape( subtoken.mid( 1, subtoken.length() - 2 ) ) );
-            continue;
-        }
-
-        if ( subtoken.at( 0 ) == QLatin1Char( '[' ) ) {
-            int index = strcspn( subtoken );
-            QString url = subtoken.mid( 1, index - 1 );
-            QString title = subtoken.mid( index, subtoken.lastIndexOf( ']' ) - index ).trimmed();
-
-            if ( title.isEmpty() )
-                title = url;
-
-            if ( url.at( 0 ) == QLatin1Char( '#' ) )
-                url = ( ( flags & HtmlText::NoInternalLinks ) ? "#id" : "id://" ) + url.mid( 1 );
-            else if ( url.startsWith( QLatin1String( "www." ), Qt::CaseInsensitive ) )
-                url = "http://" + url;
-            else if ( url.startsWith( QLatin1String( "ftp." ), Qt::CaseInsensitive ) )
-                url = "ftp://" + url;
-            else if ( url.startsWith( QLatin1String( "\\\\" ) ) )
-                url = "file:///" + url;
-            else if ( !url.contains( QLatin1Char( ':' ) ) )
-                url = "mailto:" + url;
-
-            result += QString( "<a href=\"%1\">%2</a>" ).arg( Qt::escape( url ), Qt::escape( title ) );
-            continue;
-        }
-
-        result += Qt::escape( subtoken );
+        QString tag = m_value.toLower();
+        if ( tag == QLatin1String( "code" ) )
+            m_token = T_START_CODE;
+        else if ( tag == QLatin1String( "list" ) )
+            m_token = T_START_LIST;
+        else if ( tag == QLatin1String( "quote" ) )
+            m_token = T_START_QUOTE;
+        else if ( tag == QLatin1String( "/code" ) )
+            m_token = T_END_CODE;
+        else if ( tag == QLatin1String( "/list" ) )
+            m_token = T_END_LIST;
+        else if ( tag == QLatin1String( "/quote" ) )
+            m_token = T_END_QUOTE;
+        else
+            m_token = T_LINK;
+    } else if ( m_rawValue.at( 0 ) == QLatin1Char( '`' ) ) {
+        m_token = T_BACKTICK;
+        m_value = m_rawValue.mid( 1, m_rawValue.length() - 2 );
+    } else {
+        m_token = T_NEWLINE;
     }
-
-    // pop the remaining inline tags from the stack
-    while ( !tags.isEmpty() ) {
-        QString tag = tags.pop();
-        result += QString( "</%1>" ).arg( tag );
-    }
-
-    return result;
 }
 
-HtmlText MarkupProcessor::parse( const QString& text, HtmlText::Flags flags /* = 0 */ )
+void MarkupProcessor::parse()
 {
-    MarkupState state( NormalMode );
-    QStack<MarkupState> stack;
+    while ( m_token != T_END )
+        parseBlock();
+}
 
-    QRegExp tokenExp( "\\n|\\[\\/?(?:list|code|quote)(?:[ \\t][^]\\n]*)?\\](?:[ \\t]*\\n)?", Qt::CaseInsensitive );
-
-    QString result;
-
-    int pos = 0;
-    for ( ; ; ) {
-        int oldpos = pos;
-        pos = tokenExp.indexIn( text, pos );
-
-        if ( pos < 0 ) {
-            result += parseText( text.mid( oldpos ), flags, state );
+void MarkupProcessor::parseBlock()
+{
+    switch ( m_token ) {
+        case T_START_CODE:
+            m_result += QLatin1String( "<pre class=\"code" );
+            if ( !m_extra.isEmpty() ) {
+                QString lang = m_extra.toLower();
+                static const char* const langs[] = { "bash", "c", "c++", "c#", "css", "html", "java", "javascript", "js", "perl", "php", "python", "ruby", "sh", "sql", "vb", "xml" };
+                for ( int i = 0; i < sizeof( langs ) / sizeof( langs[ 0 ] ); i++ ) {
+                    if ( lang == QLatin1String( langs[ i ] ) ) {
+                        lang = lang.replace( '+', 'p' ).replace( '#', 's' );
+                        m_result += QLatin1String( " prettyprint lang-" );
+                        m_result += lang;
+                        break;
+                    }
+                }
+            }
+            m_result += QLatin1String( "\">" );
+            next();
+            parseCode();
+            if ( m_token == T_END_CODE )
+                next();
+            m_result += QLatin1String( "</pre>" );
             break;
-        }
 
-        if ( pos > oldpos )
-            result += parseText( text.mid( oldpos, pos - oldpos ), flags, state );
+        case T_START_LIST:
+            m_result += QLatin1String( "<ul><li>" );
+            next();
+            parseList();
+            if ( m_token == T_END_LIST )
+                next();
+            m_result += QLatin1String( "</li></ul>" );
+            break;
 
-        pos += tokenExp.matchedLength();
+        case T_START_QUOTE:
+            m_result += QLatin1String( "<div class=\"quote\">" );
+            if ( !m_extra.isEmpty() ) {
+                QString title = HtmlText::parse( m_extra, m_flags ).toString();
+                if ( title.at( title.length() - 1 ) != QLatin1Char( ':' ) )
+                    title += QLatin1Char( ':' );
+                m_result += QString( "<div class=\"quote-title\">%1</div>" ).arg( title );
+            }
+            next();
+            parseQuote();
+            if ( m_token == T_END_QUOTE )
+                next();
+            m_result += QLatin1String( "</div>" );
+            break;
 
-        QString token = tokenExp.cap( 0 );
+        case T_TEXT:
+        case T_BACKTICK:
+        case T_LINK:
+            parseText();
+            break;
 
-        if ( token.at( 0 ) == QLatin1Char( '[' ) ) {
-            int index = strcspn( token );
-            QString tag = token.mid( 1, index - 1 ).toLower();
-            QString extra = token.mid( index, token.lastIndexOf( ']' ) - index ).trimmed();
+        case T_NEWLINE:
+            m_result += QLatin1Char( '\n' );
+            next();
+            break;
 
-            // ignore all block tags in a code block, but count nested [code] and [/code] tags
-            if ( state.m_mode == CodeMode ) {
-                if ( tag == QLatin1String( "code" ) ) {
-                    state.m_nest++;
-                } else if ( tag == QLatin1String( "/code" ) ) {
-                    if ( --state.m_nest == 0 ) {
-                        result += QLatin1String( "</pre>" );
-                        state = stack.pop();
+        default:
+            // ignore error (e.g. unbalanced closing tag)
+            next();
+            break;
+    }
+}
+
+void MarkupProcessor::parseText()
+{
+    QStringList tags;
+
+    for ( ; ; ) {
+        switch ( m_token ) {
+            case T_TEXT: {
+                QRegExp subtokenExp( "\\*\\*+|__+" );
+                int pos = 0;
+                for ( ; ; ) {
+                    int oldpos = pos;
+                    pos = subtokenExp.indexIn( m_value, pos );
+
+                    if ( pos < 0 ) {
+                        m_result += HtmlText::parse( m_value.mid( oldpos ), m_flags ).toString();
+                        break;
+                    }
+
+                    if ( pos > oldpos )
+                        m_result += HtmlText::parse( m_value.mid( oldpos, pos - oldpos ), m_flags ).toString();
+
+                    pos += subtokenExp.matchedLength();
+
+                    QString subtoken = subtokenExp.cap( 0 );
+
+                    if ( subtoken == QLatin1String( "**" ) || subtoken == QLatin1String( "__" ) ) {
+                        QString tag = subtoken.at( 0 ) == QLatin1Char( '*' ) ? "strong" : "em";
+                        int key = tags.indexOf( tag );
+                        if ( key < 0 ) {
+                            tags.append( tag );
+                            m_result += QString( "<%1>" ).arg( tag );
+                        } else {
+                            for ( int i = tags.count() - 1; i >= key; i-- )
+                                m_result += QString( "</%1>" ).arg( tags.at( i ) );
+                            tags.removeAt( key );
+                            for ( int i = key; i < tags.count(); i++ )
+                                m_result += QString( "<%1>" ).arg( tags.at( i ) );
+                        }
                         continue;
                     }
+
+                    m_result += Qt::escape( subtoken );
                 }
-                result += Qt::escape( token );
-                continue;
+                next();
+                break;
             }
 
-            if ( state.m_mode == ListMode )
-                state.m_start = false;
+            case T_BACKTICK:
+                m_result += QString( "<code>%1</code>" ).arg( Qt::escape( m_value ) );
+                next();
+                break;
 
-            if ( tag == QLatin1String( "/list" ) || tag == QLatin1String( "/quote" ) ) {
-                // find a matching opening tag
-                MarkupMode mode = tag.at( 1 ) == QLatin1Char( 'l' ) ? ListMode : QuoteMode;
-                int pop = 0;
-                if ( mode == state.m_mode ) {
-                    pop = 1;
-                } else {
-                    for ( int i = stack.count() - 1; i > 0; i-- ) {
-                        if ( mode == stack.at( i ).m_mode ) {
-                            pop = stack.count() - i + 1;
-                            break;
-                        }
-                    }
-                }
-                if ( pop > 0 ) {
-                    // pop the block tags from the stack
-                    for ( int i = 0; i < pop; i++ ) {
-                        if ( state.m_mode == ListMode )
-                            result += QString( "</li></ul>" ).repeated( state.m_nest );
-                        else if ( state.m_mode == CodeMode )
-                            result += QLatin1String( "</pre>" );
-                        else
-                            result += QLatin1String( "</div>" );
-                        state = stack.pop();
-                    }
-                    continue;
-                }
-                // fall through if not matching opening tag found; it will be emitted as-is
-            }
+            case T_LINK:
+                m_result += QString( "<a href=\"%1\">%2</a>" ).arg( Qt::escape( HtmlText::convertUrl( m_value, m_flags ) ), Qt::escape( m_extra.isEmpty() ? m_value : m_extra ) );
+                next();
+                break;
 
-            if ( tag == QLatin1String( "list" ) ) {
-                stack.push( state );
-                state = MarkupState( ListMode, 1, true );
-                result += QLatin1String( "<ul><li>" );
-                continue;
-            }
+            default:
+                for ( int i = tags.count() - 1; i >= 0; i-- )
+                    m_result += QString( "</%1>" ).arg( tags.at( i ) );
+                return;
+        }
+    }
+}
 
-            if ( tag == QLatin1String( "code" ) ) {
-                stack.push( state );
-                state = MarkupState( CodeMode, 1 );
-                QString classes;
-                if ( !extra.isEmpty() ) {
-                    // enable pretty printing if a valid language is given
-                    QString lang = extra.toLower();
-                    static const char* const langs[] = { "bash", "c", "c++", "c#", "css", "html", "java", "javascript", "js", "perl", "php", "python", "ruby", "sh", "sql", "vb", "xml" };
-                    for ( int i = 0; i < sizeof( langs ) / sizeof( langs[ 0 ] ); i++ ) {
-                        if ( lang == QLatin1String( langs[ i ] ) ) {
-                            lang = lang.replace( '+', 'p' ).replace( '#', 's' );
-                            classes = " prettyprint lang-" + lang;
-                            break;
-                        }
-                    }
-                }
-                result += QString( "<pre class=\"code%1\">" ).arg( classes );
-                continue;
-            }
+void MarkupProcessor::parseCode()
+{
+    int nest = 1;
 
-            if ( tag == QLatin1String( "quote" ) ) {
-                stack.push( state );
-                state = MarkupState( QuoteMode );
-                result += QLatin1String( "<div class=\"quote\">" );
-                if ( !extra.isEmpty() ) {
-                    QString title = HtmlText::parse( extra, flags ).toString();
-                    if ( title.at( title.length() - 1 ) != QLatin1Char( ':' ) )
-                        title += QLatin1Char( ':' );
-                    result += QString( "<div class=\"quote-title\">%1</div>" ).arg( title );
-                }
-                continue;
-            }
+    while ( m_token != T_END ) {
+        if ( m_token == T_START_CODE ) {
+            nest++;
+        } else if ( m_token == T_END_CODE ) {
+            if ( --nest == 0 )
+                break;
         }
 
-        result += Qt::escape( token );
+        m_result += Qt::escape( m_rawValue );
+        next();
+    }
+}
+
+void MarkupProcessor::parseList()
+{
+    int nest = 1;
+
+    int level = itemLevel();
+    if ( level > 1 ) {
+        m_result += QString( "<ul><li>" ).repeated( level - 1 );
+        nest = level;
     }
 
-    // pop the remaining block tags from the stack
-    while ( !stack.isEmpty() ) {
-        if ( state.m_mode == ListMode )
-            result += QString( "</li></ul>" ).repeated( state.m_nest );
-        else if ( state.m_mode == CodeMode )
-            result += QLatin1String( "</pre>" );
-        else
-            result += QLatin1String( "</div>" );
-        state = stack.pop();
+    while ( m_token != T_END && m_token != T_END_LIST ) {
+        parseBlock();
+
+        level = itemLevel();
+        if ( level > nest ) {
+            m_result += QString( "<ul><li>" ).repeated( level - nest );
+            nest = level;
+        } else if ( level > 0 ) {
+            if ( level < nest )
+                m_result += QString( "</li></ul>" ).repeated( nest - level );
+            m_result += QLatin1String( "</li><li>" );
+            nest = level;
+        }
     }
 
-    HtmlText htmlText( flags );
-    htmlText.m_html = result;
+    if ( nest > 1 )
+        m_result += QString( "</li></ul>" ).repeated( nest - 1 );
+}
 
-    return htmlText;
+int MarkupProcessor::itemLevel()
+{
+    if ( m_token == T_TEXT ) {
+        QRegExp listExp( "[ \\t]*(\\*{1,6})[ \\t](.*)" );
+        if ( listExp.exactMatch( m_value ) ) {
+            m_value = listExp.cap( 2 );
+            if ( m_value.isEmpty() )
+                next();
+            return listExp.cap( 1 ).length();
+        }
+    }
+    return 0;
+}
+
+void MarkupProcessor::parseQuote()
+{
+    while ( m_token != T_END && m_token != T_END_QUOTE )
+        parseBlock();
 }

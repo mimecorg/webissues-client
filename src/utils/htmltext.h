@@ -132,6 +132,9 @@ public:
     static HtmlText parse( const QString& text, Flags flags = 0 );
 
 private:
+    static QString convertUrl( const QString& url, Flags flags );
+
+private:
     Flags m_flags;
     QString m_html;
 
