@@ -100,6 +100,7 @@ MarkupTextEdit::MarkupTextEdit( QWidget* parent ) : QWidget( parent ),
     m_edit = new InputTextEdit( this );
     editLayout->addWidget( m_edit, 1 );
 
+    m_edit->setAutoValidate( false );
     m_edit->setRequired( true );
     m_edit->setMaxLength( dataManager->setting( "comment_max_length" ).toInt() );
 
@@ -172,17 +173,17 @@ void MarkupTextEdit::goToEnd()
 
 void MarkupTextEdit::markupBold()
 {
-    markup( "**", "**" );
+    markupMultiline( QString(), QString(), "**", "**" );
 }
 
 void MarkupTextEdit::markupItalic()
 {
-    markup( "__", "__" );
+    markupMultiline( QString(), QString(), "__", "__" );
 }
 
 void MarkupTextEdit::markupMonospace()
 {
-    markup( "`", "`" );
+    markupMultiline( QString(), QString(), "`", "`" );
 }
 
 void MarkupTextEdit::markupLink()
@@ -194,45 +195,74 @@ void MarkupTextEdit::markupLink()
 
 void MarkupTextEdit::markupList()
 {
-    markupBlock( "[list]\n", "\n[/list]", "* ", "" );
+    markupMultiline( "[list]\n", "\n[/list]", "* ", QString() );
 }
 
 void MarkupTextEdit::markupQuote()
 {
-    markup( "[quote]\n", "\n[/quote]" );
+    markup( "[quote]\n", "\n[/quote]", QString() );
 }
 
 void MarkupTextEdit::markupCode()
 {
-    markup( "[code]\n", "\n[/code]" );
+    markup( "[code]\n", "\n[/code]", QString() );
 }
 
-void MarkupTextEdit::markup( const QString& openWith, const QString& closeWith, const QString& placeholder /* = QString() */ )
+void MarkupTextEdit::markup( const QString& openBlockWith, const QString& closeBlockWith, const QString& placeholder )
 {
     QTextCursor cursor = m_edit->textCursor();
     QString text = cursor.selectedText();
     if ( !text.isEmpty() ) {
-        cursor.insertText( openWith + text + closeWith );
-    } else if ( placeholder.isEmpty() ) {
-        cursor.insertText( openWith + closeWith );
-        cursor.movePosition( QTextCursor::Left, QTextCursor::MoveAnchor, closeWith.length() );
-        m_edit->setTextCursor( cursor );
+        QString block = text.replace( QChar::ParagraphSeparator, QLatin1Char( '\n' ) );
+
+        QRegExp newlinesExp( "[ \\t\\n]+$" );
+        QString trailingNewlines;
+        if ( newlinesExp.indexIn( block ) >= 0 ) {
+            trailingNewlines = newlinesExp.cap( 0 );
+            block = block.left( newlinesExp.pos( 0 ) );
+        }
+
+        cursor.insertText( openBlockWith + block + closeBlockWith + trailingNewlines );
     } else {
-        cursor.insertText( openWith + placeholder + closeWith );
-        cursor.movePosition( QTextCursor::Left, QTextCursor::MoveAnchor, closeWith.length() + placeholder.length() );
+        cursor.insertText( openBlockWith + placeholder + closeBlockWith );
+        cursor.movePosition( QTextCursor::Left, QTextCursor::MoveAnchor, closeBlockWith.length() + placeholder.length() );
         cursor.movePosition( QTextCursor::Right, QTextCursor::KeepAnchor, placeholder.length() );
         m_edit->setTextCursor( cursor );
     }
 }
 
-void MarkupTextEdit::markupBlock( const QString& openBlockWith, const QString& closeBlockWith, const QString& openWith, const QString& closeWith )
+void MarkupTextEdit::markupMultiline( const QString& openBlockWith, const QString& closeBlockWith, const QString& openWith, const QString& closeWith )
 {
     QTextCursor cursor = m_edit->textCursor();
     QString text = cursor.selectedText();
     if ( !text.isEmpty() ) {
-        QChar separator( QChar::ParagraphSeparator );
-        text.replace( separator, closeWith + separator + openWith );
-        cursor.insertText( openBlockWith + openWith + text + closeWith + closeBlockWith );
+        QStringList lines = text.split( QChar::ParagraphSeparator );
+
+        QStringList blocks;
+        QRegExp spacesExp( "[ \\t]+$" );
+
+        foreach ( QString line, lines ) {
+            QString trailingSpaces;
+            if ( spacesExp.indexIn( line ) >= 0 ) {
+                trailingSpaces = spacesExp.cap( 0 );
+                line = line.left( spacesExp.pos( 0 ) );
+            }
+            if ( !line.isEmpty() )
+                blocks.append( openWith + line + closeWith + trailingSpaces );
+            else
+                blocks.append( trailingSpaces );
+        }
+
+        QString block = blocks.join( "\n" );
+
+        QRegExp newlinesExp( "[ \\t\\n]+$" );
+        QString trailingNewlines;
+        if ( newlinesExp.indexIn( block ) >= 0 ) {
+            trailingNewlines = newlinesExp.cap( 0 );
+            block = block.left( newlinesExp.pos( 0 ) );
+        }
+
+        cursor.insertText( openBlockWith + block + closeBlockWith + trailingNewlines );
     } else {
         cursor.insertText( openBlockWith + openWith + closeWith + closeBlockWith );
         cursor.movePosition( QTextCursor::Left, QTextCursor::MoveAnchor, closeBlockWith.length() + closeWith.length() );

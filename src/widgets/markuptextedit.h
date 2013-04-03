@@ -69,8 +69,8 @@ private slots:
     void formatChanged( int format );
 
 private:
-    void markup( const QString& openWith, const QString& closeWith, const QString& placeholder = QString() );
-    void markupBlock( const QString& openBlockWith, const QString& closeBlockWith, const QString& openWith, const QString& closeWith );
+    void markup( const QString& openBlockWith, const QString& closeBlockWith, const QString& placeholder );
+    void markupMultiline( const QString& openBlockWith, const QString& closeBlockWith, const QString& openWith, const QString& closeWith );
 
     void findItem( int itemId );
 
