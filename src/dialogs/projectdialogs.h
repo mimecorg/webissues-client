@@ -37,9 +37,8 @@ class AddProjectDialog : public CommandDialog
 public:
     /**
     * Constructor.
-    * @param parent The parent widget.
     */
-    AddProjectDialog( QWidget* parent );
+    AddProjectDialog();
 
     /**
     * Destructor.
@@ -244,9 +243,8 @@ public:
     /**
     * Constructor.
     * @param projectId Identifier of the project.
-    * @param parent The parent widget.
     */
-    AddProjectDescriptionDialog( int projectId, QWidget* parent );
+    AddProjectDescriptionDialog( int projectId );
 
     /**
     * Destructor.
@@ -272,9 +270,8 @@ public:
     /**
     * Constructor.
     * @param projectId Identifier of the project.
-    * @param parent The parent widget.
     */
-    EditProjectDescriptionDialog( int projectId, QWidget* parent );
+    EditProjectDescriptionDialog( int projectId );
 
     /**
     * Destructor.

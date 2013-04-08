@@ -36,7 +36,7 @@
 #include <QDialogButtonBox>
 #include <QMenu>
 
-UserProjectsDialog::UserProjectsDialog( int userId, QWidget* parent ) : InformationDialog( parent ),
+UserProjectsDialog::UserProjectsDialog( int userId ) : InformationDialog( NULL, Qt::Window ),
     m_userId( userId )
 {
     UserEntity user = UserEntity::find( userId );
@@ -86,7 +86,7 @@ UserProjectsDialog::UserProjectsDialog( int userId, QWidget* parent ) : Informat
     m_model = new UserProjectsModel( userId, this );
     m_list->setModel( m_model );
 
-    helper.loadColumnWidths( "MemberProjectsDialogWidths", QList<int>() << 150 << 150 );
+    helper.loadColumnWidths( "UserProjectsDialogWidths", QList<int>() << 150 << 150 );
 
     connect( m_list->selectionModel(), SIGNAL( selectionChanged( const QItemSelection&, const QItemSelection& ) ),
         this, SLOT( updateActions() ) );
@@ -100,17 +100,15 @@ UserProjectsDialog::UserProjectsDialog( int userId, QWidget* parent ) : Informat
 
     setContentLayout( layout, false );
 
-    resize( application->applicationSettings()->value( "MemberProjectsDialogSize", QSize( 350, 450 ) ).toSize() );
+    resize( 350, 450 );
 
     updateActions();
 }
 
 UserProjectsDialog::~UserProjectsDialog()
 {
-    application->applicationSettings()->setValue( "MemberProjectsDialogSize", size() );
-
     TreeViewHelper helper( m_list );
-    helper.saveColumnWidths( "MemberProjectsDialogWidths" );
+    helper.saveColumnWidths( "UserProjectsDialogWidths" );
 }
 
 void UserProjectsDialog::addProjects()

@@ -3,6 +3,7 @@ HEADERS += dialogs/aboutbox.h \
            dialogs/checkmessagebox.h \
            dialogs/commanddialog.h \
            dialogs/connectioninfodialog.h \
+           dialogs/dialogmanager.h \
            dialogs/finditemdialog.h \
            dialogs/informationdialog.h \
            dialogs/issuedialogs.h \
@@ -27,6 +28,7 @@ SOURCES += dialogs/aboutbox.cpp \
            dialogs/checkmessagebox.cpp \
            dialogs/commanddialog.cpp \
            dialogs/connectioninfodialog.cpp \
+           dialogs/dialogmanager.cpp \
            dialogs/finditemdialog.cpp \
            dialogs/informationdialog.cpp \
            dialogs/issuedialogs.cpp \

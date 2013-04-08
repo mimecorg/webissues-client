@@ -35,23 +35,16 @@ class QModelIndex;
 class ViewSettingsDialog : public InformationDialog, public XmlUi::Client
 {
     Q_OBJECT
-public:
+protected:
     /**
     * Constructor.
-    * @param parent The parent widget.
     */
-    ViewSettingsDialog( int typeId, bool isPublic, QWidget* parent );
+    ViewSettingsDialog( int typeId, bool isPublic );
 
     /**
     * Destructor.
     */
     ~ViewSettingsDialog();
-
-public:
-    enum ViewSettingsDialogCode
-    {
-        SwitchMode = 2
-    };
 
 protected: // overrides
     void customEvent( QEvent* e );
@@ -90,6 +83,22 @@ private:
 
     QTreeView* m_list;
     ViewsModel* m_model;
+};
+
+class PublicViewSettingsDialog : public ViewSettingsDialog
+{
+    Q_OBJECT
+public:
+    PublicViewSettingsDialog( int typeId );
+    ~PublicViewSettingsDialog();
+};
+
+class PersonalViewSettingsDialog : public ViewSettingsDialog
+{
+    Q_OBJECT
+public:
+    PersonalViewSettingsDialog( int typeId );
+    ~PersonalViewSettingsDialog();
 };
 
 #endif

@@ -55,8 +55,9 @@ public:
     /**
     * Conctructor.
     * @param parent The parent widget.
+    * @param flags Optional window flags.
     */
-    CommandDialog( QWidget* parent );
+    CommandDialog( QWidget* parent, Qt::WindowFlags flags = 0 );
 
     /**
     * Destructor.

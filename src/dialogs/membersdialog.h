@@ -38,9 +38,8 @@ public:
     /**
     * Constructor.
     * @param projectId Identifier of the project.
-    * @param parent The parent widget.
     */
-    MembersDialog( int projectId, QWidget* parent );
+    MembersDialog( int projectId );
 
     /**
     * Destructor.

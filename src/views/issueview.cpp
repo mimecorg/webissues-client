@@ -26,6 +26,7 @@
 #include "data/entities.h"
 #include "data/updateevent.h"
 #include "data/localsettings.h"
+#include "dialogs/dialogmanager.h"
 #include "dialogs/issuedialogs.h"
 #include "dialogs/finditemdialog.h"
 #include "dialogs/checkmessagebox.h"
@@ -426,10 +427,22 @@ void IssueView::cascadeUpdateIssue()
 
 void IssueView::addComment()
 {
-    if ( isEnabled() ) {
-        AddCommentDialog dialog( id(), mainWidget() );
-        dialog.exec();
-    }
+    if ( isEnabled() )
+        addComment( QString(), QString() );
+}
+
+void IssueView::addComment( const QString& title, const QString& text )
+{
+    if ( dialogManager->activateDialog( "AddCommentDialog", id() ) )
+        return;
+
+    AddCommentDialog* dialog = new AddCommentDialog( id() );
+    dialogManager->addDialog( dialog, id() );
+
+    if ( !title.isEmpty() )
+        dialog->setQuote( title, text );
+
+    dialog->show();
 }
 
 void IssueView::addAttachment()
@@ -464,8 +477,11 @@ void IssueView::addAttachment()
 void IssueView::editIssue()
 {
     if ( isEnabled() ) {
-        EditIssueDialog dialog( id(), mainWidget() );
-        dialog.exec();
+        if ( dialogManager->activateDialog( "EditIssueDialog", id() ) )
+            return;
+        EditIssueDialog* dialog = new EditIssueDialog( id() );
+        dialogManager->addDialog( dialog, id() );
+        dialog->show();
     }
 }
 
@@ -476,17 +492,25 @@ void IssueView::cloneIssue()
         if ( cloneDialog.exec() == QDialog::Accepted ) {
             int folderId = cloneDialog.folderId();
 
-            AddIssueDialog addDialog( folderId, id(), mainWidget() );
-            if ( addDialog.exec() == QDialog::Accepted ) {
-                int issueId = addDialog.issueId();
+            if ( dialogManager->activateDialog( "AddIssueDialog", folderId ) )
+                return;
 
-                if ( viewManager->isStandAlone( this ) )
-                    viewManager->openIssueView( issueId );
-                else
-                    emit issueActivated( issueId, issueId );
-            }
+            AddIssueDialog* dialog = new AddIssueDialog( folderId, id() );
+            dialogManager->addDialog( dialog, folderId );
+
+            connect( dialog, SIGNAL( issueAdded( int, int ) ), this, SLOT( issueAdded( int ) ) );
+
+            dialog->show();
         }
     }
+}
+
+void IssueView::issueAdded( int issueId )
+{
+    if ( viewManager->isStandAlone( this ) )
+        viewManager->openIssueView( issueId );
+    else
+        emit issueActivated( issueId, issueId );
 }
 
 void IssueView::moveIssue()
@@ -510,8 +534,11 @@ void IssueView::deleteIssue()
 void IssueView::addDescription()
 {
     if ( isEnabled() ) {
-        AddDescriptionDialog dialog( id(), mainWidget() );
-        dialog.exec();
+        if ( dialogManager->activateDialog( "AddDescriptionDialog", id() ) )
+            return;
+        AddDescriptionDialog* dialog = new AddDescriptionDialog( id() );
+        dialogManager->addDialog( dialog, id() );
+        dialog->show();
     }
 }
 
@@ -807,14 +834,20 @@ void IssueView::handleCommand( const QString& command, int argument )
         application->applicationSettings()->setValue( "IssueHistoryFilter", (int)m_history );
         populateDetails();
     } else if ( command == QLatin1String( "edit-description" ) ) {
-        EditDescriptionDialog dialog( id(), mainWidget() );
-        dialog.exec();
+        if ( dialogManager->activateDialog( "EditDescriptionDialog", id() ) )
+            return;
+        EditDescriptionDialog* dialog = new EditDescriptionDialog( id() );
+        dialogManager->addDialog( dialog, id() );
+        dialog->show();
     } else if ( command == QLatin1String( "delete-description" ) ) {
         DeleteDescriptionDialog dialog( id(), mainWidget() );
         dialog.exec();
     } else if ( command == QLatin1String( "edit-comment" ) ) {
-        EditCommentDialog dialog( argument, mainWidget() );
-        dialog.exec();
+        if ( dialogManager->activateDialog( "EditCommentDialog", argument ) )
+            return;
+        EditCommentDialog* dialog = new EditCommentDialog( argument );
+        dialogManager->addDialog( dialog, argument );
+        dialog->show();
     } else if ( command == QLatin1String( "edit-file" ) ) {
         EditAttachmentDialog dialog( argument, mainWidget() );
         dialog.exec();
@@ -825,13 +858,9 @@ void IssueView::handleCommand( const QString& command, int argument )
         DeleteAttachmentDialog dialog( argument, mainWidget() );
         dialog.exec();
     } else if ( command == QLatin1String( "reply-description" ) ) {
-        AddCommentDialog dialog( id(), mainWidget() );
-        dialog.setQuote( tr( "Description" ), IssueEntity::find( id() ).description().text() );
-        dialog.exec();
+        addComment( tr( "Description" ), IssueEntity::find( id() ).description().text() );
     } else if ( command == QLatin1String( "reply-comment" ) ) {
-        AddCommentDialog dialog( id(), mainWidget() );
-        dialog.setQuote( tr( "Comment #%1" ).arg( argument ), ChangeEntity::findComment( argument ).comment().text() );
-        dialog.exec();
+        addComment( tr( "Comment #%1" ).arg( argument ), ChangeEntity::findComment( argument ).comment().text() );
     }
 }
 

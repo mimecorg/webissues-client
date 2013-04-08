@@ -19,10 +19,8 @@
 
 #include "managealertsdialog.h"
 
-#include "application.h"
 #include "data/datamanager.h"
 #include "data/entities.h"
-#include "data/localsettings.h"
 #include "dialogs/alertdialogs.h"
 #include "models/alertsmodel.h"
 #include "utils/treeviewhelper.h"
@@ -36,7 +34,7 @@
 #include <QDialogButtonBox>
 #include <QMenu>
 
-ManageAlertsDialog::ManageAlertsDialog( int folderId, QWidget* parent ) : InformationDialog( parent ),
+ManageAlertsDialog::ManageAlertsDialog( int folderId ) : InformationDialog( NULL, Qt::Window ),
     m_folderId( folderId )
 {
     FolderEntity folder = FolderEntity::find( m_folderId );
@@ -107,15 +105,13 @@ ManageAlertsDialog::ManageAlertsDialog( int folderId, QWidget* parent ) : Inform
 
     setContentLayout( layout, false );
 
-    resize( application->applicationSettings()->value( "ManageAlertsDialogSize", QSize( 600, 400 ) ).toSize() );
+    resize( 600, 400 );
 
     updateActions();
 }
 
 ManageAlertsDialog::~ManageAlertsDialog()
 {
-    application->applicationSettings()->setValue( "ManageAlertsDialogSize", size() );
-
     TreeViewHelper helper( m_list );
     helper.saveColumnWidths( "ManageAlertsDialogWidths" );
 }

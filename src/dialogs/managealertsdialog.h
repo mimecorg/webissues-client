@@ -38,9 +38,8 @@ public:
     /**
     * Constructor.
     * @param folderId Identifier of the folder.
-    * @param parent The parent widget.
     */
-    ManageAlertsDialog( int folderId, QWidget* parent );
+    ManageAlertsDialog( int folderId );
 
     /**
     * Destructor.

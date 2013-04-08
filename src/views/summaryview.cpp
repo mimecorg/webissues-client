@@ -25,6 +25,7 @@
 #include "data/entities.h"
 #include "data/updateevent.h"
 #include "data/localsettings.h"
+#include "dialogs/dialogmanager.h"
 #include "dialogs/finditemdialog.h"
 #include "dialogs/projectdialogs.h"
 #include "models/projectsummarygenerator.h"
@@ -274,8 +275,11 @@ void SummaryView::cascadeUpdateProject()
 void SummaryView::addDescription()
 {
     if ( isEnabled() ) {
-        AddProjectDescriptionDialog dialog( id(), mainWidget() );
-        dialog.exec();
+        if ( dialogManager->activateDialog( "AddProjectDescriptionDialog", id() ) )
+            return;
+        AddProjectDescriptionDialog* dialog = new AddProjectDescriptionDialog( id() );
+        dialogManager->addDialog( dialog, id() );
+        dialog->show();
     }
 }
 
@@ -487,8 +491,11 @@ void SummaryView::linkClicked( const QUrl& url )
 void SummaryView::handleCommand( const QString& command )
 {
     if ( command == QLatin1String( "edit-description" ) ) {
-        EditProjectDescriptionDialog dialog( id(), mainWidget() );
-        dialog.exec();
+        if ( dialogManager->activateDialog( "EditProjectDescriptionDialog", id() ) )
+            return;
+        EditProjectDescriptionDialog* dialog = new EditProjectDescriptionDialog( id() );
+        dialogManager->addDialog( dialog, id() );
+        dialog->show();
     } else if ( command == QLatin1String( "delete-description" ) ) {
         DeleteProjectDescriptionDialog dialog( id(), mainWidget() );
         dialog.exec();

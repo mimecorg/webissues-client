@@ -25,6 +25,7 @@
 #include "data/bookmarksstore.h"
 #include "data/credentialsstore.h"
 #include "data/datamanager.h"
+#include "dialogs/dialogmanager.h"
 #include "dialogs/aboutbox.h"
 #include "utils/networkproxyfactory.h"
 #include "utils/updateclient.h"
@@ -89,6 +90,7 @@ Application::Application( int& argc, char** argv ) : QApplication( argc, argv ),
     setQuitOnLastWindowClosed( false );
 
     viewManager = new ViewManager();
+    dialogManager = new DialogManager();
 
     m_mainWindow = new MainWindow();
 
@@ -118,6 +120,9 @@ Application::~Application()
 
     delete viewManager;
     viewManager = NULL;
+
+    delete dialogManager;
+    dialogManager = NULL;
 
     delete m_mainWindow;
     m_mainWindow = NULL;

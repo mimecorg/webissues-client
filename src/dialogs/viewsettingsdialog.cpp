@@ -24,6 +24,7 @@
 #include "data/entities.h"
 #include "data/issuetypecache.h"
 #include "data/localsettings.h"
+#include "dialogs/dialogmanager.h"
 #include "dialogs/viewdialogs.h"
 #include "models/viewsmodel.h"
 #include "utils/treeviewhelper.h"
@@ -42,7 +43,7 @@
 #include <QTreeView>
 #include <QMenu>
 
-ViewSettingsDialog::ViewSettingsDialog( int typeId, bool isPublic, QWidget* parent ) : InformationDialog( parent ),
+ViewSettingsDialog::ViewSettingsDialog( int typeId, bool isPublic ) : InformationDialog( NULL, Qt::Window ),
     m_typeId( typeId ),
     m_isPublic( isPublic ),
     m_selectedViewId( 0 ),
@@ -215,10 +216,7 @@ ViewSettingsDialog::ViewSettingsDialog( int typeId, bool isPublic, QWidget* pare
 
     setContentLayout( layout, false );
 
-    if ( isPublic )
-        resize( application->applicationSettings()->value( "ViewSettingsDialogSizePublic", QSize( 800, 550 ) ).toSize() );
-    else
-        resize( application->applicationSettings()->value( "ViewSettingsDialogSizePersonal", QSize( 800, 350 ) ).toSize() );
+    resize( 800, isPublic ? 550 : 350 );
 
     dataManager->addObserver( this );
 
@@ -228,11 +226,6 @@ ViewSettingsDialog::ViewSettingsDialog( int typeId, bool isPublic, QWidget* pare
 
 ViewSettingsDialog::~ViewSettingsDialog()
 {
-    if ( m_isPublic )
-        application->applicationSettings()->setValue( "ViewSettingsDialogSizePublic", size() );
-    else
-        application->applicationSettings()->setValue( "ViewSettingsDialogSizePersonal", size() );
-
     TreeViewHelper helper( m_list );
     helper.saveColumnWidths( "ViewSettingsDialogWidths" );
 
@@ -303,7 +296,19 @@ void ViewSettingsDialog::editPublish()
 
 void ViewSettingsDialog::switchMode()
 {
-    done( SwitchMode );
+    if ( m_isPublic ) {
+        if ( dialogManager->activateDialog( "PersonalViewSettingsDialog", m_typeId ) )
+            return;
+        PersonalViewSettingsDialog* dialog = new PersonalViewSettingsDialog( m_typeId );
+        dialogManager->addDialog( dialog, m_typeId );
+        dialog->show();
+    } else {
+        if ( dialogManager->activateDialog( "PublicViewSettingsDialog", m_typeId ) )
+            return;
+        PublicViewSettingsDialog* dialog = new PublicViewSettingsDialog( m_typeId );
+        dialogManager->addDialog( dialog, m_typeId );
+        dialog->show();
+    }
 }
 
 void ViewSettingsDialog::customEvent( QEvent* e )
@@ -380,4 +385,20 @@ void ViewSettingsDialog::listContextMenu( const QPoint& pos )
     QMenu* menu = builder()->contextMenu( menuName );
     if ( menu )
         menu->popup( m_list->viewport()->mapToGlobal( pos ) );
+}
+
+PublicViewSettingsDialog::PublicViewSettingsDialog( int typeId ) : ViewSettingsDialog( typeId, true )
+{
+}
+
+PublicViewSettingsDialog::~PublicViewSettingsDialog()
+{
+}
+
+PersonalViewSettingsDialog::PersonalViewSettingsDialog( int typeId ) : ViewSettingsDialog( typeId, false )
+{
+}
+
+PersonalViewSettingsDialog::~PersonalViewSettingsDialog()
+{
 }

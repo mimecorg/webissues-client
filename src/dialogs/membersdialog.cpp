@@ -19,10 +19,8 @@
 
 #include "membersdialog.h"
 
-#include "application.h"
 #include "data/datamanager.h"
 #include "data/entities.h"
-#include "data/localsettings.h"
 #include "dialogs/userdialogs.h"
 #include "models/membersmodel.h"
 #include "utils/treeviewhelper.h"
@@ -36,7 +34,7 @@
 #include <QDialogButtonBox>
 #include <QMenu>
 
-MembersDialog::MembersDialog( int projectId, QWidget* parent ) : InformationDialog( parent ),
+MembersDialog::MembersDialog( int projectId ) : InformationDialog( NULL, Qt::Window ),
     m_projectId( projectId )
 {
     ProjectEntity project = ProjectEntity::find( projectId );
@@ -100,15 +98,13 @@ MembersDialog::MembersDialog( int projectId, QWidget* parent ) : InformationDial
 
     setContentLayout( layout, false );
 
-    resize( application->applicationSettings()->value( "MembersDialogSize", QSize( 350, 450 ) ).toSize() );
+    resize( 350, 450 );
 
     updateActions();
 }
 
 MembersDialog::~MembersDialog()
 {
-    application->applicationSettings()->setValue( "MembersDialogSize", size() );
-
     TreeViewHelper helper( m_list );
     helper.saveColumnWidths( "MembersDialogWidths" );
 }

@@ -24,6 +24,7 @@
 #include "data/datamanager.h"
 #include "data/entities.h"
 #include "data/localsettings.h"
+#include "dialogs/dialogmanager.h"
 #include "dialogs/userdialogs.h"
 #include "dialogs/finditemdialog.h"
 #include "dialogs/preferencesdialog.h"
@@ -251,6 +252,8 @@ void MainWindow::quit()
 {
     if ( viewManager && !viewManager->queryCloseViews() )
         return;
+    if ( dialogManager && !dialogManager->queryCloseDialogs() )
+        return;
 
     qApp->quit();
 }
@@ -259,8 +262,11 @@ void MainWindow::closeConnection()
 {
     if ( !viewManager->queryCloseViews() )
         return;
+    if ( dialogManager && !dialogManager->queryCloseDialogs() )
+        return;
 
     viewManager->closeAllViews();
+    dialogManager->closeAllDialogs();
 
     storeViewState();
 

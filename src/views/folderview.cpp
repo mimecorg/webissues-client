@@ -24,6 +24,7 @@
 #include "data/entities.h"
 #include "data/issuetypecache.h"
 #include "data/updateevent.h"
+#include "dialogs/dialogmanager.h"
 #include "dialogs/issuedialogs.h"
 #include "dialogs/reportdialog.h"
 #include "dialogs/viewsettingsdialog.h"
@@ -437,24 +438,39 @@ void FolderView::openIssue()
 void FolderView::addIssue()
 {
     if ( isEnabled() ) {
-        AddIssueDialog dialog( id(), 0, mainWidget() );
-        if ( dialog.exec() == QDialog::Accepted ) {
-            int issueId = dialog.issueId();
+        if ( dialogManager->activateDialog( "AddIssueDialog", id() ) )
+            return;
 
+        AddIssueDialog* dialog = new AddIssueDialog( id() );
+        dialogManager->addDialog( dialog, id() );
+
+        connect( dialog, SIGNAL( issueAdded( int, int ) ), this, SLOT( issueAdded( int, int ) ) );
+
+        dialog->show();
+    }
+}
+
+void FolderView::issueAdded( int issueId, int folderId )
+{
+    if ( viewManager->isStandAlone( this ) ) {
+        if ( id() == folderId )
             setSelectedIssueId( issueId );
 
-            if ( viewManager->isStandAlone( this ) )
-                viewManager->openIssueView( issueId );
-        }
+        viewManager->openIssueView( issueId );
+    } else {
+        emit issueActivated( issueId, issueId );
     }
 }
 
 void FolderView::editIssue()
 {
     if ( isEnabled() && m_selectedIssueId != 0 ) {
-        EditIssueDialog dialog( m_selectedIssueId, mainWidget() );
-        dialog.setUpdateFolder( true );
-        dialog.exec();
+        if ( dialogManager->activateDialog( "EditIssueDialog", m_selectedIssueId ) )
+            return;
+        EditIssueDialog* dialog = new EditIssueDialog( m_selectedIssueId );
+        dialogManager->addDialog( dialog, m_selectedIssueId );
+        dialog->setUpdateFolder( true );
+        dialog->show();
     }
 }
 
@@ -465,19 +481,15 @@ void FolderView::cloneIssue()
         if ( cloneDialog.exec() == QDialog::Accepted ) {
             int folderId = cloneDialog.folderId();
 
-            AddIssueDialog addDialog( folderId, m_selectedIssueId, mainWidget() );
-            if ( addDialog.exec() == QDialog::Accepted ) {
-                int issueId = addDialog.issueId();
+            if ( dialogManager->activateDialog( "AddIssueDialog", folderId ) )
+                return;
 
-                if ( viewManager->isStandAlone( this ) ) {
-                    if ( id() == folderId )
-                        setSelectedIssueId( issueId );
+            AddIssueDialog* dialog = new AddIssueDialog( folderId, m_selectedIssueId );
+            dialogManager->addDialog( dialog, folderId );
 
-                    viewManager->openIssueView( issueId );
-                } else {
-                    emit issueActivated( issueId, issueId );
-                }
-            }
+            connect( dialog, SIGNAL( issueAdded( int, int ) ), this, SLOT( issueAdded( int, int ) ) );
+
+            dialog->show();
         }
     }
 }
@@ -576,14 +588,11 @@ void FolderView::exportPdf()
 
 void FolderView::manageViews()
 {
-    bool isPublic = false;
-    for ( ; ; ) {
-        ViewSettingsDialog dialog( m_typeId, isPublic, mainWidget() );
-        if ( dialog.exec() == ViewSettingsDialog::SwitchMode )
-            isPublic = !isPublic;
-        else
-            break;
-    }
+    if ( dialogManager->activateDialog( "PersonalViewSettingsDialog", m_typeId ) )
+        return;
+    PersonalViewSettingsDialog* dialog = new PersonalViewSettingsDialog( m_typeId );
+    dialogManager->addDialog( dialog, m_typeId );
+    dialog->show();
 }
 
 void FolderView::addView()

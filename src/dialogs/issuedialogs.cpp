@@ -47,7 +47,7 @@
 #include <QFileInfo>
 #include <QRegExp>
 
-IssueDialog::IssueDialog( QWidget* parent ) : CommandDialog( parent ),
+IssueDialog::IssueDialog() : CommandDialog( NULL, Qt::Window ),
     m_nameEdit( NULL ),
     m_descriptionEdit( NULL )
 {
@@ -223,7 +223,7 @@ TextFormat IssueDialog::descriptionFormat() const
     return m_descriptionEdit->textFormat();
 }
 
-AddIssueDialog::AddIssueDialog( int folderId, int cloneIssueId, QWidget* parent ) : IssueDialog( parent ),
+AddIssueDialog::AddIssueDialog( int folderId, int cloneIssueId /* = 0 */ ) : IssueDialog(),
     m_folderId( folderId )
 {
     FolderEntity folder = FolderEntity::find( folderId );
@@ -305,10 +305,12 @@ bool AddIssueDialog::batchSuccessful( AbstractBatch* batch )
 {
     m_issueId = ( (IssueBatch*)batch )->issueId();
 
+    emit issueAdded( m_issueId, m_folderId );
+
     return true;
 }
 
-EditIssueDialog::EditIssueDialog( int issueId, QWidget* parent ) : IssueDialog( parent ),
+EditIssueDialog::EditIssueDialog( int issueId ) : IssueDialog(),
     m_issueId( issueId ),
     m_updateFolder( false )
 {
@@ -531,7 +533,7 @@ void DeleteIssueDialog::accept()
     executeBatch( batch );
 }
 
-AddCommentDialog::AddCommentDialog( int issueId, QWidget* parent ) : CommandDialog( parent ),
+AddCommentDialog::AddCommentDialog( int issueId ) : CommandDialog( NULL, Qt::Window ),
     m_issueId( issueId )
 {
     IssueEntity issue = IssueEntity::find( issueId );
@@ -575,7 +577,7 @@ void AddCommentDialog::accept()
     executeBatch( batch );
 }
 
-EditCommentDialog::EditCommentDialog( int commentId, QWidget* parent ) : CommandDialog( parent ),
+EditCommentDialog::EditCommentDialog( int commentId ) : CommandDialog( NULL, Qt::Window ),
     m_commentId( commentId )
 {
     ChangeEntity change = ChangeEntity::findComment( commentId );
@@ -939,7 +941,7 @@ void DeleteAttachmentDialog::accept()
     executeBatch( batch );
 }
 
-AddDescriptionDialog::AddDescriptionDialog( int issueId, QWidget* parent ) : CommandDialog( parent ),
+AddDescriptionDialog::AddDescriptionDialog( int issueId ) : CommandDialog( NULL, Qt::Window ),
     m_issueId( issueId )
 {
     IssueEntity issue = IssueEntity::find( issueId );
@@ -973,7 +975,7 @@ void AddDescriptionDialog::accept()
     executeBatch( batch );
 }
 
-EditDescriptionDialog::EditDescriptionDialog( int issueId, QWidget* parent ) : CommandDialog( parent ),
+EditDescriptionDialog::EditDescriptionDialog( int issueId ) : CommandDialog( NULL, Qt::Window ),
     m_issueId( issueId )
 {
     IssueEntity issue = IssueEntity::find( issueId );

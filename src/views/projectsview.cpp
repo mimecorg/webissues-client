@@ -26,6 +26,7 @@
 #include "data/entities.h"
 #include "data/localsettings.h"
 #include "data/issuetypecache.h"
+#include "dialogs/dialogmanager.h"
 #include "dialogs/projectdialogs.h"
 #include "dialogs/membersdialog.h"
 #include "dialogs/managealertsdialog.h"
@@ -366,16 +367,22 @@ void ProjectsView::updateProjects()
 void ProjectsView::showMembers()
 {
     if ( m_selectedProjectId != 0 && m_currentProjectAdmin ) {
-        MembersDialog dialog( m_selectedProjectId, mainWidget() );
-        dialog.exec();
+        if ( dialogManager->activateDialog( "MembersDialog", m_selectedProjectId ) )
+            return;
+        MembersDialog* dialog = new MembersDialog( m_selectedProjectId );
+        dialogManager->addDialog( dialog, m_selectedProjectId );
+        dialog->show();
     }
 }
 
 void ProjectsView::addProject()
 {
     if ( m_systemAdmin ) {
-        AddProjectDialog dialog( mainWidget() );
-        dialog.exec();
+        if ( dialogManager->activateDialog( "AddProjectDialog" ) )
+            return;
+        AddProjectDialog* dialog = new AddProjectDialog();
+        dialogManager->addDialog( dialog );
+        dialog->show();
     }
 }
 
@@ -435,8 +442,11 @@ void ProjectsView::openFolder()
 void ProjectsView::manageAlerts()
 {
     if ( m_currentFolderId != 0  ) {
-        ManageAlertsDialog dialog( m_currentFolderId, mainWidget() );
-        dialog.exec();
+        if ( dialogManager->activateDialog( "ManageAlertsDialog", m_currentFolderId ) )
+            return;
+        ManageAlertsDialog* dialog = new ManageAlertsDialog( m_currentFolderId );
+        dialogManager->addDialog( dialog, m_currentFolderId );
+        dialog->show();
     }
 }
 

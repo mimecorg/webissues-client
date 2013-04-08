@@ -31,7 +31,7 @@
 #include <QLabel>
 #include <QComboBox>
 
-AddProjectDialog::AddProjectDialog( QWidget* parent ) : CommandDialog( parent )
+AddProjectDialog::AddProjectDialog() : CommandDialog( NULL, Qt::Window )
 {
     setWindowTitle( tr( "Add Project" ) );
     setPrompt( tr( "Create a new project:" ) );
@@ -436,7 +436,7 @@ bool DeleteFolderDialog::batchFailed( AbstractBatch* /*batch*/ )
     return true;
 }
 
-AddProjectDescriptionDialog::AddProjectDescriptionDialog( int projectId, QWidget* parent ) : CommandDialog( parent ),
+AddProjectDescriptionDialog::AddProjectDescriptionDialog( int projectId ) : CommandDialog( NULL, Qt::Window ),
     m_projectId( projectId )
 {
     ProjectEntity project = ProjectEntity::find( projectId );
@@ -470,7 +470,7 @@ void AddProjectDescriptionDialog::accept()
     executeBatch( batch );
 }
 
-EditProjectDescriptionDialog::EditProjectDescriptionDialog( int projectId, QWidget* parent ) : CommandDialog( parent ),
+EditProjectDescriptionDialog::EditProjectDescriptionDialog( int projectId ) : CommandDialog( NULL, Qt::Window ),
     m_projectId( projectId )
 {
     ProjectEntity project = ProjectEntity::find( projectId );

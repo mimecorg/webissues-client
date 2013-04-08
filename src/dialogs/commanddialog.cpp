@@ -39,7 +39,7 @@
 #include <QMessageBox>
 #include <QAccessible>
 
-CommandDialog::CommandDialog( QWidget* parent ) : QDialog( parent ),
+CommandDialog::CommandDialog( QWidget* parent, Qt::WindowFlags flags /* = 0 */ ) : QDialog( parent, flags ),
     m_promptPixmap( NULL ),
     m_contentLayout( NULL ),
     m_fixed( false ),

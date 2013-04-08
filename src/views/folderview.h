@@ -137,6 +137,8 @@ private slots:
 
     void viewActivated( int index );
 
+    void issueAdded( int issueId, int folderId );
+
 private:
     void cleanUp();
 

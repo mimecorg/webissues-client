@@ -22,6 +22,7 @@
 #include "commands/updatebatch.h"
 #include "data/datamanager.h"
 #include "data/entities.h"
+#include "dialogs/dialogmanager.h"
 #include "dialogs/typedialogs.h"
 #include "dialogs/viewsettingsdialog.h"
 #include "models/typesmodel.h"
@@ -213,14 +214,11 @@ void TypesView::editDelete()
 void TypesView::viewSettings()
 {
     if ( m_selectedTypeId != 0 ) {
-        bool isPublic = true;
-        for ( ; ; ) {
-            ViewSettingsDialog dialog( m_selectedTypeId, isPublic, mainWidget() );
-            if ( dialog.exec() == ViewSettingsDialog::SwitchMode )
-                isPublic = !isPublic;
-            else
-                break;
-        }
+        if ( dialogManager->activateDialog( "PublicViewSettingsDialog", m_selectedTypeId ) )
+            return;
+        PublicViewSettingsDialog* dialog = new PublicViewSettingsDialog( m_selectedTypeId );
+        dialogManager->addDialog( dialog, m_selectedTypeId );
+        dialog->show();
     }
 }
 

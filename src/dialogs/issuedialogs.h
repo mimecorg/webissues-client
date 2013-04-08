@@ -39,12 +39,11 @@ class QLineEdit;
 class IssueDialog : public CommandDialog
 {
     Q_OBJECT
-public:
+protected:
     /**
     * Constructor.
-    * @param parent The parent widget.
     */
-    IssueDialog( QWidget* parent );
+    IssueDialog();
 
     /**
     * Destructor.
@@ -85,9 +84,8 @@ public:
     * Constructor.
     * @param folderId The identifier of the folder containing the issue.
     * @param cloneIssueId Optional identifier of the issue to clone.
-    * @param parent The parent widget.
     */
-    AddIssueDialog( int folderId, int cloneIssueId, QWidget* parent );
+    AddIssueDialog( int folderId, int cloneIssueId = 0 );
 
     /**
     * Destructor.
@@ -106,6 +104,9 @@ public: // overrides
 protected: // overrides
     bool batchSuccessful( AbstractBatch* batch );
 
+signals:
+    void issueAdded( int issueId, int folderId );
+
 private:
     int m_folderId;
     int m_issueId;
@@ -123,9 +124,8 @@ public:
     /**
     * Constructor.
     * @param issueId Identifier of the issue to edit.
-    * @param parent The parent widget.
     */
-    EditIssueDialog( int issueId, QWidget* parent );
+    EditIssueDialog( int issueId );
 
     /**
     * Destructor.
@@ -270,9 +270,8 @@ public:
     /**
     * Constructor.
     * @param issueId Identifier of the issue.
-    * @param parent The parent widget.
     */
-    AddCommentDialog( int issueId, QWidget* parent );
+    AddCommentDialog( int issueId );
 
     /**
     * Destructor.
@@ -301,9 +300,8 @@ public:
     /**
     * Constructor.
     * @param commentId Identifier of the comment.
-    * @param parent The parent widget.
     */
-    EditCommentDialog( int commentId, QWidget* parent );
+    EditCommentDialog( int commentId );
 
     /**
     * Destructor.
@@ -500,9 +498,8 @@ public:
     /**
     * Constructor.
     * @param issueId Identifier of the issue.
-    * @param parent The parent widget.
     */
-    AddDescriptionDialog( int issueId, QWidget* parent );
+    AddDescriptionDialog( int issueId );
 
     /**
     * Destructor.
@@ -528,9 +525,8 @@ public:
     /**
     * Constructor.
     * @param issueId Identifier of the issue.
-    * @param parent The parent widget.
     */
-    EditDescriptionDialog( int issueId, QWidget* parent );
+    EditDescriptionDialog( int issueId );
 
     /**
     * Destructor.

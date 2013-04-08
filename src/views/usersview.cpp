@@ -21,6 +21,7 @@
 
 #include "commands/updatebatch.h"
 #include "data/datamanager.h"
+#include "dialogs/dialogmanager.h"
 #include "dialogs/userdialogs.h"
 #include "dialogs/userprojectsdialog.h"
 #include "dialogs/preferencesdialog.h"
@@ -206,8 +207,11 @@ void UsersView::changePassword()
 void UsersView::userProjects()
 {
     if ( m_selectedUserId != 0 ) {
-        UserProjectsDialog dialog( m_selectedUserId, mainWidget() );
-        dialog.exec();
+        if ( dialogManager->activateDialog( "UserProjectsDialog", m_selectedUserId ) )
+            return;
+        UserProjectsDialog* dialog = new UserProjectsDialog( m_selectedUserId );
+        dialogManager->addDialog( dialog, m_selectedUserId );
+        dialog->show();
     }
 }
 

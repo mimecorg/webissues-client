@@ -17,52 +17,57 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************/
 
-#ifndef USERPROJECTSDIALOG_H
-#define USERPROJECTSDIALOG_H
-
-#include "dialogs/informationdialog.h"
-#include "xmlui/client.h"
-
-class UserProjectsModel;
-
-class QTreeView;
-class QModelIndex;
+#ifndef DIALOGMANAGER_H
+#define DIALOGMANAGER_H
 
 /**
-* Dialog for managing user projects.
+* Class managing the modeless dialogs of the application.
+*
+* This class provides methods for managing dialogs of various types.
+*
+* The instance of this class is available using the dialogManager global variable.
+* It is created and owned by the Application.
 */
-class UserProjectsDialog : public InformationDialog, public XmlUi::Client
+class DialogManager : public QObject
 {
     Q_OBJECT
 public:
     /**
     * Constructor.
-    * @param userId Identifier of the user.
     */
-    UserProjectsDialog( int userId );
+    DialogManager();
 
     /**
     * Destructor.
     */
-    ~UserProjectsDialog();
+    ~DialogManager();
+
+public:
+    void addDialog( QDialog* dialog, int id = 0 );
+
+    bool activateDialog( const char* className, int id = 0 );
+
+    bool queryCloseDialogs();
+
+    void closeAllDialogs();
+
+protected: // overrides
+    bool eventFilter( QObject* object, QEvent* e );
 
 private slots:
-    void addProjects();
-    void changeAccess();
-    void removeProjects();
-
-    void updateActions();
-
-    void doubleClicked( const QModelIndex& index );
-    void listContextMenu( const QPoint& pos );
+    void dialogDestroyed( QObject* dialog );
 
 private:
-    int m_userId;
+    void storeGeometry( QDialog* dialog, bool offset );
+    void restoreGeometry( QDialog* dialog );
 
-    QTreeView* m_list;
-    UserProjectsModel* m_model;
-
-    QList<int> m_selectedProjects;
+private:
+    QMap<QDialog*, int> m_dialogs;
 };
+
+/**
+* Global pointer used to access the DialogManager.
+*/
+extern DialogManager* dialogManager;
 
 #endif

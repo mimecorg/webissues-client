@@ -121,6 +121,8 @@ private slots:
 
     void populateDetails();
 
+    void issueAdded( int issueId );
+
 private:
     void cleanUp();
 
@@ -141,6 +143,8 @@ private:
     void handleAttachment( int fileId, AttachmentAction action );
 
     void handleCommand( const QString& command, int argument );
+
+    void addComment( const QString& tile, const QString& text );
 
 private:
     QWebView* m_browser;
