@@ -61,6 +61,10 @@ public:
     */
     int priority() const { return m_priority; }
 
+    void setPreventClose( bool on );
+
+    bool preventClose() const { return m_preventClose; }
+
 signals:
     /**
     * Signal emitted when the batch execution is completed.
@@ -71,6 +75,8 @@ signals:
 
 private:
     int m_priority;
+
+    bool m_preventClose;
 };
 
 #endif

@@ -123,6 +123,8 @@ void InputTextEdit::updateInput()
     int anchor = oldCursor.anchor();
     int position = oldCursor.position();
 
+    bool modified = document()->isModified();
+
     QString value = inputValue();
 
     if ( !m_error || m_empty ) {
@@ -132,6 +134,8 @@ void InputTextEdit::updateInput()
         newCursor.setPosition( anchor );
         newCursor.setPosition( position, QTextCursor::KeepAnchor );
         setTextCursor( newCursor );
+
+        document()->setModified( modified );
     }
 }
 

@@ -128,6 +128,11 @@ protected: // overrides
     QString textToValue( const QString& text );
     void popup();
 
+    void focusInEvent( QFocusEvent* e );
+
+private slots:
+    void setCompletedText( const QString& newText );
+
 private:
     QStringList m_items;
 

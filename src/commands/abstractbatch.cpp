@@ -20,10 +20,16 @@
 #include "abstractbatch.h"
 
 AbstractBatch::AbstractBatch( int priority ) :
-    m_priority( priority )
+    m_priority( priority ),
+    m_preventClose( false )
 {
 }
 
 AbstractBatch::~AbstractBatch()
 {
+}
+
+void AbstractBatch::setPreventClose( bool on )
+{
+    m_preventClose= on;
 }

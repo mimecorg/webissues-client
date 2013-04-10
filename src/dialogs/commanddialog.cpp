@@ -21,6 +21,7 @@
 
 #include "commands/abstractbatch.h"
 #include "commands/commandmanager.h"
+#include "dialogs/messagebox.h"
 #include "utils/errorhelper.h"
 #include "utils/iconloader.h"
 #include "widgets/inputlineedit.h"
@@ -44,6 +45,7 @@ CommandDialog::CommandDialog( QWidget* parent, Qt::WindowFlags flags /* = 0 */ )
     m_contentLayout( NULL ),
     m_fixed( false ),
     m_statusSet( false ),
+    m_queryClose( false ),
     m_progressBar( NULL ),
     m_progressLabel( NULL ),
     m_batch( NULL )
@@ -268,6 +270,8 @@ void CommandDialog::executeBatch( AbstractBatch* batch, const QString& text /* =
 
     connect( batch, SIGNAL( completed( bool ) ), this, SLOT( batchCompleted( bool ) ) );
 
+    batch->setPreventClose( true );
+
     m_batch = batch;
 
     commandManager->execute( batch );
@@ -275,12 +279,50 @@ void CommandDialog::executeBatch( AbstractBatch* batch, const QString& text /* =
 
 void CommandDialog::reject()
 {
-    if ( m_batch ) {
+    if ( m_batch )
         commandManager->abort( m_batch );
-        return;
+    else if ( queryClose() )
+        QDialog::reject();
+}
+
+void CommandDialog::closeEvent( QCloseEvent* e )
+{
+    if ( !m_batch && queryClose() )
+        e->accept();
+    else
+        e->ignore();
+}
+
+void CommandDialog::setQueryCloseEnabled( bool on )
+{
+    m_queryClose = on;
+}
+
+bool CommandDialog::queryClose()
+{
+    if ( !m_queryClose )
+        return true;
+
+    bool modified = false;
+
+    foreach ( InputLineEdit* edit, findChildren<InputLineEdit*>() ) {
+        if ( edit->isEnabled() && edit->isModified() )
+            modified = true;
     }
 
-    QDialog::reject();
+    foreach ( InputTextEdit* edit, findChildren<InputTextEdit*>() ) {
+        if ( edit->isEnabled() && edit->document()->isModified() )
+            modified = true;
+    }
+
+    if ( modified ) {
+        if ( MessageBox::warning( this, tr( "Warning" ), tr( "The changes have not been submitted and will be lost.\nAre you sure you want to continue?" ),
+             QMessageBox::Ok | QMessageBox::Cancel ) != QMessageBox::Ok ) {
+            return false;
+        }
+    }
+
+    return true;
 }
 
 void CommandDialog::batchCompleted( bool successful )

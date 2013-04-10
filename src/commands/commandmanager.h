@@ -117,6 +117,11 @@ public:
     void abortAll();
 
     /**
+    * Return @c true if any pending batch has the prevent close flag set.
+    */
+    bool preventClose() const;
+
+    /**
     * Return the type of the last error.
     */
     Error error() const { return m_error; }

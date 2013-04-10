@@ -63,6 +63,8 @@ AddProjectDialog::AddProjectDialog() : CommandDialog( NULL, Qt::Window )
 
     setContentLayout( layout, false );
 
+    setQueryCloseEnabled( true );
+
     m_nameEdit->setFocus();
 }
 
@@ -452,6 +454,8 @@ AddProjectDescriptionDialog::AddProjectDescriptionDialog( int projectId ) : Comm
 
     setContentLayout( layout, false );
 
+    setQueryCloseEnabled( true );
+
     m_descriptionEdit->setFocus();
 }
 
@@ -488,6 +492,8 @@ EditProjectDescriptionDialog::EditProjectDescriptionDialog( int projectId ) : Co
     layout->addWidget( m_descriptionEdit );
 
     setContentLayout( layout, false );
+
+    setQueryCloseEnabled( true );
 
     m_descriptionEdit->setInputValue( m_oldText );
     m_descriptionEdit->setTextFormat( m_oldFormat );

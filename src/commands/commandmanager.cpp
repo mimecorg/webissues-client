@@ -141,6 +141,19 @@ void CommandManager::abortAll()
     }
 }
 
+bool CommandManager::preventClose() const
+{
+    if ( m_currentBatch && m_currentBatch->preventClose() )
+        return true;
+
+    foreach ( AbstractBatch* batch, m_batches ) {
+        if ( batch->preventClose() )
+            return true;
+    }
+
+    return false;
+}
+
 QString CommandManager::errorMessage()
 {
     switch ( m_error ) {

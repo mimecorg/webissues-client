@@ -136,6 +136,8 @@ void InputLineEdit::updateInput()
     int length = selectedText().length();
     int position = cursorPosition();
 
+    bool modified = isModified();
+
     QString value = inputValue();
 
     if ( !m_error || m_empty ) {
@@ -147,6 +149,8 @@ void InputLineEdit::updateInput()
             else
                 setSelection( start + length, -length );
         }
+
+        setModified( modified );
     }
 }
 
@@ -329,6 +333,12 @@ void EnumLineEdit::setItems( const QStringList& items )
 
     setCompleter( completer );
 
+    if ( hasFocus() ) {
+        disconnect( completer, NULL, this, NULL );
+        connect( completer, SIGNAL( activated( const QString& ) ), this, SLOT( setCompletedText( const QString& ) ) );
+        connect( completer, SIGNAL( highlighted( const QString& ) ), this, SLOT( setCompletedText( const QString& ) ) );
+    }
+
     setPopupVisible( !items.isEmpty() );
 }
 
@@ -396,6 +406,26 @@ void EnumLineEdit::popup()
 {
     completer()->setCompletionPrefix( QString() );
     completer()->complete();
+}
+
+void EnumLineEdit::focusInEvent( QFocusEvent* e )
+{
+    QLineEdit::focusInEvent( e );
+
+    QCompleter* comp = completer();
+    if ( comp ) {
+        disconnect( comp, NULL, this, NULL );
+        connect( comp, SIGNAL( activated( const QString& ) ), this, SLOT( setCompletedText( const QString& ) ) );
+        connect( comp, SIGNAL( highlighted( const QString& ) ), this, SLOT( setCompletedText( const QString& ) ) );
+    }
+}
+
+void EnumLineEdit::setCompletedText( const QString& newText )
+{
+    if ( newText != text() ) {
+        setText( newText );
+        setModified( true );
+    }
 }
 
 NumericLineEdit::NumericLineEdit( QWidget* parent ) : InputLineEdit( parent ),
@@ -699,6 +729,8 @@ void DateTimeLineEdit::setDate( const QDate& date )
     Formatter formatter;
     setText( formatter.formatDate( date ) + suffix );
 
+    setModified( true );
+
     m_popup->hide();
 }
 
@@ -713,6 +745,8 @@ void DateTimeLineEdit::setToday()
         else
             setText( formatter.formatDate( QDate::currentDate() ) );
     }
+
+    setModified( true );
 
     m_popup->hide();
 }

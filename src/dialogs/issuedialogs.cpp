@@ -166,6 +166,8 @@ bool IssueDialog::initialize( int typeId, int projectId, bool withDescription )
 
     setContentLayout( layout, tabWidget == NULL );
 
+    setQueryCloseEnabled( true );
+
     m_nameEdit->setFocus();
 
     resize( application->applicationSettings()->value( "IssueDialogSize", QSize( 740, 550 ) ).toSize() );
@@ -549,6 +551,8 @@ AddCommentDialog::AddCommentDialog( int issueId ) : CommandDialog( NULL, Qt::Win
 
     setContentLayout( layout, false );
 
+    setQueryCloseEnabled( true );
+
     m_commentEdit->setFocus();
 }
 
@@ -597,6 +601,8 @@ EditCommentDialog::EditCommentDialog( int commentId ) : CommandDialog( NULL, Qt:
     layout->addWidget( m_commentEdit );
 
     setContentLayout( layout, false );
+
+    setQueryCloseEnabled( true );
 
     m_commentEdit->setInputValue( m_oldText );
     m_commentEdit->setTextFormat( m_oldFormat );
@@ -957,6 +963,8 @@ AddDescriptionDialog::AddDescriptionDialog( int issueId ) : CommandDialog( NULL,
 
     setContentLayout( layout, false );
 
+    setQueryCloseEnabled( true );
+
     m_descriptionEdit->setFocus();
 }
 
@@ -993,6 +1001,8 @@ EditDescriptionDialog::EditDescriptionDialog( int issueId ) : CommandDialog( NUL
     layout->addWidget( m_descriptionEdit );
 
     setContentLayout( layout, false );
+
+    setQueryCloseEnabled( true );
 
     m_descriptionEdit->setInputValue( m_oldText );
     m_descriptionEdit->setTextFormat( m_oldFormat );

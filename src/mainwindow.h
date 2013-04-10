@@ -122,6 +122,8 @@ private:
 
     void showFromTray( bool toggle );
 
+    bool queryCloseConnection();
+
 private:
     StartView* m_startView;
 

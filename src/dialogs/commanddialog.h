@@ -150,6 +150,11 @@ protected:
     */
     QDialogButtonBox* buttonBox() const { return m_buttonBox; }
 
+    /**
+    * Enable or disable warning when closing the dialog with modifications.
+    */
+    void setQueryCloseEnabled( bool on );
+
 protected:
     /**
     * Called when the batch is finished successfully.
@@ -168,11 +173,15 @@ protected:
 protected: // overrides
     void reject();
 
+    void closeEvent( QCloseEvent* e );
+
 private slots:
     void batchCompleted( bool successful );
 
 private:
     void setWidgetsEnabled( QLayoutItem* item, bool enabled );
+
+    bool queryClose();
 
 private:
     QWidget* m_promptWidget;
@@ -190,6 +199,8 @@ private:
     ElidedLabel* m_statusLabel;
 
     bool m_statusSet;
+
+    bool m_queryClose;
 
     QDialogButtonBox* m_buttonBox;
 

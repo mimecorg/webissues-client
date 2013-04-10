@@ -25,6 +25,7 @@
 #include "data/entities.h"
 #include "data/localsettings.h"
 #include "dialogs/dialogmanager.h"
+#include "dialogs/messagebox.h"
 #include "dialogs/userdialogs.h"
 #include "dialogs/finditemdialog.h"
 #include "dialogs/preferencesdialog.h"
@@ -250,9 +251,7 @@ void MainWindow::reconnect()
 
 void MainWindow::quit()
 {
-    if ( viewManager && !viewManager->queryCloseViews() )
-        return;
-    if ( dialogManager && !dialogManager->queryCloseDialogs() )
+    if ( !queryCloseConnection() )
         return;
 
     qApp->quit();
@@ -260,9 +259,7 @@ void MainWindow::quit()
 
 void MainWindow::closeConnection()
 {
-    if ( !viewManager->queryCloseViews() )
-        return;
-    if ( dialogManager && !dialogManager->queryCloseDialogs() )
+    if ( !queryCloseConnection() )
         return;
 
     viewManager->closeAllViews();
@@ -319,6 +316,22 @@ void MainWindow::closeConnection()
     m_summaryLabel->hide();
     m_encryptionLabel->hide();
     m_userLabel->hide();
+}
+
+bool MainWindow::queryCloseConnection()
+{
+    if ( commandManager && commandManager->preventClose() ) {
+        MessageBox::warning( this, tr( "Warning" ), tr( "Connection cannot be closed because there are pending commands.\nPlease wait until these commands are completed." ) );
+        return false;
+    }
+
+    if ( viewManager && !viewManager->queryCloseViews() )
+        return false;
+
+    if ( dialogManager && !dialogManager->queryCloseDialogs() )
+        return false;
+
+    return true;
 }
 
 void MainWindow::showStartPage()
