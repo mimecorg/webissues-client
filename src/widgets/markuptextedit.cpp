@@ -21,6 +21,7 @@
 
 #include "application.h"
 #include "data/datamanager.h"
+#include "data/localsettings.h"
 #include "dialogs/finditemdialog.h"
 #include "utils/htmlwriter.h"
 #include "utils/markupprocessor.h"
@@ -127,6 +128,7 @@ MarkupTextEdit::MarkupTextEdit( QWidget* parent ) : QWidget( parent ),
 
 MarkupTextEdit::~MarkupTextEdit()
 {
+    closePreview();
 }
 
 void MarkupTextEdit::setInputValue( const QString& value )
@@ -285,9 +287,28 @@ void MarkupTextEdit::showPreview()
         m_preview->setContextMenuPolicy( Qt::NoContextMenu );
         m_preview->page()->setLinkDelegationPolicy( QWebPage::DelegateAllLinks );
 
-        m_previewWindow->resize( m_edit->size() );
+        LocalSettings* settings = application->applicationSettings();
+        if ( settings->contains( "PreviewWindowGeometry" ) ) {
+            m_previewWindow->restoreGeometry( settings->value( "PreviewWindowGeometry" ).toByteArray() );
+
+            if ( settings->value( "PreviewWindowOffset" ).toBool() ) {
+                QPoint position = m_previewWindow->pos() + QPoint( 40, 40 );
+                QRect available = QApplication::desktop()->availableGeometry( m_previewWindow );
+                QRect frame = m_previewWindow->frameGeometry();
+                if ( position.x() + frame.width() > available.right() )
+                    position.rx() = available.left();
+                if ( position.y() + frame.height() > available.bottom() - 20 )
+                    position.ry() = available.top();
+                m_previewWindow->move( position );
+            }
+        } else {
+            m_previewWindow->resize( m_edit->size() );
+            m_previewWindow->move( m_edit->mapToGlobal( QPoint( 0, 0 ) ) );
+        }
 
         connect( m_preview, SIGNAL( linkClicked( const QUrl& ) ), this, SLOT( linkClicked( const QUrl& ) ) );
+
+        m_previewWindow->installEventFilter( this );
     }
 
     m_previewWindow->show();
@@ -328,4 +349,44 @@ void MarkupTextEdit::formatChanged( int format )
 QSize MarkupTextEdit::sizeHint() const
 {
     return QSize( 700, 350 );
+}
+
+void MarkupTextEdit::keyPressEvent( QKeyEvent* e )
+{
+    if ( e->key() == Qt::Key_Escape ) {
+        if ( m_previewWindow != NULL && m_previewWindow->isVisible() ) {
+            m_previewWindow->close();
+            e->accept();
+            return;
+        }
+    }
+    QWidget::keyPressEvent( e );
+}
+
+bool MarkupTextEdit::eventFilter( QObject* object, QEvent* e )
+{
+    if ( e->type() == QEvent::KeyPress ) {
+        QKeyEvent* ke = static_cast<QKeyEvent*>( e );
+        if ( ke->key() == Qt::Key_Escape ) {
+            m_previewWindow->close();
+            ke->accept();
+            return true;
+        }
+    }
+
+    if ( e->type() == QEvent::Show || e->type() == QEvent::Hide ) {
+        if ( !e->spontaneous() ) {
+            LocalSettings* settings = application->applicationSettings();
+            settings->setValue( "PreviewWindowGeometry", m_previewWindow->saveGeometry() );
+            settings->setValue( "PreviewWindowOffset", e->type() == QEvent::Show );
+        }
+    }
+
+    return QWidget::eventFilter( object, e );
+}
+
+void MarkupTextEdit::closePreview()
+{
+    if ( m_previewWindow != NULL && m_previewWindow->isVisible() )
+        m_previewWindow->close();
 }

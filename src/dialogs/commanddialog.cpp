@@ -26,6 +26,7 @@
 #include "utils/iconloader.h"
 #include "widgets/inputlineedit.h"
 #include "widgets/inputtextedit.h"
+#include "widgets/markuptextedit.h"
 #include "widgets/elidedlabel.h"
 #include "xmlui/gradientwidget.h"
 
@@ -206,6 +207,9 @@ void CommandDialog::showCloseButton()
 
 bool CommandDialog::validate()
 {
+    foreach ( MarkupTextEdit* edit, findChildren<MarkupTextEdit*>() )
+        edit->closePreview();
+
     bool result = true;
     QWidget* errorWidget = NULL;
 

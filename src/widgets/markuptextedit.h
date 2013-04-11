@@ -50,8 +50,15 @@ public:
 
     void goToEnd();
 
+    void closePreview();
+
 public: // overrides
     QSize sizeHint() const;
+
+protected: // overrides
+    void keyPressEvent( QKeyEvent* e );
+
+    bool eventFilter( QObject* object, QEvent* e );
 
 private slots:
     void markupBold();
