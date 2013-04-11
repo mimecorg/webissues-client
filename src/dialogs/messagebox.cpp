@@ -29,6 +29,8 @@ MessageBox::MessageBox( QWidget* parent ) : InformationDialog( parent )
 {
     disconnect( buttonBox(), NULL, this, NULL );
     connect( buttonBox(), SIGNAL( clicked( QAbstractButton* ) ), this, SLOT( buttonClicked( QAbstractButton* ) ) );
+
+    setContentLayout( NULL, true );
 }
 
 MessageBox::~MessageBox()
