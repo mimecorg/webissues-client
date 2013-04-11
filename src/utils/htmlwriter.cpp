@@ -215,8 +215,8 @@ QString HtmlWriter::toHtml()
     popAll();
 
     QString html;
-    html += QLatin1String( "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n" );
-    html += QLatin1String( "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n" );
+    html += QLatin1String( "<!DOCTYPE html>\n" );
+    html += QLatin1String( "<html>\n" );
     html += QLatin1String( "<head>\n" );
     html += QLatin1String( "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\n" );
     html += QString( "<title>%1</title>\n" ).arg( Qt::escape( m_title ) );
