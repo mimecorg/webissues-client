@@ -470,21 +470,21 @@ void NumericLineEdit::setMaxValue( double value )
 
 void NumericLineEdit::updateValidator()
 {
-    DefinitionInfo info = DefinitionInfo::fromString( dataManager->setting( "number_format" ) );
+    DefinitionInfo numberFormat = dataManager->numberFormat();
 
     QString pattern;
 
     if ( format() == Identifier )
         pattern = "#?";
 
-    QString groupSeparator = info.metadata( "group-separator" ).toString();
+    QString groupSeparator = numberFormat.metadata( "group-separator" ).toString();
     if ( !groupSeparator.isEmpty() )
         pattern += "-?(\\d*|\\d{0,3}(" + QRegExp::escape( groupSeparator ) + "\\d{0,3})*)";
     else
         pattern += "-?\\d*";
 
     if ( m_decimal > 0 )
-        pattern += "(" + QRegExp::escape( info.metadata( "decimal-separator" ).toString() ) + QString( "\\d{0,%1})?" ).arg( m_decimal );
+        pattern += "(" + QRegExp::escape( numberFormat.metadata( "decimal-separator" ).toString() ) + QString( "\\d{0,%1})?" ).arg( m_decimal );
 
     delete validator();
 
@@ -564,7 +564,7 @@ void DateTimeLineEdit::setLocalTime( bool local )
 
 void DateTimeLineEdit::updateValidator()
 {
-    DefinitionInfo dateFormat = DefinitionInfo::fromString( dataManager->setting( "date_format" ) );
+    DefinitionInfo dateFormat = dataManager->dateFormat();
 
     QString dateSeparator = dateFormat.metadata( "date-separator" ).toString();
     QString order = dateFormat.metadata( "date-order" ).toString();
@@ -581,7 +581,7 @@ void DateTimeLineEdit::updateValidator()
     pattern += parts.value( order.at( 2 ) );
 
     if ( m_withTime ) {
-        DefinitionInfo timeFormat = DefinitionInfo::fromString( dataManager->setting( "time_format" ) );
+        DefinitionInfo timeFormat = dataManager->timeFormat();
 
         pattern += QLatin1String( " \\d{0,2}" );
         pattern += QRegExp::escape( timeFormat.metadata( "time-separator" ).toString() );
@@ -659,7 +659,7 @@ void DateTimeLineEdit::popup()
         m_calendar->setMinimumDate( QDate( 1, 1, 1 ) );
         m_calendar->setMaximumDate( QDate( 9999, 12, 31 ) );
 
-        int firstDayOfWeek = dataManager->setting( "first_day_of_week" ).toInt();
+        int firstDayOfWeek = dataManager->localeSetting( "first_day_of_week" ).toInt();
         m_calendar->setFirstDayOfWeek( (Qt::DayOfWeek)( firstDayOfWeek != 0 ? firstDayOfWeek : 7 ) );
 
         connect( m_calendar, SIGNAL( activated( QDate ) ), this, SLOT( setDate( QDate ) ) );
@@ -717,10 +717,10 @@ void DateTimeLineEdit::setDate( const QDate& date )
         suffix = text().mid( index );
 
     if ( suffix.isEmpty() && m_withTime ) {
-        DefinitionInfo format = DefinitionInfo::fromString( dataManager->setting( "time_format" ) );
-        if ( format.metadata( "time-mode" ).toInt() == 12 )
+        DefinitionInfo timeFormat = dataManager->timeFormat();
+        if ( timeFormat.metadata( "time-mode" ).toInt() == 12 )
             suffix = " 12:00 am";
-        else if ( format.metadata( "pad-hour" ).toBool() )
+        else if ( timeFormat.metadata( "pad-hour" ).toBool() )
             suffix = " 00:00";
         else
             suffix = " 0:00";

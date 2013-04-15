@@ -293,20 +293,6 @@ public:
     QString m_value;
 };
 
-class FormatEntityData : public QSharedData
-{
-public:
-    FormatEntityData();
-    ~FormatEntityData();
-
-public:
-    void read( const Query& query );
-
-public:
-    QString m_key;
-    QString m_definition;
-};
-
 class LanguageEntityData : public QSharedData
 {
 public:

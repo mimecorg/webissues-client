@@ -30,6 +30,7 @@ class BookmarksStore;
 class CredentialsStore;
 class UpdateClient;
 class AboutBoxSection;
+class IniFile;
 
 #if defined( HAVE_OPENSSL )
 class CertificatesStore;
@@ -127,12 +128,27 @@ public:
     /**
     * Return the list of available languages.
     */
-    const QMap<QString, QString>& languages() const { return m_languages; }
+    QMap<QString, QString> languages() const;
 
     /**
     * Return the current language.
     */
     const QString& language() const { return m_language; }
+
+    /**
+    * Return the default locale setting for the current language.
+    */
+    QString locale( const QString& key ) const;
+
+    /**
+    * Return all format definition of the given type.
+    */
+    QMap<QString, QString> formats( const QString& type ) const;
+
+    /**
+    * Return the format definition with the given type and key.
+    */
+    QString format( const QString& type, const QString& key ) const;
 
     /**
     * Return the network access manager.
@@ -203,8 +219,10 @@ private:
     CertificatesStore* m_certificates;
 #endif
 
-    QMap<QString, QString> m_languages;
     QString m_language;
+
+    IniFile* m_localeIni;
+    IniFile* m_formatsIni;
 
     QNetworkAccessManager* m_manager;
 

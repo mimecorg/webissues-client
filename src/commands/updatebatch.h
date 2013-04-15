@@ -48,16 +48,6 @@ public:
     void updateSettings();
 
     /**
-    * Add a <tt>GET LOCALE</tt> command to the batch.
-    */
-    void updateLocale();
-
-    /**
-    * Add a <tt>LIST PREFERENCES</tt> command to the batch.
-    */
-    void updatePreferences( int userId );
-
-    /**
     * Add a <tt>LIST USERS</tt> command to the batch.
     */
     void updateUsers();
@@ -114,8 +104,6 @@ private:
 
 private:
     Command* updateSettingsJob( const Job& job );
-    Command* updateLocaleJob( const Job& job );
-    Command* updatePreferencesJob( const Job& job );
     Command* updateUsersJob( const Job& job );
     Command* updateTypesJob( const Job& job );
     Command* updateProjectsJob( const Job& job );

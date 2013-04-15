@@ -48,7 +48,7 @@ Command* SetPreferencesBatch::fetchNext()
 
     if ( m_update ) {
         m_update = false;
-        return dataManager->updateSettings();
+        return dataManager->updateUsers();
     }
 
     return NULL;
@@ -66,8 +66,7 @@ Command* SetPreferencesBatch::setPreferenceJob( const Job& job )
     command->setAcceptNullReply( true );
     command->addRule( "OK", ReplyRule::One );
 
-    if ( m_userId == dataManager->currentUserId() )
-        connect( command, SIGNAL( commandReply( const Reply& ) ), this, SLOT( setUpdate() ) );
+    connect( command, SIGNAL( commandReply( const Reply& ) ), this, SLOT( setUpdate() ) );
 
     return command;
 }

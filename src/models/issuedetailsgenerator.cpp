@@ -148,7 +148,7 @@ void IssueDetailsGenerator::writeHistory( HtmlWriter* writer, const IssueEntity&
 {
     Qt::SortOrder order = Qt::AscendingOrder;
 
-    if ( dataManager->setting( "history_order" ) == "desc" )
+    if ( dataManager->preferenceOrSetting( "history_order" ) == "desc" )
         order = Qt::DescendingOrder;
 
     QList<ChangeEntity> changes;

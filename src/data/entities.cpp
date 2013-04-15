@@ -2034,66 +2034,6 @@ void PreferenceEntityData::read( const Query& query )
     m_value = query.value( 1 ).toString();
 }
 
-FormatEntity::FormatEntity() :
-    d( new FormatEntityData() )
-{
-}
-
-FormatEntity::~FormatEntity()
-{
-}
-
-FormatEntity::FormatEntity( const FormatEntity& other ) :
-    d( other.d )
-{
-}
-
-FormatEntity& FormatEntity::operator =( const FormatEntity& other )
-{
-    d = other.d;
-    return *this;
-}
-
-FormatEntityData::FormatEntityData()
-{
-}
-
-FormatEntityData::~FormatEntityData()
-{
-}
-
-const QString& FormatEntity::key() const
-{
-    return d->m_key;
-}
-
-const QString& FormatEntity::definition() const
-{
-    return d->m_definition;
-}
-
-QList<FormatEntity> FormatEntity::list( const QString& type )
-{
-    QList<FormatEntity> result;
-
-    Query query( "SELECT format_key, format_def FROM formats WHERE format_type = ? ORDER BY format_key" );
-    query.exec( type );
-
-    while ( query.next() ) {
-        FormatEntity entity;
-        entity.d->read( query );
-        result.append( entity );
-    }
-
-    return result;
-}
-
-void FormatEntityData::read( const Query& query )
-{
-    m_key = query.value( 0 ).toString();
-    m_definition = query.value( 1 ).toString();
-}
-
 LanguageEntity::LanguageEntity() :
     d( new LanguageEntityData() )
 {
@@ -2136,7 +2076,7 @@ QList<LanguageEntity> LanguageEntity::list()
 {
     QList<LanguageEntity> result;
 
-    Query query( "SELECT lang_code, lang_name FROM languages ORDER BY lang_name COLLATE LOCALE" );
+    Query query( "SELECT lang_code, lang_name FROM languages ORDER BY lang_code" );
     query.exec();
 
     while ( query.next() ) {

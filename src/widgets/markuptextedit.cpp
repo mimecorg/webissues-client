@@ -123,6 +123,8 @@ MarkupTextEdit::MarkupTextEdit( QWidget* parent ) : QWidget( parent ),
 
     connect( m_comboBox, SIGNAL( currentIndexChanged( int ) ), this, SLOT( formatChanged( int ) ) );
 
+    m_comboBox->setCurrentIndex( dataManager->preferenceOrSetting( "default_format" ).toInt() );
+
     setFocusProxy( m_edit );
 }
 

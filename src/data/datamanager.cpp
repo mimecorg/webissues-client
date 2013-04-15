@@ -38,8 +38,7 @@ DataManager::DataManager() :
     m_currentUserId( 0 ),
     m_currentUserAccess( NoAccess ),
     m_connectionSettings( NULL ),
-    m_fileCache( NULL ),
-    m_localeUpdated( false )
+    m_fileCache( NULL )
 {
 }
 
@@ -76,6 +75,21 @@ bool DataManager::checkServerVersion( const QString& version ) const
 QString DataManager::setting( const QString& key ) const
 {
     return m_settings.value( key );
+}
+
+QString DataManager::preferenceOrSetting( const QString& key ) const
+{
+    if ( m_preferences.contains( key ) )
+        return m_preferences.value( key );
+    return m_settings.value( key );
+}
+
+QString DataManager::localeSetting( const QString& key ) const
+{
+    QString value = preferenceOrSetting( key );
+    if ( value.isEmpty() )
+        value = application->locale( key );
+    return value;
 }
 
 IssueTypeCache* DataManager::issueTypeCache( int typeId )
@@ -188,7 +202,6 @@ bool DataManager::installSchema( const QSqlDatabase& database )
             "CREATE TABLE files ( file_id integer UNIQUE, file_name text, file_size integer, file_descr text )",
             "CREATE TABLE folders ( folder_id integer UNIQUE, project_id integer, folder_name text, type_id integer, stamp_id integer )",
             "CREATE TABLE folders_cache ( folder_id integer UNIQUE, list_id integer )",
-            "CREATE TABLE formats ( format_type text, format_key text, format_def text )",
             "CREATE TABLE issue_descriptions ( issue_id integer UNIQUE, descr_text text, descr_format integer, modified_time integer, modified_user_id integer )",
             "CREATE TABLE issue_locks ( issue_id integer UNIQUE, lock_count integer, last_access integer )",
             "CREATE TABLE issue_states ( user_id integer, issue_id integer, read_id integer, UNIQUE ( user_id, issue_id ) )",
@@ -245,6 +258,8 @@ bool DataManager::installSchema( const QSqlDatabase& database )
             "CREATE TABLE project_descriptions ( project_id integer UNIQUE, descr_text text, descr_format integer, modified_time integer, modified_user_id integer )",
             "ALTER TABLE projects ADD stamp_id integer",
             "CREATE TABLE projects_cache ( project_id integer UNIQUE, summary_id integer )",
+            "DROP TABLE formats",
+            "DELETE FROM settings",
         };
 
         for ( int i = 0; i < (int)( sizeof( queries ) / sizeof( queries[ 0 ] ) ); i++ ) {
@@ -265,11 +280,6 @@ void DataManager::closeDatabase()
 {
     QSqlDatabase database = QSqlDatabase::database();
     database.close();
-}
-
-bool DataManager::localeUpdateNeeded() const
-{
-    return !m_localeUpdated;
 }
 
 bool DataManager::summaryUpdateNeeded( int projectId ) const
@@ -372,8 +382,10 @@ void DataManager::helloReply( const Reply& reply )
 
     m_valid = openDatabase();
 
-    if ( m_valid )
+    if ( m_valid ) {
+        recalculateSettings();
         clearIssueLocks();
+    }
 }
 
 Command* DataManager::login( const QString& login, const QString& password )
@@ -423,10 +435,11 @@ Command* DataManager::updateSettings()
     Command* command = new Command();
 
     command->setKeyword( "GET SETTINGS" );
-    command->addArg( application->language() );
 
     command->setAcceptNullReply( true );
     command->addRule( "S ss", ReplyRule::ZeroOrMore );
+    command->addRule( "L ss", ReplyRule::ZeroOrMore );
+    command->addRule( "Z si", ReplyRule::ZeroOrMore );
 
     connect( command, SIGNAL( commandReply( const Reply& ) ), this, SLOT( updateSettingsReply( const Reply& ) ) );
 
@@ -456,77 +469,21 @@ bool DataManager::updateSettingsReply( const Reply& reply, const QSqlDatabase& d
     if ( !query.execQuery( "DELETE FROM settings" ) )
         return false;
 
-    QMap<QString, QString> settings;
+    int i = 0;
 
     query.setQuery( "INSERT INTO settings VALUES ( ?, ? )" );
 
-    for ( int i = 0; i < reply.count() && reply.at( i ).keyword() == QLatin1String( "S" ); i++ ) {
+    for ( ; i < reply.count() && reply.at( i ).keyword() == QLatin1String( "S" ); i++ ) {
         if ( !query.exec( reply.at( i ).args() ) )
             return false;
-
-        settings.insert( reply.at( i ).argString( 0 ), reply.at( i ).argString( 1 ) );
     }
-
-    m_settings = settings;
-
-    m_numberFormat = DefinitionInfo::fromString( m_settings.value( "number_format" ) );
-    m_dateFormat = DefinitionInfo::fromString( m_settings.value( "date_format" ) );
-    m_timeFormat = DefinitionInfo::fromString( m_settings.value( "time_format" ) );
-
-    return true;
-}
-
-Command* DataManager::updateLocale()
-{
-    Command* command = new Command();
-
-    command->setKeyword( "GET LOCALE" );
-
-    command->setAcceptNullReply( true );
-    command->addRule( "L ss", ReplyRule::ZeroOrMore );
-    command->addRule( "F sss", ReplyRule::ZeroOrMore );
-    command->addRule( "Z si", ReplyRule::ZeroOrMore );
-
-    connect( command, SIGNAL( commandReply( const Reply& ) ), this, SLOT( updateLocaleReply( const Reply& ) ) );
-
-    return command;
-}
-
-void DataManager::updateLocaleReply( const Reply& reply )
-{
-    QSqlDatabase database = QSqlDatabase::database();
-    database.transaction();
-
-    bool ok = updateLocaleReply( reply, database );
-    if ( ok )
-        ok = database.commit();
-
-    if ( !ok )
-        database.rollback();
-}
-
-bool DataManager::updateLocaleReply( const Reply& reply, const QSqlDatabase& database )
-{
-    Query query( database );
 
     if ( !query.execQuery( "DELETE FROM languages" ) )
         return false;
 
-    int i = 0;
-
     query.setQuery( "INSERT INTO languages VALUES ( ?, ? )" );
 
     for ( ; i < reply.count() && reply.at( i ).keyword() == QLatin1String( "L" ); i++ ) {
-        if ( !query.exec( reply.at( i ).args() ) )
-            return false;
-    }
-
-    if ( !query.execQuery( "DELETE FROM formats" ) )
-        return false;
-
-    query.setQuery( "INSERT INTO formats VALUES ( ?, ?, ? )" );
-
-    for ( ; i < reply.count() && reply.at( i ).keyword() == QLatin1String( "F" ); i++ ) {
         if ( !query.exec( reply.at( i ).args() ) )
             return false;
     }
@@ -541,56 +498,8 @@ bool DataManager::updateLocaleReply( const Reply& reply, const QSqlDatabase& dat
             return false;
     }
 
-    m_localeUpdated = true;
-
-    return true;
-}
-
-Command* DataManager::updatePreferences( int userId )
-{
-    Command* command = new Command();
-
-    command->setKeyword( "LIST PREFERENCES" );
-    command->addArg( userId );
-
-    command->setAcceptNullReply( true );
-    command->setReportNullReply( true );
-    command->addRule( "P ss", ReplyRule::ZeroOrMore );
-
-    connect( command, SIGNAL( commandReply( const Reply& ) ), this, SLOT( updatePreferencesReply( const Reply& ) ) );
-
-    return command;
-}
-
-void DataManager::updatePreferencesReply( const Reply& reply )
-{
-    Command* command = static_cast<Command*>( sender() );
-    int userId = command->argInt( 0 );
-
-    QSqlDatabase database = QSqlDatabase::database();
-    database.transaction();
-
-    bool ok = updatePreferencesReply( reply, userId, database );
-    if ( ok )
-        ok = database.commit();
-
-    if ( !ok )
-        database.rollback();
-}
-
-bool DataManager::updatePreferencesReply( const Reply& reply, int userId, const QSqlDatabase& database )
-{
-    Query query( database );
-
-    if ( !query.execQuery( "DELETE FROM preferences WHERE user_id = ?", userId ) )
+    if ( !recalculateSettings( database ) )
         return false;
-
-    query.setQuery( "INSERT INTO preferences VALUES ( ?, ?, ? )" );
-
-    for ( int i = 0; i < reply.count(); i++ ) {
-        if ( !query.exec( userId, reply.at( i ).arg( 0 ), reply.at( i ).arg( 1 ) ) )
-            return false;
-    }
 
     return true;
 }
@@ -604,6 +513,7 @@ Command* DataManager::updateUsers()
     command->setAcceptNullReply( true );
     command->addRule( "U issi", ReplyRule::ZeroOrMore );
     command->addRule( "M iii", ReplyRule::ZeroOrMore );
+    command->addRule( "P iss", ReplyRule::ZeroOrMore );
 
     connect( command, SIGNAL( commandReply( const Reply& ) ), this, SLOT( updateUsersReply( const Reply& ) ) );
 
@@ -651,6 +561,19 @@ bool DataManager::updateUsersReply( const Reply& reply, const QSqlDatabase& data
         if ( !query.exec( reply.at( i ).args() ) )
             return false;
     }
+
+    if ( !query.execQuery( "DELETE FROM preferences" ) )
+        return false;
+
+    query.setQuery( "INSERT INTO preferences VALUES ( ?, ?, ? )" );
+
+    for ( ; i < reply.count(); i++ ) {
+        if ( !query.exec( reply.at( i ).args() ) )
+            return false;
+    }
+
+    if ( !recalculateSettings( database ) )
+        return false;
 
     return true;
 }
@@ -1537,6 +1460,52 @@ bool DataManager::recalculateAlert( int alertId, int folderId, int viewId, const
 
     if ( !query.execQuery( "INSERT INTO alerts_cache VALUES ( ?, ?, ?, ? )", alertId, total, modified, unread ) )
         return false;
+
+    return true;
+}
+
+void DataManager::recalculateSettings()
+{
+    QSqlDatabase database = QSqlDatabase::database();
+    database.transaction();
+
+    bool ok = recalculateSettings( database );
+    if ( ok )
+        ok = database.commit();
+
+    if ( !ok )
+        database.rollback();
+}
+
+bool DataManager::recalculateSettings( const QSqlDatabase& database )
+{
+    Query query( database );
+
+    if ( !query.execQuery( "SELECT set_key, set_value FROM settings" ) )
+        return false;
+
+    m_settings.clear();
+
+    while ( query.next() ) {
+        QString key = query.value( 0 ).toString();
+        QString value = query.value( 1 ).toString();
+        m_settings.insert( key, value );
+    }
+
+    if ( !query.execQuery( "SELECT pref_key, pref_value FROM preferences WHERE user_id = ?", m_currentUserId ) )
+        return false;
+
+    m_preferences.clear();
+
+    while ( query.next() ) {
+        QString key = query.value( 0 ).toString();
+        QString value = query.value( 1 ).toString();
+        m_preferences.insert( key, value );
+    }
+
+    m_numberFormat = DefinitionInfo::fromString( application->format( "number_format", localeSetting( "number_format" ) ) );
+    m_dateFormat = DefinitionInfo::fromString( application->format( "date_format", localeSetting( "date_format" ) ) );
+    m_timeFormat = DefinitionInfo::fromString( application->format( "time_format", localeSetting( "time_format" ) ) );
 
     return true;
 }

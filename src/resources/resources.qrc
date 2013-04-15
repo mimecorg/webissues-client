@@ -1,7 +1,9 @@
 <RCC version="1.0">
 <qresource prefix="/resources">
   <file>folderview.xml</file>
+  <file>formats.ini</file>
   <file>issueview.xml</file>
+  <file>locale.ini</file>
   <file>mainwindow.xml</file>
   <file>managealertsdialog.xml</file>
   <file>membersdialog.xml</file>

@@ -224,6 +224,20 @@ public:
     QString setting( const QString& key ) const;
 
     /**
+    * Return the value of a user preference or server settings.
+    * @param key The key of the setting.
+    * @return The value of the setting or an empty string if it doesn't exist.
+    */
+    QString preferenceOrSetting( const QString& key ) const;
+
+    /**
+    * Return the value of a user preference, server setting or locale setting.
+    * @param key The key of the setting.
+    * @return The value of the setting.
+    */
+    QString localeSetting( const QString& key ) const;
+
+    /**
     * Return the definition of the number format.
     */
     const DefinitionInfo& numberFormat() const { return m_numberFormat; }
@@ -269,11 +283,6 @@ public:
     * Remove the data observer.
     */
     void removeObserver( QObject* observer );
-
-    /**
-    * Check if the locale information needs updating.
-    */
-    bool localeUpdateNeeded() const;
 
     /**
     * Check if the project summary needs updating.
@@ -324,16 +333,6 @@ public:
     * Create a command for retrieving settings from the server.
     */
     Command* updateSettings();
-
-    /**
-    * Create a command for retrieving locale information.
-    */
-    Command* updateLocale();
-
-    /**
-    * Create a command for retrieving preferences of the given user.
-    */
-    Command* updatePreferences( int userId );
 
     /**
     * Create a command for updating users and their membership.
@@ -415,8 +414,6 @@ private slots:
     void helloReply( const Reply& reply );
     void loginReply( const Reply& reply );
     void updateSettingsReply( const Reply& reply );
-    void updateLocaleReply( const Reply& reply );
-    void updatePreferencesReply( const Reply& reply );
     void updateUsersReply( const Reply& reply );
     void updateTypesReply( const Reply& reply );
     void updateProjectsReply( const Reply& reply );
@@ -437,8 +434,6 @@ private:
     bool installSchema( const QSqlDatabase& database );
 
     bool updateSettingsReply( const Reply& reply, const QSqlDatabase& database );
-    bool updateLocaleReply( const Reply& reply, const QSqlDatabase& database );
-    bool updatePreferencesReply( const Reply& reply, int userId, const QSqlDatabase& database );
     bool updateUsersReply( const Reply& reply, const QSqlDatabase& database );
     bool updateTypesReply( const Reply& reply, const QSqlDatabase& database );
     bool updateProjectsReply( const Reply& reply, const QSqlDatabase& database );
@@ -461,6 +456,9 @@ private:
     bool recalculateAlerts( int folderId, const QSqlDatabase& database );
     bool recalculateAlert( int alertId, int folderId, int viewId, const QSqlDatabase& database );
 
+    void recalculateSettings();
+    bool recalculateSettings( const QSqlDatabase& database );
+
 private:
     bool m_valid;
 
@@ -475,6 +473,7 @@ private:
 
     LocalSettings* m_connectionSettings;
 
+    QMap<QString, QString> m_preferences;
     QMap<QString, QString> m_settings;
 
     QHash<int, IssueTypeCache*> m_issueTypesCache;
@@ -486,8 +485,6 @@ private:
     DefinitionInfo m_timeFormat;
 
     QList<QObject*> m_observers;
-
-    bool m_localeUpdated;
 };
 
 /**

@@ -40,7 +40,6 @@ class CommentEntity;
 class FileEntity;
 class ChangeEntity;
 class PreferenceEntity;
-class FormatEntity;
 class LanguageEntity;
 class TimeZoneEntity;
 
@@ -59,7 +58,6 @@ class CommentEntityData;
 class FileEntityData;
 class ChangeEntityData;
 class PreferenceEntityData;
-class FormatEntityData;
 class LanguageEntityData;
 class TimeZoneEntityData;
 
@@ -540,26 +538,6 @@ public:
 
 private:
     QExplicitlySharedDataPointer<PreferenceEntityData> d;
-};
-
-class FormatEntity
-{
-public:
-    FormatEntity();
-    ~FormatEntity();
-
-    FormatEntity( const FormatEntity& other );
-    FormatEntity& operator =( const FormatEntity& other );
-
-public:
-    const QString& key() const;
-    const QString& definition() const;
-
-public:
-    static QList<FormatEntity> list( const QString& type );
-
-private:
-    QExplicitlySharedDataPointer<FormatEntityData> d;
 };
 
 class LanguageEntity

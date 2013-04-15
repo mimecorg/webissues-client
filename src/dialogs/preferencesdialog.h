@@ -53,25 +53,15 @@ public:
 public: // overrides
     void accept();
 
-protected: // overrides
-    bool batchSuccessful( AbstractBatch* batch );
-    bool batchFailed( AbstractBatch* batch );
-
 private slots:
-    void fixGeometry();
-
     void allDaysActivated();
     void noDaysActivated();
     void allHoursActivated();
     void noHoursActivated();
 
 private:
-    void initialize();
-
-private:
     int m_userId;
 
-    bool m_initialized;
     QMap<QString, QString> m_preferences;
 
     QTabWidget* m_tabWidget;

@@ -29,6 +29,7 @@
 #include "dialogs/aboutbox.h"
 #include "utils/networkproxyfactory.h"
 #include "utils/updateclient.h"
+#include "utils/inifile.h"
 #include "utils/iconloader.h"
 #include "views/viewmanager.h"
 
@@ -36,7 +37,6 @@
 #include "data/certificatesstore.h"
 #endif
 
-#include <QSettings>
 #include <QSessionManager>
 #include <QMessageBox>
 #include <QDir>
@@ -138,6 +138,12 @@ Application::~Application()
 
     delete m_printer;
     m_printer = NULL;
+
+    delete m_localeIni;
+    m_localeIni = NULL;
+
+    delete m_formatsIni;
+    m_formatsIni = NULL;
 }
 
 void Application::commitData( QSessionManager& manager )
@@ -309,27 +315,12 @@ QString Application::protocolVersion() const
 
 void Application::initializeLanguage()
 {
-    QSettings settings( m_translationsPath + "/locale.ini", QSettings::IniFormat );
-#if ( QT_VERSION >= 0x040500 )
-    settings.setIniCodec( "UTF8" );
-#endif
+    m_localeIni = new IniFile( ":/resources/locale.ini" );
+    m_localeIni->load( m_translationsPath + "/locale.ini" );
 
-    settings.beginGroup( "languages" );
-    QStringList keys = settings.allKeys();
+    m_formatsIni = new IniFile( ":/resources/formats.ini" );
 
-    if ( keys.isEmpty() )
-        m_languages.insert( "en_US", "English / United States" );
-
-    foreach ( QString key, keys ) {
-        QString name = settings.value( key ).toString();
-#if ( QT_VERSION < 0x040500 )
-        QByteArray raw = name.toLatin1();
-        name = QString::fromUtf8( raw.data(), raw.size() );
-#endif
-        m_languages.insert( key, name );
-    }
-
-    settings.endGroup();
+    QMap<QString, QString> availableLanguages = languages();
 
     QString language = m_settings->value( "Language" ).toString();
     if ( language.isEmpty() )
@@ -338,7 +329,7 @@ void Application::initializeLanguage()
     m_language = "en_US";
 
     while ( !language.isEmpty() ) {
-        if ( m_languages.contains( language ) ) {
+        if ( availableLanguages.contains( language ) ) {
             m_language = language;
             break;
         }
@@ -374,6 +365,29 @@ bool Application::loadTranslation( const QString& name, bool tryQtDir )
 
     delete translator;
     return false;
+}
+
+QMap<QString, QString> Application::languages() const
+{
+    return m_localeIni->values( "languages" );
+}
+
+QString Application::locale( const QString& key ) const
+{
+    QString value = m_localeIni->value( m_language, key );
+    if ( value.isEmpty() )
+        value = m_localeIni->value( "global", key );
+    return value;
+}
+
+QMap<QString, QString> Application::formats( const QString& type ) const
+{
+    return m_formatsIni->values( type );
+}
+
+QString Application::format( const QString& type, const QString& key ) const
+{
+    return m_formatsIni->value( type, key );
 }
 
 void Application::initializeDefaultPaths()

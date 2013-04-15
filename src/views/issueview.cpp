@@ -263,7 +263,7 @@ void IssueView::initialUpdate()
 {
     cleanUp();
 
-    QString filter = dataManager->setting( "history_filter" );
+    QString filter = dataManager->preferenceOrSetting( "history_filter" );
     if ( !filter.isEmpty() )
         m_history = (IssueDetailsGenerator::History)filter.toInt();
 
