@@ -151,6 +151,11 @@ public:
     QString format( const QString& type, const QString& key ) const;
 
     /**
+    * Return the font used by the text editor.
+    */
+    const QFont editorFont() const { return m_editorFont; }
+
+    /**
     * Return the network access manager.
     */
     QNetworkAccessManager* networkAccessManager() const { return m_manager; }
@@ -223,6 +228,8 @@ private:
 
     IniFile* m_localeIni;
     IniFile* m_formatsIni;
+
+    QFont m_editorFont;
 
     QNetworkAccessManager* m_manager;
 

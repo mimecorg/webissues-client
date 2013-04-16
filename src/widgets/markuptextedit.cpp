@@ -105,6 +105,8 @@ MarkupTextEdit::MarkupTextEdit( QWidget* parent ) : QWidget( parent ),
     m_edit->setRequired( true );
     m_edit->setMaxLength( dataManager->setting( "comment_max_length" ).toInt() );
 
+    m_edit->setFont( application->editorFont() );
+
     QHBoxLayout* formatLayout = new QHBoxLayout();
     layout->addLayout( formatLayout );
 

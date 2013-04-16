@@ -5,7 +5,7 @@ html {
 body {
   margin: 0;
   padding: 0.75em;
-  font: 8pt/150% Verdana, Helvetica, Sans-Serif;
+  font: 8pt/150% Verdana, 'DejaVu Sans', Sans-Serif;
   color: #494949;
 }
 
@@ -13,7 +13,7 @@ h1, h2, h3, h4 {
   margin: 0;
   padding: 0;
   font-weight: bold;
-  font-family: Verdana, Helvetica, Sans-Serif;
+  font-family: Verdana, 'DejaVu Sans', Sans-Serif;
 }
 
 h1 {
@@ -184,7 +184,7 @@ ul.changes {
 }
 
 code, .code {
-  font: 9pt/150% Consolas, 'Courier New', Monospace;
+  font: 9pt/150% Consolas, 'DejaVu Sans Mono', 'Lucida Console', Monospace;
   padding: 0 0.3em;
   background-color: #f8f8f8;
   color: #000000;
