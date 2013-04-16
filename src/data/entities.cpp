@@ -2088,6 +2088,19 @@ QList<LanguageEntity> LanguageEntity::list()
     return result;
 }
 
+LanguageEntity LanguageEntity::find( const QString& code )
+{
+    LanguageEntity result;
+
+    Query query( "SELECT lang_code, lang_name FROM languages WHERE lang_code = ?" );
+    query.exec( code );
+
+    if ( query.next() )
+        result.d->read( query );
+
+    return result;
+}
+
 void LanguageEntityData::read( const Query& query )
 {
     m_code = query.value( 0 ).toString();

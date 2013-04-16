@@ -556,6 +556,8 @@ public:
 public:
     static QList<LanguageEntity> list();
 
+    static LanguageEntity find( const QString& code );
+
 private:
     QExplicitlySharedDataPointer<LanguageEntityData> d;
 };

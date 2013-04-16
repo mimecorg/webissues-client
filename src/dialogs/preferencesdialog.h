@@ -80,6 +80,8 @@ private:
     SeparatorComboBox* m_orderComboBox;
     SeparatorComboBox* m_filterComboBox;
 
+    SeparatorComboBox* m_formatComboBox;
+
     InputLineEdit* m_emailEdit;
     QCheckBox* m_detailsCheckBox;
     QCheckBox* m_noReadCheckBox;

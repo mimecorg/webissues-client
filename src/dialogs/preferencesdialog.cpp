@@ -42,10 +42,17 @@
 #include <QTimer>
 #include <QDateTime>
 
+static QString formatTimeZone( const QString& zone )
+{
+    QString name = zone;
+    name.replace( QChar( '_' ), QChar( ' ' ) );
+    name.replace( QLatin1String( "/" ), QLatin1String( " / " ) );
+    name.replace( QLatin1String( "St " ), QLatin1String( "St. " ) );
+    return name;
+}
+
 PreferencesDialog::PreferencesDialog( int userId, QWidget* parent ) : CommandDialog( parent ),
     m_userId( userId ),
-    m_orderComboBox( NULL ),
-    m_filterComboBox( NULL ),
     m_emailEdit( NULL ),
     m_detailsCheckBox( NULL ),
     m_noReadCheckBox( NULL ),
@@ -164,7 +171,7 @@ PreferencesDialog::PreferencesDialog( int userId, QWidget* parent ) : CommandDia
 
     folderPageLabel->setBuddy( m_folderPageComboBox );
 
-    m_folderPageComboBox->addItem( tr( "Default", "page size" ) );
+    m_folderPageComboBox->addItem( tr( "Default (%1)", "page size" ).arg( dataManager->setting( "folder_page_size" ) ) );
     m_folderPageComboBox->addSeparator();
     for ( int i = 5; i <= 25; i += 5 )
         m_folderPageComboBox->addItem( QString::number( i ), i );
@@ -175,7 +182,7 @@ PreferencesDialog::PreferencesDialog( int userId, QWidget* parent ) : CommandDia
     m_historyPageComboBox = new SeparatorComboBox( pageGroup );
     pageLayout->addWidget( m_historyPageComboBox, 2, 1 );
 
-    m_historyPageComboBox->addItem( tr( "Default", "page size" ) );
+    m_historyPageComboBox->addItem( tr( "Default (%1)", "page size" ).arg( dataManager->setting( "history_page_size" ) ) );
     m_historyPageComboBox->addSeparator();
     for ( int i = 10; i <= 50; i += 10 )
         m_historyPageComboBox->addItem( QString::number( i ), i );
@@ -184,42 +191,80 @@ PreferencesDialog::PreferencesDialog( int userId, QWidget* parent ) : CommandDia
 
     pageLayout->setColumnStretch( 2, 1 );
 
-    if ( dataManager->checkServerVersion( "1.0.4" ) ) {
-        QGroupBox* viewGroup = new QGroupBox( tr( "View Settings" ), viewTab );
-        QGridLayout* viewLayout = new QGridLayout( viewGroup );
-        viewTabLayout->addWidget( viewGroup );
+    QGroupBox* viewGroup = new QGroupBox( tr( "View Settings" ), viewTab );
+    QGridLayout* viewLayout = new QGridLayout( viewGroup );
+    viewTabLayout->addWidget( viewGroup );
 
-        QLabel* noteViewLabel = new QLabel( tr( "Global view settings that affect all issue types." ), viewGroup );
-        viewLayout->addWidget( noteViewLabel, 0, 0, 1, 3 );
+    QLabel* noteViewLabel = new QLabel( tr( "Global view settings that affect all issue types." ), viewGroup );
+    viewLayout->addWidget( noteViewLabel, 0, 0, 1, 3 );
 
-        QLabel* orderLabel = new QLabel( tr( "Order of issue history:" ), viewGroup );
-        viewLayout->addWidget( orderLabel, 1, 0 );
+    QLabel* orderLabel = new QLabel( tr( "Order of issue history:" ), viewGroup );
+    viewLayout->addWidget( orderLabel, 1, 0 );
 
-        m_orderComboBox = new SeparatorComboBox( viewGroup );
-        viewLayout->addWidget( m_orderComboBox, 1, 1 );
+    m_orderComboBox = new SeparatorComboBox( viewGroup );
+    viewLayout->addWidget( m_orderComboBox, 1, 1 );
 
-        orderLabel->setBuddy( m_orderComboBox );
+    orderLabel->setBuddy( m_orderComboBox );
 
-        m_orderComboBox->addItem( tr( "Default", "order" ) );
-        m_orderComboBox->addSeparator();
-        m_orderComboBox->addItem( tr( "Oldest First" ), "asc" );
-        m_orderComboBox->addItem( tr( "Newest First" ), "desc" );
+    QMap<QString, QString> orderItems;
+    orderItems.insert( "asc", tr( "Oldest First" ) );
+    orderItems.insert( "desc", tr( "Newest First" ) );
 
-        QLabel* filterLabel = new QLabel( tr( "Default filter in issue history:" ), viewGroup );
-        viewLayout->addWidget( filterLabel, 2, 0 );
+    QString defaultOrder = orderItems.value( dataManager->setting( "history_order" ) );
 
-        m_filterComboBox = new SeparatorComboBox( viewGroup );
-        viewLayout->addWidget( m_filterComboBox, 2, 1 );
+    m_orderComboBox->addItem( tr( "Default (%1)", "order" ).arg( defaultOrder ) );
+    m_orderComboBox->addSeparator();
+    for ( QMap<QString, QString>::const_iterator it = orderItems.begin(); it != orderItems.end(); ++it )
+        m_orderComboBox->addItem( it.value(), it.key() );
 
-        m_filterComboBox->addItem( tr( "Default", "filter" ) );
-        m_filterComboBox->addSeparator();
-        m_filterComboBox->addItem( tr( "All History" ), IssueDetailsGenerator::AllHistory );
-        m_filterComboBox->addItem( tr( "Comments & Attachments" ), IssueDetailsGenerator::CommentsAndFiles );
+    QLabel* filterLabel = new QLabel( tr( "Default filter in issue history:" ), viewGroup );
+    viewLayout->addWidget( filterLabel, 2, 0 );
 
-        filterLabel->setBuddy( m_filterComboBox );
+    m_filterComboBox = new SeparatorComboBox( viewGroup );
+    viewLayout->addWidget( m_filterComboBox, 2, 1 );
 
-        viewLayout->setColumnStretch( 2, 1 );
-    }
+    filterLabel->setBuddy( m_filterComboBox );
+
+    QMap<int, QString> filterItems;
+    filterItems.insert( IssueDetailsGenerator::AllHistory, tr( "All History" ) );
+    filterItems.insert( IssueDetailsGenerator::CommentsAndFiles, tr( "Comments & Attachments" ) );
+
+    QString defaultFilter = filterItems.value( dataManager->setting( "history_filter" ).toInt() );
+
+    m_filterComboBox->addItem( tr( "Default (%1)", "filter" ).arg( defaultFilter ) );
+    m_filterComboBox->addSeparator();
+    for ( QMap<int, QString>::const_iterator it = filterItems.begin(); it != filterItems.end(); ++it )
+        m_filterComboBox->addItem( it.value(), it.key() );
+
+    viewLayout->setColumnStretch( 2, 1 );
+
+    QGroupBox* editGroup = new QGroupBox( tr( "Editing" ), viewTab );
+    QGridLayout* editLayout = new QGridLayout( editGroup );
+    viewTabLayout->addWidget( editGroup );
+
+    QLabel* editNoteLabel = new QLabel( tr( "The default format used for new comments and descriptions." ), editGroup );
+    editLayout->addWidget( editNoteLabel, 0, 0, 1, 3 );
+
+    QLabel* formatLabel = new QLabel( tr( "Default text format:" ), editGroup );
+    editLayout->addWidget( formatLabel, 1, 0 );
+
+    m_formatComboBox = new SeparatorComboBox( editGroup );
+    editLayout->addWidget( m_formatComboBox, 1, 1 );
+
+    formatLabel->setBuddy( m_formatComboBox );
+
+    QMap<int, QString> formatItems;
+    formatItems.insert( PlainText, tr( "Plain text" ) );
+    formatItems.insert( TextWithMarkup, tr( "Text with markup" ) );
+
+    QString defaultFormat = formatItems.value( dataManager->setting( "default_format" ).toInt() );
+
+    m_formatComboBox->addItem( tr( "Default (%1)", "format" ).arg( defaultFormat ) );
+    m_formatComboBox->addSeparator();
+    for ( QMap<int, QString>::const_iterator it = formatItems.begin(); it != formatItems.end(); ++it )
+        m_formatComboBox->addItem( it.value(), it.key() );
+
+    editLayout->setColumnStretch( 2, 1 );
 
     viewTabLayout->addStretch( 1 );
 
@@ -344,7 +389,9 @@ PreferencesDialog::PreferencesDialog( int userId, QWidget* parent ) : CommandDia
         notifyLayout->setRowStretch( notifyLayout->rowCount(), 1 );
     }
 
-    m_languageComboBox->addItem( tr( "Default", "language" ) );
+    LanguageEntity defaultLanguage = LanguageEntity::find( dataManager->setting( "language" ) );
+
+    m_languageComboBox->addItem( tr( "Default (%1)", "language" ).arg( defaultLanguage.name() ) );
     m_languageComboBox->addSeparator();
 
     foreach ( const LanguageEntity& language, LanguageEntity::list() )
@@ -408,7 +455,9 @@ PreferencesDialog::PreferencesDialog( int userId, QWidget* parent ) : CommandDia
     for ( int i = 0; i < 7; i++ )
         m_firstDayComboBox->addItem( currentLocale.dayName( i != 0 ? i : 7 ), i );
 
-    m_timeZoneComboBox->addItem( tr( "Default", "time zone" ) );
+    QString defaultZone = formatTimeZone( dataManager->setting( "time_zone" ) );
+
+    m_timeZoneComboBox->addItem( tr( "Default (%1)", "time zone" ).arg( defaultZone ) );
     m_timeZoneComboBox->addSeparator();
 
     QMap<int, QStringList> timeZones;
@@ -432,10 +481,7 @@ PreferencesDialog::PreferencesDialog( int userId, QWidget* parent ) : CommandDia
         m_timeZoneComboBox->addParentItem( QString( "GMT%1 (%2)" ).arg( zone, time ) );
         for ( int i = 0; i < it.value().count(); i++ ) {
             QString zone = it.value().at( i );
-            QString name = zone;
-            name.replace( QChar( '_' ), QChar( ' ' ) );
-            name.replace( QLatin1String( "/" ), QLatin1String( " / " ) );
-            name.replace( QLatin1String( "St " ), QLatin1String( "St. " ) );
+            QString name = formatTimeZone( zone );
             m_timeZoneComboBox->addChildItem( name, zone );
         }
     }
@@ -460,21 +506,12 @@ PreferencesDialog::PreferencesDialog( int userId, QWidget* parent ) : CommandDia
     m_folderPageComboBox->setCurrentIndex( index >= 2 ? index : 0 );
     index = m_historyPageComboBox->findData( m_preferences.value( "history_page_size" ) );
     m_historyPageComboBox->setCurrentIndex( index >= 2 ? index : 0 );
-    if ( m_orderComboBox ) {
-        index = m_orderComboBox->findData( m_preferences.value( "history_order" ) );
-        m_orderComboBox->setCurrentIndex( index >= 2 ? index : 0 );
-    }
-    if ( m_filterComboBox ) {
-        index = m_filterComboBox->findData( m_preferences.value( "history_filter" ) );
-        m_filterComboBox->setCurrentIndex( index >= 2 ? index : 0 );
-    }
-
-    m_languageComboBox->setSizeAdjustPolicy( QComboBox::AdjustToContents );
-    m_numberComboBox->setSizeAdjustPolicy( QComboBox::AdjustToContents );
-    m_dateComboBox->setSizeAdjustPolicy( QComboBox::AdjustToContents );
-    m_timeComboBox->setSizeAdjustPolicy( QComboBox::AdjustToContents );
-    m_firstDayComboBox->setSizeAdjustPolicy( QComboBox::AdjustToContents );
-    m_timeZoneComboBox->setSizeAdjustPolicy( QComboBox::AdjustToContents );
+    index = m_orderComboBox->findData( m_preferences.value( "history_order" ) );
+    m_orderComboBox->setCurrentIndex( index >= 2 ? index : 0 );
+    index = m_filterComboBox->findData( m_preferences.value( "history_filter" ) );
+    m_filterComboBox->setCurrentIndex( index >= 2 ? index : 0 );
+    index = m_formatComboBox->findData( m_preferences.value( "default_format" ) );
+    m_formatComboBox->setCurrentIndex( index >= 2 ? index : 0 );
 
     if ( m_emailEdit )
         m_emailEdit->setInputValue( m_preferences.value( "email" ) );
@@ -527,10 +564,9 @@ void PreferencesDialog::accept()
     preferences.insert( "time_zone", m_timeZoneComboBox->itemData( m_timeZoneComboBox->currentIndex() ).toString() );
     preferences.insert( "folder_page_size", m_folderPageComboBox->itemData( m_folderPageComboBox->currentIndex() ).toString() );
     preferences.insert( "history_page_size", m_historyPageComboBox->itemData( m_historyPageComboBox->currentIndex() ).toString() );
-    if ( m_orderComboBox )
-        preferences.insert( "history_order", m_orderComboBox->itemData( m_orderComboBox->currentIndex() ).toString() );
-    if ( m_filterComboBox )
-        preferences.insert( "history_filter", m_filterComboBox->itemData( m_filterComboBox->currentIndex() ).toString() );
+    preferences.insert( "history_order", m_orderComboBox->itemData( m_orderComboBox->currentIndex() ).toString() );
+    preferences.insert( "history_filter", m_filterComboBox->itemData( m_filterComboBox->currentIndex() ).toString() );
+    preferences.insert( "default_format", m_formatComboBox->itemData( m_formatComboBox->currentIndex() ).toString() );
 
     if ( m_emailEdit )
         preferences.insert( "email", m_emailEdit->inputValue() );
