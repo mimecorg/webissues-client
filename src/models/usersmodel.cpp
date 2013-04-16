@@ -31,9 +31,18 @@ UsersModel::UsersModel( QObject* parent ) : BaseModel( parent ),
 {
     appendModel( new QSqlQueryModel( this ) );
 
+    bool emailEnabled = dataManager->setting( "email_enabled" ).toInt();
+
+    if ( emailEnabled )
+        setColumnMapping( 0, QList<int>() << 1 << 2 << 3 << 4 );
+    else
+        setColumnMapping( 0, QList<int>() << 1 << 2 << 4 );
+
     setHeaderData( 0, Qt::Horizontal, tr( "Name" ) );
     setHeaderData( 1, Qt::Horizontal, tr( "Login" ) );
-    setHeaderData( 2, Qt::Horizontal, tr( "Access" ) );
+    if ( emailEnabled )
+        setHeaderData( 2, Qt::Horizontal, tr( "Email" ) );
+    setHeaderData( emailEnabled ? 3 : 2, Qt::Horizontal, tr( "Access" ) );
 
     setSort( 0, Qt::AscendingOrder );
 
@@ -60,7 +69,7 @@ QVariant UsersModel::data( const QModelIndex& index, int role /*= Qt::DisplayRol
     if ( role == Qt::DisplayRole ) {
         QVariant value = rawData( level, row, mappedColumn( index ), role );
 
-        if ( index.column() == 2 ) {
+        if ( mappedColumn( index ) == 4 ) {
             int access = value.toInt();
             if ( access == NormalAccess )
                 return tr( "Regular user" );
@@ -73,7 +82,7 @@ QVariant UsersModel::data( const QModelIndex& index, int role /*= Qt::DisplayRol
     }
 
     if ( role == Qt::DecorationRole && index.column() == 0 ) {
-        int access = rawData( level, row, 3, Qt::DisplayRole ).toInt();
+        int access = rawData( level, row, 4, Qt::DisplayRole ).toInt();
         if ( access == AdminAccess )
             return IconLoader::overlayedPixmap( "user", "overlay-admin" );
         if ( access == NoAccess )
@@ -90,15 +99,19 @@ void UsersModel::updateQueries()
 
     switch ( sortColumn() ) {
         case 0:
-            m_order = QString( "user_name COLLATE LOCALE %1" ).arg( order );
+            m_order = QString( "u.user_name COLLATE LOCALE %1" ).arg( order );
             break;
 
         case 1:
-            m_order = QString( "user_login COLLATE LOCALE %1" ).arg( order );
+            m_order = QString( "u.user_login COLLATE LOCALE %1" ).arg( order );
             break;
 
         case 2:
-            m_order = QString( "user_access %1" ).arg( order );
+            m_order = QString( "p.pref_value COLLATE LOCALE %1" ).arg( order );
+            break;
+
+        case 3:
+            m_order = QString( "u.user_access %1" ).arg( order );
             break;
     }
 
@@ -107,13 +120,14 @@ void UsersModel::updateQueries()
 
 void UsersModel::refresh()
 {
-    QString query = "SELECT user_id, user_name, user_login, user_access"
-        " FROM users";
+    QString query = "SELECT u.user_id, u.user_name, u.user_login, p.pref_value, u.user_access"
+        " FROM users AS u"
+        " LEFT OUTER JOIN preferences AS p ON p.user_id = u.user_id AND p.pref_key = 'email'";
 
     if ( m_filter == Active )
-        query += " WHERE user_access > 0";
+        query += " WHERE u.user_access > 0";
     else if ( m_filter == Disabled )
-        query += " WHERE user_access = 0";
+        query += " WHERE u.user_access = 0";
 
     modelAt( 0 )->setQuery( QString( "%1 ORDER BY %2" ).arg( query, m_order ) );
 

@@ -138,6 +138,8 @@ QString ErrorHelper::errorMessage( ErrorCode code ) const
             return tr( "Concurrency error; please try again" );
         case ConstraintConflict:
             return tr( "One of the dependent objects no longer exists" );
+        case EmailAlreadyExists:
+            return tr( "Another user already uses this email address" );
         case UnknownDescription:
             return tr( "Description does not exist" );
         case DescriptionAlreadyExists:
