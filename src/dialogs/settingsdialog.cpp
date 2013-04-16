@@ -92,16 +92,6 @@ SettingsDialog::SettingsDialog( QWidget* parent ) : CommandDialog( parent )
         m_ui.autoStartCheckBox->setChecked( settings->value( "AutoStart" ).toBool() );
 #endif
 
-    QFont commentFont( settings->value( "CommentFont" ).toString() );
-    commentFont.setStyleHint( QFont::SansSerif );
-    m_ui.commentFontComboBox->setCurrentFont( commentFont );
-    m_ui.commentFontSpinBox->setValue( settings->value( "CommentFontSize" ).toInt() );
-
-    QFont reportFont( settings->value( "ReportFont" ).toString() );
-    reportFont.setStyleHint( QFont::SansSerif );
-    m_ui.historyFontComboBox->setCurrentFont( reportFont );
-    m_ui.historyFontSpinBox->setValue( settings->value( "ReportFontSize" ).toInt() );
-
     m_ui.autoUpdateCheckBox->setChecked( settings->value( "AutoUpdate" ).toBool() );
 
     m_ui.attachmentsComboBox->setCurrentIndex( settings->value( "DefaultAttachmentAction" ).toInt() );
@@ -157,11 +147,6 @@ bool SettingsDialog::apply()
     if ( !application->isPortableMode() )
         settings->setValue( "AutoStart", m_ui.autoStartCheckBox->isChecked() );
 #endif
-
-    settings->setValue( "CommentFont", m_ui.commentFontComboBox->currentFont().family() );
-    settings->setValue( "CommentFontSize", m_ui.commentFontSpinBox->value() );
-    settings->setValue( "ReportFont", m_ui.historyFontComboBox->currentFont().family() );
-    settings->setValue( "ReportFontSize", m_ui.historyFontSpinBox->value() );
 
     settings->setValue( "AutoUpdate", m_ui.autoUpdateCheckBox->isChecked() );
 

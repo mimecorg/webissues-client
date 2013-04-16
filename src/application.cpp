@@ -94,6 +94,10 @@ Application::Application( int& argc, char** argv ) : QApplication( argc, argv ),
 
     m_mainWindow = new MainWindow();
 
+    m_editorFont.setFamily( "Verdana, DejaVu Sans" );
+    m_editorFont.setPointSize( 8 );
+    m_editorFont.setStyleHint( QFont::SansSerif );
+
     m_manager = new QNetworkAccessManager();
 
 #if !defined( NO_PROXY_FACTORY )
@@ -510,10 +514,6 @@ void Application::initializeSettings()
         { "ShowAtStartup", (int)RestoreAlways },
         { "ConnectAtStartup", (int)RestoreNever },
         { "AutoStart", false },
-        { "CommentFont", "Verdana" },
-        { "CommentFontSize", 8 },
-        { "ReportFont", "Verdana" },
-        { "ReportFontSize", 8 },
         { "AutoUpdate", true },
         { "DefaultAttachmentAction", (int)ActionAsk },
         { "FolderUpdateInterval", 1 },
