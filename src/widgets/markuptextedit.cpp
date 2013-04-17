@@ -116,8 +116,8 @@ MarkupTextEdit::MarkupTextEdit( QWidget* parent ) : QWidget( parent ),
     m_comboBox = new QComboBox( this );
     formatLayout->addWidget( m_comboBox );
 
-    m_comboBox->addItem( tr( "Plain text" ) );
-    m_comboBox->addItem( tr( "Text with markup" ) );
+    m_comboBox->addItem( tr( "Plain Text" ) );
+    m_comboBox->addItem( tr( "Text with Markup" ) );
 
     label->setBuddy( m_comboBox );
     

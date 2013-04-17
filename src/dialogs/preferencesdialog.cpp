@@ -254,8 +254,8 @@ PreferencesDialog::PreferencesDialog( int userId, QWidget* parent ) : CommandDia
     formatLabel->setBuddy( m_formatComboBox );
 
     QMap<int, QString> formatItems;
-    formatItems.insert( PlainText, tr( "Plain text" ) );
-    formatItems.insert( TextWithMarkup, tr( "Text with markup" ) );
+    formatItems.insert( PlainText, tr( "Plain Text" ) );
+    formatItems.insert( TextWithMarkup, tr( "Text with Markup" ) );
 
     QString defaultFormat = formatItems.value( dataManager->setting( "default_format" ).toInt() );
 
