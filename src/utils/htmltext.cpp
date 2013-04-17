@@ -132,3 +132,40 @@ QString HtmlText::convertUrl( const QString& url, Flags flags )
         return url;
 }
 
+QString HtmlText::convertTabsToSpaces( const QString& text )
+{
+    int column = 0;
+    return convertTabsToSpaces( text, column );
+}
+
+QString HtmlText::convertTabsToSpaces( const QString& text, int& column )
+{
+    QString result;
+    int last = 0;
+
+    for ( int i = 0; i < text.length(); i++ ) {
+        QChar ch = text.at( i );
+
+        if ( ch == QLatin1Char( '\n' ) ) {
+            column = 0;
+        } else if ( ch == QLatin1Char( '\t' ) ) {
+            if ( i > last )
+                result += text.midRef( last, i - last );
+            int count = 8 - ( column % 8 );
+            for ( int j = 0; j < count; j++ )
+                result += QLatin1Char( ' ' );
+            column += count;
+            last = i + 1;
+        } else {
+            column++;
+        }
+    }
+
+    if ( last == 0 )
+        return text;
+
+    if ( last < text.length() )
+        result += text.midRef( last );
+
+    return result;
+}

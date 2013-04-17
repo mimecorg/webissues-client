@@ -131,8 +131,15 @@ public:
     */
     static HtmlText parse( const QString& text, Flags flags = 0 );
 
+    /**
+    * Convert tabs to spaces.
+    */
+    static QString convertTabsToSpaces( const QString& text );
+
 private:
     static QString convertUrl( const QString& url, Flags flags );
+
+    static QString convertTabsToSpaces( const QString& text, int& column );
 
 private:
     Flags m_flags;

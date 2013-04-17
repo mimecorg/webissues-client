@@ -196,6 +196,9 @@ void MarkupProcessor::parseText()
 {
     QStringList tags;
 
+    QString text;
+    int column = 0;
+
     for ( ; ; ) {
         switch ( m_token ) {
             case T_TEXT: {
@@ -206,12 +209,15 @@ void MarkupProcessor::parseText()
                     pos = subtokenExp.indexIn( m_value, pos );
 
                     if ( pos < 0 ) {
-                        m_result += HtmlText::parse( m_value.mid( oldpos ), m_flags ).toString();
+                        text = HtmlText::convertTabsToSpaces( m_value.mid( oldpos ), column );
+                        m_result += HtmlText::parse( text, m_flags ).toString();
                         break;
                     }
 
-                    if ( pos > oldpos )
-                        m_result += HtmlText::parse( m_value.mid( oldpos, pos - oldpos ), m_flags ).toString();
+                    if ( pos > oldpos ) {
+                        text = HtmlText::convertTabsToSpaces( m_value.mid( oldpos, pos - oldpos ), column );
+                        m_result += HtmlText::parse( text, m_flags ).toString();
+                    }
 
                     pos += subtokenExp.matchedLength();
 
@@ -233,19 +239,22 @@ void MarkupProcessor::parseText()
                         continue;
                     }
 
-                    m_result += Qt::escape( subtoken );
+                    text = HtmlText::convertTabsToSpaces( subtoken, column );
+                    m_result += Qt::escape( text );
                 }
                 next();
                 break;
             }
 
             case T_BACKTICK:
-                m_result += QString( "<code>%1</code>" ).arg( Qt::escape( m_value ) );
+                text = HtmlText::convertTabsToSpaces( m_value, column );
+                m_result += QString( "<code>%1</code>" ).arg( Qt::escape( text ) );
                 next();
                 break;
 
             case T_LINK:
-                m_result += QString( "<a href=\"%1\">%2</a>" ).arg( Qt::escape( HtmlText::convertUrl( m_value, m_flags ) ), Qt::escape( m_extra.isEmpty() ? m_value : m_extra ) );
+                text = HtmlText::convertTabsToSpaces( m_extra.isEmpty() ? m_value : m_extra, column );
+                m_result += QString( "<a href=\"%1\">%2</a>" ).arg( Qt::escape( HtmlText::convertUrl( m_value, m_flags ) ), Qt::escape( text ) );
                 next();
                 break;
 
@@ -260,6 +269,7 @@ void MarkupProcessor::parseText()
 void MarkupProcessor::parseCode()
 {
     int nest = 1;
+    int column = 0;
 
     while ( m_token != T_END ) {
         if ( m_token == T_START_CODE ) {
@@ -269,7 +279,8 @@ void MarkupProcessor::parseCode()
                 break;
         }
 
-        m_result += Qt::escape( m_rawValue );
+        QString text = HtmlText::convertTabsToSpaces( m_rawValue, column );
+        m_result += Qt::escape( text );
         next();
     }
 }

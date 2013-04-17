@@ -138,7 +138,7 @@ void IssueDetailsGenerator::writeAttributes( HtmlWriter* writer, const QList<Val
         const ValueEntity& value = values.at( i );
         headers.append( value.name() + tr( ":" ) );
         QString formattedValue = formatter.convertAttributeValue( value.definition(), value.value(), true );
-        items.append( HtmlText::parse( formattedValue, flags ) );
+        items.append( HtmlText::parse( HtmlText::convertTabsToSpaces( formattedValue ), flags ) );
     }
 
     writer->writeInfoList( headers, items, true );
@@ -200,10 +200,7 @@ void IssueDetailsGenerator::writeHistory( HtmlWriter* writer, const IssueEntity&
                 writer->beginHistoryItem();
                 writer->writeBlock( changeLinks( change, flags ), HtmlWriter::HistoryInfoBlock );
                 writer->writeBlock( formatStamp( change ), HtmlWriter::Header4Block );
-                if ( change.comment().format() == TextWithMarkup )
-                    writer->writeBlock( MarkupProcessor::parse( change.comment().text(), flags ), HtmlWriter::CommentBlock );
-                else
-                    writer->writeBlock( HtmlText::parse( change.comment().text(), flags ), HtmlWriter::CommentBlock );
+                writer->writeBlock( commentText( change.comment(), flags ), HtmlWriter::CommentBlock );
                 writer->endHistoryItem();
                 m_commentsCount++;
                 break;
@@ -459,7 +456,7 @@ HtmlText IssueDetailsGenerator::descriptionText( const DescriptionEntity& descri
     if ( description.format() == TextWithMarkup )
         return MarkupProcessor::parse( description.text(), flags );
     else
-        return HtmlText::parse( description.text(), flags );
+        return HtmlText::parse( HtmlText::convertTabsToSpaces( description.text() ), flags );
 }
 
 HtmlText IssueDetailsGenerator::commentText( const CommentEntity& comment, HtmlText::Flags flags )
@@ -467,5 +464,5 @@ HtmlText IssueDetailsGenerator::commentText( const CommentEntity& comment, HtmlT
     if ( comment.format() == TextWithMarkup )
         return MarkupProcessor::parse( comment.text(), flags );
     else
-        return HtmlText::parse( comment.text(), flags );
+        return HtmlText::parse( HtmlText::convertTabsToSpaces( comment.text() ), flags );
 }
