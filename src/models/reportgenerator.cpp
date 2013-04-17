@@ -31,6 +31,7 @@
 ReportGenerator::ReportGenerator() :
     m_folderId( 0 ),
     m_summary( false ),
+    m_description( false ),
     m_history( IssueDetailsGenerator::NoHistory )
 {
 }
@@ -64,9 +65,10 @@ void ReportGenerator::setTableMode( const QList<int>& columns )
     m_summary = false;
 }
 
-void ReportGenerator::setSummaryMode( IssueDetailsGenerator::History history )
+void ReportGenerator::setSummaryMode( bool description, IssueDetailsGenerator::History history )
 {
     m_summary = true;
+    m_description = description;
     m_history = history;
 }
 
@@ -105,7 +107,7 @@ void ReportGenerator::write( HtmlWriter* writer )
         IssueDetailsGenerator generator;
 
         for ( int i = 0; i < m_issues.count(); i++ ) {
-            generator.setIssue( m_issues.at( i ), m_history );
+            generator.setIssue( m_issues.at( i ), m_description,  m_history );
             generator.write( writer, HtmlText::NoInternalLinks );
         }
     }

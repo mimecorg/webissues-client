@@ -71,9 +71,10 @@ public:
 
     /**
     * Set report mode to summary of issue(s).
+    * @param description @c true if the description should be included.
     * @param history Type of issue history to be included.
     */
-    void setSummaryMode( IssueDetailsGenerator::History history );
+    void setSummaryMode( bool description, IssueDetailsGenerator::History history );
 
     /**
     * Return the title of the report.
@@ -98,6 +99,7 @@ private:
 
     QList<int> m_columns;
     bool m_summary;
+    bool m_description;
     IssueDetailsGenerator::History m_history;
 
     QString m_title;

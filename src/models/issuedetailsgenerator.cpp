@@ -31,6 +31,7 @@
 
 IssueDetailsGenerator::IssueDetailsGenerator() :
     m_issueId( 0 ),
+    m_description( false ),
     m_history( NoHistory ),
     m_isOwner( false ),
     m_isAdmin( false ),
@@ -43,9 +44,10 @@ IssueDetailsGenerator::~IssueDetailsGenerator()
 {
 }
 
-void IssueDetailsGenerator::setIssue( int issueId, History history )
+void IssueDetailsGenerator::setIssue( int issueId, bool description, History history )
 {
     m_issueId = issueId;
+    m_description = description;
     m_history = history;
 
     m_isOwner = IssueEntity::isOwner( issueId );
@@ -75,7 +77,7 @@ void IssueDetailsGenerator::write( HtmlWriter* writer, HtmlText::Flags flags /*=
             writeAttributes( writer, values, flags );
         }
 
-        if ( m_history != NoHistory ) {
+        if ( m_description ) {
             DescriptionEntity description = issue.description();
 
             if ( description.isValid() ) {
@@ -86,7 +88,9 @@ void IssueDetailsGenerator::write( HtmlWriter* writer, HtmlText::Flags flags /*=
                 writer->writeBlock( tr( "Description" ), HtmlWriter::Header3Block );
                 writer->writeBlock( descriptionText( description, flags ), HtmlWriter::CommentBlock );
             }
+        }
 
+        if ( m_history != NoHistory ) {
             writer->appendLayoutRow();
             writer->beginCell( HtmlWriter::BottomPane, 2 );
 

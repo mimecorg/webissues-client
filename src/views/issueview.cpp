@@ -741,7 +741,7 @@ void IssueView::populateDetails()
     QPoint pos = m_browser->page()->mainFrame()->scrollPosition();
 
     IssueDetailsGenerator generator;
-    generator.setIssue( id(), m_history );
+    generator.setIssue( id(), true, m_history );
 
     HtmlWriter writer;
     generator.write( &writer );

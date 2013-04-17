@@ -67,9 +67,10 @@ public:
     /**
     * Set the issue to provide details for.
     * @param issueId Idenitifier of the issue.
+    * @param description @c true if the description should be included.
     * @param history Type of issue history to be included.
     */
-    void setIssue( int issueId, History history );
+    void setIssue( int issueId, bool description, History history );
 
     /**
     * Output the issue details to the writer.
@@ -102,6 +103,7 @@ private:
 
 private:
     int m_issueId;
+    bool m_description;
     History m_history;
 
     bool m_isOwner;

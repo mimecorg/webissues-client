@@ -61,11 +61,14 @@ ReportDialog::ReportDialog( SourceType source, ReportMode mode, QWidget* parent 
         m_fullTableButton = new QRadioButton( tr( "Table with all system and user columns" ), this );
     }
 
-    if ( mode != ExportCsv && source != ProjectSource )
-        m_summaryButton = new QRadioButton( tr( "Summary report including issue details" ), this );
-
-    if ( mode != ExportCsv && source == IssueSource )
-        m_fullReportButton = new QRadioButton( tr( "Full report including issue details and history" ), this );
+    if ( mode != ExportCsv ) {
+        if ( source == FolderSource )
+            m_summaryButton = new QRadioButton( tr( "Summary report including issue details" ), this );
+        if ( source == IssueSource ) {
+            m_summaryButton = new QRadioButton( tr( "Summary report without issue history" ), this );
+            m_fullReportButton = new QRadioButton( tr( "Full report including issue history" ), this );
+        }
+    }
 
     QVBoxLayout* optionsLayout = NULL;
 
@@ -352,10 +355,10 @@ QString ReportDialog::generateHtmlReport( bool embedded )
             else if ( m_fullTableButton->isChecked() )
                 generator.setTableMode( m_availableColumns );
             else
-                generator.setSummaryMode( IssueDetailsGenerator::NoHistory );
+                generator.setSummaryMode( false, IssueDetailsGenerator::NoHistory );
         } else if ( m_source == IssueSource && !m_issues.isEmpty() ) {
             generator.setIssueSource( m_issues.first() );
-            generator.setSummaryMode( m_fullReportButton->isChecked() ? m_history : IssueDetailsGenerator::NoHistory );
+            generator.setSummaryMode( true, m_fullReportButton->isChecked() ? m_history : IssueDetailsGenerator::NoHistory );
         }
 
         writer.setTitle( generator.title() );
