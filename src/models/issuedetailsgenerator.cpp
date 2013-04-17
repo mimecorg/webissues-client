@@ -260,7 +260,7 @@ HtmlText IssueDetailsGenerator::formatChange( const ChangeEntity& change, HtmlTe
             result.appendText( tr( "Name:" ) );
             result.appendText( " \"" );
             result.appendParsed( change.oldValue() );
-            result.appendText( QString::fromUtf8( "\" → \"" ) );
+            result.appendText( QString::fromUtf8( "\" » \"" ) );
             result.appendParsed( change.newValue() );
             result.appendText( "\"" );
             break;
@@ -283,7 +283,7 @@ HtmlText IssueDetailsGenerator::formatChange( const ChangeEntity& change, HtmlTe
                 result.appendText( "\"" );
             }
 
-            result.appendText( QString::fromUtf8( " → " ) );
+            result.appendText( QString::fromUtf8( " » " ) );
 
             if ( newValue.isEmpty() ) {
                 result.appendText( tr( "empty" ) );
