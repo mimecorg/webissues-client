@@ -39,6 +39,9 @@ void ProjectSummaryGenerator::setProject( int projectId )
 {
     m_projectId = projectId;
 
+    ProjectEntity project = ProjectEntity::find( projectId );
+    m_title = project.name();
+
     m_isAdmin = ProjectEntity::isAdmin( projectId );
 }
 

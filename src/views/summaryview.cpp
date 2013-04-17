@@ -28,6 +28,7 @@
 #include "dialogs/dialogmanager.h"
 #include "dialogs/finditemdialog.h"
 #include "dialogs/projectdialogs.h"
+#include "dialogs/reportdialog.h"
 #include "models/projectsummarygenerator.h"
 #include "utils/htmlwriter.h"
 #include "utils/iconloader.h"
@@ -98,9 +99,30 @@ SummaryView::SummaryView( QObject* parent, QWidget* parentWidget ) : View( paren
     connect( action, SIGNAL( triggered() ), this, SLOT( selectAll() ) );
     setAction( "editSelectAll", action );
 
+    action = new QAction( IconLoader::icon( "file-print" ), tr( "Print Summary" ), this );
+    action->setIconText( tr( "Print" ) );
+    action->setShortcut( QKeySequence::Print );
+    connect( action, SIGNAL( triggered() ), this, SLOT( printReport() ), Qt::QueuedConnection );
+    setAction( "printReport", action );
+
+    action = new QAction( IconLoader::icon( "export-pdf" ), tr( "Export Summary" ), this );
+    action->setIconText( tr( "Export" ) );
+    setAction( "popupExport", action );
+
+    action = new QAction( IconLoader::icon( "export-html" ), tr( "Export To HTML" ), this );
+    connect( action, SIGNAL( triggered() ), this, SLOT( exportHtml() ), Qt::QueuedConnection );
+    setAction( "exportHtml", action );
+
+    action = new QAction( IconLoader::icon( "export-pdf" ), tr( "Export To PDF" ), this );
+    connect( action, SIGNAL( triggered() ), this, SLOT( exportPdf() ), Qt::QueuedConnection );
+    setAction( "exportPdf", action );
+
     setTitle( "sectionAdd", tr( "Add" ) );
     setTitle( "sectionProject", tr( "Project" ) );
     setTitle( "sectionEdit", tr( "Edit" ) );
+    setTitle( "sectionReport", tr( "Report" ) );
+
+    setPopupMenu( "popupExport", "menuExport", "exportPdf" );
 
     setDefaultMenuAction( "menuLink", "openLink" );
     setDefaultMenuAction( "menuLinkItem", "gotoLinkItem" );
@@ -371,6 +393,27 @@ void SummaryView::copyLink()
 
         QApplication::clipboard()->setText( link, QClipboard::Clipboard );
     }
+}
+
+void SummaryView::printReport()
+{
+    ReportDialog dialog( ReportDialog::ProjectSource, ReportDialog::Print, mainWidget() );
+    dialog.setProject( id() );
+    dialog.exec();
+}
+
+void SummaryView::exportHtml()
+{
+    ReportDialog dialog( ReportDialog::ProjectSource, ReportDialog::ExportHtml, mainWidget() );
+    dialog.setProject( id() );
+    dialog.exec();
+}
+
+void SummaryView::exportPdf()
+{
+    ReportDialog dialog( ReportDialog::ProjectSource, ReportDialog::ExportPdf, mainWidget() );
+    dialog.setProject( id() );
+    dialog.exec();
 }
 
 void SummaryView::updateEvent( UpdateEvent* e )

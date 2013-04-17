@@ -80,6 +80,10 @@ private slots:
     void openLink();
     void copyLink();
 
+    void printReport();
+    void exportHtml();
+    void exportPdf();
+
     void summaryContextMenu( const QPoint& pos );
 
     void linkClicked( const QUrl& url );

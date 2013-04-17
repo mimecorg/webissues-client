@@ -12,6 +12,12 @@
         <action id="find"/>
       </grid>
     </section>
+    <section id="sectionReport">
+      <grid>
+        <action id="printReport"/>
+        <action id="popupExport"/>
+      </grid>
+    </section>
   </strip>
   <menu id="menuLink">
     <action id="openLink"/>
@@ -37,5 +43,9 @@
     <action id="find"/>
     <action id="findNext"/>
     <action id="findPrevious"/>
+  </menu>
+  <menu id="menuExport">
+    <action id="exportPdf"/>
+    <action id="exportHtml"/>
   </menu>
 </xmlui>

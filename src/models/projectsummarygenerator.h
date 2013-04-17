@@ -55,6 +55,11 @@ public:
     void setProject( int projectId );
 
     /**
+    * Return the title of the report.
+    */
+    const QString& title() const { return m_title; }
+
+    /**
     * Output the issue details to the writer.
     * @param writer The text document writer to output the details to.
     * @param flags Optional flags affecting extracting of links.
@@ -68,6 +73,8 @@ private:
 
 private:
     int m_projectId;
+
+    QString m_title;
 
     bool m_isAdmin;
 };

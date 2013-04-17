@@ -41,6 +41,8 @@ public:
         IssueSource,
         /** Report based on a folder with issues. */
         FolderSource,
+        /** Report based on project summary. */
+        ProjectSource
     };
 
     /**
@@ -84,6 +86,11 @@ public:
     void setFolder( int folderId, const QList<int>& issues );
 
     /**
+    * Set the project used as the source for the report.
+    */
+    void setProject( int projectId );
+
+    /**
     * Set current and all available columns for table reports.
     */
     void setColumns( const QList<int>& currentColumns, const QList<int>& availableColumns );
@@ -116,6 +123,7 @@ private:
 
     int m_folderId;
     QList<int> m_issues;
+    int m_projectId;
 
     QList<int> m_currentColumns;
     QList<int> m_availableColumns;

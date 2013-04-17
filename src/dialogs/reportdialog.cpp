@@ -24,6 +24,7 @@
 #include "data/localsettings.h"
 #include "dialogs/messagebox.h"
 #include "models/reportgenerator.h"
+#include "models/projectsummarygenerator.h"
 #include "utils/htmlwriter.h"
 #include "utils/csvwriter.h"
 #include "utils/iconloader.h"
@@ -48,44 +49,54 @@ ReportDialog::ReportDialog( SourceType source, ReportMode mode, QWidget* parent 
     m_source( source ),
     m_mode( mode ),
     m_folderId( 0 ),
-    m_history( IssueDetailsGenerator::NoHistory )
+    m_projectId( 0 ),
+    m_history( IssueDetailsGenerator::NoHistory ),
+    m_tableButton( NULL ),
+    m_fullTableButton( NULL ),
+    m_summaryButton( NULL ),
+    m_fullReportButton( NULL )
 {
-    QHBoxLayout* layout = new QHBoxLayout();
-
-    QVBoxLayout* optionsLayout = new QVBoxLayout();
-    layout->addLayout( optionsLayout );
-
     if ( source == FolderSource ) {
         m_tableButton = new QRadioButton( tr( "Table with visible columns only" ), this );
-        optionsLayout->addWidget( m_tableButton );
         m_fullTableButton = new QRadioButton( tr( "Table with all system and user columns" ), this );
-        optionsLayout->addWidget( m_fullTableButton );
-    } else {
-        m_tableButton = NULL;
-        m_fullTableButton = NULL;
     }
 
-    if ( mode != ExportCsv ) {
+    if ( mode != ExportCsv && source != ProjectSource )
         m_summaryButton = new QRadioButton( tr( "Summary report including issue details" ), this );
-        optionsLayout->addWidget( m_summaryButton );
-    } else {
-        m_summaryButton = NULL;
-    }
 
-    if ( mode != ExportCsv && source == IssueSource ) {
+    if ( mode != ExportCsv && source == IssueSource )
         m_fullReportButton = new QRadioButton( tr( "Full report including issue details and history" ), this );
-        optionsLayout->addWidget( m_fullReportButton );
-    } else {
-        m_fullReportButton = NULL;
+
+    QVBoxLayout* optionsLayout = NULL;
+
+    if ( m_tableButton || m_fullTableButton || m_summaryButton || m_fullReportButton ) {
+        optionsLayout = new QVBoxLayout();
+        if ( m_tableButton )
+            optionsLayout->addWidget( m_tableButton );
+        if ( m_fullTableButton )
+            optionsLayout->addWidget( m_fullTableButton );
+        if ( m_summaryButton )
+            optionsLayout->addWidget( m_summaryButton );
+        if ( m_fullReportButton )
+            optionsLayout->addWidget( m_fullReportButton );
     }
 
-    if ( mode == Print ) {
-        QPushButton* previewButton = new QPushButton( tr( "&Print Preview..." ), this );
-        previewButton->setIcon( IconLoader::icon( "print-preview" ) );
-        previewButton->setIconSize( QSize( 16, 16 ) );
-        layout->addWidget( previewButton, 0, Qt::AlignBottom | Qt::AlignRight );
+    if ( optionsLayout || mode == Print ) {
+        QHBoxLayout* layout = new QHBoxLayout();
 
-        connect( previewButton, SIGNAL( clicked() ), this, SLOT( showPreview() ) );
+        if ( optionsLayout )
+            layout->addLayout( optionsLayout );
+
+        if ( mode == Print ) {
+            QPushButton* previewButton = new QPushButton( tr( "&Print Preview..." ), this );
+            previewButton->setIcon( IconLoader::icon( "print-preview" ) );
+            previewButton->setIconSize( QSize( 16, 16 ) );
+            layout->addWidget( previewButton, 0, Qt::AlignBottom | Qt::AlignRight );
+
+            connect( previewButton, SIGNAL( clicked() ), this, SLOT( showPreview() ) );
+        }
+
+        setContentLayout( layout, true );
     }
 
     if ( m_tableButton )
@@ -100,6 +111,9 @@ ReportDialog::ReportDialog( SourceType source, ReportMode mode, QWidget* parent 
             break;
         case IssueSource:
             sourceName = tr( "issue details" );
+            break;
+        case ProjectSource:
+            sourceName = tr( "project summary" );
             break;
     }
 
@@ -126,9 +140,7 @@ ReportDialog::ReportDialog( SourceType source, ReportMode mode, QWidget* parent 
             break;
     }
 
-    setContentLayout( layout, true );
-
-    showInfo( tr( "Select type of report." ) );
+    showInfo( tr( "Create the report." ) );
 }
 
 ReportDialog::~ReportDialog()
@@ -140,12 +152,21 @@ void ReportDialog::setIssue( int issueId )
     m_folderId = 0;
     m_issues.clear();
     m_issues.append( issueId );
+    m_projectId = 0;
 }
 
 void ReportDialog::setFolder( int folderId, const QList<int>& issues )
 {
     m_folderId = folderId;
     m_issues = issues;
+    m_projectId = 0;
+}
+
+void ReportDialog::setProject( int projectId )
+{
+    m_projectId = projectId;
+    m_folderId = 0;
+    m_issues.clear();
 }
 
 void ReportDialog::setHistory( IssueDetailsGenerator::History history )
@@ -312,26 +333,34 @@ QString ReportDialog::generateCsvReport()
 
 QString ReportDialog::generateHtmlReport( bool embedded )
 {
-    ReportGenerator generator;
-
-    if ( m_source == FolderSource ) {
-        generator.setFolderSource( m_folderId, m_issues );
-        if ( m_tableButton->isChecked() )
-            generator.setTableMode( m_currentColumns );
-        else if ( m_fullTableButton->isChecked() )
-            generator.setTableMode( m_availableColumns );
-        else
-            generator.setSummaryMode( IssueDetailsGenerator::NoHistory );
-    } else if ( m_source == IssueSource && !m_issues.isEmpty() ) {
-        generator.setIssueSource( m_issues.first() );
-        generator.setSummaryMode( m_fullReportButton->isChecked() ? m_history : IssueDetailsGenerator::NoHistory );
-    }
-
     HtmlWriter writer;
-    writer.setTitle( generator.title() );
     writer.setEmbedded( embedded );
 
-    generator.write( &writer );
+    if ( m_source == ProjectSource ) {
+        ProjectSummaryGenerator generator;
+        generator.setProject( m_projectId );
+
+        writer.setTitle( generator.title() );
+        generator.write( &writer, HtmlText::NoInternalLinks );
+    } else {
+        ReportGenerator generator;
+
+        if ( m_source == FolderSource ) {
+            generator.setFolderSource( m_folderId, m_issues );
+            if ( m_tableButton->isChecked() )
+                generator.setTableMode( m_currentColumns );
+            else if ( m_fullTableButton->isChecked() )
+                generator.setTableMode( m_availableColumns );
+            else
+                generator.setSummaryMode( IssueDetailsGenerator::NoHistory );
+        } else if ( m_source == IssueSource && !m_issues.isEmpty() ) {
+            generator.setIssueSource( m_issues.first() );
+            generator.setSummaryMode( m_fullReportButton->isChecked() ? m_history : IssueDetailsGenerator::NoHistory );
+        }
+
+        writer.setTitle( generator.title() );
+        generator.write( &writer );
+    }
 
     return writer.toHtml();
 }
