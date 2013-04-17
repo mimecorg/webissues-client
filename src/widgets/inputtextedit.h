@@ -67,6 +67,7 @@ public:
 protected: // overrides
     void resizeEvent( QResizeEvent* e );
     void focusOutEvent( QFocusEvent* e );
+    void changeEvent( QEvent* e );
 
 private:
     void updateInput();
@@ -77,6 +78,8 @@ private:
     void calculateLayout();
 
     void setError( int code );
+
+    void updateTabStopWidth();
 
 private:
     QLabel* m_errorLabel;

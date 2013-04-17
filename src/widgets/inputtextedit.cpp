@@ -43,6 +43,8 @@ InputTextEdit::InputTextEdit( QWidget* parent ) : QPlainTextEdit( parent ),
     m_errorLabel->setAlignment( Qt::AlignCenter );
 
     calculateLayout();
+
+    updateTabStopWidth();
  }
 
 InputTextEdit::~InputTextEdit()
@@ -229,3 +231,15 @@ void InputTextEdit::setError( int code )
     setError( helper.errorMessage( (ErrorHelper::ErrorCode)code ) );
 }
 
+void InputTextEdit::changeEvent( QEvent* e )
+{
+    QPlainTextEdit::changeEvent( e );
+
+    if ( e->type() == QEvent::FontChange )
+        updateTabStopWidth();
+}
+
+void InputTextEdit::updateTabStopWidth()
+{
+    setTabStopWidth( fontMetrics().width( QLatin1Char( ' ' ) ) * 8 );
+}
