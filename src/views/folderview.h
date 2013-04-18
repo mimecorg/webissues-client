@@ -177,9 +177,6 @@ private:
     int m_typeId;
     int m_projectId;
 
-    int m_gotoIssueId;
-    int m_gotoItemId;
-
     int m_selectedIssueId;
     bool m_isRead;
 };

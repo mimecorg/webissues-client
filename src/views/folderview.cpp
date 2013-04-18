@@ -53,8 +53,6 @@ FolderView::FolderView( QObject* parent, QWidget* parentWidget ) : View( parent 
     m_model( NULL ),
     m_currentViewId( 0 ),
     m_searchColumn( Column_Name ),
-    m_gotoIssueId( 0 ),
-    m_gotoItemId( 0 ),
     m_selectedIssueId( 0 ),
     m_isRead( false )
 {
@@ -644,12 +642,6 @@ void FolderView::updateEvent( UpdateEvent* e )
             loadCurrentView( false );
     }
 
-    if ( isEnabled() && m_gotoIssueId != 0 && e->unit() == UpdateEvent::Folder && e->id() == id() ) {
-        gotoIssue( m_gotoIssueId, m_gotoItemId );
-        m_gotoIssueId = 0;
-        m_gotoItemId = 0;
-    }
-
     if ( id() != 0 && e->unit() == UpdateEvent::Projects )
         cascadeUpdateFolder();
 }
@@ -704,14 +696,8 @@ void FolderView::setSelectedIssueId( int issueId )
 
 void FolderView::gotoIssue( int issueId, int itemId )
 {
-    if ( issueId != m_selectedIssueId ) {
-        if ( isUpdating() ) {
-            m_gotoIssueId = issueId;
-            m_gotoItemId = itemId;
-        }
-
+    if ( issueId != m_selectedIssueId )
         setSelectedIssueId( issueId );
-    }
 
     if ( issueId == m_selectedIssueId )
         emit itemActivated( itemId );

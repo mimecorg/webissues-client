@@ -121,6 +121,8 @@ private slots:
 
     void populateDetails();
 
+    void scrollToAnchor();
+
     void issueAdded( int issueId );
 
 private:
@@ -151,8 +153,6 @@ private:
 
     FindBar* m_findBar;
 
-    int m_gotoItemId;
-
     int m_folderId;
     int m_typeId;
     bool m_isRead;
@@ -166,6 +166,9 @@ private:
     int m_lockedIssueId;
 
     QTimer* m_populateTimer;
+
+    bool m_loading;
+    QString m_scrollAnchor;
 };
 
 #endif

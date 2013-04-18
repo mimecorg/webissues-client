@@ -58,13 +58,13 @@
 #include <QTimer>
 
 IssueView::IssueView( QObject* parent, QWidget* parentWidget ) : View( parent ),
-    m_gotoItemId( 0 ),
     m_folderId( 0 ),
     m_typeId( 0 ),
     m_isRead( false ),
     m_history( IssueDetailsGenerator::AllHistory ),
     m_isFindEnabled( false ),
-    m_lockedIssueId( 0 )
+    m_lockedIssueId( 0 ),
+    m_loading( false )
 {
     QAction* action;
 
@@ -216,6 +216,8 @@ IssueView::IssueView( QObject* parent, QWidget* parentWidget ) : View( parent ),
     connect( m_browser, SIGNAL( linkClicked( const QUrl& ) ), this, SLOT( linkClicked( const QUrl& ) ) );
     connect( m_browser, SIGNAL( selectionChanged() ), this, SLOT( updateActions() ) );
 
+    connect( m_browser->page()->mainFrame(), SIGNAL( loadFinished( bool ) ), this, SLOT( scrollToAnchor() ) );
+
     m_findBar = new FindBar( main );
     m_findBar->setBoundWidget( m_browser );
     m_findBar->setAutoFillBackground( true );
@@ -336,11 +338,11 @@ void IssueView::gotoItem( int itemId )
         return;
     }
 
-    if ( isUpdating() )
-        m_gotoItemId = itemId;
-
-    if ( IssueEntity::findItem( itemId ) == id() )
-        m_browser->page()->mainFrame()->scrollToAnchor( QString( "item%1" ).arg( itemId ) );
+    if ( IssueEntity::findItem( itemId ) == id() ) {
+        m_scrollAnchor = QString( "item%1" ).arg( itemId );
+        if ( !m_loading )
+            scrollToAnchor();
+    }
 }
 
 void IssueView::updateCaption()
@@ -715,11 +717,6 @@ void IssueView::updateEvent( UpdateEvent* e )
             updateActions();
     }
 
-    if ( isEnabled() && m_gotoItemId != 0 && e->unit() == UpdateEvent::Issue && e->id() == id() ) {
-        gotoItem( m_gotoItemId );
-        m_gotoItemId = 0;
-    }
-
     if ( id() != 0 && m_folderId != 0 && e->unit() == UpdateEvent::Folder && e->id() == m_folderId )
         cascadeUpdateIssue();
 }
@@ -746,6 +743,7 @@ void IssueView::populateDetails()
     HtmlWriter writer;
     generator.write( &writer );
 
+    m_loading = true;
     m_browser->setHtml( writer.toHtml() );
 
     m_browser->page()->mainFrame()->setScrollPosition( pos );
@@ -758,6 +756,16 @@ void IssueView::populateDetails()
     showSummary( QPixmap(), status.join( ", " ) );
 
     QApplication::restoreOverrideCursor();
+}
+
+void IssueView::scrollToAnchor()
+{
+    m_loading = false;
+
+    if ( !m_scrollAnchor.isEmpty() ) {
+        m_browser->page()->mainFrame()->scrollToAnchor( m_scrollAnchor );
+        m_scrollAnchor.clear();
+    }
 }
 
 bool IssueView::linkContextMenu( const QUrl& link, const QPoint& pos )
