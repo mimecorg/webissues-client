@@ -242,8 +242,6 @@ IssueView::IssueView( QObject* parent, QWidget* parentWidget ) : View( parent ),
 
     connect( m_populateTimer, SIGNAL( timeout() ), this, SLOT( populateDetails() ) );
 
-    connect( application->applicationSettings(), SIGNAL( settingsChanged() ), this, SLOT( populateDetails() ) );
-
     LocalSettings* settings = application->applicationSettings();
     m_history = (IssueDetailsGenerator::History)settings->value( "IssueHistoryFilter", (int)IssueDetailsGenerator::AllHistory ).toInt();
 }

@@ -176,8 +176,6 @@ SummaryView::SummaryView( QObject* parent, QWidget* parentWidget ) : View( paren
     m_populateTimer->setSingleShot( true );
 
     connect( m_populateTimer, SIGNAL( timeout() ), this, SLOT( populateSummary() ) );
-
-    connect( application->applicationSettings(), SIGNAL( settingsChanged() ), this, SLOT( populateSummary() ) );
 }
 
 SummaryView::~SummaryView()
