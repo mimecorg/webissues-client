@@ -54,7 +54,9 @@ ReportDialog::ReportDialog( SourceType source, ReportMode mode, QWidget* parent 
     m_tableButton( NULL ),
     m_fullTableButton( NULL ),
     m_summaryButton( NULL ),
-    m_fullReportButton( NULL )
+    m_fullReportButton( NULL ),
+    m_page( NULL ),
+    m_pdfPrinter( NULL )
 {
     if ( source == FolderSource ) {
         m_tableButton = new QRadioButton( tr( "Table with visible columns only" ), this );
@@ -148,6 +150,8 @@ ReportDialog::ReportDialog( SourceType source, ReportMode mode, QWidget* parent 
 
 ReportDialog::~ReportDialog()
 {
+    delete m_pdfPrinter;
+    m_pdfPrinter = NULL;
 }
 
 void ReportDialog::setIssue( int issueId )
@@ -185,58 +189,67 @@ void ReportDialog::setColumns( const QList<int>& currentColumns, const QList<int
 
 void ReportDialog::accept()
 {
-    bool result = false;
-
     switch ( m_mode ) {
         case Print:
-            result = print();
+            print();
             break;
         case ExportCsv:
-            result = exportCsv();
+            exportCsv();
             break;
         case ExportHtml:
-            result = exportHtml();
+            exportHtml();
             break;
         case ExportPdf:
-            result = exportPdf();
+            exportPdf();
             break;
     }
-
-    if ( result )
-        QDialog::accept();
 }
 
-bool ReportDialog::print()
+void ReportDialog::print()
 {
+    if ( m_page )
+        return;
+
     QPrinter* printer = application->printer();
     printer->setFromTo( 0, 0 );
 
     QPrintDialog dialog( printer, this );
 
     if ( dialog.exec() != QDialog::Accepted )
-        return false;
+        return;
 
     QString html = generateHtmlReport( false );
 
-    QWebPage page;
-    page.mainFrame()->setHtml( html );
+    m_page = new QWebPage( this );
 
-    page.mainFrame()->print( printer );
+    connect( m_page->mainFrame(), SIGNAL( loadFinished( bool ) ), this, SLOT( printReady() ) );
 
-    return true;
+    m_page->mainFrame()->setHtml( html );
 }
 
-bool ReportDialog::exportCsv()
+void ReportDialog::printReady()
+{
+    QPrinter* printer = application->printer();
+
+    m_page->mainFrame()->print( printer );
+
+    m_page->deleteLater();
+    m_page = NULL;
+
+    QDialog::accept();
+}
+
+void ReportDialog::exportCsv()
 {
     QString fileName = getReportFileName( ".csv", tr( "CSV Files (*.csv)" ) );
 
     if ( fileName.isEmpty() )
-        return false;
+        return;
 
     QFile file( fileName );
     if ( !file.open( QIODevice::WriteOnly ) ) {
         MessageBox::warning( this, tr( "Warning" ), tr( "File could not be saved." ) );
-        return false;
+        return;
     }
 
     QTextStream stream( &file );
@@ -244,20 +257,20 @@ bool ReportDialog::exportCsv()
 
     stream << generateCsvReport();
 
-    return true;
+    QDialog::accept();
 }
 
-bool ReportDialog::exportHtml()
+void ReportDialog::exportHtml()
 {
     QString fileName = getReportFileName( ".html", tr( "HTML Files (*.html)" ) );
 
     if ( fileName.isEmpty() )
-        return false;
+        return;
 
     QFile file( fileName );
     if ( !file.open( QIODevice::WriteOnly ) ) {
         MessageBox::warning( this, tr( "Warning" ), tr( "File could not be saved." ) );
-        return false;
+        return;
     }
 
     QTextStream stream( &file );
@@ -265,39 +278,65 @@ bool ReportDialog::exportHtml()
 
     stream << generateHtmlReport( true );
 
-    return true;
+    QDialog::accept();
 }
 
-bool ReportDialog::exportPdf()
+void ReportDialog::exportPdf()
 {
+    if ( m_page )
+        return;
+
     QString fileName = getReportFileName( ".pdf", tr( "PDF Files (*.pdf)" ) );
 
     if ( fileName.isEmpty() )
-        return false;
+        return;
 
-    QPrinter printer( QPrinter::HighResolution );
-    printer.setOutputFileName( fileName );
-    printer.setOutputFormat( QPrinter::PdfFormat );
+    m_pdfPrinter = new QPrinter( QPrinter::HighResolution );
+    m_pdfPrinter->setOutputFileName( fileName );
+    m_pdfPrinter->setOutputFormat( QPrinter::PdfFormat );
 
     QString html = generateHtmlReport( false );
 
-    QWebPage page;
-    page.mainFrame()->setHtml( html );
+    m_page = new QWebPage( this );
 
-    page.mainFrame()->print( &printer );
+    connect( m_page->mainFrame(), SIGNAL( loadFinished( bool ) ), this, SLOT( pdfReady() ) );
 
-    return true;
+    m_page->mainFrame()->setHtml( html );
+}
+
+void ReportDialog::pdfReady()
+{
+    m_page->mainFrame()->print( m_pdfPrinter );
+
+    delete m_pdfPrinter;
+    m_pdfPrinter = NULL;
+
+    m_page->deleteLater();
+    m_page = NULL;
+
+    QDialog::accept();
 }
 
 void ReportDialog::showPreview()
 {
+    if ( m_page )
+        return;
+
     QPrinter* printer = application->printer();
     printer->setFromTo( 0, 0 );
 
     QString html = generateHtmlReport( false );
 
-    QWebPage page;
-    page.mainFrame()->setHtml( html );
+    m_page = new QWebPage( this );
+
+    connect( m_page->mainFrame(), SIGNAL( loadFinished( bool ) ), this, SLOT( previewReady() ) );
+
+    m_page->mainFrame()->setHtml( html );
+}
+
+void ReportDialog::previewReady()
+{
+    QPrinter* printer = application->printer();
 
     QPrintPreviewDialog dialog( printer, this );
     dialog.setWindowTitle( tr( "Print Preview" ) );
@@ -308,11 +347,14 @@ void ReportDialog::showPreview()
     else
         dialog.resize( QApplication::desktop()->screenGeometry( this ).size() * 4 / 5 );
 
-    connect( &dialog, SIGNAL( paintRequested( QPrinter* ) ), page.mainFrame(), SLOT( print( QPrinter* ) ) );
+    connect( &dialog, SIGNAL( paintRequested( QPrinter* ) ), m_page->mainFrame(), SLOT( print( QPrinter* ) ) );
 
     int result = dialog.exec();
 
     settings->setValue( "PrintPreviewGeometry", dialog.saveGeometry() );
+
+    m_page->deleteLater();
+    m_page = NULL;
 
     if ( result == QDialog::Accepted )
         QDialog::accept();

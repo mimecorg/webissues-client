@@ -106,11 +106,15 @@ public: // overrides
 private slots:
     void showPreview();
 
+    void previewReady();
+    void printReady();
+    void pdfReady();
+
 private:
-    bool print();
-    bool exportCsv();
-    bool exportHtml();
-    bool exportPdf();
+    void print();
+    void exportCsv();
+    void exportHtml();
+    void exportPdf();
 
     QString generateCsvReport();
     QString generateHtmlReport( bool embedded );
@@ -134,6 +138,10 @@ private:
     QRadioButton* m_fullTableButton;
     QRadioButton* m_summaryButton;
     QRadioButton* m_fullReportButton;
+
+    QWebPage* m_page;
+
+    QPrinter* m_pdfPrinter;
 };
 
 #endif
