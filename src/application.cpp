@@ -411,32 +411,33 @@ void Application::initializeDefaultPaths()
     m_translationsPath = QDir::cleanPath( appPath + "/../share/webissues/translations" );
 #endif
 
+	QString dataPath;
+	QString cachePath;
+
 #if defined( Q_WS_WIN )
     wchar_t appDataPath[ MAX_PATH ];
     if ( SHGetSpecialFolderPath( 0, appDataPath, CSIDL_APPDATA, FALSE ) )
-        m_dataPath = QDir::fromNativeSeparators( QString::fromWCharArray( appDataPath ) );
+        dataPath = QDir::fromNativeSeparators( QString::fromWCharArray( appDataPath ) );
     else
-        m_dataPath = QDir::homePath();
+        dataPath = QDir::homePath();
 
-    m_dataPath += QLatin1String( "/WebIssues Client/1.1" );
+    m_dataPath = dataPath + QLatin1String( "/WebIssues Client/1.1" );
 
     wchar_t localAppDataPath[ MAX_PATH ];
     if ( SHGetSpecialFolderPath( 0, localAppDataPath, CSIDL_LOCAL_APPDATA, FALSE ) )
-        m_cachePath = QDir::fromNativeSeparators( QString::fromWCharArray( localAppDataPath ) );
+        cachePath = QDir::fromNativeSeparators( QString::fromWCharArray( localAppDataPath ) );
     else
-        m_cachePath = QDir::homePath();
+        cachePath = QDir::homePath();
 
-    m_cachePath += QLatin1String( "/WebIssues Client/1.1/cache" );
-
-    m_tempPath = QDir::tempPath() + "/WebIssues Client";
+    m_cachePath = cachePath + QLatin1String( "/WebIssues Client/1.1/cache" );
+    m_sharedCachePath = cachePath + QLatin1String( "/WebIssues Client/shared/cache" );
 #else
-    m_dataPath = QDesktopServices::storageLocation( QDesktopServices::DataLocation );
-    m_dataPath += QLatin1String( "/webissues-1.1" );
+    dataPath = QDesktopServices::storageLocation( QDesktopServices::DataLocation );
+    m_dataPath = dataPath + QLatin1String( "/webissues-1.1" );
 
-    m_cachePath = QDesktopServices::storageLocation( QDesktopServices::CacheLocation );
-    m_cachePath += QLatin1String( "/webissues-1.1" );
-
-    m_tempPath = QDir::tempPath() + "/webissues";
+    cachePath = QDesktopServices::storageLocation( QDesktopServices::CacheLocation );
+    m_cachePath = cachePath + QLatin1String( "/webissues-1.1" );
+    m_sharedCachePath = cachePath + QLatin1String( "/webissues-shared" );
 #endif
 }
 
@@ -454,9 +455,9 @@ void Application::processArguments()
         } else if ( arg == QLatin1String( "-cache" ) ) {
             if ( i + 1 < args.count() && !args.at( i + 1 ).startsWith( '-' ) )
                 m_cachePath = QDir::fromNativeSeparators( args.at( ++i ) );
-        } else if ( arg == QLatin1String( "-temp" ) ) {
+        } else if ( arg == QLatin1String( "-shared" ) ) {
             if ( i + 1 < args.count() && !args.at( i + 1 ).startsWith( '-' ) )
-                m_tempPath = QDir::fromNativeSeparators( args.at( ++i ) );
+                m_sharedCachePath = QDir::fromNativeSeparators( args.at( ++i ) );
         }
     }
 }
@@ -479,9 +480,9 @@ QString Application::locateCacheFile( const QString& name )
     return path;
 }
 
-QString Application::locateTempFile( const QString& name )
+QString Application::locateSharedCacheFile( const QString& name )
 {
-    QString path = m_tempPath + '/' + name;
+    QString path = m_sharedCachePath + '/' + name;
 
     checkAccess( path );
 
@@ -518,8 +519,6 @@ void Application::initializeSettings()
         { "DefaultAttachmentAction", (int)ActionAsk },
         { "FolderUpdateInterval", 1 },
         { "UpdateInterval", 5 },
-        { "IssuesCacheSize", 100 },
-        { "AttachmentsCacheSize", 10 },
 #if !defined( NO_PROXY_FACTORY )
         { "ProxyType", (int)QNetworkProxy::NoProxy },
 #endif

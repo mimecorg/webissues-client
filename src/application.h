@@ -93,10 +93,10 @@ public:
     QString locateCacheFile( const QString& name );
 
     /**
-    * Return the path of a temporary file.
-    * @param name The name of the temporary file.
+    * Return the path of a shared cache file.
+    * @param name The name of the shared cache file.
     */
-    QString locateTempFile( const QString& name );
+    QString locateSharedCacheFile( const QString& name );
 
     /**
     * Return @c true if application was started in portable mode.
@@ -213,7 +213,7 @@ private:
 
     QString m_dataPath;
     QString m_cachePath;
-    QString m_tempPath;
+    QString m_sharedCachePath;
 
     bool m_portable;
 

@@ -422,8 +422,6 @@ private slots:
     void updateFolderReply( const Reply& reply );
     void updateIssueReply( const Reply& reply );
 
-    void settingsChanged();
-
 private:
     void notifyObservers( UpdateEvent::Unit unit, int id = 0 );
 

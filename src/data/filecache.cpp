@@ -20,58 +20,97 @@
 #include "filecache.h"
 
 #include "application.h"
-#include "data/localsettings.h"
-#include "utils/dataserializer.h"
+#include "data/query.h"
 
 #include <QFileInfo>
 #include <QFile>
 
 FileCache::FileCache( const QString& uuid, const QString& path, QObject* parent ) : QObject( parent ),
-    m_uuid( uuid ),
-    m_path( path )
+    m_uuid( uuid )
 {
-    load();
+    QSqlDatabase database = QSqlDatabase::addDatabase( "SQLITEX", "FileCache" );
+
+	database.setDatabaseName( path );
+
+    if ( !database.open() )
+        return;
+
+    database.transaction();
+
+    bool ok = installSchema( database );
+    if ( ok )
+        ok = database.commit();
+
+    if ( !ok ) {
+        database.rollback();
+        database.close();
+		return;
+    }
+
+	allocFileSpace( 0 );
 }
 
 FileCache::~FileCache()
 {
+	allocFileSpace( 0 );
+
+	QSqlDatabase database = QSqlDatabase::database( "FileCache" );
+    database.close();
+}
+
+bool FileCache::installSchema( const QSqlDatabase& database )
+{
+	const int schemaVersion = 1;
+
+	Query query( database );
+
+    if ( !query.execQuery( "PRAGMA user_version" ) )
+        return false;
+
+    int currentVersion = query.readScalar().toInt();
+
+    if ( currentVersion >= schemaVersion )
+        return true;
+
+	if ( !query.execQuery( "CREATE TABLE files_cache ( server_uuid text, file_id integer, file_path text UNIQUE, file_size integer, last_access integer, UNIQUE ( server_uuid, file_id ) )" ) )
+		return false;
+
+	QString sql = QString( "PRAGMA user_version = %1" ).arg( schemaVersion );
+
+    if ( !query.execQuery( sql ) )
+        return false;
+
+    return true;
 }
 
 QString FileCache::findFilePath( int fileId )
 {
-    int index = -1;
+    QSqlDatabase database = QSqlDatabase::database( "FileCache" );
 
-    for ( int i = 0; i < m_items.count(); i++ ) {
-        if ( m_items.at( i ).m_uuid == m_uuid && m_items.at( i ).m_fileId == fileId ) {
-            index = i;
-            break;
-        }
-    }
+	Query query( database );
 
-    if ( index < 0 )
+	if ( !query.execQuery( "SELECT file_path FROM files_cache WHERE server_uuid = ? AND file_id = ?", m_uuid, fileId ) )
+		return QString();
+
+	QString path = query.readScalar().toString();
+
+    if ( path.isEmpty() )
         return QString();
-
-    QString path = m_items.at( index ).m_path;
 
     if ( !QFile::exists( path ) ) {
-        m_items.removeAt( index );
-        save();
+        query.execQuery( "DELETE FROM files_cache WHERE file_path = ?", path );
+
         return QString();
     }
 
-    if ( index > 0 ) {
-        Item item = m_items.at( index );
-        m_items.removeAt( index );
-        m_items.prepend( item );
-        save();
-    }
+    query.execQuery( "UPDATE files_cache SET last_access = strftime( '%s', 'now' ) WHERE file_path = ?", path );
 
     return path;
 }
 
 QString FileCache::generateFilePath( const QString& name ) const
 {
-    QString path = application->locateTempFile( name );
+    QString path = application->locateSharedCacheFile( "files/" + name );
 
     QFileInfo info( path );
 
@@ -85,7 +124,7 @@ QString FileCache::generateFilePath( const QString& name ) const
 
     for ( int number = 2; ; number++ ) {
         QString generatedName = QString( "%1(%2)%3" ).arg( baseName ).arg( number ).arg( suffix );
-        path = application->locateTempFile( generatedName );
+        path = application->locateSharedCacheFile( "files/" + generatedName );
         if ( !QFile::exists( path ) )
             return path;
     }
@@ -93,80 +132,67 @@ QString FileCache::generateFilePath( const QString& name ) const
 
 void FileCache::allocFileSpace( int size )
 {
-    flush( size );
+    QSqlDatabase database = QSqlDatabase::database( "FileCache" );
+    database.transaction();
+
+    bool ok = allocFileSpace( size, database );
+    if ( ok )
+        ok = database.commit();
+
+    if ( !ok )
+        database.rollback();
+}
+
+bool FileCache::allocFileSpace( int allocated, const QSqlDatabase& database )
+{
+	const int maxCount = 100;
+	const int maxSize = 50 * 1024 * 1024;
+
+	Query query( database );
+
+	int count = 0;
+	int size = 0;
+
+	if ( !query.execQuery( "SELECT COUNT(*), SUM( file_size ) FROM files_cache" ) )
+		return false;
+
+	if ( query.next() ) {
+		count = query.value( 0 ).toInt();
+		size = query.value( 1 ).toInt();
+	}
+
+	if ( allocated > 0 ) {
+		count++;
+		size += allocated;
+	}
+
+	QStringList paths;
+
+	if ( !query.execQuery( "SELECT file_path, file_size FROM files_cache ORDER BY last_access" ) )
+		return false;
+
+	while ( query.next() ) {
+		QString path = query.value( 0 ).toString();
+        if ( !QFile::exists( path ) || ( count > maxCount || size > maxSize ) && QFile::remove( path ) ) {
+			paths.append( path );
+			count--;
+			size -= query.value( 1 ).toInt();
+		}
+	}
+
+	query.setQuery( "DELETE FROM files_cache WHERE file_path = ?" );
+
+	foreach ( const QString& path, paths )
+		query.exec( path );
+
+	return true;
 }
 
 void FileCache::commitFile( int fileId, const QString& path, int size )
 {
-    Item item = { m_uuid, fileId, path, size };
-    m_items.prepend( item );
-    save();
-}
+    QSqlDatabase database = QSqlDatabase::database( "FileCache" );
 
-void FileCache::flush()
-{
-    flush( 0 );
-}
+	Query query( database );
 
-void FileCache::flush( int allocated )
-{
-    LocalSettings* settings = application->applicationSettings();
-    int limit = settings->value( "AttachmentsCacheSize" ).toInt() * 1024 * 1024;
-
-    int occupied = ( allocated + 4095 ) & ~4095;
-
-    for ( int i = 0; i < m_items.count(); i++ )
-        occupied += ( m_items.at( i ).m_size + 4095 ) & ~4095;
-
-    bool modified = false;
-
-    for ( int i = m_items.count() - 1; i >= 0; i-- ) {
-        QString path = m_items.at( i ).m_path;
-        if ( !QFile::exists( path ) || ( ( occupied > limit ) && QFile::remove( path ) ) ) {
-            occupied -= ( m_items.at( i ).m_size + 4095 ) & ~4095;
-            m_items.removeAt( i );
-            modified = true;
-        }
-    }
-
-    if ( modified )
-        save();
-}
-
-QDataStream& operator <<( QDataStream& stream, const FileCache::Item& item )
-{
-    return stream
-        << item.m_uuid
-        << item.m_fileId
-        << item.m_path
-        << item.m_size;
-}
-
-QDataStream& operator >>( QDataStream& stream, FileCache::Item& item )
-{
-    return stream
-        >> item.m_uuid
-        >> item.m_fileId
-        >> item.m_path
-        >> item.m_size;
-}
-
-void FileCache::load()
-{
-    DataSerializer serializer( m_path );
-
-    if ( !serializer.openForReading() )
-        return;
-
-    serializer.stream() >> m_items;
-}
-
-void FileCache::save()
-{
-    DataSerializer serializer( m_path );
-
-    if ( !serializer.openForWriting() )
-        return;
-
-    serializer.stream() << m_items;
+	query.execQuery( "INSERT INTO files_cache ( server_uuid, file_id, file_path, file_size, last_access ) VALUES ( ?, ?, ?, ?, strftime( '%s', 'now' ) )", m_uuid, fileId, path, size );
 }

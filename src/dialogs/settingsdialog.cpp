@@ -98,8 +98,6 @@ SettingsDialog::SettingsDialog( QWidget* parent ) : CommandDialog( parent )
 
     m_ui.foldersSpinBox->setValue( settings->value( "FolderUpdateInterval" ).toInt() );
     m_ui.fullSpinBox->setValue( settings->value( "UpdateInterval" ).toInt() );
-    m_ui.detailsSpinBox->setValue( settings->value( "IssuesCacheSize" ).toInt() );
-    m_ui.cacheSpinBox->setValue( settings->value( "AttachmentsCacheSize" ).toInt() );
 
 #if !defined( NO_PROXY_FACTORY )
     QNetworkProxy::ProxyType proxyType = (QNetworkProxy::ProxyType)settings->value( "ProxyType" ).toInt();
@@ -154,8 +152,6 @@ bool SettingsDialog::apply()
 
     settings->setValue( "FolderUpdateInterval", m_ui.foldersSpinBox->value() );
     settings->setValue( "UpdateInterval", m_ui.fullSpinBox->value() );
-    settings->setValue( "IssuesCacheSize", m_ui.detailsSpinBox->value() );
-    settings->setValue( "AttachmentsCacheSize", m_ui.cacheSpinBox->value() );
 
 #if !defined( NO_PROXY_FACTORY )
     if ( !m_ui.customProxyCheckBox->isChecked() ) {

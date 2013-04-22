@@ -48,9 +48,6 @@ DataManager::~DataManager()
         clearIssueLocks();
         closeDatabase();
     }
-
-    if ( m_fileCache )
-        m_fileCache->flush();
 }
 
 static int parseVersion( const QString& version )
@@ -245,8 +242,6 @@ bool DataManager::installSchema( const QSqlDatabase& database )
                 m_fileCache->commitFile( fileId, path, size );
         }
 
-        m_fileCache->flush();
-
         if ( !query.execQuery( "DROP TABLE files_cache" ) )
             return false;
     }
@@ -375,10 +370,7 @@ void DataManager::helloReply( const Reply& reply )
 
     m_connectionSettings = new LocalSettings( locateDataFile( "connection.dat" ), this );
 
-    m_fileCache = new FileCache( m_serverUuid, application->locateCacheFile( "filecache.dat" ), this );
-    m_fileCache->flush();
-
-    connect( application->applicationSettings(), SIGNAL( settingsChanged() ), this, SLOT( settingsChanged() ) );
+    m_fileCache = new FileCache( m_serverUuid, application->locateSharedCacheFile( "cache.dat" ), this );
 
     m_valid = openDatabase();
 
@@ -1298,18 +1290,17 @@ void DataManager::flushIssueDetails()
 
 bool DataManager::flushIssueDetails( const QSqlDatabase& database )
 {
-    Query query( database );
+	const int maxCount = 100;
+
+	Query query( database );
 
     if ( !query.execQuery( "SELECT COUNT(*) FROM issue_locks" ) )
         return false;
 
-    LocalSettings* settings = application->applicationSettings();
-    int limit = settings->value( "IssuesCacheSize" ).toInt();
-
     int count = query.readScalar().toInt();
 
-    if ( count > limit ) {
-        if ( !query.execQuery( "SELECT issue_id FROM issue_locks WHERE lock_count = 0 ORDER BY last_access LIMIT ?", count - limit ) )
+    if ( count > maxCount ) {
+        if ( !query.execQuery( "SELECT issue_id FROM issue_locks WHERE lock_count = 0 ORDER BY last_access LIMIT ?", count - maxCount ) )
             return false;
 
         QList<int> deletedIssues;
@@ -1384,13 +1375,6 @@ void DataManager::allocFileSpace( int size )
 void DataManager::commitFile( int fileId, const QString& path, int size )
 {
     m_fileCache->commitFile( fileId, path, size );
-}
-
-void DataManager::settingsChanged()
-{
-    flushIssueDetails();
-
-    m_fileCache->flush();
 }
 
 bool DataManager::recalculateAllAlerts( const QSqlDatabase& database )

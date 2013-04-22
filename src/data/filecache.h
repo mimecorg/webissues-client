@@ -70,34 +70,13 @@ public:
     */
     void commitFile( int fileId, const QString& path, int size );
 
-    /**
-    * Remove files exceeding the limit from the cache.
-    */
-    void flush();
-
 private:
-    void flush( int allocated );
+	bool installSchema( const QSqlDatabase& database );
 
-    void load();
-    void save();
-
-private:
-    struct Item
-    {
-        QString m_uuid;
-        int m_fileId;
-        QString m_path;
-        int m_size;
-    };
-
-    friend QDataStream& operator <<( QDataStream& stream, const Item& item );
-    friend QDataStream& operator >>( QDataStream& stream, Item& item );
+    bool allocFileSpace( int allocated, const QSqlDatabase& database );
 
 private:
     QString m_uuid;
-    QString m_path;
-
-    QList<Item> m_items;
 };
 
 #endif
