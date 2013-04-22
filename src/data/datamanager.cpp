@@ -1290,9 +1290,9 @@ void DataManager::flushIssueDetails()
 
 bool DataManager::flushIssueDetails( const QSqlDatabase& database )
 {
-	const int maxCount = 100;
+    const int maxCount = 100;
 
-	Query query( database );
+    Query query( database );
 
     if ( !query.execQuery( "SELECT COUNT(*) FROM issue_locks" ) )
         return false;

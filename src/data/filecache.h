@@ -71,7 +71,7 @@ public:
     void commitFile( int fileId, const QString& path, int size );
 
 private:
-	bool installSchema( const QSqlDatabase& database );
+    bool installSchema( const QSqlDatabase& database );
 
     bool allocFileSpace( int allocated, const QSqlDatabase& database );
 

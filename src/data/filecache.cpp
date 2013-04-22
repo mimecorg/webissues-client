@@ -30,7 +30,7 @@ FileCache::FileCache( const QString& uuid, const QString& path, QObject* parent 
 {
     QSqlDatabase database = QSqlDatabase::addDatabase( "SQLITEX", "FileCache" );
 
-	database.setDatabaseName( path );
+    database.setDatabaseName( path );
 
     if ( !database.open() )
         return;
@@ -44,25 +44,25 @@ FileCache::FileCache( const QString& uuid, const QString& path, QObject* parent 
     if ( !ok ) {
         database.rollback();
         database.close();
-		return;
+        return;
     }
 
-	allocFileSpace( 0 );
+    allocFileSpace( 0 );
 }
 
 FileCache::~FileCache()
 {
-	allocFileSpace( 0 );
+    allocFileSpace( 0 );
 
-	QSqlDatabase database = QSqlDatabase::database( "FileCache" );
+    QSqlDatabase database = QSqlDatabase::database( "FileCache" );
     database.close();
 }
 
 bool FileCache::installSchema( const QSqlDatabase& database )
 {
-	const int schemaVersion = 1;
+    const int schemaVersion = 1;
 
-	Query query( database );
+    Query query( database );
 
     if ( !query.execQuery( "PRAGMA user_version" ) )
         return false;
@@ -72,10 +72,10 @@ bool FileCache::installSchema( const QSqlDatabase& database )
     if ( currentVersion >= schemaVersion )
         return true;
 
-	if ( !query.execQuery( "CREATE TABLE files_cache ( server_uuid text, file_id integer, file_path text UNIQUE, file_size integer, last_access integer, UNIQUE ( server_uuid, file_id ) )" ) )
-		return false;
+    if ( !query.execQuery( "CREATE TABLE files_cache ( server_uuid text, file_id integer, file_path text UNIQUE, file_size integer, last_access integer, UNIQUE ( server_uuid, file_id ) )" ) )
+        return false;
 
-	QString sql = QString( "PRAGMA user_version = %1" ).arg( schemaVersion );
+    QString sql = QString( "PRAGMA user_version = %1" ).arg( schemaVersion );
 
     if ( !query.execQuery( sql ) )
         return false;
@@ -87,12 +87,12 @@ QString FileCache::findFilePath( int fileId )
 {
     QSqlDatabase database = QSqlDatabase::database( "FileCache" );
 
-	Query query( database );
+    Query query( database );
 
-	if ( !query.execQuery( "SELECT file_path FROM files_cache WHERE server_uuid = ? AND file_id = ?", m_uuid, fileId ) )
-		return QString();
+    if ( !query.execQuery( "SELECT file_path FROM files_cache WHERE server_uuid = ? AND file_id = ?", m_uuid, fileId ) )
+        return QString();
 
-	QString path = query.readScalar().toString();
+    QString path = query.readScalar().toString();
 
     if ( path.isEmpty() )
         return QString();
@@ -145,54 +145,54 @@ void FileCache::allocFileSpace( int size )
 
 bool FileCache::allocFileSpace( int allocated, const QSqlDatabase& database )
 {
-	const int maxCount = 100;
-	const int maxSize = 50 * 1024 * 1024;
+    const int maxCount = 100;
+    const int maxSize = 50 * 1024 * 1024;
 
-	Query query( database );
+    Query query( database );
 
-	int count = 0;
-	int size = 0;
+    int count = 0;
+    int size = 0;
 
-	if ( !query.execQuery( "SELECT COUNT(*), SUM( file_size ) FROM files_cache" ) )
-		return false;
+    if ( !query.execQuery( "SELECT COUNT(*), SUM( file_size ) FROM files_cache" ) )
+        return false;
 
-	if ( query.next() ) {
-		count = query.value( 0 ).toInt();
-		size = query.value( 1 ).toInt();
-	}
+    if ( query.next() ) {
+        count = query.value( 0 ).toInt();
+        size = query.value( 1 ).toInt();
+    }
 
-	if ( allocated > 0 ) {
-		count++;
-		size += allocated;
-	}
+    if ( allocated > 0 ) {
+        count++;
+        size += allocated;
+    }
 
-	QStringList paths;
+    QStringList paths;
 
-	if ( !query.execQuery( "SELECT file_path, file_size FROM files_cache ORDER BY last_access" ) )
-		return false;
+    if ( !query.execQuery( "SELECT file_path, file_size FROM files_cache ORDER BY last_access" ) )
+        return false;
 
-	while ( query.next() ) {
-		QString path = query.value( 0 ).toString();
+    while ( query.next() ) {
+        QString path = query.value( 0 ).toString();
         if ( !QFile::exists( path ) || ( count > maxCount || size > maxSize ) && QFile::remove( path ) ) {
-			paths.append( path );
-			count--;
-			size -= query.value( 1 ).toInt();
-		}
-	}
+            paths.append( path );
+            count--;
+            size -= query.value( 1 ).toInt();
+        }
+    }
 
-	query.setQuery( "DELETE FROM files_cache WHERE file_path = ?" );
+    query.setQuery( "DELETE FROM files_cache WHERE file_path = ?" );
 
-	foreach ( const QString& path, paths )
-		query.exec( path );
+    foreach ( const QString& path, paths )
+        query.exec( path );
 
-	return true;
+    return true;
 }
 
 void FileCache::commitFile( int fileId, const QString& path, int size )
 {
     QSqlDatabase database = QSqlDatabase::database( "FileCache" );
 
-	Query query( database );
+    Query query( database );
 
-	query.execQuery( "INSERT INTO files_cache ( server_uuid, file_id, file_path, file_size, last_access ) VALUES ( ?, ?, ?, ?, strftime( '%s', 'now' ) )", m_uuid, fileId, path, size );
+    query.execQuery( "INSERT INTO files_cache ( server_uuid, file_id, file_path, file_size, last_access ) VALUES ( ?, ?, ?, ?, strftime( '%s', 'now' ) )", m_uuid, fileId, path, size );
 }

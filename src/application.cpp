@@ -411,8 +411,8 @@ void Application::initializeDefaultPaths()
     m_translationsPath = QDir::cleanPath( appPath + "/../share/webissues/translations" );
 #endif
 
-	QString dataPath;
-	QString cachePath;
+    QString dataPath;
+    QString cachePath;
 
 #if defined( Q_WS_WIN )
     wchar_t appDataPath[ MAX_PATH ];
