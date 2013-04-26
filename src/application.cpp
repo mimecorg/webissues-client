@@ -422,6 +422,7 @@ void Application::initializeDefaultPaths()
         dataPath = QDir::homePath();
 
     m_dataPath = dataPath + QLatin1String( "/WebIssues Client/1.1" );
+    m_oldDataPath = dataPath + QLatin1String( "/WebIssues Client/1.0" );
 
     wchar_t localAppDataPath[ MAX_PATH ];
     if ( SHGetSpecialFolderPath( 0, localAppDataPath, CSIDL_LOCAL_APPDATA, FALSE ) )
@@ -434,6 +435,7 @@ void Application::initializeDefaultPaths()
 #else
     dataPath = QDesktopServices::storageLocation( QDesktopServices::DataLocation );
     m_dataPath = dataPath + QLatin1String( "/webissues-1.1" );
+    m_oldDataPath = dataPath + QLatin1String( "/webissues-1.0" );
 
     cachePath = QDesktopServices::storageLocation( QDesktopServices::CacheLocation );
     m_cachePath = cachePath + QLatin1String( "/webissues-1.1" );
@@ -450,6 +452,7 @@ void Application::processArguments()
         if ( arg == QLatin1String( "-data" ) ) {
             if ( i + 1 < args.count() && !args.at( i + 1 ).startsWith( '-' ) ) {
                 m_dataPath = QDir::fromNativeSeparators( args.at( ++i ) );
+                m_oldDataPath.clear();
                 m_portable = true;
             }
         } else if ( arg == QLatin1String( "-cache" ) ) {
@@ -466,7 +469,10 @@ QString Application::locateDataFile( const QString& name )
 {
     QString path = m_dataPath + '/' + name;
 
-    checkAccess( path );
+    if ( checkAccess( path ) ) {
+        if ( !m_oldDataPath.isEmpty() && !QFile::exists( path ) && QFile::exists( m_oldDataPath + '/' + name ) )
+            QFile::copy( m_oldDataPath + '/' + name, path );
+    }
 
     return path;
 }

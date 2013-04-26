@@ -212,6 +212,7 @@ private:
     QString m_translationsPath;
 
     QString m_dataPath;
+    QString m_oldDataPath;
     QString m_cachePath;
     QString m_sharedCachePath;
 
