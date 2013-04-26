@@ -169,9 +169,10 @@ bool DataManager::lockDatabase( const QSqlDatabase& database )
     return true;
 }
 
-bool DataManager::installSchema( const QSqlDatabase& database )
+bool DataManager::installSchema( QSqlDatabase& database )
 {
     const int schemaVersion = 3;
+    const int minSchemaVersion = 3;
 
     Query query( database );
 
@@ -186,7 +187,19 @@ bool DataManager::installSchema( const QSqlDatabase& database )
     if ( currentVersion > schemaVersion )
         return false;
 
-    if ( currentVersion < 1 ) {
+    if ( currentVersion > 0 && currentVersion < minSchemaVersion ) {
+        foreach ( const QString& table, database.tables() ) {
+            if ( !query.execQuery( "DROP TABLE " + table ) )
+                return false;
+        }
+        database.commit();
+        if ( !query.execQuery( "VACUUM" ) )
+            return false;
+        database.transaction();
+        currentVersion = 0;
+    }
+
+    if ( currentVersion == 0 ) {
         const char* schema[] = {
             "CREATE TABLE alerts ( alert_id integer UNIQUE, folder_id integer, view_id integer, alert_email integer )",
             "CREATE TABLE alerts_cache ( alert_id integer UNIQUE, total_count integer, modified_count integer, new_count integer )",
@@ -227,40 +240,6 @@ bool DataManager::installSchema( const QSqlDatabase& database )
         }
 
         currentVersion = schemaVersion;
-    }
-
-    if ( currentVersion < 2 ) {
-        if ( !query.execQuery( "SELECT file_id, file_path, file_size FROM files_cache ORDER BY last_access ASC" ) )
-            return false;
-
-        while ( query.next() ) {
-            int fileId = query.value( 0 ).toInt();
-            QString path = query.value( 1 ).toString();
-            int size = query.value( 2 ).toInt();
-
-            if ( QFile::exists( path ) )
-                m_fileCache->commitFile( fileId, path, size );
-        }
-
-        if ( !query.execQuery( "DROP TABLE files_cache" ) )
-            return false;
-    }
-
-    if ( currentVersion < 3 ) {
-        const char* queries[] = {
-            "ALTER TABLE comments ADD comment_format integer",
-            "CREATE TABLE issue_descriptions ( issue_id integer UNIQUE, descr_text text, descr_format integer, modified_time integer, modified_user_id integer )"
-            "CREATE TABLE project_descriptions ( project_id integer UNIQUE, descr_text text, descr_format integer, modified_time integer, modified_user_id integer )",
-            "ALTER TABLE projects ADD stamp_id integer",
-            "CREATE TABLE projects_cache ( project_id integer UNIQUE, summary_id integer )",
-            "DROP TABLE formats",
-            "DELETE FROM settings",
-        };
-
-        for ( int i = 0; i < (int)( sizeof( queries ) / sizeof( queries[ 0 ] ) ); i++ ) {
-            if ( !query.execQuery( queries[ i ] ) )
-                return false;
-        }
     }
 
     QString sql = QString( "PRAGMA user_version = %1" ).arg( schemaVersion );

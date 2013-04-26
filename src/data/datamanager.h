@@ -429,7 +429,7 @@ private:
     void closeDatabase();
 
     bool lockDatabase( const QSqlDatabase& database );
-    bool installSchema( const QSqlDatabase& database );
+    bool installSchema( QSqlDatabase& database );
 
     bool updateSettingsReply( const Reply& reply, const QSqlDatabase& database );
     bool updateUsersReply( const Reply& reply, const QSqlDatabase& database );
