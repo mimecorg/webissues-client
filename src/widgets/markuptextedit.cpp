@@ -253,7 +253,7 @@ void MarkupTextEdit::markupMultiline( const QString& openBlockWith, const QStrin
                 trailingSpaces = spacesExp.cap( 0 );
                 line = line.left( spacesExp.pos( 0 ) );
             }
-            if ( !line.isEmpty() )
+            if ( !line.isEmpty() || lines.count() == 1 )
                 blocks.append( openWith + line + closeWith + trailingSpaces );
             else
                 blocks.append( trailingSpaces );
@@ -261,7 +261,7 @@ void MarkupTextEdit::markupMultiline( const QString& openBlockWith, const QStrin
 
         QString block = blocks.join( "\n" );
 
-        QRegExp newlinesExp( "[ \\t\\n]+$" );
+        QRegExp newlinesExp( "\\n+$" );
         QString trailingNewlines;
         if ( newlinesExp.indexIn( block ) >= 0 ) {
             trailingNewlines = newlinesExp.cap( 0 );
