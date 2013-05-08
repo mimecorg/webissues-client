@@ -289,6 +289,34 @@ void CommandManager::checkPendingCommand()
     }
 }
 
+static QString userAgent()
+{
+    QString agent = "Mozilla/5.0 (";
+
+#if defined( Q_WS_WIN )
+    agent += QLatin1String( "Windows" );
+#elif defined( Q_WS_MAC )
+    agent += QLatin1String( "Mac OS X" );
+#elif defined( Q_WS_X11 )
+    agent += QLatin1String( "X11; " );
+#if defined( Q_OS_LINUX )
+    agent += QLatin1String( "Linux" );
+#else
+    agent += QLatin1String( "Unknown" );
+#endif
+#else
+    agent += QLatin1String( "Unknown" );
+#endif
+
+    agent += QLatin1String( ") WebIssues/" );
+    agent += application->version();
+
+    agent += QLatin1String( " Qt/" );
+    agent += qVersion();
+
+    return agent;
+}
+
 void CommandManager::sendCommandRequest( Command* command )
 {
     QNetworkRequest request( m_url );
@@ -315,6 +343,8 @@ void CommandManager::sendCommandRequest( Command* command )
     m_currentMessage->open( QIODevice::ReadOnly );
 
     request.setHeader( QNetworkRequest::ContentTypeHeader, m_currentMessage->contentType() );
+
+    request.setRawHeader( "User-Agent", userAgent().toLatin1() );
 
     if ( command->binaryResponseOutput() )
         request.setRawHeader( "Accept", "application/octet-stream,*/*" );
