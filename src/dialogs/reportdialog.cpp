@@ -254,6 +254,7 @@ void ReportDialog::exportCsv()
 
     QTextStream stream( &file );
     stream.setCodec( QTextCodec::codecForName( "UTF-8" ) );
+    stream.setGenerateByteOrderMark( true );
 
     stream << generateCsvReport();
 
