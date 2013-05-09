@@ -120,7 +120,7 @@ for i in $paths; do
     minor=`echo $version | cut -d . -f 2`
     patch=`echo $version | cut -d . -f 3`
     if test "$major" -eq 4; then
-      if test "$minor" -gt 4 -o "$minor" -eq 4 -a "$patch" -ge 2; then
+      if test "$minor" -ge 7; then
         QMAKE=$i
         break
       fi
@@ -129,7 +129,7 @@ for i in $paths; do
 done
 
 if test -z "$QMAKE"; then
-  echo "*** ERROR: Cannot find 'qmake' from Qt 4.4.2 or newer." >&2
+  echo "*** ERROR: Cannot find 'qmake' from Qt 4.7 or newer." >&2
   exit 1
 fi
 

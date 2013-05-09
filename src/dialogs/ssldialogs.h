@@ -20,12 +20,12 @@
 #ifndef SSLDIALOGS_H
 #define SSLDIALOGS_H
 
-#if defined( HAVE_OPENSSL )
-
 #include "dialogs/informationdialog.h"
 #include "dialogs/commanddialog.h"
 
 #include <QSslError>
+
+#if !defined( QT_NO_OPENSSL )
 
 class PropertyPanel;
 
@@ -120,6 +120,6 @@ private:
     QList<QSslCertificate> m_certificates;
 };
 
-#endif // defined( HAVE_OPENSSL )
+#endif // !defined( QT_NO_OPENSSL )
 
 #endif

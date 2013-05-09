@@ -1,6 +1,5 @@
 HEADERS += data/bookmark.h \
            data/bookmarksstore.h \
-           data/certificatesstore.h \
            data/credential.h \
            data/credentialsstore.h \
            data/datamanager.h \
@@ -14,7 +13,6 @@ HEADERS += data/bookmark.h \
 
 SOURCES += data/bookmark.cpp \
            data/bookmarksstore.cpp \
-           data/certificatesstore.cpp \
            data/credential.cpp \
            data/credentialsstore.cpp \
            data/datamanager.cpp \
@@ -24,3 +22,8 @@ SOURCES += data/bookmark.cpp \
            data/localsettings.cpp \
            data/query.cpp \
            data/updateevent.cpp
+
+contains( QT_CONFIG, openssl ) | contains( QT_CONFIG, openssl-linked ) {
+    HEADERS += data/certificatesstore.h
+    SOURCES += data/certificatesstore.cpp
+}

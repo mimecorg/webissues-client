@@ -60,9 +60,7 @@ void PropertyPanel::addProperty( const QString& key, const QString& name )
     m_layout->addWidget( label, row, 0 );
 
     QTextBrowser* browser = new QTextBrowser( this );
-#if ( QT_VERSION >= 0x040500 )
     browser->document()->setDocumentMargin( 2 );
-#endif
     browser->setSizePolicy( QSizePolicy::Ignored, QSizePolicy::Fixed );
     browser->setFrameStyle( QFrame::NoFrame );
     browser->viewport()->setBackgroundRole( QPalette::Window );

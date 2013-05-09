@@ -23,10 +23,7 @@
 #include <QObject>
 #include <QUrl>
 #include <QList>
-
-#if defined( HAVE_OPENSSL )
 #include <QSslConfiguration>
-#endif
 
 class AbstractBatch;
 class Command;
@@ -136,12 +133,12 @@ public:
     */
     QString errorMessage();
 
-#if defined( HAVE_OPENSSL )
+#if !defined( QT_NO_OPENSSL )
     /**
     * Return server's SSL configuration.
     */
     QSslConfiguration sslConfiguration() const { return m_sslConfiguration; }
-#endif // defined( HAVE_OPENSSL )
+#endif
 
 private:
     void sendSetHostRequest();
@@ -175,14 +172,14 @@ private slots:
     void authenticationRequired( QNetworkReply* reply, QAuthenticator* authenticator );
     void proxyAuthenticationRequired( const QNetworkProxy& proxy, QAuthenticator* authenticator );
 
-#if defined( HAVE_OPENSSL )
+#if !defined( QT_NO_OPENSSL )
     void handleSslErrors( QNetworkReply* reply, const QList<QSslError>& errors );
-#endif // defined( HAVE_OPENSSL )
+#endif
 
 private:
     QNetworkAccessManager* m_manager;
 
-#if defined( HAVE_OPENSSL )
+#if !defined( QT_NO_OPENSSL )
     QList<QSslCertificate> m_certificates;
 
     QSslConfiguration m_sslConfiguration;

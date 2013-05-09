@@ -57,10 +57,7 @@
 #include <QStatusBar>
 #include <QAccessible>
 #include <QDesktopWidget>
-
-#if defined( HAVE_OPENSSL )
 #include <QSslCipher>
-#endif
 
 #if defined( Q_WS_WIN )
 static const int TrayIconSize = 16;
@@ -431,7 +428,7 @@ void MainWindow::connectionOpened()
     connect( m_view, SIGNAL( statusChanged( const QPixmap&, const QString&, int ) ), this, SLOT( showStatus( const QPixmap&, const QString&, int ) ) );
     connect( m_view, SIGNAL( summaryChanged( const QPixmap&, const QString& ) ), this, SLOT( showSummary( const QPixmap&, const QString& ) ) );
 
-#if defined( HAVE_OPENSSL )
+#if !defined( QT_NO_OPENSSL )
     QSslCipher cipher = commandManager->sslConfiguration().sessionCipher();
     if ( !cipher.isNull() ) {
         m_encryptionLabel->setPixmap( IconLoader::pixmap( "edit-access" ) );

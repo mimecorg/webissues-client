@@ -46,11 +46,7 @@ SearchEditBox::SearchEditBox( QWidget* parent ) : QLineEdit( parent )
     int frameWidth = style()->pixelMetric( QStyle::PM_DefaultFrameWidth );
 
     int padding = buttonSize.width() + frameWidth + 1;
-#if ( QT_VERSION >= 0x040500 )
     setTextMargins( padding, 0, padding, 0 );
-#else
-    setStyleSheet( QString( "QLineEdit { padding-left: %1px; padding-right: %1px; } " ).arg( padding ) );
-#endif
 
     setMinimumHeight( qMax( minimumSizeHint().height(), buttonSize.height() + 2 * frameWidth ) );
 }

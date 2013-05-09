@@ -183,11 +183,7 @@ void InputLineEdit::calculateLayout()
         m_errorLabel->hide();
     }
 
-#if ( QT_VERSION >= 0x040500 )
     setTextMargins( 0, 0, padding, 0 );
-#else
-    setStyleSheet( QString( "QLineEdit { padding-right: %1px; }" ).arg( padding ) );
-#endif
 
     setMinimumHeight( qMax( minimumSizeHint().height(), buttonSize.height() + 2 * frameWidth ) );
 }
@@ -327,9 +323,7 @@ void EnumLineEdit::setItems( const QStringList& items )
     completer->setCaseSensitivity( Qt::CaseInsensitive );
     completer->setMultiSelect( m_multiSelect );
 
-#if ( QT_VERSION >= 0x040600 )
     completer->setMaxVisibleItems( 10 );
-#endif
 
     setCompleter( completer );
 

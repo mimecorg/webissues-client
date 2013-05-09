@@ -61,10 +61,6 @@ SettingsDialog::SettingsDialog( QWidget* parent ) : CommandDialog( parent )
     m_ui.autoStartCheckBox->hide();
 #endif
 
-#if defined( NO_PROXY_FACTORY )
-    m_ui.proxyGroupBox->hide();
-#endif
-
     m_ui.hostLineEdit->setMaxLength( 64 );
     m_ui.hostLineEdit->setRequired( true );
 
@@ -99,7 +95,6 @@ SettingsDialog::SettingsDialog( QWidget* parent ) : CommandDialog( parent )
     m_ui.foldersSpinBox->setValue( settings->value( "FolderUpdateInterval" ).toInt() );
     m_ui.fullSpinBox->setValue( settings->value( "UpdateInterval" ).toInt() );
 
-#if !defined( NO_PROXY_FACTORY )
     QNetworkProxy::ProxyType proxyType = (QNetworkProxy::ProxyType)settings->value( "ProxyType" ).toInt();
     if ( proxyType == QNetworkProxy::NoProxy || proxyType == QNetworkProxy::DefaultProxy ) {
         m_ui.customProxyCheckBox->setChecked( false );
@@ -110,7 +105,6 @@ SettingsDialog::SettingsDialog( QWidget* parent ) : CommandDialog( parent )
         m_ui.proxyTypeComboBox->setCurrentIndex( proxyType == QNetworkProxy::Socks5Proxy ? 1 : 0 );
         m_ui.excludeLineEdit->setInputValue( settings->value( "ProxyExclude" ).toStringList().join( ", " ) );
     }
-#endif
 
     resize( 500, 500 );
 }
@@ -153,7 +147,6 @@ bool SettingsDialog::apply()
     settings->setValue( "FolderUpdateInterval", m_ui.foldersSpinBox->value() );
     settings->setValue( "UpdateInterval", m_ui.fullSpinBox->value() );
 
-#if !defined( NO_PROXY_FACTORY )
     if ( !m_ui.customProxyCheckBox->isChecked() ) {
         settings->setValue( "ProxyType", (int)QNetworkProxy::NoProxy );
     } else {
@@ -162,7 +155,6 @@ bool SettingsDialog::apply()
         settings->setValue( "ProxyType", (int)( m_ui.proxyTypeComboBox->currentIndex() == 1 ? QNetworkProxy::Socks5Proxy : QNetworkProxy::HttpProxy ) );
         settings->setValue( "ProxyExclude", m_ui.excludeLineEdit->inputValue().split( ", " ) );
     }
-#endif
 
     settings->save();
 

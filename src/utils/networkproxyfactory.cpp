@@ -19,8 +19,6 @@
 
 #include "networkproxyfactory.h"
 
-#if !defined( NO_PROXY_FACTORY )
-
 #include "application.h"
 #include "data/localsettings.h"
 
@@ -57,5 +55,3 @@ QList<QNetworkProxy> NetworkProxyFactory::queryProxy( const QNetworkProxyQuery& 
 
     return QList<QNetworkProxy>() << QNetworkProxy( type, hostName, port );
 }
-
-#endif // !defined( NO_PROXY_FACTORY )

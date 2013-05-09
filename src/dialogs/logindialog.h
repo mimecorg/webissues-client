@@ -27,10 +27,6 @@ class InputLineEdit;
 
 class QCheckBox;
 
-#if defined( HAVE_OPENSSL )
-class QSslError;
-#endif
-
 /**
 * Dialog for retrieving login and password.
 */

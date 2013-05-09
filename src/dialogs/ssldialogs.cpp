@@ -17,8 +17,6 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************/
 
-#if defined( HAVE_OPENSSL )
-
 #include "ssldialogs.h"
 
 #include "utils/datetimehelper.h"
@@ -224,5 +222,3 @@ void SslErrorsDialog::showCertificates()
     dialog.setCertificates( m_certificates );
     dialog.exec();
 }
-
-#endif // defined( HAVE_OPENSSL )

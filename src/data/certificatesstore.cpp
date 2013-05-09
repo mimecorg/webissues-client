@@ -17,8 +17,6 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************/
 
-#if defined( HAVE_OPENSSL )
-
 #include "certificatesstore.h"
 
 #include <QFile>
@@ -67,5 +65,3 @@ void CertificatesStore::save()
     for ( int i = 0; i < m_certificates.count(); i++ )
         file.write( m_certificates.at( i ).toPem() );
 }
-
-#endif // defined( HAVE_OPENSSL )

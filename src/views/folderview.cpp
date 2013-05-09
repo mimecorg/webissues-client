@@ -735,9 +735,7 @@ void FolderView::updateSearchOptions()
         action->setActionGroup( m_searchActionGroup );
     }
 
-#if ( QT_VERSION >= 0x040700 )
     m_searchBox->setPlaceholderText( helper.columnName( m_searchColumn ) );
-#endif
 }
 
 void FolderView::quickSearchChanged( const QString& text )
@@ -749,10 +747,8 @@ void FolderView::searchActionTriggered( QAction* action )
 {
     m_searchColumn = action->data().toInt();
 
-#if ( QT_VERSION >= 0x040700 )
     ViewSettingsHelper helper( m_typeId );
     m_searchBox->setPlaceholderText( helper.columnName( m_searchColumn ) );
-#endif
 
     m_model->setSearchText( m_searchColumn, m_searchBox->text() );
 }

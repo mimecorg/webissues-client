@@ -20,10 +20,10 @@
 #ifndef CERTIFICATESSTORE_H
 #define CERTIFICATESSTORE_H
 
-#if defined( HAVE_OPENSSL )
-
 #include <QObject>
 #include <QSslCertificate>
+
+#if !defined( QT_NO_OPENSSL )
 
 /**
 * Class for storing a list of SSL certificates.
@@ -71,6 +71,6 @@ private:
     QList<QSslCertificate> m_certificates;
 };
 
-#endif // defined( HAVE_OPENSSL )
+#endif // !defined( QT_NO_OPENSSL )
 
 #endif

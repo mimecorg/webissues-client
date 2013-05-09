@@ -1,7 +1,7 @@
 Requirements
 ============
 
- * Qt framework, version 4.4.2 or newer (http://qt.digia.com/product/)
+ * Qt framework, version 4.7 or newer (http://qt-project.org/)
 
  * Optional: OpenSLL toolkit (http://www.openssl.org/)
 

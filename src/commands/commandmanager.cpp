@@ -25,7 +25,9 @@
 #include "application.h"
 #include "data/localsettings.h"
 #include "data/credentialsstore.h"
+#include "data/certificatesstore.h"
 #include "dialogs/logindialog.h"
+#include "dialogs/ssldialogs.h"
 #include "utils/errorhelper.h"
 
 #include <QNetworkAccessManager>
@@ -35,11 +37,6 @@
 #include <QAuthenticator>
 #include <QRegExp>
 #include <QStringList>
-
-#if defined( HAVE_OPENSSL )
-#include "data/certificatesstore.h"
-#include "dialogs/ssldialogs.h"
-#endif
 
 CommandManager* commandManager = NULL;
 
@@ -60,7 +57,7 @@ CommandManager::CommandManager( QNetworkAccessManager* manager ) :
     connect( m_manager, SIGNAL( proxyAuthenticationRequired( const QNetworkProxy&, QAuthenticator* ) ),
         this, SLOT( proxyAuthenticationRequired( const QNetworkProxy&, QAuthenticator* ) ) );
 
-#if defined( HAVE_OPENSSL )
+#if !defined( QT_NO_OPENSSL )
     connect( m_manager, SIGNAL( sslErrors( QNetworkReply*, const QList<QSslError>& ) ),
         this, SLOT( handleSslErrors( QNetworkReply*, const QList<QSslError>& ) ) );
 #endif
@@ -369,7 +366,9 @@ void CommandManager::metaDataChanged()
     m_redirectionTarget = m_currentReply->attribute( QNetworkRequest::RedirectionTargetAttribute ).toUrl();
     m_contentType = m_currentReply->header( QNetworkRequest::ContentTypeHeader ).toByteArray();
     m_protocolVersion = m_currentReply->rawHeader( "X-WebIssues-Version" );
+#if !defined( QT_NO_OPENSSL )
     m_sslConfiguration = m_currentReply->sslConfiguration();
+#endif
 
     if ( m_statusCode != 200 )
         return;
@@ -676,7 +675,7 @@ void CommandManager::handleAuthentication( int mode, const QString& hostName, QA
     authenticator->setPassword( password );
 }
 
-#if defined( HAVE_OPENSSL )
+#if !defined( QT_NO_OPENSSL )
 
 void CommandManager::handleSslErrors( QNetworkReply* reply, const QList<QSslError>& errors )
 {
@@ -713,4 +712,4 @@ void CommandManager::handleSslErrors( QNetworkReply* reply, const QList<QSslErro
     reply->ignoreSslErrors();
 }
 
-#endif // defined( HAVE_OPENSSL )
+#endif // !defined( QT_NO_OPENSSL )

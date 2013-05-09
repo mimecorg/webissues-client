@@ -19,12 +19,9 @@
 
 #include "connectioninfodialog.h"
 
-#if defined( HAVE_OPENSSL )
-#include "ssldialogs.h"
-#endif
-
 #include "commands/commandmanager.h"
 #include "data/datamanager.h"
+#include "dialogs/ssldialogs.h"
 #include "utils/iconloader.h"
 #include "widgets/propertypanel.h"
 
@@ -32,10 +29,7 @@
 #include <QGroupBox>
 #include <QPushButton>
 #include <QDialogButtonBox>
-
-#if defined( HAVE_OPENSSL )
 #include <QSslCipher>
-#endif
 
 ConnectionInfoDialog::ConnectionInfoDialog( QWidget* parent ) : InformationDialog( parent )
 {
@@ -97,7 +91,7 @@ void ConnectionInfoDialog::updateInformation()
 {
     m_serverPanel->setValue( "url", commandManager->serverUrl().toString() );
 
-#if defined( HAVE_OPENSSL )
+#if !defined( QT_NO_OPENSSL )
     m_certificatesButton->setEnabled( !commandManager->sslConfiguration().peerCertificateChain().isEmpty() );
 
     QSslCipher cipher = commandManager->sslConfiguration().sessionCipher();
@@ -107,7 +101,7 @@ void ConnectionInfoDialog::updateInformation()
         m_serverPanel->setValue( "encryption", tr( "None" ) );
 #else
     m_certificatesButton->setEnabled( false );
-    m_serverPanel->setValue( "encrypted", tr( "No" ) );
+    m_serverPanel->setValue( "encryption", tr( "None" ) );
 #endif
 
     m_serverPanel->setValue( "name", dataManager->serverName() );
@@ -122,7 +116,7 @@ void ConnectionInfoDialog::updateInformation()
 
 void ConnectionInfoDialog::viewCertificates()
 {
-#if defined( HAVE_OPENSSL )
+#if !defined( QT_NO_OPENSSL )
     SslCertificatesDialog dialog( this );
     dialog.setCertificates( commandManager->sslConfiguration().peerCertificateChain() );
     dialog.exec();

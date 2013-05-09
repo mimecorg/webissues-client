@@ -29,10 +29,6 @@ include( xmlui/xmlui.pri )
 
 INCLUDEPATH += .
 
-contains( QT_CONFIG, openssl ) | contains( QT_CONFIG, openssl-linked ) {
-    DEFINES += HAVE_OPENSSL
-}
-
 PRECOMPILED_HEADER = precompiled.h
 PRECOMPILED_SOURCE = precompiled.cpp
 

@@ -28,13 +28,10 @@ class MainWindow;
 class LocalSettings;
 class BookmarksStore;
 class CredentialsStore;
+class CertificatesStore;
 class UpdateClient;
 class AboutBoxSection;
 class IniFile;
-
-#if defined( HAVE_OPENSSL )
-class CertificatesStore;
-#endif
 
 class QNetworkAccessManager;
 class QUrl;
@@ -118,7 +115,7 @@ public:
     */
     CredentialsStore* credentialsStore() const { return m_credentials; }
 
-#if defined( HAVE_OPENSSL )
+#if !defined( QT_NO_OPENSSL )
     /**
     * Return the certificates store.
     */
@@ -221,7 +218,7 @@ private:
     LocalSettings* m_settings;
     BookmarksStore* m_bookmarks;
     CredentialsStore* m_credentials;
-#if defined( HAVE_OPENSSL )
+#if !defined( QT_NO_OPENSSL )
     CertificatesStore* m_certificates;
 #endif
 

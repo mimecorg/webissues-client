@@ -20,14 +20,6 @@
 #ifndef NETWORKPROXYFACTORY_H
 #define NETWORKPROXYFACTORY_H
 
-#include <QtGlobal>
-
-#if ( QT_VERSION < 0x040500 )
-#define NO_PROXY_FACTORY
-#endif
-
-#if !defined( NO_PROXY_FACTORY )
-
 #include <QNetworkProxyFactory>
 
 class NetworkProxyFactory : public QNetworkProxyFactory
@@ -39,7 +31,5 @@ public:
 public: // overrides
     QList<QNetworkProxy> queryProxy( const QNetworkProxyQuery& query );
 };
-
-#endif // !defined( NO_PROXY_FACTORY )
 
 #endif

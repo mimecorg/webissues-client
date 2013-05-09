@@ -24,6 +24,7 @@
 #include "data/localsettings.h"
 #include "data/bookmarksstore.h"
 #include "data/credentialsstore.h"
+#include "data/certificatesstore.h"
 #include "data/datamanager.h"
 #include "dialogs/dialogmanager.h"
 #include "dialogs/aboutbox.h"
@@ -32,10 +33,6 @@
 #include "utils/inifile.h"
 #include "utils/iconloader.h"
 #include "views/viewmanager.h"
-
-#if defined( HAVE_OPENSSL )
-#include "data/certificatesstore.h"
-#endif
 
 #include <QSessionManager>
 #include <QMessageBox>
@@ -73,7 +70,7 @@ Application::Application( int& argc, char** argv ) : QApplication( argc, argv ),
     m_settings = new LocalSettings( locateDataFile( "settings.dat" ), this );
     m_bookmarks = new BookmarksStore( locateDataFile( "bookmarks.dat" ), this );
     m_credentials = new CredentialsStore( locateDataFile( "credentials.dat" ), this );
-#if defined( HAVE_OPENSSL )
+#if !defined( QT_NO_OPENSSL )
     m_certificates = new CertificatesStore( locateDataFile( "certificates.crt" ), this );
 #endif
 
@@ -100,9 +97,7 @@ Application::Application( int& argc, char** argv ) : QApplication( argc, argv ),
 
     m_manager = new QNetworkAccessManager();
 
-#if !defined( NO_PROXY_FACTORY )
     m_manager->setProxyFactory( new NetworkProxyFactory() );
-#endif
 
     m_updateClient = new UpdateClient( "webissues", version(), m_manager );
 
@@ -525,9 +520,7 @@ void Application::initializeSettings()
         { "DefaultAttachmentAction", (int)ActionAsk },
         { "FolderUpdateInterval", 1 },
         { "UpdateInterval", 5 },
-#if !defined( NO_PROXY_FACTORY )
         { "ProxyType", (int)QNetworkProxy::NoProxy },
-#endif
     };
 
     for ( int i = 0; i < (int)( sizeof( defaults ) / sizeof( defaults[ 0 ] ) ); i++ ) {
