@@ -19,27 +19,7 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************/
 
-!define VERSION "1.0.4"
-!define BUILDVERSION "1.0.4.4714"
-
 !define SRCDIR "..\.."
-
-!ifndef SIGN
-    !verbose 2
-
-    !system "$\"${NSISDIR}\makensis$\" /V2 /DSIGN ${__FILE__}" = 0
-
-    !system "..\..\..\sign.bat portable\WebIssuesPortable.exe" = 0
-
-    SetCompress off
-
-    OutFile "$%TEMP%\signinst.exe"
-
-    Section
-    SectionEnd
-!else
-
-!verbose 4
 
 !include "MUI2.nsh"
 !include "FileFunc.nsh"
@@ -257,12 +237,12 @@ Section
             CopyFiles /SILENT "$EXEDIR\Data\cache\*.*" "$TempDir\cache"
         ${EndIf}
 
-        CreateDirectory "$TempDir\temp"
+        CreateDirectory "$TempDir\shared"
 
         Push "$TempDir"
         Call SetFileAttributesDirectoryNormal
 
-        ExecWait '"$EXEDIR\App\WebIssues\bin\Webissues.exe"  -data "$TempDir\data" -cache "$TempDir\cache" -temp "$TempDir\temp"'
+        ExecWait '"$EXEDIR\App\WebIssues\bin\Webissues.exe"  -data "$TempDir\data" -cache "$TempDir\cache" -shared "$TempDir\shared"'
 
         ${If} $StoreSettings == "true"
             CreateDirectory "$EXEDIR\Data\profiles"
@@ -278,5 +258,3 @@ Section
     ${EndIf}
 
 SectionEnd
-
-!endif

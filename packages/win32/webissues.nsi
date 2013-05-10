@@ -17,28 +17,10 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************/
 
-!define VERSION "1.0.4"
-!define BUILDVERSION "1.0.4.4714"
-
 !define SRCDIR "..\.."
 !define BUILDDIR "..\..\release"
 
-!define UNINST_KEY "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\WebIssues Client 1.0"
-
-!ifndef SIGN
-    !verbose 2
-
-    !system "$\"${NSISDIR}\makensis$\" /V2 /DSIGN ${SCRIPTNAME}" = 0
-
-    !system "..\..\..\sign.bat webissues-${VERSION}-${ARCHITECTURE}.exe" = 0
-
-    SetCompress off
-
-    OutFile "$%TEMP%\signinst.exe"
-
-    Section
-    SectionEnd
-!else
+!define UNINST_KEY "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\WebIssues Client 1.1"
 
 !include "MUI2.nsh"
 
@@ -51,12 +33,6 @@
 !else
     !verbose 4
 
-    !system "$\"${NSISDIR}\makensis$\" /V2 /DSIGN /DINNER ${SCRIPTNAME}" = 0
-
-    !system "$%TEMP%\innerinst.exe" = 2
-
-    !system "..\..\..\sign.bat $%TEMP%\uninstall.exe" = 0
-
     SetCompressor /SOLID lzma
     SetCompressorDictSize 32
 
@@ -68,7 +44,7 @@
 !define MULTIUSER_INSTALLMODE_COMMANDLINE
 !define MULTIUSER_INSTALLMODE_DEFAULT_REGISTRY_KEY "${UNINST_KEY}"
 !define MULTIUSER_INSTALLMODE_DEFAULT_REGISTRY_VALUENAME "UninstallString"
-!define MULTIUSER_INSTALLMODE_INSTDIR "WebIssues Client\1.0"
+!define MULTIUSER_INSTALLMODE_INSTDIR "WebIssues Client\1.1"
 !define MULTIUSER_INSTALLMODE_INSTDIR_REGISTRY_KEY "${UNINST_KEY}"
 !define MULTIUSER_INSTALLMODE_INSTDIR_REGISTRY_VALUENAME "InstallLocation"
 !if ${ARCHITECTURE} == "win_x64"
@@ -161,6 +137,19 @@ Section
 
     File "${BUILDDIR}\webissues.exe"
 
+    File "${QTDIR}\bin\QtCore4.dll"
+    File "${QTDIR}\bin\QtGui4.dll"
+    File "${QTDIR}\bin\QtNetwork4.dll"
+    File "${QTDIR}\bin\QtSql4.dll"
+    File "${QTDIR}\bin\QtWebKit4.dll"
+    File "${QTDIR}\bin\QtXml4.dll"
+
+    File "${OPENSSLDIR}\bin\libeay32.dll"
+    File "${OPENSSLDIR}\bin\ssleay32.dll"
+
+    File "${VCRTDIR}\msvcp100.dll"
+    File "${VCRTDIR}\msvcr100.dll"
+
     SetOutPath "$INSTDIR\doc"
 
     Delete "$INSTDIR\doc\*.*"
@@ -243,5 +232,4 @@ Section "Uninstall"
 
 SectionEnd
 
-!endif
 !endif

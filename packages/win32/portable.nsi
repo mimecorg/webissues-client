@@ -19,35 +19,15 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************/
 
-!define VERSION "1.0.4"
-!define BUILDVERSION "1.0.4.4714"
-
 !define SRCDIR "..\.."
-!define BUILDDIR "bin"
-
-!define QTDIR "D:\Qt4-msvc\x86-static"
-
-!ifndef SIGN
-    !verbose 2
-
-    !system "$\"${NSISDIR}\makensis$\" /V2 /DSIGN ${__FILE__}" = 0
-
-    !system "..\..\..\sign.bat webissues-portable-${VERSION}.paf.exe" = 0
-
-    SetCompress off
-
-    OutFile "$%TEMP%\signinst.exe"
-
-    Section
-    SectionEnd
-!else
-
-!verbose 4
+!define BUILDDIR "..\..\release"
 
 !include "MUI2.nsh"
 !include "FileFunc.nsh"
 
 !include "languages\portable_en.nsh"
+
+!verbose 4
 
 SetCompressor /SOLID lzma
 SetCompressorDictSize 32
@@ -170,6 +150,19 @@ Section
 
     File "${BUILDDIR}\webissues.exe"
 
+    File "${QTDIR}\bin\QtCore4.dll"
+    File "${QTDIR}\bin\QtGui4.dll"
+    File "${QTDIR}\bin\QtNetwork4.dll"
+    File "${QTDIR}\bin\QtSql4.dll"
+    File "${QTDIR}\bin\QtWebKit4.dll"
+    File "${QTDIR}\bin\QtXml4.dll"
+
+    File "${OPENSSLDIR}\bin\libeay32.dll"
+    File "${OPENSSLDIR}\bin\ssleay32.dll"
+
+    File "${VCRTDIR}\msvcp100.dll"
+    File "${VCRTDIR}\msvcr100.dll"
+
     SetOutPath "$INSTDIR\App\WebIssues\doc"
 
     Delete "$INSTDIR\App\WebIssues\doc\*.*"
@@ -209,5 +202,3 @@ Section
     CreateDirectory "$INSTDIR\Data\cache"
 
 SectionEnd
-
-!endif
