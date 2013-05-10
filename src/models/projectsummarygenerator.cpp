@@ -45,7 +45,7 @@ void ProjectSummaryGenerator::setProject( int projectId )
     m_isAdmin = ProjectEntity::isAdmin( projectId );
 }
 
-void ProjectSummaryGenerator::write( HtmlWriter* writer, HtmlText::Flags flags /*= 0*/ )
+void ProjectSummaryGenerator::write( HtmlWriter* writer, HtmlText::Flags flags )
 {
     ProjectEntity project = ProjectEntity::find( m_projectId );
 

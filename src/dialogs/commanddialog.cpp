@@ -41,7 +41,7 @@
 #include <QMessageBox>
 #include <QAccessible>
 
-CommandDialog::CommandDialog( QWidget* parent, Qt::WindowFlags flags /* = 0 */ ) : QDialog( parent, flags ),
+CommandDialog::CommandDialog( QWidget* parent, Qt::WindowFlags flags ) : QDialog( parent, flags ),
     m_promptPixmap( NULL ),
     m_contentLayout( NULL ),
     m_fixed( false ),
@@ -258,7 +258,7 @@ bool CommandDialog::validate()
     return result;
 }
 
-void CommandDialog::executeBatch( AbstractBatch* batch, const QString& text /* = QString() */ )
+void CommandDialog::executeBatch( AbstractBatch* batch, const QString& text )
 {
     if ( m_contentLayout )
         setWidgetsEnabled( m_contentLayout, false );

@@ -97,7 +97,7 @@ void SeparatorComboBox::addParentItem( const QString& text )
     itemModel->appendRow( item );
 }
 
-void SeparatorComboBox::addChildItem( const QString& text, const QVariant& data /*= QVariant()*/ )
+void SeparatorComboBox::addChildItem( const QString& text, const QVariant& data )
 {
     QStandardItem* item = new QStandardItem( text + QString( 4, QChar( ' ' ) ) );
     item->setData( data, Qt::UserRole );

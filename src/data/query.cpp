@@ -19,7 +19,7 @@
 
 #include "query.h"
 
-Query::Query( const QSqlDatabase& database /*= QSqlDatabase()*/ ) :
+Query::Query( const QSqlDatabase& database ) :
     m_prepared( false ),
     m_valid( false ),
     m_query( database )
@@ -27,7 +27,7 @@ Query::Query( const QSqlDatabase& database /*= QSqlDatabase()*/ ) :
     m_query.setForwardOnly( true );
 }
 
-Query::Query( const QString& query, const QSqlDatabase& database /*= QSqlDatabase()*/ ) :
+Query::Query( const QString& query, const QSqlDatabase& database ) :
     m_queryText( query ),
     m_prepared( false ),
     m_valid( false ),

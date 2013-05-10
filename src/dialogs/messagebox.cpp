@@ -57,7 +57,7 @@ QPushButton* MessageBox::button( QMessageBox::StandardButton button )
     return buttonBox()->button( (QDialogButtonBox::StandardButton)button );
 }
 
-QMessageBox::StandardButton MessageBox::warning( QWidget* parent, const QString& title, const QString& prompt, QMessageBox::StandardButtons buttons /*= QMessageBox::Ok*/ )
+QMessageBox::StandardButton MessageBox::warning( QWidget* parent, const QString& title, const QString& prompt, QMessageBox::StandardButtons buttons )
 {
     MessageBox box( parent );
 

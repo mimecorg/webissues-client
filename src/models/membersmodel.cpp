@@ -43,7 +43,7 @@ MembersModel::~MembersModel()
 {
 }
 
-QVariant MembersModel::data( const QModelIndex& index, int role /*= Qt::DisplayRole*/ ) const
+QVariant MembersModel::data( const QModelIndex& index, int role ) const
 {
     int level = levelOf( index );
     int row = mappedRow( index );

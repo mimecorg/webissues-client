@@ -460,7 +460,7 @@ QAction* Builder::findAction( const QString& id )
     return NULL;
 }
 
-QString Builder::findTitle( const QString& id, const QString& defaultTitle /*= QString()*/ )
+QString Builder::findTitle( const QString& id, const QString& defaultTitle )
 {
     for ( int i = m_clients.count() - 1; i >= 0; i-- ) {
         QString title = m_clients.at( i )->title( id );

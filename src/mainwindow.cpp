@@ -840,7 +840,7 @@ void MainWindow::builderReset()
     m_trayIcon->setContextMenu( builder()->contextMenu( "menuTray" ) );
 }
 
-void MainWindow::showStatus( const QPixmap& pixmap, const QString& text, int icon /*= 0*/ )
+void MainWindow::showStatus( const QPixmap& pixmap, const QString& text, int icon )
 {
     m_statusLabel->setPixmap( pixmap );
     m_statusLabel->setText( text );

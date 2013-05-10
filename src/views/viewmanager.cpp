@@ -57,7 +57,7 @@ void ViewManager::openFolderView( int folderId )
     openView( "FolderView", folderId );
 }
 
-void ViewManager::openIssueView( int issueId, int itemId /*= 0*/ )
+void ViewManager::openIssueView( int issueId, int itemId )
 {
     IssueView* view = (IssueView*)openView( "IssueView", issueId );
     if ( itemId != 0 )

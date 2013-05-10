@@ -19,7 +19,7 @@
 
 #include "markupprocessor.h"
 
-HtmlText MarkupProcessor::parse( const QString& text, HtmlText::Flags flags /* = 0 */ )
+HtmlText MarkupProcessor::parse( const QString& text, HtmlText::Flags flags )
 {
     MarkupProcessor processor( text, flags );
 

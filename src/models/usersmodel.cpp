@@ -61,7 +61,7 @@ void UsersModel::setFilter( Filter filter )
     }
 }
 
-QVariant UsersModel::data( const QModelIndex& index, int role /*= Qt::DisplayRole*/ ) const
+QVariant UsersModel::data( const QModelIndex& index, int role ) const
 {
     int level = levelOf( index );
     int row = mappedRow( index );

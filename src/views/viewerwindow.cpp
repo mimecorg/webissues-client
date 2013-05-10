@@ -180,7 +180,7 @@ void ViewerWindow::captionChanged( const QString& caption )
     setWindowTitle( tr( "%1 - WebIssues Desktop Client" ).arg( caption ) );
 }
 
-void ViewerWindow::showStatus( const QPixmap& pixmap, const QString& text, int icon /*= 0*/ )
+void ViewerWindow::showStatus( const QPixmap& pixmap, const QString& text, int icon )
 {
     m_statusLabel->setPixmap( pixmap );
     m_statusLabel->setText( text );

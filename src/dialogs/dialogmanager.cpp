@@ -33,7 +33,7 @@ DialogManager::~DialogManager()
     closeAllDialogs();
 }
 
-void DialogManager::addDialog( QDialog* dialog, int id /* = 0 */ )
+void DialogManager::addDialog( QDialog* dialog, int id )
 {
     m_dialogs.insert( dialog, id );
 
@@ -46,7 +46,7 @@ void DialogManager::addDialog( QDialog* dialog, int id /* = 0 */ )
     connect( dialog, SIGNAL( destroyed( QObject* ) ), this, SLOT( dialogDestroyed( QObject* ) ) );
 }
 
-bool DialogManager::activateDialog( const char* className, int id /* = 0 */ )
+bool DialogManager::activateDialog( const char* className, int id )
 {
     for ( QMap<QDialog*, int>::const_iterator it = m_dialogs.begin(); it != m_dialogs.end(); ++it ) {
         if ( it.key()->inherits( className ) && ( id == 0 || it.value() == id ) ) {

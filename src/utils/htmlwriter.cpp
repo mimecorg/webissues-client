@@ -54,7 +54,7 @@ void HtmlWriter::appendLayoutRow()
     pushTag( "tr" );
 }
 
-void HtmlWriter::beginCell( Pane pane, int mergeColumns /* = 1 */ )
+void HtmlWriter::beginCell( Pane pane, int mergeColumns )
 {
     popTag( "td" );
 
@@ -238,7 +238,7 @@ QString HtmlWriter::toHtml()
     return html;
 }
 
-void HtmlWriter::pushTag( const QString& tag, const QString& attributes /* = QString() */ )
+void HtmlWriter::pushTag( const QString& tag, const QString& attributes )
 {
     m_tags.push( tag );
     m_body += QLatin1Char( '<' );

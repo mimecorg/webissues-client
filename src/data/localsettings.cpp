@@ -50,7 +50,7 @@ void LocalSettings::setValue( const QString& key, const QVariant& value )
     m_data.insert( key, value );
 }
 
-QVariant LocalSettings::value( const QString& key, const QVariant& defaultValue /*= QVariant()*/ ) const
+QVariant LocalSettings::value( const QString& key, const QVariant& defaultValue ) const
 {
     return m_data.value( key, defaultValue );
 }

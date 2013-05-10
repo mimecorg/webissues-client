@@ -54,7 +54,7 @@ void IssueDetailsGenerator::setIssue( int issueId, bool description, History his
     m_isAdmin = IssueEntity::isAdmin( issueId );
 }
 
-void IssueDetailsGenerator::write( HtmlWriter* writer, HtmlText::Flags flags /*= 0*/ )
+void IssueDetailsGenerator::write( HtmlWriter* writer, HtmlText::Flags flags )
 {
     IssueEntity issue = IssueEntity::find( m_issueId );
 

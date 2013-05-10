@@ -72,7 +72,7 @@ void FolderModel::setSearchText( int column, const QString& text )
     generateQueries( false );
 }
 
-QVariant FolderModel::data( const QModelIndex& index, int role /*= Qt::DisplayRole*/ ) const
+QVariant FolderModel::data( const QModelIndex& index, int role ) const
 {
     int level = levelOf( index );
     int row = mappedRow( index );

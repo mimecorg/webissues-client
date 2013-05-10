@@ -210,7 +210,7 @@ void StartView::returnPressed()
         showWarning( tr( "The address you entered is not valid." ) );
 }
 
-void StartView::openConnection( const QString& url, const ServerCredential& credential /*= ServerCredential()*/ )
+void StartView::openConnection( const QString& url, const ServerCredential& credential )
 {
     QUrl parsedUrl = QUrl::fromEncoded( url.toUtf8(), QUrl::TolerantMode );
 

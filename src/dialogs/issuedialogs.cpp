@@ -225,7 +225,7 @@ TextFormat IssueDialog::descriptionFormat() const
     return m_descriptionEdit->textFormat();
 }
 
-AddIssueDialog::AddIssueDialog( int folderId, int cloneIssueId /* = 0 */ ) : IssueDialog(),
+AddIssueDialog::AddIssueDialog( int folderId, int cloneIssueId ) : IssueDialog(),
     m_folderId( folderId )
 {
     FolderEntity folder = FolderEntity::find( folderId );

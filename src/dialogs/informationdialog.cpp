@@ -27,7 +27,7 @@
 #include <QDialogButtonBox>
 #include <QPushButton>
 
-InformationDialog::InformationDialog( QWidget* parent, Qt::WindowFlags flags /* = 0 */ ) : QDialog( parent, flags ),
+InformationDialog::InformationDialog( QWidget* parent, Qt::WindowFlags flags ) : QDialog( parent, flags ),
     m_promptPixmap( NULL )
 {
     QVBoxLayout* topLayout = new QVBoxLayout( this );

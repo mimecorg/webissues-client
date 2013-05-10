@@ -21,7 +21,7 @@
 
 #include <QRegExp>
 
-HtmlText::HtmlText( Flags flags /*= 0*/ ) :
+HtmlText::HtmlText( Flags flags ) :
     m_flags( flags )
 {
 }
@@ -79,7 +79,7 @@ void HtmlText::appendParsed( const QString& text )
     }
 }
 
-HtmlText HtmlText::parse( const QString& text, Flags flags /*= 0*/ )
+HtmlText HtmlText::parse( const QString& text, Flags flags )
 {
     HtmlText result( flags );
     result.appendParsed( text );

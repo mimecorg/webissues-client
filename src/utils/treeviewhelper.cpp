@@ -74,7 +74,7 @@ TreeViewHelper::~TreeViewHelper()
 {
 }
 
-void TreeViewHelper::initializeView( ViewFlags flags /*= 0*/ )
+void TreeViewHelper::initializeView( ViewFlags flags )
 {
     m_view->setSortingEnabled( ( flags & NotSortable ) == 0 );
     m_view->setRootIsDecorated( ( flags & TreeStyle ) != 0 );

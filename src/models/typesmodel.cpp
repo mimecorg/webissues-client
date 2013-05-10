@@ -48,7 +48,7 @@ TypesModel::~TypesModel()
 {
 }
 
-QVariant TypesModel::data( const QModelIndex& index, int role /*= Qt::DisplayRole*/ ) const
+QVariant TypesModel::data( const QModelIndex& index, int role ) const
 {
     int level = levelOf( index );
     int row = mappedRow( index );

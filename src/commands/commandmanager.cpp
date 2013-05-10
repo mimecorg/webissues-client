@@ -614,7 +614,7 @@ QString CommandManager::unquoteString( const QString& string )
     return result;
 }
 
-void CommandManager::setError( Error error, int code /*= 0*/, const QString& string /*= QString()*/ )
+void CommandManager::setError( Error error, int code, const QString& string )
 {
     m_error = error;
     m_errorCode = code;

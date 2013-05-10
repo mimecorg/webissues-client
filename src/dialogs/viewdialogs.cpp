@@ -384,7 +384,7 @@ void ViewDialog::updateColumnsLayout()
     m_updatingLayout = false;
 }
 
-void ViewDialog::updateSortComboBox( int current /*= -1*/ )
+void ViewDialog::updateSortComboBox( int current )
 {
     if ( current < 0 )
         current = m_sortComboBox->itemData( m_sortComboBox->currentIndex() ).toInt();
