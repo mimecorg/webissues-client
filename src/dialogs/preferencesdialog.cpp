@@ -296,10 +296,8 @@ PreferencesDialog::PreferencesDialog( int userId, QWidget* parent ) : CommandDia
         QVBoxLayout* alertLayout = new QVBoxLayout( alertGroup );
         notifyLayout->addWidget( alertGroup, 3, 0, 1, 2 );
 
-        if ( dataManager->checkServerVersion( "1.0.2" ) ) {
-            m_detailsCheckBox = new QCheckBox( tr( "I&nclude issue details in notificatons and summary reports" ), alertGroup );
-            alertLayout->addWidget( m_detailsCheckBox );
-        }
+        m_detailsCheckBox = new QCheckBox( tr( "I&nclude issue details in notificatons and summary reports" ), alertGroup );
+        alertLayout->addWidget( m_detailsCheckBox );
 
         m_noReadCheckBox = new QCheckBox( tr( "&Do not notify about issues that I have already read" ), alertGroup );
         alertLayout->addWidget( m_noReadCheckBox );
