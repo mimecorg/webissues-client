@@ -223,8 +223,9 @@ void SummaryView::disableView()
     updateCaption();
 }
 
-void SummaryView::updateAccess( Access /*access*/ )
+void SummaryView::updateAccess( Access access )
 {
+    action( "addDescription" )->setVisible( access == AdminAccess );
 }
 
 void SummaryView::updateCaption()
@@ -249,7 +250,7 @@ void SummaryView::updateActions()
 
     ProjectEntity project = ProjectEntity::find( id() );
 
-    action( "addDescription" )->setEnabled( access() == AdminAccess && !project.description().isValid() );
+    action( "addDescription" )->setEnabled( !project.description().isValid() );
     action( "editCopy" )->setEnabled( hasSelection );
     action( "findNext" )->setEnabled( m_isFindEnabled );
     action( "findPrevious" )->setEnabled( m_isFindEnabled );

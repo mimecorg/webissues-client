@@ -324,6 +324,7 @@ void IssueView::updateAccess( Access access )
 {
     action( "moveIssue" )->setVisible( access == AdminAccess );
     action( "deleteIssue" )->setVisible( access == AdminAccess );
+    action( "addDescription" )->setVisible( access == AdminAccess || IssueEntity::isOwner( id() ) );
 }
 
 void IssueView::gotoItem( int itemId )
@@ -363,7 +364,7 @@ void IssueView::updateActions()
     IssueEntity issue = IssueEntity::find( id() );
     m_isRead = issue.isValid() ? issue.readId() >= issue.stampId() : false;
 
-    action( "addDescription" )->setEnabled( ( access() == AdminAccess || IssueEntity::isOwner( id() ) ) && !issue.description().isValid() );
+    action( "addDescription" )->setEnabled( !issue.description().isValid() );
     action( "editCopy" )->setEnabled( hasSelection );
     action( "findNext" )->setEnabled( m_isFindEnabled );
     action( "findPrevious" )->setEnabled( m_isFindEnabled );
