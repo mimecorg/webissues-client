@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Dziennik zdarzeń</title>
     <link rel="stylesheet" type="text/css" href="common/style.css" />
-    <meta name="generator" content="DocBook XSL Stylesheets V1.76.1" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
     <link rel="home" href="index.html" title="Podręcznik WebIssues" />
     <link rel="up" href="webissues.admin.html" title="Rozdział 5. Administrowanie systemem" />
     <link rel="prev" href="webissues.admin.info.html" title="Informacje o serwerze" />
@@ -19,7 +19,7 @@
             <h1><img src="common/webissues.png" alt="WebIssues" id="logo" />Podręcznik WebIssues</h1>
           </div>
           <div id="header-right">
-            <h2 class="subtitle">Wersja 1.0.4</h2>
+            <h2 class="subtitle">Wersja 1.1-beta1</h2>
           </div>
         </div>
         <div id="infobar">
@@ -32,7 +32,7 @@
           <div class="navleft">&laquo; <a accesskey="p" href="webissues.admin.info.html">Informacje o serwerze</a></div>
           <div class="navright"><a accesskey="n" href="webissues.admin.users.html">Zarządzanie użytkownikami</a> &raquo;</div>
         </div>
-        <div class="sect1" title="Dziennik zdarzeń">
+        <div class="sect1">
           <div class="titlepage">
             <div>
               <div>
@@ -42,7 +42,7 @@
           </div>
           <p>Aby wyświetlić dziennik zdarzeń serwera WebIssues, przejdź do Panelu administracyjnego i kliknij <span class="guilabel">Dziennik zdarzeń</span>.</p>
           <div class="figure">
-            <a id="id573489"></a>
+            <a id="id533440"></a>
             <div class="figure-contents">
               <div class="mediaobject">
                 <img src="images/ch05-fig03.png" alt="Dziennik zdarzeń" />
@@ -53,7 +53,7 @@
           <p>Dziennik zdarzeń zawiera informacje o błędach, dostępie do systemu, ważnych operacjach administracyjnych oraz uruchomieniach zadań cyklicznych. Jest on niezależny od dzienników PHP, serwera WWW oraz systemu operacyjnego. Jego zadaniem jest uzupełnienie tych informacji, a nie ich zastąpienie. W szczególności, niektóre poważne błędy (na przykład brak dostępu do bazy danych) mogą nie być zapisane w dzienniku zdarzeń serwera WebIssues.</p>
           <p>Zdarzenia w dzienniku zdarzeń dzielą się na cztery typy:</p>
           <div class="variablelist">
-            <dl>
+            <dl class="variablelist">
               <dt>
                 <span class="term">Błędy</span>
               </dt>
@@ -83,7 +83,7 @@
           <p>Zdarzenia mają również trzy różne poziomy: informacja, ostrzeżenie i błąd. Są one oznaczane różnymi ikonami.</p>
           <p>Domyślnie dziennik wyświetla wszystkie zdarzenia, posortowane od najnowszych do najstarszych. Jeśli interesuje cię tylko określony typ zdarzeń, kliknij na jednej z opcji w prawym górnym rogu okna, aby włączyć filtrowanie.</p>
           <p>Kliknij na zdarzeniu, aby wyświetlić szczegółowe informacje na jego temat. Oprócz typu, poziomu i pełnego komunikatu, wyświetlana jest również nazwa użytkownika, który wykonał daną operację oraz nazwa hosta lub adres IP komputera, z którego zostało dokonane połączenie.</p>
-          <div class="note" title="Notatka" style="margin-left: 0.5in; margin-right: 0.5in;">
+          <div class="note">
             <h3 class="title">Notatka</h3>
             <p>Choć szczegółowe informacje o błędach są zapisywane w dzienniku zdarzeń, to ze względów bezpieczeństwa nie są one wyświetlane na stronach błędów. Istnieje jednak możliwość włączenia szczegółowych komunikatów o błędach dla celów deweloperskich lub podczas rozwiązywania problemów. Istnieje również możliwość włączenia dodatkowego logu tekstowego, ułatwiającego debugowanie programu. Nie włączaj tych ustawień w środowisku produkcyjnym. Więcej informacji na ten temat znajdziesz na stronie <a class="ulink" href="http://wiki.mimec.org/wiki/WebIssues/Configuration" target="_top">http://wiki.mimec.org/wiki/WebIssues/Configuration</a>.</p>
           </div>
@@ -94,7 +94,7 @@
           <div class="navright"><a accesskey="n" href="webissues.admin.users.html">Zarządzanie użytkownikami</a> &raquo;</div>
         </div>
         <div id="footer">
-          <p class="copyright">Copyright © 2007-2012 Zespół WebIssues</p>
+          <p class="copyright">Copyright © 2007-2013 Zespół WebIssues</p>
         </div>
       </div>
     </div>

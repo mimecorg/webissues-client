@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Rozdział 6. Dostosowywanie systemu</title>
     <link rel="stylesheet" type="text/css" href="common/style.css" />
-    <meta name="generator" content="DocBook XSL Stylesheets V1.76.1" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
     <link rel="home" href="index.html" title="Podręcznik WebIssues" />
     <link rel="up" href="index.html" title="Podręcznik WebIssues" />
     <link rel="prev" href="webissues.admin.updating.html" title="Aktualizacja systemu" />
@@ -19,7 +19,7 @@
             <h1><img src="common/webissues.png" alt="WebIssues" id="logo" />Podręcznik WebIssues</h1>
           </div>
           <div id="header-right">
-            <h2 class="subtitle">Wersja 1.0.4</h2>
+            <h2 class="subtitle">Wersja 1.1-beta1</h2>
           </div>
         </div>
         <div id="infobar">
@@ -34,16 +34,16 @@
           <div class="navleft">&laquo; <a accesskey="p" href="webissues.admin.updating.html">Aktualizacja systemu</a></div>
           <div class="navright"><a accesskey="n" href="webissues.custom.views.html">Ustawienia widoków</a> &raquo;</div>
         </div>
-        <div class="chapter" title="Rozdział 6. Dostosowywanie systemu">
+        <div class="chapter">
           <div class="titlepage">
             <div>
               <div>
-                <h2 class="title"><a id="webissues.custom"></a>Rozdział 6. Dostosowywanie systemu</h2>
+                <h1 class="title"><a id="webissues.custom"></a>Rozdział 6. Dostosowywanie systemu</h1>
               </div>
             </div>
           </div>
           <p>Niniejszy rozdział opisuje sposoby konfigurowania i dostosowywania systemu do własnych potrzeb. Jest on przeznaczony głównie dla zaawansowanych administratorów.</p>
-          <div class="sect1" title="Zarządzanie typami spraw">
+          <div class="sect1">
             <div class="titlepage">
               <div>
                 <div>
@@ -54,7 +54,7 @@
             <p>Domyślnie instalator systemu WebIssues tworzy kilka predefiniowanych typów spraw, umożliwiających śledzenie błędów i zadań w typowym projekcie informatycznym, a także tworzenie forów dyskusyjnych. Możesz modyfikować te wbudowane typy spraw, dostosowując je do swoich potrzeb, a także tworzyć całkiem nowe typy spraw.</p>
             <p>Aby zarządzać typami spraw, przejdź do Panelu administracyjnego i kliknij <span class="guilabel">Typy spraw</span>. W przypadku programu Desktop Client, użyj polecenia <span class="guilabel">Typy spraw</span> z paska narzędzi głównego okna. Lista standardowych typów spraw wygląda następująco:</p>
             <div class="figure">
-              <a id="id576950"></a>
+              <a id="id538575"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch06-fig01.png" alt="Typy spraw" />
@@ -65,7 +65,7 @@
             <p>Dla każdego typu spraw są wyświetlane jego atrybuty. Dla każdego atrybutu jest wyświetlony jego typ, domyślna wartość dla nowych spraw, a także informacja, czy atrybut jest wymagany i dodatkowe szczegóły, które zależą od jego typu.</p>
             <p>Zacznijmy od dodania nowego atrybutu do istniejącego typu spraw. Dodamy możliwość wpisania nazwy modułu, którego dotyczy zgłoszony błąd. Wybierz typ spraw Błędy i kliknij <span class="guilabel">Dodaj atrybut</span>. Następnie podaj nazwę nowego atrybutu.</p>
             <div class="figure">
-              <a id="id576980"></a>
+              <a id="id538630"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch06-fig02.png" alt="Dodawanie atrybutu" />
@@ -75,7 +75,7 @@
             </div>
             <p>Domyślnie nowy atrybut ma typ <span class="guilabel">Tekst</span>, umożliwia więc wpisanie dowolnego tekstu. Klikając przycisk <span class="guibutton">Edytuj</span> w ramce <span class="guilabel">Szczegóły atrybutu</span>, możesz zmienić dodatkowe ustawienia atrybutu, które zależą od jego typu.</p>
             <div class="figure">
-              <a id="id577018"></a>
+              <a id="id538652"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch06-fig03.png" alt="Szczegóły atrybutu tekstowego" />
@@ -86,7 +86,7 @@
             <p>W przypadku atrybutu tekstowego, możesz zaznaczyć opcję <span class="guilabel">Zezwól na wprowadzanie wielu linii tekstu</span>, aby ułatwić wprowadzanie dłuższych fragmentów tekstu z możliwością podziału na linie. Pole edycji wartości atrybutu będzie wtedy większe. Możesz podać maksymalną długość tekstu, aby ograniczyć wprowadzony tekst do określonej liczby znaków. Pamiętaj jednak, że wartość atrybutu nigdy nie może być dłuższa niż 255 znaków. Do wprowadzania dłuższych fragmentów tekstu (na przykład opisu błędu) lepiej jest użyć komentarzy. W analogiczny sposób możesz również określić minimalną długość wprowadzonego tekstu.</p>
             <p>Jeśli lista modułów, których mogą dotyczyć zgłaszane błędy, jest znana z góry, to zamiast atrybutu tekstowego można użyć atrybutu <span class="guilabel">Lista wyboru</span>. Wybierz ten typ w polu <span class="guilabel">Typ atrybutu</span>, a następnie kliknij <span class="guibutton">Edytuj</span>, aby zmienić szczegóły atrybutu.</p>
             <div class="figure">
-              <a id="id577063"></a>
+              <a id="id538685"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch06-fig04.png" alt="Szczegóły listy wyboru" />
@@ -98,7 +98,7 @@
             <p>Opcja <span class="guilabel">Zezwól na wybieranie wielu wartości</span> umożlwia wybranie z listy więcej niż jednej wartości, oddzielonych przecinkami. Jest to przydatne, jeśli zgłaszane błędy mogą być powiązane z kilkoma modułami jednocześnie. Obie opcje można ze sobą łączyć, będzie wtedy możliwe wpisanie kilku wartości, niekoniecznie wybranych z listy. Taki tryb działania atrybutu umożliwia na przykład oznaczanie spraw <span class="quote">„<span class="quote">tagami</span>”</span>, które mogą być predefiniowane, ale mogą być również wpisywane spoza listy.</p>
             <p>Kolejnym typem atrybutu jest <span class="guilabel">Liczba</span>. Załóżmy, że chcemy do typu spraw Zadania dodać atrybut Pracochłonność, którego wartość jest wyrażona w godzinach. Wybierz typ <span class="guilabel">Liczba</span> z listy typów atrybutów i kliknij <span class="guibutton">Edytuj</span>.</p>
             <div class="figure">
-              <a id="id577120"></a>
+              <a id="id538775"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch06-fig05.png" alt="Szczegóły atrybutu liczbowego" />
@@ -109,7 +109,7 @@
             <p>Wartości liczbowe mogą być całkowite lub podawane z dokładnością do określonej liczby miejsc po przecinku, nie większej niż 6. Można również określić minimalną i maksymalną wartość atrybutu. Przykładowo, atrybut Priorytet zadania domyślnie może przyjmować wartości z zakresu od 1 do 3. Możesz również wybrać opcję <span class="guilabel">Usuń końcowe zera dziesiętne</span>, aby pomijać zera po przecinku, na przykład wartość <span class="quote">„<span class="quote">12,50</span>”</span> będzie wtedy wyświetlana jako <span class="quote">„<span class="quote">12,5</span>”</span>.</p>
             <p>Atrybuty mogą również zawierać datę lub datę i czas. Dla przykładu, typ spraw Zadania zawiera atrybut Termin, przechowujący planowaną datę zakończenia zadania. Możemy dodać atrybut Zakończone, przechowujący rzeczywistą datę zakończenia zadania. Wybierz typ atrybutu <span class="guilabel">Data i czas</span> i kliknij <span class="guibutton">Edytuj</span>, aby określić szczegóły atrybutu.</p>
             <div class="figure">
-              <a id="id577169"></a>
+              <a id="id538799"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch06-fig06.png" alt="Szczegóły daty i czasu" />
@@ -120,7 +120,7 @@
             <p>Wartością atrybutu może być data, na przykład <span class="quote">„<span class="quote">2011-09-05</span>”</span> lub data i czas z dokładnością do minut, na przykład <span class="quote">„<span class="quote">2011-09-05 18:34</span>”</span>. Jeśli wybierzesz typ <span class="guilabel">Data i czas bez konwersji strefy czasowej</span>, wyświetlany czas będzie zawsze taki sam, niezależnie od strefy czasowej. Jeśli natomiast wybierzesz wariant <span class="guilabel">Data i czas w lokalnej strefie czasowej</span>, to wartość zostanie zapisana jako czas GMT, a przy wyświetlaniu zostanie automatycznie skonwertowana do lokalnej strefy czasowej. Opcja ta jest przydatna, jeśli z serwera korzystają osoby znajdujące się w różnych strefach czasowych. Więcej informacji na temat stref czasowych znajdziesz w sekcji <a class="xref" href="webissues.custom.locale.html" title="Ustawienia regionalne">„Ustawienia regionalne”</a>.</p>
             <p>Ostatnim typem atrybutu jest <span class="guilabel">Użytkownik</span>. Zarówno Błędy, jak i Zadania zawierają atrybuty o nazwie Przypisany do, ale nic nie stoi na przeszkodzie, żeby utworzyć większą liczbę atrybutów tego typu. W przypadku błędu można na przykład użyć osobnych atrybutów dla oznaczenia osoby, która go zgłosiła, poprawiła i przetestowała.</p>
             <div class="figure">
-              <a id="id577219"></a>
+              <a id="id538865"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch06-fig07.png" alt="Szczegóły atrybutu użytkownik" />
@@ -133,7 +133,7 @@
             <p>W polu <span class="guilabel">Domyślna wartość</span> możesz natomiast określić wartość atrybutu dla nowo tworzonych spraw. W momencie tworzenia sprawy można pozostawić domyślne wartości poszczególnych atrybutów lub je zmodyfikować. Jeśli atrybut jest wymagany, a nie posiada domyślnej wartości, to musi on zostać wypełniony w momencie tworzenia sprawy. Przy podawaniu domyślnych wartości możesz użyć podobnych specjalnych wartości, jak w przypadku definicji filtru. Wartość <span class="quote">„<span class="quote">[Dzisiaj]</span>”</span> jest zamieniana na bieżącą datę w momencie tworzenia sprawy (z możliwością odjęcia lub dodania określonej liczby dni), natomiast wartość <span class="quote">„<span class="quote">[Ja]</span>”</span> jest zamieniana na nazwę użytkownika, który tworzy daną sprawę.</p>
             <p>Możesz w każdej chwili zmienić definicje istniejących atrybutów. Załóżmy, że chcemy, żeby atrybut Przypisany do był wymagany i żeby domyślnie błędy były przypisane do osoby, która je utworzyła. Wybierz ten atrybut i kliknij <span class="guilabel">Zmień atrybut</span>. Zaznacz opcję <span class="guilabel">Atrybut jest wymagany</span>, a w polu <span class="guilabel">Domyślna wartość</span> wpisz <span class="quote">„<span class="quote">[Ja]</span>”</span>. Następnie kliknij <span class="guibutton">OK</span>, aby zatwierdzić zmiany.</p>
             <div class="figure">
-              <a id="id577301"></a>
+              <a id="id538937"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch06-fig08.png" alt="Zmiana definicji atrybutu" />
@@ -146,13 +146,13 @@
             <p>W ograniczonym zakresie można także zmieniać typ istniejącego atrybutu. Załóżmy na przykład, że chcemy zdefiniować listę wyboru wartości dla atrybutu Wersja typu spraw Błędy. Wybierz atrybut i kliknij <span class="guilabel">Zmień atrybut</span>, a następnie z listy <span class="guilabel">Typ atrybutu</span> wybierz <span class="guilabel">Lista wyboru</span>. Następnie kliknij <span class="guibutton">Edytuj</span>, aby przejść do edycji szczegółów i wpisz listę wartości do wyboru, zaznaczając <span class="guilabel">Zezwól na podawanie własnych wartości</span>, aby można było wpisywać wartości spoza listy. Kliknij dwukrotnie <span class="guibutton">OK</span>, aby zatwierdzić zmiany.</p>
             <p>Atrybuty Tekst, Lista wyboru oraz Użytkownik przechowują wartości jako zwykły tekst, można je więc stosować wymiennie i zmieniać z jednego typu na inny. Atrybutów Liczba oraz Data i czas nie można natomiast zmienić na inny typ.</p>
             <p>Aby zmienić nazwę atrybutu, użyj polecenia <span class="guilabel">Zmień nazwę atrybutu</span>. Nazwy atrybutów mogą być dowolne, ale muszą być unikalne w ramach danego typu spraw. Możesz również usunąć istniejący atrybut, jeśli nie jest już potrzebny. W tym celu wybierz atrybut i kliknij <span class="guilabel">Usuń atrybut</span>.</p>
-            <div class="warning" title="Uwaga" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <div class="warning">
               <h3 class="title">Uwaga</h3>
               <p>Usuwając atrybuty zwracaj szczególną uwagę, czy omyłkowo nie kasujesz niewłaściwych danych. Wszystkie aktualne oraz historyczne wartości atrybutu są trwale i nieodwracalnie usuwane z systemu i nie ma możliwości ich przywrócenia.</p>
             </div>
             <p>Oprócz modyfikowania predefiniowanych typów spraw, system WebIssues umożliwia również tworzenie zupełnie nowych typów spraw. Załóżmy, że chcemy utworzyć prosty kalendarz zawierający zdarzenia związane z różnymi osobami. Kliknij <span class="guilabel">Dodaj typ</span>, aby utworzyć nowy typ spraw.</p>
             <div class="figure">
-              <a id="id577420"></a>
+              <a id="id539043"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch06-fig09.png" alt="Tworzenie typu spraw" />
@@ -162,7 +162,7 @@
             </div>
             <p>Podaj nazwę typu i kliknij <span class="guibutton">OK</span>. Nowy typ nie ma żadnych atrybutów, wybierz go więc i kliknij <span class="guilabel">Dodaj atrybut</span>. Utwórz atrybut o nazwie <span class="quote">„<span class="quote">Osoba</span>”</span> i wybierz typ Użytkownik. Oznacz atrybut jako wymagany i jako domyślną wartość wpisz <span class="quote">„<span class="quote">[Ja]</span>”</span>. Następnie dodaj kolejny atrybut o nazwie <span class="quote">„<span class="quote">Data</span>”</span>, wybierając typ Data i czas, ustawiając jego domyślną wartość na <span class="quote">„<span class="quote">[Dzisiaj]</span>”</span>. Drzewo typów spraw, po zwinięciu domyślnych typów, będzie wyglądać następująco:</p>
             <div class="figure">
-              <a id="id577466"></a>
+              <a id="id539128"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch06-fig10.png" alt="Typy spraw z nowym typem" />
@@ -172,7 +172,7 @@
             </div>
             <p>Aby móc tworzyć sprawy nowego typu, musisz jeszcze utworzyć folder używający tego typu. Możesz również zmienić kolejność atrybutów i domyślny widok oraz zdefiniować publiczne widoki dla tego typu. Więcej informacji na ten temat znajdziesz w sekcji <a class="xref" href="webissues.custom.views.html" title="Ustawienia widoków">„Ustawienia widoków”</a>.</p>
             <p>Aby zmienić nazwę typu spraw, użyj polecenia <span class="guilabel">Zmień nazwę typu</span>. Możesz również usunąć typ spraw za pomocą polecenia <span class="guilabel">Usuń typ</span>. Jeśli w systemie istnieją foldery tego typu, zostanie wyświetlone odpowiednie ostrzeżenie.</p>
-            <div class="warning" title="Uwaga" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <div class="warning">
               <h3 class="title">Uwaga</h3>
               <p>Usuwając typy spraw zwracaj szczególną uwagę, czy omyłkowo nie kasujesz niewłaściwych danych. Wszystkie foldery i sprawy tego typu są trwale i nieodwracalnie usuwane z systemu i nie ma możliwości ich przywrócenia.</p>
             </div>
@@ -183,7 +183,7 @@
           <div class="navright"><a accesskey="n" href="webissues.custom.views.html">Ustawienia widoków</a> &raquo;</div>
         </div>
         <div id="footer">
-          <p class="copyright">Copyright © 2007-2012 Zespół WebIssues</p>
+          <p class="copyright">Copyright © 2007-2013 Zespół WebIssues</p>
         </div>
       </div>
     </div>

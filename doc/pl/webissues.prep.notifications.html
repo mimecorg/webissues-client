@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Powiadomienia mailowe</title>
     <link rel="stylesheet" type="text/css" href="common/style.css" />
-    <meta name="generator" content="DocBook XSL Stylesheets V1.76.1" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
     <link rel="home" href="index.html" title="Podręcznik WebIssues" />
     <link rel="up" href="webissues.prep.html" title="Rozdział 2. Przygotowanie systemu" />
     <link rel="prev" href="webissues.prep.setup.html" title="Konfiguracja początkowa" />
@@ -19,7 +19,7 @@
             <h1><img src="common/webissues.png" alt="WebIssues" id="logo" />Podręcznik WebIssues</h1>
           </div>
           <div id="header-right">
-            <h2 class="subtitle">Wersja 1.0.4</h2>
+            <h2 class="subtitle">Wersja 1.1-beta1</h2>
           </div>
         </div>
         <div id="infobar">
@@ -32,7 +32,7 @@
           <div class="navleft">&laquo; <a accesskey="p" href="webissues.prep.setup.html">Konfiguracja początkowa</a></div>
           <div class="navright"><a accesskey="n" href="webissues.work.html">Praca ze sprawami</a> &raquo;</div>
         </div>
-        <div class="sect1" title="Powiadomienia mailowe">
+        <div class="sect1">
           <div class="titlepage">
             <div>
               <div>
@@ -41,7 +41,7 @@
             </div>
           </div>
           <p>System WebIssues ma możliwość wysyłania e-maili informujących o nowych i zmienionych sprawach w wybranych widokach. Jest to opcjonalne, ponieważ nie zawsze pozwala na to konfiguracja komputera lub usługi hostingowej i nie w każdym przypadku jest to potrzebne. Jeśli chcesz włączyć wysyłanie powiadomień mailowych, musisz wykonać dwa dodatkowe kroki konfiguracyjne.</p>
-          <div class="sect2" title="Wysyłanie poczty">
+          <div class="sect2">
             <div class="titlepage">
               <div>
                 <div>
@@ -51,7 +51,7 @@
             </div>
             <p>Najpierw przejdź do Panelu administracyjnego i kliknij <span class="guilabel">Ustawienia e-maili</span>, aby skonfigurować wysyłanie poczty.</p>
             <div class="figure">
-              <a id="id563142"></a>
+              <a id="id520395"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch02-fig10.png" alt="Ustawienia e-maili" />
@@ -60,7 +60,7 @@
               <div class="figure-title">Rysunek 2.10. Ustawienia e-maili</div>
             </div>
             <p>Jeśli PHP na twoim serwerze jest tak skonfigurowane, że ma możliwość wysyłania e-maili poprzez program <code class="literal">sendmail</code> lub lokalny serwer SMTP, wybierz opcję <span class="guilabel">Standardowy mailer PHP</span> i wpisz adres, z którego będą wysyłane wiadomości.</p>
-            <div class="note" title="Notatka" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <div class="note">
               <h3 class="title">Notatka</h3>
               <p>Więcej informacji na temat konfigurowania standardowego mechanizmu wysyłania e-maili wbudowanego w PHP znajdziesz na stronie <a class="ulink" href="http://php.net/manual/en/mail.configuration.php" target="_top">http://php.net/manual/en/mail.configuration.php</a>.</p>
             </div>
@@ -68,7 +68,7 @@
             <p>Kliknij <span class="guibutton">Testuj połączenie</span> aby sprawdzić, czy konfiguracja SMTP jest poprawna. System WebIssues wyśle testową wiadomość na swój własny adres. Jeśli ją otrzymasz, oznacza to, że konfiguracja jest poprawna. Nie zapomnij również zapisać konfigurację klikając <span class="guibutton">OK</span>.</p>
             <p>Ponieważ e-maile są wysyłane w formacie HTML, możliwe jest umieszczenie w nich odnośników do folderu, którego dotyczy powiadomienie, a także do poszczególnych spraw. Aby włączyć odnośniki, musisz wpisać bazowy adres URL, pod jakim zainstalowany jest serwer WebIssues. Adres powinien zawierać protokół oraz końcowy znak <span class="quote">„<span class="quote">/</span>”</span>, na przykład <code class="literal">http://www.example.com/</code>. Kliknij <span class="guibutton">Wykryj</span>, aby automatycznie wprowadzić adres bieżącej strony. Pamiętaj, że adres powinien zawierać pełną, jednoznaczną nazwę domenową serwera, aby był on dostępny dla wszystkich użytkowników. Jeśli adres URL będzie pozostawiony pusty, e-maile będą wysyłane bez odnośników.</p>
             <div class="figure">
-              <a id="id563231"></a>
+              <a id="id520444"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch02-fig10-01.png" alt="Odnośniki" />
@@ -77,7 +77,7 @@
               <div class="figure-title">Rysunek 2.11. Odnośniki</div>
             </div>
           </div>
-          <div class="sect2" title="Zadania cykliczne">
+          <div class="sect2">
             <div class="titlepage">
               <div>
                 <div>
@@ -87,15 +87,15 @@
             </div>
             <p>Drugim krokiem jest skonfigurowanie cyklicznego zadania, które będzie wysyłać powiadomienia. Zadanie to powinno być wykonywane przynajmniej raz na godzinę, ale żeby szybciej otrzymywać powiadomienia natychmiastowe, zaleca się, żeby zadanie to było wykonywane w odstępach od 5 do 15 minut.</p>
             <p>W przypadku systemów Unix/Linux możesz wykorzystać mechanizm zadań <code class="literal">cron</code>. Aby dodać zadanie, zmodyfikuj plik <code class="filename">/etc/crontab</code> lub użyj graficznego narzędzia do zarządzania zadaniami. Jeśli używasz systemu Windows, otwórz Harmonogram zadań i utwórz nowe zadanie. Więcej informacji znajdziesz na stronie <a class="ulink" href="http://wiki.mimec.org/wiki/WebIssues/Installation" target="_top">http://wiki.mimec.org/wiki/WebIssues/Installation</a>.</p>
-            <div class="note" title="Notatka" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <div class="note">
               <h3 class="title">Notatka</h3>
               <p>Niektóre usługi hostingowe udostępniają możliwość definiowania zadań cyklicznych poprzez dostęp do powłoki lub przez panel administracyjny. Zapoznaj się z dokumentacją usługi, aby uzyskać więcej informacji na ten temat.</p>
               <p>Jeśli twoja usługa hostingowa nie oferuje możliwości uruchamiania zadań cyklicznych, możesz zainstalować takie zadanie na innym komputerze. Możesz na przykład skorzystać z jednej z dostępnych usług <span class="quote">„<span class="quote">cron online</span>”</span> — niektóre z nich są dostępne za darmo.</p>
             </div>
             <p>Jeśli zadanie cyklicznie jest wykonywane lokalnie, powinno ono uruchamiać skrypt <code class="literal">cron/job.php</code> przy użyciu interpretera PHP. Więcej informacji na temat uruchamiania PHP z wiersza poleceń znajdziesz na stronie <a class="ulink" href="http://www.php.net/manual/en/features.commandline.options.php" target="_top">http://www.php.net/manual/en/features.commandline.options.php</a>.</p>
-            <p>Jeśli korzystasz z zewnętrznej usługi cron lub uruchamiasz zadanie na innym komputerze, skrypt powinien być uruchamiany zdalnie, poprzez pełny adres URL, na przykład <code class="literal">http://www.example.com/cron/job.php</code>. Możesz w tym celu na przykład skorzystać z programu <code class="literal">wget</code> lub <code class="literal">curl</code>, a także z dowolnej przeglądarki stron WWW działającej w trybie tekstowym.</p>
+            <p>Jeśli korzystasz z zewnętrznej usługi cron lub uruchamiasz zadanie na innym komputerze, skrypt powinien być uruchamiany zdalnie, poprzez pełny adres URL, na przykład <code class="literal">http://www.example.com/cron/job.php</code>. Możesz w tym celu na przykład skorzystać z programu <code class="literal">wget</code> lub <code class="literal">curl</code>.</p>
             <p>Aby sprawdzić, czy cykliczne zadanie się uruchamia, przejdź do Panelu administracyjnego i kliknij <span class="guilabel">Ogólne informacje</span>. W ramce <span class="guilabel">Zadanie cykliczne</span> powinna być wyświetlona data i czas ostatniego uruchomienia zadania. Każde uruchomienie zadania jest także zalogowane w Dzienniku zdarzeń systemu WebIssues.</p>
-            <div class="tip" title="Wskazówka" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <div class="tip">
               <h3 class="title">Wskazówka</h3>
               <p>Więcej informacji na temat używania powiadomień e-mailowych znajdziesz w sekcji <a class="xref" href="webissues.track.alerts.html" title="Zarządzanie alertami">„Zarządzanie alertami”</a>.</p>
             </div>
@@ -106,7 +106,7 @@
           <div class="navright"><a accesskey="n" href="webissues.work.html">Praca ze sprawami</a> &raquo;</div>
         </div>
         <div id="footer">
-          <p class="copyright">Copyright © 2007-2012 Zespół WebIssues</p>
+          <p class="copyright">Copyright © 2007-2013 Zespół WebIssues</p>
         </div>
       </div>
     </div>

@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Advanced settings</title>
     <link rel="stylesheet" type="text/css" href="common/style.css" />
-    <meta name="generator" content="DocBook XSL Stylesheets V1.76.1" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
     <link rel="home" href="index.html" title="WebIssues Manual" />
     <link rel="up" href="webissues.custom.html" title="Chapter 6. Customizing the system" />
     <link rel="prev" href="webissues.custom.locale.html" title="Regional settings" />
@@ -19,7 +19,7 @@
             <h1><img src="common/webissues.png" alt="WebIssues" id="logo" />WebIssues Manual</h1>
           </div>
           <div id="header-right">
-            <h2 class="subtitle">Version 1.0.4</h2>
+            <h2 class="subtitle">Version 1.1-beta1</h2>
           </div>
         </div>
         <div id="infobar">
@@ -32,7 +32,7 @@
           <div class="navleft">&laquo; <a accesskey="p" href="webissues.custom.locale.html">Regional settings</a></div>
           <div class="navright"><a accesskey="n" href="webissues.resources.html">Resources</a> &raquo;</div>
         </div>
-        <div class="sect1" title="Advanced settings">
+        <div class="sect1">
           <div class="titlepage">
             <div>
               <div>
@@ -44,7 +44,7 @@
           <p>The <span class="guilabel">Regional Options</span> and <span class="guilabel">Formats</span> groups of options are described in <a class="xref" href="webissues.custom.locale.html" title="Regional settings">the section called “Regional settings”</a>.</p>
           <p>The <span class="guilabel">Page Size</span> groups of options allows you to specify the default number of issues displayed on a single page in the list of issues, and the default number of elements per page in the issue history. Each user can choose their own preferred settings using the <span class="guilabel">User Preferences</span> command. These options only affect the Web Client, because the Desktop Client always displays all issues and complete history without pagination.</p>
           <div class="figure">
-            <a id="id605613"></a>
+            <a id="id552408"></a>
             <div class="figure-contents">
               <div class="mediaobject">
                 <img src="images/ch06-fig18.png" alt="Page Size" />
@@ -55,7 +55,7 @@
           <p>Options from the <span class="guilabel">View Settings</span> group affect all users and all types of issues. When the <span class="guilabel">Hide the ID column</span> option is enabled, the ID column will not be displayed in the list of issues. When you hide the ID column, issues can still be sorted by this column, and the identifier of the selected issue will still be displayed in the <span class="guilabel">Properties</span> group in issue details view. When the <span class="guilabel">Hide attributes with empty values</span> option is enabled, attributes that don't have any value are not included in the issue details view. This option is usefult when issue types contain a lot of attributes, which are not always used.</p>
           <p>You can select the order in which changes are displayed in the issue history view. Also it is possible to select the default filter in the issue history; you can display all history or just comments and attachments. Individual users may change these settings using the <span class="guilabel">User Preferences</span> command.</p>
           <div class="figure">
-            <a id="id605663"></a>
+            <a id="id552463"></a>
             <div class="figure-contents">
               <div class="mediaobject">
                 <img src="images/ch06-fig18-01.png" alt="View Settings" />
@@ -63,57 +63,67 @@
             </div>
             <div class="figure-title">Figure 6.19. View Settings</div>
           </div>
+          <p>You can select the default format of text used for new descriptions and comments. By default <span class="guilabel">Text with Markup</span> is used. You can switch to <span class="guilabel">Plain Text</span> if you prefer text without any formating like in older versions of WebIssues. Note that individual users may override this setting in their personal preferences, as well as for individual descriptions and comments.</p>
+          <div class="figure">
+            <a id="id552498"></a>
+            <div class="figure-contents">
+              <div class="mediaobject">
+                <img src="images/ch06-fig18-03.png" alt="Editing" />
+              </div>
+            </div>
+            <div class="figure-title">Figure 6.20. Editing</div>
+          </div>
           <p>The <span class="guilabel">Enable user registration</span> option allows you to enable a module that allows users to register a new account. Additionally, you can enter an e-mail address to which notifications are sent about requests that are waiting for approval by the system administrator. They will be sent when there are new registration requests for approval, but not more often than once an hour. For more information about user registration, see <a class="xref" href="webissues.work.login.html" title="Logging into the system">the section called “Logging into the system”</a> and <a class="xref" href="webissues.admin.register.html" title="Registration requests">the section called “Registration requests”</a>.</p>
           <div class="figure">
-            <a id="id605697"></a>
+            <a id="id552553"></a>
             <div class="figure-contents">
               <div class="mediaobject">
                 <img src="images/ch06-fig18-02.png" alt="User Registration" />
               </div>
             </div>
-            <div class="figure-title">Figure 6.20. User Registration</div>
+            <div class="figure-title">Figure 6.21. User Registration</div>
           </div>
-          <div class="note" title="Note" style="margin-left: 0.5in; margin-right: 0.5in;">
+          <div class="note">
             <h3 class="title">Note</h3>
             <p>For the user registration module to work, you must properly configure the emails. Sending notifications with new registration requests also requires a working cron job. For more information, see <a class="xref" href="webissues.prep.notifications.html" title="Email notifications">the section called “Email notifications”</a>.</p>
           </div>
           <p>Options from the <span class="guilabel">Limits</span> group allow the system administrator to specify the maximum length of comments and the maximum size of attachments that can be added by users.</p>
           <div class="figure">
-            <a id="id605737"></a>
+            <a id="id552588"></a>
             <div class="figure-contents">
               <div class="mediaobject">
                 <img src="images/ch06-fig19.png" alt="Limits" />
               </div>
             </div>
-            <div class="figure-title">Figure 6.21. Limits</div>
+            <div class="figure-title">Figure 6.22. Limits</div>
           </div>
-          <div class="note" title="Note" style="margin-left: 0.5in; margin-right: 0.5in;">
+          <div class="note">
             <h3 class="title">Note</h3>
             <p>The maximum size of the attachment that can be sent to the system also depends on appropriate configuration of the web server and PHP. For more information, please visit <a class="ulink" href="http://php.net/manual/en/features.file-upload.common-pitfalls.php" target="_top">http://php.net/manual/en/features.file-upload.common-pitfalls.php</a>.</p>
           </div>
           <p>By default, small attachments are stored in the database, and large ones directly in the filesystem. Depending on your needs, you can change the threshold value or force storing all attachments only in the database or file system. The maximum size of attachments stored in the database can be specified in the <span class="guilabel">Attachment Storage</span> group.</p>
           <div class="figure">
-            <a id="id605778"></a>
+            <a id="id552613"></a>
             <div class="figure-contents">
               <div class="mediaobject">
                 <img src="images/ch06-fig20.png" alt="Attachment Storage" />
               </div>
             </div>
-            <div class="figure-title">Figure 6.22. Attachment Storage</div>
+            <div class="figure-title">Figure 6.23. Attachment Storage</div>
           </div>
-          <div class="note" title="Note" style="margin-left: 0.5in; margin-right: 0.5in;">
+          <div class="note">
             <h3 class="title">Note</h3>
             <p>Storing large attachments in the database may require appropriate configuration of the database server, and can be less optimal compared to the file system. In addition, many hosting services significantly limit the maximum size of the database, while offering plenty of available disk space. On the other hand, storing attachments only in the database makes it easier to backup the system, since there is no need to backup additional files. In some cases it may also be safer.</p>
           </div>
           <p>Options from the <span class="guilabel">Maximum Lifetime</span> group allow you to define the time after which inactive user sessions are removed, and the maximum amount of time the entries in the Event Log and the user registration requests that are waiting for email address confirmation are stored by the system. The <span class="guilabel">Garbage Collection</span> setting determines the probability of running the clean up process, which removes inactive sessions, old entries in the Event Log and unconfirmed requests. Reduce the probability if the server is heavily loaded, or select <span class="quote">“<span class="quote">Use cron job</span>”</span> if the mechanism of sending email notifications is active (see <a class="xref" href="webissues.prep.notifications.html#webissues.prep.nofitications.cron" title="Cron jobs">the section called “Cron jobs”</a>).</p>
           <div class="figure">
-            <a id="id605827"></a>
+            <a id="id552637"></a>
             <div class="figure-contents">
               <div class="mediaobject">
                 <img src="images/ch06-fig21.png" alt="Maximum Lifetime &amp; Garbage Collection" />
               </div>
             </div>
-            <div class="figure-title">Figure 6.23. Maximum Lifetime &amp; Garbage Collection</div>
+            <div class="figure-title">Figure 6.24. Maximum Lifetime &amp; Garbage Collection</div>
           </div>
         </div>
         <div class="navlinks">
@@ -121,7 +131,7 @@
           <div class="navright"><a accesskey="n" href="webissues.resources.html">Resources</a> &raquo;</div>
         </div>
         <div id="footer">
-          <p class="copyright">Copyright © 2007-2012 WebIssues Team</p>
+          <p class="copyright">Copyright © 2007-2013 WebIssues Team</p>
         </div>
       </div>
     </div>

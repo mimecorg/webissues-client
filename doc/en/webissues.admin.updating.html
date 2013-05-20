@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Updating the system</title>
     <link rel="stylesheet" type="text/css" href="common/style.css" />
-    <meta name="generator" content="DocBook XSL Stylesheets V1.76.1" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
     <link rel="home" href="index.html" title="WebIssues Manual" />
     <link rel="up" href="webissues.admin.html" title="Chapter 5. System administration" />
     <link rel="prev" href="webissues.admin.projects.html" title="Managing projects" />
@@ -19,7 +19,7 @@
             <h1><img src="common/webissues.png" alt="WebIssues" id="logo" />WebIssues Manual</h1>
           </div>
           <div id="header-right">
-            <h2 class="subtitle">Version 1.0.4</h2>
+            <h2 class="subtitle">Version 1.1-beta1</h2>
           </div>
         </div>
         <div id="infobar">
@@ -32,7 +32,7 @@
           <div class="navleft">&laquo; <a accesskey="p" href="webissues.admin.projects.html">Managing projects</a></div>
           <div class="navright"><a accesskey="n" href="webissues.custom.html">Customizing the system</a> &raquo;</div>
         </div>
-        <div class="sect1" title="Updating the system">
+        <div class="sect1">
           <div class="titlepage">
             <div>
               <div>
@@ -41,33 +41,28 @@
             </div>
           </div>
           <p>One of the maintenance tasks is updating the WebIssues system to a newer version. New versions fix potential problems and add new features, so it is recommended to periodically update the software. To quickly check if a newer version of the system is available, click <span class="guilabel">Tools</span> and <span class="guilabel">About WebIssues</span>, and then in the <span class="guilabel">Latest Version</span> group, click the <span class="guibutton">Check</span> button. The Desktop Client by default automatically checks if a new version is available (see <a class="xref" href="webissues.work.personal.html#webissues.work.personal.client" title="Desktop Client settings">the section called “Desktop Client settings”</a>).</p>
-          <p>Before the upgrade, it is recommended to back up the database and WebIssues system files, and also disable the web server to prevent other users from accessing the system during the upgrade.</p>
-          <div class="note" title="Note" style="margin-left: 0.5in; margin-right: 0.5in;">
+          <p>Before the update, it is recommended to back up the database and WebIssues system files, and also disable the web server to prevent other users from accessing the system during the update.</p>
+          <div class="note">
             <h3 class="title">Note</h3>
-            <p>If you cannot disable the server or block access to it, you can also temporarily rename the <code class="literal">config.inc.php</code> configuration file, which by default is located in the <code class="literal">data/sites/default</code> subdirectory. You may even completely remove the file, and then recreate it using the installer, because at the time of installation the existing database will be preserved and updated to the new version, if necessary.</p>
+            <p>If you cannot disable the server or block access to it, you can also temporarily rename the <code class="literal">config.inc.php</code> configuration file, which by default is located in the <code class="literal">data/sites/default</code> subdirectory. You may even completely remove the file, and then recreate it using the installer, because at the time of installation the existing database will be preserved and automatically updated to the new version.</p>
           </div>
           <p>First, delete all files and subdirectories from the directory where you installed the WebIssues server, remembering to keep the <code class="literal">data</code> subdirectory, which stores all files related to the particular installation; for example, configuration files and attachments of issues. If you created your own <code class="literal">.htaccess</code> file or <code class="literal">web.config</code> file (in case of IIS), then also make a copy of it to be able to restore it later.</p>
           <p>Download and unpack the new WebIssues server package — it contains a directory named <code class="literal">webissues-x.y</code> (where <code class="literal">x.y</code> is the version of the package). Then move all files and subdirectories from that directory to the directory where the WebIssues server was previously installed.</p>
           <p>After copying the files, enable the web server and open the main page of the WebIssues system in the browser. If there is a need to update the database, a message will be displayed. You will be asked to enter the login and password of the WebIssues system administrator, and then the database will be updated to the current version. Otherwise, the system is immediately ready to work.</p>
-          <p>It is also recommended to update the Desktop Client to a newer version on the computers of all people who use it. Generally, however, the Desktop Client can communicate with both older and newer version of the server, provided that the first two digits of the version number is the same. Therefore, client version 0.9.x will not work with the 1.0 system, and client version 1.0 will not work with the 0.8.x system, but both versions can be installed side by side on a single computer.</p>
-          <div class="note" title="Note" style="margin-left: 0.5in; margin-right: 0.5in;">
+          <p>It is also recommended to update the Desktop Client to a newer version on the computers of all people who use it. Generally, however, the Desktop Client can communicate with both older and newer version of the server, provided that the first two digits of the version number is the same. Therefore, client version 1.0 will not work with the 1.1 system, and client version 1.1 will not work with the 1.0 system, but both versions can be installed side by side on a single computer.</p>
+          <div class="note">
             <h3 class="title">Note</h3>
-            <p>Versions marked as <code class="literal">alpha</code> or <code class="literal">beta</code> are the so-called developer versions. They allow for testing new features before the official version is released, but it is not recommended to use them for production purposes. Development versions of the system can only be used with the same version of the Desktop Client. Additionally, in case of an <code class="literal">alpha</code> version, it's not possible to update the database to a newer version. However, version <code class="literal">1.0-beta1</code> and later can be updated to the production version.</p>
+            <p>Versions marked as <code class="literal">beta</code> are the so-called developer versions. They allow for testing new features before the official version is released, but it is not recommended to use them for production purposes. Development versions of the system can only be used with the same version of the Desktop Client. It is possible to update from a production version to a newer development version (for example, from 1.0.5 to 1.1-beta1), and from the production version to the final production version (for example, from 1.1-beta1 to 1.1).</p>
           </div>
-          <p>The procedure of updating the server from version 0.8.5 is a bit different, because in this case the existing data must be imported to new tables in the database. After backing up and disabling the web server, delete all files and subdirectories from the directory where you installed the WebIssues server, except the <code class="literal">storage</code> subdirectory. Then unpack the new version of the package to the appropriate location, and give all users, or the user which the web server runs as, write permission to the <code class="literal">data/sites</code> subdirectory. Enable the web server and open the main page of WebIssues in the browser. You should see the information that the server is not configured.</p>
-          <p>Perform all steps like when installing a new instance of the server. Remember that the new server must be installed in the same database as its previous version, but the new tables must have a different prefix than the one that was used in version 0.8.5. In the <span class="guilabel">Initial Configuration</span> group, select <span class="guilabel">Import data from WebIssues Server 0.8.5</span> and enter the prefix of the source tables. For more information, see <a class="xref" href="webissues.prep.installation.html" title="Installation">the section called “Installation”</a>.</p>
-          <p>Make sure that the directories <code class="literal">data</code> and <code class="literal">common/data</code> are protected from accessing through a web browser, and the configuration file of the WebIssues system is protected against unauthorized access. If in version 0.8.5 attachments were stored in the file system, then after installation you must also move them to the appropriate directory in the new version of the server. In a default configuration, it will be the <code class="literal">data/sites/default/storage</code> directory.</p>
-          <div class="note" title="Note" style="margin-left: 0.5in; margin-right: 0.5in;">
-            <h3 class="title">Note</h3>
-            <p>Because the database in version 0.8.5 didn't strictly enforce data integrity, when you import data into new tables, some integrity errors may occur. In this case, correct the source data, delete the destination tables and run the import process again. To see which tables contain errors, you may want to enable debugging. For more information, please visit <a class="ulink" href="http://wiki.mimec.org/wiki/WebIssues/Configuration" target="_top">http://wiki.mimec.org/wiki/WebIssues/Configuration</a>.</p>
-          </div>
+          <p>When updating the server from version 1.0 to version 1.1, the first comment of each issue will be automatically converted to its description, but only if it was created by the person who created the issue and no more than 15 minutes after creating it. You may review the issues after the update and change the descriptions if necessary. Note that all comments and descriptions updated from version 1.0 will use the plain text format, but you can change the format when editing them.</p>
+          <p>In order to update the server from version 0.8.5, you must first install version 1.0 of the server and select the option to import existing data from version 0.8.5. Then you can update the server from version 1.0 to 1.1.</p>
         </div>
         <div class="navlinks">
           <div class="navleft">&laquo; <a accesskey="p" href="webissues.admin.projects.html">Managing projects</a></div>
           <div class="navright"><a accesskey="n" href="webissues.custom.html">Customizing the system</a> &raquo;</div>
         </div>
         <div id="footer">
-          <p class="copyright">Copyright © 2007-2012 WebIssues Team</p>
+          <p class="copyright">Copyright © 2007-2013 WebIssues Team</p>
         </div>
       </div>
     </div>

@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Event log</title>
     <link rel="stylesheet" type="text/css" href="common/style.css" />
-    <meta name="generator" content="DocBook XSL Stylesheets V1.76.1" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
     <link rel="home" href="index.html" title="WebIssues Manual" />
     <link rel="up" href="webissues.admin.html" title="Chapter 5. System administration" />
     <link rel="prev" href="webissues.admin.info.html" title="Server information" />
@@ -19,7 +19,7 @@
             <h1><img src="common/webissues.png" alt="WebIssues" id="logo" />WebIssues Manual</h1>
           </div>
           <div id="header-right">
-            <h2 class="subtitle">Version 1.0.4</h2>
+            <h2 class="subtitle">Version 1.1-beta1</h2>
           </div>
         </div>
         <div id="infobar">
@@ -32,7 +32,7 @@
           <div class="navleft">&laquo; <a accesskey="p" href="webissues.admin.info.html">Server information</a></div>
           <div class="navright"><a accesskey="n" href="webissues.admin.users.html">Managing users</a> &raquo;</div>
         </div>
-        <div class="sect1" title="Event log">
+        <div class="sect1">
           <div class="titlepage">
             <div>
               <div>
@@ -42,7 +42,7 @@
           </div>
           <p>To view the event log of the WebIssues server, go to the Administration Panel and click <span class="guilabel">Event Log</span>.</p>
           <div class="figure">
-            <a id="id600977"></a>
+            <a id="id542522"></a>
             <div class="figure-contents">
               <div class="mediaobject">
                 <img src="images/ch05-fig03.png" alt="The event log" />
@@ -53,7 +53,7 @@
           <p>The event log contains information about errors, access to the system, important administrative operations and cron job executions. It is independent from the logs of PHP, the web server and the operating system. Its purpose is to supplement those information, not to replace them. In particular, some serious errors (such as lack of access to the database) can not be stored in the event log of the WebIssues server.</p>
           <p>Events in the event log are divided into four types:</p>
           <div class="variablelist">
-            <dl>
+            <dl class="variablelist">
               <dt>
                 <span class="term">Errors</span>
               </dt>
@@ -83,7 +83,7 @@
           <p>Events also have three different levels of severity: information, warning and error. They are marked with different icons.</p>
           <p>By default, the log displays all events, sorted from newest to oldest. If you are interested only in a specific type of events, click on one of the options in the upper right corner of the window to enable filtering.</p>
           <p>Click on an event to view detailed information about it. In addition to the type, severity and full message, also the name of the user who performed the operation and the host name or IP address, from which the connection was made, are displayed.</p>
-          <div class="note" title="Note" style="margin-left: 0.5in; margin-right: 0.5in;">
+          <div class="note">
             <h3 class="title">Note</h3>
             <p>Although detailed information about errors are stored in the event log, for security reasons they are not displayed on error pages. However, you can enable detailed error messages for development or troubleshooting purposes. You can also enable an additional text log which makes debugging easier. However, you should not enable those settings in production environment. For more information, please visit <a class="ulink" href="http://wiki.mimec.org/wiki/WebIssues/Configuration" target="_top">http://wiki.mimec.org/wiki/WebIssues/Configuration</a>.</p>
           </div>
@@ -94,7 +94,7 @@
           <div class="navright"><a accesskey="n" href="webissues.admin.users.html">Managing users</a> &raquo;</div>
         </div>
         <div id="footer">
-          <p class="copyright">Copyright © 2007-2012 WebIssues Team</p>
+          <p class="copyright">Copyright © 2007-2013 WebIssues Team</p>
         </div>
       </div>
     </div>

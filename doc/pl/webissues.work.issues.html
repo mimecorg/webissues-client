@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Tworzenie i edycja spraw</title>
     <link rel="stylesheet" type="text/css" href="common/style.css" />
-    <meta name="generator" content="DocBook XSL Stylesheets V1.76.1" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
     <link rel="home" href="index.html" title="Podręcznik WebIssues" />
     <link rel="up" href="webissues.work.html" title="Rozdział 3. Praca ze sprawami" />
     <link rel="prev" href="webissues.work.login.html" title="Logowanie do systemu" />
@@ -19,7 +19,7 @@
             <h1><img src="common/webissues.png" alt="WebIssues" id="logo" />Podręcznik WebIssues</h1>
           </div>
           <div id="header-right">
-            <h2 class="subtitle">Wersja 1.0.4</h2>
+            <h2 class="subtitle">Wersja 1.1-beta1</h2>
           </div>
         </div>
         <div id="infobar">
@@ -32,7 +32,7 @@
           <div class="navleft">&laquo; <a accesskey="p" href="webissues.work.login.html">Logowanie do systemu</a></div>
           <div class="navright"><a accesskey="n" href="webissues.work.views.html">Filtrowanie spraw</a> &raquo;</div>
         </div>
-        <div class="sect1" title="Tworzenie i edycja spraw">
+        <div class="sect1">
           <div class="titlepage">
             <div>
               <div>
@@ -41,27 +41,226 @@
             </div>
           </div>
           <p>Kliknij na folderze Błędy, aby go otworzyć. Jeśli dopiero utworzyłeś nowy serwer, będzie on pusty, a więc zacznijmy od utworzenia pierwszej sprawy.</p>
-          <div class="sect2" title="Atrybuty sprawy">
+          <p>Wybierz polecenie <span class="guilabel">Dodaj sprawę</span> (jeśli korzystasz z programu Desktop Client, musisz kliknąć na liście spraw, aby polecenie to się pojawiło). Pierwsza część okna będzie zawierać kilka pól:</p>
+          <div class="figure">
+            <a id="id525344"></a>
+            <div class="figure-contents">
+              <div class="mediaobject">
+                <img src="images/ch03-fig06.png" alt="Dodawanie sprawy" />
+              </div>
+            </div>
+            <div class="figure-title">Rysunek 3.6. Dodawanie sprawy</div>
+          </div>
+          <p>Nazwa sprawy jest wymaganym polem, wpiszmy więc <span class="quote">„<span class="quote">Moja pierwsza sprawa</span>”</span>. Pozostałe pola to atrybuty sprawy. Pola Status i Priorytet są wymagane, ale mają domyślną wartość początkową. W zależności od rodzaju atrybutu, akceptują one różne typy wartości. Przeczytaj sekcję <a class="xref" href="webissues.work.issues.html#webissues.work.issues.attributes" title="Edycja atrybutów">„Edycja atrybutów”</a>, aby uzyskać więcej informacji o typach atrybutów.</p>
+          <p>Na początek przypisz nowy błąd do siebie i zmień jego krytyczność na 1 — w końcu to pierwszy błąd zarejestrowany w systemie.</p>
+          <p>Następnie wpisz tekst wyjaśniający sprawę w polu opisu. Opis jest opcjonalny i możesz go pominąć; będziesz go mógł dodać później. Jednak w większości przypadków, najwygodniej jest podać opis bezpośrednio podczas dodawania sprawy do systemu.</p>
+          <div class="figure">
+            <a id="id525382"></a>
+            <div class="figure-contents">
+              <div class="mediaobject">
+                <img src="images/ch03-fig06-01.png" alt="Opis sprawy" />
+              </div>
+            </div>
+            <div class="figure-title">Rysunek 3.7. Opis sprawy</div>
+          </div>
+          <p>Wszystkie odstępy i podziały linii zostaną zachowane, a długie linie będą automatycznie podzielone, jeśli będzie taka potrzeba. Odnośniki w tekście będą automatycznie rozpoznane i podświetlone. Możesz użyć prostych znaczników, by zmienić format tekstu, na przykład użyć pogrubionej czcionki lub kursywy, albo utworzyć listy i bloki kodu. Pasek narzędzi ponad polem tekstowym pomoże ci wprowadzić odpowiedie znaczniki. Przeczytaj sekcję <a class="xref" href="webissues.work.issues.html#webissues.work.issues.comments" title="Komentarze i opisy">„Komentarze i opisy”</a>, aby uzyskać więcej informacji o formatowaniu tekstu.</p>
+          <p>Naciśnij <span class="guibutton">OK</span> by potwierdzić dodanie nowej sprawy. Jeśli wartość któregoś z atrybutów jest niepoprawna, zostanie wyświetlony błąd. W przeciwnym wypadku, nowa sprawa pojawi się na liście, a poniżej zostaną wyświetlone szczegółowe informacje:</p>
+          <div class="figure">
+            <a id="id525423"></a>
+            <div class="figure-contents">
+              <div class="mediaobject">
+                <img src="images/ch03-fig07.png" alt="Szczegóły utworzonej sprawy" />
+              </div>
+            </div>
+            <div class="figure-title">Rysunek 3.8. Szczegóły utworzonej sprawy</div>
+          </div>
+          <div class="sect2">
             <div class="titlepage">
               <div>
                 <div>
-                  <h3 class="title"><a id="webissues.work.issues.attributes"></a>Atrybuty sprawy</h3>
+                  <h3 class="title"><a id="webissues.work.issues.comments"></a>Komentarze i opisy</h3>
                 </div>
               </div>
             </div>
-            <p>Wybierz polecenie <span class="guilabel">Dodaj sprawę</span> (jeśli korzystasz z programu Desktop Client, musisz kliknąć na liście spraw, aby polecenie to się pojawiło). Zostanie wyświetlone okno jak poniżej:</p>
+            <p>Opis jest przydatny, by podać informacje o sprawie, ale czasem niezbędne są dodatkowe informacje lub pytania. W tym celu można użyć komentarzy. Aby napisać komentarz, wybierz polecenie <span class="guilabel">Dodaj komentarz</span> (upewnij się, że aktywna jest historia sprawy, jeśli korzystasz z programu Desktop Client). Nowe okno składa się niemal wyłącznie z pola edycji tekstu:</p>
             <div class="figure">
-              <a id="id566412"></a>
+              <a id="id525452"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
-                  <img src="images/ch03-fig06.png" alt="Dodawanie sprawy" />
+                  <img src="images/ch03-fig08.png" alt="Dodawanie komentarza" />
                 </div>
               </div>
-              <div class="figure-title">Rysunek 3.6. Dodawanie sprawy</div>
+              <div class="figure-title">Rysunek 3.9. Dodawanie komentarza</div>
             </div>
-            <p>Nazwa sprawy jest wymaganym polem, wpiszmy więc <span class="quote">„<span class="quote">Moja pierwsza sprawa</span>”</span>. Pozostałe pola to atrybuty sprawy. Pola Status i Priorytet są wymagane, ale mają domyślną wartość początkową. W zależności od rodzaju atrybutu, akceptują one różne typy wartości:</p>
+            <p>Tekst zostanie wyświetlony dokładnie tak, jak został wpisany, z zachowaniem odstępów i podziału na linie. Umożliwia to wklejanie np. fragmentów kodu źródłowego czy logów bez obaw, że staną się one nieczytelne. Długie linie zostaną automatycznie podzielone, w zależności od szerokości okna. Adresy stron internetowych i adresy e-mail zostaną automatycznie zamienione na odnośniki. Te same zasady obowiązują w przypadku komentarzy, opisów spraw oraz opisów projektów.</p>
+            <div class="tip">
+              <h3 class="title">Wskazówka</h3>
+              <p>Automatyczne rozpoznawanie odnośników działa nie tylko w tekście komentarzy, ale także w nazwach spraw i wartościach atrybutów, a nawet w opisach załączników.</p>
+            </div>
+            <p>Jeśli wybierzesz opcję <span class="guilabel">Tekst ze znacznikami</span>, możesz również używać specjalnych znaczników, by zmienić styl czcionki, tworzyć odnośniki, listy, itp. Zwykle ta opcja jest domyślnie wybrana, ale możesz to zmienić w swoich ustawieniach użytkownika. Wybierając opcję <span class="guilabel">Zwykły tekst</span>, możesz wyłączyć specjalne formatowanie, z wyjątkiem adresów internetowych i identyfikatorów, które nadal będą automatycznie zamieniane na odnośniki.</p>
+            <p>Pasek narzędzi ponad polem edycji tekstu automatycznie wpisze odpowiednie znaczniki za ciebie, więc nie musisz ich pamiętać. Po prostu umieść kursor w miejscu, gdzie chcesz dodać znaczniki, albo zaznacz fragment tekstu, by otoczyć go odpowiednimi znacznikami formatowania. Następujące znaczniki są rozpoznawane, jeśli zostały one włączone:</p>
+            <div class="table">
+              <a id="id525500"></a>
+              <div class="table-contents">
+                <table summary="Podsumowanie znaczników" border="1">
+                  <colgroup>
+                    <col />
+                    <col />
+                  </colgroup>
+                  <thead>
+                    <tr>
+                      <th>Przykład</th>
+                      <th>Wynik</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <pre class="programlisting">To jest **pogrubienie**.</pre>
+                      </td>
+                      <td>To jest <span class="bold"><strong>pogrubienie</strong></span>.</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <pre class="programlisting">To jest __kursywa__.</pre>
+                      </td>
+                      <td>To jest <span class="emphasis"><em>kursywa</em></span>.</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <pre class="programlisting">To jest `czcionka maszynowa`.</pre>
+                      </td>
+                      <td>To jest <code class="literal">czcionka maszynowa</code>.</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <pre class="programlisting">To jest [www.mimec.org odnośnik].</pre>
+                      </td>
+                      <td>To jest <a class="ulink" href="http://www.mimec.org/" target="_top">odnośnik</a>.</td>
+                    </tr>
+                    <tr>
+                      <td>
+<pre class="programlisting">[list]
+* pierwszy punkt
+* drugi punkt
+* trzeci punkt
+** pierwszy podpunkt
+** drugi podpunkt
+[/list]
+</pre>
+              </td>
+                      <td>
+                <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>pierwszy punkt</p></li><li class="listitem"><p>drugi punkt</p></li><li class="listitem"><p>trzeci punkt</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: circle; "><li class="listitem"><p>pierwszy podpunkt</p></li><li class="listitem"><p>drugi podpunkt</p></li></ul></div></li></ul></div>
+              </td>
+                    </tr>
+                    <tr>
+                      <td>
+<pre class="programlisting">[quote Tytuł]
+To jest cytat.
+[/quote]
+</pre>
+              </td>
+                      <td>
+                <div class="blockquote"><blockquote class="blockquote"><div class="literallayout"><p><span class="bold"><strong>Tytuł:</strong></span><br />
+To jest cytat.</p></div></blockquote></div>
+              </td>
+                    </tr>
+                    <tr>
+                      <td>
+<pre class="programlisting">[code C++]
+for ( int i = 0; i &lt; 10; i++ )
+    printf( "%d\n", i );
+[/code]
+</pre>
+              </td>
+                      <td>
+<pre class="programlisting">for ( int i = 0; i &lt; 10; i++ )
+    printf( "%d\n", i );
+</pre>
+              </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="table-title">Tabela 3.1. Podsumowanie znaczników</div>
+            </div>
+            <p>Znaczniki pogrubienia i kursywy można łączyć ze sobą i z innymi znacznikami, natomiast między znacznikami czcionki maszynowej, wszystkie inne znaczniki są ignorowane. Dzięki temu można wklejać jednoliniowe fragmenty kodu, nie psując formatowania.</p>
+            <p>Odnośniki w nawiasach kwadratowych są podobne do automatycznych odnośników, ale pozwalają na zmianę tekstu odnośnika. Jeśli tekst nie jest podany, zostanie wyświetlony adres. Możesz otaczać wszystkie adresy nawiasami kwadratowymi, by mić pewność , żę zostaną one prawidłowo rozpoznane.</p>
+            <p>Podpunkty w listach wypunktowanych mogą tworzyć maksymalnie sześć poziomów zagnieżdżenia poprzez użycie odpowiedniej liczby gwiazdek. Przed gwiazdkami może być dowolna liczba spacji, a między gwiazdkami a tekstem musi być przynajmniej jedna spacja. Punkty w liście mogą składać się z dowolnej liczby linii, mogą także zawierać cytaty i bloki kodu.</p>
+            <p>Cytaty są otoczone przerywaną ramką i mogą mieć opcjonalny tytuł. Możesz w łatwy sposób cytować istniejące komentarze lub opisy spraw używając polecenia <span class="guibutton">Odpowiedz</span>. Otworzy ono nowe okno komentarza z automatycznie załączonym oryginalnym komentarzem lub opisem wraz ze znacznikami cytatu. Cytowany tekst może zawierać inne znaczniki, w tym zagnieżdżone cytaty, listy i bloki kodu.</p>
+            <p>Bloki kodu mogą być używane do wklejania fragmentów kodu, plików logowania, itp. Są one wyświetlone dosłownie (tzn. wszyskie znaczniki są ignorowane) przy użyciu czcionki maszynowej. Jednak w odróżnieniu od znaczników czcionki maszynowej, blok kodu może zawierać wiele linii. Oprócz tego można określić język bloku kodu, co powoduje włączenie podświetlenia składni. Obsługiwane języki to: HTML, XML, C, C++, C#, Java, Bash (równoważny z SH), Python, Perl, Ruby, JavaScript (równoważny z JS), CSS, SQL, VB oraz PHP.</p>
+            <p>Użyj przycisku <span class="guibutton">Podgląd</span> w pasku narzędzi ponad polem edycji tekstu, by zobaczyć podgląd tekstu z formatowaniem i upewnić się, że wygląda on prawidłowo.</p>
+            <p>Komentarze są wyświetlane w historii sprawy wraz z innymi zmianami w kolejności chronologicznej. Używając odnośników filtra po prawej stronie, możesz wyświetlić tylko określone informacje. Możesz zmienić domyślny filtr oraz kolejność zmian (od najstarszych lub najnowszych) w swoich ustawieniach użytkownika.</p>
+            <div class="figure">
+              <a id="id525740"></a>
+              <div class="figure-contents">
+                <div class="mediaobject">
+                  <img src="images/ch03-fig09.png" alt="Historia sprawy z komentarzem" />
+                </div>
+              </div>
+              <div class="figure-title">Rysunek 3.10. Historia sprawy z komentarzem</div>
+            </div>
+            <div class="tip">
+              <h3 class="title">Wskazówka</h3>
+              <p>W programie Desktop Client, wszystkie okna zawierające pole komentarza lub opisu nie blokują pozostałych okien. Możesz więc, na przykład, wyświetlić szczegóły innej sprawy w trakcie dodawania nowej sprawy lub komentarza. Używając przeglądarki, możesz uzyskać podobny efekt otwierając strony w osobnych zakładkach.</p>
+            </div>
+          </div>
+          <div class="sect2">
+            <div class="titlepage">
+              <div>
+                <div>
+                  <h3 class="title"><a id="webissues.work.issues.links"></a>Odnośniki do elementów</h3>
+                </div>
+              </div>
+            </div>
+            <p>Można tworzyć odnośniki do innych spraw, a także do komentarzy lub załączników. Aby to zademonstrować, utwórzmy drugą sprawę i nadajmy jej nazwę <span class="quote">„<span class="quote">Druga sprawa</span>”</span>, pozostawiając domyślne wartości atrybutów. Załóżmy, że identyfikator pierwszej sprawy to #1, a drugiej #6.</p>
+            <p>Jeśli dodasz komentarz do pierwszej sprawy i wpiszesz w nim tekst <span class="quote">„<span class="quote">#6</span>”</span>, zostanie on zamieniony na odnośnik do drugiej sprawy. Podobnie, jeśli teraz dodasz komentarz do drugiej sprawy, wpisując tekst <span class="quote">„<span class="quote">#1</span>”</span>, stanie się on odnośnikiem do pierwszej sprawy. W ten sposób możesz tworzyć powiązania między sprawami, odnosić się do innych komentarzy w swoich komentarzach, itp. Jeśli znaczniki są włączone, identyfikatory mogą być również używane w nawiasach kwadratowych, by tworzyć odnośniki z dowolnym tekstem. Podobnie jak adresy zewnętrzne, identyfikatory są również zamieniane na odnośniki w opisach, wartościach atrybutów, itp.</p>
+            <div class="figure">
+              <a id="id525823"></a>
+              <div class="figure-contents">
+                <div class="mediaobject">
+                  <img src="images/ch03-fig10.png" alt="Odnośnik do sprawy" />
+                </div>
+              </div>
+              <div class="figure-title">Rysunek 3.11. Odnośnik do sprawy</div>
+            </div>
+            <div class="note">
+              <h3 class="title">Notatka</h3>
+              <p>Identyfikatory spraw są unikalne i rosnące, ale niekoniecznie są kolejnymi liczbami. W naszym przykładzie druga sprawa ma identyfikator #6, a nie #2, ponieważ identyfikatory są również przypisane komentarzom, załącznikom i innym zmianom, co ułatwia zarządzanie nimi przez system.</p>
+            </div>
+            <p>Aby szybko przejść do sprawy, komentarza lub załącznika o podanym identyfikatorze, możesz również skorzystać z polecenia Idź do elementu. W programie Web Client kliknij <span class="guilabel">Narzędzia</span> w prawym górnym rogu okna, a następnie kliknij <span class="guilabel">Idź do elementu</span>. W programie Desktop Client polecenie to jest zawsze dostępne w pasku narzędzi głównego okna, możesz również nacisnąć <span class="shortcut"><strong><span class="keycap"><strong>Ctrl</strong></span>+<span class="keycap"><strong>G</strong></span></strong></span>.</p>
+            <div class="figure">
+              <a id="id525841"></a>
+              <div class="figure-contents">
+                <div class="mediaobject">
+                  <img src="images/ch03-fig11.png" alt="Przejście do elementu" />
+                </div>
+              </div>
+              <div class="figure-title">Rysunek 3.12. Przejście do elementu</div>
+            </div>
+            <p>Następnie wpisz szukany identyfikator i naciśnij <span class="guibutton">OK</span>. Jeśli istnieje sprawa o tym identyfikatorze, zostanie ona wyświetlona. Jeśli natomiast identyfikator reprezentuje komentarz lub załącznik, zostanie wyświetlona sprawa zawierająca ten element, a historia zostanie ustawiona na szukanym elemencie.</p>
+          </div>
+          <div class="sect2">
+            <div class="titlepage">
+              <div>
+                <div>
+                  <h3 class="title"><a id="webissues.work.issues.attributes"></a>Edycja atrybutów</h3>
+                </div>
+              </div>
+            </div>
+            <p>Polecenie <span class="guilabel">Edytuj atrybuty</span> umożliwia edycję sprawy, tzn. zmianę wartości poszczególnych atrybutów oraz nazwy sprawy. Zaznacz pierwszą sprawę i wybierz to polecenie. Zostanie wyświetlone takie samo okno, jak w przypadku dodawania nowej sprawy, zawierające aktualne wartości atrybutów.</p>
+            <div class="figure">
+              <a id="id525891"></a>
+              <div class="figure-contents">
+                <div class="mediaobject">
+                  <img src="images/ch03-fig12.png" alt="Zmiana atrybutów sprawy" />
+                </div>
+              </div>
+              <div class="figure-title">Rysunek 3.13. Zmiana atrybutów sprawy</div>
+            </div>
+            <p>System WebIssues obsługuje następujące rodzaje atrybutów:</p>
             <div class="variablelist">
-              <dl>
+              <dl class="variablelist">
                 <dt>
                   <span class="term">Tekst</span>
                 </dt>
@@ -94,105 +293,23 @@
                 </dd>
               </dl>
             </div>
-            <p>Na początek przypisz nowy błąd do siebie i zmień jego krytyczność na 1 — w końcu to pierwszy błąd zarejestrowany w systemie.</p>
-            <div class="tip" title="Wskazówka" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <div class="tip">
               <h3 class="title">Wskazówka</h3>
               <p>Jeśli nie widzisz jakiegoś użytkownika w liście wyboru, prawdopodobnie oznacza to, że nie został on dodany do listy członków projektu — patrz <a class="xref" href="webissues.admin.users.html" title="Zarządzanie użytkownikami">„Zarządzanie użytkownikami”</a>.</p>
             </div>
-            <p>Następnie naciśnij <span class="guibutton">OK</span>. Jeśli wartość któregoś z atrybutów jest niepoprawna, zostanie wyświetlony błąd. W przeciwnym wypadku, nowa sprawa pojawi się na liście, a poniżej zostaną wyświetlone szczegółowe informacje:</p>
+            <p>Zmień status sprawy na Rozwiązany, a w polu Powód wybierz wartość Naprawiony. Następnie naciśnij <span class="guibutton">OK</span>, aby zapisać zmiany. Zauważ że system WebIssues automatycznie zapamiętał wprowadzone przez ciebie zmiany i wyświetla je w historii sprawy. Umożliwia to śledzenie całego cyklu życia sprawy, zmian statusu i wszystkich operacji wykonywanych na sprawie.</p>
             <div class="figure">
-              <a id="id566539"></a>
-              <div class="figure-contents">
-                <div class="mediaobject">
-                  <img src="images/ch03-fig07.png" alt="Szczegóły utworzonej sprawy" />
-                </div>
-              </div>
-              <div class="figure-title">Rysunek 3.7. Szczegóły utworzonej sprawy</div>
-            </div>
-          </div>
-          <div class="sect2" title="Komentarze i edycja">
-            <div class="titlepage">
-              <div>
-                <div>
-                  <h3 class="title"><a id="webissues.work.issues.comments"></a>Komentarze i edycja</h3>
-                </div>
-              </div>
-            </div>
-            <p>Na razie nie wygląda to zbyt imponująco. System zarejestrował, że utworzyłeś sprawę, nadałeś jej nazwę i zmieniłeś wartość dwóch atrybutów. Napiszmy teraz jakiś komentarz. W tym celu wybierz polecenie <span class="guilabel">Dodaj komentarz</span> (upewnij się, że aktywna jest historia sprawy, jeśli korzystasz z programu Desktop Client).</p>
-            <p>Nowe okno składa się niemal wyłącznie z pola edycji tekstu. W przypadku programu Desktop Client, możesz zostawić to okno otwarte i wrócić do innego okna, na przykład aby przejrzeć historię sprawy. Korzystając z przeglądarki również możesz dodać nowy komentarz w osobnym oknie, jeśli klikniesz prawym przyciskiem na odnośniku i wybierzesz odpowiednią opcję.</p>
-            <p>Wracając do naszego okna, wpisz tekst komentarza dotyczącego pierwszej sprawy:</p>
-            <div class="figure">
-              <a id="id566582"></a>
-              <div class="figure-contents">
-                <div class="mediaobject">
-                  <img src="images/ch03-fig08.png" alt="Dodawanie komentarza" />
-                </div>
-              </div>
-              <div class="figure-title">Rysunek 3.8. Dodawanie komentarza</div>
-            </div>
-            <p>Tekst zostanie wyświetlony dokładnie tak, jak został wpisany, z zachowaniem odstępów i podziału na linie. Umożliwia to wklejanie np. fragmentów kodu źródłowego czy logów bez obaw, że staną się one nieczytelne. Długie linie zostaną automatycznie podzielone, w zależności od szerokości okna. Adresy stron internetowych i adresy e-mail zostaną automatycznie zamienione na odnośniki.</p>
-            <div class="figure">
-              <a id="id566604"></a>
-              <div class="figure-contents">
-                <div class="mediaobject">
-                  <img src="images/ch03-fig09.png" alt="Historia sprawy z komentarzem" />
-                </div>
-              </div>
-              <div class="figure-title">Rysunek 3.9. Historia sprawy z komentarzem</div>
-            </div>
-            <div class="tip" title="Wskazówka" style="margin-left: 0.5in; margin-right: 0.5in;">
-              <h3 class="title">Wskazówka</h3>
-              <p>Automatyczne rozpoznawanie odnośników działa nie tylko w tekście komentarzy, ale także w nazwach spraw i wartościach atrybutów, a nawet w opisach załączników.</p>
-            </div>
-            <p>Można również tworzyć odnośniki do innych spraw, a także do komentarzy lub załączników. Aby to zademonstrować, utwórzmy drugą sprawę i nadajmy jej nazwę <span class="quote">„<span class="quote">Druga sprawa</span>”</span>, pozostawiając domyślne wartości atrybutów. Załóżmy, że identyfikator pierwszej sprawy to #1, a drugiej #5.</p>
-            <p>Jeśli dodasz komentarz do pierwszej sprawy i wpiszesz w nim tekst <span class="quote">„<span class="quote">#5</span>”</span>, zostanie on zamieniony na odnośnik do drugiej sprawy. Podobnie, jeśli teraz dodasz komentarz do drugiej sprawy, wpisując tekst <span class="quote">„<span class="quote">#1</span>”</span>, stanie się on odnośnikiem do pierwszej sprawy. W ten sposób możesz tworzyć powiązania między sprawami, odnosić się do innych komentarzy w swoich komentarzach, itp.</p>
-            <div class="figure">
-              <a id="id566651"></a>
-              <div class="figure-contents">
-                <div class="mediaobject">
-                  <img src="images/ch03-fig10.png" alt="Odnośnik do sprawy" />
-                </div>
-              </div>
-              <div class="figure-title">Rysunek 3.10. Odnośnik do sprawy</div>
-            </div>
-            <div class="note" title="Notatka" style="margin-left: 0.5in; margin-right: 0.5in;">
-              <h3 class="title">Notatka</h3>
-              <p>Identyfikatory spraw są unikalne i rosnące, ale niekoniecznie są kolejnymi liczbami. W naszym przykładzie druga sprawa ma identyfikator #5, a nie #2, ponieważ identyfikatory są również przypisane komentarzom, załącznikom i innym zmianom, co ułatwia zarządzanie nimi przez system.</p>
-            </div>
-            <p>Aby szybko przejść do sprawy, komentarza lub załącznika o podanym identyfikatorze, możesz również skorzystać z polecenia Idź do elementu. W programie Web Client kliknij <span class="guilabel">Narzędzia</span> w prawym górnym rogu okna, a następnie kliknij <span class="guilabel">Idź do elementu</span>. W programie Desktop Client polecenie to jest zawsze dostępne w pasku narzędzi głównego okna, możesz również nacisnąć <span class="shortcut"><strong><span class="keycap"><strong>Ctrl</strong></span>+<span class="keycap"><strong>G</strong></span></strong></span>.</p>
-            <div class="figure">
-              <a id="id566706"></a>
-              <div class="figure-contents">
-                <div class="mediaobject">
-                  <img src="images/ch03-fig11.png" alt="Przejście do elementu" />
-                </div>
-              </div>
-              <div class="figure-title">Rysunek 3.11. Przejście do elementu</div>
-            </div>
-            <p>Następnie wpisz szukany identyfikator i naciśnij <span class="guibutton">OK</span>. Jeśli istnieje sprawa o tym identyfikatorze, zostanie ona wyświetlona. Jeśli natomiast identyfikator reprezentuje komentarz lub załącznik, zostanie wyświetlona sprawa zawierająca ten element, a historia zostanie ustawiona na szukanym elemencie.</p>
-            <p>Polecenie <span class="guilabel">Zmień atrybuty</span> umożliwia edycję sprawy, tzn. zmianę wartości poszczególnych atrybutów oraz nazwy sprawy. Zaznacz pierwszą sprawę i wybierz to polecenie. Zostanie wyświetlone takie samo okno, jak w przypadku dodawania nowej sprawy, zawierające aktualne wartości atrybutów. Zmień status sprawy na Rozwiązany, a w polu Powód wybierz wartość Naprawiony. Następnie naciśnij <span class="guibutton">OK</span>, aby zapisać zmiany.</p>
-            <div class="figure">
-              <a id="id566746"></a>
-              <div class="figure-contents">
-                <div class="mediaobject">
-                  <img src="images/ch03-fig12.png" alt="Zmiana atrybutów sprawy" />
-                </div>
-              </div>
-              <div class="figure-title">Rysunek 3.12. Zmiana atrybutów sprawy</div>
-            </div>
-            <p>Zauważ że system WebIssues automatycznie zapamiętał wprowadzone przez ciebie zmiany i wyświetla je w historii sprawy. Umożliwia to śledzenie całego cyklu życia sprawy, zmian statusu i wszystkich operacji wykonywanych na sprawie.</p>
-            <div class="figure">
-              <a id="id566767"></a>
+              <a id="id525985"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch03-fig13.png" alt="Historia sprawy po zmianie" />
                 </div>
               </div>
-              <div class="figure-title">Rysunek 3.13. Historia sprawy po zmianie</div>
+              <div class="figure-title">Rysunek 3.14. Historia sprawy po zmianie</div>
             </div>
             <p>Domyślnie w historii sprawy wyświetlone są wszystkie zmiany, komentarze i załączniki. Jeśli nie chcesz widzieć pełnej historii sprawy, a na przykład tylko komentarze, wybierz jedną z opcji filtrowania dostępnych w prawym górnym rogu widoku historii. Aby wyszukać określony tekst w treści komentarza lub innej zmiany, w programie Desktop Client użyj polecenia <span class="guilabel">Znajdź</span> lub naciśnij klawisze <span class="shortcut"><strong><span class="keycap"><strong>Ctrl</strong></span>+<span class="keycap"><strong>F</strong></span></strong></span>, aby wyświetlić pasek wyszukiwania. Wpisz szukany fragment tekstu, a następnie użyj klawiszy <span class="shortcut"><strong><span class="keycap"><strong>F3</strong></span></strong></span> i <span class="shortcut"><strong><span class="keycap"><strong>Shift</strong></span>+<span class="keycap"><strong>F3</strong></span></strong></span> aby znaleźć następne lub poprzednie wystąpienie tekstu. W przypadku programu Web Client możesz użyć funkcji wyszukiwania wbudowanej w przeglądarkę.</p>
           </div>
-          <div class="sect2" title="Dodawanie załączników">
+          <div class="sect2">
             <div class="titlepage">
               <div>
                 <div>
@@ -203,27 +320,27 @@
             <p>Wiesz już jak dodać komentarz, aby opisać sprawę lub dyskutować na jej temat. Długie fragmenty tekstu (np. logi błędów) lepiej jednak zamieszczać w postaci osobnych załączników. W ten sposób możesz również dołączać do sprawy pliki graficzne, dokumenty i inne typy plików, podobnie jak załączniki w wiadomościach e-mail.</p>
             <p>Aby dołączyć plik, wybierz polecenie <span class="guilabel">Dodaj załącznik</span>. Następnie wybierz plik, który chcesz dodać, i opcjonalnie wprowadź krótki opis załącznika.</p>
             <div class="figure">
-              <a id="id566848"></a>
+              <a id="id526129"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch03-fig14.png" alt="Dodawanie załącznika" />
                 </div>
               </div>
-              <div class="figure-title">Rysunek 3.14. Dodawanie załącznika</div>
+              <div class="figure-title">Rysunek 3.15. Dodawanie załącznika</div>
             </div>
             <p>Nowy załącznik jest widoczny w historii sprawy:</p>
             <div class="figure">
-              <a id="id566869"></a>
+              <a id="id526106"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch03-fig15.png" alt="Historia sprawy z załącznikiem" />
                 </div>
               </div>
-              <div class="figure-title">Rysunek 3.15. Historia sprawy z załącznikiem</div>
+              <div class="figure-title">Rysunek 3.16. Historia sprawy z załącznikiem</div>
             </div>
             <p>Kliknij odnośnik, aby otworzyć dołączony do sprawy plik lub zapisać go na dysku. Program Desktop Client domyślnie zawsze pyta, czy chcesz otworzyć czy zapisać plik. Możesz również kliknąć prawym przyciskiem, aby wybrać odpowiednią opcję z menu kontekstowego. Zmieniając ustawienia programu możesz wybrać domyślną akcję dla załączników oraz zmienić maksymalną ilość miejsca na dysku przeznaczoną na przechowywanie plików tymczasowych.</p>
             <p>W przypadku programu Web Client, w zależności od typu pliku i konfiguracji twojej przeglądarki, kliknięcie na odnośnik spowoduje otwarcie załącznika lub zapisanie go na dysku. Obrazy i pliki tekstowe zwykle zostaną wyświetlone bezpośrednio w przeglądarce. W większości przeglądarek możesz również kliknąć na załączniku prawym przyciskiem, aby wybrać odpowiednią akcję z menu kontekstowego.</p>
-            <div class="note" title="Notatka" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <div class="note">
               <h3 class="title">Notatka</h3>
               <p>Maksymalny rozmiar załącznika, jaki możesz dołączyć do sprawy, zależy od konfiguracji systemu WebIssues. Możesz go zmienić w ustawieniach systemu WebIssues (przeczytaj <a class="xref" href="webissues.custom.settings.html" title="Ustawienia zaawansowane">„Ustawienia zaawansowane”</a> aby uzyskać więcej informacji). Przesyłanie dużych załączników wymaga również odpowiedniej konfiguracji serwera WWW oraz PHP. Więcej informacji na ten temat znajdziesz na stronie <a class="ulink" href="http://php.net/manual/en/features.file-upload.common-pitfalls.php" target="_top">http://php.net/manual/en/features.file-upload.common-pitfalls.php</a>.</p>
               <p>Małe załączniki są domyślnie przechowywane w bazie danych, a duże bezpośrednio w systemie plików. W zależności od potrzeb możesz zmienić wartość progową lub wymusić przechowywanie wszystkich załączników tylko w bazie danych lub w systemie plików, zmieniając ustawienia systemu WebIssues. Sposób przechowywania załączników nie ma znaczenia z punktu widzenia programów klienckich.</p>
@@ -235,7 +352,7 @@
           <div class="navright"><a accesskey="n" href="webissues.work.views.html">Filtrowanie spraw</a> &raquo;</div>
         </div>
         <div id="footer">
-          <p class="copyright">Copyright © 2007-2012 Zespół WebIssues</p>
+          <p class="copyright">Copyright © 2007-2013 Zespół WebIssues</p>
         </div>
       </div>
     </div>

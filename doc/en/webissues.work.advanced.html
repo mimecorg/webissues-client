@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Advanced editing</title>
     <link rel="stylesheet" type="text/css" href="common/style.css" />
-    <meta name="generator" content="DocBook XSL Stylesheets V1.76.1" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
     <link rel="home" href="index.html" title="WebIssues Manual" />
     <link rel="up" href="webissues.work.html" title="Chapter 3. Working with issues" />
     <link rel="prev" href="webissues.work.views.html" title="Filtering issues" />
@@ -19,7 +19,7 @@
             <h1><img src="common/webissues.png" alt="WebIssues" id="logo" />WebIssues Manual</h1>
           </div>
           <div id="header-right">
-            <h2 class="subtitle">Version 1.0.4</h2>
+            <h2 class="subtitle">Version 1.1-beta1</h2>
           </div>
         </div>
         <div id="infobar">
@@ -32,7 +32,7 @@
           <div class="navleft">&laquo; <a accesskey="p" href="webissues.work.views.html">Filtering issues</a></div>
           <div class="navright"><a accesskey="n" href="webissues.work.export.html">Printing and exporting</a> &raquo;</div>
         </div>
-        <div class="sect1" title="Advanced editing">
+        <div class="sect1">
           <div class="titlepage">
             <div>
               <div>
@@ -40,25 +40,26 @@
               </div>
             </div>
           </div>
-          <p>It's possible to edit and remove comments in the WebIssues system. This can be done by the user who created the comment, and the administrator of the system or the project, to which the issue belongs. An administrator may thus act as a moderator of comments. Users without administrator privileges can't modify or delete comments created by other users.</p>
+          <p>It's possible to add a description to an existing issue and to edit or delete a description. Only the person who created the issue, and the administrator of the system or the project, is allowed to do that.</p>
+          <p>Comments can also be edited and deleted. This can be done by the user who created the comment, and the administrator of the system or the project, to which the issue belongs. An administrator may thus act as a moderator of descriptions and comments. Users without administrator privileges can't modify or delete descriptions and comments created by other users.</p>
           <p>You can also change the name and description of the attachments, and to remove them. As with comments, this can be done by the user who created the attachment or by an administrator. You can't modify or replace the attached file — in order to do this, you need to remove the attachment and add the new file as a separate attachment.</p>
-          <p>To edit or delete a comment or an attachment, click the <span class="guilabel">Edit</span> or <span class="guilabel">Delete</span> button in the upper right corner of each item in the issue history. If the comment or attachment has been edited, its last modification date and the person who edited it is displayed in addition to the creation date and author.</p>
+          <p>To edit or delete a description, comment or attachment, click the <span class="guilabel">Edit</span> or <span class="guilabel">Delete</span> button in the upper right corner of the corresponding item in the issue details view. If the item has been edited, its last modification date and the person who edited it is displayed in addition to the creation date and author.</p>
           <div class="figure">
-            <a id="id596160"></a>
+            <a id="id535884"></a>
             <div class="figure-contents">
               <div class="mediaobject">
                 <img src="images/ch03-fig22.png" alt="History after editing a comment" />
               </div>
             </div>
-            <div class="figure-title">Figure 3.22. History after editing a comment</div>
+            <div class="figure-title">Figure 3.23. History after editing a comment</div>
           </div>
           <p>Only system administrator or project administrator may delete an existing issue, using the <span class="guilabel">Delete Issue</span> command.</p>
-          <div class="warning" title="Warning" style="margin-left: 0.5in; margin-right: 0.5in;">
+          <div class="warning">
             <h3 class="title">Warning</h3>
             <p>Deleting an issue is irreversible and causes its entire history to be lost, so you should only do it in special circumstances.</p>
           </div>
           <p>The administrator can also move an issue to another folder using the <span class="guilabel">Move Issue</span> command. The target folder must be of the same type as the issue being moved, because issues of various types can't be combined in a single folder. To move the issue to a folder belonging to another project, you must be an administrator of both projects, or the system administrator. The transfer operation is registered in the history of the issue.</p>
-          <p>Each user can clone an existing issue, creating a new issue in the same folder, or another folder of the same type. To clone the issue, select the <span class="guilabel">Clone Issue</span> command, then select the destination folder and click <span class="guibutton">OK</span>. The new issue by default has the same name and attribute values​​, as the issue being cloned. If necessary, you can change these values, and then click <span class="guibutton">OK</span>. The new issue is in no way connected with the original issue, but you can create such connection using a link to the issue (see <a class="xref" href="webissues.work.issues.html#webissues.work.issues.comments" title="Comments and editing">the section called “Comments and editing”</a>). Also the history of changes won't be retained, and the comments and attachments won't be added to the cloned issue.</p>
+          <p>Each user can clone an existing issue, creating a new issue in the same folder, or another folder of the same type. To clone the issue, select the <span class="guilabel">Clone Issue</span> command, then select the destination folder and click <span class="guibutton">OK</span>. The new issue by default has the same name and attribute values​​, as the issue being cloned. If necessary, you can change these values, and then click <span class="guibutton">OK</span>. The new issue is in no way connected with the original issue, but you can create such connection using a link to the issue (see <a class="xref" href="webissues.work.issues.html#webissues.work.issues.comments" title="Comments and descriptions">the section called “Comments and descriptions”</a>). Also the history of changes won't be retained, and the comments and attachments won't be added to the cloned issue.</p>
           <p>There are also no restrictions when it comes to editing the attributes of the issue. Each user can freely modify them, but all changes are permanently recorded by the system and the only way of undoing them is to edit them once again.</p>
         </div>
         <div class="navlinks">
@@ -66,7 +67,7 @@
           <div class="navright"><a accesskey="n" href="webissues.work.export.html">Printing and exporting</a> &raquo;</div>
         </div>
         <div id="footer">
-          <p class="copyright">Copyright © 2007-2012 WebIssues Team</p>
+          <p class="copyright">Copyright © 2007-2013 WebIssues Team</p>
         </div>
       </div>
     </div>

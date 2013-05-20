@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Rozdział 2. Przygotowanie systemu</title>
     <link rel="stylesheet" type="text/css" href="common/style.css" />
-    <meta name="generator" content="DocBook XSL Stylesheets V1.76.1" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
     <link rel="home" href="index.html" title="Podręcznik WebIssues" />
     <link rel="up" href="index.html" title="Podręcznik WebIssues" />
     <link rel="prev" href="webissues.intro.lifecycle.html" title="Cykl życia sprawy" />
@@ -19,7 +19,7 @@
             <h1><img src="common/webissues.png" alt="WebIssues" id="logo" />Podręcznik WebIssues</h1>
           </div>
           <div id="header-right">
-            <h2 class="subtitle">Wersja 1.0.4</h2>
+            <h2 class="subtitle">Wersja 1.1-beta1</h2>
           </div>
         </div>
         <div id="infobar">
@@ -34,16 +34,16 @@
           <div class="navleft">&laquo; <a accesskey="p" href="webissues.intro.lifecycle.html">Cykl życia sprawy</a></div>
           <div class="navright"><a accesskey="n" href="webissues.prep.installation.html">Instalacja</a> &raquo;</div>
         </div>
-        <div class="chapter" title="Rozdział 2. Przygotowanie systemu">
+        <div class="chapter">
           <div class="titlepage">
             <div>
               <div>
-                <h2 class="title"><a id="webissues.prep"></a>Rozdział 2. Przygotowanie systemu</h2>
+                <h1 class="title"><a id="webissues.prep"></a>Rozdział 2. Przygotowanie systemu</h1>
               </div>
             </div>
           </div>
           <p>Aby korzystać z systemu WebIssues, niezbędne jest skonfigurowanie serwera, który jest jego centralną  i najważniejszą częścią. Niniejszy rozdział opisuje krok po kroku proces instalowania serwera WebIssues i przygotowania go do pracy. Jeśli korzystasz z już istniejącego serwera, możesz pominąć ten rozdział. Informacje na temat aktualizowania systemu do nowej wersji znajdziesz w sekcji <a class="xref" href="webissues.admin.updating.html" title="Aktualizacja systemu">„Aktualizacja systemu”</a>.</p>
-          <div class="sect1" title="Wymagania">
+          <div class="sect1">
             <div class="titlepage">
               <div>
                 <div>
@@ -53,7 +53,7 @@
             </div>
             <p>Możesz zainstalować oprogramowanie serwera WebIssues na komputerze z systemem Unix/Linux, OS X lub Windows. Przed przystąpieniem do instalacji potrzebujesz następujących komponentów:</p>
             <div class="itemizedlist">
-              <ul class="itemizedlist" type="disc">
+              <ul class="itemizedlist" style="list-style-type: disc; ">
                 <li class="listitem">
                   <p>Serwer WWW</p>
                 </li>
@@ -68,7 +68,7 @@
             <p>Możesz użyć serwera Apache, który działa na niemal wszystkich systemach operacyjnych (zalecana jest wersja 2.0 lub nowsza). Możesz również użyć serwera Microsoft IIS, który jest częścią systemu Windows (zalecana jest wersja 7.0 lub nowsza).</p>
             <p>Niezbędny jest jeden z następujących serwerów baz danych:</p>
             <div class="itemizedlist">
-              <ul class="itemizedlist" type="disc">
+              <ul class="itemizedlist" style="list-style-type: disc; ">
                 <li class="listitem">
                   <p>MySQL (w wersji 5.0.15 lub nowszej)</p>
                 </li>
@@ -81,14 +81,15 @@
               </ul>
             </div>
             <p>Aby zainstalować system, musisz utworzyć bazę danych na jednym z powyższych serwerów oraz konto użytkownika posiadające uprawnienia wystarczające do tworzenia tabel i indeksów w tej bazie danych.</p>
-            <p>W przypadku bazy MySQL wymagana jest obsługa silnika InnoDB. Baza danych PostgreSQL powinna być utworzona z kodowaniem znaków w standardzie Unicode. Pamiętaj także, że bazy SQL Server możesz użyć tylko, jeśli serwer WebIssues jest zainstalowany na komputerze z systemem Windows.</p>
-            <p>Serwer WebIssues wymaga również PHP w wersji 5.2.1 lub nowszej, zintegrowanego z serwerem WWW. W przypadku serwera IIS, dla uzyskania najlepszej wydajności zalecane jest użycie modułu <code class="literal">fastcgi</code> oraz rozszerzenia <code class="literal">wincache</code>. PHP musi mieć zainstalowane rozszerzenie <code class="literal">mbstring</code>, a jeśli korzystasz z bazy danych MySQL lub PostrgreSQL, również odpowiednio rozszerzenie <code class="literal">mysqli</code> lub <code class="literal">pgsql</code>. W przypadku bazy danych SQL Server niezbędne jest natomiast rozszerzenie <code class="literal">com_dotnet</code>, które nie jest domyślnie włączone w PHP począwszy od w wersji 5.3.15 lub 5.4.5.</p>
+            <p>W przypadku bazy MySQL wymagana jest obsługa silnika InnoDB. Baza danych PostgreSQL powinna być utworzona z kodowaniem znaków w standardzie Unicode. Baza SQL Server może być użyta tylko, jeśli serwer WebIssues jest zainstalowany na komputerze z systemem Windows.</p>
+            <p>Serwer WebIssues wymaga również PHP w wersji 5.2.1 lub nowszej, zintegrowanego z serwerem WWW. W przypadku serwera IIS, dla uzyskania najlepszej wydajności zalecane jest użycie modułu <code class="literal">fastcgi</code> oraz rozszerzenia <code class="literal">wincache</code>. PHP musi mieć zainstalowane i włączone w pliku <code class="literal">php.ini</code> rozszerzenie <code class="literal">mbstring</code>, a jeśli korzystasz z bazy danych MySQL lub PostrgreSQL, również odpowiednio rozszerzenie <code class="literal">mysqli</code> lub <code class="literal">pgsql</code>. W przypadku bazy danych SQL Server, począwszy od w wersji 5.3.15 lub 5.4.5 PHP musi być włączone rozszerzenie <code class="literal">com_dotnet</code>.</p>
             <p>Jeśli instalujesz serwer WebIssues korzystając z zewnętrznej usługi hostingowej, upewnij się, że spełnia ona wszystkie powyższe wymagania. Aby utworzyć bazę danych i skonfigurować serwer WWW, skorzystaj z narzędzi dostarczonych przez dostawcę usług hostingowych i zapoznaj się z dostępną dokumentacją.</p>
-            <div class="warning" title="Uwaga" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <div class="warning">
               <h3 class="title">Uwaga</h3>
               <p>Niektóre usługi hostingowe mogą mieć specyficzną konfigurację lub inne ograniczenia utrudniające lub nawet uniemożliwiające poprawne zainstalowanie serwera WebIssues. Mogą one na przykład ograniczać ilość dostępnej pamięci, rozmiar bazy danych albo wielkość przesyłanych do serwera plików.</p>
+              <p>Instalacja WebIssues na serwerze z włączonym modułem <code class="literal">mod_security</code> może powodować problemy. W zależności od konfiguracji, może on uniemożliwić dostęp do systemu za pośrednictwem programu Desktop Client lub blokować poprawne żądania zawierające określone słowa. Zalecane jest całkowite wyłączenie modułu <code class="literal">mod_security</code> lub wyłączenie tych reguł, które powodują problemy. Więcej informacji możesz uzyskać na stronie <a class="ulink" href="http://wiki.mimec.org/wiki/WebIssues/Installation" target="_top">http://wiki.mimec.org/wiki/WebIssues/Installation</a>.</p>
             </div>
-            <p>Przed zainstalowaniem serwera WebIssues na własnym komputerze (dla celów prywatnych lub testowych) lub komputerze należącym do twojej firmy bądź organizacji, zainstaluj i skonfiguruj niezbędne komponenty, a następnie utwórz bazę danych, korzystając z odpowiednich narzędzi administracyjnych. Zapoznaj się z dokumentacją tych narzędzi, aby uzyskać więcej informacji na ich temat. Więcej informacji temat tworzenia bazy danych i konfigurowania serwera WWW znajdziesz na stronie <a class="ulink" href="http://wiki.mimec.org/wiki/WebIssues/Installation" target="_top">http://wiki.mimec.org/wiki/WebIssues/Installation</a>.</p>
+            <p>Przed zainstalowaniem serwera WebIssues, zainstaluj i skonfiguruj niezbędne komponenty, a następnie utwórz bazę danych, korzystając z odpowiednich narzędzi administracyjnych. Zapoznaj się z dokumentacją tych narzędzi, aby uzyskać więcej informacji na ich temat. Więcej informacji temat tworzenia bazy danych i konfigurowania serwera WWW znajdziesz na stronie <a class="ulink" href="http://wiki.mimec.org/wiki/WebIssues/Installation" target="_top">http://wiki.mimec.org/wiki/WebIssues/Installation</a>.</p>
           </div>
         </div>
         <div class="navlinks">
@@ -96,7 +97,7 @@
           <div class="navright"><a accesskey="n" href="webissues.prep.installation.html">Instalacja</a> &raquo;</div>
         </div>
         <div id="footer">
-          <p class="copyright">Copyright © 2007-2012 Zespół WebIssues</p>
+          <p class="copyright">Copyright © 2007-2013 Zespół WebIssues</p>
         </div>
       </div>
     </div>

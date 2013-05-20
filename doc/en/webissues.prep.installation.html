@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Installation</title>
     <link rel="stylesheet" type="text/css" href="common/style.css" />
-    <meta name="generator" content="DocBook XSL Stylesheets V1.76.1" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
     <link rel="home" href="index.html" title="WebIssues Manual" />
     <link rel="up" href="webissues.prep.html" title="Chapter 2. Preparing the system" />
     <link rel="prev" href="webissues.prep.html" title="Chapter 2. Preparing the system" />
@@ -19,7 +19,7 @@
             <h1><img src="common/webissues.png" alt="WebIssues" id="logo" />WebIssues Manual</h1>
           </div>
           <div id="header-right">
-            <h2 class="subtitle">Version 1.0.4</h2>
+            <h2 class="subtitle">Version 1.1-beta1</h2>
           </div>
         </div>
         <div id="infobar">
@@ -32,7 +32,7 @@
           <div class="navleft">&laquo; <a accesskey="p" href="webissues.prep.html">Preparing the system</a></div>
           <div class="navright"><a accesskey="n" href="webissues.prep.setup.html">Initial setup</a> &raquo;</div>
         </div>
-        <div class="sect1" title="Installation">
+        <div class="sect1">
           <div class="titlepage">
             <div>
               <div>
@@ -41,7 +41,7 @@
             </div>
           </div>
           <p>After ensuring that the required components are installed and configured, and creating the database, you can proceed to the installation of the WebIssues server itself.</p>
-          <div class="sect2" title="Copying files">
+          <div class="sect2">
             <div class="titlepage">
               <div>
                 <div>
@@ -49,21 +49,21 @@
                 </div>
               </div>
             </div>
-            <p>Download and unpack the WebIssues server package — it contains a directory named <code class="literal">webissues-x.y</code> (where <code class="literal">x.y</code> is the version of the package). Then move all files and subdirectories from that directory to the root directory of the web server. External hosting services usually use the FTP protocol for copying files to the server, so you'll need an FTP client.</p>
-            <div class="note" title="Note" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <p>Download and unpack the WebIssues server package — it contains a directory named <code class="literal">webissues-x.y</code> (where <code class="literal">x.y</code> is the version of the package). Then move all files and subdirectories from that directory to the root directory of the web server. External hosting services typically use the FTP protocol for copying files to the server, so you'll need an FTP client.</p>
+            <div class="note">
               <h3 class="title">Note</h3>
               <p>It's possible to install WebIssues server along with the other web sites and applications operating on the same computer. You can install the server in a subdirectory located in the root directory of the web server, as well as on a virtual host or in a virtual directory. Refer to the documentation of your web server or hosting service for more information.</p>
               <p>You can also create multiple separate instances of the WebIssues server in a single installation. Individual instances can be accessed through different domain names or subdomains, or in different virtual subdirectories. For more information, please visit <a class="ulink" href="http://wiki.mimec.org/wiki/WebIssues/Configuration" target="_top">http://wiki.mimec.org/wiki/WebIssues/Configuration</a>.</p>
             </div>
-            <p>Then give all users, or the user which the web server runs as, write permission to the <code class="filename">data/sites</code> subdirectory. To do this, use the file manager or the FTP client, or run the <code class="literal">chmod</code> command from the command line. A configuration file will be created in this directory during the installation. Also files attached to the issues will be stored there.</p>
-            <div class="warning" title="Warning" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <p>Then make sure that the web server user account has write permission to the <code class="filename">data/sites</code> subdirectory. To do this, use the file manager or the FTP client, or run the <code class="literal">chmod</code> command from the command line. A configuration file will be created in this directory during the installation. Also files attached to the issues will be stored there.</p>
+            <div class="warning">
               <h3 class="title">Warning</h3>
-              <p>Make sure the <code class="filename">data</code> and <code class="filename">common/data</code> directories are protected from unauthorized access using the web browser. Otherwise unauthorized persons will be able, for example, to download attachments stored in the system. If you're using Apache, you can use the <code class="filename">.htaccess</code> files which are included in the source package for that purpose. For more information, please visit <a class="ulink" href="http://wiki.mimec.org/wiki/WebIssues/Installation" target="_top">http://wiki.mimec.org/wiki/WebIssues/Installation</a>.</p>
+              <p>Make sure the <code class="filename">data</code> and <code class="filename">common/data</code> directories are protected from unauthorized access from the web. Otherwise it will be possible to download attachments without proper authorization. If you're using Apache, you can use the <code class="filename">.htaccess</code> files which are included in the source package for that purpose. For more information, visit <a class="ulink" href="http://wiki.mimec.org/wiki/WebIssues/Installation" target="_top">http://wiki.mimec.org/wiki/WebIssues/Installation</a>.</p>
               <p>After the installation, also make sure that the WebIssues system configuration file is protected against unauthorized access, since it contains the username and password used to connect to the database. This is particularly important when using public hosting services.</p>
               <p>To ensure maximum security, it's recommended that configuration files and attachments are not stored in the <code class="filename">data</code> directory, but in a different location, outside the root directory of the web server. More information about changing the location of the directory containing these files can be found at <a class="ulink" href="http://wiki.mimec.org/wiki/WebIssues/Configuration" target="_top">http://wiki.mimec.org/wiki/WebIssues/Configuration</a>.</p>
             </div>
           </div>
-          <div class="sect2" title="System setup">
+          <div class="sect2">
             <div class="titlepage">
               <div>
                 <div>
@@ -73,7 +73,7 @@
             </div>
             <p>Now you can open the homepage of the WebIssues system. Launch your favorite web browser and enter the URL of the server, for example <code class="literal">http://www.example.com</code>. You should see the following message:</p>
             <div class="figure">
-              <a id="id592107"></a>
+              <a id="id532304"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch02-fig01.png" alt="Welcome message" />
@@ -84,7 +84,7 @@
             <p>If you follow the instructions and click on the link, you will be prompted to select the language that will be used during the installation. It will also be the default language in which the WebIssues system will display all messages.</p>
             <p>In the next step of the installation, basic information about your server will be displayed: the name of the instance (usually <code class="literal">default</code>, unless you create multiple instances of the server within a single installation), the base URL of the server and the path of the directory in which the configuration file will be created. You will also see the version of PHP, the web server and the operating system, and the name of the computer on which you're installing WebIssues. After verifying this information, proceed to the next step.</p>
             <div class="figure">
-              <a id="id592137"></a>
+              <a id="id532328"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch02-fig02.png" alt="Configuring the database connection" />
@@ -92,16 +92,16 @@
               </div>
               <div class="figure-title">Figure 2.2. Configuring the database connection</div>
             </div>
-            <p>You will be asked to enter information necessary to connect to the database that you previously created. You must first determine its type; depending on your PHP configuration, you can choose a MySQL, PostgreSQL or SQL Server database. If any of these options is not available, it means that the required PHP extension is not installed or is disabled.</p>
-            <p>Then enter the host name of the database server, if it's located on a different computer than the web server, the name of the database and the login and password of a user with the right to create tables in the database. In case of SQL Server, you can leave the user name and password blank to use integrated Windows authentication.</p>
-            <div class="note" title="Note" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <p>You will be asked to enter information necessary to connect to the database that you previously created. Select the type of the database, then enter the host name of the database server, if it's located on a different computer than the web server, the name of the database and the login and password of a user with the right to create tables in the database. In case of SQL Server, you can leave the user name and password blank to use integrated Windows authentication.</p>
+            <p>Leave the <span class="guilabel">Install a new server</span> option selected if you are creating a new server. If you want to create a new configuration file for a previously created server instead, select the <span class="guilabel">Use an existing server</span> option. In that case, you will not be prompted for the parameters of the server and the database will not be modified, unless it needs to be updated to a newer version.</p>
+            <div class="note">
               <h3 class="title">Note</h3>
-              <p>During installation, you can also specify a prefix which will be added before the names of all tables and other objects in the database. For example, if you choose <code class="literal">wi_</code>prefix, tables named <code class="literal">wi_server</code>, <code class="literal">wi_users</code>, etc., will be created.</p>
+              <p>You can also specify a prefix which will be added before the names of all tables and other objects in the database. For example, if you choose <code class="literal">wi_</code> prefix, tables will be named <code class="literal">wi_server</code>, <code class="literal">wi_users</code>, etc.</p>
               <p>By choosing a unique prefix, you can install many different applications using a single database. You can also create several separate instances of the WebIssues server in a single database.</p>
             </div>
-            <p>Enter the necessary information and proceed to the next step. The WebIssues system will try to connect to the database server, and in case of an error it will display an appropriate message. If the connection succeeds and the database doesn't already contain the tables required by the system, you will see the following page:</p>
+            <p>Enter the necessary information and proceed to the next step. The WebIssues system will try to connect to the database server, and in case of an error it will display an appropriate message. If the connection succeeds, you will see the following page:</p>
             <div class="figure">
-              <a id="id592194"></a>
+              <a id="id532405"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch02-fig03.png" alt="Parameters of the new server" />
@@ -109,19 +109,12 @@
               </div>
               <div class="figure-title">Figure 2.3. Parameters of the new server</div>
             </div>
-            <p>Enter the name of the server which will be visible to all users in the upper left corner of the page. Also enter the password for the Administrator account, which you can later use to log into the server and change its settings.</p>
+            <p>Enter the name of the server which will be visible to all users in the title bar. Also enter the password for the Administrator account, which you can later use to log into the server and change its settings.</p>
             <p>By default, the installer will create several predefined types of issues and views. You should leave this setting to quickly start working with the system. Later you will be able to freely adjust and even remove those built-in types. However, if you want to manually create all types of issues from scratch, select <span class="guilabel">Do not install any issue types</span>.</p>
-            <div class="note" title="Note" style="margin-left: 0.5in; margin-right: 0.5in;">
-              <h3 class="title">Note</h3>
-              <p>You can import data from version 0.8.5 of the WebIssues server to the new version of the system. The new server must be installed in the same database as its previous version. Therefore you must use a different prefix for the names of the new tables, than the one that was used in version 0.8.5. Select <span class="guilabel">Import data from WebIssues Server 0.8.5</span> and optionally enter a prefix for the source tables.</p>
-              <p>When installing a new server, all data stored in the database is copied, but the source tables are not modified or removed. Thus, if the import process fails, you can correct any errors and try installing the new version again. If attachments were stored in the file system, you must also copy them from the old version to the appropriate directory in the new version of the server; the installer will not do it automatically.</p>
-              <p>If version 0.8.5 of the system used a version of the database earlier than the currently required version, before the installation you must first update the database server to a newer version. After updating a MySQL database from a version older than 4.1, you also need to convert all text columns to binary, and then back to text with <code class="literal">utf8</code> encoding, in order to ensure proper encoding of text. Read <a class="ulink" href="http://dev.mysql.com/doc/refman/4.1/en/charset-conversion.html" target="_top">http://dev.mysql.com/doc/refman/4.1/en/charset-conversion.html</a> for more information about converting columns.</p>
-            </div>
-            <p>Go to the next page, which contains a brief summary of the operations that will be performed. Click <span class="guibutton">Install</span> to begin the installation. This may take a few seconds, or a bit longer in case of importing existing data. If the installation is successful, a message will appear.</p>
-            <p>If you want to create a new configuration file for a previously created server, enter the connection parameters for the database containing data of the server instance. The page used for entering parameters of a new server will be omitted in this case, and the database will not be modified in any way. Instead, the installer will display the name and other information about the existing server, and the installation process will only create a new configuration file.</p>
-            <div class="tip" title="Tip" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <p>Go to the next page, which contains a brief summary of the operations that will be performed. Click <span class="guibutton">Install</span> to begin the installation. This may take some time. If the installation is successful, a message will appear and you can start using the system.</p>
+            <div class="tip">
               <h3 class="title">Tip</h3>
-              <p>In order to create a new configuration file in the future, for example after moving the database to another server, you must first delete an existing configuration file. This is a protection against unauthorized access to the installation procedure.</p>
+              <p>In order to create a new configuration file in the future, for example after moving the database to another server, simply delete the configuration file. Then you will be prompted to run the installer which will let you create a new configuration file with appropriate settings.</p>
             </div>
           </div>
         </div>
@@ -130,7 +123,7 @@
           <div class="navright"><a accesskey="n" href="webissues.prep.setup.html">Initial setup</a> &raquo;</div>
         </div>
         <div id="footer">
-          <p class="copyright">Copyright © 2007-2012 WebIssues Team</p>
+          <p class="copyright">Copyright © 2007-2013 WebIssues Team</p>
         </div>
       </div>
     </div>

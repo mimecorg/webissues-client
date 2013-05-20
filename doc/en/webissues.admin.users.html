@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Managing users</title>
     <link rel="stylesheet" type="text/css" href="common/style.css" />
-    <meta name="generator" content="DocBook XSL Stylesheets V1.76.1" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
     <link rel="home" href="index.html" title="WebIssues Manual" />
     <link rel="up" href="webissues.admin.html" title="Chapter 5. System administration" />
     <link rel="prev" href="webissues.admin.log.html" title="Event log" />
@@ -19,7 +19,7 @@
             <h1><img src="common/webissues.png" alt="WebIssues" id="logo" />WebIssues Manual</h1>
           </div>
           <div id="header-right">
-            <h2 class="subtitle">Version 1.0.4</h2>
+            <h2 class="subtitle">Version 1.1-beta1</h2>
           </div>
         </div>
         <div id="infobar">
@@ -32,7 +32,7 @@
           <div class="navleft">&laquo; <a accesskey="p" href="webissues.admin.log.html">Event log</a></div>
           <div class="navright"><a accesskey="n" href="webissues.admin.register.html">Registration requests</a> &raquo;</div>
         </div>
-        <div class="sect1" title="Managing users">
+        <div class="sect1">
           <div class="titlepage">
             <div>
               <div>
@@ -41,7 +41,7 @@
             </div>
           </div>
           <p>Managing users in the WebIssues system includes the creation of user accounts, managing global rights of users, and giving users access to specific projects.</p>
-          <div class="sect2" title="User accounts">
+          <div class="sect2">
             <div class="titlepage">
               <div>
                 <div>
@@ -51,7 +51,7 @@
             </div>
             <p>To manage the users of WebIssues system, go to the Administration Panel and click <span class="guilabel">User Accounts</span>. In case of the Desktop Client, use the <span class="guilabel">Users</span> command from the main window toolbar.</p>
             <div class="figure">
-              <a id="id601132"></a>
+              <a id="id542681"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch05-fig04.png" alt="User accounts" />
@@ -62,7 +62,7 @@
             <p>Each user has a unique, fixed login, which is used along with the password when logging into the system. Each user also has a name that is visible to other users and that can be changed by the administrator if necessary. Depending on the convention, it can be the first and last name, the email address, or any other name.</p>
             <p>Managing privileges in the WebIssues system is relatively simple. There are three global access levels:</p>
             <div class="variablelist">
-              <dl>
+              <dl class="variablelist">
                 <dt>
                   <span class="term">System administrator</span>
                 </dt>
@@ -85,7 +85,7 @@
             </div>
             <p>To create a new user account, select <span class="guilabel">Add User</span>.</p>
             <div class="figure">
-              <a id="id601212"></a>
+              <a id="id542761"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch05-fig05.png" alt="Creating a user account" />
@@ -96,7 +96,7 @@
             <p>Enter the name of the user, the login and initial password. To avoid mistakes, you must enter the password twice. You can select <span class="guilabel">User must change password at next logon</span> to force the user to change password when logging into the system for the first time.</p>
             <p>If the user doesn't remember their password, you can reset it by selecting the user from the list and clicking <span class="guilabel">Change Password</span>. You will be asked to enter a new password twice. Also in this case you can select <span class="guilabel">User must change password at next logon</span>.</p>
             <div class="figure">
-              <a id="id601252"></a>
+              <a id="id542809"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch05-fig06.png" alt="Changing user's password" />
@@ -105,13 +105,13 @@
               <div class="figure-title">Figure 5.6. Changing user's password</div>
             </div>
             <p>When you're changing your own password, for greater security you must also enter your current password. All users can also change their own password at any time, using the <span class="guilabel">Change Password</span> command, which is available in the <span class="guilabel">Tools</span> window or in the toolbar of the Desktop Client main window.</p>
-            <div class="note" title="Note" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <div class="note">
               <h3 class="title">Note</h3>
               <p>If you forget the system administrator's password, you cann't easily recover it. All passwords are stored in a database as secure hashes, and it's practically impossible to recreate the original password. However, if you have  access to the database, you can reset the administrator's password, by generating a new hash and storing it in the <code class="literal">user_passwd</code> column for the corresponding user in the <code class="literal">users</code> table. WebIssues uses the <span class="quote">“<span class="quote">Portable PHP password hashing framework</span>”</span>, which is compatible with such programs as Wordpress or Drupal, so you can use one of the available <a class="ulink" href="http://scriptserver.mainframe8.com/wordpress_password_hasher.php" target="_top">hash generators</a> for these programs.</p>
             </div>
             <p>To change the global access level of a user, select that user on the list and click <span class="guilabel">Change Access</span>. Then choose the new access level and click <span class="guibutton">OK</span>. You can't deprive your own administrator right, because the system must have at least one active administrator account.</p>
             <div class="figure">
-              <a id="id601326"></a>
+              <a id="id542868"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch05-fig07.png" alt="Changing user's access" />
@@ -120,7 +120,7 @@
               <div class="figure-title">Figure 5.7. Changing user's access</div>
             </div>
             <p>To change the name of a user, select that user on the list and click <span class="guilabel">Rename User</span>. Enter a new name and click <span class="guibutton">OK</span>.</p>
-            <div class="tip" title="Tip" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <div class="tip">
               <h3 class="title">Tip</h3>
               <p>Avoid changing the names of users who have assigned issues. Attribute values ​​are stored as text, so changing the user name will not automatically change the values ​​of <span class="quote">“<span class="quote">Assigned to</span>”</span> attributes. This may cause the user to no longer see those assigned issues.</p>
             </div>
@@ -129,7 +129,7 @@
             <p>The WebIssues system does not allow to delete existing users, because it keeps all the historical information; for example, changes made by individual users. Instead, you can change the access level of users to disabled, when they should no longer be able to use the system. Use the filtering options in the upper right corner of the list to hide disabled user accounts.</p>
             <p>The WebIssues system allows users to register new accounts by themselves. In this case it is necessary for the system administrator to the approve registration requests. For more information, see <a class="xref" href="webissues.admin.register.html" title="Registration requests">the section called “Registration requests”</a> and <a class="xref" href="webissues.custom.settings.html" title="Advanced settings">the section called “Advanced settings”</a>.</p>
           </div>
-          <div class="sect2" title="Project members">
+          <div class="sect2">
             <div class="titlepage">
               <div>
                 <div>
@@ -139,7 +139,7 @@
             </div>
             <p>A newly created user has no access to any project, unless he is the system administrator. To manage user privileges for specific projects, go to <span class="guilabel">Manage Projects</span> from the main window, select the project, and then click <span class="guilabel">Project Members</span>. In case of the Desktop Client, this command is available directly from the main window if you activate the projects tree.</p>
             <div class="figure">
-              <a id="id601444"></a>
+              <a id="id542976"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch05-fig08.png" alt="List of project members" />
@@ -149,7 +149,7 @@
             </div>
             <p>There are two levels of access to projects:</p>
             <div class="variablelist">
-              <dl>
+              <dl class="variablelist">
                 <dt>
                   <span class="term">Project administrator</span>
                 </dt>
@@ -167,7 +167,7 @@
             <p>The global access level is always more important than permissions for a given project. A system administrator automatically becomes the administrator of all projects, and a disabled user has no access to any project. Regular users only have access to projects that they are members of, according to the permissions that were assigned to them.</p>
             <p>To add members of the project, select <span class="guilabel">Add Members</span>.</p>
             <div class="figure">
-              <a id="id601510"></a>
+              <a id="id547001"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch05-fig09.png" alt="Adding project members" />
@@ -178,7 +178,7 @@
             <p>Select one or more users who are not yet members of the project. Then select the appropriate level of access and click <span class="guibutton">OK</span>.</p>
             <p>To change the access level of a member, select the member on the list and click <span class="guilabel">Change Access</span>. Then select the new access level and click <span class="guibutton">OK </span>. You can't deprive your own project administrator rights, unless you are a system administrator.</p>
             <div class="figure">
-              <a id="id601549"></a>
+              <a id="id547049"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch05-fig10.png" alt="Changing member's access" />
@@ -190,7 +190,7 @@
             <p>You can also view a list of available projects for the selected user, as well as to add a user to the selected projects, remove and change the access level. It is especially useful when creating new user accounts. However, unlike the project members management function, it is available only to system administrators.</p>
             <p>To manage user projects, go to the Administration Panel and click and click <span class="guilabel">User Accounts</span>. In the Desktop Client, use the <span class="guilabel">Users</span> command from the toolbar of the main window. Then select the user from the list and click <span class="guilabel">User Projects</span>. The list of user projects is analogous to the list of project members.</p>
             <div class="figure">
-              <a id="id601597"></a>
+              <a id="id547094"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch05-fig10-01.png" alt="List of user projects" />
@@ -206,7 +206,7 @@
           <div class="navright"><a accesskey="n" href="webissues.admin.register.html">Registration requests</a> &raquo;</div>
         </div>
         <div id="footer">
-          <p class="copyright">Copyright © 2007-2012 WebIssues Team</p>
+          <p class="copyright">Copyright © 2007-2013 WebIssues Team</p>
         </div>
       </div>
     </div>

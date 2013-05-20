@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Zaawansowana edycja</title>
     <link rel="stylesheet" type="text/css" href="common/style.css" />
-    <meta name="generator" content="DocBook XSL Stylesheets V1.76.1" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
     <link rel="home" href="index.html" title="Podręcznik WebIssues" />
     <link rel="up" href="webissues.work.html" title="Rozdział 3. Praca ze sprawami" />
     <link rel="prev" href="webissues.work.views.html" title="Filtrowanie spraw" />
@@ -19,7 +19,7 @@
             <h1><img src="common/webissues.png" alt="WebIssues" id="logo" />Podręcznik WebIssues</h1>
           </div>
           <div id="header-right">
-            <h2 class="subtitle">Wersja 1.0.4</h2>
+            <h2 class="subtitle">Wersja 1.1-beta1</h2>
           </div>
         </div>
         <div id="infobar">
@@ -32,7 +32,7 @@
           <div class="navleft">&laquo; <a accesskey="p" href="webissues.work.views.html">Filtrowanie spraw</a></div>
           <div class="navright"><a accesskey="n" href="webissues.work.export.html">Drukowanie i eksportowanie</a> &raquo;</div>
         </div>
-        <div class="sect1" title="Zaawansowana edycja">
+        <div class="sect1">
           <div class="titlepage">
             <div>
               <div>
@@ -40,25 +40,26 @@
               </div>
             </div>
           </div>
-          <p>System WebIssues umożliwia edycję oraz usuwanie komentarzy. Może to zrobić użytkownik, który utworzył dany komentarz, a także administrator systemu lub projektu, do którego należy dana sprawa. Administrator może więc pełnić rolę moderatora komentarzy. Użytkownik bez uprawnień administratora nie może natomiast modyfikować ani usuwać komentarzy innych użytkowników.</p>
+          <p>Można dodać opis do istniejącej sprawy, a także edytować lub usunąć opis. Może to zrobić tylko osoba która utworzyła daną sprawę, a także administrator systemu lub projektu.</p>
+          <p>Komentarze rónież mogą być edytowane oraz usuwane. Może to zrobić użytkownik, który utworzył dany komentarz, a także administrator systemu lub projektu, do którego należy dana sprawa. Administrator może więc pełnić rolę moderatora opisów i komentarzy. Użytkownik bez uprawnień administratora nie może natomiast modyfikować ani usuwać opisów ani komentarzy innych użytkowników.</p>
           <p>Możliwa jest także zmiana nazwy oraz opisu załączników, a także ich usuwanie. Podobnie jak w przypadku komentarzy, może to zrobić użytkownik, który utworzył załącznik lub administrator. Nie można natomiast zmodyfikować lub podmienić dołączonego pliku — aby to zrobić, musisz usunąć załącznik i dodać nowy plik jako osobny załącznik.</p>
-          <p>Aby edytować lub usunąć komentarz lub załącznik, kliknij odnośnik <span class="guilabel">Edytuj</span> lub <span class="guilabel">Usuń</span> znajdujący się w prawym górnym rogu danego elementu w historii sprawy. Jeśli komentarz lub załącznik był edytowany, oprócz daty utworzenia i autora, wyświetlona jest także data jego ostatniej modyfikacji i osoba, która go edytowała.</p>
+          <p>Aby edytować lub usunąć opis, komentarz lub załącznik, kliknij odnośnik <span class="guilabel">Edytuj</span> lub <span class="guilabel">Usuń</span> znajdujący się w prawym górnym rogu danego elementu w widoku szczegółów sprawy. Jeśli element był edytowany, oprócz daty utworzenia i autora, wyświetlona jest także data jego ostatniej modyfikacji i osoba, która go edytowała.</p>
           <div class="figure">
-            <a id="id567299"></a>
+            <a id="id526556"></a>
             <div class="figure-contents">
               <div class="mediaobject">
                 <img src="images/ch03-fig22.png" alt="Historia po edycji komentarza" />
               </div>
             </div>
-            <div class="figure-title">Rysunek 3.22. Historia po edycji komentarza</div>
+            <div class="figure-title">Rysunek 3.23. Historia po edycji komentarza</div>
           </div>
           <p>Usuwać istniejące sprawy może tylko administrator systemu lub administrator projektu, korzystając z polecenia <span class="guilabel">Usuń sprawę</span>.</p>
-          <div class="warning" title="Uwaga" style="margin-left: 0.5in; margin-right: 0.5in;">
+          <div class="warning">
             <h3 class="title">Uwaga</h3>
             <p>Usunięcie sprawy jest nieodwracalne i powoduje utratę całej jej historii, dlatego powinieneś to robić tylko w szczególnych sytuacjach.</p>
           </div>
           <p>Administrator może także przenieść sprawę do innego folderu za pomocą polecenia <span class="guilabel">Przenieś sprawę</span>. Docelowy folder musi być tego samego typu, co przenoszona sprawa, ponieważ nie można łączyć w jednym folderze spraw różnego typu. Aby przenieść sprawę do folderu znajdującego się w innym projekcie, musisz być administratorem obu projektów albo administratorem systemu. Operacja przeniesienia sprawy zostaje zarejestrowana w jej historii.</p>
-          <p>Każdy użytkownik może sklonować istniejącą sprawę, tworząc nową sprawę w tym samym folderze lub w innym folderze tego samego typu. Aby sklonować sprawę, wybierz polecenie <span class="guilabel">Sklonuj sprawę</span>, a następnie wybierz docelowy folder i kliknij <span class="guibutton">OK</span>. Nowa sprawa ma domyślnie taką samą nazwę i wartości atrybutów, jak klonowana sprawa. Możesz w razie potrzeby zmienić te wartości, a następnie ponownie kliknij <span class="guibutton">OK</span>. Nowa sprawa nie jest w żaden sposób powiązana z originalną sprawą, jednak możesz takie powiązanie utworzyć, używając odnośnika do sprawy (patrz sekcja <a class="xref" href="webissues.work.issues.html#webissues.work.issues.comments" title="Komentarze i edycja">„Komentarze i edycja”</a>). Nie zachowuje również historii zmian oraz komentarzy i załączników dodanych do klonowanej sprawy.</p>
+          <p>Każdy użytkownik może sklonować istniejącą sprawę, tworząc nową sprawę w tym samym folderze lub w innym folderze tego samego typu. Aby sklonować sprawę, wybierz polecenie <span class="guilabel">Sklonuj sprawę</span>, a następnie wybierz docelowy folder i kliknij <span class="guibutton">OK</span>. Nowa sprawa ma domyślnie taką samą nazwę i wartości atrybutów, jak klonowana sprawa. Możesz w razie potrzeby zmienić te wartości, a następnie ponownie kliknij <span class="guibutton">OK</span>. Nowa sprawa nie jest w żaden sposób powiązana z originalną sprawą, jednak możesz takie powiązanie utworzyć, używając odnośnika do sprawy (patrz sekcja <a class="xref" href="webissues.work.issues.html#webissues.work.issues.comments" title="Komentarze i opisy">„Komentarze i opisy”</a>). Nie zachowuje również historii zmian oraz komentarzy i załączników dodanych do klonowanej sprawy.</p>
           <p>Nie ma również żadnych ograniczeń, jeśli chodzi o edycję atrybutów sprawy. Każdy użytkownik może je dowolnie modyfikować, jednak każda zmiana jest trwale rejestrowana przez system i jedyną możliwością jej cofnięcia jest ponowna edycja.</p>
         </div>
         <div class="navlinks">
@@ -66,7 +67,7 @@
           <div class="navright"><a accesskey="n" href="webissues.work.export.html">Drukowanie i eksportowanie</a> &raquo;</div>
         </div>
         <div id="footer">
-          <p class="copyright">Copyright © 2007-2012 Zespół WebIssues</p>
+          <p class="copyright">Copyright © 2007-2013 Zespół WebIssues</p>
         </div>
       </div>
     </div>

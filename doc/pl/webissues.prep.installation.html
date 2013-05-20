@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Instalacja</title>
     <link rel="stylesheet" type="text/css" href="common/style.css" />
-    <meta name="generator" content="DocBook XSL Stylesheets V1.76.1" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
     <link rel="home" href="index.html" title="Podręcznik WebIssues" />
     <link rel="up" href="webissues.prep.html" title="Rozdział 2. Przygotowanie systemu" />
     <link rel="prev" href="webissues.prep.html" title="Rozdział 2. Przygotowanie systemu" />
@@ -19,7 +19,7 @@
             <h1><img src="common/webissues.png" alt="WebIssues" id="logo" />Podręcznik WebIssues</h1>
           </div>
           <div id="header-right">
-            <h2 class="subtitle">Wersja 1.0.4</h2>
+            <h2 class="subtitle">Wersja 1.1-beta1</h2>
           </div>
         </div>
         <div id="infobar">
@@ -32,7 +32,7 @@
           <div class="navleft">&laquo; <a accesskey="p" href="webissues.prep.html">Przygotowanie systemu</a></div>
           <div class="navright"><a accesskey="n" href="webissues.prep.setup.html">Konfiguracja początkowa</a> &raquo;</div>
         </div>
-        <div class="sect1" title="Instalacja">
+        <div class="sect1">
           <div class="titlepage">
             <div>
               <div>
@@ -41,7 +41,7 @@
             </div>
           </div>
           <p>Po upewnieniu się, że wymagane komponenty są zainstalowane i skonfigurowane, oraz utworzeniu bazy danych, możesz przystąpić do właściwej instalacji serwera WebIssues.</p>
-          <div class="sect2" title="Kopiowanie plików">
+          <div class="sect2">
             <div class="titlepage">
               <div>
                 <div>
@@ -50,20 +50,20 @@
               </div>
             </div>
             <p>Ściągnij i rozpakuj pakiet serwera WebIssues — zawiera on katalog o nazwie <code class="literal">webissues-x.y</code> (gdzie <code class="literal">x.y</code> to wersja pakietu). Następnie przenieś wszystkie pliki i podkatalogi z tego katalogu do katalogu głównego serwera WWW. Jeśli korzystasz z zewnętrznego hostingu, na ogół do kopiowania plików na serwer używa się protokołu FTP, a więc będziesz potrzebował do tego celu klienta FTP.</p>
-            <div class="note" title="Notatka" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <div class="note">
               <h3 class="title">Notatka</h3>
               <p>Istnieje możliwość zainstalowania serwera WebIssues wraz z innymi stronami i aplikacjami WWW działającymi na tym samym komputerze. Możesz zainstalować serwer w podkatalogu umieszczonym w katalogu głównym serwera WWW, a także na wirtualnym hoście lub w wirtualnym katalogu. Zapoznaj się z dokumentacją twojego serwera WWW lub usługi hostingowej, aby uzyskać więcej informacji na ten temat.</p>
               <p>Możesz także utworzyć wiele odrębnych instancji serwera WebIssues w ramach jednej instalacji. Poszczególne instancje mogą być dostępne poprzez różne nazwy domen lub subdomen albo w różnych wirtualnych podkatalogach. Więcej informacji na ten temat znajdziesz na stronie <a class="ulink" href="http://wiki.mimec.org/wiki/WebIssues/Configuration" target="_top">http://wiki.mimec.org/wiki/WebIssues/Configuration</a>.</p>
             </div>
-            <p>Następnie nadaj prawo zapisu do podkatalogu <code class="filename">data/sites</code> wszystkim użytkownikom lub użytkownikowi, w kontekście którego działa usługa WWW. Skorzystaj w tym celu z menedżera plików lub klienta FTP albo uruchom polecenie <code class="literal">chmod</code> z linii poleceń. W katalogu tym, podczas instalacji, zostanie utworzony plik konfiguracyjny. Będą w nim również przechowywane dołączone do spraw załączniki.</p>
-            <div class="warning" title="Uwaga" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <p>Następnie nadaj prawo zapisu do podkatalogu <code class="filename">data/sites</code> użytkownikowi, w kontekście którego działa usługa WWW. Skorzystaj w tym celu z menedżera plików lub klienta FTP albo uruchom polecenie <code class="literal">chmod</code> z linii poleceń. W katalogu tym, podczas instalacji, zostanie utworzony plik konfiguracyjny. Będą w nim również przechowywane dołączone do spraw załączniki.</p>
+            <div class="warning">
               <h3 class="title">Uwaga</h3>
-              <p>Upewnij się, że katalogi <code class="filename">data</code> oraz <code class="filename">common/data</code> są zabezpieczone przed niepowołanym dostępem przez przeglądarkę internetową. W przeciwnym wypadku nieuprawnione do tego osoby będą mogły np. pobierać przechowywane w systemie załączniki. Jeśli korzystasz z serwera Apache, możesz w tym celu wykorzystać załączone w pakiecie pliki <code class="filename">.htaccess</code>. Więcej informacji na ten temat znajdziesz na stronie <a class="ulink" href="http://wiki.mimec.org/wiki/WebIssues/Installation" target="_top">http://wiki.mimec.org/wiki/WebIssues/Installation</a>.</p>
+              <p>Upewnij się, że katalogi <code class="filename">data</code> oraz <code class="filename">common/data</code> są zabezpieczone przed niepowołanym dostępem przez serwer WWW. W przeciwnym wypadku będzie możliwe pobieranie przechowywanych w systemie załączników bez odpowiedniej autoryzacji. Jeśli korzystasz z serwera Apache, możesz w tym celu wykorzystać załączone w pakiecie pliki <code class="filename">.htaccess</code>. Więcej informacji na ten temat znajdziesz na stronie <a class="ulink" href="http://wiki.mimec.org/wiki/WebIssues/Installation" target="_top">http://wiki.mimec.org/wiki/WebIssues/Installation</a>.</p>
               <p>Po zakończeniu instalacji upewnij się również, że plik konfiguracyjny systemu WebIssues jest chroniony przed niepowołanym dostępem, ponieważ zawiera on między innymi login i hasło do bazy danych. Jest to szczególnie istotne w przypadku korzystania z publicznych usług hostingowych.</p>
               <p>Dla zapewnienia największego bezpieczeństwa zaleca się, aby pliki konfiguracyjne i załączniki nie były przechowywane w katalogu <code class="filename">data</code>, ale w innej lokalizacji położonej poza katalogiem głównym serwera WWW. Więcej informacji na temat zmiany lokalizacji katalogu zawierającego te pliki znajdziesz na stronie <a class="ulink" href="http://wiki.mimec.org/wiki/WebIssues/Configuration" target="_top">http://wiki.mimec.org/wiki/WebIssues/Configuration</a>.</p>
             </div>
           </div>
-          <div class="sect2" title="Konfiguracja systemu">
+          <div class="sect2">
             <div class="titlepage">
               <div>
                 <div>
@@ -73,7 +73,7 @@
             </div>
             <p>Teraz możesz już otworzyć stronę główną systemu WebIssues. Uruchom swoją ulubioną przeglądarkę internetową i wpisz adres URL serwera, na przykład <code class="literal">http://www.example.com</code>. Powinieneś zobaczyć następujący komunikat:</p>
             <div class="figure">
-              <a id="id562623"></a>
+              <a id="id522087"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch02-fig01.png" alt="Komunikat powitalny" />
@@ -84,7 +84,7 @@
             <p>Nie przejmuj się, że komunikat jest po angielsku. Jeśli postąpisz zgodnie z instrukcją i klikniesz odnośnik, zostaniesz zapytany o język, który będzie używany w czasie instalacji. Będzie to również domyślny język, w jakim system WebIssues będzie wyświetlał wszystkie komunikaty.</p>
             <p>W następnym kroku instalacji wyświetlone zostaną podstawowe informacje na temat twojego serwera: nazwa instancji (zwykle będzie to <code class="literal">default</code>, chyba że tworzysz wiele instancji serwera w ramach jednej instalacji), bazowy adres URL serwera oraz ścieżka katalogu, w którym zostanie utworzony plik konfiguracyjny. Zostanie również wyświetlona wersja PHP, serwera WWW i systemu operacyjnego oraz nazwa komputera, na którym instalujesz system WebIssues. Po zweryfikowaniu tych informacji, przejdź do następnego kroku.</p>
             <div class="figure">
-              <a id="id562653"></a>
+              <a id="id522090"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch02-fig02.png" alt="Konfiguracja połączenia z bazą danych" />
@@ -92,16 +92,16 @@
               </div>
               <div class="figure-title">Rysunek 2.2. Konfiguracja połączenia z bazą danych</div>
             </div>
-            <p>Zostaniesz poproszony o wprowadzenie informacji niezbędnych do połączenia z wcześniej utworzoną bazą danych. Musisz przede wszystkim określić jej rodzaj. W zależności od konfiguracji PHP, będziesz miał do dyspozycji bazę MySQL, PostgreSQL lub SQL Server. Jeśli któraś z tych opcji jest niedostępna, oznacza to, że niezbędne rozszerzenie PHP nie zostało zainstalowane lub jest wyłączone.</p>
-            <p>Następnie podaj nazwę hosta serwera bazy danych, jeśli znajduje się on na innym komputerze niż serwer WWW, nazwę bazy danych oraz login i hasło użytkownika posiadającego prawo tworzenia tabel w tej bazie danych. W przypadku bazy SQL Server możesz pozostawić login i hasło puste, aby użyć zintegrowanej autentykacji Windows.</p>
-            <div class="note" title="Notatka" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <p>Zostaniesz poproszony o wprowadzenie informacji niezbędnych do połączenia z wcześniej utworzoną bazą danych. Wybierz rodzaj bazy danych, a następnie podaj nazwę hosta serwera bazy danych, jeśli znajduje się on na innym komputerze niż serwer WWW, nazwę bazy danych oraz login i hasło użytkownika posiadającego prawo tworzenia tabel w tej bazie danych. W przypadku bazy SQL Server możesz pozostawić login i hasło puste, aby użyć zintegrowanej autentykacji Windows.</p>
+            <p>Pozostaw opcję <span class="guilabel">Zainstaluj nowy serwer</span> zaznaczoną jeśli tworzysz nowy serwer. Jeśli natomiast chesz utworzyć nowy plik konfiguracyjny dla wcześniej utworzonego serwera, wybierz opcję <span class="guilabel">Użyj istniejącego serwera</span>. W tym przypadku strona służąca do wprowadzania parametrów nowego serwera zostanie pominięta, a baza danych nie zostanie w żaden sposób zmodyfikowana, chyba że musi ona być zaktualizowana do nowszej wersji.</p>
+            <div class="note">
               <h3 class="title">Notatka</h3>
-              <p>W trakcie instalacji możesz również określić prefiks, który zostanie dodany przed nazwami wszystkich tabel i innych obiektów w bazie danych. Jeśli na przykład wybierzesz prefiks <code class="literal">wi_</code>, zostaną utworzone tabele o nazwach <code class="literal">wi_server</code>, <code class="literal">wi_users</code>, itd.</p>
+              <p>Możesz również określić prefiks, który zostanie dodany przed nazwami wszystkich tabel i innych obiektów w bazie danych. Jeśli na przykład wybierzesz prefiks <code class="literal">wi_</code>, zostaną utworzone tabele o nazwach <code class="literal">wi_server</code>, <code class="literal">wi_users</code>, itd.</p>
               <p>Wybierając unikalny prefiks, możesz zainstalować wiele różnych aplikacji korzystających z jednej bazy danych. Możesz również utworzyć kilka oddzielnych instancji serwera WebIssues w ramach jednej bazy danych.</p>
             </div>
-            <p>Podaj niezbędne informacje i przejdź do następnego kroku. System WebIssues spróbuje połączyć się z serwerem bazy danych, a w przypadku błędu wyświetli odpowiedni komunikat. Jeśli połączenie się powiedzie, a baza danych nie zawiera jeszcze tabel niezbędnych do działania systemu, zostanie wyświetlona następująca strona:</p>
+            <p>Podaj niezbędne informacje i przejdź do następnego kroku. System WebIssues spróbuje połączyć się z serwerem bazy danych, a w przypadku błędu wyświetli odpowiedni komunikat. Jeśli połączenie się powiedzie, zostanie wyświetlona następująca strona:</p>
             <div class="figure">
-              <a id="id562710"></a>
+              <a id="id522154"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch02-fig03.png" alt="Parametry nowego serwera" />
@@ -109,19 +109,12 @@
               </div>
               <div class="figure-title">Rysunek 2.3. Parametry nowego serwera</div>
             </div>
-            <p>Podaj nazwę serwera, która będzie widoczna dla wszystkich użytkowników w lewym górnym rogu strony. Wprowadź również hasło dla konta administratora, którego będziesz mógł później użyć, aby zalogować się do serwera i zmieniać jego ustawienia.</p>
+            <p>Podaj nazwę serwera, która będzie widoczna dla wszystkich użytkowników w pasku tytułowym. Wprowadź również hasło dla konta administratora, którego będziesz mógł później użyć, aby zalogować się do serwera i zmieniać jego ustawienia.</p>
             <p>Domyślnie instalator utworzy kilka predefiniowanych typów spraw i widoków. Najlepiej pozostaw to ustawienie, aby szybko rozpocząć pracę z systemem. Będziesz miał później możliwość swobodnego dostosowania, a nawet usunięcia tych wbudowanych typów. Jeśli jednak chcesz samodzielnie utworzyć wszystkie typy spraw od podstaw, wybierz opcję <span class="guilabel">Nie instaluj żadnych typów spraw</span>.</p>
-            <div class="note" title="Notatka" style="margin-left: 0.5in; margin-right: 0.5in;">
-              <h3 class="title">Notatka</h3>
-              <p>Istnieje możliwość zaimportowania danych z serwera WebIssues w wersji 0.8.5 do nowej wersji systemu. Nowy serwer musi być zainstalowany w tej samej bazie danych co jego poprzednia wersja. Musisz więc użyć innego prefiksu dla nazw nowych tabel niż ten, który był użyty w wersji 0.8.5. Wybierz opcję <span class="guilabel">Importuj dane z serwera WebIssues 0.8.5</span> i opcjonalnie wprowadź prefiks dla tabel źródłowych.</p>
-              <p>Podczas instalacji nowego serwera wszystkie dane przechowywane w bazie danych zostaną skopiowane, ale tabele źródłowe nie zostaną zmodyfikowane ani usunięte. Jeśli zatem proces importu się nie powiedzie, możesz poprawić ewentualne błędy i ponowić instalację nowej wersji. Jeśli załączniki były przechowywane w systemie plików, musisz je także skopiować ze starej wersji do odpowiedniego katalogu w nowej wersji serwera. Instalator nie zrobi tego automatycznie.</p>
-              <p>Jeśli w wersji 0.8.5 systemu używałeś starszej wersji bazy danych niż jest obecnie wymagana, przed rozpoczęciem instalacji musisz najpierw zaktualizować bazę danych do nowszej wersji. Po zaktualizowaniu bazy MySQL z wersji starszej niż 4.1, musisz także skonwertować kolumny typu tekstowego na binarne, a następnie na tekstowe z kodowaniem <code class="literal">utf8</code>, aby zachować poprawne kodowanie tekstu. Przeczytaj <a class="ulink" href="http://dev.mysql.com/doc/refman/4.1/en/charset-conversion.html" target="_top">http://dev.mysql.com/doc/refman/4.1/en/charset-conversion.html</a> aby uzyskać informacje na temat konwersji kolumn.</p>
-            </div>
-            <p>Przejdź do kolejnej strony, która zawiera krótkie podsumowanie czynności, które zostaną wykonane. Kliknij przycisk <span class="guibutton">Instaluj</span>, aby rozpocząć instalację. Może to potrwać kilka sekund, a w przypadku importu istniejących danych nieco dłużej. Jeśli instalacja zakończy się sukcesem, zostanie wyświetlony odpowiedni komunikat.</p>
-            <p>Jeśli tworzysz nowy plik konfiguracyjny dla wcześniej utworzonego serwera, podaj parametry połączenia do bazy danych zawierającej dane tej instancji. Strona służąca do wprowadzania parametrów nowego serwera zostanie w takim wypadku pominięta, a baza danych nie zostanie w żaden sposób zmodyfikowana. Zamiast tego wyświetlona zostanie nazwa i inne informacje na temat istniejącego serwera, a proces instalacji utworzy jedynie nowy plik konfiguracyjny.</p>
-            <div class="tip" title="Wskazówka" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <p>Przejdź do kolejnej strony, która zawiera krótkie podsumowanie czynności, które zostaną wykonane. Kliknij przycisk <span class="guibutton">Instaluj</span>, aby rozpocząć instalację. Może to potrwać jakiś czas. Jeśli instalacja zakończy się sukcesem, zostanie wyświetlony odpowiedni komunikat.</p>
+            <div class="tip">
               <h3 class="title">Wskazówka</h3>
-              <p>Aby w przyszłości utworzyć nowy plik konfiguracyjny, na przykład po przeniesieniu bazy danych na inny serwer, musisz najpierw skasować istniejący plik konfiguracyjny. Jest to zabezpieczenie chroniące system przed niepowołanym dostępem do procedury instalacyjnej.</p>
+              <p>Aby w przyszłości utworzyć nowy plik konfiguracyjny, na przykład po przeniesieniu bazy danych na inny serwer, po prostu skasuj istniejący plik konfiguracyjny. Zostaniesz wtedy poproszony o uruchomienie instalatora, który utworzy nowy plik konfiguracyjny z odpowiednimi parametrami.</p>
             </div>
           </div>
         </div>
@@ -130,7 +123,7 @@
           <div class="navright"><a accesskey="n" href="webissues.prep.setup.html">Konfiguracja początkowa</a> &raquo;</div>
         </div>
         <div id="footer">
-          <p class="copyright">Copyright © 2007-2012 Zespół WebIssues</p>
+          <p class="copyright">Copyright © 2007-2013 Zespół WebIssues</p>
         </div>
       </div>
     </div>
