@@ -24,6 +24,7 @@
 
 #include <QFileInfo>
 #include <QFile>
+#include <QStringList>
 
 FileCache::FileCache( const QString& uuid, const QString& path, QObject* parent ) : QObject( parent ),
     m_uuid( uuid )
@@ -173,7 +174,7 @@ bool FileCache::allocFileSpace( int allocated, const QSqlDatabase& database )
 
     while ( query.next() ) {
         QString path = query.value( 0 ).toString();
-        if ( !QFile::exists( path ) || ( count > maxCount || size > maxSize ) && QFile::remove( path ) ) {
+        if ( !QFile::exists( path ) || ( ( count > maxCount || size > maxSize ) && QFile::remove( path ) ) ) {
             paths.append( path );
             count--;
             size -= query.value( 1 ).toInt();

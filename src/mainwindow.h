@@ -34,6 +34,8 @@ class IssueView;
 class PaneWidget;
 class StatusLabel;
 
+class QStackedWidget;
+
 /**
 * The main window of the application.
 *

@@ -20,6 +20,9 @@
 #ifndef HTMLWRITER_H
 #define HTMLWRITER_H
 
+#include <QString>
+#include <QStack>
+
 class HtmlText;
 
 /**

@@ -590,6 +590,8 @@ void Application::openUrl( QWidget* parent, const QUrl& url )
         if ( !path.isEmpty() )
             ShellExecute( parent->effectiveWinId(), NULL, (LPCTSTR)path.utf16(), NULL, NULL, SW_NORMAL );
     } else
+#else
+    Q_UNUSED( parent )
 #endif
     QDesktopServices::openUrl( url );
 }

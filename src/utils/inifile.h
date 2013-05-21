@@ -20,6 +20,9 @@
 #ifndef INIFILE_H
 #define INIFILE_H
 
+#include <QStringList>
+#include <QMap>
+
 /**
 * Class for parsing raw .ini files.
 */

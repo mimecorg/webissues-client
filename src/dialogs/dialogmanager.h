@@ -20,6 +20,11 @@
 #ifndef DIALOGMANAGER_H
 #define DIALOGMANAGER_H
 
+#include <QObject>
+#include <QMap>
+
+class QDialog;
+
 /**
 * Class managing the modeless dialogs of the application.
 *

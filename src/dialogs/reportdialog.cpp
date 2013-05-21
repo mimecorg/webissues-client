@@ -35,6 +35,7 @@
 #include <QPushButton>
 #include <QDialogButtonBox>
 #include <QWebPage>
+#include <QWebFrame>
 #include <QPrintDialog>
 #include <QFileDialog>
 #include <QTextStream>

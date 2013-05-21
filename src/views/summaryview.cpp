@@ -36,9 +36,15 @@
 #include "views/viewmanager.h"
 #include "xmlui/builder.h"
 
-#include <QTextBrowser>
 #include <QAction>
 #include <QMenu>
+#include <QFrame>
+#include <QLayout>
+#include <QTimer>
+#include <QKeyEvent>
+#include <QClipboard>
+#include <QWebView>
+#include <QWebFrame>
 
 SummaryView::SummaryView( QObject* parent, QWidget* parentWidget ) : View( parent ),
     m_isFindEnabled( false )

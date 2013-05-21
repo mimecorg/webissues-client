@@ -44,7 +44,6 @@
 #include "xmlui/builder.h"
 
 #include <QLayout>
-#include <QTextBrowser>
 #include <QAction>
 #include <QMenu>
 #include <QFileDialog>
@@ -56,6 +55,8 @@
 #include <QScrollBar>
 #include <QPushButton>
 #include <QTimer>
+#include <QWebView>
+#include <QWebFrame>
 
 IssueView::IssueView( QObject* parent, QWidget* parentWidget ) : View( parent ),
     m_folderId( 0 ),

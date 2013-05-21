@@ -20,6 +20,7 @@
 #include "htmltext.h"
 
 #include <QRegExp>
+#include <QTextDocument>
 
 HtmlText::HtmlText( Flags flags ) :
     m_flags( flags )

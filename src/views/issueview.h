@@ -24,7 +24,7 @@
 #include "data/localsettings.h"
 #include "models/issuedetailsgenerator.h"
 
-#include <QTextDocument>
+#include <QUrl>
 
 class PropertyPanel;
 class PopEditPanel;
@@ -33,12 +33,12 @@ class RowIndex;
 class FindBar;
 
 class QTabWidget;
-class QTextBrowser;
 class QTreeView;
 class QModelIndex;
 class QUrl;
 class QFrame;
 class QSplitter;
+class QWebView;
 
 /**
 * View for displaying details of an issue.

@@ -19,6 +19,9 @@
 
 #include "markupprocessor.h"
 
+#include <QStringList>
+#include <QTextDocument>
+
 HtmlText MarkupProcessor::parse( const QString& text, HtmlText::Flags flags )
 {
     MarkupProcessor processor( text, flags );
@@ -133,7 +136,7 @@ void MarkupProcessor::parseBlock()
             if ( !m_extra.isEmpty() ) {
                 QString lang = m_extra.toLower();
                 static const char* const langs[] = { "bash", "c", "c++", "c#", "css", "html", "java", "javascript", "js", "perl", "php", "python", "ruby", "sh", "sql", "vb", "xml" };
-                for ( int i = 0; i < sizeof( langs ) / sizeof( langs[ 0 ] ); i++ ) {
+                for ( int i = 0; i < (int)( sizeof( langs ) / sizeof( langs[ 0 ] ) ); i++ ) {
                     if ( lang == QLatin1String( langs[ i ] ) ) {
                         lang = lang.replace( '+', 'p' ).replace( '#', 's' );
                         m_result += QLatin1String( " prettyprint lang-" );

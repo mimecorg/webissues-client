@@ -23,6 +23,7 @@
 #include <QApplication>
 #include <QPointer>
 #include <QMap>
+#include <QFont>
 
 class MainWindow;
 class LocalSettings;

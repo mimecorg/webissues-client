@@ -30,6 +30,7 @@
 
 #include <QSqlDatabase>
 #include <QFile>
+#include <QStringList>
 
 DataManager* dataManager = NULL;
 
@@ -785,7 +786,7 @@ Command* DataManager::updateSummary( int projectId )
     Query query( database );
 
     if ( !query.execQuery( "SELECT summary_id FROM projects_cache WHERE project_id = ?", projectId ) )
-        return false;
+        return NULL;
 
     int lastStampId = query.readScalar().toInt();
 
@@ -860,7 +861,7 @@ Command* DataManager::updateFolder( int folderId )
     Query query( database );
 
     if ( !query.execQuery( "SELECT list_id FROM folders_cache WHERE folder_id = ?", folderId ) )
-        return false;
+        return NULL;
 
     int lastStampId = query.readScalar().toInt();
 

@@ -19,6 +19,10 @@
 
 #include "inifile.h"
 
+#include <QFile>
+#include <QTextStream>
+#include <QDebug>
+
 IniFile::IniFile()
 {
 }

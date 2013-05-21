@@ -24,6 +24,7 @@
 #include "models/issuedetailsgenerator.h"
 
 class QRadioButton;
+class QWebPage;
 
 /**
 * Dialog for printing or exporting a report.

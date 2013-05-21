@@ -23,6 +23,8 @@
 #include <QObject>
 #include <QList>
 
+class QSqlDatabase;
+
 /**
 * Class for caching downloaded attachments.
 */

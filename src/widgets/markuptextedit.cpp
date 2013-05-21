@@ -32,6 +32,10 @@
 #include <QLayout>
 #include <QComboBox>
 #include <QToolButton>
+#include <QLabel>
+#include <QWebView>
+#include <QInputDialog>
+#include <QDesktopWidget>
 
 static void createButton( const QIcon& icon, const QString& text, QWidget* parent, QObject* receiver, const char* method, const QKeySequence& shortcut = QKeySequence() )
 {

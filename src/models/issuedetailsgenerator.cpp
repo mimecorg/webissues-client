@@ -28,6 +28,7 @@
 #include "utils/formatter.h"
 
 #include <QtAlgorithms>
+#include <QStringList>
 
 IssueDetailsGenerator::IssueDetailsGenerator() :
     m_issueId( 0 ),

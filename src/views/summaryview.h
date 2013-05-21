@@ -22,7 +22,11 @@
 
 #include "views/view.h"
 
+#include <QUrl>
+
 class FindBar;
+
+class QWebView;
 
 /**
 * View for displaying summary of a project.

@@ -22,6 +22,10 @@
 #include "application.h"
 #include "data/localsettings.h"
 
+#include <QDialog>
+#include <QCloseEvent>
+#include <QDesktopWidget>
+
 DialogManager* dialogManager = NULL;
 
 DialogManager::DialogManager()

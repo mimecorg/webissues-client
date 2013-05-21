@@ -21,6 +21,11 @@
 
 #include "utils/htmltext.h"
 
+#include <QStringList>
+#include <QTextDocument>
+#include <QFile>
+#include <QTextStream>
+
 HtmlWriter::HtmlWriter() :
     m_embedded( false )
 {
