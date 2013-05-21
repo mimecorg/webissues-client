@@ -1,3 +1,14 @@
+1.1-beta1 (2013-05-21)
+    * added issue and project descriptions
+    * added text with markup format
+    * export CSV files with UTF-8 byte order marker
+    * use QtWebKit to display issue and project details
+
+1.0.5 (2013-03-12)
+    * fixed a crash when view or report has more than 16 columns
+    * fixed initial splitter position; maximize main window by default
+    * added a workaround for problems caused by mod_security on the server
+
 1.0.4 (2012-11-27)
     * simplified issue properties and history
     * added settings and preferences for history order and filter
