@@ -172,7 +172,7 @@ bool DataManager::lockDatabase( const QSqlDatabase& database )
 
 bool DataManager::installSchema( QSqlDatabase& database )
 {
-    const int schemaVersion = 3;
+    const int schemaVersion = 4;
     const int minSchemaVersion = 3;
 
     Query query( database );
@@ -215,7 +215,7 @@ bool DataManager::installSchema( QSqlDatabase& database )
             "CREATE TABLE folders_cache ( folder_id integer UNIQUE, list_id integer )",
             "CREATE TABLE issue_descriptions ( issue_id integer UNIQUE, descr_text text, descr_format integer, modified_time integer, modified_user_id integer )",
             "CREATE TABLE issue_locks ( issue_id integer UNIQUE, lock_count integer, last_access integer )",
-            "CREATE TABLE issue_states ( user_id integer, issue_id integer, read_id integer, UNIQUE ( user_id, issue_id ) )",
+            "CREATE TABLE issue_states ( user_id integer, issue_id integer, read_id integer, subscription_id integer, UNIQUE ( user_id, issue_id ) )",
             "CREATE TABLE issue_types ( type_id integer UNIQUE, type_name text )",
             "CREATE TABLE issues ( issue_id integer UNIQUE, folder_id integer, issue_name text, stamp_id integer, created_time integer, created_user_id integer, "
                 "modified_time integer, modified_user_id integer )",
@@ -241,6 +241,11 @@ bool DataManager::installSchema( QSqlDatabase& database )
         }
 
         currentVersion = schemaVersion;
+    }
+
+    if ( currentVersion < 4 ) {
+        if ( !query.execQuery( "ALTER TABLE issue_states ADD subscription_id integer" ) )
+            return false;
     }
 
     QString sql = QString( "PRAGMA user_version = %1" ).arg( schemaVersion );
@@ -730,7 +735,7 @@ Command* DataManager::updateStates()
     command->addArg( lastStateId );
 
     command->setAcceptNullReply( true );
-    command->addRule( "S iii", ReplyRule::ZeroOrMore );
+    command->addRule( "S iiii", ReplyRule::ZeroOrMore );
 
     connect( command, SIGNAL( commandReply( const Reply& ) ), this, SLOT( updateStatesReply( const Reply& ) ) );
 
@@ -760,10 +765,10 @@ bool DataManager::updateStatesReply( const Reply& reply, int lastStateId, const 
 {
     Query query( database );
 
-    query.setQuery( "INSERT OR REPLACE INTO issue_states VALUES ( ?, ?, ? )" );
+    query.setQuery( "INSERT OR REPLACE INTO issue_states VALUES ( ?, ?, ?, ? )" );
 
     for ( int i = 0; i < reply.count(); i++ ) {
-        if ( !query.exec( m_currentUserId, reply.at( i ).arg( 1 ), reply.at( i ).arg( 2 ) ) )
+        if ( !query.exec( m_currentUserId, reply.at( i ).arg( 1 ), reply.at( i ).arg( 2 ), reply.at( i ).arg( 3 ) ) )
             return false;
 
         int stateId = reply.at( i ).argInt( 0 );
@@ -1091,7 +1096,12 @@ bool DataManager::updateIssueReply( const Reply& reply, const QSqlDatabase& data
         return false;
 
     if ( markAsRead ) {
-        if ( !query.execQuery( "INSERT OR REPLACE INTO issue_states VALUES ( ?, ?, ? )", m_currentUserId, issueId, lastStampId ) )
+        if ( !query.execQuery( "SELECT subscription_id FROM issue_states WHERE user_id = ? AND issue_id = ?", m_currentUserId, issueId ) )
+            return false;
+
+        int subscriptionId = query.readScalar().toInt();
+
+        if ( !query.execQuery( "INSERT OR REPLACE INTO issue_states VALUES ( ?, ?, ?, ? )", m_currentUserId, issueId, lastStampId, subscriptionId ) )
             return false;
     }
 

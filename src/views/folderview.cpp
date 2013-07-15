@@ -54,7 +54,8 @@ FolderView::FolderView( QObject* parent, QWidget* parentWidget ) : View( parent 
     m_currentViewId( 0 ),
     m_searchColumn( Column_Name ),
     m_selectedIssueId( 0 ),
-    m_isRead( false )
+    m_isRead( false ),
+    m_isSubscribed( false )
 {
     QAction* action;
 
@@ -108,6 +109,10 @@ FolderView::FolderView( QObject* parent, QWidget* parentWidget ) : View( parent 
     action = new QAction( IconLoader::icon( "folder-unread" ), tr( "Mark All As Unread" ), this );
     connect( action, SIGNAL( triggered() ), this, SLOT( markAllAsUnread() ), Qt::QueuedConnection );
     setAction( "markAllAsUnread", action );
+
+    action = new QAction( IconLoader::icon( "issue-subscribe" ), tr( "Subscribe" ), this );
+    connect( action, SIGNAL( triggered() ), this, SLOT( subscribe() ), Qt::QueuedConnection );
+    setAction( "subscribe", action );
 
     action = new QAction( IconLoader::icon( "file-print" ), tr( "Print List" ), this );
     action->setIconText( tr( "Print" ) );
@@ -345,6 +350,7 @@ void FolderView::updateActions()
 {
     m_selectedIssueId = 0;
     m_isRead = true;
+    m_isSubscribed = false;
 
     TreeViewHelper helper( m_list );
     QModelIndex index = helper.selectedIndex();
@@ -354,6 +360,7 @@ void FolderView::updateActions()
         if ( m_selectedIssueId ) {
             IssueEntity issue = IssueEntity::find( m_selectedIssueId );
             m_isRead = issue.isValid() ? issue.readId() >= issue.stampId() : false;
+            m_isSubscribed = issue.isValid() ? issue.subscriptionId() != 0 : false;
         }
     }
 
@@ -373,6 +380,10 @@ void FolderView::updateActions()
     action( "popupMarkAll" )->setEnabled( folder.stampId() > 0 );
     action( "markAllAsRead" )->setEnabled( folder.stampId() > 0 );
     action( "markAllAsUnread" )->setEnabled( folder.stampId() > 0 );
+
+    action( "subscribe" )->setEnabled( m_selectedIssueId != 0 );
+    action( "subscribe" )->setText( m_isSubscribed ? tr( "Unsubscribe" ) : tr( "Subscribe" ) );
+    action( "subscribe" )->setIcon( IconLoader::icon( m_isSubscribed ? "issue-unsubscribe" : "issue-subscribe" ) );
 
     action( "cloneView" )->setEnabled( m_currentViewId != 0 );
 
@@ -541,6 +552,19 @@ void FolderView::markAllAsUnread()
     if ( isEnabled() ) {
         FolderStateDialog dialog( id(), 0, mainWidget() );
         dialog.exec();
+    }
+}
+
+void FolderView::subscribe()
+{
+    if ( isEnabled() && m_selectedIssueId != 0 ) {
+        if ( m_isSubscribed ) {
+            DeleteSubscriptionDialog dialog( m_selectedIssueId, mainWidget() );
+            dialog.exec();
+        } else {
+            AddSubscriptionDialog dialog( m_selectedIssueId, mainWidget() );
+            dialog.exec();
+        }
     }
 }
 

@@ -337,6 +337,7 @@ public:
 
     int stampId() const;
     int readId() const;
+    int subscriptionId() const;
 
     int folderId() const;
 

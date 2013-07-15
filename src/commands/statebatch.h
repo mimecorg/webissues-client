@@ -60,6 +60,19 @@ public:
     */
     void setFolderRead( int folderId, int readId );
 
+    /**
+    * Add the <tt>ADD SUBSCRIPTION</tt> command to the batch.
+    * @param issueId Identifier of the issue.
+    */
+    void addSubscription( int issueId );
+
+    /**
+    * Add the <tt>DELETE SUBSCRIPTION</tt> command to the batch.
+    * @param issueId Identifier of the issue.
+    * @param subscriptionId Identifier of the subscription.
+    */
+    void deleteSubscription( int issueId, int subscriptionId );
+
 public: // overrides
     Command* fetchNext();
 
@@ -70,6 +83,8 @@ private:
 private:
     Command* setIssueReadJob( const Job& job );
     Command* setFolderReadJob( const Job& job );
+    Command* addSubscriptionJob( const Job& job );
+    Command* deleteSubscriptionJob( const Job& job );
 
 private slots:
     void setUpdate();

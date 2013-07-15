@@ -47,6 +47,21 @@ void StateBatch::setFolderRead( int folderId, int readId )
     m_queue.addJob( job );
 }
 
+void StateBatch::addSubscription( int issueId )
+{
+    Job job( &StateBatch::addSubscriptionJob );
+    job.addArg( issueId );
+    m_queue.addJob( job );
+}
+
+void StateBatch::deleteSubscription( int issueId, int subscriptionId )
+{
+    Job job( &StateBatch::deleteSubscriptionJob );
+    job.addArg( issueId );
+    job.addArg( subscriptionId );
+    m_queue.addJob( job );
+}
+
 Command* StateBatch::fetchNext()
 {
     if ( m_queue.moreJobs() )
@@ -83,6 +98,34 @@ Command* StateBatch::setFolderReadJob( const Job& job )
     command->setArgs( job.args() );
 
     command->setAcceptNullReply( true );
+    command->addRule( "OK", ReplyRule::One );
+
+    connect( command, SIGNAL( commandReply( const Reply& ) ), this, SLOT( setUpdate() ) );
+
+    return command;
+}
+
+Command* StateBatch::addSubscriptionJob( const Job& job )
+{
+    Command* command = new Command();
+
+    command->setKeyword( "ADD SUBSCRIPTION" );
+    command->setArgs( job.args() );
+
+    command->addRule( "ID i", ReplyRule::One );
+
+    connect( command, SIGNAL( commandReply( const Reply& ) ), this, SLOT( setUpdate() ) );
+
+    return command;
+}
+
+Command* StateBatch::deleteSubscriptionJob( const Job& job )
+{
+    Command* command = new Command();
+
+    command->setKeyword( "DELETE SUBSCRIPTION" );
+    command->setArgs( job.args() );
+
     command->addRule( "OK", ReplyRule::One );
 
     connect( command, SIGNAL( commandReply( const Reply& ) ), this, SLOT( setUpdate() ) );

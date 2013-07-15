@@ -116,6 +116,7 @@ private slots:
     void markAsRead();
     void markAllAsRead();
     void markAllAsUnread();
+    void subscribe();
 
     void printReport();
     void exportCsv();
@@ -179,6 +180,7 @@ private:
 
     int m_selectedIssueId;
     bool m_isRead;
+    bool m_isSubscribed;
 };
 
 #endif

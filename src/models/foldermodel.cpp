@@ -110,13 +110,27 @@ QVariant FolderModel::data( const QModelIndex& index, int role ) const
     }
 
     if ( role == Qt::DecorationRole && index.column() == 1 ) {
+        QString name, overlay;
         int readId = rawData( level, row, 2, Qt::DisplayRole ).toInt();
-        if ( readId == 0 )
-            return IconLoader::pixmap( "issue-unread" );
-        int stampId = rawData( level, row, 1, Qt::DisplayRole ).toInt();
-        if ( readId < stampId )
-            return IconLoader::pixmap( "issue-modified" );
-        return IconLoader::pixmap( "issue" );
+        if ( readId == 0 ) {
+            name = "issue-unread";
+        } else {
+            int stampId = rawData( level, row, 1, Qt::DisplayRole ).toInt();
+            if ( readId < stampId )
+                name = "issue-modified";
+            else
+                name = "issue";
+        }
+        bool emailEnabled = dataManager->setting( "email_enabled" ).toInt();
+        if ( emailEnabled ) {
+            int subscriptionId = rawData( level, row, 3, Qt::DisplayRole ).toInt();
+            if ( subscriptionId != 0 )
+                overlay = "overlay-subscribed";
+        }
+        if ( !overlay.isEmpty() )
+            return IconLoader::overlayedPixmap( name, overlay );
+        else
+            return IconLoader::pixmap( name );
     }
 
     if ( role == Qt::FontRole ) {

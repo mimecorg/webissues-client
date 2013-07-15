@@ -123,8 +123,12 @@
   <file>issue-new-22.png</file>
   <file>issue-open-16.png</file>
   <file>issue-open-22.png</file>
+  <file>issue-subscribe-16.png</file>
+  <file>issue-subscribe-22.png</file>
   <file>issue-unread-16.png</file>
   <file>issue-unread-22.png</file>
+  <file>issue-unsubscribe-16.png</file>
+  <file>issue-unsubscribe-22.png</file>
   <file>mail-send-16.png</file>
   <file>markup-bold-16.png</file>
   <file>markup-code-16.png</file>
@@ -141,6 +145,7 @@
   <file>overlay-admin-16.png</file>
   <file>overlay-connected-16.png</file>
   <file>overlay-connected-22.png</file>
+  <file>overlay-subscribed-16.png</file>
   <file>preferences-16.png</file>
   <file>preferences-22.png</file>
   <file>print-preview-16.png</file>

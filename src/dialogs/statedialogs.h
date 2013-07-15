@@ -78,4 +78,56 @@ private:
     int m_readId;
 };
 
+/**
+* Dialog for executing the <tt>ADD SUBSCRIPTION</tt> command.
+*/
+class AddSubscriptionDialog : public CommandDialog
+{
+    Q_OBJECT
+public:
+    /**
+    * Constructor.
+    * @param issueId Identifier of the issue.
+    * @param parent The parent widget.
+    */
+    AddSubscriptionDialog( int issueId, QWidget* parent );
+
+    /**
+    * Destructor.
+    */
+    ~AddSubscriptionDialog();
+
+public: // overrides
+    void accept();
+
+private:
+    int m_issueId;
+};
+
+/**
+* Dialog for executing the <tt>DELETE SUBSCRIPTION</tt> command.
+*/
+class DeleteSubscriptionDialog : public CommandDialog
+{
+    Q_OBJECT
+public:
+    /**
+    * Constructor.
+    * @param issueId Identifier of the issue.
+    * @param parent The parent widget.
+    */
+    DeleteSubscriptionDialog( int issueId, QWidget* parent );
+
+    /**
+    * Destructor.
+    */
+    ~DeleteSubscriptionDialog();
+
+public: // overrides
+    void accept();
+
+private:
+    int m_issueId;
+};
+
 #endif

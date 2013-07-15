@@ -96,6 +96,7 @@ private slots:
     void deleteIssue();
     void addDescription();
     void markAsRead();
+    void subscribe();
 
     void copy();
     void selectAll();
@@ -156,6 +157,7 @@ private:
     int m_folderId;
     int m_typeId;
     bool m_isRead;
+    bool m_isSubscribed;
 
     IssueDetailsGenerator::History m_history;
 

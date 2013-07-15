@@ -85,3 +85,75 @@ void FolderStateDialog::accept()
 
     executeBatch( batch );
 }
+
+AddSubscriptionDialog::AddSubscriptionDialog( int issueId, QWidget* parent ) : CommandDialog( parent ),
+    m_issueId( issueId )
+{
+    IssueEntity issue = IssueEntity::find( issueId );
+
+    setWindowTitle( tr( "Subscribe To Issue" ) );
+    setPrompt( tr( "You are about to subscribe to issue <b>%1</b>." ).arg( issue.name() ) );
+    setPromptPixmap( IconLoader::pixmap( "issue-subscribe", 22 ) );
+    showInfo( tr( "Please confirm." ) );
+
+    QVBoxLayout* layout = new QVBoxLayout();
+
+    QLabel* label = new QLabel( "You will receive email notifications when someone else modifies this issue, adds a comment or attachment.", this );
+    label->setWordWrap( true );
+
+    layout->addWidget( label );
+
+    setContentLayout( layout, true );
+}
+
+AddSubscriptionDialog::~AddSubscriptionDialog()
+{
+}
+
+void AddSubscriptionDialog::accept()
+{
+    StateBatch* batch = new StateBatch();
+    batch->addSubscription( m_issueId );
+
+    executeBatch( batch );
+}
+
+DeleteSubscriptionDialog::DeleteSubscriptionDialog( int issueId, QWidget* parent ) : CommandDialog( parent ),
+    m_issueId( issueId )
+{
+    IssueEntity issue = IssueEntity::find( issueId );
+
+    setWindowTitle( tr( "Unsubscribe From Issue" ) );
+    setPrompt( tr( "You are about to unsubscribe from issue <b>%1</b>." ).arg( issue.name() ) );
+    setPromptPixmap( IconLoader::pixmap( "issue-unsubscribe", 22 ) );
+    showInfo( tr( "Please confirm." ) );
+
+    QVBoxLayout* layout = new QVBoxLayout();
+
+    QLabel* label = new QLabel( "You will no longer receive email notifications for this issue.", this );
+    label->setWordWrap( true );
+
+    layout->addWidget( label );
+
+    setContentLayout( layout, true );
+}
+
+DeleteSubscriptionDialog::~DeleteSubscriptionDialog()
+{
+}
+
+void DeleteSubscriptionDialog::accept()
+{
+    IssueEntity issue = IssueEntity::find( m_issueId );
+    int subscriptionId = issue.subscriptionId();
+
+    if ( subscriptionId == 0 ) {
+        QDialog::accept();
+        return;
+    }
+
+    StateBatch* batch = new StateBatch();
+    batch->deleteSubscription( m_issueId, subscriptionId );
+
+    executeBatch( batch );
+}

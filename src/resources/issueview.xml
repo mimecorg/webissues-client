@@ -12,8 +12,9 @@
       <grid>
         <action id="moveIssue"/>
         <action id="deleteIssue"/>
+        <action id="markAsRead"/>
+        <action id="subscribe"/>
       </grid>
-      <action id="markAsRead"/>
     </section>
     <section id="sectionEdit">
       <grid>
@@ -56,6 +57,7 @@
     <action id="addDescription"/>
     <separator/>
     <action id="markAsRead"/>
+    <action id="subscribe"/>
     <separator/>
     <action id="editSelectAll"/>
     <separator/>

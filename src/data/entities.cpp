@@ -1034,6 +1034,7 @@ IssueEntityData::IssueEntityData() :
     m_id( 0 ),
     m_stampId( 0 ),
     m_readId( 0 ),
+    m_subscriptionId( 0 ),
     m_folderId( 0 ),
     m_typeId( 0 )
 {
@@ -1066,6 +1067,11 @@ int IssueEntity::stampId() const
 int IssueEntity::readId() const
 {
     return d->m_readId;
+}
+
+int IssueEntity::subscriptionId() const
+{
+    return d->m_subscriptionId;
 }
 
 int IssueEntity::folderId() const
@@ -1103,7 +1109,7 @@ IssueEntity IssueEntity::find( int id )
     IssueEntity entity;
 
     if ( id != 0 ) {
-        Query query( "SELECT i.issue_id, i.stamp_id, s.read_id, i.folder_id, f.type_id, i.issue_name,"
+        Query query( "SELECT i.issue_id, i.stamp_id, s.read_id, s.subscription_id, i.folder_id, f.type_id, i.issue_name,"
             " i.created_time, uc.user_name AS created_user, i.modified_time, um.user_name AS modified_user"
             " FROM issues AS i"
             " JOIN folders AS f ON f.folder_id = i.folder_id"
@@ -1125,7 +1131,7 @@ QList<IssueEntity> FolderEntity::issues() const
     QList<IssueEntity> result;
 
     if ( d->m_id != 0 ) {
-        Query query( "SELECT i.issue_id, i.stamp_id, s.read_id, i.folder_id, f.type_id, i.issue_name,"
+        Query query( "SELECT i.issue_id, i.stamp_id, s.read_id, s.subscription_id, i.folder_id, f.type_id, i.issue_name,"
             " i.created_time, uc.user_name AS created_user, i.modified_time, um.user_name AS modified_user"
             " FROM issues AS i"
             " JOIN folders AS f ON f.folder_id = i.folder_id"
@@ -1150,13 +1156,14 @@ void IssueEntityData::read( const Query& query )
     m_id = query.value( 0 ).toInt();
     m_stampId = query.value( 1 ).toInt();
     m_readId = query.value( 2 ).toInt();
-    m_folderId = query.value( 3 ).toInt();
-    m_typeId = query.value( 4 ).toInt();
-    m_name = query.value( 5 ).toString();
-    m_createdDate.setTime_t( query.value( 6 ).toInt() );
-    m_createdUser = query.value( 7 ).toString();
-    m_modifiedDate.setTime_t( query.value( 8 ).toInt() );
-    m_modifiedUser = query.value( 9 ).toString();
+    m_subscriptionId = query.value( 3 ).toInt();
+    m_folderId = query.value( 4 ).toInt();
+    m_typeId = query.value( 5 ).toInt();
+    m_name = query.value( 6 ).toString();
+    m_createdDate.setTime_t( query.value( 7 ).toInt() );
+    m_createdUser = query.value( 8 ).toString();
+    m_modifiedDate.setTime_t( query.value( 9 ).toInt() );
+    m_modifiedUser = query.value( 10 ).toString();
 }
 
 bool IssueEntity::isOwner( int id )

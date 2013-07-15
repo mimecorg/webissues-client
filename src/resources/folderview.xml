@@ -13,8 +13,9 @@
       <grid>
         <action id="moveIssue"/>
         <action id="deleteIssue"/>
+        <action id="markAsRead"/>
+        <action id="subscribe"/>
       </grid>
-      <action id="markAsRead"/>
     </section>
     <section id="sectionViews">
       <action id="manageViews"/>
@@ -47,6 +48,7 @@
     <action id="deleteIssue"/>
     <separator/>
     <action id="markAsRead"/>
+    <action id="subscribe"/>
     <separator/>
     <action id="addIssue"/>
     <separator/>

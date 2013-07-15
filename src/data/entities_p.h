@@ -165,6 +165,7 @@ public:
     int m_id;
     int m_stampId;
     int m_readId;
+    int m_subscriptionId;
     int m_folderId;
     int m_typeId;
     QString m_name;

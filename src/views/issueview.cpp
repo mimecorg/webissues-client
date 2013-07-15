@@ -62,6 +62,7 @@ IssueView::IssueView( QObject* parent, QWidget* parentWidget ) : View( parent ),
     m_folderId( 0 ),
     m_typeId( 0 ),
     m_isRead( false ),
+    m_isSubscribed( false ),
     m_history( IssueDetailsGenerator::AllHistory ),
     m_isFindEnabled( false ),
     m_lockedIssueId( 0 ),
@@ -180,6 +181,10 @@ IssueView::IssueView( QObject* parent, QWidget* parentWidget ) : View( parent ),
     action = new QAction( IconLoader::icon( "issue" ), tr( "Mark As Read" ), this );
     connect( action, SIGNAL( triggered() ), this, SLOT( markAsRead() ), Qt::QueuedConnection );
     setAction( "markAsRead", action );
+
+    action = new QAction( IconLoader::icon( "issue-subscribe" ), tr( "Subscribe" ), this );
+    connect( action, SIGNAL( triggered() ), this, SLOT( subscribe() ), Qt::QueuedConnection );
+    setAction( "subscribe", action );
 
     setTitle( "sectionAdd", tr( "Add" ) );
     setTitle( "sectionIssue", tr( "Issue" ) );
@@ -364,6 +369,7 @@ void IssueView::updateActions()
 
     IssueEntity issue = IssueEntity::find( id() );
     m_isRead = issue.isValid() ? issue.readId() >= issue.stampId() : false;
+    m_isSubscribed = issue.isValid() ? issue.subscriptionId() != 0 : false;
 
     action( "addDescription" )->setEnabled( !issue.description().isValid() );
     action( "editCopy" )->setEnabled( hasSelection );
@@ -379,6 +385,9 @@ void IssueView::updateActions()
 
     action( "markAsRead" )->setText( m_isRead ? tr( "Mark As Unread" ) : tr( "Mark As Read" ) );
     action( "markAsRead" )->setIcon( IconLoader::icon( m_isRead ? "issue-unread" : "issue" ) );
+
+    action( "subscribe" )->setText( m_isSubscribed ? tr( "Unsubscribe" ) : tr( "Subscribe" ) );
+    action( "subscribe" )->setIcon( IconLoader::icon( m_isSubscribed ? "issue-unsubscribe" : "issue-subscribe" ) );
 }
 
 void IssueView::initialUpdateIssue()
@@ -555,6 +564,19 @@ void IssueView::markAsRead()
         IssueStateDialog dialog( id(), readId, mainWidget() );
         dialog.accept();
         dialog.exec();
+    }
+}
+
+void IssueView::subscribe()
+{
+    if ( isEnabled() ) {
+        if ( m_isSubscribed ) {
+            DeleteSubscriptionDialog dialog( id(), mainWidget() );
+            dialog.exec();
+        } else {
+            AddSubscriptionDialog dialog( id(), mainWidget() );
+            dialog.exec();
+        }
     }
 }
 

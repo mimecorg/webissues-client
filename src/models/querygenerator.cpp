@@ -116,6 +116,7 @@ QString QueryGenerator::generateSelect( bool allColumns )
     result.append( "i.issue_id" );
     result.append( "i.stamp_id" );
     result.append( "s.read_id" );
+    result.append( "s.subscription_id" );
 
     if ( allColumns ) {
         foreach ( int column, m_columns ) {
@@ -483,7 +484,7 @@ QList<int> QueryGenerator::columnMapping() const
     QList<int> result;
 
     if ( m_valid ) {
-        int index = 3;
+        int index = 4;
 
         foreach ( int column, m_columns ) {
             if ( column == Column_ID )
