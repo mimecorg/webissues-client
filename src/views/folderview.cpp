@@ -478,7 +478,8 @@ void FolderView::editIssue()
             return;
         EditIssueDialog* dialog = new EditIssueDialog( m_selectedIssueId );
         dialogManager->addDialog( dialog, m_selectedIssueId );
-        dialog->setUpdateFolder( true );
+        if ( viewManager->isStandAlone( this ) )
+            dialog->setUpdateFolder( true );
         dialog->show();
     }
 }
