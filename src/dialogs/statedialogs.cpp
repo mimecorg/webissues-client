@@ -153,7 +153,7 @@ void DeleteSubscriptionDialog::accept()
     }
 
     StateBatch* batch = new StateBatch();
-    batch->deleteSubscription( m_issueId, subscriptionId );
+    batch->deleteSubscription( subscriptionId );
 
     executeBatch( batch );
 }

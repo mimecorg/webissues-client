@@ -68,10 +68,9 @@ public:
 
     /**
     * Add the <tt>DELETE SUBSCRIPTION</tt> command to the batch.
-    * @param issueId Identifier of the issue.
     * @param subscriptionId Identifier of the subscription.
     */
-    void deleteSubscription( int issueId, int subscriptionId );
+    void deleteSubscription( int subscriptionId );
 
 public: // overrides
     Command* fetchNext();

@@ -54,10 +54,9 @@ void StateBatch::addSubscription( int issueId )
     m_queue.addJob( job );
 }
 
-void StateBatch::deleteSubscription( int issueId, int subscriptionId )
+void StateBatch::deleteSubscription( int subscriptionId )
 {
     Job job( &StateBatch::deleteSubscriptionJob );
-    job.addArg( issueId );
     job.addArg( subscriptionId );
     m_queue.addJob( job );
 }
