@@ -308,6 +308,29 @@
     </message>
 </context>
 <context>
+    <name>AddSubscriptionDialog</name>
+    <message>
+        <location filename="../src/dialogs/statedialogs.cpp" line="94"/>
+        <source>Subscribe To Issue</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/statedialogs.cpp" line="95"/>
+        <source>You are about to subscribe to issue &lt;b&gt;%1&lt;/b&gt;.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/statedialogs.cpp" line="97"/>
+        <source>Please confirm.</source>
+        <translation type="unfinished">Graag bevestigen.</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/statedialogs.cpp" line="101"/>
+        <source>You will receive email notifications when someone else modifies this issue, adds a comment or attachment.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>AddTypeDialog</name>
     <message>
         <location filename="../src/dialogs/typedialogs.cpp" line="54"/>
@@ -1378,6 +1401,29 @@ Are you sure you want to continue?</source>
     </message>
 </context>
 <context>
+    <name>DeleteSubscriptionDialog</name>
+    <message>
+        <location filename="../src/dialogs/statedialogs.cpp" line="126"/>
+        <source>Unsubscribe From Issue</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/statedialogs.cpp" line="127"/>
+        <source>You are about to unsubscribe from issue &lt;b&gt;%1&lt;/b&gt;.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/statedialogs.cpp" line="129"/>
+        <source>Please confirm.</source>
+        <translation type="unfinished">Graag bevestigen.</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/statedialogs.cpp" line="133"/>
+        <source>You will no longer receive email notifications for this issue.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>DeleteTypeDialog</name>
     <message>
         <location filename="../src/dialogs/typedialogs.cpp" line="153"/>
@@ -1836,12 +1882,22 @@ Are you sure you want to continue?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/utils/errorhelper.cpp" line="159"/>
+        <location filename="../src/utils/errorhelper.cpp" line="150"/>
+        <source>Subscription does not exist</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/utils/errorhelper.cpp" line="152"/>
+        <source>Subscription already exists</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/utils/errorhelper.cpp" line="163"/>
         <source>Some of the values you entered are incorrect.</source>
         <translation>Een aantal waarden die je hebt ingevuld kloppen niet.</translation>
     </message>
     <message>
-        <location filename="../src/utils/errorhelper.cpp" line="161"/>
+        <location filename="../src/utils/errorhelper.cpp" line="165"/>
         <source>Incorrect value: %1.</source>
         <translation>Ongeldige waarde: %1.</translation>
     </message>
@@ -1933,200 +1989,211 @@ Are you sure you want to continue?</source>
 <context>
     <name>FolderView</name>
     <message>
-        <location filename="../src/views/folderview.cpp" line="66"/>
+        <location filename="../src/views/folderview.cpp" line="67"/>
         <source>&amp;Open Issue</source>
         <translation>Issue &amp;openen</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="71"/>
+        <location filename="../src/views/folderview.cpp" line="72"/>
         <source>&amp;Add Issue...</source>
         <translation>Issue &amp;toevoegen...</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="76"/>
+        <location filename="../src/views/folderview.cpp" line="77"/>
         <source>&amp;Edit Attributes...</source>
         <translation>&amp;Attributen bewerken...</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="77"/>
+        <location filename="../src/views/folderview.cpp" line="78"/>
         <source>F2</source>
         <translation>F2</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="81"/>
+        <location filename="../src/views/folderview.cpp" line="82"/>
         <source>Clone Issue...</source>
         <translation>Issue kopieëren...</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="85"/>
+        <location filename="../src/views/folderview.cpp" line="86"/>
         <source>&amp;Move Issue...</source>
         <translation>Issue &amp;verplaatsen...</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="86"/>
+        <location filename="../src/views/folderview.cpp" line="87"/>
         <source>Move</source>
         <translation>Verplaatsen</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="90"/>
+        <location filename="../src/views/folderview.cpp" line="91"/>
         <source>&amp;Delete Issue</source>
         <translation>Issue ver&amp;wijderen</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="91"/>
+        <location filename="../src/views/folderview.cpp" line="92"/>
         <source>Delete</source>
         <translation>Verwijderen</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="96"/>
-        <location filename="../src/views/folderview.cpp" line="368"/>
+        <location filename="../src/views/folderview.cpp" line="97"/>
+        <location filename="../src/views/folderview.cpp" line="375"/>
         <source>Mark As Read</source>
         <translation>Markeren als gelezen</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="100"/>
-        <location filename="../src/views/folderview.cpp" line="104"/>
+        <location filename="../src/views/folderview.cpp" line="101"/>
+        <location filename="../src/views/folderview.cpp" line="105"/>
         <source>Mark All As Read</source>
         <translation>Alles markeren als gelezen</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="101"/>
+        <location filename="../src/views/folderview.cpp" line="102"/>
         <source>Mark All As Read</source>
         <comment>icon text</comment>
         <translation>Alles markeren als gelezen</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="108"/>
+        <location filename="../src/views/folderview.cpp" line="109"/>
         <source>Mark All As Unread</source>
         <translation>Alles markeren als ongelezen</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="112"/>
+        <location filename="../src/views/folderview.cpp" line="113"/>
+        <location filename="../src/views/folderview.cpp" line="385"/>
+        <source>Subscribe</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/folderview.cpp" line="117"/>
         <source>Print List</source>
         <translation>Lijst afdrukken</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="113"/>
+        <location filename="../src/views/folderview.cpp" line="118"/>
         <source>Print</source>
         <translation>Afdrukken</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="118"/>
+        <location filename="../src/views/folderview.cpp" line="123"/>
         <source>Export List</source>
         <translation>Lijst exporteren</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="119"/>
+        <location filename="../src/views/folderview.cpp" line="124"/>
         <source>Export</source>
         <translation>Export</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="122"/>
+        <location filename="../src/views/folderview.cpp" line="127"/>
         <source>Export To CSV</source>
         <translation>Naar CSV exporteren</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="126"/>
+        <location filename="../src/views/folderview.cpp" line="131"/>
         <source>Export To HTML</source>
         <translation>Naar HTML exporteren</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="130"/>
+        <location filename="../src/views/folderview.cpp" line="135"/>
         <source>Export To PDF</source>
         <translation>Naar PDF exporteren</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="134"/>
+        <location filename="../src/views/folderview.cpp" line="139"/>
         <source>&amp;Manage Views...</source>
         <translation>Views &amp;beheren...</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="138"/>
+        <location filename="../src/views/folderview.cpp" line="143"/>
         <source>Add View</source>
         <translation>View toevoegen</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="141"/>
+        <location filename="../src/views/folderview.cpp" line="146"/>
         <source>&amp;Add View</source>
         <translation>View &amp;toevoegen</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="145"/>
+        <location filename="../src/views/folderview.cpp" line="150"/>
         <source>&amp;Clone View</source>
         <translation>View &amp;kopiëren</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="149"/>
+        <location filename="../src/views/folderview.cpp" line="154"/>
         <source>M&amp;odify View</source>
         <translation>View &amp;bewerken</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="153"/>
+        <location filename="../src/views/folderview.cpp" line="158"/>
         <source>Add</source>
         <translation>Toevoegen</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="154"/>
+        <location filename="../src/views/folderview.cpp" line="159"/>
         <source>Folder</source>
         <translation>Folder</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="155"/>
+        <location filename="../src/views/folderview.cpp" line="160"/>
         <source>Issue</source>
         <translation>Issue</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="156"/>
+        <location filename="../src/views/folderview.cpp" line="161"/>
         <source>Views</source>
         <translation>Views</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="157"/>
+        <location filename="../src/views/folderview.cpp" line="162"/>
         <source>Report</source>
         <translation>Rapport</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="179"/>
+        <location filename="../src/views/folderview.cpp" line="184"/>
         <source>&amp;View:</source>
         <translation>&amp;View:</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="195"/>
+        <location filename="../src/views/folderview.cpp" line="200"/>
         <source>&amp;Search:</source>
         <translation>&amp;Zoeken:</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="368"/>
+        <location filename="../src/views/folderview.cpp" line="375"/>
         <source>Mark As Unread</source>
         <translation>Markeren als ongelezen</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="778"/>
+        <location filename="../src/views/folderview.cpp" line="385"/>
+        <source>Unsubscribe</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/folderview.cpp" line="803"/>
         <source>All Issues</source>
         <translation>Alle issues</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="794"/>
+        <location filename="../src/views/folderview.cpp" line="819"/>
         <source>Personal Views</source>
         <translation>Persoonlijke views</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="804"/>
+        <location filename="../src/views/folderview.cpp" line="829"/>
         <source>Public Views</source>
         <translation>Openbare views</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="335"/>
+        <location filename="../src/views/folderview.cpp" line="340"/>
         <source>Unknown Folder</source>
         <translation>Onbekende map</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="395"/>
+        <location filename="../src/views/folderview.cpp" line="406"/>
         <source>%1 issues</source>
         <translation>%1 issues</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="61"/>
+        <location filename="../src/views/folderview.cpp" line="62"/>
         <source>&amp;Update Folder</source>
         <translation>Map &amp;updaten</translation>
     </message>
@@ -2266,144 +2333,144 @@ Are you sure you want to continue?</source>
 <context>
     <name>IssueDetailsGenerator</name>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="100"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="101"/>
         <source>Issue History</source>
         <translation>Issue historie</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="114"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="115"/>
         <source>ID:</source>
         <translation>ID:</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="119"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="120"/>
         <source>Type:</source>
         <translation>Soort:</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="143"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="274"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="144"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="275"/>
         <source>:</source>
         <translation>:</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="423"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="428"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="424"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="429"/>
         <source>Comment #%1</source>
         <translation>Opmerking #%1</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="425"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="430"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="426"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="431"/>
         <source>Attachment #%1</source>
         <translation>Bijlage #%1</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="237"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="238"/>
         <source>There are no comments.</source>
         <translation>Er zijn geen opmerkingen.</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="239"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="240"/>
         <source>There are no attachments.</source>
         <translation>Er zijn geen bijlagen.</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="241"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="242"/>
         <source>There are no comments or attachments.</source>
         <translation>Er zijn geen opmerkingen of bijlagen.</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="257"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="264"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="258"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="265"/>
         <source>Name:</source>
         <translation>Naam:</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="283"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="293"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="284"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="294"/>
         <source>empty</source>
         <translation>leeg</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="121"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="122"/>
         <source>Location:</source>
         <translation>Locatie:</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="88"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="89"/>
         <source>Description</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="126"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="127"/>
         <source>Created:</source>
         <translation>Aangemaakt:</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="128"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="129"/>
         <source>Last Modified:</source>
         <translation>Laatst aangepast:</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="303"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="304"/>
         <source>Issue moved from</source>
         <translation>Issue verplaatst van </translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="307"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="319"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="308"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="320"/>
         <source>Unknown Folder</source>
         <translation>Onbekende folder</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="315"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="316"/>
         <source>to</source>
         <translation>naar</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="365"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="366"/>
         <source>All History</source>
         <translation>Alle historie</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="368"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="369"/>
         <source>Only Comments</source>
         <translation>Alleen opmerkingen</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="371"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="372"/>
         <source>Only Attachments</source>
         <translation>Alleen bijlagen</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="374"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="375"/>
         <source>Comments &amp; Attachments</source>
         <translation>Opmerkingen en bijlagen</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="392"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="415"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="393"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="416"/>
         <source>Last Edited:</source>
         <translation>Laatst bewerkt:</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="397"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="437"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="398"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="438"/>
         <source>Reply</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="400"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="443"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="445"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="401"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="444"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="446"/>
         <source>Edit</source>
         <translation>Bewerk</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="402"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="449"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="451"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="403"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="450"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="452"/>
         <source>Delete</source>
         <translation>Verwijder</translation>
     </message>
@@ -2462,265 +2529,276 @@ Are you sure you want to continue?</source>
 <context>
     <name>IssueView</name>
     <message>
-        <location filename="../src/views/issueview.cpp" line="90"/>
+        <location filename="../src/views/issueview.cpp" line="92"/>
         <source>F2</source>
         <translation>F2</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="151"/>
+        <location filename="../src/views/issueview.cpp" line="153"/>
         <source>&amp;Copy</source>
         <translation>&amp;Kopieëren</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="907"/>
+        <location filename="../src/views/issueview.cpp" line="930"/>
         <source>&amp;Open</source>
         <translation>&amp;Openen</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="964"/>
-        <location filename="../src/views/issueview.cpp" line="970"/>
+        <location filename="../src/views/issueview.cpp" line="987"/>
+        <location filename="../src/views/issueview.cpp" line="993"/>
         <source>Error</source>
         <translation>Fout</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="900"/>
+        <location filename="../src/views/issueview.cpp" line="923"/>
         <source>Do you want to save or open attachment &lt;b&gt;%1&lt;/b&gt;?</source>
         <translation>Wil je de bijlage &lt;b&gt;%1&lt;/b&gt;  openen of opslaan?</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="902"/>
+        <location filename="../src/views/issueview.cpp" line="925"/>
         <source>Do this automatically for all attachments</source>
         <translation>Doe dit automatisch voor alle bijlagen</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="113"/>
+        <location filename="../src/views/issueview.cpp" line="115"/>
         <source>Find &amp;Next</source>
         <translation>Zoek &amp;volgende</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="905"/>
+        <location filename="../src/views/issueview.cpp" line="928"/>
         <source>&amp;Save As...</source>
         <translation>Op&amp;slaan als...</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="899"/>
+        <location filename="../src/views/issueview.cpp" line="922"/>
         <source>Attachment</source>
         <translation>Bijlage</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="76"/>
+        <location filename="../src/views/issueview.cpp" line="78"/>
         <source>Add &amp;Comment...</source>
         <translation>&amp;Opmerking toevoegen...</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="85"/>
+        <location filename="../src/views/issueview.cpp" line="87"/>
         <source>Add &amp;Description...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="89"/>
+        <location filename="../src/views/issueview.cpp" line="91"/>
         <source>&amp;Edit Attributes...</source>
         <translation>Attributen &amp;bewerken...</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="94"/>
+        <location filename="../src/views/issueview.cpp" line="96"/>
         <source>Clone Issue...</source>
         <translation>Issue kopiëren...</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="98"/>
+        <location filename="../src/views/issueview.cpp" line="100"/>
         <source>&amp;Move Issue...</source>
         <translation>&amp;Verplaats issue...</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="99"/>
+        <location filename="../src/views/issueview.cpp" line="101"/>
         <source>Move</source>
         <translation>Verplaats</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="103"/>
+        <location filename="../src/views/issueview.cpp" line="105"/>
         <source>&amp;Delete Issue</source>
         <translation>&amp;Verwijder issue</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="104"/>
+        <location filename="../src/views/issueview.cpp" line="106"/>
         <source>Delete</source>
         <translation>Verwijder</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="118"/>
+        <location filename="../src/views/issueview.cpp" line="120"/>
         <source>Find &amp;Previous</source>
         <translation>Zoek &amp;vorige</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="123"/>
+        <location filename="../src/views/issueview.cpp" line="125"/>
         <source>&amp;Go To Item...</source>
         <translation>&amp;Ga naar item...</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="127"/>
+        <location filename="../src/views/issueview.cpp" line="129"/>
         <source>&amp;Open Attachment</source>
         <translation>Bijlage &amp;openen</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="131"/>
+        <location filename="../src/views/issueview.cpp" line="133"/>
         <source>&amp;Save Attachment As...</source>
         <translation>Bijlage opslaan &amp;als...</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="135"/>
+        <location filename="../src/views/issueview.cpp" line="137"/>
         <source>&amp;Send Email</source>
         <translation>Email &amp;verzenden</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="139"/>
+        <location filename="../src/views/issueview.cpp" line="141"/>
         <source>&amp;Open Link in Browser</source>
         <translation>&amp;Link in browser openen</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="143"/>
+        <location filename="../src/views/issueview.cpp" line="145"/>
         <source>&amp;Copy Email Address</source>
         <translation>&amp;Emailadres kopiëren</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="147"/>
+        <location filename="../src/views/issueview.cpp" line="149"/>
         <source>&amp;Copy Link Address</source>
         <translation>Link adres &amp;kopiëren</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="161"/>
+        <location filename="../src/views/issueview.cpp" line="163"/>
         <source>Print Issue</source>
         <translation>Issue afdrukken</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="162"/>
+        <location filename="../src/views/issueview.cpp" line="164"/>
         <source>Print</source>
         <translation>Afdrukken</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="167"/>
+        <location filename="../src/views/issueview.cpp" line="169"/>
         <source>Export Issue</source>
         <translation>Issue exporteren</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="168"/>
+        <location filename="../src/views/issueview.cpp" line="170"/>
         <source>Export</source>
         <translation>Exporteren</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="171"/>
+        <location filename="../src/views/issueview.cpp" line="173"/>
         <source>Export To HTML</source>
         <translation>Naar HTML exporteren</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="175"/>
+        <location filename="../src/views/issueview.cpp" line="177"/>
         <source>Export To PDF</source>
         <translation>Naar PDF exporteren</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="179"/>
-        <location filename="../src/views/issueview.cpp" line="379"/>
+        <location filename="../src/views/issueview.cpp" line="181"/>
+        <location filename="../src/views/issueview.cpp" line="386"/>
         <source>Mark As Read</source>
         <translation>Markeren als gelezen</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="183"/>
+        <location filename="../src/views/issueview.cpp" line="185"/>
+        <location filename="../src/views/issueview.cpp" line="389"/>
+        <source>Subscribe</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/issueview.cpp" line="189"/>
         <source>Add</source>
         <translation>Toevoegen</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="184"/>
+        <location filename="../src/views/issueview.cpp" line="190"/>
         <source>Issue</source>
         <translation>Issue</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="185"/>
+        <location filename="../src/views/issueview.cpp" line="191"/>
         <source>Edit</source>
         <translation>Bewerk</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="186"/>
+        <location filename="../src/views/issueview.cpp" line="192"/>
         <source>Report</source>
         <translation>Rapport</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="379"/>
+        <location filename="../src/views/issueview.cpp" line="386"/>
         <source>Mark As Unread</source>
         <translation>Markeren als ongelezen</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="463"/>
+        <location filename="../src/views/issueview.cpp" line="389"/>
+        <source>Unsubscribe</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/issueview.cpp" line="473"/>
         <source>The selected file is bigger than the maximum allowed file size
 on this server which is %1.</source>
         <translation>Het geselecteerde bestand is groter dan de maximale toegestane omvang ( %1. ) op deze server.</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="749"/>
+        <location filename="../src/views/issueview.cpp" line="772"/>
         <source>%1 comments</source>
         <translation>%1 opmerkingen</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="751"/>
+        <location filename="../src/views/issueview.cpp" line="774"/>
         <source>%1 attachments</source>
         <translation>%1 bijlagen</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="864"/>
+        <location filename="../src/views/issueview.cpp" line="887"/>
         <source>Description</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="866"/>
+        <location filename="../src/views/issueview.cpp" line="889"/>
         <source>Comment #%1</source>
         <translation type="unfinished">Opmerking #%1</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="964"/>
+        <location filename="../src/views/issueview.cpp" line="987"/>
         <source>File could not be overwritten.</source>
         <translation>Bestand kon worden overschreven.</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="970"/>
+        <location filename="../src/views/issueview.cpp" line="993"/>
         <source>File could not be saved.</source>
         <translation>Bestand kon niet worden opgeslagen.</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="156"/>
+        <location filename="../src/views/issueview.cpp" line="158"/>
         <source>Select &amp;All</source>
         <translation>Alles &amp;selecteren</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="934"/>
+        <location filename="../src/views/issueview.cpp" line="957"/>
         <source>Save Attachment</source>
         <translation>Bijlage opslaan</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="346"/>
+        <location filename="../src/views/issueview.cpp" line="352"/>
         <source>Unknown Issue</source>
         <translation>Onbekend issue</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="71"/>
+        <location filename="../src/views/issueview.cpp" line="73"/>
         <source>&amp;Update Issue</source>
         <translation>&amp;Update issue</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="108"/>
+        <location filename="../src/views/issueview.cpp" line="110"/>
         <source>&amp;Find...</source>
         <translation>&amp;Zoeken...</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="462"/>
+        <location filename="../src/views/issueview.cpp" line="472"/>
         <source>Warning</source>
         <translation>Waarschuwing</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="452"/>
+        <location filename="../src/views/issueview.cpp" line="462"/>
         <source>Add Attachment</source>
         <translation>Bijlage toevoegen</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="81"/>
+        <location filename="../src/views/issueview.cpp" line="83"/>
         <source>Add &amp;Attachment...</source>
         <translation>Bijlage &amp;toevoegen...</translation>
     </message>
@@ -3008,69 +3086,69 @@ Verbonden met %1</translation>
 <context>
     <name>MarkupTextEdit</name>
     <message>
-        <location filename="../src/widgets/markuptextedit.cpp" line="85"/>
+        <location filename="../src/widgets/markuptextedit.cpp" line="89"/>
         <source>Bold</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widgets/markuptextedit.cpp" line="86"/>
+        <location filename="../src/widgets/markuptextedit.cpp" line="90"/>
         <source>Italic</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widgets/markuptextedit.cpp" line="87"/>
+        <location filename="../src/widgets/markuptextedit.cpp" line="91"/>
         <source>Monospace</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widgets/markuptextedit.cpp" line="89"/>
-        <location filename="../src/widgets/markuptextedit.cpp" line="197"/>
+        <location filename="../src/widgets/markuptextedit.cpp" line="93"/>
+        <location filename="../src/widgets/markuptextedit.cpp" line="201"/>
         <source>Hyperlink</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widgets/markuptextedit.cpp" line="91"/>
+        <location filename="../src/widgets/markuptextedit.cpp" line="95"/>
         <source>Bullet List</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widgets/markuptextedit.cpp" line="92"/>
+        <location filename="../src/widgets/markuptextedit.cpp" line="96"/>
         <source>Quote Block</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widgets/markuptextedit.cpp" line="93"/>
+        <location filename="../src/widgets/markuptextedit.cpp" line="97"/>
         <source>Code Block</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widgets/markuptextedit.cpp" line="95"/>
-        <location filename="../src/widgets/markuptextedit.cpp" line="283"/>
+        <location filename="../src/widgets/markuptextedit.cpp" line="99"/>
+        <location filename="../src/widgets/markuptextedit.cpp" line="287"/>
         <source>Preview</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widgets/markuptextedit.cpp" line="113"/>
+        <location filename="../src/widgets/markuptextedit.cpp" line="117"/>
         <source>&amp;Text format:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widgets/markuptextedit.cpp" line="119"/>
+        <location filename="../src/widgets/markuptextedit.cpp" line="123"/>
         <source>Plain Text</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widgets/markuptextedit.cpp" line="120"/>
+        <location filename="../src/widgets/markuptextedit.cpp" line="124"/>
         <source>Text with Markup</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widgets/markuptextedit.cpp" line="197"/>
+        <location filename="../src/widgets/markuptextedit.cpp" line="201"/>
         <source>Enter link URL:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widgets/markuptextedit.cpp" line="199"/>
+        <location filename="../src/widgets/markuptextedit.cpp" line="203"/>
         <source>Link text</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3907,129 +3985,129 @@ De Desktop Client zal altijd de taal en tijdzone instellingen gebruiken zoals op
 <context>
     <name>ReportDialog</name>
     <message>
-        <location filename="../src/dialogs/reportdialog.cpp" line="127"/>
+        <location filename="../src/dialogs/reportdialog.cpp" line="128"/>
         <source>Print</source>
         <translation>Printen</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/reportdialog.cpp" line="266"/>
+        <location filename="../src/dialogs/reportdialog.cpp" line="267"/>
         <source>HTML Files (*.html)</source>
         <translation>HTML bestanden (*.html)</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/reportdialog.cpp" line="244"/>
+        <location filename="../src/dialogs/reportdialog.cpp" line="245"/>
         <source>CSV Files (*.csv)</source>
         <translation>CSV bestanden (*.csv)</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/reportdialog.cpp" line="137"/>
+        <location filename="../src/dialogs/reportdialog.cpp" line="138"/>
         <source>Export To HTML</source>
         <translation>Naar HTML exporteren</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/reportdialog.cpp" line="96"/>
+        <location filename="../src/dialogs/reportdialog.cpp" line="97"/>
         <source>&amp;Print Preview...</source>
         <translation>&amp;Afdruk voobeeld...</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/reportdialog.cpp" line="70"/>
+        <location filename="../src/dialogs/reportdialog.cpp" line="71"/>
         <source>Summary report without issue history</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/dialogs/reportdialog.cpp" line="71"/>
+        <location filename="../src/dialogs/reportdialog.cpp" line="72"/>
         <source>Full report including issue history</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/dialogs/reportdialog.cpp" line="121"/>
+        <location filename="../src/dialogs/reportdialog.cpp" line="122"/>
         <source>project summary</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/dialogs/reportdialog.cpp" line="129"/>
+        <location filename="../src/dialogs/reportdialog.cpp" line="130"/>
         <source>Print %1:</source>
         <translation>Afdrukken %1:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/reportdialog.cpp" line="134"/>
+        <location filename="../src/dialogs/reportdialog.cpp" line="135"/>
         <source>Export %1 to CSV file:</source>
         <translation>Exporteer %1 naar CSV bestand:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/reportdialog.cpp" line="139"/>
+        <location filename="../src/dialogs/reportdialog.cpp" line="140"/>
         <source>Export %1 to HTML file:</source>
         <translation>Exporteer %1 naar HTML bestand:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/reportdialog.cpp" line="144"/>
+        <location filename="../src/dialogs/reportdialog.cpp" line="145"/>
         <source>Export %1 to PDF file:</source>
         <translation>Exporteer %1 naar PDF bestand:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/reportdialog.cpp" line="251"/>
-        <location filename="../src/dialogs/reportdialog.cpp" line="273"/>
+        <location filename="../src/dialogs/reportdialog.cpp" line="252"/>
+        <location filename="../src/dialogs/reportdialog.cpp" line="274"/>
         <source>File could not be saved.</source>
         <translation>Bestand kon niet worden opgeslagen.</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/reportdialog.cpp" line="290"/>
+        <location filename="../src/dialogs/reportdialog.cpp" line="291"/>
         <source>PDF Files (*.pdf)</source>
         <translation>PDF bestanden (*.pdf)</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/reportdialog.cpp" line="115"/>
+        <location filename="../src/dialogs/reportdialog.cpp" line="116"/>
         <source>list of issues</source>
         <translation>Lijst van issues</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/reportdialog.cpp" line="132"/>
+        <location filename="../src/dialogs/reportdialog.cpp" line="133"/>
         <source>Export To CSV</source>
         <translation>Naar CSV exporteren</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/reportdialog.cpp" line="142"/>
+        <location filename="../src/dialogs/reportdialog.cpp" line="143"/>
         <source>Export To PDF</source>
         <translation>Naar PDF exporteren</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/reportdialog.cpp" line="148"/>
+        <location filename="../src/dialogs/reportdialog.cpp" line="149"/>
         <source>Create the report.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/dialogs/reportdialog.cpp" line="343"/>
+        <location filename="../src/dialogs/reportdialog.cpp" line="344"/>
         <source>Print Preview</source>
         <translation>Afdrukvoorbeeld</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/reportdialog.cpp" line="419"/>
+        <location filename="../src/dialogs/reportdialog.cpp" line="420"/>
         <source>Save As</source>
         <translation>Opslaan als</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/reportdialog.cpp" line="118"/>
+        <location filename="../src/dialogs/reportdialog.cpp" line="119"/>
         <source>issue details</source>
         <translation>issue details</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/reportdialog.cpp" line="62"/>
+        <location filename="../src/dialogs/reportdialog.cpp" line="63"/>
         <source>Table with visible columns only</source>
         <translation>Alleen tabellen met zichtbare kolommen</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/reportdialog.cpp" line="68"/>
+        <location filename="../src/dialogs/reportdialog.cpp" line="69"/>
         <source>Summary report including issue details</source>
         <translation>Overzichtsverslag inclusief issue details</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/reportdialog.cpp" line="63"/>
+        <location filename="../src/dialogs/reportdialog.cpp" line="64"/>
         <source>Table with all system and user columns</source>
         <translation>Tabel met alle systeem- en gebruikerskolommen</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/reportdialog.cpp" line="251"/>
-        <location filename="../src/dialogs/reportdialog.cpp" line="273"/>
+        <location filename="../src/dialogs/reportdialog.cpp" line="252"/>
+        <location filename="../src/dialogs/reportdialog.cpp" line="274"/>
         <source>Warning</source>
         <translation>Waarschuwing</translation>
     </message>
@@ -4543,117 +4621,117 @@ De Desktop Client zal altijd de taal en tijdzone instellingen gebruiken zoals op
 <context>
     <name>SummaryView</name>
     <message>
-        <location filename="../src/views/summaryview.cpp" line="48"/>
+        <location filename="../src/views/summaryview.cpp" line="54"/>
         <source>&amp;Update Project</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/summaryview.cpp" line="53"/>
+        <location filename="../src/views/summaryview.cpp" line="59"/>
         <source>Add &amp;Description...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/summaryview.cpp" line="57"/>
+        <location filename="../src/views/summaryview.cpp" line="63"/>
         <source>&amp;Find...</source>
         <translation type="unfinished">&amp;Zoeken...</translation>
     </message>
     <message>
-        <location filename="../src/views/summaryview.cpp" line="62"/>
+        <location filename="../src/views/summaryview.cpp" line="68"/>
         <source>Find &amp;Next</source>
         <translation type="unfinished">Zoek &amp;volgende</translation>
     </message>
     <message>
-        <location filename="../src/views/summaryview.cpp" line="67"/>
+        <location filename="../src/views/summaryview.cpp" line="73"/>
         <source>Find &amp;Previous</source>
         <translation type="unfinished">Zoek &amp;vorige</translation>
     </message>
     <message>
-        <location filename="../src/views/summaryview.cpp" line="72"/>
+        <location filename="../src/views/summaryview.cpp" line="78"/>
         <source>&amp;Go To Item...</source>
         <translation type="unfinished">&amp;Ga naar item...</translation>
     </message>
     <message>
-        <location filename="../src/views/summaryview.cpp" line="76"/>
+        <location filename="../src/views/summaryview.cpp" line="82"/>
         <source>&amp;Send Email</source>
         <translation type="unfinished">Email &amp;verzenden</translation>
     </message>
     <message>
-        <location filename="../src/views/summaryview.cpp" line="80"/>
+        <location filename="../src/views/summaryview.cpp" line="86"/>
         <source>&amp;Open Link in Browser</source>
         <translation type="unfinished">&amp;Link in browser openen</translation>
     </message>
     <message>
-        <location filename="../src/views/summaryview.cpp" line="84"/>
+        <location filename="../src/views/summaryview.cpp" line="90"/>
         <source>&amp;Copy Email Address</source>
         <translation type="unfinished">&amp;Emailadres kopiëren</translation>
     </message>
     <message>
-        <location filename="../src/views/summaryview.cpp" line="88"/>
+        <location filename="../src/views/summaryview.cpp" line="94"/>
         <source>&amp;Copy Link Address</source>
         <translation type="unfinished">Link adres &amp;kopiëren</translation>
     </message>
     <message>
-        <location filename="../src/views/summaryview.cpp" line="92"/>
+        <location filename="../src/views/summaryview.cpp" line="98"/>
         <source>&amp;Copy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/summaryview.cpp" line="97"/>
+        <location filename="../src/views/summaryview.cpp" line="103"/>
         <source>Select &amp;All</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/summaryview.cpp" line="102"/>
+        <location filename="../src/views/summaryview.cpp" line="108"/>
         <source>Print Summary</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/summaryview.cpp" line="103"/>
+        <location filename="../src/views/summaryview.cpp" line="109"/>
         <source>Print</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/summaryview.cpp" line="108"/>
+        <location filename="../src/views/summaryview.cpp" line="114"/>
         <source>Export Summary</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/summaryview.cpp" line="109"/>
+        <location filename="../src/views/summaryview.cpp" line="115"/>
         <source>Export</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/summaryview.cpp" line="112"/>
+        <location filename="../src/views/summaryview.cpp" line="118"/>
         <source>Export To HTML</source>
         <translation type="unfinished">Naar HTML exporteren</translation>
     </message>
     <message>
-        <location filename="../src/views/summaryview.cpp" line="116"/>
+        <location filename="../src/views/summaryview.cpp" line="122"/>
         <source>Export To PDF</source>
         <translation type="unfinished">Naar PDF exporteren</translation>
     </message>
     <message>
-        <location filename="../src/views/summaryview.cpp" line="120"/>
+        <location filename="../src/views/summaryview.cpp" line="126"/>
         <source>Add</source>
         <translation type="unfinished">Toevoegen</translation>
     </message>
     <message>
-        <location filename="../src/views/summaryview.cpp" line="121"/>
+        <location filename="../src/views/summaryview.cpp" line="127"/>
         <source>Project</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/summaryview.cpp" line="122"/>
+        <location filename="../src/views/summaryview.cpp" line="128"/>
         <source>Edit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/summaryview.cpp" line="123"/>
+        <location filename="../src/views/summaryview.cpp" line="129"/>
         <source>Report</source>
         <translation type="unfinished">Rapport</translation>
     </message>
     <message>
-        <location filename="../src/views/summaryview.cpp" line="233"/>
+        <location filename="../src/views/summaryview.cpp" line="239"/>
         <source>Unknown Project</source>
         <translation type="unfinished"></translation>
     </message>
