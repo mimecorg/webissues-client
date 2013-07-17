@@ -99,6 +99,8 @@ public:
         UnknownDescription = 361,
         DescriptionAlreadyExists = 362,
         InvalidTextFormat = 363,
+        UnknownSubscription = 364,
+        SubscriptionAlreadyExists = 365,
     };
 
 public:

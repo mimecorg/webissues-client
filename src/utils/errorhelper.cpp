@@ -146,6 +146,10 @@ QString ErrorHelper::errorMessage( ErrorCode code ) const
             return tr( "Description already exists" );
         case InvalidTextFormat:
             return tr( "Text format is invalid" );
+        case UnknownSubscription:
+            return tr( "Subscription does not exist" );
+        case SubscriptionAlreadyExists:
+            return tr( "Subscription already exists" );
         default:
             return QString();
     }

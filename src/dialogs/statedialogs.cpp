@@ -98,7 +98,7 @@ AddSubscriptionDialog::AddSubscriptionDialog( int issueId, QWidget* parent ) : C
 
     QVBoxLayout* layout = new QVBoxLayout();
 
-    QLabel* label = new QLabel( "You will receive email notifications when someone else modifies this issue, adds a comment or attachment.", this );
+    QLabel* label = new QLabel( tr( "You will receive email notifications when someone else modifies this issue, adds a comment or attachment." ), this );
     label->setWordWrap( true );
 
     layout->addWidget( label );
@@ -130,7 +130,7 @@ DeleteSubscriptionDialog::DeleteSubscriptionDialog( int issueId, QWidget* parent
 
     QVBoxLayout* layout = new QVBoxLayout();
 
-    QLabel* label = new QLabel( "You will no longer receive email notifications for this issue.", this );
+    QLabel* label = new QLabel( tr( "You will no longer receive email notifications for this issue." ), this );
     label->setWordWrap( true );
 
     layout->addWidget( label );
