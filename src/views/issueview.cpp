@@ -328,9 +328,12 @@ void IssueView::disableView()
 
 void IssueView::updateAccess( Access access )
 {
+    bool emailEnabled = dataManager->setting( "email_enabled" ).toInt();
+
     action( "moveIssue" )->setVisible( access == AdminAccess );
     action( "deleteIssue" )->setVisible( access == AdminAccess );
     action( "addDescription" )->setVisible( access == AdminAccess || IssueEntity::isOwner( id() ) );
+    action( "subscribe" )->setVisible( emailEnabled );
 }
 
 void IssueView::gotoItem( int itemId )

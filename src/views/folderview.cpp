@@ -331,8 +331,11 @@ void FolderView::disableView()
 
 void FolderView::updateAccess( Access access )
 {
+    bool emailEnabled = dataManager->setting( "email_enabled" ).toInt();
+
     action( "moveIssue" )->setVisible( access == AdminAccess );
     action( "deleteIssue" )->setVisible( access == AdminAccess );
+    action( "subscribe" )->setVisible( emailEnabled );
 }
 
 void FolderView::updateCaption()
