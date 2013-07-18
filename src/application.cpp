@@ -304,12 +304,12 @@ void Application::openDownloads()
 
 QString Application::version() const
 {
-    return QString( "1.1-beta1" );
+    return QString( "1.1-beta2" );
 }
 
 QString Application::protocolVersion() const
 {
-    return QString( "1.1-beta1" );
+    return QString( "1.1-beta2" );
 }
 
 void Application::initializeLanguage()
