@@ -9,7 +9,7 @@
     <link rel="home" href="index.html" title="WebIssues Manual" />
     <link rel="up" href="webissues.track.html" title="Chapter 4. Tracking issues" />
     <link rel="prev" href="webissues.track.html" title="Chapter 4. Tracking issues" />
-    <link rel="next" href="webissues.admin.html" title="Chapter 5. System administration" />
+    <link rel="next" href="webissues.track.subscriptions.html" title="Subscriptions" />
   </head>
   <body>
     <div id="wrapper">
@@ -19,7 +19,7 @@
             <h1><img src="common/webissues.png" alt="WebIssues" id="logo" />WebIssues Manual</h1>
           </div>
           <div id="header-right">
-            <h2 class="subtitle">Version 1.1-beta1</h2>
+            <h2 class="subtitle">Version 1.1-beta2</h2>
           </div>
         </div>
         <div id="infobar">
@@ -30,7 +30,7 @@
       <div id="body">
         <div class="navlinks">
           <div class="navleft">&laquo; <a accesskey="p" href="webissues.track.html">Tracking issues</a></div>
-          <div class="navright"><a accesskey="n" href="webissues.admin.html">System administration</a> &raquo;</div>
+          <div class="navright"><a accesskey="n" href="webissues.track.subscriptions.html">Subscriptions</a> &raquo;</div>
         </div>
         <div class="sect1">
           <div class="titlepage">
@@ -44,7 +44,7 @@
           <p>You can create an alert using any public or personal view, as well as the built-in <span class="quote">“<span class="quote">All Issues</span>”</span> view. Each alert is assigned to a specific folder.</p>
           <p>Suppose you want to keep an eye on active bugs and tasks which are assigned to you. Open the Bugs folder and select <span class="guilabel">Manage Alerts</span>. The list of alerts is initially empty, so choose <span class="guilabel">Add Alert</span> to define a new alert for this folder.</p>
           <div class="figure">
-            <a id="id543586"></a>
+            <a id="id542565"></a>
             <div class="figure-contents">
               <div class="mediaobject">
                 <img src="images/ch04-fig03.png" alt="Adding an alert" />
@@ -54,7 +54,7 @@
           </div>
           <p>Select the <span class="quote">“<span class="quote">Active Bugs</span>”</span> view and click <span class="guibutton">OK</span>. The list now contains a new alert, and also displays the total number of all issues that meet the criteria of the view, and the number of unread and modified issues.</p>
           <div class="figure">
-            <a id="id543619"></a>
+            <a id="id540426"></a>
             <div class="figure-contents">
               <div class="mediaobject">
                 <img src="images/ch04-fig04.png" alt="List of alerts" />
@@ -65,7 +65,7 @@
           <p>If the alert contains unread issues, its icon will change to a closed, yellow envelope. Similarly, if it contains a modified issue, a green envelope will be displayed. So by opening the alerts window, you can quickly see if there are any issues which require your attention.</p>
           <p>Now repeat the same steps to create an <span class="quote">“<span class="quote">Active Tasks</span>”</span> alert in the Tasks folder. If you are using the Desktop Client, you will notice that the alerts are visible in the projects and folders tree:</p>
           <div class="figure">
-            <a id="id543678"></a>
+            <a id="id540453"></a>
             <div class="figure-contents">
               <div class="mediaobject">
                 <img src="images/ch04-fig05.png" alt="Tree with alerts" />
@@ -75,7 +75,7 @@
           </div>
           <p>The program periodically updates the contents of all folders for which you've defined alerts, so you can track their status almost in real time. If in any of the views there are some unread issues, the icon of the alert will be changed, its name will become bold, and the number of new and modified issues will appear in parentheses:</p>
           <div class="figure">
-            <a id="id543733"></a>
+            <a id="id540455"></a>
             <div class="figure-contents">
               <div class="mediaobject">
                 <img src="images/ch04-fig06.png" alt="Tree with active alerts" />
@@ -119,7 +119,7 @@
           <p>How often immediate notifications are sent, depends on the configuration of cron job on the server. You can therefore receive them every few minutes or every hour.</p>
           <p>In order to receive notifications, you must change your user preferences. If you are using a browser, click <span class="guilabel">Tools</span> and then <span class="guilabel">User Preferences</span>. To change them in the Desktop Client, select <span class="guilabel">User Preferences</span> from the main window toolbar.</p>
           <div class="figure">
-            <a id="id543826"></a>
+            <a id="id540576"></a>
             <div class="figure-contents">
               <div class="mediaobject">
                 <img src="images/ch04-fig07.png" alt="Notifications settings" />
@@ -136,7 +136,7 @@
           </div>
           <p>The type of notification can be specified when you create an alert. You can also change it at any time for an existing alert. To do this, select the alert in the alert management window and select <span class="guilabel">Edit Alert</span>.</p>
           <div class="figure">
-            <a id="id543887"></a>
+            <a id="id540652"></a>
             <div class="figure-contents">
               <div class="mediaobject">
                 <img src="images/ch04-fig08.png" alt="Changing an alert" />
@@ -148,7 +148,7 @@
           <p>Summary reports contain a list of all issues, regardless of whether they have been changed since the last notification, and whether they were read by you. They are useful if you want to track the status of all issues that meet specific criteria, for example, to check whether the active bugs are being solved continuously.</p>
           <p>All email notifications include the name of the associated project, folder and alert in the header, and also the list of issues. The list contains the same columns as the view which is associated with the alert.</p>
           <div class="figure">
-            <a id="id543900"></a>
+            <a id="id540684"></a>
             <div class="figure-contents">
               <div class="mediaobject">
                 <img src="images/ch04-fig09.png" alt="An email notification" />
@@ -160,7 +160,7 @@
         </div>
         <div class="navlinks">
           <div class="navleft">&laquo; <a accesskey="p" href="webissues.track.html">Tracking issues</a></div>
-          <div class="navright"><a accesskey="n" href="webissues.admin.html">System administration</a> &raquo;</div>
+          <div class="navright"><a accesskey="n" href="webissues.track.subscriptions.html">Subscriptions</a> &raquo;</div>
         </div>
         <div id="footer">
           <p class="copyright">Copyright © 2007-2013 WebIssues Team</p>

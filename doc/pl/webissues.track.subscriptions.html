@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Subskrypcje</title>
+    <link rel="stylesheet" type="text/css" href="common/style.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="home" href="index.html" title="Podręcznik WebIssues" />
+    <link rel="up" href="webissues.track.html" title="Rozdział 4. Śledzenie spraw" />
+    <link rel="prev" href="webissues.track.alerts.html" title="Zarządzanie alertami" />
+    <link rel="next" href="webissues.admin.html" title="Rozdział 5. Administrowanie systemem" />
+  </head>
+  <body>
+    <div id="wrapper">
+      <div id="header">
+        <div id="header-top">
+          <div id="header-left">
+            <h1><img src="common/webissues.png" alt="WebIssues" id="logo" />Podręcznik WebIssues</h1>
+          </div>
+          <div id="header-right">
+            <h2 class="subtitle">Wersja 1.1-beta2</h2>
+          </div>
+        </div>
+        <div id="infobar">
+          <div id="infobar-left"><a accesskey="h" href="index.html">Spis treści</a> &raquo; <a accesskey="u" href="webissues.track.html">Śledzenie spraw</a></div>
+          <div id="infobar-right"></div>
+        </div>
+      </div>
+      <div id="body">
+        <div class="navlinks">
+          <div class="navleft">&laquo; <a accesskey="p" href="webissues.track.alerts.html">Zarządzanie alertami</a></div>
+          <div class="navright"><a accesskey="n" href="webissues.admin.html">Administrowanie systemem</a> &raquo;</div>
+        </div>
+        <div class="sect1">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h2 class="title" style="clear: both"><a id="webissues.track.subscriptions"></a>Subskrypcje</h2>
+              </div>
+            </div>
+          </div>
+          <p>O ile alerty umożliwiają otrzymywanie powiadomień o wielu spraw z określonego folderu, to subskrypcje umożliwiają otrzymywanie powiadomień o poszczególych, wybranych sprawach. Możesz dodać subskrybować dowolną sprawę, do której masz dostęp, używając polecenia <span class="guilabel">Subskrybuj</span> w widoku szczegółów sprawy. Subskrybowana sprawa ma małą, zieloną strzałkę w prawym dolnym rogu swojej ikony. Aby anulować subskrybcję dla wybranej sprawy, użyj polecenia <span class="guilabel">Usuń subskrypcję</span>. Pamiętaj, że subskrypcje są dostępne tylko jeśli wysyłanie e-maili zostało włączone na serwerze. Musisz rówież skonfigurować prawidłowy adres e-mail w swoich preferencjach.</p>
+          <div class="figure">
+            <a id="id524247"></a>
+            <div class="figure-contents">
+              <div class="mediaobject">
+                <img src="images/ch04-fig10.png" alt="Subskrybowane sprawy" />
+              </div>
+            </div>
+            <div class="figure-title">Rysunek 4.10. Subskrybowane sprawy</div>
+          </div>
+          <p>Gdy sprawa jest subskrybowana, będziesz otrzymywał wiadomość e-mail za każdym razem, gdy ktoś ją zmodyfikuje poprzez edycję atrybutów, dodanie lub zmianę opisu, albo dodanie komentarza lub załącznika. Wiadomość ta zawsze będzie zawierać szczegóły zmian, niezależnie od ustawienia powiadomień w preferencjach użytkownika. Również przeczytany bądź nieprzeczytany status sprawy jest ignorowany. Otrzymasz powiadomienie subskrypcji nawet jeśli przeczytałeś sprawę zanim e-mail zostanie wysłany. Jednak zmiany, których sam dokonasz, w tym własne komentarze i załączniki, nie będą uwzględniane w powiadomieniach subskrypcji.</p>
+          <p>W zależności od potrzeb możesz używać zarówno powiadomień dla alertów, jak i subskrypcji. Choć alerty i subskrypcje są podobnymi pojęciami, jest kilka istotnych różnic:</p>
+          <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+              <li class="listitem">
+                <p>Powiadomienia alertów mogą być wysyłane jako natychmiastowe powiadomienia, podsumowania powiadomień lub raporty podsumowujące. Powiadomienia subskrypcji są zawsze wysyłane od razu po zmienie sprawy, tzn. tak często jak zadanie cykliczne jest uruchamiane na serwerze.</p>
+              </li>
+              <li class="listitem">
+                <p>Powiadomienia alertów są wysyłane dla wszystkich spraw z danego folderu, albo dla spraw spełniających określone kryteria, na przykład przypisanych do ciebie albo utworzonych przz ciebie. Dzięki temu nie musisz ręcznie oznaczać poszczególnych spraw, dla których chcesz otrzymywać powiadomienia. Z kolei subskrypcje umożliwiają wybranie pojedyńczych spraw o których chcesz być powiadamiany.</p>
+              </li>
+              <li class="listitem">
+                <p>W zależności od preferencji, powiadomienia alertów mogą zawierać jedynie listę spraw lub również szczegóły ostatnich modyfikacji tych spraw. Powiadomienia subskrypcji zawsze zawierają szczegóły modyfikacji.</p>
+              </li>
+              <li class="listitem">
+                <p>Możesz skonfigurować powiadomienia alertów tak, by były wysyłane tylko dla nieprzeczytanych spraw i zmian. Z kolei subskrypcje uwzględniają jedynie zmiany dokonane przez innych użytkowników, niezależnie od statusu przeczytania sprawy.</p>
+              </li>
+            </ul>
+          </div>
+          <p>Subskrypcje są również bardzo użyteczne w połączeniu ze skrzynką odbiorczą, ponieważ nadawcy wiadomości mogą automatycznie subskrybować utworzone sprawy. Pozwala to nawet zewnętrznym użytkownikom na subskrybowanie spraw i otrzymywanie powiadomień. Więcej informacji na ten temat znajdziesz w sekcji <a class="xref" href="webissues.prep.inbox.html" title="Ustawienia skrzynki odbiorczej">„Ustawienia skrzynki odbiorczej”</a>.</p>
+        </div>
+        <div class="navlinks">
+          <div class="navleft">&laquo; <a accesskey="p" href="webissues.track.alerts.html">Zarządzanie alertami</a></div>
+          <div class="navright"><a accesskey="n" href="webissues.admin.html">Administrowanie systemem</a> &raquo;</div>
+        </div>
+        <div id="footer">
+          <p class="copyright">Copyright © 2007-2013 Zespół WebIssues</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
