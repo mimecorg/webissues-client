@@ -2039,7 +2039,7 @@ Are you sure you want to continue?</source>
     </message>
     <message>
         <location filename="../src/views/folderview.cpp" line="97"/>
-        <location filename="../src/views/folderview.cpp" line="375"/>
+        <location filename="../src/views/folderview.cpp" line="378"/>
         <source>Mark As Read</source>
         <translation>标记为已读</translation>
     </message>
@@ -2062,7 +2062,7 @@ Are you sure you want to continue?</source>
     </message>
     <message>
         <location filename="../src/views/folderview.cpp" line="113"/>
-        <location filename="../src/views/folderview.cpp" line="385"/>
+        <location filename="../src/views/folderview.cpp" line="388"/>
         <source>Subscribe</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2162,37 +2162,37 @@ Are you sure you want to continue?</source>
         <translation>搜索(&amp;S)：</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="340"/>
+        <location filename="../src/views/folderview.cpp" line="343"/>
         <source>Unknown Folder</source>
         <translation>未知目录</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="375"/>
+        <location filename="../src/views/folderview.cpp" line="378"/>
         <source>Mark As Unread</source>
         <translation>标记为未读</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="385"/>
+        <location filename="../src/views/folderview.cpp" line="388"/>
         <source>Unsubscribe</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="406"/>
+        <location filename="../src/views/folderview.cpp" line="409"/>
         <source>%1 issues</source>
         <translation>%1个工作项</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="803"/>
+        <location filename="../src/views/folderview.cpp" line="806"/>
         <source>All Issues</source>
         <translation>所有工作项</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="819"/>
+        <location filename="../src/views/folderview.cpp" line="822"/>
         <source>Personal Views</source>
         <translation>个人视图</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="829"/>
+        <location filename="../src/views/folderview.cpp" line="832"/>
         <source>Public Views</source>
         <translation>公共视图</translation>
     </message>
@@ -2674,13 +2674,13 @@ Are you sure you want to continue?</source>
     </message>
     <message>
         <location filename="../src/views/issueview.cpp" line="181"/>
-        <location filename="../src/views/issueview.cpp" line="386"/>
+        <location filename="../src/views/issueview.cpp" line="389"/>
         <source>Mark As Read</source>
         <translation>标记为已读</translation>
     </message>
     <message>
         <location filename="../src/views/issueview.cpp" line="185"/>
-        <location filename="../src/views/issueview.cpp" line="389"/>
+        <location filename="../src/views/issueview.cpp" line="392"/>
         <source>Subscribe</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2705,99 +2705,99 @@ Are you sure you want to continue?</source>
         <translation>报告</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="352"/>
+        <location filename="../src/views/issueview.cpp" line="355"/>
         <source>Unknown Issue</source>
         <translation>未知工作项</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="386"/>
+        <location filename="../src/views/issueview.cpp" line="389"/>
         <source>Mark As Unread</source>
         <translation>标记为未读</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="389"/>
+        <location filename="../src/views/issueview.cpp" line="392"/>
         <source>Unsubscribe</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="462"/>
+        <location filename="../src/views/issueview.cpp" line="465"/>
         <source>Add Attachment</source>
         <translation>添加附件</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="472"/>
+        <location filename="../src/views/issueview.cpp" line="475"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="473"/>
+        <location filename="../src/views/issueview.cpp" line="476"/>
         <source>The selected file is bigger than the maximum allowed file size
 on this server which is %1.</source>
         <translation>所选择的文件大小超过了服务器上文件大小限制，限制为%1。</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="772"/>
+        <location filename="../src/views/issueview.cpp" line="775"/>
         <source>%1 comments</source>
         <translation>%1条评论</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="774"/>
+        <location filename="../src/views/issueview.cpp" line="777"/>
         <source>%1 attachments</source>
         <translation>%1个附件</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="887"/>
+        <location filename="../src/views/issueview.cpp" line="890"/>
         <source>Description</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="889"/>
+        <location filename="../src/views/issueview.cpp" line="892"/>
         <source>Comment #%1</source>
         <translation type="unfinished">评论 #%1</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="922"/>
+        <location filename="../src/views/issueview.cpp" line="925"/>
         <source>Attachment</source>
         <translation>附件</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="923"/>
+        <location filename="../src/views/issueview.cpp" line="926"/>
         <source>Do you want to save or open attachment &lt;b&gt;%1&lt;/b&gt;?</source>
         <translation>您是要保存还是打开附件&lt;b&gt;%1&lt;/b&gt;？</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="925"/>
+        <location filename="../src/views/issueview.cpp" line="928"/>
         <source>Do this automatically for all attachments</source>
         <translation>自动对所有附件执行此项</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="928"/>
+        <location filename="../src/views/issueview.cpp" line="931"/>
         <source>&amp;Save As...</source>
         <translation>另存为(&amp;S)...</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="930"/>
+        <location filename="../src/views/issueview.cpp" line="933"/>
         <source>&amp;Open</source>
         <translation>打开(&amp;O)</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="957"/>
+        <location filename="../src/views/issueview.cpp" line="960"/>
         <source>Save Attachment</source>
         <translation>保存附件</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="987"/>
-        <location filename="../src/views/issueview.cpp" line="993"/>
+        <location filename="../src/views/issueview.cpp" line="990"/>
+        <location filename="../src/views/issueview.cpp" line="996"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="987"/>
+        <location filename="../src/views/issueview.cpp" line="990"/>
         <source>File could not be overwritten.</source>
         <translation>文件无法被覆盖。</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="993"/>
+        <location filename="../src/views/issueview.cpp" line="996"/>
         <source>File could not be saved.</source>
         <translation>文件无法保存。</translation>
     </message>

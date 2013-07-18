@@ -2040,7 +2040,7 @@ Are you sure you want to continue?</source>
     </message>
     <message>
         <location filename="../src/views/folderview.cpp" line="97"/>
-        <location filename="../src/views/folderview.cpp" line="375"/>
+        <location filename="../src/views/folderview.cpp" line="378"/>
         <source>Mark As Read</source>
         <translation>markieren als gelesen</translation>
     </message>
@@ -2063,7 +2063,7 @@ Are you sure you want to continue?</source>
     </message>
     <message>
         <location filename="../src/views/folderview.cpp" line="113"/>
-        <location filename="../src/views/folderview.cpp" line="385"/>
+        <location filename="../src/views/folderview.cpp" line="388"/>
         <source>Subscribe</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2153,27 +2153,27 @@ Are you sure you want to continue?</source>
         <translation>Bericht</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="385"/>
+        <location filename="../src/views/folderview.cpp" line="388"/>
         <source>Unsubscribe</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="803"/>
+        <location filename="../src/views/folderview.cpp" line="806"/>
         <source>All Issues</source>
         <translation>Alle Aufgaben</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="819"/>
+        <location filename="../src/views/folderview.cpp" line="822"/>
         <source>Personal Views</source>
         <translation>Private Ansicht</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="829"/>
+        <location filename="../src/views/folderview.cpp" line="832"/>
         <source>Public Views</source>
         <translation>Öffentliche Ansicht</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="340"/>
+        <location filename="../src/views/folderview.cpp" line="343"/>
         <source>Unknown Folder</source>
         <translation>Unbekanntes Verzeichnis</translation>
     </message>
@@ -2188,12 +2188,12 @@ Are you sure you want to continue?</source>
         <translation>&amp;Suchen:</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="375"/>
+        <location filename="../src/views/folderview.cpp" line="378"/>
         <source>Mark As Unread</source>
         <translation>Als ungelesen makieren</translation>
     </message>
     <message>
-        <location filename="../src/views/folderview.cpp" line="406"/>
+        <location filename="../src/views/folderview.cpp" line="409"/>
         <source>%1 issues</source>
         <translation>Aufgabe %1</translation>
     </message>
@@ -2574,17 +2574,17 @@ Are you sure you want to continue?</source>
         <translation>Alles &amp;markieren</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="352"/>
+        <location filename="../src/views/issueview.cpp" line="355"/>
         <source>Unknown Issue</source>
         <translation>Unbekannte Aufgabe</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="462"/>
+        <location filename="../src/views/issueview.cpp" line="465"/>
         <source>Add Attachment</source>
         <translation>Anhang hinzufügen</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="472"/>
+        <location filename="../src/views/issueview.cpp" line="475"/>
         <source>Warning</source>
         <translation>Warnung</translation>
     </message>
@@ -2690,13 +2690,13 @@ Are you sure you want to continue?</source>
     </message>
     <message>
         <location filename="../src/views/issueview.cpp" line="181"/>
-        <location filename="../src/views/issueview.cpp" line="386"/>
+        <location filename="../src/views/issueview.cpp" line="389"/>
         <source>Mark As Read</source>
         <translation>Als gelesen makieren</translation>
     </message>
     <message>
         <location filename="../src/views/issueview.cpp" line="185"/>
-        <location filename="../src/views/issueview.cpp" line="389"/>
+        <location filename="../src/views/issueview.cpp" line="392"/>
         <source>Subscribe</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2721,85 +2721,85 @@ Are you sure you want to continue?</source>
         <translation>Bericht</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="386"/>
+        <location filename="../src/views/issueview.cpp" line="389"/>
         <source>Mark As Unread</source>
         <translation>Als ungelesen makieren</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="389"/>
+        <location filename="../src/views/issueview.cpp" line="392"/>
         <source>Unsubscribe</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="473"/>
+        <location filename="../src/views/issueview.cpp" line="476"/>
         <source>The selected file is bigger than the maximum allowed file size
 on this server which is %1.</source>
         <translation>Die ausgewählte Datei ist größer als die maximal
 erlaubete Dateigröße des Servers von %1.</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="772"/>
+        <location filename="../src/views/issueview.cpp" line="775"/>
         <source>%1 comments</source>
         <translation>%1 Kommentare</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="774"/>
+        <location filename="../src/views/issueview.cpp" line="777"/>
         <source>%1 attachments</source>
         <translation>%1 Anhänge</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="887"/>
+        <location filename="../src/views/issueview.cpp" line="890"/>
         <source>Description</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="889"/>
+        <location filename="../src/views/issueview.cpp" line="892"/>
         <source>Comment #%1</source>
         <translation type="unfinished">Kommentar #%1</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="922"/>
+        <location filename="../src/views/issueview.cpp" line="925"/>
         <source>Attachment</source>
         <translation>Anhang</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="923"/>
+        <location filename="../src/views/issueview.cpp" line="926"/>
         <source>Do you want to save or open attachment &lt;b&gt;%1&lt;/b&gt;?</source>
         <translation>Möchten Sie den Anhang &lt;b&gt;%1&lt;/b&gt; speichern oder öffnen?</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="925"/>
+        <location filename="../src/views/issueview.cpp" line="928"/>
         <source>Do this automatically for all attachments</source>
         <translation>Diese Aktion automatisch für alle Anhänge verwenden</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="928"/>
+        <location filename="../src/views/issueview.cpp" line="931"/>
         <source>&amp;Save As...</source>
         <translation>&amp;Speichern unter...</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="930"/>
+        <location filename="../src/views/issueview.cpp" line="933"/>
         <source>&amp;Open</source>
         <translation>&amp;Öffnen</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="957"/>
+        <location filename="../src/views/issueview.cpp" line="960"/>
         <source>Save Attachment</source>
         <translation>Anhang speichern</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="987"/>
-        <location filename="../src/views/issueview.cpp" line="993"/>
+        <location filename="../src/views/issueview.cpp" line="990"/>
+        <location filename="../src/views/issueview.cpp" line="996"/>
         <source>Error</source>
         <translation>Fehler</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="987"/>
+        <location filename="../src/views/issueview.cpp" line="990"/>
         <source>File could not be overwritten.</source>
         <translation>Die Datei konnte nicht überschrieben werden.</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="993"/>
+        <location filename="../src/views/issueview.cpp" line="996"/>
         <source>File could not be saved.</source>
         <translation>Die Datei konnte nicht gespeichert werden.</translation>
     </message>
