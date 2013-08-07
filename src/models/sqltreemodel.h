@@ -58,6 +58,13 @@ public:
     void appendModel( QSqlQueryModel* model );
 
     /**
+    * Insert the SQL model at the specified parent level.
+    * @param model The SQL model to append.
+    * @param parentLevel The parent level.
+    */
+    void insertModel( QSqlQueryModel* model, int parentLevel = -1 );
+
+    /**
     * Return the SQL model at the given level.
     * @param level The level of the tree (numbered from zero).
     * @return The SQL model.

@@ -26,23 +26,23 @@
 class SqlTreeModelNode
 {
 public:
-    SqlTreeModelNode( int level = 0, int index = 0 ) :
-        m_level( level ),
+    SqlTreeModelNode( int index = 0 ) :
         m_index( index )
     {
     }
 
 public:
-    int m_level;
     int m_index;
+    QList<int> m_levels;
     QList<int> m_rows;
 };
 
 class SqlTreeModelLevel
 {
 public:
-    SqlTreeModelLevel( QSqlQueryModel* model ) :
-        m_model( model )
+    SqlTreeModelLevel( QSqlQueryModel* model, int parentLevel ) :
+        m_model( model ),
+        m_parentLevel( parentLevel )
     {
     }
 
@@ -60,6 +60,8 @@ public:
 
 public:
     QSqlQueryModel* m_model;
+
+    int m_parentLevel;
 
     QList<int> m_columnMapping;
 
@@ -113,7 +115,12 @@ SqlTreeModel::~SqlTreeModel()
 
 void SqlTreeModel::appendModel( QSqlQueryModel* model )
 {
-    d->m_levelData.append( new SqlTreeModelLevel( model ) );
+    insertModel( model, d->m_levelData.count() - 1 );
+}
+
+void SqlTreeModel::insertModel( QSqlQueryModel* model, int parentLevel )
+{
+    d->m_levelData.append( new SqlTreeModelLevel( model, parentLevel ) );
     d->m_columns = -1;
 }
 
@@ -168,6 +175,7 @@ void SqlTreeModel::updateData()
 
     foreach ( SqlTreeModelLevel* levelData, d->m_levelData )
         levelData->clear();
+    d->m_root.m_levels.clear();
     d->m_root.m_rows.clear();
 
     for ( int level = 0; level < d->m_levelData.count(); level++ ) {
@@ -180,7 +188,7 @@ void SqlTreeModel::updateData()
         int count = model->rowCount();
 
         levelData->m_ids.resize( count );
-        if ( level > 0 )
+        if ( levelData->m_parentLevel >= 0 )
             levelData->m_parentIds.resize( count );
 
         for ( int row = 0; row < count; row++ ) {
@@ -189,13 +197,13 @@ void SqlTreeModel::updateData()
 
             SqlTreeModelNode* node;
 
-            if ( level == 0 ) {
+            if ( levelData->m_parentLevel < 0 ) {
                 node = &d->m_root;
             } else {
                 int parentId = model->data( model->index( row, 1 ) ).toInt();
                 levelData->m_parentIds[ row ] = parentId;
 
-                SqlTreeModelLevel* parentLevelData = d->m_levelData.at( level - 1 );
+                SqlTreeModelLevel* parentLevelData = d->m_levelData.at( levelData->m_parentLevel );
 
                 int parentRow = parentLevelData->m_ids.indexOf( parentId );
                 if ( parentRow < 0 )
@@ -204,11 +212,12 @@ void SqlTreeModel::updateData()
                 node = parentLevelData->m_nodes.value( parentRow );
 
                 if ( !node ) {
-                    node = new SqlTreeModelNode( level, parentRow );
+                    node = new SqlTreeModelNode( parentRow );
                     parentLevelData->m_nodes.insert( parentRow, node ); 
                 }
             }
 
+            node->m_levels.append( level );
             node->m_rows.append( row );
         }
     }
@@ -235,7 +244,7 @@ int SqlTreeModel::levelOf( const QModelIndex& index ) const
     if ( !node )
         return -1;
 
-    return node->m_level;
+    return node->m_levels.value( index.row(), -1 );
 }
 
 int SqlTreeModel::mappedRow( const QModelIndex& index ) const
@@ -315,12 +324,12 @@ QModelIndex SqlTreeModel::findIndex( int level, int id, int column ) const
 
     const SqlTreeModelNode* node;
 
-    if ( level == 0 ) {
+    if ( levelData->m_parentLevel < 0 ) {
         node = &d->m_root;
     } else {
         int parentId = levelData->m_parentIds.at( row );
 
-        SqlTreeModelLevel* parentLevelData = d->m_levelData.at( level - 1 );
+        SqlTreeModelLevel* parentLevelData = d->m_levelData.at( levelData->m_parentLevel );
 
         int parentRow = parentLevelData->m_ids.indexOf( parentId );
         if ( parentRow < 0 )
@@ -331,11 +340,12 @@ QModelIndex SqlTreeModel::findIndex( int level, int id, int column ) const
             return QModelIndex();
     }
 
-    int nodeRow = node->m_rows.indexOf( row );
-    if ( nodeRow < 0 )
-        return QModelIndex();
+    for ( int i = 0; i < node->m_rows.count(); i++ ) {
+        if ( node->m_rows.at( i ) == row && node->m_levels.at( i ) == level )
+            return createIndex( i, column, (void*)node );
+    }
 
-    return createIndex( nodeRow, column, (void*)node );
+    return QModelIndex();
 }
 
 const SqlTreeModelNode* SqlTreeModelPrivate::findNode( const QModelIndex& parent ) const
@@ -384,36 +394,40 @@ QModelIndex SqlTreeModel::parent( const QModelIndex& index ) const
     if ( !node )
         return QModelIndex();
 
-    int level = node->m_level;
-    if ( level < 1 )
+    int level = node->m_levels.value( index.row(), -1 );
+
+    SqlTreeModelLevel* levelData = d->m_levelData.at( level );
+    if ( levelData->m_parentLevel < 0 )
         return QModelIndex();
 
     int row = node->m_index;
 
+    SqlTreeModelLevel* parentLevelData = d->m_levelData.at( levelData->m_parentLevel );
+
     const SqlTreeModelNode* parentNode;
 
-    if ( level == 1 ) {
+    if ( parentLevelData->m_parentLevel < 0 ) {
         parentNode = &d->m_root;
     } else {
-        SqlTreeModelLevel* levelData = d->m_levelData.at( level - 1 );
-        int parentId = levelData->m_parentIds.at( row );
+        int parentId = parentLevelData->m_parentIds.at( row );
 
-        SqlTreeModelLevel* parentLevelData = d->m_levelData.at( level - 2 );
+        SqlTreeModelLevel* grandParentLevelData = d->m_levelData.at( parentLevelData->m_parentLevel );
 
-        int parentRow = parentLevelData->m_ids.indexOf( parentId );
+        int parentRow = grandParentLevelData->m_ids.indexOf( parentId );
         if ( parentRow < 0 )
             return QModelIndex();
 
-        parentNode = parentLevelData->m_nodes.value( parentRow );
+        parentNode = grandParentLevelData->m_nodes.value( parentRow );
         if ( !parentNode )
             return QModelIndex();
     }
 
-    int nodeRow = parentNode->m_rows.indexOf( row );
-    if ( nodeRow < 0 )
-        return QModelIndex();
+    for ( int i = 0; i < parentNode->m_rows.count(); i++ ) {
+        if ( parentNode->m_rows.at( i ) == row && parentNode->m_levels.at( i ) == levelData->m_parentLevel )
+            return createIndex( i, 0, (void*)parentNode );
+    }
 
-    return createIndex( nodeRow, 0, (void*)parentNode );
+    return QModelIndex();
 }
 
 QVariant SqlTreeModel::data( const QModelIndex& index, int role ) const
