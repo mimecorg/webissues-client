@@ -29,11 +29,14 @@
 
 ProjectsModel::ProjectsModel( QObject* parent ) : BaseModel( parent )
 {
-    for ( int i = 0; i < 3; i++ )
-        appendModel( new QSqlQueryModel( this ) );
+    appendModel( new QSqlQueryModel( this ) );
+    appendModel( new QSqlQueryModel( this ) );
+    insertModel( new QSqlQueryModel( this ) );
+    appendModel( new QSqlQueryModel( this ) );
+    appendModel( new QSqlQueryModel( this ) );
 
-    setColumnMapping( 0, QList<int>() << 1 );
-    setColumnMapping( 2, QList<int>() << 3 );
+    setColumnMapping( Projects, QList<int>() << 1 );
+    setColumnMapping( Alerts, QList<int>() << 3 );
 
     setHeaderData( 0, Qt::Horizontal, tr( "Name" ) );
     setHeaderData( 1, Qt::Horizontal, tr( "Type" ) );
@@ -55,7 +58,10 @@ QVariant ProjectsModel::data( const QModelIndex& index, int role ) const
     if ( role == Qt::DisplayRole ) {
         QVariant value = rawData( level, row, mappedColumn( index ), role );
 
-        if ( level == 2 && index.column() == 0 ) {
+        if ( level == AllIssues && index.column() == 0 )
+            value = tr( "All Issues" );
+
+        if ( level == Alerts && index.column() == 0 ) {
             int viewId = rawData( level, row, 2 ).toInt();
             QString name = ( viewId != 0 ) ? value.toString() : tr( "All Issues" );
 
@@ -70,16 +76,20 @@ QVariant ProjectsModel::data( const QModelIndex& index, int role ) const
     }
 
     if ( role == Qt::DecorationRole && index.column() == 0 ) {
-        if ( level == 0 ) {
+        if ( level == AllIssues ) {
+            return IconLoader::pixmap( "project-all" );
+        } else if ( level == Types ) {
+            return IconLoader::pixmap( "folder-type" );
+        } else if ( level == Projects ) {
             if ( dataManager->currentUserAccess() == AdminAccess )
                 return IconLoader::overlayedPixmap( "project", "overlay-admin" );
             int access = rawData( level, row, 2 ).toInt();
             if ( access == AdminAccess )
                 return IconLoader::overlayedPixmap( "project", "overlay-admin" );
             return IconLoader::pixmap( "project" );
-        } else if ( level == 1 ) {
+        } else if ( level == Folders ) {
             return IconLoader::pixmap( "folder" );
-        } else if ( level == 2 ) {
+        } else if ( level == Alerts ) {
             int unread = rawData( level, row, 6 ).toInt();
             if ( unread > 0 )
                 return IconLoader::pixmap( "alert-unread" );
@@ -90,7 +100,7 @@ QVariant ProjectsModel::data( const QModelIndex& index, int role ) const
         }
     }
 
-    if ( role == Qt::FontRole && level == 2 ) {
+    if ( role == Qt::FontRole && level == Alerts ) {
         int alert = rawData( level, row, 5 ).toInt() + rawData( level, row, 6 ).toInt();
         if ( alert > 0 ) {
             QFont font;
@@ -108,12 +118,14 @@ void ProjectsModel::updateQueries()
 
     switch ( sortColumn() ) {
         case 0:
-            m_projectsOrder = QString( "project_name COLLATE LOCALE %1" ).arg( order );
+            m_typesOrder = QString( "t.type_name COLLATE LOCALE %1" ).arg( order );
+            m_projectsOrder = QString( "p.project_name COLLATE LOCALE %1" ).arg( order );
             m_foldersOrder = QString( "f.folder_name COLLATE LOCALE %1" ).arg( order );
             m_alertsOrder = QString( "v.view_name COLLATE LOCALE %1" ).arg( order );
             break;
 
         case 1:
+            m_typesOrder = QString( "t.type_name COLLATE LOCALE %1" ).arg( order );
             m_foldersOrder = QString( "t.type_name COLLATE LOCALE %1" ).arg( order );
             break;
     }
@@ -123,6 +135,11 @@ void ProjectsModel::updateQueries()
 
 void ProjectsModel::refresh()
 {
+    QString allIssuesQuery = "SELECT 0";
+
+    QString typesQuery = "SELECT t.type_id, 0, t.type_name"
+        " FROM issue_types AS t";
+
     QString projectsQuery = "SELECT p.project_id, p.project_name, r.project_access"
         " FROM projects AS p"
         " LEFT OUTER JOIN rights AS r ON r.project_id = p.project_id AND r.user_id = ?";
@@ -137,14 +154,17 @@ void ProjectsModel::refresh()
         " LEFT OUTER JOIN views AS v ON v.view_id = a.view_id"
         " LEFT OUTER JOIN alerts_cache AS ac ON ac.alert_id = a.alert_id";
 
+    modelAt( AllIssues )->setQuery( allIssuesQuery );
+    modelAt( Types )->setQuery( QString( "%1 ORDER BY %2" ).arg( typesQuery, m_typesOrder ) );
+
     QSqlQuery sqlQuery;
     sqlQuery.prepare( QString( "%1 ORDER BY %2" ).arg( projectsQuery, m_projectsOrder ) );
     sqlQuery.addBindValue( dataManager->currentUserId() );
     sqlQuery.exec();
 
-    modelAt( 0 )->setQuery( sqlQuery );
-    modelAt( 1 )->setQuery( QString( "%1 ORDER BY %2" ).arg( foldersQuery, m_foldersOrder ) );
-    modelAt( 2 )->setQuery( QString( "%1 ORDER BY %2" ).arg( alertsQuery, m_alertsOrder ) );
+    modelAt( Projects )->setQuery( sqlQuery );
+    modelAt( Folders )->setQuery( QString( "%1 ORDER BY %2" ).arg( foldersQuery, m_foldersOrder ) );
+    modelAt( Alerts )->setQuery( QString( "%1 ORDER BY %2" ).arg( alertsQuery, m_alertsOrder ) );
 
     updateData();
 }

@@ -271,17 +271,17 @@ void ProjectsView::updateActions()
     if ( index.isValid() ) {
         int level = m_model->levelOf( index );
         int rowId = m_model->rowId( index );
-        if ( level == 0 ) {
+        if ( level == ProjectsModel::Projects ) {
             m_selectedProjectId = rowId;
             m_currentProjectId = rowId;
-        } else if ( level == 1 ) {
+        } else if ( level == ProjectsModel::Folders ) {
             m_selectedFolderId = rowId;
             m_currentFolderId = rowId;
             FolderEntity folder = FolderEntity::find( rowId );
             m_currentProjectId = folder.projectId();
             IssueTypeCache* cache = dataManager->issueTypeCache( folder.typeId() );
             m_selectedViewId = cache->initialViewId();
-        } else {
+        } else if ( level == ProjectsModel::Alerts ) {
             AlertEntity alert = AlertEntity::find( rowId );
             FolderEntity folder = alert.folder();
             m_selectedViewId = alert.viewId();
@@ -470,12 +470,14 @@ void ProjectsView::contextMenu( const QPoint& pos )
     QString menuName;
     if ( index.isValid() ) {
         int level = m_model->levelOf( index );
-        if ( level == 0 )
+        if ( level == ProjectsModel::Projects )
             menuName = m_systemAdmin ? "menuProjectAdmin" : "menuProject";
-        else if ( level == 1 )
+        else if ( level == ProjectsModel::Folders )
             menuName = "menuFolder";
-        else
+        else if ( level == ProjectsModel::Alerts )
             menuName = "menuAlert";
+        else
+            menuName = "menuNull";
     } else {
         menuName = "menuNull";
     }
@@ -491,9 +493,9 @@ void ProjectsView::doubleClicked( const QModelIndex& index )
         int level = m_model->levelOf( index );
         int rowId = m_model->rowId( index );
 
-        if ( level == 0 )
+        if ( level == ProjectsModel::Projects )
             viewManager->openSummaryView( rowId );
-        else if ( level == 1 )
+        else if ( level == ProjectsModel::Folders )
             viewManager->openFolderView( rowId );
     }
 }

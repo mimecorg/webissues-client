@@ -40,6 +40,16 @@ public:
     */
     ~ProjectsModel();
 
+public:
+    enum Level
+    {
+        AllIssues,
+        Types,
+        Projects,
+        Folders,
+        Alerts
+    };
+
 public: // overrides
     QVariant data( const QModelIndex& index, int role = Qt::DisplayRole ) const;
 
@@ -52,6 +62,7 @@ private:
     void refresh();
 
 private:
+    QString m_typesOrder;
     QString m_projectsOrder;
     QString m_foldersOrder;
     QString m_alertsOrder;
