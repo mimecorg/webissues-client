@@ -50,6 +50,7 @@ ReportDialog::ReportDialog( SourceType source, ReportMode mode, QWidget* parent 
     m_source( source ),
     m_mode( mode ),
     m_folderId( 0 ),
+    m_typeId( 0 ),
     m_projectId( 0 ),
     m_history( IssueDetailsGenerator::NoHistory ),
     m_tableButton( NULL ),
@@ -157,24 +158,30 @@ ReportDialog::~ReportDialog()
 
 void ReportDialog::setIssue( int issueId )
 {
-    m_folderId = 0;
     m_issues.clear();
     m_issues.append( issueId );
-    m_projectId = 0;
 }
 
-void ReportDialog::setFolder( int folderId, const QList<int>& issues )
+void ReportDialog::setFolder( int folderId )
 {
     m_folderId = folderId;
+    m_typeId = 0;
+}
+
+void ReportDialog::setGlobalList( int typeId )
+{
+    m_typeId = typeId;
+    m_folderId = 0;
+}
+
+void ReportDialog::setIssues( const QList<int>& issues )
+{
     m_issues = issues;
-    m_projectId = 0;
 }
 
 void ReportDialog::setProject( int projectId )
 {
     m_projectId = projectId;
-    m_folderId = 0;
-    m_issues.clear();
 }
 
 void ReportDialog::setHistory( IssueDetailsGenerator::History history )
@@ -366,7 +373,11 @@ QString ReportDialog::generateCsvReport()
 {
     ReportGenerator generator;
 
-    generator.setFolderSource( m_folderId, m_issues );
+    if ( m_folderId != 0 )
+        generator.setFolderSource( m_folderId, m_issues );
+    else if ( m_typeId != 0 )
+        generator.setGlobalListSource( m_typeId, m_issues );
+
     if ( m_tableButton->isChecked() )
         generator.setTableMode( m_currentColumns );
     else if ( m_fullTableButton->isChecked() )
@@ -393,7 +404,11 @@ QString ReportDialog::generateHtmlReport( bool embedded )
         ReportGenerator generator;
 
         if ( m_source == FolderSource ) {
-            generator.setFolderSource( m_folderId, m_issues );
+            if ( m_folderId != 0 )
+                generator.setFolderSource( m_folderId, m_issues );
+            else if ( m_typeId != 0 )
+                generator.setGlobalListSource( m_typeId, m_issues );
+
             if ( m_tableButton->isChecked() )
                 generator.setTableMode( m_currentColumns );
             else if ( m_fullTableButton->isChecked() )

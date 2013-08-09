@@ -49,7 +49,10 @@
 
 IssueDialog::IssueDialog() : CommandDialog( NULL, Qt::Window ),
     m_nameEdit( NULL ),
-    m_descriptionEdit( NULL )
+    m_folderCombo( NULL ),
+    m_descriptionEdit( NULL ),
+    m_typeId( 0 ),
+    m_isAdding( false )
 {
 }
 
@@ -59,8 +62,10 @@ IssueDialog::~IssueDialog()
         application->applicationSettings()->setValue( "IssueDialogSize", size() );
 }
 
-bool IssueDialog::initialize( int typeId, int projectId, bool withDescription )
+bool IssueDialog::initialize( int typeId, int projectId, Flags flags )
 {
+    m_typeId = typeId;
+
     IssueTypeCache* cache = dataManager->issueTypeCache( typeId );
     QList<int> attributes = cache->attributes();
 
@@ -76,7 +81,7 @@ bool IssueDialog::initialize( int typeId, int projectId, bool withDescription )
         }
     }
 
-    if ( membersRequired ) {
+    if ( membersRequired && projectId != 0 ) {
         ProjectEntity project = ProjectEntity::find( projectId );
         if ( project.members().isEmpty() ) {
             showWarning( tr( "There are no available project members to assign to the issue." ) );
@@ -86,23 +91,66 @@ bool IssueDialog::initialize( int typeId, int projectId, bool withDescription )
         }
     }
 
+    if ( flags.testFlag( WithFolder ) ) {
+        bool folderExists = false;
+        foreach ( const FolderEntity& folder, FolderEntity::list() ) {
+            if ( folder.typeId() == typeId )
+                folderExists = true;
+        }
+        if ( !folderExists ) {
+            showWarning( tr( "There are no available folders of this type." ) );
+            showCloseButton();
+            setContentLayout( NULL, true );
+            return false;
+        }
+    }
+
     QGridLayout* layout = new QGridLayout();
+    int row = 0;
 
     QLabel* nameLabel = new QLabel( tr( "&Name:" ), this );
-    layout->addWidget( nameLabel, 0, 0 );
+    layout->addWidget( nameLabel, row, 0 );
 
     m_nameEdit = new InputLineEdit( this );
     m_nameEdit->setMaxLength( 80 );
     m_nameEdit->setRequired( true );
-    layout->addWidget( m_nameEdit, 0, 1 );
+    layout->addWidget( m_nameEdit, row++, 1 );
 
     nameLabel->setBuddy( m_nameEdit );
 
+    if ( flags.testFlag( WithFolder ) ) {
+        QLabel* folderLabel = new QLabel( tr( "&Folder:" ), this );
+        layout->addWidget( folderLabel, row, 0 );
+
+        m_folderCombo = new SeparatorComboBox( this );
+        layout->addWidget( m_folderCombo, row++, 1 );
+
+        folderLabel->setBuddy( m_folderCombo );
+
+        m_folderCombo->addItem( tr( "Please Select" ), 0 );
+        m_folderCombo->addSeparator();
+
+        foreach ( const ProjectEntity& project, ProjectEntity::list() ) {
+            bool projectAdded = false;
+            foreach ( const FolderEntity& folder, project.folders() ) {
+                if ( folder.typeId() != typeId )
+                    continue;
+                if ( !projectAdded ) {
+                    m_folderCombo->addParentItem( project.name() );
+                    projectAdded = true;
+                }
+                m_folderCombo->addChildItem( folder.name(), folder.id() );
+            }
+        }
+
+        connect( m_folderCombo, SIGNAL( currentIndexChanged( int ) ), this, SLOT( currentFolderChanged() ) );
+    }
+
     QTabWidget* tabWidget = NULL;
 
-    if ( !attributes.isEmpty() || withDescription ) {
+    if ( !attributes.isEmpty() || flags.testFlag( WithDescription ) ) {
         tabWidget = new QTabWidget( this );
-        layout->addWidget( tabWidget, 1, 0, 1, 2 );
+        layout->addWidget( tabWidget, row, 0, 1, 2 );
     }
 
     if ( !attributes.isEmpty() ) {
@@ -153,7 +201,7 @@ bool IssueDialog::initialize( int typeId, int projectId, bool withDescription )
         valuesLayout->setRowStretch( attributes.count() + 2, 1 );
     }
 
-    if ( withDescription ) {
+    if ( flags.testFlag( WithDescription ) ) {
         QWidget* descriptionTab = new QWidget( tabWidget );
         tabWidget->addTab( descriptionTab, IconLoader::icon( "description-new" ), tr( "Description" ) );
 
@@ -183,6 +231,21 @@ void IssueDialog::setIssueName( const QString& name )
 QString IssueDialog::issueName() const
 {
     return m_nameEdit->inputValue();
+}
+
+void IssueDialog::setFolderId( int folderId )
+{
+    for ( int i = 0; i < m_folderCombo->count(); i++ ) {
+        if ( m_folderCombo->itemData( i ).toInt() == folderId ) {
+            m_folderCombo->setCurrentIndex( i );
+            break;
+        }
+    }
+}
+
+int IssueDialog::folderId() const
+{
+    return m_folderCombo->itemData( m_folderCombo->currentIndex() ).toInt();
 }
 
 void IssueDialog::setAttributeValue( int attributeId, const QString& value )
@@ -225,36 +288,19 @@ TextFormat IssueDialog::descriptionFormat() const
     return m_descriptionEdit->textFormat();
 }
 
-AddIssueDialog::AddIssueDialog( int folderId, int cloneIssueId ) : IssueDialog(),
-    m_folderId( folderId )
+void IssueDialog::currentFolderChanged()
 {
-    FolderEntity folder = FolderEntity::find( folderId );
-    IssueEntity issue = IssueEntity::find( cloneIssueId );
+    FolderEntity folder = FolderEntity::find( folderId() );
 
-    if ( cloneIssueId != 0 ) {
-        setWindowTitle( tr( "Clone Issue" ) );
-        setPrompt( tr( "Clone issue <b>%1</b> as a new issue in folder <b>%2</b>:" ).arg( issue.name(), folder.name() ) );
-        setPromptPixmap( IconLoader::pixmap( "issue-clone", 22 ) );
-    } else {
-        setWindowTitle( tr( "Add Issue" ) );
-        setPrompt( tr( "Create a new issue in folder <b>%1</b>:" ).arg( folder.name() ) );
-        setPromptPixmap( IconLoader::pixmap( "issue-new", 22 ) );
-    }
+    foreach ( AbstractValueEditor* editor, m_editors )
+        editor->setProjectId( folder.projectId() );
+}
 
-    if ( !initialize( folder.typeId(), folder.projectId(), true ) )
-        return;
+QMap<int, QString> IssueDialog::defaultAttributeValues()
+{
+    QMap<int, QString> values;
 
-    if ( cloneIssueId != 0 ) {
-        setIssueName( issue.name() );
-
-        DescriptionEntity description = issue.description();
-        if ( description.isValid() ) {
-            setDescriptionText( description.text() );
-            setDescriptionFormat( description.format() );
-        }
-    }
-
-    IssueTypeCache* cache = dataManager->issueTypeCache( folder.typeId() );
+    IssueTypeCache* cache = dataManager->issueTypeCache( m_typeId );
     QList<int> attributes = attributeIds();
 
     AttributeHelper helper;
@@ -267,15 +313,58 @@ AddIssueDialog::AddIssueDialog( int folderId, int cloneIssueId ) : IssueDialog()
 
         value = helper.convertInitialValue( info, value );
 
-        m_values.insert( attributeId, value );
-
-        if ( cloneIssueId != 0 ) {
-            ValueEntity entity = ValueEntity::find( cloneIssueId, attributeId );
-            setAttributeValue( attributeId, entity.value() );
-        } else {
-            setAttributeValue( attributeId, value );
-        }
+        values.insert( attributeId, value );
     }
+
+    return values;
+}
+
+void IssueDialog::executeAddIssueBatch( int folderId, const QMap<int, QString>& defaultValues )
+{
+    QString name = issueName();
+    IssueBatch* batch = new IssueBatch( folderId, name );
+
+    for ( QMap<int, QString>::const_iterator it = defaultValues.begin(); it != defaultValues.end(); ++it ) {
+        QString value = attributeValue( it.key() );
+        if ( value != it.value() )
+            batch->setValue( it.key(), value );
+    }
+
+    QString description = descriptionText();
+    if ( !description.isEmpty() )
+        batch->addDescription( description, descriptionFormat() );
+
+    m_isAdding = true;
+
+    executeBatch( batch );
+}
+
+bool IssueDialog::batchSuccessful( AbstractBatch* batch )
+{
+    if ( m_isAdding ) {
+        IssueBatch* issueBatch = (IssueBatch*)batch;
+        emit issueAdded( issueBatch->issueId(), issueBatch->folderId() );
+    }
+
+    return true;
+}
+
+AddIssueDialog::AddIssueDialog( int folderId ) : IssueDialog(),
+    m_folderId( folderId )
+{
+    FolderEntity folder = FolderEntity::find( folderId );
+
+    setWindowTitle( tr( "Add Issue" ) );
+    setPrompt( tr( "Create a new issue in folder <b>%1</b>:" ).arg( folder.name() ) );
+    setPromptPixmap( IconLoader::pixmap( "issue-new", 22 ) );
+
+    if ( !initialize( folder.typeId(), folder.projectId(), WithDescription ) )
+        return;
+
+    m_values = defaultAttributeValues();
+
+    for ( QMap<int, QString>::const_iterator it = m_values.begin(); it != m_values.end(); ++it )
+        setAttributeValue( it.key(), it.value() );
 }
 
 AddIssueDialog::~AddIssueDialog()
@@ -287,29 +376,87 @@ void AddIssueDialog::accept()
     if ( !validate() )
         return;
 
-    QString name = issueName();
-    IssueBatch* batch = new IssueBatch( m_folderId, name );
-
-    for ( QMap<int, QString>::const_iterator it = m_values.begin(); it != m_values.end(); ++it ) {
-        QString value = attributeValue( it.key() );
-        if ( value != it.value() )
-            batch->setValue( it.key(), value );
-    }
-
-    QString description = descriptionText();
-    if ( !description.isEmpty() )
-        batch->addDescription( description, descriptionFormat() );
-
-    executeBatch( batch );
+    executeAddIssueBatch( m_folderId, m_values );
 }
 
-bool AddIssueDialog::batchSuccessful( AbstractBatch* batch )
+AddGlobalIssueDialog::AddGlobalIssueDialog( int typeId ) : IssueDialog()
 {
-    m_issueId = ( (IssueBatch*)batch )->issueId();
+    TypeEntity type = TypeEntity::find( typeId );
 
-    emit issueAdded( m_issueId, m_folderId );
+    setWindowTitle( tr( "Add Issue" ) );
+    setPrompt( tr( "Create a new issue in the selected folder:" ) );
+    setPromptPixmap( IconLoader::pixmap( "issue-new", 22 ) );
 
-    return true;
+    if ( !initialize( typeId, 0, WithFolder | WithDescription ) )
+        return;
+
+    m_values = defaultAttributeValues();
+
+    for ( QMap<int, QString>::const_iterator it = m_values.begin(); it != m_values.end(); ++it )
+        setAttributeValue( it.key(), it.value() );
+}
+
+AddGlobalIssueDialog::~AddGlobalIssueDialog()
+{
+}
+
+void AddGlobalIssueDialog::accept()
+{
+    if ( !validate() )
+        return;
+
+    if ( folderId() == 0 ) {
+        showWarning( tr( "No folder selected." ) );
+        return;
+    }
+
+    executeAddIssueBatch( folderId(), m_values );
+}
+
+CloneIssueDialog::CloneIssueDialog( int issueId ) : IssueDialog()
+{
+    IssueEntity issue = IssueEntity::find( issueId );
+    FolderEntity folder = issue.folder();
+
+    setWindowTitle( tr( "Clone Issue" ) );
+    setPrompt( tr( "Clone issue <b>%1</b> as a new issue in the selected folder:" ).arg( issue.name() ) );
+    setPromptPixmap( IconLoader::pixmap( "issue-clone", 22 ) );
+
+    if ( !initialize( folder.typeId(), folder.projectId(), WithFolder | WithDescription ) )
+        return;
+
+    setIssueName( issue.name() );
+    setFolderId( issue.folderId() );
+
+    DescriptionEntity description = issue.description();
+    if ( description.isValid() ) {
+        setDescriptionText( description.text() );
+        setDescriptionFormat( description.format() );
+    }
+
+    m_values = defaultAttributeValues();
+
+    for ( QMap<int, QString>::const_iterator it = m_values.begin(); it != m_values.end(); ++it ) {
+        ValueEntity entity = ValueEntity::find( issueId, it.key() );
+        setAttributeValue( it.key(), entity.value() );
+    }
+}
+
+CloneIssueDialog::~CloneIssueDialog()
+{
+}
+
+void CloneIssueDialog::accept()
+{
+    if ( !validate() )
+        return;
+
+    if ( folderId() == 0 ) {
+        showWarning( tr( "No folder selected." ) );
+        return;
+    }
+
+    executeAddIssueBatch( folderId(), m_values );
 }
 
 EditIssueDialog::EditIssueDialog( int issueId ) : IssueDialog(),
@@ -324,7 +471,7 @@ EditIssueDialog::EditIssueDialog( int issueId ) : IssueDialog(),
     setPrompt( tr( "Edit attributes of issue <b>%1</b>:" ).arg( m_oldName ) );
     setPromptPixmap( IconLoader::pixmap( "edit-modify", 22 ) );
 
-    if ( !initialize( folder.typeId(), folder.projectId(), false ) )
+    if ( !initialize( folder.typeId(), folder.projectId() ) )
         return;
 
     setIssueName( m_oldName );
@@ -491,22 +638,6 @@ void MoveIssueDialog::accept()
     batch->setUpdateFolder( m_updateFolder );
 
     executeBatch( batch );
-}
-
-CloneIssueDialog::CloneIssueDialog( int issueId, QWidget* parent ) : TransferIssueDialog( parent )
-{
-    IssueEntity issue = IssueEntity::find( issueId );
-    FolderEntity oldFolder = issue.folder();
-
-    setWindowTitle( tr( "Clone Issue" ) );
-    setPrompt( tr( "Clone issue <b>%1</b> to a folder of the same type:" ).arg( issue.name() ) );
-    setPromptPixmap( IconLoader::pixmap( "issue-clone", 22 ) );
-
-    initialize( oldFolder.typeId(), oldFolder.id(), false );
-}
-
-CloneIssueDialog::~CloneIssueDialog()
-{
 }
 
 DeleteIssueDialog::DeleteIssueDialog( int issueId, QWidget* parent ) : CommandDialog( parent ),

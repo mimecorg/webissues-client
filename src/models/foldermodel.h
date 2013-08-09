@@ -43,7 +43,7 @@ enum Column
 };
 
 /**
-* Model for a list of issues in a folder.
+* Model for a list of issues in a folder or global list.
 */
 class FolderModel : public BaseModel
 {
@@ -51,10 +51,9 @@ class FolderModel : public BaseModel
 public:
     /**
     * Constructor.
-    * @param folderId Identifier of the folder.
     * @param parent The parent object.
     */
-    FolderModel( int folderId, QObject* parent );
+    FolderModel( QObject* parent );
 
     /**
     * Destructor.
@@ -62,6 +61,16 @@ public:
     ~FolderModel();
 
 public:
+    /**
+    * Set the folder containing issues.
+    */
+    void initializeFolder( int folderId );
+
+    /**
+    * Set the type of the global list of issues.
+    */
+    void initializeGlobalList( int typeId );
+
     /**
     * Fill the model based on the view with given identifier or 0 if
     * the default view should be used.

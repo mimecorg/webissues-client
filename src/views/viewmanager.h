@@ -80,6 +80,11 @@ public:
     void openFolderView( int folderId );
 
     /**
+    * Open the global list view of the given type.
+    */
+    void openGlobalListView( int typeId );
+
+    /**
     * Open the issue details view for the given issue.
     */
     void openIssueView( int issueId, int itemId = 0 );

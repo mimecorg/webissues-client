@@ -86,6 +86,50 @@ void FolderStateDialog::accept()
     executeBatch( batch );
 }
 
+GlobalListStateDialog::GlobalListStateDialog( int typeId, bool isRead, QWidget* parent ) : CommandDialog( parent ),
+    m_typeId( typeId ),
+    m_isRead( isRead )
+{
+    TypeEntity type = TypeEntity::find( typeId );
+
+    if ( isRead ) {
+        setWindowTitle( tr( "Mark All As Read" ) );
+        setPrompt( tr( "Are you sure you want to mark all issues of type <b>%1</b> as read?" ).arg( type.name() ) );
+        setPromptPixmap( IconLoader::pixmap( "folder-read", 22 ) );
+    } else {
+        setWindowTitle( tr( "Mark All As Unread" ) );
+        setPrompt( tr( "Are you sure you want to mark all issues of type <b>%1</b> as unread?" ).arg( type.name() ) );
+        setPromptPixmap( IconLoader::pixmap( "folder-unread", 22 ) );
+    }
+
+    setContentLayout( NULL, true );
+}
+
+GlobalListStateDialog::~GlobalListStateDialog()
+{
+}
+
+void GlobalListStateDialog::accept()
+{
+    StateBatch* batch = NULL;
+
+    foreach ( const FolderEntity& folder, FolderEntity::list() ) {
+        if ( folder.typeId() == m_typeId && folder.stampId() > 0 ) {
+            if ( !batch )
+                batch = new StateBatch();
+            if ( m_isRead )
+                batch->setFolderRead( folder.id(), folder.stampId() );
+            else
+                batch->setFolderRead( folder.id(), 0 );
+        }
+    }
+
+    if ( batch )
+        executeBatch( batch );
+    else
+        QDialog::accept();
+}
+
 AddSubscriptionDialog::AddSubscriptionDialog( int issueId, QWidget* parent ) : CommandDialog( parent ),
     m_issueId( issueId )
 {

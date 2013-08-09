@@ -1,5 +1,7 @@
 HEADERS += views/folderview.h \
+           views/globallistview.h \
            views/issueview.h \
+           views/listview.h \
            views/projectsview.h \
            views/startview.h \
            views/summaryview.h \
@@ -11,7 +13,9 @@ HEADERS += views/folderview.h \
            views/viewmanager.h
 
 SOURCES += views/folderview.cpp \
+           views/globallistview.cpp \
            views/issueview.cpp \
+           views/listview.cpp \
            views/projectsview.cpp \
            views/startview.cpp \
            views/summaryview.cpp \

@@ -1405,7 +1405,8 @@ bool DataManager::recalculateAlerts( int folderId, const QSqlDatabase& database 
 
 bool DataManager::recalculateAlert( int alertId, int folderId, int viewId, const QSqlDatabase& database )
 {
-    QueryGenerator generator( folderId, viewId );
+    QueryGenerator generator;
+    generator.initializeFolder( folderId, viewId );
 
     QString sql = generator.query( false );
     if ( sql.isEmpty() )

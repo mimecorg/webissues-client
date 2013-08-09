@@ -137,8 +137,10 @@ void ProjectsModel::refresh()
 {
     QString allIssuesQuery = "SELECT 0";
 
-    QString typesQuery = "SELECT t.type_id, 0, t.type_name"
+    QString typesQuery = "SELECT t.type_id, 0, t.type_name" // TODO: show only accessible types for non-admin users!
         " FROM issue_types AS t";
+    if ( dataManager->currentUserAccess() != AdminAccess )
+        typesQuery += " WHERE t.type_id IN ( SELECT f.type_id FROM folders AS f JOIN rights AS r ON r.project_id = f.project_id AND r.user_id = ? )";
 
     QString projectsQuery = "SELECT p.project_id, p.project_name, r.project_access"
         " FROM projects AS p"
@@ -154,15 +156,23 @@ void ProjectsModel::refresh()
         " LEFT OUTER JOIN views AS v ON v.view_id = a.view_id"
         " LEFT OUTER JOIN alerts_cache AS ac ON ac.alert_id = a.alert_id";
 
-    modelAt( AllIssues )->setQuery( allIssuesQuery );
-    modelAt( Types )->setQuery( QString( "%1 ORDER BY %2" ).arg( typesQuery, m_typesOrder ) );
-
     QSqlQuery sqlQuery;
+
+    modelAt( AllIssues )->setQuery( allIssuesQuery );
+
+    sqlQuery.prepare( QString( "%1 ORDER BY %2" ).arg( typesQuery, m_typesOrder ) );
+    if ( dataManager->currentUserAccess() != AdminAccess )
+        sqlQuery.addBindValue( dataManager->currentUserId() );
+    sqlQuery.exec();
+
+    modelAt( Types )->setQuery( sqlQuery );
+
     sqlQuery.prepare( QString( "%1 ORDER BY %2" ).arg( projectsQuery, m_projectsOrder ) );
     sqlQuery.addBindValue( dataManager->currentUserId() );
     sqlQuery.exec();
 
     modelAt( Projects )->setQuery( sqlQuery );
+
     modelAt( Folders )->setQuery( QString( "%1 ORDER BY %2" ).arg( foldersQuery, m_foldersOrder ) );
     modelAt( Alerts )->setQuery( QString( "%1 ORDER BY %2" ).arg( alertsQuery, m_alertsOrder ) );
 

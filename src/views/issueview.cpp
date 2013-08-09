@@ -499,20 +499,15 @@ void IssueView::editIssue()
 void IssueView::cloneIssue()
 {
     if ( isEnabled() ) {
-        CloneIssueDialog cloneDialog( id(), mainWidget() );
-        if ( cloneDialog.exec() == QDialog::Accepted ) {
-            int folderId = cloneDialog.folderId();
+        if ( dialogManager->activateDialog( "CloneIssueDialog", id() ) )
+            return;
 
-            if ( dialogManager->activateDialog( "AddIssueDialog", folderId ) )
-                return;
+        CloneIssueDialog* dialog = new CloneIssueDialog( id() );
+        dialogManager->addDialog( dialog, id() );
 
-            AddIssueDialog* dialog = new AddIssueDialog( folderId, id() );
-            dialogManager->addDialog( dialog, folderId );
+        connect( dialog, SIGNAL( issueAdded( int, int ) ), this, SLOT( issueAdded( int ) ) );
 
-            connect( dialog, SIGNAL( issueAdded( int, int ) ), this, SLOT( issueAdded( int ) ) );
-
-            dialog->show();
-        }
+        dialog->show();
     }
 }
 

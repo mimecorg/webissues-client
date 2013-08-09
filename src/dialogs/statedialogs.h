@@ -79,6 +79,34 @@ private:
 };
 
 /**
+* Dialog for executing the <tt>SET FOLDER READ</tt> command for all folders of a given type.
+*/
+class GlobalListStateDialog : public CommandDialog
+{
+    Q_OBJECT
+public:
+    /**
+    * Constructor.
+    * @param typeId Identifier of the type of the folders.
+    * @param isRead The new state of the folders.
+    * @param parent The parent widget.
+    */
+    GlobalListStateDialog( int typeId, bool isRead, QWidget* parent );
+
+    /**
+    * Destructor.
+    */
+    ~GlobalListStateDialog();
+
+public: // overrides
+    void accept();
+
+private:
+    int m_typeId;
+    int m_isRead;
+};
+
+/**
 * Dialog for executing the <tt>ADD SUBSCRIPTION</tt> command.
 */
 class AddSubscriptionDialog : public CommandDialog

@@ -30,6 +30,7 @@
 
 ReportGenerator::ReportGenerator() :
     m_folderId( 0 ),
+    m_typeId( 0 ),
     m_summary( false ),
     m_description( false ),
     m_history( IssueDetailsGenerator::NoHistory )
@@ -53,10 +54,21 @@ void ReportGenerator::setIssueSource( int issueId )
 void ReportGenerator::setFolderSource( int folderId, const QList<int>& issues )
 {
     m_folderId = folderId;
+    m_typeId = 0;
     m_issues = issues;
 
     FolderEntity folder = FolderEntity::find( folderId );
     m_title = folder.name();
+}
+
+void ReportGenerator::setGlobalListSource( int typeId, const QList<int>& issues )
+{
+    m_typeId = typeId;
+    m_folderId = 0;
+    m_issues = issues;
+
+    TypeEntity type = TypeEntity::find( typeId );
+    m_title = type.name();
 }
 
 void ReportGenerator::setTableMode( const QList<int>& columns )
@@ -74,11 +86,14 @@ void ReportGenerator::setSummaryMode( bool description, IssueDetailsGenerator::H
 
 void ReportGenerator::write( HtmlWriter* writer )
 {
-    if ( m_folderId != 0 && !m_summary ) {
-        FolderEntity folder = FolderEntity::find( m_folderId );
-        writer->writeBlock( folder.name(), HtmlWriter::Header2Block );
+    writer->writeBlock( m_title, HtmlWriter::Header2Block );
 
-        FolderModel model( m_folderId, NULL );
+    if ( !m_summary ) {
+        FolderModel model( NULL );
+        if ( m_folderId != 0 )
+            model.initializeFolder( m_folderId );
+        else if ( m_typeId != 0 )
+            model.initializeGlobalList( m_typeId );
         model.setColumns( m_columns );
 
         QStringList headers;
@@ -101,9 +116,7 @@ void ReportGenerator::write( HtmlWriter* writer )
         }
 
         writer->endTable();
-    }
-
-    if ( m_summary ) {
+    } else {
         IssueDetailsGenerator generator;
 
         for ( int i = 0; i < m_issues.count(); i++ ) {
@@ -115,8 +128,12 @@ void ReportGenerator::write( HtmlWriter* writer )
 
 void ReportGenerator::write( CsvWriter* writer )
 {
-    if ( m_folderId != 0 && !m_summary ) {
-        FolderModel model( m_folderId, NULL );
+    if ( !m_summary ) {
+        FolderModel model( NULL );
+        if ( m_folderId != 0 )
+            model.initializeFolder( m_folderId );
+        else if ( m_typeId != 0 )
+            model.initializeGlobalList( m_typeId );
         model.setColumns( m_columns );
 
         QStringList headers;

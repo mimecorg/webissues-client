@@ -20,6 +20,7 @@
 #include "foldermodel.h"
 
 #include "data/datamanager.h"
+#include "data/entities.h"
 #include "data/issuetypecache.h"
 #include "models/querygenerator.h"
 #include "models/issuedetailsgenerator.h"
@@ -33,8 +34,8 @@
 #include <QTextDocument>
 #include <QPixmap>
 
-FolderModel::FolderModel( int folderId, QObject* parent ) : BaseModel( parent ),
-    m_folderId( folderId ),
+FolderModel::FolderModel( QObject* parent ) : BaseModel( parent ),
+    m_folderId( 0 ),
     m_viewId( 0 ),
     m_typeId( 0 ),
     m_forceColumns( false ),
@@ -45,6 +46,20 @@ FolderModel::FolderModel( int folderId, QObject* parent ) : BaseModel( parent ),
 
 FolderModel::~FolderModel()
 {
+}
+
+void FolderModel::initializeFolder( int folderId )
+{
+    m_folderId = folderId;
+    m_viewId = 0;
+    m_typeId = 0;
+}
+
+void FolderModel::initializeGlobalList( int typeId )
+{
+    m_typeId = typeId;
+    m_folderId = 0;
+    m_viewId = 0;
 }
 
 void FolderModel::setView( int viewId, bool resort )
@@ -155,7 +170,11 @@ QVariant FolderModel::data( const QModelIndex& index, int role ) const
 
 void FolderModel::generateQueries( bool resort )
 {
-    QueryGenerator generator( m_folderId, m_viewId );
+    QueryGenerator generator;
+    if ( m_folderId != 0 )
+        generator.initializeFolder( m_folderId, m_viewId );
+    else
+        generator.initializeGlobalList( m_typeId, m_viewId );
 
     if ( !m_searchText.isEmpty() )
         generator.setSearchText( m_searchColumn, m_searchText );
@@ -217,8 +236,13 @@ void FolderModel::updateEvent( UpdateEvent* e )
     switch ( e->unit() ) {
         case UpdateEvent::Folder:
         case UpdateEvent::IssueList:
-            if ( e->id() == m_folderId )
+            if ( m_folderId == 0 ) {
+                FolderEntity folder = FolderEntity::find( e->id() );
+                if ( folder.typeId() == m_typeId )
+                    refresh();
+            } else if ( e->id() == m_folderId ) {
                 refresh();
+            }
             break;
 
         case UpdateEvent::Users:

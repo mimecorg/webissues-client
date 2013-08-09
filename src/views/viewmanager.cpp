@@ -57,6 +57,11 @@ void ViewManager::openFolderView( int folderId )
     openView( "FolderView", folderId );
 }
 
+void ViewManager::openGlobalListView( int typeId )
+{
+    openView( "GlobalListView", typeId );
+}
+
 void ViewManager::openIssueView( int issueId, int itemId )
 {
     IssueView* view = (IssueView*)openView( "IssueView", issueId );

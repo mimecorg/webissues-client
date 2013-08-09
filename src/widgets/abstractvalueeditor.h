@@ -68,6 +68,11 @@ public:
     */
     virtual QString inputValue() = 0;
 
+    /**
+    * Set the identifier of the project associated with the editor.
+    */
+    virtual void setProjectId( int projectId ) = 0;
+
 protected:
     /**
     * Called by inherited classes to set the editor's widget.

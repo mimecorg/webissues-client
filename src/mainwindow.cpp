@@ -35,6 +35,7 @@
 #include "views/projectsview.h"
 #include "views/summaryview.h"
 #include "views/folderview.h"
+#include "views/globallistview.h"
 #include "views/issueview.h"
 #include "views/startview.h"
 #include "views/viewmanager.h"
@@ -69,6 +70,7 @@ MainWindow::MainWindow() :
     m_view( NULL ),
     m_summaryView( NULL ),
     m_folderView( NULL ),
+    m_globalListView( NULL ),
     m_issueView( NULL ),
     m_activeView( NULL ),
     m_stackedWidget( NULL ),
@@ -76,6 +78,7 @@ MainWindow::MainWindow() :
     m_issuePane( NULL ),
     m_selectedProjectId( 0 ),
     m_selectedFolderId( 0 ),
+    m_selectedTypeId( 0 ),
     m_selectedIssueId( 0 ),
     m_currentViewId( 0 ),
     m_supressFilter( false )
@@ -222,6 +225,9 @@ MainWindow::~MainWindow()
     delete m_folderView;
     m_folderView = NULL;
 
+    delete m_globalListView;
+    m_globalListView = NULL;
+
     delete m_issueView;
     m_issueView = NULL;
 }
@@ -279,6 +285,9 @@ void MainWindow::closeConnection()
     delete m_folderView;
     m_folderView = NULL;
 
+    delete m_globalListView;
+    m_globalListView = NULL;
+
     delete m_issueView;
     m_issueView = NULL;
 
@@ -299,6 +308,7 @@ void MainWindow::closeConnection()
 
     m_selectedProjectId = 0;
     m_selectedFolderId = 0;
+    m_selectedTypeId = 0;
     m_selectedIssueId = 0;
 
     showStartPage();
@@ -391,7 +401,7 @@ void MainWindow::connectionOpened()
 
     QSplitter* vertSplitter = new QSplitter( Qt::Vertical, m_stackedWidget );
 
-    m_folderPane = new PaneWidget( vertSplitter );
+    m_folderPane = new PaneWidget( vertSplitter ); // TODO: change API of the pane widget to allow adding more widgets
     m_folderPane->setPlaceholderText( tr( "No folder selected" ) );
     vertSplitter->addWidget( m_folderPane );
 
@@ -399,7 +409,13 @@ void MainWindow::connectionOpened()
     m_folderView->mainWidget()->setFocusPolicy( Qt::ClickFocus );
     viewManager->addView( m_folderView );
 
-    m_folderPane->setMainWidget( m_folderView->mainWidget() );
+    m_folderPane->addWidget( m_folderView->mainWidget() );
+
+    m_globalListView = new GlobalListView( this, m_folderPane );
+    m_globalListView->mainWidget()->setFocusPolicy( Qt::ClickFocus );
+    viewManager->addView( m_globalListView );
+
+    m_folderPane->addWidget( m_globalListView->mainWidget() );
 
     m_issuePane = new PaneWidget( vertSplitter );
     m_issuePane->setPlaceholderText( tr( "No issue selected" ) );
@@ -409,7 +425,7 @@ void MainWindow::connectionOpened()
     m_issueView->mainWidget()->setFocusPolicy( Qt::ClickFocus );
     viewManager->addView( m_issueView );
 
-    m_issuePane->setMainWidget( m_issueView->mainWidget() );
+    m_issuePane->addWidget( m_issueView->mainWidget() );
 
     m_stackedWidget->addWidget( vertSplitter );
 
@@ -456,27 +472,35 @@ void MainWindow::connectionOpened()
     m_view->initialUpdate();
 
     connect( m_folderView, SIGNAL( enabledChanged( bool ) ), this, SLOT( folderEnabledChanged( bool ) ) );
+    connect( m_globalListView, SIGNAL( enabledChanged( bool ) ), this, SLOT( globalListEnabledChanged( bool ) ) );
     connect( m_issueView, SIGNAL( enabledChanged( bool ) ), this, SLOT( issueEnabledChanged( bool ) ) );
 
     connect( m_folderView, SIGNAL( captionChanged( const QString& ) ), this, SLOT( captionChanged( const QString& ) ) );
+    connect( m_globalListView, SIGNAL( captionChanged( const QString& ) ), this, SLOT( captionChanged( const QString& ) ) );
     connect( m_summaryView, SIGNAL( captionChanged( const QString& ) ), this, SLOT( captionChanged( const QString& ) ) );
 
-    connect( m_view, SIGNAL( selectionChanged( int, int ) ), this, SLOT( selectionChanged( int, int ) ) );
+    connect( m_view, SIGNAL( selectionChanged( int, int, int ) ), this, SLOT( selectionChanged( int, int, int ) ) );
     connect( m_view, SIGNAL( projectSelected( int ) ), this, SLOT( projectSelected( int ) ) );
 
     connect( m_folderView, SIGNAL( selectedIssueChanged( int ) ), this, SLOT( selectedIssueChanged( int ) ) );
     connect( m_folderView, SIGNAL( currentViewChanged( int ) ), this, SLOT( currentViewChanged( int ) ) );
+    connect( m_globalListView, SIGNAL( selectedIssueChanged( int ) ), this, SLOT( selectedIssueChanged( int ) ) );
+    connect( m_globalListView, SIGNAL( currentViewChanged( int ) ), this, SLOT( currentViewChanged( int ) ) );
 
     connect( m_issueView, SIGNAL( issueActivated( int, int ) ), this, SLOT( gotoIssue( int, int ) ), Qt::QueuedConnection );
     connect( m_folderView, SIGNAL( issueActivated( int, int ) ), this, SLOT( gotoIssue( int, int ) ), Qt::QueuedConnection );
+    connect( m_globalListView, SIGNAL( issueActivated( int, int ) ), this, SLOT( gotoIssue( int, int ) ), Qt::QueuedConnection );
     connect( m_summaryView, SIGNAL( issueActivated( int, int ) ), this, SLOT( gotoIssue( int, int ) ), Qt::QueuedConnection );
 
     connect( m_folderView, SIGNAL( itemActivated( int ) ), this, SLOT( gotoItem( int ) ) );
+    connect( m_globalListView, SIGNAL( itemActivated( int ) ), this, SLOT( gotoItem( int ) ) );
 
     folderEnabledChanged( m_folderView->isEnabled() );
+    globalListEnabledChanged( m_folderView->isEnabled() );
     issueEnabledChanged( m_issueView->isEnabled() );
 
     m_folderView->initialUpdate();
+    m_globalListView->initialUpdate();
     m_issueView->initialUpdate();
 
     m_view->mainWidget()->setFocus();
@@ -558,6 +582,8 @@ bool MainWindow::eventFilter( QObject* object, QEvent* e )
             view = m_summaryView;
         else if ( m_folderView && m_folderView->mainWidget() == widget )
             view = m_folderView;
+        else if ( m_globalListView && m_globalListView->mainWidget() == widget )
+            view = m_globalListView;
         else if ( m_issueView && m_issueView->mainWidget() == widget )
             view = m_issueView;
 
@@ -603,7 +629,10 @@ void MainWindow::setActiveView( View* view )
 
 void MainWindow::folderEnabledChanged( bool enabled )
 {
-    m_folderPane->setMainWidgetVisible( enabled );
+    if ( enabled )
+        m_folderPane->setCurrentWidget( m_folderView->mainWidget() );
+    else if ( !m_globalListView->isEnabled() )
+        m_folderPane->showPlaceholder();
 
     if ( m_folderView == m_activeView ) {
         if ( enabled )
@@ -613,9 +642,27 @@ void MainWindow::folderEnabledChanged( bool enabled )
     }
 }
 
+void MainWindow::globalListEnabledChanged( bool enabled )
+{
+    if ( enabled )
+        m_folderPane->setCurrentWidget( m_globalListView->mainWidget() );
+    else if ( !m_folderView->isEnabled() )
+        m_folderPane->showPlaceholder();
+
+    if ( m_globalListView == m_activeView ) {
+        if ( enabled )
+           builder()->addClient( m_globalListView );
+        else
+            builder()->removeClient( m_globalListView );
+    }
+}
+
 void MainWindow::issueEnabledChanged( bool enabled )
 {
-    m_issuePane->setMainWidgetVisible( enabled );
+    if ( enabled )
+        m_issuePane->setCurrentWidget( m_issueView->mainWidget() );
+    else
+        m_issuePane->showPlaceholder();
 
     if ( m_issueView == m_activeView ) {
         if ( enabled )
@@ -625,11 +672,12 @@ void MainWindow::issueEnabledChanged( bool enabled )
     }
 }
 
-void MainWindow::selectionChanged( int folderId, int viewId )
+void MainWindow::selectionChanged( int folderId, int typeId, int viewId )
 {
-    if ( !m_supressFilter && ( m_selectedFolderId != folderId || m_currentViewId != viewId ) ) {
+    if ( !m_supressFilter && ( m_selectedFolderId != folderId || m_selectedTypeId != typeId || m_currentViewId != viewId || m_selectedProjectId != 0 ) ) {
         m_selectedProjectId = 0;
         m_selectedFolderId = folderId;
+        m_selectedTypeId = typeId;
         m_currentViewId = viewId;
         m_selectionTimer->start();
     }
@@ -640,6 +688,7 @@ void MainWindow::projectSelected( int projectId )
     if ( m_selectedProjectId != projectId ) {
         m_selectedProjectId = projectId;
         m_selectedFolderId = 0;
+        m_selectedTypeId = 0;
         m_currentViewId = 0;
         m_selectionTimer->start();
     }
@@ -669,7 +718,7 @@ void MainWindow::updateSelection()
         m_stackedWidget->setCurrentIndex( 1 );
 
         m_supressFilter = true;
-        m_view->setSelection( m_selectedFolderId, m_currentViewId );
+        m_view->setSelection( m_selectedFolderId, m_selectedTypeId, m_currentViewId );
         m_supressFilter = false;
     }
 
@@ -678,17 +727,30 @@ void MainWindow::updateSelection()
         m_summaryView->initialUpdate();
     }
 
-    if ( m_folderView->id() != m_selectedFolderId ) {
+    if ( m_folderView->id() != m_selectedFolderId || m_globalListView->id() != m_selectedTypeId ) {
         m_supressFilter = true;
 
-        m_folderView->setId( m_selectedFolderId );
-        m_folderView->initialUpdate();
+        if ( m_globalListView->id() != 0 && m_selectedTypeId == 0 ) {
+            m_globalListView->setId( m_selectedTypeId );
+            m_globalListView->initialUpdate();
+        }
+
+        if ( m_folderView->id() != m_selectedFolderId ) {
+            m_folderView->setId( m_selectedFolderId );
+            m_folderView->initialUpdate();
+        }
+
+        if ( m_globalListView->id() != m_selectedTypeId ) {
+            m_globalListView->setId( m_selectedTypeId );
+            m_globalListView->initialUpdate();
+        }
 
         m_supressFilter = false;
         m_selectedIssueId = 0;
     }
 
     m_folderView->setCurrentViewId( m_currentViewId );
+    m_globalListView->setCurrentViewId( m_currentViewId );
 
     if ( m_issueView->id() != m_selectedIssueId ) {
         m_issueView->setId( m_selectedIssueId );
@@ -748,21 +810,21 @@ void MainWindow::gotoIssue( int issueId, int itemId )
     IssueEntity issue = IssueEntity::find( issueId );
 
     if ( issue.isValid() ) {
-        int folderId = issue.folderId();
+        if ( m_selectedTypeId == issue.folder().typeId() ) {
+            m_globalListView->gotoIssue( issueId, itemId );
+        } else {
+            int folderId = issue.folderId();
 
-        if ( folderId != m_folderView->id() ) {
-            m_selectedProjectId = 0;
-            m_selectedFolderId = folderId;
-            m_currentViewId = 0;
-            m_view->setSelection( folderId, 0 );
-            m_folderView->setId( folderId );
-            m_folderView->initialUpdate();
+            if ( folderId != m_folderView->id() ) {
+                selectionChanged( folderId, 0, 0 );
+                updateSelection();
+            }
+
+            if ( issueId != m_issueView->id() )
+                m_folderView->gotoIssue( issueId, itemId );
+            else
+                m_issueView->gotoItem( itemId );
         }
-
-        if ( issueId != m_issueView->id() )
-            m_folderView->gotoIssue( issueId, itemId );
-        else
-            m_issueView->gotoItem( itemId );
 
         if ( m_trayIcon->isVisible() )
             showFromTray( false );
@@ -831,6 +893,8 @@ void MainWindow::captionChanged( const QString& /*caption*/ )
         caption = QString( "%1 - %2" ).arg( m_summaryView->caption(), caption );
     else if ( m_folderView->isEnabled() )
         caption = QString( "%1 - %2" ).arg( m_folderView->caption(), caption );
+    else if ( m_globalListView->isEnabled() )
+        caption = QString( "%1 - %2" ).arg( m_globalListView->caption(), caption );
 
     setWindowTitle( tr( "%1 - WebIssues Desktop Client" ).arg( caption ) );
 }

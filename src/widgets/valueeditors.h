@@ -49,12 +49,22 @@ public: // overrides
     void setInputValue( const QString& value );
     QString inputValue();
 
+    void setProjectId( int projectId );
+
 private:
-    void initializeText( const DefinitionInfo& info, bool initial, QWidget* parentWidget );
-    void initializeEnum( const DefinitionInfo& info, bool initial, QWidget* parentWidget );
-    void initializeNumeric( const DefinitionInfo& info, bool initial, QWidget* parentWidget );
-    void initializeDateTime( const DefinitionInfo& info, bool initial, QWidget* parentWidget );
-    void initializeUser( const DefinitionInfo& info, bool initial, int projectId, QWidget* parentWidget );
+    void initializeText( const DefinitionInfo& info, QWidget* parentWidget );
+    void initializeEnum( const DefinitionInfo& info, QWidget* parentWidget );
+    void initializeNumeric( const DefinitionInfo& info, QWidget* parentWidget );
+    void initializeDateTime( const DefinitionInfo& info, QWidget* parentWidget );
+    void initializeUser( const DefinitionInfo& info, QWidget* parentWidget );
+
+    QStringList userItems();
+
+private:
+    bool m_initial;
+    int m_projectId;
+
+    bool m_members;
 };
 
 /**
@@ -80,6 +90,8 @@ public:
 public: // overrides
     void setInputValue( const QString& value );
     QString inputValue();
+
+    void setProjectId( int projectId );
 };
 
 #endif

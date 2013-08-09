@@ -82,9 +82,19 @@ public:
     void setIssue( int issueId );
 
     /**
-    * Set the folder and issues used as the source for the report.
+    * Set the folder used as the source for the report.
     */
-    void setFolder( int folderId, const QList<int>& issues );
+    void setFolder( int folderId );
+    
+    /**
+    * Set the type of the global list used as the source for the report.
+    */
+    void setGlobalList( int typeId );
+
+    /**
+    * Set the issues displayed in the folder report.
+    */
+    void setIssues( const QList<int>& issues );
 
     /**
     * Set the project used as the source for the report.
@@ -127,6 +137,7 @@ private:
     ReportMode m_mode;
 
     int m_folderId;
+    int m_typeId;
     QList<int> m_issues;
     int m_projectId;
 

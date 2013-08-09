@@ -17,45 +17,53 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************/
 
-#ifndef PANEWIDGET_H
-#define PANEWIDGET_H
+#ifndef GLOBALLISTVIEW_H
+#define GLOBALLISTVIEW_H
 
-#include <QStackedWidget>
-
-class QLabel;
+#include "views/listview.h"
 
 /**
-* Pane for displaying a widget or a placeholder text.
+* View for displaying all issues of a given type.
 */
-class PaneWidget : public QStackedWidget
+class GlobalListView : public ListView
 {
     Q_OBJECT
 public:
     /**
-    * Conctructor.
-    * @param parent The parent widget.
+    * Constructor.
+    * @param parent The parent object.
+    * @param parentWidget The parent widget of the view's main widget.
     */
-    PaneWidget( QWidget* parent );
+    GlobalListView( QObject* parent, QWidget* parentWidget );
 
     /**
     * Destructor.
     */
-    ~PaneWidget();
+    ~GlobalListView();
 
-public:
-    /*
-    * Set text displayed when widget is hidden.
-    */
-    void setPlaceholderText( const QString& text );
+protected: // overrides
+    void updateEvent( UpdateEvent* e );
 
-    /**
-    * Show the placeholder text.
-    */
-    void showPlaceholder();
+    void updateFolder();
+    void addIssue();
+
+    void markAllAsRead();
+    void markAllAsUnread();
+
+    void issueAdded( int issueId, int folderId );
+
+    void initializeList();
+
+    void updateSelection();
+    void updateCaption();
+
+    void initializeReport( ReportDialog* dialog );
 
 private:
-    QLabel* m_label;
-    QWidget* m_labelWidget;
+    Access checkDataAccess();
+
+    void initialUpdateFolder();
+    void cascadeUpdateFolder();
 };
 
 #endif

@@ -30,6 +30,7 @@ class View;
 class ProjectsView;
 class SummaryView;
 class FolderView;
+class GlobalListView;
 class IssueView;
 class PaneWidget;
 class StatusLabel;
@@ -100,9 +101,10 @@ private slots:
     void builderReset();
 
     void folderEnabledChanged( bool enabled );
+    void globalListEnabledChanged( bool enabled );
     void issueEnabledChanged( bool enabled );
 
-    void selectionChanged( int folderId, int viewId );
+    void selectionChanged( int folderId, int typeId, int viewId );
     void projectSelected( int projectId );
     void selectedIssueChanged( int issueId );
     void currentViewChanged( int viewId );
@@ -132,6 +134,7 @@ private:
     ProjectsView* m_view;
     SummaryView* m_summaryView;
     FolderView* m_folderView;
+    GlobalListView* m_globalListView;
     IssueView* m_issueView;
 
     View* m_activeView;
@@ -152,6 +155,7 @@ private:
 
     int m_selectedProjectId;
     int m_selectedFolderId;
+    int m_selectedTypeId;
     int m_selectedIssueId;
     int m_currentViewId;
 

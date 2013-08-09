@@ -22,8 +22,7 @@
 #include <QLabel>
 #include <QLayout>
 
-PaneWidget::PaneWidget( QWidget* parent ) : QStackedWidget( parent ),
-    m_mainWidget( NULL )
+PaneWidget::PaneWidget( QWidget* parent ) : QStackedWidget( parent )
 {
     m_labelWidget = new QWidget( this );
     m_label = new QLabel( m_labelWidget );
@@ -52,14 +51,7 @@ void PaneWidget::setPlaceholderText( const QString& text )
     m_label->setText( text );
 }
 
-void PaneWidget::setMainWidget( QWidget* widget )
+void PaneWidget::showPlaceholder()
 {
-    delete m_mainWidget;
-    m_mainWidget = widget;
-    addWidget( widget );
-}
-
-void PaneWidget::setMainWidgetVisible( bool visible )
-{
-    setCurrentWidget( visible ? m_mainWidget : m_labelWidget );
+    setCurrentWidget( m_labelWidget );
 }

@@ -41,6 +41,13 @@
     <separator/>
     <action id="updateProjects"/>
   </menu>
+  <menu id="menuGlobalList">
+    <action id="openGlobalList"/>
+    <separator/>
+    <action id="manageAlerts"/>
+    <separator/>
+    <action id="updateProjects"/>
+  </menu>
   <menu id="menuFolder">
     <action id="openFolder"/>
     <separator/>

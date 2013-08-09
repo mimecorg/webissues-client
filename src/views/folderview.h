@@ -20,23 +20,12 @@
 #ifndef FOLDERVIEW_H
 #define FOLDERVIEW_H
 
-#include "views/view.h"
-
-class FolderModel;
-class IssueRowFilter;
-class SearchEditBox;
-class SeparatorComboBox;
-class ColumnCondition;
-
-class QTreeView;
-class QModelIndex;
-class QMenu;
-class QActionGroup;
+#include "views/listview.h"
 
 /**
 * View for displaying issues in a folder.
 */
-class FolderView : public View
+class FolderView : public ListView
 {
     Q_OBJECT
 public:
@@ -52,135 +41,29 @@ public:
     */
     ~FolderView();
 
-public:
-    /**
-    * Select issue with given identifier.
-    */
-    void setSelectedIssueId( int issueId );
-
-    /**
-    * Activate view with given identifier.
-    */
-    void setCurrentViewId( int viewId );
-
-    /**
-    * Navigate to the given issue, comment or attachment.
-    */
-    void gotoIssue( int issueId, int itemId );
-
-public: // overrides
-    void initialUpdate();
-
-    bool eventFilter( QObject* obj, QEvent* e );
-
-signals:
-    /**
-    * Emitted when the selected issue is changed.
-    */
-    void selectedIssueChanged( int issueId );
-
-    /**
-    * Emitted when the current view is changed.
-    */
-    void currentViewChanged( int viewId );
-
-    /**
-    * Emitted when a link to another issue is clicked.
-    */
-    void issueActivated( int issueId, int itemId );
-
-    /**
-    * Emitted when given item should be activated.
-    */
-    void itemActivated( int itemId );
-
 protected: // overrides
-    void enableView();
-    void disableView();
-    void updateAccess( Access access );
-
     void updateEvent( UpdateEvent* e );
 
-private slots:
-    void updateActions();
-    void updateSummary();
-
     void updateFolder();
-    void openIssue();
     void addIssue();
-    void editIssue();
-    void cloneIssue();
-    void moveIssue();
-    void deleteIssue();
 
-    void markAsRead();
     void markAllAsRead();
     void markAllAsUnread();
-    void subscribe();
-
-    void printReport();
-    void exportCsv();
-    void exportHtml();
-    void exportPdf();
-
-    void manageViews();
-    void addView();
-    void cloneView();
-    void modifyView();
-
-    void headerContextMenu( const QPoint& pos );
-    void listContextMenu( const QPoint& pos );
-
-    void doubleClicked( const QModelIndex& index );
-
-    void quickSearchChanged( const QString& text );
-    void searchActionTriggered( QAction* action );
-
-    void viewActivated( int index );
 
     void issueAdded( int issueId, int folderId );
 
-private:
-    void cleanUp();
+    void initializeList();
 
+    void updateSelection();
+    void updateCaption();
+
+    void initializeReport( ReportDialog* dialog );
+
+private:
     Access checkDataAccess();
 
     void initialUpdateFolder();
     void cascadeUpdateFolder();
-
-    void updateCaption();
-
-    void updateViews();
-    void updateSearchOptions();
-
-    void markAllIssues( bool read );
-
-    void loadCurrentView( bool resort );
-
-    QList<int> visibleIssues();
-    QList<int> visibleColumns();
-
-private:
-    QTreeView* m_list;
-    FolderModel* m_model;
-
-    SeparatorComboBox* m_viewCombo;
-
-    SearchEditBox* m_searchBox;
-
-    QMenu* m_searchMenu;
-    QActionGroup* m_searchActionGroup;
-
-    int m_currentViewId;
-
-    int m_searchColumn;
-
-    int m_typeId;
-    int m_projectId;
-
-    int m_selectedIssueId;
-    bool m_isRead;
-    bool m_isSubscribed;
 };
 
 #endif

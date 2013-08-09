@@ -48,18 +48,18 @@ public:
 
 public:
     /**
-    * Select specified folder or alert.
+    * Select specified folder, global list or alert.
     */
-    void setSelection( int folderId, int viewId );
+    void setSelection( int folderId, int typeId, int viewId );
 
 public: // overrides
     void initialUpdate();
 
 signals:
     /**
-    * Emitted when the selected folder or alert is changed.
+    * Emitted when the selected folder, global list or alert is changed.
     */
-    void selectionChanged( int folderId, int viewId );
+    void selectionChanged( int folderId, int typeId, int viewId );
 
     /**
     * Emitted when the selected project is changed.
@@ -88,6 +88,7 @@ private slots:
     void moveFolder();
     void openProject();
     void openFolder();
+    void openGlobalList();
     void manageAlerts();
 
     void contextMenu( const QPoint& pos );
@@ -111,11 +112,13 @@ private:
 
     int m_selectedProjectId;
     int m_selectedFolderId;
+    int m_selectedTypeId;
     int m_selectedViewId;
 
     int m_currentProjectId;
     bool m_currentProjectAdmin;
     int m_currentFolderId;
+    int m_currentTypeId;
 
     bool m_systemAdmin;
     bool m_anyProjectAdmin;

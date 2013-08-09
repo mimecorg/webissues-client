@@ -35,10 +35,8 @@ class QueryGenerator : public QObject
 public:
     /**
     * Constructor.
-    * @param folderId Identifier of the folder.
-    * @param viewId Identifier of the view or 0 to use the default view.
     */
-    QueryGenerator( int folderId, int viewId );
+    QueryGenerator();
 
     /**
     * Destructor.
@@ -46,6 +44,16 @@ public:
     ~QueryGenerator();
 
 public:
+    /**
+    * Set the folder containing issues.
+    */
+    void initializeFolder( int folderId, int viewId );
+
+    /**
+    * Set the type of the global list of issues.
+    */
+    void initializeGlobalList( int typeId, int viewId );
+
     /**
     * Set the quick search text for the list.
     */
@@ -99,6 +107,8 @@ public:
     Qt::SortOrder sortOrder() const { return m_sortOrder; }
 
 private:
+    void initializeCommon();
+
     QString generateSelect( bool allColumns );
     QString generateJoins( bool allColumns );
     QString generateConditions();
@@ -114,6 +124,7 @@ private:
 private:
     int m_folderId;
     int m_typeId;
+    int m_viewId;
 
     QList<int> m_columns;
 

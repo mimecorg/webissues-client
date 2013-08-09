@@ -50,11 +50,29 @@ protected:
     */
     ~IssueDialog();
 
+public:
+    enum Flag
+    {
+        WithFolder = 1,
+        WithDescription = 2
+    };
+
+    Q_DECLARE_FLAGS( Flags, Flag )
+
+protected: // overrides
+    bool batchSuccessful( AbstractBatch* batch );
+
+signals:
+    void issueAdded( int issueId, int folderId );
+
 protected:
-    bool initialize( int typeId, int projectId, bool withDescription );
+    bool initialize( int typeId, int projectId, Flags flags = 0 );
 
     void setIssueName( const QString& name );
     QString issueName() const;
+
+    void setFolderId( int folderId );
+    int folderId() const;
 
     void setAttributeValue( int attributeId, const QString& value );
     QString attributeValue( int attributeId ) const;
@@ -67,11 +85,25 @@ protected:
     void setDescriptionFormat( TextFormat format );
     TextFormat descriptionFormat() const;
 
+    QMap<int, QString> defaultAttributeValues();
+
+    void executeAddIssueBatch( int folderId, const QMap<int, QString>& defaultValues );
+
+private slots:
+    void currentFolderChanged();
+
 private:
     InputLineEdit* m_nameEdit;
+    SeparatorComboBox* m_folderCombo;
     QMap<int, AbstractValueEditor*> m_editors;
     MarkupTextEdit* m_descriptionEdit;
+
+    int m_typeId;
+
+    bool m_isAdding;
 };
+
+Q_DECLARE_OPERATORS_FOR_FLAGS( IssueDialog::Flags )
 
 /**
 * Dialog for adding a new issue.
@@ -83,34 +115,70 @@ public:
     /**
     * Constructor.
     * @param folderId The identifier of the folder containing the issue.
-    * @param cloneIssueId Optional identifier of the issue to clone.
     */
-    AddIssueDialog( int folderId, int cloneIssueId = 0 );
+    AddIssueDialog( int folderId );
 
     /**
     * Destructor.
     */
     ~AddIssueDialog();
 
+public: // overrides
+    void accept();
+
+private:
+    int m_folderId;
+
+    QMap<int, QString> m_values;
+};
+
+/**
+* Dialog for adding a new issue to a selected folder.
+*/
+class AddGlobalIssueDialog : public IssueDialog
+{
+    Q_OBJECT
 public:
     /**
-    * Return the identifier of the created issue.
+    * Constructor.
+    * @param folderId The identifier of the type of the issue.
     */
-    int issueId() const { return m_issueId; }
+    AddGlobalIssueDialog( int typeId );
+
+    /**
+    * Destructor.
+    */
+    ~AddGlobalIssueDialog();
 
 public: // overrides
     void accept();
 
-protected: // overrides
-    bool batchSuccessful( AbstractBatch* batch );
+private:
+    QMap<int, QString> m_values;
+};
 
-signals:
-    void issueAdded( int issueId, int folderId );
+/**
+* Dialog for cloning an issue in a selected folder.
+*/
+class CloneIssueDialog : public IssueDialog
+{
+    Q_OBJECT
+public:
+    /**
+    * Constructor.
+    * @param folderId The identifier of the issue to clone.
+    */
+    CloneIssueDialog( int issueId );
+
+    /**
+    * Destructor.
+    */
+    ~CloneIssueDialog();
+
+public: // overrides
+    void accept();
 
 private:
-    int m_folderId;
-    int m_issueId;
-
     QMap<int, QString> m_values;
 };
 
@@ -176,26 +244,6 @@ protected:
 
 private:
     SeparatorComboBox* m_folderCombo;
-};
-
-/**
-* Dialog for selecting destination folder for cloned issue.
-*/
-class CloneIssueDialog : public TransferIssueDialog
-{
-    Q_OBJECT
-public:
-    /**
-    * Constructor.
-    * @param issueId Identifier of the isssue to clone.
-    * @param parent The parent widget.
-    */
-    CloneIssueDialog( int issueId, QWidget* parent );
-
-    /**
-    * Destructor.
-    */
-    ~CloneIssueDialog();
 };
 
 /**

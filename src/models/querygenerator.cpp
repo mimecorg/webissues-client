@@ -28,29 +28,31 @@
 #include <QSqlQuery>
 #include <QDateTime>
 
-QueryGenerator::QueryGenerator( int folderId, int viewId ) :
-    m_folderId( folderId ),
+QueryGenerator::QueryGenerator() :
+    m_folderId( 0 ),
     m_typeId( 0 ),
+    m_viewId( 0 ),
     m_searchColumn( -1 ),
     m_sortColumn( -1 ),
     m_sortOrder( Qt::AscendingOrder ),
     m_valid( false )
 {
-    QSqlQuery sqlQuery;
-    if ( viewId != 0 ) {
-        sqlQuery.prepare( "SELECT f.type_id, v.view_def"
-            " FROM folders AS f"
-            " JOIN views AS v ON v.type_id = f.type_id"
-            " WHERE f.folder_id = ? AND v.view_id = ?" );
-        sqlQuery.addBindValue( folderId );
-        sqlQuery.addBindValue( viewId );
-    } else {
-        sqlQuery.prepare( "SELECT f.type_id"
-            " FROM folders AS f"
-            " WHERE f.folder_id = ?" );
-        sqlQuery.addBindValue( folderId );
-    }
+}
 
+QueryGenerator::~QueryGenerator()
+{
+}
+
+void QueryGenerator::initializeFolder( int folderId, int viewId )
+{
+    m_folderId = folderId;
+    m_viewId = viewId;
+
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare( "SELECT f.type_id"
+        " FROM folders AS f"
+        " WHERE f.folder_id = ?" );
+    sqlQuery.addBindValue( folderId );
     sqlQuery.exec();
 
     if ( !sqlQuery.next() )
@@ -58,13 +60,39 @@ QueryGenerator::QueryGenerator( int folderId, int viewId ) :
 
     m_typeId = sqlQuery.value( 0 ).toInt();
 
+    initializeCommon();
+}
+
+void QueryGenerator::initializeGlobalList( int typeId, int viewId )
+{
+    m_typeId = typeId;
+    m_viewId = viewId;
+
+    initializeCommon();
+}
+
+void QueryGenerator::initializeCommon()
+{
     IssueTypeCache* cache = dataManager->issueTypeCache( m_typeId );
 
     DefinitionInfo info;
-    if ( viewId != 0 )
-        info = DefinitionInfo::fromString( sqlQuery.value( 1 ).toString() );
-    else
+
+    if ( m_viewId != 0 ) {
+        QSqlQuery sqlQuery;
+        sqlQuery.prepare( "SELECT v.view_def"
+            " FROM views AS v"
+            " WHERE v.view_id = ? AND v.type_id = ?" );
+        sqlQuery.addBindValue( m_viewId );
+        sqlQuery.addBindValue( m_typeId );
+        sqlQuery.exec();
+
+        if ( !sqlQuery.next() )
+            return;
+
+        info = DefinitionInfo::fromString( sqlQuery.value( 0 ).toString() );
+    } else {
         info = cache->defaultView();
+    }
 
     m_columns = cache->viewColumns( info );
     m_filters = cache->viewFilters( info );
@@ -72,10 +100,6 @@ QueryGenerator::QueryGenerator( int folderId, int viewId ) :
     QPair<int, Qt::SortOrder> order = cache->viewSortOrder( info );
     m_sortColumn = m_columns.indexOf( order.first );
     m_sortOrder = order.second;
-}
-
-QueryGenerator::~QueryGenerator()
-{
 }
 
 void QueryGenerator::setSearchText( int column, const QString& text )
@@ -156,6 +180,9 @@ QString QueryGenerator::generateJoins( bool allColumns )
     QStringList joins;
     joins.append( "issues AS i" );
 
+    if ( m_folderId == 0 )
+        joins.append( "INNER JOIN folders AS f ON f.folder_id = i.folder_id" );
+
     joins.append( "LEFT OUTER JOIN issue_states AS s ON s.issue_id = i.issue_id AND s.user_id = ?" );
     m_arguments.append( dataManager->currentUserId() );
 
@@ -199,8 +226,13 @@ QString QueryGenerator::generateConditions()
 {
     QStringList conditions;
 
-    conditions.append( "i.folder_id = ?" );
-    m_arguments.append( m_folderId );
+    if ( m_folderId != 0 ) {
+        conditions.append( "i.folder_id = ?" );
+        m_arguments.append( m_folderId );
+    } else {
+        conditions.append( "f.type_id = ?" );
+        m_arguments.append( m_typeId );
+    }
 
     IssueTypeCache* cache = dataManager->issueTypeCache( m_typeId );
 

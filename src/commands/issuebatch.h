@@ -164,6 +164,11 @@ public:
     int issueId() const { return m_issueId; }
 
     /**
+    * Return the identifier of the folder.
+    */
+    int folderId() const { return m_folderId; }
+
+    /**
     * Return the status of reading or writing the attachment file.
     * If the file to upload cannot be opened for reading, the <tt>ADD ATTACHMENT</tt> command is not executed
     * and the batch is finished with success. If an error occurs while writing the downloaded file,

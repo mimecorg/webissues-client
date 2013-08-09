@@ -100,6 +100,11 @@ ProjectsView::ProjectsView( QObject* parent, QWidget* parentWidget ) : View( par
     connect( action, SIGNAL( triggered() ), this, SLOT( openFolder() ), Qt::QueuedConnection );
     setAction( "openFolder", action );
 
+    action = new QAction( IconLoader::icon( "folder-open" ), tr( "&Open List" ), this );
+    action->setShortcut( QKeySequence::Open );
+    connect( action, SIGNAL( triggered() ), this, SLOT( openGlobalList() ), Qt::QueuedConnection );
+    setAction( "openGlobalList", action );
+
     action = new QAction( IconLoader::icon( "configure-alerts" ), tr( "&Manage Alerts..." ), this );
     connect( action, SIGNAL( triggered() ), this, SLOT( manageAlerts() ), Qt::QueuedConnection );
     setAction( "manageAlerts", action );
@@ -110,6 +115,7 @@ ProjectsView::ProjectsView( QObject* parent, QWidget* parentWidget ) : View( par
     setDefaultMenuAction( "menuProject", "openProject" );
     setDefaultMenuAction( "menuProjectAdmin", "openProject" );
     setDefaultMenuAction( "menuFolder", "openFolder" );
+    setDefaultMenuAction( "menuGlobalList", "openGlobalList" );
 
     loadXmlUiFile( ":/resources/projectsview.xml" );
 
@@ -235,14 +241,12 @@ void ProjectsView::cascadeUpdateFolders()
     UpdateBatch* batch = NULL;
 
     foreach ( const FolderEntity& folder, FolderEntity::list() ) {
-        if ( !folder.alerts().isEmpty() ) {
-            if ( dataManager->folderUpdateNeeded( folder.id() ) ) {
-                if ( !batch ) {
-                    batch = new UpdateBatch( -20 );
-                    batch->setIfNeeded( true );
-                }
-                batch->updateFolder( folder.id() );
+        if ( dataManager->folderUpdateNeeded( folder.id() ) ) {
+            if ( !batch ) {
+                batch = new UpdateBatch( -20 );
+                batch->setIfNeeded( true );
             }
+            batch->updateFolder( folder.id() );
         }
     }
 
@@ -260,10 +264,12 @@ void ProjectsView::updateActions()
 {
     m_selectedProjectId = 0;
     m_selectedFolderId = 0;
+    m_selectedTypeId = 0;
     m_selectedViewId = 0;
 
     m_currentProjectId = 0;
     m_currentFolderId = 0;
+    m_currentTypeId = 0;
 
     TreeViewHelper helper( m_list );
     QModelIndex index = helper.selectedIndex();
@@ -271,7 +277,12 @@ void ProjectsView::updateActions()
     if ( index.isValid() ) {
         int level = m_model->levelOf( index );
         int rowId = m_model->rowId( index );
-        if ( level == ProjectsModel::Projects ) {
+        if ( level == ProjectsModel::Types ) {
+            m_selectedTypeId = rowId;
+            m_currentTypeId = rowId;
+            IssueTypeCache* cache = dataManager->issueTypeCache( rowId );
+            m_selectedViewId = cache->initialViewId();
+        } if ( level == ProjectsModel::Projects ) {
             m_selectedProjectId = rowId;
             m_currentProjectId = rowId;
         } else if ( level == ProjectsModel::Folders ) {
@@ -295,6 +306,7 @@ void ProjectsView::updateActions()
     action( "showMembers" )->setEnabled( m_selectedProjectId && m_currentProjectAdmin );
     action( "openProject" )->setEnabled( m_selectedProjectId != 0 );
     action( "openFolder" )->setEnabled( m_selectedFolderId != 0 );
+    action( "openGlobalList" )->setEnabled( m_selectedTypeId != 0 );
     action( "addFolder" )->setEnabled( m_currentProjectId != 0 && m_currentProjectAdmin );
     action( "editRename" )->setEnabled( ( m_selectedProjectId != 0 && m_systemAdmin ) || ( m_selectedFolderId != 0 && m_currentProjectAdmin ) );
     action( "editDelete" )->setEnabled( ( m_selectedProjectId != 0 && m_systemAdmin ) || ( m_selectedFolderId != 0 && m_currentProjectAdmin ) );
@@ -312,38 +324,48 @@ void ProjectsView::updateSelection()
     if ( m_selectedProjectId != 0 )
         emit projectSelected( m_selectedProjectId );
     else
-        emit selectionChanged( m_currentFolderId, m_selectedViewId );
+        emit selectionChanged( m_currentFolderId, m_currentTypeId, m_selectedViewId );
 }
 
-void ProjectsView::setSelection( int folderId, int viewId )
+void ProjectsView::setSelection( int folderId, int typeId, int viewId )
 {
-    if ( m_currentFolderId == folderId && m_selectedViewId == viewId )
+    if ( m_currentFolderId == folderId && m_currentTypeId == typeId && m_selectedViewId == viewId )
         return;
 
-    FolderEntity folder = FolderEntity::find( folderId );
-    IssueTypeCache* cache = dataManager->issueTypeCache( folder.typeId() );
-    int initialViewId = cache->initialViewId();
+    if ( folderId == 0 ) {
+        QModelIndex index = m_model->findIndex( ProjectsModel::Types, typeId, 0 );
+        if ( index.isValid() ) {
+            m_list->selectionModel()->setCurrentIndex( index, QItemSelectionModel::Current );
+            m_list->selectionModel()->select( index, QItemSelectionModel::ClearAndSelect | QItemSelectionModel::Rows );
+        } else {
+            m_list->clearSelection();
+        }
+    } else {
+        FolderEntity folder = FolderEntity::find( folderId );
+        IssueTypeCache* cache = dataManager->issueTypeCache( folder.typeId() );
+        int initialViewId = cache->initialViewId();
 
-    if ( viewId != initialViewId ) {
-        foreach ( const AlertEntity& alert, folder.alerts() ) {
-            if ( alert.viewId() == viewId ) {
-                QModelIndex index = m_model->findIndex( 2, alert.id(), 0 );
-                if ( index.isValid() ) {
-                    m_list->selectionModel()->setCurrentIndex( index, QItemSelectionModel::Current );
-                    m_list->selectionModel()->select( index, QItemSelectionModel::ClearAndSelect | QItemSelectionModel::Rows );
-                    return;
+        if ( viewId != initialViewId ) {
+            foreach ( const AlertEntity& alert, folder.alerts() ) {
+                if ( alert.viewId() == viewId ) {
+                    QModelIndex index = m_model->findIndex( ProjectsModel::Alerts, alert.id(), 0 );
+                    if ( index.isValid() ) {
+                        m_list->selectionModel()->setCurrentIndex( index, QItemSelectionModel::Current );
+                        m_list->selectionModel()->select( index, QItemSelectionModel::ClearAndSelect | QItemSelectionModel::Rows );
+                        return;
+                    }
+                    break;
                 }
-                break;
             }
         }
-    }
 
-    QModelIndex index = m_model->findIndex( 1, folderId, 0 );
-    if ( index.isValid() ) {
-        m_list->selectionModel()->setCurrentIndex( index, QItemSelectionModel::Current );
-        m_list->selectionModel()->select( index, QItemSelectionModel::ClearAndSelect | QItemSelectionModel::Rows );
-    } else {
-        m_list->clearSelection();
+        QModelIndex index = m_model->findIndex( ProjectsModel::Folders, folderId, 0 );
+        if ( index.isValid() ) {
+            m_list->selectionModel()->setCurrentIndex( index, QItemSelectionModel::Current );
+            m_list->selectionModel()->select( index, QItemSelectionModel::ClearAndSelect | QItemSelectionModel::Rows );
+        } else {
+            m_list->clearSelection();
+        }
     }
 }
 
@@ -439,6 +461,12 @@ void ProjectsView::openFolder()
         viewManager->openFolderView( m_selectedFolderId );
 }
 
+void ProjectsView::openGlobalList()
+{
+    if ( m_selectedTypeId != 0  )
+        viewManager->openGlobalListView( m_selectedTypeId );
+}
+
 void ProjectsView::manageAlerts()
 {
     if ( m_currentFolderId != 0  ) {
@@ -472,6 +500,8 @@ void ProjectsView::contextMenu( const QPoint& pos )
         int level = m_model->levelOf( index );
         if ( level == ProjectsModel::Projects )
             menuName = m_systemAdmin ? "menuProjectAdmin" : "menuProject";
+        else if ( level == ProjectsModel::Types )
+            menuName = "menuGlobalList";
         else if ( level == ProjectsModel::Folders )
             menuName = "menuFolder";
         else if ( level == ProjectsModel::Alerts )
@@ -495,6 +525,8 @@ void ProjectsView::doubleClicked( const QModelIndex& index )
 
         if ( level == ProjectsModel::Projects )
             viewManager->openSummaryView( rowId );
+        else if ( level == ProjectsModel::Types )
+            viewManager->openGlobalListView( rowId );
         else if ( level == ProjectsModel::Folders )
             viewManager->openFolderView( rowId );
     }

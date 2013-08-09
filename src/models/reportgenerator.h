@@ -57,11 +57,18 @@ public:
     void setIssueSource( int issueId );
 
     /**
-    * Set report source to multiple issues.
+    * Set report source to multiple issues in a folder.
     * @param folderId Identifier of the folder containing the issues.
     * @param issues Identifiers of issues to be included in the report.
     */
     void setFolderSource( int folderId, const QList<int>& issues );
+
+    /**
+    * Set report source to multiple issues in a global list.
+    * @param typeId Identifier of the type of global list containing the issues.
+    * @param issues Identifiers of issues to be included in the report.
+    */
+    void setGlobalListSource( int typeId, const QList<int>& issues );
 
     /**
     * Set report mode to table of issues.
@@ -95,6 +102,7 @@ public:
 
 private:
     int m_folderId;
+    int m_typeId;
     QList<int> m_issues;
 
     QList<int> m_columns;

@@ -39,23 +39,26 @@
 // fix for GCC 4.3-snapshot
 #include <climits>
 
-InputLineValueEditor::InputLineValueEditor( const DefinitionInfo& info, bool initial, int projectId, QObject* parent, QWidget* parentWidget ) : AbstractValueEditor( parent )
+InputLineValueEditor::InputLineValueEditor( const DefinitionInfo& info, bool initial, int projectId, QObject* parent, QWidget* parentWidget ) : AbstractValueEditor( parent ),
+    m_initial( initial ),
+    m_projectId( projectId ),
+    m_members( false )
 {
     switch ( AttributeHelper::toAttributeType( info ) ) {
         case TextAttribute:
-            initializeText( info, initial, parentWidget );
+            initializeText( info, parentWidget );
             break;
         case EnumAttribute:
-            initializeEnum( info, initial, parentWidget );
+            initializeEnum( info, parentWidget );
             break;
         case NumericAttribute:
-            initializeNumeric( info, initial, parentWidget );
+            initializeNumeric( info, parentWidget );
             break;
         case DateTimeAttribute:
-            initializeDateTime( info, initial, parentWidget );
+            initializeDateTime( info, parentWidget );
             break;
         case UserAttribute:
-            initializeUser( info, initial, projectId, parentWidget );
+            initializeUser( info, parentWidget );
             break;
         default:
             break;
@@ -66,7 +69,7 @@ InputLineValueEditor::~InputLineValueEditor()
 {
 }
 
-void InputLineValueEditor::initializeText( const DefinitionInfo& info, bool initial, QWidget* parentWidget )
+void InputLineValueEditor::initializeText( const DefinitionInfo& info, QWidget* parentWidget )
 {
     InputLineEdit* edit = new InputLineEdit( parentWidget );
 
@@ -82,13 +85,13 @@ void InputLineValueEditor::initializeText( const DefinitionInfo& info, bool init
 
     edit->setRequired( info.metadata( "required" ).toBool() );
 
-    if ( initial )
+    if ( m_initial )
         edit->setFunctions( InputLineEdit::MeFunction );
 
     setWidget( edit );
 }
 
-void InputLineValueEditor::initializeEnum( const DefinitionInfo& info, bool initial, QWidget* parentWidget )
+void InputLineValueEditor::initializeEnum( const DefinitionInfo& info, QWidget* parentWidget )
 {
     EnumLineEdit* edit = new EnumLineEdit( parentWidget );
 
@@ -112,13 +115,13 @@ void InputLineValueEditor::initializeEnum( const DefinitionInfo& info, bool init
 
     edit->setRequired( info.metadata( "required" ).toBool() );
 
-    if ( initial )
+    if ( m_initial )
         edit->setFunctions( InputLineEdit::MeFunction );
 
     setWidget( edit );
 }
 
-void InputLineValueEditor::initializeNumeric( const DefinitionInfo& info, bool /*initial*/, QWidget* parentWidget )
+void InputLineValueEditor::initializeNumeric( const DefinitionInfo& info, QWidget* parentWidget )
 {
     NumericLineEdit* edit = new NumericLineEdit( parentWidget );
 
@@ -138,7 +141,7 @@ void InputLineValueEditor::initializeNumeric( const DefinitionInfo& info, bool /
     setWidget( edit );
 }
 
-void InputLineValueEditor::initializeDateTime( const DefinitionInfo& info, bool initial, QWidget* parentWidget )
+void InputLineValueEditor::initializeDateTime( const DefinitionInfo& info, QWidget* parentWidget )
 {
     DateTimeLineEdit* edit = new DateTimeLineEdit( parentWidget );
 
@@ -147,33 +150,19 @@ void InputLineValueEditor::initializeDateTime( const DefinitionInfo& info, bool 
 
     edit->setRequired( info.metadata( "required" ).toBool() );
 
-    if ( initial )
+    if ( m_initial )
         edit->setFunctions( DateTimeLineEdit::TodayFunction );
 
     setWidget( edit );
 }
 
-void InputLineValueEditor::initializeUser( const DefinitionInfo& info, bool initial, int projectId, QWidget* parentWidget )
+void InputLineValueEditor::initializeUser( const DefinitionInfo& info, QWidget* parentWidget )
 {
     EnumLineEdit* edit = new EnumLineEdit( parentWidget );
 
-    QStringList items;
+    m_members = info.metadata( "members" ).toBool();
 
-    if ( initial )
-        items.append( QString( "[%1]" ).arg( tr( "Me" ) ) );
-
-    bool members = info.metadata( "members" ).toBool();
-
-    QList<UserEntity> users;
-    if ( members && projectId != 0 ) {
-        ProjectEntity project = ProjectEntity::find( projectId );
-        users = project.members();
-    } else {
-        users = UserEntity::list();
-    }
-
-    foreach ( const UserEntity& user, users )
-        items.append( user.name() );
+    QStringList items = userItems();
 
     bool multiSelect = info.metadata( "multi-select" ).toBool();
 
@@ -183,7 +172,7 @@ void InputLineValueEditor::initializeUser( const DefinitionInfo& info, bool init
 
     edit->setRequired( info.metadata( "required" ).toBool() );
 
-    if ( initial )
+    if ( m_initial )
         edit->setFunctions( InputLineEdit::MeFunction );
 
     setWidget( edit );
@@ -199,6 +188,37 @@ QString InputLineValueEditor::inputValue()
 {
     InputLineEdit* edit = (InputLineEdit*)widget();
     return edit->inputValue();
+}
+
+void InputLineValueEditor::setProjectId( int projectId )
+{
+    if ( m_members && m_projectId != projectId ) {
+        m_projectId = projectId;
+
+        EnumLineEdit* edit = (EnumLineEdit*)widget();
+        edit->setItems( userItems() );
+    }
+}
+
+QStringList InputLineValueEditor::userItems()
+{
+    QStringList items;
+
+    if ( m_initial )
+        items.append( QString( "[%1]" ).arg( tr( "Me" ) ) );
+
+    QList<UserEntity> users;
+    if ( m_members && m_projectId != 0 ) {
+        ProjectEntity project = ProjectEntity::find( m_projectId );
+        users = project.members();
+    } else {
+        users = UserEntity::list();
+    }
+
+    foreach ( const UserEntity& user, users )
+        items.append( user.name() );
+
+    return items;
 }
 
 InputTextValueEditor::InputTextValueEditor( const DefinitionInfo& info, QObject* parent, QWidget* parentWidget ) : AbstractValueEditor( parent )
@@ -234,4 +254,8 @@ QString InputTextValueEditor::inputValue()
 {
     InputTextEdit* edit = (InputTextEdit*)widget();
     return edit->inputValue();
+}
+
+void InputTextValueEditor::setProjectId( int /*projectId*/ )
+{
 }
