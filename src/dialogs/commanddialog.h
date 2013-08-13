@@ -64,6 +64,12 @@ public:
     */
     ~CommandDialog();
 
+public:
+    /**
+    * Return @c true if the dialog has fixed layout.
+    */
+    bool isFixed() const { return m_fixed; }
+
 protected:
     /**
     * Set the prompt text.
@@ -83,11 +89,6 @@ protected:
     * @param fixed If @c true, the dialog cannot be resized vertically.
     */
     void setContentLayout( QLayout* layout, bool fixed );
-
-    /**
-    * Return @c true if the dialog has fixed layout.
-    */
-    bool isFixed() const { return m_fixed; }
 
     /**
     * Add a progress panel beneath the main content.

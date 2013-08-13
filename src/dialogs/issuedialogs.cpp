@@ -19,12 +19,10 @@
 
 #include "issuedialogs.h"
 
-#include "application.h"
 #include "commands/issuebatch.h"
 #include "data/datamanager.h"
 #include "data/entities.h"
 #include "data/issuetypecache.h"
-#include "data/localsettings.h"
 #include "dialogs/messagebox.h"
 #include "utils/definitioninfo.h"
 #include "utils/viewsettingshelper.h"
@@ -58,8 +56,6 @@ IssueDialog::IssueDialog() : CommandDialog( NULL, Qt::Window ),
 
 IssueDialog::~IssueDialog()
 {
-    if ( !isFixed() )
-        application->applicationSettings()->setValue( "IssueDialogSize", size() );
 }
 
 bool IssueDialog::initialize( int typeId, int projectId, Flags flags )
@@ -217,8 +213,6 @@ bool IssueDialog::initialize( int typeId, int projectId, Flags flags )
     setQueryCloseEnabled( true );
 
     m_nameEdit->setFocus();
-
-    resize( application->applicationSettings()->value( "IssueDialogSize", QSize( 740, 550 ) ).toSize() );
 
     return true;
 }

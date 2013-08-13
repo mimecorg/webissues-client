@@ -21,6 +21,7 @@
 
 #include "application.h"
 #include "data/localsettings.h"
+#include "dialogs/commanddialog.h"
 
 #include <QDialog>
 #include <QCloseEvent>
@@ -91,8 +92,11 @@ bool DialogManager::eventFilter( QObject* object, QEvent* e )
 
 static inline QString classNameOf( QDialog* dialog )
 {
-    if ( dialog->inherits( "CommandDialog" ) )
-        return "CommandDialog";
+    if ( CommandDialog* commandDialog = qobject_cast<CommandDialog*>( dialog ) ) {
+        if ( commandDialog->isFixed() )
+            return QString();
+        return CommandDialog::staticMetaObject.className();
+    }
     return dialog->metaObject()->className();
 }
 
@@ -100,8 +104,12 @@ void DialogManager::storeGeometry( QDialog* dialog, bool offset )
 {
     LocalSettings* settings = application->applicationSettings();
 
-    QString geometryKey = QString( "%1Geometry" ).arg( classNameOf( dialog ) );
-    QString offsetKey = QString( "%1Offset" ).arg( classNameOf( dialog ) );
+    QString key = classNameOf( dialog );
+    if ( key.isEmpty() )
+        return;
+
+    QString geometryKey = QString( "%1Geometry" ).arg( key );
+    QString offsetKey = QString( "%1Offset" ).arg( key );
 
     settings->setValue( geometryKey, dialog->saveGeometry() );
     settings->setValue( offsetKey, offset );
@@ -111,8 +119,12 @@ void DialogManager::restoreGeometry( QDialog* dialog )
 {
     LocalSettings* settings = application->applicationSettings();
 
-    QString geometryKey = QString( "%1Geometry" ).arg( classNameOf( dialog ) );
-    QString offsetKey = QString( "%1Offset" ).arg( classNameOf( dialog ) );
+    QString key = classNameOf( dialog );
+    if ( key.isEmpty() )
+        return;
+
+    QString geometryKey = QString( "%1Geometry" ).arg( key );
+    QString offsetKey = QString( "%1Offset" ).arg( key );
 
     if ( settings->contains( geometryKey ) ) {
         dialog->restoreGeometry( settings->value( geometryKey ).toByteArray() );
