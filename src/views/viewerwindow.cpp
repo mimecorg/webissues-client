@@ -106,8 +106,10 @@ void ViewerWindow::setView( View* view )
 
     LocalSettings* settings = application->applicationSettings();
 
-    QString geometryKey = QString( "%1Geometry" ).arg( m_view->metaObject()->className() );
-    QString offsetKey = QString( "%1Offset" ).arg( m_view->metaObject()->className() );
+    QString key = m_view->viewerSizeKey();
+
+    QString geometryKey = QString( "%1Geometry" ).arg( key );
+    QString offsetKey = QString( "%1Offset" ).arg( key );
 
     if ( settings->contains( geometryKey ) ) {
         restoreGeometry( settings->value( geometryKey ).toByteArray() );
@@ -157,8 +159,10 @@ void ViewerWindow::storeGeometry( bool offset )
 {
     LocalSettings* settings = application->applicationSettings();
 
-    QString geometryKey = QString( "%1Geometry" ).arg( m_view->metaObject()->className() );
-    QString offsetKey = QString( "%1Offset" ).arg( m_view->metaObject()->className() );
+    QString key = m_view->viewerSizeKey();
+
+    QString geometryKey = QString( "%1Geometry" ).arg( key );
+    QString offsetKey = QString( "%1Offset" ).arg( key );
 
     settings->setValue( geometryKey, saveGeometry() );
     settings->setValue( offsetKey, offset );

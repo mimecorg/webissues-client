@@ -240,6 +240,7 @@ ListView::ListView( QObject* parent, QWidget* parentWidget ) : View( parent ),
     setMainWidget( main );
 
     setViewerSizeHint( QSize( 700, 500 ) );
+    setViewerSizeKey( "FolderView" );
 
     m_list->setFocus();
 }

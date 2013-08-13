@@ -56,6 +56,18 @@ void View::setViewerSizeHint( const QSize& size )
     m_sizeHint = size;
 }
 
+QString View::viewerSizeKey() const
+{
+    if ( !m_sizeKey.isEmpty() )
+        return m_sizeKey;
+    return metaObject()->className();
+}
+
+void View::setViewerSizeKey( const QString& key )
+{
+    m_sizeKey = key;
+}
+
 void View::setAccess( Access access, bool initial )
 {
     if ( initial || m_access != access ) {

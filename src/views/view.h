@@ -80,6 +80,11 @@ public:
     QSize viewerSizeHint() const { return m_sizeHint; }
 
     /**
+    * Return the key name for the remembered size of the view.
+    */
+    QString viewerSizeKey() const;
+
+    /**
     * Return the caption of the view.
     */
     const QString& caption() const { return m_caption; }
@@ -200,6 +205,11 @@ protected:
     void setViewerSizeHint( const QSize& size );
 
     /**
+    * Set the key name for the remembered size of the view.
+    */
+    void setViewerSizeKey( const QString& key );
+
+    /**
     * Set the dynamic access mode of the view
     */
     void setAccess( Access access, bool initial = false );
@@ -262,6 +272,7 @@ private:
     QWidget* m_mainWidget;
 
     QSize m_sizeHint;
+    QString m_sizeKey;
 
     QString m_caption;
 
