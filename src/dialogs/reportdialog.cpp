@@ -356,6 +356,10 @@ void ReportDialog::previewReady()
     else
         dialog.resize( QApplication::desktop()->screenGeometry( this ).size() * 4 / 5 );
 
+    QList<QAction*> list = dialog.findChildren<QAction*>( "fitWidthAction" );
+    if ( !list.isEmpty() )
+        list.first()->trigger();
+
     connect( &dialog, SIGNAL( paintRequested( QPrinter* ) ), m_page->mainFrame(), SLOT( print( QPrinter* ) ) );
 
     int result = dialog.exec();
