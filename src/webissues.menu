@@ -1,0 +1,4 @@
+?package(webissues):needs="X11" section="Applications/Office"\
+ title="WebIssues"\
+ description="Desktop Client for the WebIssues team collaboration system."\
+ command="/usr/bin/webissues" icon="/usr/share/pixmaps/webissues.xpm"

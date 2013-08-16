@@ -2,6 +2,7 @@
 Type=Application
 Name=WebIssues
 GenericName=Issue Tracker
+Keywords=issue;tracking;team;maintenance;
 Comment=Desktop Client for the WebIssues team collaboration system
 Icon=webissues
 Exec=webissues
