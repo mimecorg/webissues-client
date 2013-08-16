@@ -60,7 +60,7 @@ void QueryGenerator::initializeFolder( int folderId, int viewId )
 
     m_typeId = sqlQuery.value( 0 ).toInt();
 
-    initializeCommon();
+    initializeCommon( false );
 }
 
 void QueryGenerator::initializeGlobalList( int typeId, int viewId )
@@ -68,10 +68,10 @@ void QueryGenerator::initializeGlobalList( int typeId, int viewId )
     m_typeId = typeId;
     m_viewId = viewId;
 
-    initializeCommon();
+    initializeCommon( true );
 }
 
-void QueryGenerator::initializeCommon()
+void QueryGenerator::initializeCommon( bool withLocation )
 {
     IssueTypeCache* cache = dataManager->issueTypeCache( m_typeId );
 
@@ -94,7 +94,7 @@ void QueryGenerator::initializeCommon()
         info = cache->defaultView();
     }
 
-    m_columns = cache->viewColumns( info );
+    m_columns = cache->viewColumns( info, withLocation );
     m_filters = cache->viewFilters( info );
 
     QPair<int, Qt::SortOrder> order = cache->viewSortOrder( info );
@@ -162,6 +162,9 @@ QString QueryGenerator::generateSelect( bool allColumns )
                 case Column_ModifiedBy:
                     result.append( "um.user_name" );
                     break;
+                case Column_Location:
+                    result.append( "f.folder_name" );
+                    break;
                 default:
                     if ( column > Column_UserDefined )
                         result.append( QString( "a%1.attr_value" ).arg( column - Column_UserDefined ) );
@@ -170,6 +173,9 @@ QString QueryGenerator::generateSelect( bool allColumns )
                     break;
             }
         }
+
+        if ( m_folderId == 0 )
+            result.append( "p.project_name" );
     }
 
     return result.join( ", " );
@@ -180,8 +186,11 @@ QString QueryGenerator::generateJoins( bool allColumns )
     QStringList joins;
     joins.append( "issues AS i" );
 
-    if ( m_folderId == 0 )
+    if ( m_folderId == 0 ) {
         joins.append( "INNER JOIN folders AS f ON f.folder_id = i.folder_id" );
+        if ( allColumns )
+            joins.append( "INNER JOIN projects AS p ON p.project_id = f.project_id" );
+    }
 
     joins.append( "LEFT OUTER JOIN issue_states AS s ON s.issue_id = i.issue_id AND s.user_id = ?" );
     m_arguments.append( dataManager->currentUserId() );
@@ -484,6 +493,8 @@ QStringList QueryGenerator::sortColumns() const
                 case Column_ModifiedBy:
                     result.append( "um.user_name COLLATE LOCALE" );
                     break;
+                case Column_Location:
+                    result.append( "p.project_name COLLATE LOCALE, f.folder_name COLLATE LOCALE" );
                 default:
                     if ( column > Column_UserDefined ) {
                         DefinitionInfo info = cache->attributeDefinition( column - Column_UserDefined );

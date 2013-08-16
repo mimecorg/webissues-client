@@ -472,13 +472,11 @@ void ListView::exportPdf()
 
 void ListView::executeReport( int mode )
 {
-    IssueTypeCache* cache = dataManager->issueTypeCache( m_typeId );
-
     ReportDialog dialog( ReportDialog::FolderSource, (ReportDialog::ReportMode)mode, mainWidget() );
 
     initializeReport( &dialog );
     dialog.setIssues( visibleIssues() );
-    dialog.setColumns( visibleColumns(), cache->availableColumns() );
+    dialog.setCurrentColumns( visibleColumns() );
 
     dialog.exec();
 }

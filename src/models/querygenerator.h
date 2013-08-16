@@ -107,7 +107,7 @@ public:
     Qt::SortOrder sortOrder() const { return m_sortOrder; }
 
 private:
-    void initializeCommon();
+    void initializeCommon( bool withLocation );
 
     QString generateSelect( bool allColumns );
     QString generateJoins( bool allColumns );

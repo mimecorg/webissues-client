@@ -102,9 +102,14 @@ public:
     void setProject( int projectId );
 
     /**
-    * Set current and all available columns for table reports.
+    * Set current columns for table reports.
     */
-    void setColumns( const QList<int>& currentColumns, const QList<int>& availableColumns );
+    void setCurrentColumns( const QList<int>& columns );
+
+    /**
+    * Set all available columns for table reports.
+    */
+    void setAvailableColumns( const QList<int>& columns );
 
     /**
     * Set type of issue history to be included for summary reports.

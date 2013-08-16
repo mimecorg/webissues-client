@@ -111,6 +111,8 @@ QVariant FolderModel::data( const QModelIndex& index, int role ) const
                 Formatter formatter;
                 return formatter.formatDateTime( dateTime, true );
             }
+            case Column_Location:
+                return rawData( level, row, m_columns.count() + 3 ).toString() + QString::fromUtf8( " — " ) + value.toString();
             default:
                 if ( !value.isNull() ) {
                     int column = m_columns.value( index.column() );
@@ -208,7 +210,11 @@ void FolderModel::updateQueries()
         QString column = m_sortColumns.value( sortColumn() );
         QString order = ( sortOrder() == Qt::AscendingOrder ) ? "ASC" : "DESC";
 
-        m_order = QString( "%1 %2" ).arg( column, order );
+        QStringList parts;
+        foreach ( const QString& part, column.split( ", " ) )
+            parts.append( QString( "%1 %2" ).arg( part, order ) );
+
+        m_order = parts.join( ", " );
 
         refresh();
     }

@@ -59,6 +59,8 @@ QString ViewSettingsHelper::columnName( int column ) const
             return tr( "Modified Date" );
         case Column_ModifiedBy:
             return tr( "Modified By" );
+        case Column_Location:
+            return tr( "Location" );
         default:
             if ( column > Column_UserDefined ) {
                 IssueTypeCache* cache = dataManager->issueTypeCache( m_typeId );

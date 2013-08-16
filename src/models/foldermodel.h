@@ -35,6 +35,7 @@ enum Column
     Column_CreatedBy,
     Column_ModifiedDate,
     Column_ModifiedBy,
+    Column_Location,
 
     /**
     * The value added to attribute identifier to create user defined columns.

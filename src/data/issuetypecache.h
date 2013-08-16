@@ -53,7 +53,7 @@ public:
     /**
     * Return the list of available columns for the issue type.
     */
-    QList<int> availableColumns() const;
+    QList<int> availableColumns( bool withLocation = false ) const;
 
     /**
     * Return the name of the given attribute.
@@ -73,7 +73,7 @@ public:
     /**
     * Return the list of columns for given view.
     */
-    QList<int> viewColumns( const DefinitionInfo& info ) const;
+    QList<int> viewColumns( const DefinitionInfo& info, bool withLocation = false ) const;
 
     /**
     * Return the sort order for given view.

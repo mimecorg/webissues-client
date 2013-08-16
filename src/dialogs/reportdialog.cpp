@@ -189,10 +189,14 @@ void ReportDialog::setHistory( IssueDetailsGenerator::History history )
     m_history = history;
 }
 
-void ReportDialog::setColumns( const QList<int>& currentColumns, const QList<int>& availableColumns )
+void ReportDialog::setCurrentColumns( const QList<int>& columns )
 {
-    m_currentColumns = currentColumns;
-    m_availableColumns = availableColumns;
+    m_currentColumns = columns;
+}
+
+void ReportDialog::setAvailableColumns( const QList<int>& columns )
+{
+    m_availableColumns = columns;
 }
 
 void ReportDialog::accept()

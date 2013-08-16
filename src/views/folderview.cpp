@@ -175,7 +175,10 @@ void FolderView::markAllAsUnread()
 
 void FolderView::initializeReport( ReportDialog* dialog )
 {
+    IssueTypeCache* cache = dataManager->issueTypeCache( m_typeId );
+
     dialog->setFolder( id() );
+    dialog->setAvailableColumns( cache->availableColumns( false ) );
 }
 
 void FolderView::updateEvent( UpdateEvent* e )

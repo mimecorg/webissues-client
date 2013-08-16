@@ -189,7 +189,10 @@ void GlobalListView::markAllAsUnread()
 
 void GlobalListView::initializeReport( ReportDialog* dialog )
 {
+    IssueTypeCache* cache = dataManager->issueTypeCache( m_typeId );
+
     dialog->setGlobalList( id() );
+    dialog->setAvailableColumns( cache->availableColumns( true ) );
 }
 
 void GlobalListView::updateEvent( UpdateEvent* e )

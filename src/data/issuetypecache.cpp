@@ -93,11 +93,13 @@ IssueTypeCache::~IssueTypeCache()
 {
 }
 
-QList<int> IssueTypeCache::availableColumns() const
+QList<int> IssueTypeCache::availableColumns( bool withLocation ) const
 {
     QList<int> columns;
     columns.append( Column_ID );
     columns.append( Column_Name );
+    if ( withLocation )
+        columns.append( Column_Location );
     columns.append( Column_CreatedDate );
     columns.append( Column_CreatedBy );
     columns.append( Column_ModifiedDate );
@@ -119,11 +121,13 @@ DefinitionInfo IssueTypeCache::attributeDefinition( int attributeId ) const
     return m_attributeDefinitions.value( attributeId );
 }
 
-QList<int> IssueTypeCache::viewColumns( const DefinitionInfo& info ) const
+QList<int> IssueTypeCache::viewColumns( const DefinitionInfo& info, bool withLocation ) const
 {
     QList<int> result;
     result.append( Column_ID );
     result.append( Column_Name );
+    if ( withLocation )
+        result.append( Column_Location );
 
     QString columns = info.metadata( "columns" ).toString();
 
