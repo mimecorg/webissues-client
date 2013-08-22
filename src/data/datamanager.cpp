@@ -249,19 +249,12 @@ bool DataManager::installSchema( QSqlDatabase& database )
     }
 
     if ( currentVersion < 5 ) {
-        const char* queries[] = {
-            "ALTER TABLE alerts ADD type_id integer",
-            "UPDATE alerts SET type_id = 0",
-            "ALTER TABLE alerts ADD is_public integer",
-            "UPDATE alerts SET is_public = 0",
-            "ALTER TABLE projects ADD is_public integer",
-            "UPDATE projects SET is_public = 0"
-        };
-
-        for ( int i = 0; i < (int)( sizeof( queries ) / sizeof( queries[ 0 ] ) ); i++ ) {
-            if ( !query.execQuery( queries[ i ] ) )
-                return false;
-        }
+        if ( !query.execQuery( "ALTER TABLE alerts ADD type_id integer" ) )
+            return false;
+        if ( !query.execQuery( "ALTER TABLE alerts ADD is_public integer" ) )
+            return false;
+        if ( !query.execQuery( "ALTER TABLE projects ADD is_public integer" ) )
+            return false;
     }
 
     QString sql = QString( "PRAGMA user_version = %1" ).arg( schemaVersion );
