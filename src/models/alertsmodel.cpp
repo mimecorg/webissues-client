@@ -27,8 +27,9 @@
 #include <QPixmap>
 #include <QFont>
 
-AlertsModel::AlertsModel( int folderId, QObject* parent ) : BaseModel( parent ),
-    m_folderId( folderId )
+AlertsModel::AlertsModel( QObject* parent ) : BaseModel( parent ),
+    m_folderId( 0 ),
+    m_typeId( 0 )
 {
     appendModel( new QSqlQueryModel( this ) );
 
@@ -52,6 +53,22 @@ AlertsModel::AlertsModel( int folderId, QObject* parent ) : BaseModel( parent ),
 
 AlertsModel::~AlertsModel()
 {
+}
+
+void AlertsModel::initializeFolder( int folderId )
+{
+    m_folderId = folderId;
+    m_typeId = 0;
+
+    refresh();
+}
+
+void AlertsModel::initializeGlobalList( int typeId )
+{
+    m_typeId = typeId;
+    m_folderId = 0;
+
+    refresh();
 }
 
 QVariant AlertsModel::data( const QModelIndex& index, int role ) const
@@ -108,13 +125,19 @@ void AlertsModel::refresh()
     QString query = "SELECT a.alert_id, v.view_id, v.view_name, ac.total_count, ac.new_count, ac.modified_count, a.alert_email"
         " FROM alerts AS a"
         " LEFT OUTER JOIN views AS v ON v.view_id = a.view_id"
-        " LEFT OUTER JOIN alerts_cache AS ac ON ac.alert_id = a.alert_id"
-        " WHERE a.folder_id = ?"
-        " ORDER BY v.view_name COLLATE LOCALE ASC";
+        " LEFT OUTER JOIN alerts_cache AS ac ON ac.alert_id = a.alert_id";
+    if ( m_folderId != 0 )
+        query += " WHERE a.folder_id = ?";
+    else if ( m_typeId != 0 )
+        query += " WHERE a.type_id = ?";
+    query += " ORDER BY v.view_name COLLATE LOCALE ASC";
 
     QSqlQuery sqlQuery;
     sqlQuery.prepare( query );
-    sqlQuery.addBindValue( m_folderId );
+    if ( m_folderId != 0 )
+        sqlQuery.addBindValue( m_folderId );
+    else if ( m_typeId != 0 )
+        sqlQuery.addBindValue( m_typeId );
     sqlQuery.exec();
 
     modelAt( 0 )->setQuery( sqlQuery );

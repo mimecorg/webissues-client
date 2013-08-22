@@ -20,7 +20,6 @@
 #include "alertdialogs.h"
 
 #include "commands/alertsbatch.h"
-#include "data/datamanager.h"
 #include "data/entities.h"
 #include "utils/errorhelper.h"
 #include "utils/iconloader.h"
@@ -31,10 +30,145 @@
 #include <QRadioButton>
 #include <QButtonGroup>
 
-AddAlertDialog::AddAlertDialog( int folderId, QWidget* parent ) : CommandDialog( parent ),
-    m_folderId( folderId ),
+AlertDialog::AlertDialog( QWidget* parent ) : CommandDialog( parent ),
     m_viewCombo( NULL ),
     m_emailGroup( NULL )
+{
+}
+
+AlertDialog::~AlertDialog()
+{
+}
+
+bool AlertDialog::initialize( Flags flags, int typeId, const QList<int>& used )
+{
+    QGridLayout* layout = new QGridLayout();
+    int row = 0;
+
+    if ( flags.testFlag( WithView ) ) {
+        QList<ViewEntity> personalViews;
+        QList<ViewEntity> publicViews;
+
+        TypeEntity type = TypeEntity::find( typeId );
+
+        foreach ( const ViewEntity& view, type.views() ) {
+            if ( view.isPublic() ) {
+                if ( !used.contains( view.id() ) )
+                    publicViews.append( view );
+            } else {
+                if ( !used.contains( view.id() ) )
+                    personalViews.append( view );
+            }
+        }
+
+        if ( used.contains( 0 ) && publicViews.isEmpty() && personalViews.isEmpty() ) {
+            showWarning( tr( "There are no more available views to use." ) );
+            showCloseButton();
+            setContentLayout( NULL, true );
+            return false;
+        }
+
+        QLabel* viewLabel = new QLabel( tr( "&View:" ), this );
+        layout->addWidget( viewLabel, row, 0 );
+
+        m_viewCombo = new SeparatorComboBox( this );
+        layout->addWidget( m_viewCombo, row++, 1 );
+
+        viewLabel->setBuddy( m_viewCombo );
+
+        bool separator = false;
+        bool select = false;
+
+        if ( !used.contains( 0 ) ) {
+            m_viewCombo->addItem( tr( "All Issues" ), 0 );
+            separator = true;
+            select = true;
+        }
+
+        if ( !personalViews.isEmpty() ) {
+            if ( separator )
+                m_viewCombo->addSeparator();
+            m_viewCombo->addParentItem( tr( "Personal Views" ) );
+            separator = true;
+
+            foreach ( const ViewEntity& view, personalViews ) {
+                m_viewCombo->addChildItem( view.name(), view.id() );
+                if ( !select ) {
+                    m_viewCombo->setCurrentIndex( m_viewCombo->count() - 1 );
+                    select = true;
+                }
+            }
+        }
+
+        if ( !publicViews.isEmpty() ) {
+            if ( separator )
+                m_viewCombo->addSeparator();
+            m_viewCombo->addParentItem( tr( "Public Views" ) );
+
+            foreach ( const ViewEntity& view, publicViews ) {
+                m_viewCombo->addChildItem( view.name(), view.id() );
+                if ( !select ) {
+                    m_viewCombo->setCurrentIndex( m_viewCombo->count() - 1 );
+                    select = true;
+                }
+            }
+        }
+    }
+
+    int emailEnabled = dataManager->setting( "email_enabled" ).toInt();
+
+    if ( emailEnabled != 0 ) {
+        QLabel* emailLabel = new QLabel( tr( "Type of emails:" ), this );
+        layout->addWidget( emailLabel, row, 0 );
+
+        m_emailGroup = new QButtonGroup( this );
+
+        QRadioButton* noneButton = new QRadioButton( tr( "&None" ), this );
+        m_emailGroup->addButton( noneButton, NoEmail );
+        layout->addWidget( noneButton, row++, 1 );
+
+        QRadioButton* immediateButton = new QRadioButton( tr( "&Immediate notifications" ), this );
+        m_emailGroup->addButton( immediateButton, ImmediateNotificationEmail );
+        layout->addWidget( immediateButton, row++, 1 );
+
+        QRadioButton* summaryButton = new QRadioButton( tr( "&Summary of notifications" ), this );
+        m_emailGroup->addButton( summaryButton, SummaryNotificationEmail );
+        layout->addWidget( summaryButton, row++, 1 );
+
+        QRadioButton* reportButton = new QRadioButton( tr( "Summary &reports" ), this );
+        m_emailGroup->addButton( reportButton, SummaryReportEmail );
+        layout->addWidget( reportButton, row++, 1 );
+    }
+
+    layout->setColumnStretch( 1, 1 );
+
+    setContentLayout( layout, true );
+
+    return true;
+}
+
+int AlertDialog::viewId() const
+{
+    int index = m_viewCombo->currentIndex();
+    return m_viewCombo->itemData( index ).toInt();
+}
+
+void AlertDialog::setAlertEmail( AlertEmail email )
+{
+    if ( m_emailGroup )
+        m_emailGroup->button( email )->setChecked( true );
+}
+
+AlertEmail AlertDialog::alertEmail() const
+{
+    if ( m_emailGroup )
+        return (AlertEmail)m_emailGroup->checkedId();
+    else
+        return NoEmail;
+}
+
+AddAlertDialog::AddAlertDialog( int folderId, QWidget* parent ) : AlertDialog( parent ),
+    m_folderId( folderId )
 {
     FolderEntity folder = FolderEntity::find( folderId );
 
@@ -46,105 +180,10 @@ AddAlertDialog::AddAlertDialog( int folderId, QWidget* parent ) : CommandDialog(
     foreach ( const AlertEntity& alert, folder.alerts() )
         used.append( alert.viewId() );
 
-    QList<ViewEntity> personalViews;
-    QList<ViewEntity> publicViews;
-
-    foreach ( const ViewEntity& view, folder.type().views() ) {
-        if ( view.isPublic() ) {
-            if ( !used.contains( view.id() ) )
-                publicViews.append( view );
-        } else {
-            if ( !used.contains( view.id() ) )
-                personalViews.append( view );
-        }
-    }
-
-    if ( used.contains( 0 ) && publicViews.isEmpty() && personalViews.isEmpty() ) {
-        showWarning( tr( "There are no more available views to use." ) );
-        showCloseButton();
-        setContentLayout( NULL, true );
+    if ( !initialize( WithView, folder.typeId(), used ) )
         return;
-    }
 
-    QGridLayout* layout = new QGridLayout();
-
-    QLabel* viewLabel = new QLabel( tr( "&View:" ), this );
-    layout->addWidget( viewLabel, 0, 0 );
-
-    m_viewCombo = new SeparatorComboBox( this );
-    layout->addWidget( m_viewCombo, 0, 1 );
-
-    viewLabel->setBuddy( m_viewCombo );
-
-    bool separator = false;
-    bool select = false;
-
-    if ( !used.contains( 0 ) ) {
-        m_viewCombo->addItem( tr( "All Issues" ), 0 );
-        separator = true;
-        select = true;
-    }
-
-    if ( !personalViews.isEmpty() ) {
-        if ( separator )
-            m_viewCombo->addSeparator();
-        m_viewCombo->addParentItem( tr( "Personal Views" ) );
-        separator = true;
-
-        foreach ( const ViewEntity& view, personalViews ) {
-            m_viewCombo->addChildItem( view.name(), view.id() );
-            if ( !select ) {
-                m_viewCombo->setCurrentIndex( m_viewCombo->count() - 1 );
-                select = true;
-            }
-        }
-    }
-
-    if ( !publicViews.isEmpty() ) {
-        if ( separator )
-            m_viewCombo->addSeparator();
-        m_viewCombo->addParentItem( tr( "Public Views" ) );
-
-        foreach ( const ViewEntity& view, publicViews ) {
-            m_viewCombo->addChildItem( view.name(), view.id() );
-            if ( !select ) {
-                m_viewCombo->setCurrentIndex( m_viewCombo->count() - 1 );
-                select = true;
-            }
-        }
-    }
-
-    int emailEnabled = dataManager->setting( "email_enabled" ).toInt();
-
-    if ( emailEnabled != 0 ) {
-        QLabel* emailLabel = new QLabel( tr( "Type of emails:" ), this );
-        layout->addWidget( emailLabel, 1, 0 );
-
-        m_emailGroup = new QButtonGroup( this );
-
-        QRadioButton* noneButton = new QRadioButton( tr( "&None" ), this );
-        m_emailGroup->addButton( noneButton, NoEmail );
-        layout->addWidget( noneButton, 1, 1 );
-
-        QRadioButton* immediateButton = new QRadioButton( tr( "&Immediate notifications" ), this );
-        m_emailGroup->addButton( immediateButton, ImmediateNotificationEmail );
-        layout->addWidget( immediateButton, 2, 1 );
-
-        QRadioButton* summaryButton = new QRadioButton( tr( "&Summary of notifications" ), this );
-        m_emailGroup->addButton( summaryButton, SummaryNotificationEmail );
-        layout->addWidget( summaryButton, 3, 1 );
-
-        QRadioButton* reportButton = new QRadioButton( tr( "Summary &reports" ), this );
-        m_emailGroup->addButton( reportButton, SummaryReportEmail );
-        layout->addWidget( reportButton, 4, 1 );
-    }
-
-    layout->setColumnStretch( 1, 1 );
-
-    if ( m_emailGroup )
-        m_emailGroup->button( NoEmail )->setChecked( true );
-
-    setContentLayout( layout, true );
+    setAlertEmail( NoEmail );
 }
 
 AddAlertDialog::~AddAlertDialog()
@@ -153,17 +192,44 @@ AddAlertDialog::~AddAlertDialog()
 
 void AddAlertDialog::accept()
 {
-    int index = m_viewCombo->currentIndex();
-    int viewId = m_viewCombo->itemData( index ).toInt();
-    int alertEmail = m_emailGroup ? m_emailGroup->checkedId() : 0;
-
     AlertsBatch* batch = new AlertsBatch();
-    batch->addAlert( m_folderId, viewId, (AlertEmail)alertEmail );
+    batch->addAlert( m_folderId, viewId(), alertEmail() );
 
     executeBatch( batch );
 }
 
-ModifyAlertDialog::ModifyAlertDialog( int alertId, QWidget* parent ) : CommandDialog( parent ),
+AddGlobalAlertDialog::AddGlobalAlertDialog( int typeId, QWidget* parent ) : AlertDialog( parent ),
+    m_typeId( typeId )
+{
+    TypeEntity type = TypeEntity::find( typeId );
+
+    setWindowTitle( tr( "Add Alert" ) );
+    setPrompt( tr( "Create a new alert for type <b>%1</b>:" ).arg( type.name() ) );
+    setPromptPixmap( IconLoader::pixmap( "alert-new", 22 ) );
+
+    QList<int> used;
+    foreach ( const AlertEntity& alert, type.alerts() )
+        used.append( alert.viewId() );
+
+    if ( !initialize( WithView, typeId, used ) )
+        return;
+
+    setAlertEmail( NoEmail );
+}
+
+AddGlobalAlertDialog::~AddGlobalAlertDialog()
+{
+}
+
+void AddGlobalAlertDialog::accept()
+{
+    AlertsBatch* batch = new AlertsBatch();
+    batch->addGlobalAlert( m_typeId, viewId(), alertEmail() );
+
+    executeBatch( batch );
+}
+
+ModifyAlertDialog::ModifyAlertDialog( int alertId, QWidget* parent ) : AlertDialog( parent ),
     m_alertId( alertId )
 {
     AlertEntity alert = AlertEntity::find( alertId );
@@ -174,34 +240,9 @@ ModifyAlertDialog::ModifyAlertDialog( int alertId, QWidget* parent ) : CommandDi
     setPrompt( tr( "Modify alert <b>%1</b>:" ).arg( name ) );
     setPromptPixmap( IconLoader::pixmap( "edit-modify", 22 ) );
 
-    QGridLayout* layout = new QGridLayout();
+    initialize();
 
-    QLabel* emailLabel = new QLabel( tr( "Type of emails:" ), this );
-    layout->addWidget( emailLabel, 0, 0 );
-
-    m_emailGroup = new QButtonGroup( this );
-
-    QRadioButton* noneButton = new QRadioButton( tr( "&None" ), this );
-    m_emailGroup->addButton( noneButton, NoEmail );
-    layout->addWidget( noneButton, 0, 1 );
-
-    QRadioButton* immediateButton = new QRadioButton( tr( "&Immediate notifications" ), this );
-    m_emailGroup->addButton( immediateButton, ImmediateNotificationEmail );
-    layout->addWidget( immediateButton, 1, 1 );
-
-    QRadioButton* summaryButton = new QRadioButton( tr( "&Summary of notifications" ), this );
-    m_emailGroup->addButton( summaryButton, SummaryNotificationEmail );
-    layout->addWidget( summaryButton, 2, 1 );
-
-    QRadioButton* reportButton = new QRadioButton( tr( "Summary &reports" ), this );
-    m_emailGroup->addButton( reportButton, SummaryReportEmail );
-    layout->addWidget( reportButton, 3, 1 );
-
-    layout->setColumnStretch( 1, 1 );
-
-    m_emailGroup->button( m_oldAlertEmail )->setChecked( true );
-
-    setContentLayout( layout, true );
+    setAlertEmail( m_oldAlertEmail );
 }
 
 ModifyAlertDialog::~ModifyAlertDialog()
@@ -210,15 +251,13 @@ ModifyAlertDialog::~ModifyAlertDialog()
 
 void ModifyAlertDialog::accept()
 {
-    int alertEmail = m_emailGroup->checkedId();
-
-    if ( alertEmail == m_oldAlertEmail ) {
+    if ( alertEmail() == m_oldAlertEmail ) {
         QDialog::accept();
         return;
     }
 
     AlertsBatch* batch = new AlertsBatch();
-    batch->modifyAlert( m_alertId, (AlertEmail)alertEmail );
+    batch->modifyAlert( m_alertId, alertEmail() );
 
     executeBatch( batch );
 }

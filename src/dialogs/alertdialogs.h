@@ -21,15 +21,57 @@
 #define ALERTDIALOGS_H
 
 #include "dialogs/commanddialog.h"
+#include "data/datamanager.h"
 
 class SeparatorComboBox;
 
 class QButtonGroup;
 
 /**
+* Base class for dialogs for creating and modifying alerts.
+*/
+class AlertDialog : public CommandDialog
+{
+    Q_OBJECT
+public:
+    /**
+    * Constructor.
+    * @param parent The parent widget.
+    */
+    AlertDialog( QWidget* parent );
+
+    /**
+    * Destructor.
+    */
+    ~AlertDialog();
+
+public:
+    enum Flag
+    {
+        WithView = 1
+    };
+
+    Q_DECLARE_FLAGS( Flags, Flag )
+
+protected:
+    bool initialize( Flags flags = 0, int typeId = 0, const QList<int>& used = QList<int>() );
+
+    int viewId() const;
+
+    void setAlertEmail( AlertEmail email );
+    AlertEmail alertEmail() const;
+
+private:
+    SeparatorComboBox* m_viewCombo;
+    QButtonGroup* m_emailGroup;
+};
+
+Q_DECLARE_OPERATORS_FOR_FLAGS( AlertDialog::Flags )
+
+/**
 * Dialog for executing the <tt>ADD ALERT</tt> command.
 */
-class AddAlertDialog : public CommandDialog
+class AddAlertDialog : public AlertDialog
 {
     Q_OBJECT
 public:
@@ -50,15 +92,38 @@ public: // overrides
 
 private:
     int m_folderId;
+};
 
-    SeparatorComboBox* m_viewCombo;
-    QButtonGroup* m_emailGroup;
+/**
+* Dialog for executing the <tt>ADD GLOBAL ALERT</tt> command.
+*/
+class AddGlobalAlertDialog : public AlertDialog
+{
+    Q_OBJECT
+public:
+    /**
+    * Constructor.
+    * @param typeId Identifier of the issue type associated with the alert.
+    * @param parent The parent widget.
+    */
+    AddGlobalAlertDialog( int typeId, QWidget* parent );
+
+    /**
+    * Destructor.
+    */
+    ~AddGlobalAlertDialog();
+
+public: // overrides
+    void accept();
+
+private:
+    int m_typeId;
 };
 
 /**
 * Dialog for executing the <tt>MODIFY ALERT</tt> command.
 */
-class ModifyAlertDialog : public CommandDialog
+class ModifyAlertDialog : public AlertDialog
 {
     Q_OBJECT
 public:
@@ -79,9 +144,7 @@ public: // overrides
 
 private:
     int m_alertId;
-    int m_oldAlertEmail;
-
-    QButtonGroup* m_emailGroup;
+    AlertEmail m_oldAlertEmail;
 };
 
 /**

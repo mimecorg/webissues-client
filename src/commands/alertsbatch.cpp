@@ -40,6 +40,15 @@ void AlertsBatch::addAlert( int folderId, int viewId, AlertEmail alertEmail )
     m_queue.addJob( job );
 }
 
+void AlertsBatch::addGlobalAlert( int typeId, int viewId, AlertEmail alertEmail )
+{
+    Job job( &AlertsBatch::addGlobalAlertJob );
+    job.addArg( typeId );
+    job.addArg( viewId );
+    job.addArg( (int)alertEmail );
+    m_queue.addJob( job );
+}
+
 void AlertsBatch::modifyAlert( int alertId, AlertEmail alertEmail )
 {
     Job job( &AlertsBatch::modifyAlertJob );
@@ -73,6 +82,20 @@ Command* AlertsBatch::addAlertJob( const Job& job )
     Command* command = new Command();
 
     command->setKeyword( "ADD ALERT" );
+    command->setArgs( job.args() );
+
+    command->addRule( "ID i", ReplyRule::One );
+
+    connect( command, SIGNAL( commandReply( const Reply& ) ), this, SLOT( setUpdate() ) );
+
+    return command;
+}
+
+Command* AlertsBatch::addGlobalAlertJob( const Job& job )
+{
+    Command* command = new Command();
+
+    command->setKeyword( "ADD GLOBAL ALERT" );
     command->setArgs( job.args() );
 
     command->addRule( "ID i", ReplyRule::One );

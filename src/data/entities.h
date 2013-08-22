@@ -157,6 +157,7 @@ public:
     QList<AttributeEntity> attributes() const;
 
     QList<ViewEntity> views() const;
+    QList<AlertEntity> alerts() const;
 
     QList<FolderEntity> folders() const;
 
@@ -250,6 +251,7 @@ public:
     AlertEmail alertEmail() const;
 
     FolderEntity folder() const;
+    TypeEntity type() const;
     ViewEntity view() const;
 
 public:
@@ -259,6 +261,7 @@ private:
     QExplicitlySharedDataPointer<AlertEntityData> d;
 
     friend class FolderEntity;
+    friend class TypeEntity;
 };
 
 class UserEntity

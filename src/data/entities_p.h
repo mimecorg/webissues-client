@@ -113,6 +113,7 @@ public:
 public:
     int m_id;
     int m_folderId;
+    int m_typeId;
     int m_viewId;
     AlertEmail m_alertEmail;
 };

@@ -452,7 +452,8 @@ private:
 
     bool recalculateAllAlerts( const QSqlDatabase& database );
     bool recalculateAlerts( int folderId, const QSqlDatabase& database );
-    bool recalculateAlert( int alertId, int folderId, int viewId, const QSqlDatabase& database );
+    bool recalculateGlobalAlerts( int typeId, const QSqlDatabase& database );
+    bool recalculateAlert( int alertId, int folderId, int typeId, int viewId, const QSqlDatabase& database );
 
     void recalculateSettings();
     bool recalculateSettings( const QSqlDatabase& database );

@@ -31,11 +31,13 @@ ProjectsModel::ProjectsModel( QObject* parent ) : BaseModel( parent )
 {
     appendModel( new QSqlQueryModel( this ) );
     appendModel( new QSqlQueryModel( this ) );
+    appendModel( new QSqlQueryModel( this ) );
     insertModel( new QSqlQueryModel( this ) );
     appendModel( new QSqlQueryModel( this ) );
     appendModel( new QSqlQueryModel( this ) );
 
     setColumnMapping( Projects, QList<int>() << 1 );
+    setColumnMapping( GlobalAlerts, QList<int>() << 3 );
     setColumnMapping( Alerts, QList<int>() << 3 );
 
     setHeaderData( 0, Qt::Horizontal, tr( "Name" ) );
@@ -61,7 +63,7 @@ QVariant ProjectsModel::data( const QModelIndex& index, int role ) const
         if ( level == AllIssues && index.column() == 0 )
             value = tr( "All Issues" );
 
-        if ( level == Alerts && index.column() == 0 ) {
+        if ( ( level == Alerts || level == GlobalAlerts ) && index.column() == 0 ) {
             int viewId = rawData( level, row, 2 ).toInt();
             QString name = ( viewId != 0 ) ? value.toString() : tr( "All Issues" );
 
@@ -89,7 +91,7 @@ QVariant ProjectsModel::data( const QModelIndex& index, int role ) const
             return IconLoader::pixmap( "project" );
         } else if ( level == Folders ) {
             return IconLoader::pixmap( "folder" );
-        } else if ( level == Alerts ) {
+        } else if ( level == Alerts || level == GlobalAlerts ) {
             int unread = rawData( level, row, 6 ).toInt();
             if ( unread > 0 )
                 return IconLoader::pixmap( "alert-unread" );
@@ -100,7 +102,7 @@ QVariant ProjectsModel::data( const QModelIndex& index, int role ) const
         }
     }
 
-    if ( role == Qt::FontRole && level == Alerts ) {
+    if ( role == Qt::FontRole && ( level == Alerts || level == GlobalAlerts ) ) {
         int alert = rawData( level, row, 5 ).toInt() + rawData( level, row, 6 ).toInt();
         if ( alert > 0 ) {
             QFont font;
@@ -142,6 +144,12 @@ void ProjectsModel::refresh()
     if ( dataManager->currentUserAccess() != AdminAccess )
         typesQuery += " WHERE t.type_id IN ( SELECT f.type_id FROM folders AS f JOIN rights AS r ON r.project_id = f.project_id AND r.user_id = ? )";
 
+    QString globalAlertsQuery = "SELECT a.alert_id, t.type_id, a.view_id, v.view_name, ac.total_count, ac.modified_count, ac.new_count"
+        " FROM alerts AS a"
+        " JOIN issue_types AS t ON t.type_id = a.type_id"
+        " LEFT OUTER JOIN views AS v ON v.view_id = a.view_id"
+        " LEFT OUTER JOIN alerts_cache AS ac ON ac.alert_id = a.alert_id";
+
     QString projectsQuery = "SELECT p.project_id, p.project_name, r.project_access"
         " FROM projects AS p"
         " LEFT OUTER JOIN rights AS r ON r.project_id = p.project_id AND r.user_id = ?";
@@ -166,6 +174,7 @@ void ProjectsModel::refresh()
     sqlQuery.exec();
 
     modelAt( Types )->setQuery( sqlQuery );
+    modelAt( GlobalAlerts )->setQuery( QString( "%1 ORDER BY %2" ).arg( globalAlertsQuery, m_alertsOrder ) );
 
     sqlQuery.prepare( QString( "%1 ORDER BY %2" ).arg( projectsQuery, m_projectsOrder ) );
     sqlQuery.addBindValue( dataManager->currentUserId() );

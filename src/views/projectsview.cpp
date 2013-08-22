@@ -298,6 +298,11 @@ void ProjectsView::updateActions()
             m_selectedViewId = alert.viewId();
             m_currentFolderId = folder.id();
             m_currentProjectId = folder.projectId();
+        } else if ( level == ProjectsModel::GlobalAlerts ) {
+            AlertEntity alert = AlertEntity::find( rowId );
+            TypeEntity type = alert.type();
+            m_selectedViewId = alert.viewId();
+            m_currentTypeId = type.id();
         }
     }
 
@@ -311,7 +316,7 @@ void ProjectsView::updateActions()
     action( "editRename" )->setEnabled( ( m_selectedProjectId != 0 && m_systemAdmin ) || ( m_selectedFolderId != 0 && m_currentProjectAdmin ) );
     action( "editDelete" )->setEnabled( ( m_selectedProjectId != 0 && m_systemAdmin ) || ( m_selectedFolderId != 0 && m_currentProjectAdmin ) );
     action( "moveFolder" )->setEnabled( m_selectedFolderId != 0 && m_currentProjectAdmin );
-    action( "manageAlerts" )->setEnabled( m_currentFolderId != 0 );
+    action( "manageAlerts" )->setEnabled( m_currentFolderId != 0 || m_currentTypeId != 0 );
 
     action( "editRename" )->setText( m_selectedFolderId != 0 ? tr( "&Rename Folder..." ) : tr( "&Rename Project..." ) );
     action( "editDelete" )->setText( m_selectedFolderId != 0 ? tr( "&Delete Folder" ) : tr( "&Delete Project" ) );
@@ -332,7 +337,25 @@ void ProjectsView::setSelection( int folderId, int typeId, int viewId )
     if ( m_currentFolderId == folderId && m_currentTypeId == typeId && m_selectedViewId == viewId )
         return;
 
-    if ( folderId == 0 ) {
+    if ( typeId != 0 ) {
+        TypeEntity type = TypeEntity::find( typeId );
+        IssueTypeCache* cache = dataManager->issueTypeCache( typeId );
+        int initialViewId = cache->initialViewId();
+
+        if ( viewId != initialViewId ) {
+            foreach ( const AlertEntity& alert, type.alerts() ) {
+                if ( alert.viewId() == viewId ) {
+                    QModelIndex index = m_model->findIndex( ProjectsModel::GlobalAlerts, alert.id(), 0 );
+                    if ( index.isValid() ) {
+                        m_list->selectionModel()->setCurrentIndex( index, QItemSelectionModel::Current );
+                        m_list->selectionModel()->select( index, QItemSelectionModel::ClearAndSelect | QItemSelectionModel::Rows );
+                        return;
+                    }
+                    break;
+                }
+            }
+        }
+
         QModelIndex index = m_model->findIndex( ProjectsModel::Types, typeId, 0 );
         if ( index.isValid() ) {
             m_list->selectionModel()->setCurrentIndex( index, QItemSelectionModel::Current );
@@ -340,7 +363,7 @@ void ProjectsView::setSelection( int folderId, int typeId, int viewId )
         } else {
             m_list->clearSelection();
         }
-    } else {
+    } else if ( folderId != 0 ) {
         FolderEntity folder = FolderEntity::find( folderId );
         IssueTypeCache* cache = dataManager->issueTypeCache( folder.typeId() );
         int initialViewId = cache->initialViewId();
@@ -470,10 +493,16 @@ void ProjectsView::openGlobalList()
 void ProjectsView::manageAlerts()
 {
     if ( m_currentFolderId != 0  ) {
-        if ( dialogManager->activateDialog( "ManageAlertsDialog", m_currentFolderId ) )
+        if ( dialogManager->activateDialog( "ManageFolderAlertsDialog", m_currentFolderId ) )
             return;
-        ManageAlertsDialog* dialog = new ManageAlertsDialog( m_currentFolderId );
+        ManageFolderAlertsDialog* dialog = new ManageFolderAlertsDialog( m_currentFolderId );
         dialogManager->addDialog( dialog, m_currentFolderId );
+        dialog->show();
+    } else if ( m_currentTypeId != 0 ) {
+        if ( dialogManager->activateDialog( "ManageGlobalAlertsDialog", m_currentTypeId ) )
+            return;
+        ManageGlobalAlertsDialog* dialog = new ManageGlobalAlertsDialog( m_currentTypeId );
+        dialogManager->addDialog( dialog, m_currentTypeId );
         dialog->show();
     }
 }
@@ -504,7 +533,7 @@ void ProjectsView::contextMenu( const QPoint& pos )
             menuName = "menuGlobalList";
         else if ( level == ProjectsModel::Folders )
             menuName = "menuFolder";
-        else if ( level == ProjectsModel::Alerts )
+        else if ( level == ProjectsModel::Alerts || level == ProjectsModel::GlobalAlerts )
             menuName = "menuAlert";
         else
             menuName = "menuNull";

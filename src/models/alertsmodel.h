@@ -31,15 +31,25 @@ class AlertsModel : public BaseModel
 public:
     /**
     * Constructor.
-    * @param folderId Identifier of the folder.
     * @param parent The parent object.
     */
-    AlertsModel( int folderId, QObject* parent );
+    AlertsModel( QObject* parent );
 
     /**
     * Destructor.
     */
     ~AlertsModel();
+
+public:
+    /**
+    * Set the folder containing alerts.
+    */
+    void initializeFolder( int folderId );
+
+    /**
+    * Set the type of the global list of alerts.
+    */
+    void initializeGlobalList( int typeId );
 
 public: // overrides
     QVariant data( const QModelIndex& index, int role = Qt::DisplayRole ) const;
@@ -52,6 +62,7 @@ private:
 
 private:
     int m_folderId;
+    int m_typeId;
 };
 
 #endif

@@ -50,11 +50,19 @@ public:
 public:
     /**
     * Add the <tt>ADD ALERT</tt> command to the batch.
-    * @param typeId Identifier of the folder containing the alert.
+    * @param folderId Identifier of the folder associated with the alert.
     * @param viewId Optional identifier of the view associated with the alert.
     * @param alertEmail Email type for the alert.
     */
     void addAlert( int folderId, int viewId, AlertEmail alertEmail );
+
+    /**
+    * Add the <tt>ADD GLOBAL ALERT</tt> command to the batch.
+    * @param typeId Identifier of the issue type associated the alert.
+    * @param viewId Optional identifier of the view associated with the alert.
+    * @param alertEmail Email type for the alert.
+    */
+    void addGlobalAlert( int typeId, int viewId, AlertEmail alertEmail );
 
     /**
     * Add the <tt>MODIFY ALERT</tt> command to the batch. 
@@ -78,6 +86,7 @@ private:
 
 private:
     Command* addAlertJob( const Job& job );
+    Command* addGlobalAlertJob( const Job& job );
     Command* modifyAlertJob( const Job& job );
     Command* deleteAlertJob( const Job& job );
 

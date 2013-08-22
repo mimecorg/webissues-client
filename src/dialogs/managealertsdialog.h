@@ -29,7 +29,7 @@ class QTreeView;
 class QModelIndex;
 
 /**
-* Dialog for managing alerts.
+* Base dialog for managing alerts.
 */
 class ManageAlertsDialog : public InformationDialog, public XmlUi::Client
 {
@@ -37,28 +37,30 @@ class ManageAlertsDialog : public InformationDialog, public XmlUi::Client
 public:
     /**
     * Constructor.
-    * @param folderId Identifier of the folder.
     */
-    ManageAlertsDialog( int folderId );
+    ManageAlertsDialog();
 
     /**
     * Destructor.
     */
     ~ManageAlertsDialog();
 
+protected:
+    void initializeList( AlertsModel* model );
+
+protected slots:
+    virtual void addAlert() = 0;
+
+    virtual void updateActions();
+
 private slots:
-    void addAlert();
     void editDelete();
     void editModify();
-
-    void updateActions();
 
     void doubleClicked( const QModelIndex& index );
     void listContextMenu( const QPoint& pos );
 
 private:
-    int m_folderId;
-
     QTreeView* m_list;
     AlertsModel* m_model;
 
@@ -66,5 +68,60 @@ private:
 
     int m_selectedAlertId;
 };
+
+/**
+* Dialog for managing folder alerts.
+*/
+class ManageFolderAlertsDialog : public ManageAlertsDialog
+{
+    Q_OBJECT
+public:
+    /**
+    * Constructor.
+    * @param folderId Identifier of the folder.
+    */
+    ManageFolderAlertsDialog( int folderId );
+
+    /**
+    * Destructor.
+    */
+    ~ManageFolderAlertsDialog();
+
+protected: // overrides
+    void addAlert();
+
+    void updateActions();
+
+private:
+    int m_folderId;
+};
+
+/**
+* Dialog for managing global alerts.
+*/
+class ManageGlobalAlertsDialog : public ManageAlertsDialog
+{
+    Q_OBJECT
+public:
+    /**
+    * Constructor.
+    * @param typeId Identifier of the issue type.
+    */
+    ManageGlobalAlertsDialog( int typeId );
+
+    /**
+    * Destructor.
+    */
+    ~ManageGlobalAlertsDialog();
+
+protected: // overrides
+    void addAlert();
+
+    void updateActions();
+
+private:
+    int m_typeId;
+};
+
 
 #endif

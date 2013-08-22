@@ -93,3 +93,15 @@ void InformationDialog::setContentLayout( QLayout* layout, bool fixed )
     if ( fixed )
         setMaximumHeight( sizeHint().height() );
 }
+
+QString InformationDialog::dialogSizeKey() const
+{
+    if ( !m_sizeKey.isEmpty() )
+        return m_sizeKey;
+    return metaObject()->className();
+}
+
+void InformationDialog::setDialogSizeKey( const QString& key )
+{
+    m_sizeKey = key;
+}

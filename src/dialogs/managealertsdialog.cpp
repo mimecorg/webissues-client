@@ -34,11 +34,9 @@
 #include <QDialogButtonBox>
 #include <QMenu>
 
-ManageAlertsDialog::ManageAlertsDialog( int folderId ) : InformationDialog( NULL, Qt::Window ),
-    m_folderId( folderId )
+ManageAlertsDialog::ManageAlertsDialog() : InformationDialog( NULL, Qt::Window ),
+    m_model( NULL )
 {
-    FolderEntity folder = FolderEntity::find( m_folderId );
-
     m_emailEnabled = dataManager->setting( "email_enabled" ).toInt();
 
     QAction* action;
@@ -68,7 +66,6 @@ ManageAlertsDialog::ManageAlertsDialog( int folderId ) : InformationDialog( NULL
 
     setWindowTitle( tr( "Manage Alerts" ) );
     setPromptPixmap( IconLoader::pixmap( "configure-alerts", 22 ) );
-    setPrompt( tr( "Edit alert settings for folder <b>%1</b>:" ).arg( folder.name() ) );
 
     QVBoxLayout* layout = new QVBoxLayout();
     layout->setSpacing( 4 );
@@ -83,27 +80,14 @@ ManageAlertsDialog::ManageAlertsDialog( int folderId ) : InformationDialog( NULL
     TreeViewHelper helper( m_list );
     helper.initializeView( TreeViewHelper::NotSortable );
 
-    m_model = new AlertsModel( folderId, this );
-    m_list->setModel( m_model );
-
-    QList<int> widths;
-    widths << 150 << 80 << 80 << 80;
-    if ( m_emailEnabled != 0 )
-        widths.append( 150 );
-
-    helper.loadColumnWidths( "ManageAlertsDialogWidths", widths );
-
-    connect( m_list->selectionModel(), SIGNAL( selectionChanged( const QItemSelection&, const QItemSelection& ) ),
-        this, SLOT( updateActions() ) );
     connect( m_list, SIGNAL( doubleClicked( const QModelIndex& ) ),
         this, SLOT( doubleClicked( const QModelIndex& ) ) );
     connect( m_list, SIGNAL( customContextMenuRequested( const QPoint& ) ),
         this, SLOT( listContextMenu( const QPoint& ) ) );
 
-    connect( m_model, SIGNAL( layoutChanged() ), this, SLOT( updateActions() ) );
-    connect( m_model, SIGNAL( modelReset() ), this, SLOT( updateActions() ) );
-
     setContentLayout( layout, false );
+
+    setDialogSizeKey( "ManageAlertsDialog" );
 
     resize( 600, 400 );
 
@@ -112,14 +96,32 @@ ManageAlertsDialog::ManageAlertsDialog( int folderId ) : InformationDialog( NULL
 
 ManageAlertsDialog::~ManageAlertsDialog()
 {
-    TreeViewHelper helper( m_list );
-    helper.saveColumnWidths( "ManageAlertsDialogWidths" );
+    if ( m_model != NULL ) {
+        TreeViewHelper helper( m_list );
+        helper.saveColumnWidths( "ManageAlertsDialogWidths" );
+    }
 }
 
-void ManageAlertsDialog::addAlert()
+void ManageAlertsDialog::initializeList( AlertsModel* model )
 {
-    AddAlertDialog dialog( m_folderId, this );
-    dialog.exec();
+    m_model = model;
+
+    m_list->setModel( m_model );
+
+    TreeViewHelper helper( m_list );
+
+    QList<int> widths;
+    widths << 150 << 80 << 80 << 80;
+    if ( m_emailEnabled != 0 )
+        widths.append( 150 );
+
+    helper.loadColumnWidths( "ManageAlertsDialogWidths", widths );
+
+    connect( m_model, SIGNAL( layoutChanged() ), this, SLOT( updateActions() ) );
+    connect( m_model, SIGNAL( modelReset() ), this, SLOT( updateActions() ) );
+
+    connect( m_list->selectionModel(), SIGNAL( selectionChanged( const QItemSelection&, const QItemSelection& ) ),
+        this, SLOT( updateActions() ) );
 }
 
 void ManageAlertsDialog::editDelete()
@@ -140,10 +142,6 @@ void ManageAlertsDialog::editModify()
 
 void ManageAlertsDialog::updateActions()
 {
-    FolderEntity folder = FolderEntity::find( m_folderId );
-
-    action( "addAlert" )->setEnabled( folder.isValid() );
-
     m_selectedAlertId = 0;
 
     TreeViewHelper helper( m_list );
@@ -185,4 +183,64 @@ void ManageAlertsDialog::listContextMenu( const QPoint& pos )
     QMenu* menu = builder()->contextMenu( menuName );
     if ( menu )
         menu->popup( m_list->viewport()->mapToGlobal( pos ) );
+}
+
+ManageFolderAlertsDialog::ManageFolderAlertsDialog( int folderId ) :
+    m_folderId( folderId )
+{
+    FolderEntity folder = FolderEntity::find( folderId );
+    setPrompt( tr( "Edit alert settings for folder <b>%1</b>:" ).arg( folder.name() ) );
+
+    AlertsModel* model = new AlertsModel( this );
+    model->initializeFolder( folderId );
+
+    initializeList( model );
+}
+
+ManageFolderAlertsDialog::~ManageFolderAlertsDialog()
+{
+}
+
+void ManageFolderAlertsDialog::addAlert()
+{
+    AddAlertDialog dialog( m_folderId, this );
+    dialog.exec();
+}
+
+void ManageFolderAlertsDialog::updateActions()
+{
+    FolderEntity folder = FolderEntity::find( m_folderId );
+    action( "addAlert" )->setEnabled( folder.isValid() );
+
+    ManageAlertsDialog::updateActions();
+}
+
+ManageGlobalAlertsDialog::ManageGlobalAlertsDialog( int typeId ) :
+    m_typeId( typeId )
+{
+    TypeEntity type = TypeEntity::find( typeId );
+    setPrompt( tr( "Edit alert settings for type <b>%1</b>:" ).arg( type.name() ) );
+
+    AlertsModel* model = new AlertsModel( this );
+    model->initializeGlobalList( typeId );
+
+    initializeList( model );
+}
+
+ManageGlobalAlertsDialog::~ManageGlobalAlertsDialog()
+{
+}
+
+void ManageGlobalAlertsDialog::addAlert()
+{
+    AddGlobalAlertDialog dialog( m_typeId, this );
+    dialog.exec();
+}
+
+void ManageGlobalAlertsDialog::updateActions()
+{
+    TypeEntity type = TypeEntity::find( m_typeId );
+    action( "addAlert" )->setEnabled( type.isValid() );
+
+    ManageAlertsDialog::updateActions();
 }

@@ -172,7 +172,7 @@ bool DataManager::lockDatabase( const QSqlDatabase& database )
 
 bool DataManager::installSchema( QSqlDatabase& database )
 {
-    const int schemaVersion = 4;
+    const int schemaVersion = 5;
     const int minSchemaVersion = 3;
 
     Query query( database );
@@ -202,7 +202,7 @@ bool DataManager::installSchema( QSqlDatabase& database )
 
     if ( currentVersion == 0 ) {
         const char* schema[] = {
-            "CREATE TABLE alerts ( alert_id integer UNIQUE, folder_id integer, view_id integer, alert_email integer )",
+            "CREATE TABLE alerts ( alert_id integer UNIQUE, folder_id integer, view_id integer, alert_email integer, type_id integer, is_public integer )",
             "CREATE TABLE alerts_cache ( alert_id integer UNIQUE, total_count integer, modified_count integer, new_count integer )",
             "CREATE TABLE attr_types ( attr_id integer UNIQUE, type_id integer, attr_name text, attr_def text )",
             "CREATE TABLE attr_values ( attr_id integer, issue_id integer, attr_value text, UNIQUE ( attr_id, issue_id ) )",
@@ -224,7 +224,7 @@ bool DataManager::installSchema( QSqlDatabase& database )
             "CREATE TABLE languages ( lang_code text, lang_name text )",
             "CREATE TABLE preferences ( user_id integer, pref_key text, pref_value text, UNIQUE ( user_id, pref_key ) )",
             "CREATE TABLE project_descriptions ( project_id integer UNIQUE, descr_text text, descr_format integer, modified_time integer, modified_user_id integer )",
-            "CREATE TABLE projects ( project_id integer UNIQUE, project_name text, stamp_id integer )",
+            "CREATE TABLE projects ( project_id integer UNIQUE, project_name text, stamp_id integer, is_public integer )",
             "CREATE TABLE projects_cache ( project_id integer UNIQUE, summary_id integer )",
             "CREATE TABLE rights ( project_id integer, user_id integer, project_access integer, UNIQUE ( project_id, user_id ) )",
             "CREATE TABLE settings ( set_key text UNIQUE, set_value text )",
@@ -246,6 +246,22 @@ bool DataManager::installSchema( QSqlDatabase& database )
     if ( currentVersion < 4 ) {
         if ( !query.execQuery( "ALTER TABLE issue_states ADD subscription_id integer" ) )
             return false;
+    }
+
+    if ( currentVersion < 5 ) {
+        const char* queries[] = {
+            "ALTER TABLE alerts ADD type_id integer",
+            "UPDATE alerts SET type_id = 0",
+            "ALTER TABLE alerts ADD is_public integer",
+            "UPDATE alerts SET is_public = 0",
+            "ALTER TABLE projects ADD is_public integer",
+            "UPDATE projects SET is_public = 0"
+        };
+
+        for ( int i = 0; i < (int)( sizeof( queries ) / sizeof( queries[ 0 ] ) ); i++ ) {
+            if ( !query.execQuery( queries[ i ] ) )
+                return false;
+        }
     }
 
     QString sql = QString( "PRAGMA user_version = %1" ).arg( schemaVersion );
@@ -654,7 +670,7 @@ Command* DataManager::updateProjects()
     command->setReportNullReply( true );
     command->addRule( "P isi", ReplyRule::ZeroOrMore );
     command->addRule( "F iisii", ReplyRule::ZeroOrMore );
-    command->addRule( "A iiii", ReplyRule::ZeroOrMore );
+    command->addRule( "A iiiii", ReplyRule::ZeroOrMore );
 
     connect( command, SIGNAL( commandReply( const Reply& ) ), this, SLOT( updateProjectsReply( const Reply& ) ) );
 
@@ -686,7 +702,7 @@ bool DataManager::updateProjectsReply( const Reply& reply, const QSqlDatabase& d
 
     int i = 0;
 
-    query.setQuery( "INSERT INTO projects VALUES ( ?, ?, ? )" );
+    query.setQuery( "INSERT INTO projects ( project_id, project_name, stamp_id, is_public ) VALUES ( ?, ?, ?, 0 )" );
 
     for ( ; i < reply.count() && reply.at( i ).keyword() == QLatin1String( "P" ); i++ ) {
         if ( !query.exec( reply.at( i ).args() ) )
@@ -706,7 +722,7 @@ bool DataManager::updateProjectsReply( const Reply& reply, const QSqlDatabase& d
     if ( !query.execQuery( "DELETE FROM alerts" ) )
         return false;
 
-    query.setQuery( "INSERT INTO alerts VALUES ( ?, ?, ?, ? )" );
+    query.setQuery( "INSERT INTO alerts ( alert_id, folder_id, type_id, view_id, alert_email, is_public ) VALUES ( ?, ?, ?, ?, ?, 0 )" );
 
     for ( ; i < reply.count() && reply.at( i ).keyword() == QLatin1String( "A" ); i++ ) {
         if ( !query.exec( reply.at( i ).args() ) )
@@ -837,7 +853,7 @@ bool DataManager::updateSummaryReply( const Reply& reply, const QSqlDatabase& da
 
     Query query( database );
 
-    if ( !query.execQuery( "INSERT OR REPLACE INTO projects VALUES ( ?, ?, ? )", reply.at( 0 ).args() ) )
+    if ( !query.execQuery( "INSERT OR REPLACE INTO projects ( project_id, project_name, stamp_id, is_public ) VALUES ( ?, ?, ?, 0 )", reply.at( 0 ).args() ) )
         return false;
 
     if ( !query.execQuery( "INSERT OR REPLACE INTO projects_cache VALUES ( ?, ? )", projectId, lastStampId ) )
@@ -912,6 +928,7 @@ void DataManager::updateFolderReply( const Reply& reply )
 bool DataManager::updateFolderReply( const Reply& reply, const QSqlDatabase& database, QList<int>& updatedFolders )
 {
     int folderId = reply.at( 0 ).argInt( 0 );
+    int typeId = reply.at( 0 ).argInt( 3 );
     int lastStampId = reply.at( 0 ).argInt( 4 );
 
     updatedFolders.append( folderId );
@@ -1003,6 +1020,9 @@ bool DataManager::updateFolderReply( const Reply& reply, const QSqlDatabase& dat
             return false;
     }
 
+    if ( !recalculateGlobalAlerts( typeId, database ) )
+        return false;
+
     return true;
 }
 
@@ -1088,6 +1108,11 @@ bool DataManager::updateIssueReply( const Reply& reply, const QSqlDatabase& data
         if ( !query.execQuery( "DELETE FROM attr_values WHERE issue_id = ?", issueId ) )
             return false;
     }
+
+    if ( !query.execQuery( "SELECT type_id FROM folders WHERE folder_id = ?", folderId ) )
+        return false;
+
+    int typeId = query.readScalar().toInt();
 
     if ( !query.execQuery( "INSERT OR REPLACE INTO issues VALUES ( ?, ?, ?, ?, ?, ?, ?, ? )", reply.at( 0 ).args() ) )
         return false;
@@ -1179,6 +1204,11 @@ bool DataManager::updateIssueReply( const Reply& reply, const QSqlDatabase& data
 
     foreach ( int folderId, updatedFolders ) {
         if ( !recalculateAlerts( folderId, database ) )
+            return false;
+    }
+
+    if ( typeId != 0 ) {
+        if ( !recalculateGlobalAlerts( typeId, database ) )
             return false;
     }
 
@@ -1374,11 +1404,19 @@ bool DataManager::recalculateAllAlerts( const QSqlDatabase& database )
     if ( !query.execQuery( "DELETE FROM alerts_cache" ) )
         return false;
 
-    if ( !query.execQuery( "SELECT a.alert_id, f.folder_id, a.view_id FROM alerts AS a JOIN folders AS f ON f.folder_id = a.folder_id" ) )
+    if ( !query.execQuery( "SELECT a.alert_id, f.folder_id, a.view_id FROM alerts AS a JOIN folders AS f ON f.folder_id = a.folder_id WHERE a.folder_id <> 0" ) )
         return false;
 
     while ( query.next() ) {
-        if ( !recalculateAlert( query.value( 0 ).toInt(), query.value( 1 ).toInt(), query.value( 2 ).toInt(), database ) )
+        if ( !recalculateAlert( query.value( 0 ).toInt(), query.value( 1 ).toInt(), 0, query.value( 2 ).toInt(), database ) )
+            return false;
+    }
+
+    if ( !query.execQuery( "SELECT a.alert_id, t.type_id, a.view_id FROM alerts AS a JOIN issue_types AS t ON t.type_id = a.type_id WHERE a.type_id <> 0" ) )
+        return false;
+
+    while ( query.next() ) {
+        if ( !recalculateAlert( query.value( 0 ).toInt(), 0, query.value( 1 ).toInt(), query.value( 2 ).toInt(), database ) )
             return false;
     }
 
@@ -1396,17 +1434,38 @@ bool DataManager::recalculateAlerts( int folderId, const QSqlDatabase& database 
         return false;
 
     while ( query.next() ) {
-        if ( !recalculateAlert( query.value( 0 ).toInt(), query.value( 1 ).toInt(), query.value( 2 ).toInt(), database ) )
+        if ( !recalculateAlert( query.value( 0 ).toInt(), query.value( 1 ).toInt(), 0, query.value( 2 ).toInt(), database ) )
             return false;
     }
 
     return true;
 }
 
-bool DataManager::recalculateAlert( int alertId, int folderId, int viewId, const QSqlDatabase& database )
+bool DataManager::recalculateGlobalAlerts( int typeId, const QSqlDatabase& database )
+{
+    Query query( database );
+
+    if ( !query.execQuery( "DELETE FROM alerts_cache WHERE alert_id IN ( SELECT alert_id FROM alerts WHERE type_id = ? )", typeId ) )
+        return false;
+
+    if ( !query.execQuery( "SELECT a.alert_id, t.type_id, a.view_id FROM alerts AS a JOIN issue_types AS t ON t.type_id = a.type_id WHERE t.type_id = ?", typeId ) )
+        return false;
+
+    while ( query.next() ) {
+        if ( !recalculateAlert( query.value( 0 ).toInt(), 0, query.value( 1 ).toInt(), query.value( 2 ).toInt(), database ) )
+            return false;
+    }
+
+    return true;
+}
+
+bool DataManager::recalculateAlert( int alertId, int folderId, int typeId, int viewId, const QSqlDatabase& database )
 {
     QueryGenerator generator;
-    generator.initializeFolder( folderId, viewId );
+    if ( folderId != 0 )
+        generator.initializeFolder( folderId, viewId );
+    else if ( typeId != 0 )
+        generator.initializeGlobalList( typeId, viewId );
 
     QString sql = generator.query( false );
     if ( sql.isEmpty() )

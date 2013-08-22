@@ -45,6 +45,7 @@ public:
     {
         AllIssues,
         Types,
+        GlobalAlerts,
         Projects,
         Folders,
         Alerts

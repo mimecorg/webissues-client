@@ -22,6 +22,7 @@
 #include "application.h"
 #include "data/localsettings.h"
 #include "dialogs/commanddialog.h"
+#include "dialogs/informationdialog.h"
 
 #include <QDialog>
 #include <QCloseEvent>
@@ -90,13 +91,17 @@ bool DialogManager::eventFilter( QObject* object, QEvent* e )
     return false;
 }
 
-static inline QString classNameOf( QDialog* dialog )
+static inline QString sizeKeyOf( QDialog* dialog )
 {
     if ( CommandDialog* commandDialog = qobject_cast<CommandDialog*>( dialog ) ) {
         if ( commandDialog->isFixed() )
             return QString();
         return CommandDialog::staticMetaObject.className();
     }
+
+    if ( InformationDialog* informationDialog = qobject_cast<InformationDialog*>( dialog ) )
+        return informationDialog->dialogSizeKey();
+
     return dialog->metaObject()->className();
 }
 
@@ -104,7 +109,7 @@ void DialogManager::storeGeometry( QDialog* dialog, bool offset )
 {
     LocalSettings* settings = application->applicationSettings();
 
-    QString key = classNameOf( dialog );
+    QString key = sizeKeyOf( dialog );
     if ( key.isEmpty() )
         return;
 
@@ -119,7 +124,7 @@ void DialogManager::restoreGeometry( QDialog* dialog )
 {
     LocalSettings* settings = application->applicationSettings();
 
-    QString key = classNameOf( dialog );
+    QString key = sizeKeyOf( dialog );
     if ( key.isEmpty() )
         return;
 

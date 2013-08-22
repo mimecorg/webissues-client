@@ -49,6 +49,12 @@ public:
     */
     ~InformationDialog();
 
+public:
+    /**
+    * Return the key name for the remembered size of the dialog.
+    */
+    QString dialogSizeKey() const;
+
 protected:
     /**
     * Set the prompt text.
@@ -70,6 +76,11 @@ protected:
     void setContentLayout( QLayout* layout, bool fixed );
 
     /**
+    * Set the key name for the remembered size of the dialog.
+    */
+    void setDialogSizeKey( const QString& key );
+
+    /**
     * Return the dialog's button box.
     */
     QDialogButtonBox* buttonBox() const { return m_buttonBox; }
@@ -84,6 +95,8 @@ private:
     QBoxLayout* m_mainLayout;
 
     QDialogButtonBox* m_buttonBox;
+
+    QString m_sizeKey;
 };
 
 #endif
