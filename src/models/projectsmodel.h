@@ -43,7 +43,7 @@ public:
 public:
     enum Level
     {
-        AllIssues,
+        AllProjects,
         Types,
         GlobalAlerts,
         Projects,

@@ -60,8 +60,8 @@ QVariant ProjectsModel::data( const QModelIndex& index, int role ) const
     if ( role == Qt::DisplayRole ) {
         QVariant value = rawData( level, row, mappedColumn( index ), role );
 
-        if ( level == AllIssues && index.column() == 0 )
-            value = tr( "All Issues" );
+        if ( level == AllProjects && index.column() == 0 )
+            value = tr( "All Projects" );
 
         if ( ( level == Alerts || level == GlobalAlerts ) && index.column() == 0 ) {
             int viewId = rawData( level, row, 2 ).toInt();
@@ -78,7 +78,7 @@ QVariant ProjectsModel::data( const QModelIndex& index, int role ) const
     }
 
     if ( role == Qt::DecorationRole && index.column() == 0 ) {
-        if ( level == AllIssues ) {
+        if ( level == AllProjects ) {
             return IconLoader::pixmap( "project-all" );
         } else if ( level == Types ) {
             return IconLoader::pixmap( "folder-type" );
@@ -137,9 +137,9 @@ void ProjectsModel::updateQueries()
 
 void ProjectsModel::refresh()
 {
-    QString allIssuesQuery = "SELECT 0";
+    QString allProjectsQuery = "SELECT 0";
 
-    QString typesQuery = "SELECT t.type_id, 0, t.type_name" // TODO: show only accessible types for non-admin users!
+    QString typesQuery = "SELECT t.type_id, 0, t.type_name"
         " FROM issue_types AS t";
     if ( dataManager->currentUserAccess() != AdminAccess )
         typesQuery += " WHERE t.type_id IN ( SELECT f.type_id FROM folders AS f JOIN rights AS r ON r.project_id = f.project_id AND r.user_id = ? )";
@@ -166,7 +166,7 @@ void ProjectsModel::refresh()
 
     QSqlQuery sqlQuery;
 
-    modelAt( AllIssues )->setQuery( allIssuesQuery );
+    modelAt( AllProjects )->setQuery( allProjectsQuery );
 
     sqlQuery.prepare( QString( "%1 ORDER BY %2" ).arg( typesQuery, m_typesOrder ) );
     if ( dataManager->currentUserAccess() != AdminAccess )
