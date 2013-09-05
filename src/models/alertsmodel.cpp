@@ -39,6 +39,7 @@ AlertsModel::AlertsModel( QObject* parent ) : BaseModel( parent ),
     columnMapping << 2 << 3 << 4 << 5;
     if ( emailEnabled )
         columnMapping << 6;
+    columnMapping << 7;
     setColumnMapping( 0, columnMapping );
 
     setHeaderData( 0, Qt::Horizontal, tr( "Name" ) );
@@ -47,6 +48,7 @@ AlertsModel::AlertsModel( QObject* parent ) : BaseModel( parent ),
     setHeaderData( 3, Qt::Horizontal, tr( "Modified" ) );
     if ( emailEnabled )
         setHeaderData( 4, Qt::Horizontal, tr( "Email Type" ) );
+    setHeaderData( 5, Qt::Horizontal, tr( "Is Public" ) );
 
     refresh();
 }
@@ -84,7 +86,7 @@ QVariant AlertsModel::data( const QModelIndex& index, int role ) const
             return ( viewId != 0 ) ? value.toString() : tr( "All Issues" );
         }
 
-        if ( index.column() == 4 ) {
+        if ( mappedColumn( index ) == 6 ) {
             int email = value.toInt();
             if ( email == ImmediateNotificationEmail )
                 return tr( "Immediate notifications" );
@@ -95,17 +97,25 @@ QVariant AlertsModel::data( const QModelIndex& index, int role ) const
             return tr( "None" );
         }
 
+        if ( mappedColumn( index ) == 7 )
+            return value.toBool() ? tr( "Yes" ) : tr( "No" );
+
         return value;
     }
 
     if ( role == Qt::DecorationRole && index.column() == 0 ) {
+        QString name = "alert";
         int unread = rawData( level, row, 4 ).toInt();
-        if ( unread > 0 )
-            return IconLoader::pixmap( "alert-unread" );
-        int modified = rawData( level, row, 5 ).toInt();
-        if ( modified > 0 )
-            return IconLoader::pixmap( "alert-modified" );
-        return IconLoader::pixmap( "alert" );
+        if ( unread > 0 ) {
+            name = "alert-unread";
+        } else {
+            int modified = rawData( level, row, 5 ).toInt();
+            if ( modified > 0 )
+                name = "alert-modified";
+        }
+        if ( rawData( level, row, 7 ).toBool() )
+            return IconLoader::overlayedPixmap( name, "overlay-public" );
+        return IconLoader::pixmap( name );
     }
 
     if ( role == Qt::FontRole && index.column() >= 1 && index.column() <= 3 ) {
@@ -122,7 +132,7 @@ QVariant AlertsModel::data( const QModelIndex& index, int role ) const
 
 void AlertsModel::refresh()
 {
-    QString query = "SELECT a.alert_id, v.view_id, v.view_name, ac.total_count, ac.new_count, ac.modified_count, a.alert_email"
+    QString query = "SELECT a.alert_id, v.view_id, v.view_name, ac.total_count, ac.new_count, ac.modified_count, a.alert_email, a.is_public"
         " FROM alerts AS a"
         " LEFT OUTER JOIN views AS v ON v.view_id = a.view_id"
         " LEFT OUTER JOIN alerts_cache AS ac ON ac.alert_id = a.alert_id";

@@ -249,6 +249,7 @@ public:
     int id() const;
     int viewId() const;
     AlertEmail alertEmail() const;
+    bool isPublic() const;
 
     FolderEntity folder() const;
     TypeEntity type() const;

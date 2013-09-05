@@ -116,6 +116,7 @@ public:
     int m_typeId;
     int m_viewId;
     AlertEmail m_alertEmail;
+    bool m_isPublic;
 };
 
 class UserEntityData : public QSharedData

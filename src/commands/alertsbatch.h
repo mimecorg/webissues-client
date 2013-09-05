@@ -53,16 +53,18 @@ public:
     * @param folderId Identifier of the folder associated with the alert.
     * @param viewId Optional identifier of the view associated with the alert.
     * @param alertEmail Email type for the alert.
+    * @param isPublic @c true if the alert is public, @c false otherwise.
     */
-    void addAlert( int folderId, int viewId, AlertEmail alertEmail );
+    void addAlert( int folderId, int viewId, AlertEmail alertEmail, bool isPublic );
 
     /**
     * Add the <tt>ADD GLOBAL ALERT</tt> command to the batch.
     * @param typeId Identifier of the issue type associated the alert.
     * @param viewId Optional identifier of the view associated with the alert.
     * @param alertEmail Email type for the alert.
+    * @param isPublic @c true if the alert is public, @c false otherwise.
     */
-    void addGlobalAlert( int typeId, int viewId, AlertEmail alertEmail );
+    void addGlobalAlert( int typeId, int viewId, AlertEmail alertEmail, bool isPublic );
 
     /**
     * Add the <tt>MODIFY ALERT</tt> command to the batch. 

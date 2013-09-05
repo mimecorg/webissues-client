@@ -1,16 +1,19 @@
 <xmlui>
   <strip id="stripAlerts">
     <action id="addAlert"/>
+    <action id="addPublicAlert"/>
     <action id="editModify"/>
     <action id="editDelete"/>
   </strip>
   <menu id="menuNull">
     <action id="addAlert"/>
+    <action id="addPublicAlert"/>
   </menu>
   <menu id="menuAlert">
     <action id="editModify"/>
     <action id="editDelete"/>
     <separator/>
     <action id="addAlert"/>
+    <action id="addPublicAlert"/>
   </menu>
 </xmlui>

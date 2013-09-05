@@ -48,7 +48,8 @@ public:
 public:
     enum Flag
     {
-        WithView = 1
+        WithView = 1,
+        OnlyPublic = 2,
     };
 
     Q_DECLARE_FLAGS( Flags, Flag )
@@ -80,7 +81,7 @@ public:
     * @param folderId Identifier of the folder associated with the alert.
     * @param parent The parent widget.
     */
-    AddAlertDialog( int folderId, QWidget* parent );
+    AddAlertDialog( int folderId, bool isPublic, QWidget* parent );
 
     /**
     * Destructor.
@@ -92,6 +93,7 @@ public: // overrides
 
 private:
     int m_folderId;
+    bool m_isPublic;
 };
 
 /**
@@ -106,7 +108,7 @@ public:
     * @param typeId Identifier of the issue type associated with the alert.
     * @param parent The parent widget.
     */
-    AddGlobalAlertDialog( int typeId, QWidget* parent );
+    AddGlobalAlertDialog( int typeId, bool isPublic, QWidget* parent );
 
     /**
     * Destructor.
@@ -118,6 +120,7 @@ public: // overrides
 
 private:
     int m_typeId;
+    bool m_isPublic;
 };
 
 /**

@@ -34,10 +34,17 @@
 #include <QDialogButtonBox>
 #include <QMenu>
 
-ManageAlertsDialog::ManageAlertsDialog() : InformationDialog( NULL, Qt::Window ),
-    m_model( NULL )
+ManageAlertsDialog::ManageAlertsDialog( int folderId ) : InformationDialog( NULL, Qt::Window ),
+    m_model( NULL ),
+    m_selectedAlertId( 0 ),
+    m_selectedEditable( false )
 {
     m_emailEnabled = dataManager->setting( "email_enabled" ).toInt();
+
+    if ( folderId != 0 )
+        m_canEditPublic = FolderEntity::isAdmin( folderId );
+    else
+        m_canEditPublic = dataManager->currentUserAccess() == AdminAccess;
 
     QAction* action;
 
@@ -46,12 +53,18 @@ ManageAlertsDialog::ManageAlertsDialog() : InformationDialog( NULL, Qt::Window )
     connect( action, SIGNAL( triggered() ), this, SLOT( addAlert() ) );
     setAction( "addAlert", action );
 
+    if ( m_canEditPublic ) {
+        action = new QAction( IconLoader::overlayedIcon( "alert-new", "overlay-public" ), tr( "Add &Public Alert..." ), this );
+        connect( action, SIGNAL( triggered() ), this, SLOT( addPublicAlert() ) );
+        setAction( "addPublicAlert", action );
+    }
+
     action = new QAction( IconLoader::icon( "edit-delete" ), tr( "&Delete Alert" ), this );
     action->setShortcut( QKeySequence::Delete );
     connect( action, SIGNAL( triggered() ), this, SLOT( editDelete() ) );
     setAction( "editDelete", action );
 
-    if ( m_emailEnabled != 0 ) {
+    if ( m_emailEnabled ) {
         action = new QAction( IconLoader::icon( "edit-modify" ), tr( "&Modify Alert..." ), this );
         connect( action, SIGNAL( triggered() ), this, SLOT( editModify() ) );
         setAction( "editModify", action );
@@ -89,7 +102,7 @@ ManageAlertsDialog::ManageAlertsDialog() : InformationDialog( NULL, Qt::Window )
 
     setDialogSizeKey( "ManageAlertsDialog" );
 
-    resize( 600, 400 );
+    resize( 680, 400 );
 
     updateActions();
 }
@@ -112,8 +125,9 @@ void ManageAlertsDialog::initializeList( AlertsModel* model )
 
     QList<int> widths;
     widths << 150 << 80 << 80 << 80;
-    if ( m_emailEnabled != 0 )
+    if ( m_emailEnabled )
         widths.append( 150 );
+    widths << 80;
 
     helper.loadColumnWidths( "ManageAlertsDialogWidths", widths );
 
@@ -126,7 +140,7 @@ void ManageAlertsDialog::initializeList( AlertsModel* model )
 
 void ManageAlertsDialog::editDelete()
 {
-    if ( m_selectedAlertId != 0 ) {
+    if ( m_selectedEditable ) {
         DeleteAlertDialog dialog( m_selectedAlertId, this );
         dialog.exec();
     }
@@ -134,7 +148,7 @@ void ManageAlertsDialog::editDelete()
 
 void ManageAlertsDialog::editModify()
 {
-    if ( m_selectedAlertId != 0 && m_emailEnabled != 0 ) {
+    if ( m_selectedEditable && m_emailEnabled ) {
         ModifyAlertDialog dialog( m_selectedAlertId, this );
         dialog.exec();
     }
@@ -143,21 +157,29 @@ void ManageAlertsDialog::editModify()
 void ManageAlertsDialog::updateActions()
 {
     m_selectedAlertId = 0;
+    m_selectedEditable = false;
 
     TreeViewHelper helper( m_list );
     QModelIndex index = helper.selectedIndex();
 
-    if ( index.isValid() )
+    if ( index.isValid() ) {
         m_selectedAlertId = m_model->rowId( index );
+        if ( m_canEditPublic ) {
+            m_selectedEditable = true;
+        } else {
+            AlertEntity alert = AlertEntity::find( m_selectedAlertId );
+            m_selectedEditable = !alert.isPublic();
+        }
+    }
 
-    action( "editDelete" )->setEnabled( m_selectedAlertId != 0 );
-    if ( m_emailEnabled != 0 )
-        action( "editModify" )->setEnabled( m_selectedAlertId != 0 );
+    action( "editDelete" )->setEnabled( m_selectedEditable );
+    if ( m_emailEnabled )
+        action( "editModify" )->setEnabled( m_selectedEditable );
 }
 
 void ManageAlertsDialog::doubleClicked( const QModelIndex& index )
 {
-    if ( index.isValid() && m_emailEnabled != 0 ) {
+    if ( index.isValid() && m_selectedEditable && m_emailEnabled ) {
         int alertId = m_model->rowId( index );
 
         ModifyAlertDialog dialog( alertId, this );
@@ -185,7 +207,7 @@ void ManageAlertsDialog::listContextMenu( const QPoint& pos )
         menu->popup( m_list->viewport()->mapToGlobal( pos ) );
 }
 
-ManageFolderAlertsDialog::ManageFolderAlertsDialog( int folderId ) :
+ManageFolderAlertsDialog::ManageFolderAlertsDialog( int folderId ) : ManageAlertsDialog( folderId ),
     m_folderId( folderId )
 {
     FolderEntity folder = FolderEntity::find( folderId );
@@ -203,7 +225,13 @@ ManageFolderAlertsDialog::~ManageFolderAlertsDialog()
 
 void ManageFolderAlertsDialog::addAlert()
 {
-    AddAlertDialog dialog( m_folderId, this );
+    AddAlertDialog dialog( m_folderId, false, this );
+    dialog.exec();
+}
+
+void ManageFolderAlertsDialog::addPublicAlert()
+{
+    AddAlertDialog dialog( m_folderId, true, this );
     dialog.exec();
 }
 
@@ -215,7 +243,7 @@ void ManageFolderAlertsDialog::updateActions()
     ManageAlertsDialog::updateActions();
 }
 
-ManageGlobalAlertsDialog::ManageGlobalAlertsDialog( int typeId ) :
+ManageGlobalAlertsDialog::ManageGlobalAlertsDialog( int typeId ) : ManageAlertsDialog( 0 ),
     m_typeId( typeId )
 {
     TypeEntity type = TypeEntity::find( typeId );
@@ -233,7 +261,13 @@ ManageGlobalAlertsDialog::~ManageGlobalAlertsDialog()
 
 void ManageGlobalAlertsDialog::addAlert()
 {
-    AddGlobalAlertDialog dialog( m_typeId, this );
+    AddGlobalAlertDialog dialog( m_typeId, false, this );
+    dialog.exec();
+}
+
+void ManageGlobalAlertsDialog::addPublicAlert()
+{
+    AddGlobalAlertDialog dialog( m_typeId, true, this );
     dialog.exec();
 }
 

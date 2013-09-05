@@ -37,8 +37,9 @@ class ManageAlertsDialog : public InformationDialog, public XmlUi::Client
 public:
     /**
     * Constructor.
+    * @param folderId Identifier of the folder.
     */
-    ManageAlertsDialog();
+    ManageAlertsDialog( int folderId );
 
     /**
     * Destructor.
@@ -50,6 +51,7 @@ protected:
 
 protected slots:
     virtual void addAlert() = 0;
+    virtual void addPublicAlert() = 0;
 
     virtual void updateActions();
 
@@ -65,8 +67,10 @@ private:
     AlertsModel* m_model;
 
     bool m_emailEnabled;
+    bool m_canEditPublic;
 
     int m_selectedAlertId;
+    bool m_selectedEditable;
 };
 
 /**
@@ -89,6 +93,7 @@ public:
 
 protected: // overrides
     void addAlert();
+    void addPublicAlert();
 
     void updateActions();
 
@@ -116,6 +121,7 @@ public:
 
 protected: // overrides
     void addAlert();
+    void addPublicAlert();
 
     void updateActions();
 

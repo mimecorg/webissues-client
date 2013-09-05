@@ -31,21 +31,23 @@ AlertsBatch::~AlertsBatch()
 {
 }
 
-void AlertsBatch::addAlert( int folderId, int viewId, AlertEmail alertEmail )
+void AlertsBatch::addAlert( int folderId, int viewId, AlertEmail alertEmail, bool isPublic )
 {
     Job job( &AlertsBatch::addAlertJob );
     job.addArg( folderId );
     job.addArg( viewId );
     job.addArg( (int)alertEmail );
+    job.addArg( isPublic ? 1 : 0 );
     m_queue.addJob( job );
 }
 
-void AlertsBatch::addGlobalAlert( int typeId, int viewId, AlertEmail alertEmail )
+void AlertsBatch::addGlobalAlert( int typeId, int viewId, AlertEmail alertEmail, bool isPublic )
 {
     Job job( &AlertsBatch::addGlobalAlertJob );
     job.addArg( typeId );
     job.addArg( viewId );
     job.addArg( (int)alertEmail );
+    job.addArg( isPublic ? 1 : 0 );
     m_queue.addJob( job );
 }
 

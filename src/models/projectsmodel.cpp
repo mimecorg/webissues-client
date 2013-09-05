@@ -92,13 +92,18 @@ QVariant ProjectsModel::data( const QModelIndex& index, int role ) const
         } else if ( level == Folders ) {
             return IconLoader::pixmap( "folder" );
         } else if ( level == Alerts || level == GlobalAlerts ) {
+            QString name = "alert";
             int unread = rawData( level, row, 6 ).toInt();
-            if ( unread > 0 )
-                return IconLoader::pixmap( "alert-unread" );
-            int modified = rawData( level, row, 5 ).toInt();
-            if ( modified > 0 )
-                return IconLoader::pixmap( "alert-modified" );
-            return IconLoader::pixmap( "alert" );
+            if ( unread > 0 ) {
+                name = "alert-unread";
+            } else {
+                int modified = rawData( level, row, 5 ).toInt();
+                if ( modified > 0 )
+                    name = "alert-modified";
+            }
+            if ( rawData( level, row, 7 ).toBool() )
+                return IconLoader::overlayedPixmap( name, "overlay-public" );
+            return IconLoader::pixmap( name );
         }
     }
 
@@ -144,7 +149,7 @@ void ProjectsModel::refresh()
     if ( dataManager->currentUserAccess() != AdminAccess )
         typesQuery += " WHERE t.type_id IN ( SELECT f.type_id FROM folders AS f JOIN rights AS r ON r.project_id = f.project_id AND r.user_id = ? )";
 
-    QString globalAlertsQuery = "SELECT a.alert_id, t.type_id, a.view_id, v.view_name, ac.total_count, ac.modified_count, ac.new_count"
+    QString globalAlertsQuery = "SELECT a.alert_id, t.type_id, a.view_id, v.view_name, ac.total_count, ac.modified_count, ac.new_count, a.is_public"
         " FROM alerts AS a"
         " JOIN issue_types AS t ON t.type_id = a.type_id"
         " LEFT OUTER JOIN views AS v ON v.view_id = a.view_id"
@@ -158,7 +163,7 @@ void ProjectsModel::refresh()
         " FROM folders AS f"
         " JOIN issue_types AS t ON t.type_id = f.type_id";
 
-    QString alertsQuery = "SELECT a.alert_id, f.folder_id, a.view_id, v.view_name, ac.total_count, ac.modified_count, ac.new_count"
+    QString alertsQuery = "SELECT a.alert_id, f.folder_id, a.view_id, v.view_name, ac.total_count, ac.modified_count, ac.new_count, a.is_public"
         " FROM alerts AS a"
         " JOIN folders AS f ON f.folder_id = a.folder_id"
         " LEFT OUTER JOIN views AS v ON v.view_id = a.view_id"

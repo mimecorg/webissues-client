@@ -663,7 +663,7 @@ Command* DataManager::updateProjects()
     command->setReportNullReply( true );
     command->addRule( "P isi", ReplyRule::ZeroOrMore );
     command->addRule( "F iisii", ReplyRule::ZeroOrMore );
-    command->addRule( "A iiiii", ReplyRule::ZeroOrMore );
+    command->addRule( "A iiiiii", ReplyRule::ZeroOrMore );
 
     connect( command, SIGNAL( commandReply( const Reply& ) ), this, SLOT( updateProjectsReply( const Reply& ) ) );
 
@@ -715,7 +715,7 @@ bool DataManager::updateProjectsReply( const Reply& reply, const QSqlDatabase& d
     if ( !query.execQuery( "DELETE FROM alerts" ) )
         return false;
 
-    query.setQuery( "INSERT INTO alerts ( alert_id, folder_id, type_id, view_id, alert_email, is_public ) VALUES ( ?, ?, ?, ?, ?, 0 )" );
+    query.setQuery( "INSERT INTO alerts ( alert_id, folder_id, type_id, view_id, alert_email, is_public ) VALUES ( ?, ?, ?, ?, ?, ? )" );
 
     for ( ; i < reply.count() && reply.at( i ).keyword() == QLatin1String( "A" ); i++ ) {
         if ( !query.exec( reply.at( i ).args() ) )

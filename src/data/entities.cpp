@@ -688,7 +688,8 @@ AlertEntityData::AlertEntityData() :
     m_folderId( 0 ),
     m_typeId( 0 ),
     m_viewId( 0 ),
-    m_alertEmail( NoEmail )
+    m_alertEmail( NoEmail ),
+    m_isPublic( false )
 {
 }
 
@@ -716,6 +717,11 @@ AlertEmail AlertEntity::alertEmail() const
     return d->m_alertEmail;
 }
 
+bool AlertEntity::isPublic() const
+{
+    return d->m_isPublic;
+}
+
 FolderEntity AlertEntity::folder() const
 {
     return FolderEntity::find( d->m_folderId );
@@ -736,7 +742,7 @@ AlertEntity AlertEntity::find( int id )
     AlertEntity entity;
 
     if ( id != 0 ) {
-        Query query( "SELECT alert_id, folder_id, type_id, view_id, alert_email"
+        Query query( "SELECT alert_id, folder_id, type_id, view_id, alert_email, is_public"
             " FROM alerts"
             " WHERE alert_id = ?" );
         query.exec( id );
@@ -753,7 +759,7 @@ QList<AlertEntity> FolderEntity::alerts() const
     QList<AlertEntity> result;
 
     if ( d->m_id != 0 ) {
-        Query query( "SELECT alert_id, folder_id, type_id, view_id, alert_email"
+        Query query( "SELECT alert_id, folder_id, type_id, view_id, alert_email, is_public"
             " FROM alerts"
             " WHERE folder_id = ?" );
         query.exec( d->m_id );
@@ -773,7 +779,7 @@ QList<AlertEntity> TypeEntity::alerts() const
     QList<AlertEntity> result;
 
     if ( d->m_id != 0 ) {
-        Query query( "SELECT alert_id, folder_id, type_id, view_id, alert_email"
+        Query query( "SELECT alert_id, folder_id, type_id, view_id, alert_email, is_public"
             " FROM alerts"
             " WHERE type_id = ?" );
         query.exec( d->m_id );
@@ -795,6 +801,7 @@ void AlertEntityData::read( const Query& query )
     m_typeId = query.value( 2 ).toInt();
     m_viewId = query.value( 3 ).toInt();
     m_alertEmail = (AlertEmail)query.value( 4 ).toInt();
+    m_isPublic = query.value( 5 ).toBool();
 }
 
 UserEntity::UserEntity() :

@@ -55,7 +55,7 @@ bool AlertDialog::initialize( Flags flags, int typeId, const QList<int>& used )
             if ( view.isPublic() ) {
                 if ( !used.contains( view.id() ) )
                     publicViews.append( view );
-            } else {
+            } else if ( !flags.testFlag( OnlyPublic ) ) {
                 if ( !used.contains( view.id() ) )
                     personalViews.append( view );
             }
@@ -167,20 +167,29 @@ AlertEmail AlertDialog::alertEmail() const
         return NoEmail;
 }
 
-AddAlertDialog::AddAlertDialog( int folderId, QWidget* parent ) : AlertDialog( parent ),
-    m_folderId( folderId )
+AddAlertDialog::AddAlertDialog( int folderId, bool isPublic, QWidget* parent ) : AlertDialog( parent ),
+    m_folderId( folderId ),
+    m_isPublic( isPublic )
 {
     FolderEntity folder = FolderEntity::find( folderId );
 
-    setWindowTitle( tr( "Add Alert" ) );
-    setPrompt( tr( "Create a new alert for folder <b>%1</b>:" ).arg( folder.name() ) );
-    setPromptPixmap( IconLoader::pixmap( "alert-new", 22 ) );
+    if ( isPublic ) {
+        setWindowTitle( tr( "Add Public Alert" ) );
+        setPrompt( tr( "Create a new public alert for folder <b>%1</b>:" ).arg( folder.name() ) );
+        setPromptPixmap( IconLoader::overlayedPixmap( "alert-new", "overlay-public", 22 ) );
+    } else {
+        setWindowTitle( tr( "Add Personal Alert" ) );
+        setPrompt( tr( "Create a new personal alert for folder <b>%1</b>:" ).arg( folder.name() ) );
+        setPromptPixmap( IconLoader::pixmap( "alert-new", 22 ) );
+    }
 
     QList<int> used;
-    foreach ( const AlertEntity& alert, folder.alerts() )
-        used.append( alert.viewId() );
+    foreach ( const AlertEntity& alert, folder.alerts() ) {
+        if ( !isPublic || alert.isPublic() )
+            used.append( alert.viewId() );
+    }
 
-    if ( !initialize( WithView, folder.typeId(), used ) )
+    if ( !initialize( WithView | ( isPublic ? OnlyPublic : (Flags)0 ), folder.typeId(), used ) )
         return;
 
     setAlertEmail( NoEmail );
@@ -193,25 +202,34 @@ AddAlertDialog::~AddAlertDialog()
 void AddAlertDialog::accept()
 {
     AlertsBatch* batch = new AlertsBatch();
-    batch->addAlert( m_folderId, viewId(), alertEmail() );
+    batch->addAlert( m_folderId, viewId(), alertEmail(), m_isPublic );
 
     executeBatch( batch );
 }
 
-AddGlobalAlertDialog::AddGlobalAlertDialog( int typeId, QWidget* parent ) : AlertDialog( parent ),
-    m_typeId( typeId )
+AddGlobalAlertDialog::AddGlobalAlertDialog( int typeId, bool isPublic, QWidget* parent ) : AlertDialog( parent ),
+    m_typeId( typeId ),
+    m_isPublic( isPublic )
 {
     TypeEntity type = TypeEntity::find( typeId );
 
-    setWindowTitle( tr( "Add Alert" ) );
-    setPrompt( tr( "Create a new alert for type <b>%1</b>:" ).arg( type.name() ) );
-    setPromptPixmap( IconLoader::pixmap( "alert-new", 22 ) );
+    if ( isPublic ) {
+        setWindowTitle( tr( "Add Public Alert" ) );
+        setPrompt( tr( "Create a new public alert for type <b>%1</b>:" ).arg( type.name() ) );
+        setPromptPixmap( IconLoader::overlayedPixmap( "alert-new", "overlay-public", 22 ) );
+    } else {
+        setWindowTitle( tr( "Add Personal Alert" ) );
+        setPrompt( tr( "Create a new personal alert for type <b>%1</b>:" ).arg( type.name() ) );
+        setPromptPixmap( IconLoader::pixmap( "alert-new", 22 ) );
+    }
 
     QList<int> used;
-    foreach ( const AlertEntity& alert, type.alerts() )
-        used.append( alert.viewId() );
+    foreach ( const AlertEntity& alert, type.alerts() ) {
+        if ( !isPublic || alert.isPublic() )
+            used.append( alert.viewId() );
+    }
 
-    if ( !initialize( WithView, typeId, used ) )
+    if ( !initialize( WithView | ( isPublic ? OnlyPublic : (Flags)0 ), typeId, used ) )
         return;
 
     setAlertEmail( NoEmail );
@@ -224,7 +242,7 @@ AddGlobalAlertDialog::~AddGlobalAlertDialog()
 void AddGlobalAlertDialog::accept()
 {
     AlertsBatch* batch = new AlertsBatch();
-    batch->addGlobalAlert( m_typeId, viewId(), alertEmail() );
+    batch->addGlobalAlert( m_typeId, viewId(), alertEmail(), m_isPublic );
 
     executeBatch( batch );
 }
@@ -237,7 +255,10 @@ ModifyAlertDialog::ModifyAlertDialog( int alertId, QWidget* parent ) : AlertDial
     m_oldAlertEmail = alert.alertEmail();
 
     setWindowTitle( tr( "Modify Alert" ) );
-    setPrompt( tr( "Modify alert <b>%1</b>:" ).arg( name ) );
+    if ( alert.isPublic() )
+        setPrompt( tr( "Modify public alert <b>%1</b>:" ).arg( name ) );
+    else
+        setPrompt( tr( "Modify your personal alert <b>%1</b>:" ).arg( name ) );
     setPromptPixmap( IconLoader::pixmap( "edit-modify", 22 ) );
 
     initialize();
@@ -269,7 +290,10 @@ DeleteAlertDialog::DeleteAlertDialog( int alertId, QWidget* parent ) : CommandDi
     QString name = alert.viewId() ? alert.view().name() : tr( "All Issues" );
 
     setWindowTitle( tr( "Delete Alert" ) );
-    setPrompt( tr( "Are you sure you want to delete alert <b>%1</b>?" ).arg( name ) );
+    if ( alert.isPublic() )
+        setPrompt( tr( "Are you sure you want to delete public alert <b>%1</b>?" ).arg( name ) );
+    else
+        setPrompt( tr( "Are you sure you want to delete your personal alert <b>%1</b>?" ).arg( name ) );
     setPromptPixmap( IconLoader::pixmap( "edit-delete", 22 ) );
 
     setContentLayout( NULL, true );
