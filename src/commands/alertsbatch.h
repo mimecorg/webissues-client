@@ -53,25 +53,31 @@ public:
     * @param folderId Identifier of the folder associated with the alert.
     * @param viewId Optional identifier of the view associated with the alert.
     * @param alertEmail Email type for the alert.
+    * @param summaryDays List of days of week on which summary emails are sent.
+    * @param summaryHours List of hours at which summary emails are sent.
     * @param isPublic @c true if the alert is public, @c false otherwise.
     */
-    void addAlert( int folderId, int viewId, AlertEmail alertEmail, bool isPublic );
+    void addAlert( int folderId, int viewId, AlertEmail alertEmail, const QString& summaryDays, const QString& summaryHours, bool isPublic );
 
     /**
     * Add the <tt>ADD GLOBAL ALERT</tt> command to the batch.
     * @param typeId Identifier of the issue type associated the alert.
     * @param viewId Optional identifier of the view associated with the alert.
     * @param alertEmail Email type for the alert.
+    * @param summaryDays List of days of week on which summary emails are sent.
+    * @param summaryHours List of hours at which summary emails are sent.
     * @param isPublic @c true if the alert is public, @c false otherwise.
     */
-    void addGlobalAlert( int typeId, int viewId, AlertEmail alertEmail, bool isPublic );
+    void addGlobalAlert( int typeId, int viewId, AlertEmail alertEmail, const QString& summaryDays, const QString& summaryHours, bool isPublic );
 
     /**
     * Add the <tt>MODIFY ALERT</tt> command to the batch. 
     * @param alertId Identifier of the alert to modify.
     * @param alertEmail Email type for the alert.
+    * @param summaryDays List of days of week on which summary emails are sent.
+    * @param summaryHours List of hours at which summary emails are sent.
     */
-    void modifyAlert( int alertId, AlertEmail alertEmail );
+    void modifyAlert( int alertId, AlertEmail alertEmail, const QString& summaryDays, const QString& summaryHours );
 
     /**
     * Add the <tt>DELETE ALERT</tt> command to the batch.

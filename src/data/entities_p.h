@@ -116,6 +116,8 @@ public:
     int m_typeId;
     int m_viewId;
     AlertEmail m_alertEmail;
+    QString m_summaryDays;
+    QString m_summaryHours;
     bool m_isPublic;
 };
 

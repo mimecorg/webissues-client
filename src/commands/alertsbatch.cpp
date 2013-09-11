@@ -31,31 +31,37 @@ AlertsBatch::~AlertsBatch()
 {
 }
 
-void AlertsBatch::addAlert( int folderId, int viewId, AlertEmail alertEmail, bool isPublic )
+void AlertsBatch::addAlert( int folderId, int viewId, AlertEmail alertEmail, const QString& summaryDays, const QString& summaryHours, bool isPublic )
 {
     Job job( &AlertsBatch::addAlertJob );
     job.addArg( folderId );
     job.addArg( viewId );
     job.addArg( (int)alertEmail );
+    job.addArg( summaryDays );
+    job.addArg( summaryHours );
     job.addArg( isPublic ? 1 : 0 );
     m_queue.addJob( job );
 }
 
-void AlertsBatch::addGlobalAlert( int typeId, int viewId, AlertEmail alertEmail, bool isPublic )
+void AlertsBatch::addGlobalAlert( int typeId, int viewId, AlertEmail alertEmail, const QString& summaryDays, const QString& summaryHours, bool isPublic )
 {
     Job job( &AlertsBatch::addGlobalAlertJob );
     job.addArg( typeId );
     job.addArg( viewId );
     job.addArg( (int)alertEmail );
+    job.addArg( summaryDays );
+    job.addArg( summaryHours );
     job.addArg( isPublic ? 1 : 0 );
     m_queue.addJob( job );
 }
 
-void AlertsBatch::modifyAlert( int alertId, AlertEmail alertEmail )
+void AlertsBatch::modifyAlert( int alertId, AlertEmail alertEmail, const QString& summaryDays, const QString& summaryHours )
 {
     Job job( &AlertsBatch::modifyAlertJob );
     job.addArg( alertId );
     job.addArg( (int)alertEmail );
+    job.addArg( summaryDays );
+    job.addArg( summaryHours );
     m_queue.addJob( job );
 }
 

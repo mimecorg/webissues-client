@@ -37,7 +37,6 @@
 #include <QTabWidget>
 #include <QPushButton>
 #include <QCheckBox>
-#include <QGroupBox>
 #include <QButtonGroup>
 #include <QTimer>
 #include <QDateTime>
@@ -55,9 +54,7 @@ PreferencesDialog::PreferencesDialog( int userId, QWidget* parent ) : CommandDia
     m_userId( userId ),
     m_emailEdit( NULL ),
     m_detailsCheckBox( NULL ),
-    m_noReadCheckBox( NULL ),
-    m_daysGroup( NULL ),
-    m_hoursGroup( NULL )
+    m_noReadCheckBox( NULL )
 {
     UserEntity user = UserEntity::find( userId );
 
@@ -302,88 +299,6 @@ PreferencesDialog::PreferencesDialog( int userId, QWidget* parent ) : CommandDia
         m_noReadCheckBox = new QCheckBox( tr( "&Do not notify about issues that I have already read" ), alertGroup );
         alertLayout->addWidget( m_noReadCheckBox );
 
-        QGroupBox* summaryGroup = new QGroupBox( tr( "Summary Schedule" ), notifyTab );
-        QVBoxLayout* summaryLayout = new QVBoxLayout( summaryGroup );
-        notifyLayout->addWidget( summaryGroup, 4, 0, 1, 2 );
-
-        QHBoxLayout* daysHeaderLayout = new QHBoxLayout();
-        summaryLayout->addLayout( daysHeaderLayout );
-
-        QLabel* daysLabel = new QLabel( tr( "Send on the following days:" ), summaryGroup );
-        daysHeaderLayout->addWidget( daysLabel );
-
-        daysHeaderLayout->addStretch( 1 );
-
-        QLabel* allDaysLabel = new QLabel( "<a href=\"#\">" + tr( "Select All" ) + "</a>", summaryGroup );
-        daysHeaderLayout->addWidget( allDaysLabel );
-
-        QLabel* noDaysLabel = new QLabel( "<a href=\"#\">" + tr( "Unselect All" ) + "</a>", summaryGroup );
-        daysHeaderLayout->addWidget( noDaysLabel );
-
-        connect( allDaysLabel, SIGNAL( linkActivated( const QString& ) ), this, SLOT( allDaysActivated() ) );
-        connect( noDaysLabel, SIGNAL( linkActivated( const QString& ) ), this, SLOT( noDaysActivated() ) );
-
-        QHBoxLayout* daysLayout = new QHBoxLayout();
-        summaryLayout->addLayout( daysLayout );
-
-        m_daysGroup = new QButtonGroup( this );
-        m_daysGroup->setExclusive( false );
-
-        QLocale currentLocale;
-        int firstDayOfWeek = dataManager->localeSetting( "first_day_of_week" ).toInt();
-
-        for ( int i = 0; i < 7; i++ ) {
-            int day = ( i + firstDayOfWeek ) % 7;
-            QCheckBox* checkBox = new QCheckBox( currentLocale.dayName( day != 0 ? day : 7 ), summaryGroup );
-            m_daysGroup->addButton( checkBox, day );
-            daysLayout->addWidget( checkBox );
-        }
-
-        daysLayout->addStretch( 1 );
-
-        summaryLayout->addSpacing( 10 );
-
-        QHBoxLayout* hoursHeaderLayout = new QHBoxLayout();
-        summaryLayout->addLayout( hoursHeaderLayout );
-
-        QLabel* hoursLabel = new QLabel( tr( "Send at the following hours:" ), summaryGroup );
-        hoursHeaderLayout->addWidget( hoursLabel );
-
-        hoursHeaderLayout->addStretch( 1 );
-
-        QLabel* allHoursLabel = new QLabel( "<a href=\"#\">" + tr( "Select All" ) + "</a>", summaryGroup );
-        hoursHeaderLayout->addWidget( allHoursLabel );
-
-        QLabel* noHoursLabel = new QLabel( "<a href=\"#\">" + tr( "Unselect All" ) + "</a>", summaryGroup );
-        hoursHeaderLayout->addWidget( noHoursLabel );
-
-        connect( allHoursLabel, SIGNAL( linkActivated( const QString& ) ), this, SLOT( allHoursActivated() ) );
-        connect( noHoursLabel, SIGNAL( linkActivated( const QString& ) ), this, SLOT( noHoursActivated() ) );
-
-        QGridLayout* hoursLayout = new QGridLayout();
-        summaryLayout->addLayout( hoursLayout );
-
-        m_hoursGroup = new QButtonGroup( this );
-        m_hoursGroup->setExclusive( false );
-
-        Formatter formatter;
-
-        for ( int row = 0; row < 3; row++ ) {
-            for ( int col = 0; col < 8; col++ ) {
-                int hour = 8 * row + col;
-                QCheckBox* checkBox = new QCheckBox( formatter.formatTime( QTime( hour, 0 ) ), summaryGroup );
-                m_hoursGroup->addButton( checkBox, hour );
-                hoursLayout->addWidget( checkBox, row, col );
-            }
-        }
-
-        hoursLayout->setColumnStretch( hoursLayout->columnCount(), 1 );
-
-        summaryLayout->addSpacing( 10 );
-
-        QLabel* noteSummaryLabel = new QLabel( tr( "You will not receive summary emails if you do not select any day and hour." ), summaryGroup );
-        summaryLayout->addWidget( noteSummaryLabel );
-
         notifyLayout->setRowStretch( notifyLayout->rowCount(), 1 );
     }
 
@@ -520,26 +435,6 @@ PreferencesDialog::PreferencesDialog( int userId, QWidget* parent ) : CommandDia
     if ( m_noReadCheckBox )
         m_noReadCheckBox->setChecked( m_preferences.value( "notify_no_read" ).toInt() != 0 );
 
-    if ( m_daysGroup ) {
-        QStringList list = m_preferences.value( "summary_days" ).split( ',' );
-        for ( int i = 0; i < list.count(); i++ ) {
-            bool ok;
-            int day = list.at( i ).toInt( &ok );
-            if ( ok && day >= 0 && day < 7 )
-                m_daysGroup->button( day )->setChecked( true );
-        }
-    }
-
-    if ( m_hoursGroup ) {
-        QStringList list = m_preferences.value( "summary_hours" ).split( ',' );
-        for ( int i = 0; i < list.count(); i++ ) {
-            bool ok;
-            int day = list.at( i ).toInt( &ok );
-            if ( ok && day >= 0 && day < 24 )
-                m_hoursGroup->button( day )->setChecked( true );
-        }
-    }
-
     setContentLayout( layout, true );
 }
 
@@ -575,24 +470,6 @@ void PreferencesDialog::accept()
     if ( m_noReadCheckBox )
         preferences.insert( "notify_no_read", m_noReadCheckBox->isChecked() ? "1" : "" );
 
-    if ( m_daysGroup ) {
-        QStringList list;
-        for ( int i = 0; i < 7; i++ ) {
-            if ( m_daysGroup->button( i )->isChecked() )
-                list.append( QString::number( i ) );
-        }
-        preferences.insert( "summary_days", list.join( "," ) );
-    }
-
-    if ( m_hoursGroup ) {
-        QStringList list;
-        for ( int i = 0; i < 24; i++ ) {
-            if ( m_hoursGroup->button( i )->isChecked() )
-                list.append( QString::number( i ) );
-        }
-        preferences.insert( "summary_hours", list.join( "," ) );
-    }
-
     SetPreferencesBatch* batch = NULL;
 
     for ( QMap<QString, QString>::const_iterator it = preferences.constBegin(); it != preferences.constEnd(); ++it ) {
@@ -607,28 +484,4 @@ void PreferencesDialog::accept()
         executeBatch( batch );
     else
         QDialog::accept();
-}
-
-void PreferencesDialog::allDaysActivated()
-{
-    for ( int i = 0; i < 7; i++ )
-        m_daysGroup->button( i )->setChecked( true );
-}
-
-void PreferencesDialog::noDaysActivated()
-{
-    for ( int i = 0; i < 7; i++ )
-        m_daysGroup->button( i )->setChecked( false );
-}
-
-void PreferencesDialog::allHoursActivated()
-{
-    for ( int i = 0; i < 24; i++ )
-        m_hoursGroup->button( i )->setChecked( true );
-}
-
-void PreferencesDialog::noHoursActivated()
-{
-    for ( int i = 0; i < 24; i++ )
-        m_hoursGroup->button( i )->setChecked( false );
 }

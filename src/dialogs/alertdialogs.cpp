@@ -24,6 +24,7 @@
 #include "utils/errorhelper.h"
 #include "utils/iconloader.h"
 #include "widgets/separatorcombobox.h"
+#include "widgets/schedulewidget.h"
 
 #include <QLayout>
 #include <QLabel>
@@ -32,7 +33,8 @@
 
 AlertDialog::AlertDialog( QWidget* parent ) : CommandDialog( parent ),
     m_viewCombo( NULL ),
-    m_emailGroup( NULL )
+    m_emailGroup( NULL ),
+    m_scheduleWidget( NULL )
 {
 }
 
@@ -42,8 +44,7 @@ AlertDialog::~AlertDialog()
 
 bool AlertDialog::initialize( Flags flags, int typeId, const QList<int>& used )
 {
-    QGridLayout* layout = new QGridLayout();
-    int row = 0;
+    QVBoxLayout* layout = new QVBoxLayout();
 
     if ( flags.testFlag( WithView ) ) {
         QList<ViewEntity> personalViews;
@@ -68,13 +69,19 @@ bool AlertDialog::initialize( Flags flags, int typeId, const QList<int>& used )
             return false;
         }
 
+        QHBoxLayout* viewLayout = new QHBoxLayout();
+        layout->addLayout( viewLayout );
+
         QLabel* viewLabel = new QLabel( tr( "&View:" ), this );
-        layout->addWidget( viewLabel, row, 0 );
+        viewLayout->addWidget( viewLabel );
 
         m_viewCombo = new SeparatorComboBox( this );
-        layout->addWidget( m_viewCombo, row++, 1 );
+        m_viewCombo->setFixedWidth( 200 );
+        viewLayout->addWidget( m_viewCombo );
 
         viewLabel->setBuddy( m_viewCombo );
+
+        viewLayout->addStretch( 1 );
 
         bool separator = false;
         bool select = false;
@@ -118,29 +125,42 @@ bool AlertDialog::initialize( Flags flags, int typeId, const QList<int>& used )
     int emailEnabled = dataManager->setting( "email_enabled" ).toInt();
 
     if ( emailEnabled != 0 ) {
-        QLabel* emailLabel = new QLabel( tr( "Type of emails:" ), this );
-        layout->addWidget( emailLabel, row, 0 );
+        QGroupBox* emailBox = new QGroupBox( tr( "Email Type" ), this );
+        QVBoxLayout* emailLayout = new QVBoxLayout( emailBox );
+
+        QLabel* emailLabel = new QLabel( tr( "Send the following type of emails for this alert:" ), emailBox );
+        emailLayout->addWidget( emailLabel );
 
         m_emailGroup = new QButtonGroup( this );
 
-        QRadioButton* noneButton = new QRadioButton( tr( "&None" ), this );
+        QRadioButton* noneButton = new QRadioButton( tr( "&None" ), emailBox );
         m_emailGroup->addButton( noneButton, NoEmail );
-        layout->addWidget( noneButton, row++, 1 );
+        emailLayout->addWidget( noneButton );
 
-        QRadioButton* immediateButton = new QRadioButton( tr( "&Immediate notifications" ), this );
+        QRadioButton* immediateButton = new QRadioButton( tr( "&Immediate notifications" ), emailBox );
         m_emailGroup->addButton( immediateButton, ImmediateNotificationEmail );
-        layout->addWidget( immediateButton, row++, 1 );
+        emailLayout->addWidget( immediateButton );
 
-        QRadioButton* summaryButton = new QRadioButton( tr( "&Summary of notifications" ), this );
+        QRadioButton* summaryButton = new QRadioButton( tr( "&Summary of notifications" ), emailBox );
         m_emailGroup->addButton( summaryButton, SummaryNotificationEmail );
-        layout->addWidget( summaryButton, row++, 1 );
+        emailLayout->addWidget( summaryButton );
 
-        QRadioButton* reportButton = new QRadioButton( tr( "Summary &reports" ), this );
+        QRadioButton* reportButton = new QRadioButton( tr( "Summary &reports" ), emailBox );
         m_emailGroup->addButton( reportButton, SummaryReportEmail );
-        layout->addWidget( reportButton, row++, 1 );
-    }
+        emailLayout->addWidget( reportButton );
 
-    layout->setColumnStretch( 1, 1 );
+        layout->addWidget( emailBox );
+
+        QGroupBox* scheduleBox = new QGroupBox( tr( "Summary Schedule" ), this );
+        QVBoxLayout* scheduleLayout = new QVBoxLayout( scheduleBox );
+
+        m_scheduleWidget = new ScheduleWidget( scheduleBox );
+        scheduleLayout->addWidget( m_scheduleWidget );
+
+        layout->addWidget( scheduleBox );
+
+        connect( m_emailGroup, SIGNAL( buttonClicked( int ) ), this, SLOT( emailButtonClicked() ) );
+    }
 
     setContentLayout( layout, true );
 
@@ -155,8 +175,11 @@ int AlertDialog::viewId() const
 
 void AlertDialog::setAlertEmail( AlertEmail email )
 {
-    if ( m_emailGroup )
+    if ( m_emailGroup ) {
         m_emailGroup->button( email )->setChecked( true );
+
+        m_scheduleWidget->setEnabled( email == SummaryNotificationEmail || email == SummaryReportEmail );
+    }
 }
 
 AlertEmail AlertDialog::alertEmail() const
@@ -165,6 +188,63 @@ AlertEmail AlertDialog::alertEmail() const
         return (AlertEmail)m_emailGroup->checkedId();
     else
         return NoEmail;
+}
+
+void AlertDialog::setSummaryDays( const QString& days )
+{
+    if ( m_scheduleWidget )
+        m_scheduleWidget->setDays( days );
+}
+
+QString AlertDialog::summaryDays() const
+{
+    AlertEmail email = alertEmail();
+
+    if ( email == SummaryNotificationEmail || email == SummaryReportEmail )
+        return m_scheduleWidget->days();
+
+    return QString();
+}
+
+void AlertDialog::setSummaryHours( const QString& hours )
+{
+    if ( m_scheduleWidget )
+        m_scheduleWidget->setHours( hours );
+}
+
+QString AlertDialog::summaryHours() const
+{
+    AlertEmail email = alertEmail();
+
+    if ( email == SummaryNotificationEmail || email == SummaryReportEmail )
+        return m_scheduleWidget->hours();
+
+    return QString();
+}
+
+bool AlertDialog::validateSummary()
+{
+    AlertEmail email = alertEmail();
+
+    if ( email == SummaryNotificationEmail || email == SummaryReportEmail ) {
+        if ( m_scheduleWidget->days().isEmpty() ) {
+            showWarning( tr( "No days selected" ) );
+            return false;
+        }
+        if ( m_scheduleWidget->hours().isEmpty() ) {
+            showWarning( tr( "No hours selected" ) );
+            return false;
+        }
+    }
+
+    return true;
+}
+
+void AlertDialog::emailButtonClicked()
+{
+    AlertEmail email = alertEmail();
+
+    m_scheduleWidget->setEnabled( email == SummaryNotificationEmail || email == SummaryReportEmail );
 }
 
 AddAlertDialog::AddAlertDialog( int folderId, bool isPublic, QWidget* parent ) : AlertDialog( parent ),
@@ -201,8 +281,11 @@ AddAlertDialog::~AddAlertDialog()
 
 void AddAlertDialog::accept()
 {
+    if ( !validateSummary() )
+        return;
+
     AlertsBatch* batch = new AlertsBatch();
-    batch->addAlert( m_folderId, viewId(), alertEmail(), m_isPublic );
+    batch->addAlert( m_folderId, viewId(), alertEmail(), summaryDays(), summaryHours(), m_isPublic );
 
     executeBatch( batch );
 }
@@ -241,8 +324,11 @@ AddGlobalAlertDialog::~AddGlobalAlertDialog()
 
 void AddGlobalAlertDialog::accept()
 {
+    if ( !validateSummary() )
+        return;
+
     AlertsBatch* batch = new AlertsBatch();
-    batch->addGlobalAlert( m_typeId, viewId(), alertEmail(), m_isPublic );
+    batch->addGlobalAlert( m_typeId, viewId(), alertEmail(), summaryDays(), summaryHours(), m_isPublic );
 
     executeBatch( batch );
 }
@@ -253,6 +339,8 @@ ModifyAlertDialog::ModifyAlertDialog( int alertId, QWidget* parent ) : AlertDial
     AlertEntity alert = AlertEntity::find( alertId );
     QString name = alert.viewId() ? alert.view().name() : tr( "All Issues" );
     m_oldAlertEmail = alert.alertEmail();
+    m_oldSummaryDays = alert.summaryDays();
+    m_oldSummaryHours = alert.summaryHours();
 
     setWindowTitle( tr( "Modify Alert" ) );
     if ( alert.isPublic() )
@@ -264,6 +352,8 @@ ModifyAlertDialog::ModifyAlertDialog( int alertId, QWidget* parent ) : AlertDial
     initialize();
 
     setAlertEmail( m_oldAlertEmail );
+    setSummaryDays( m_oldSummaryDays );
+    setSummaryHours( m_oldSummaryHours );
 }
 
 ModifyAlertDialog::~ModifyAlertDialog()
@@ -272,13 +362,16 @@ ModifyAlertDialog::~ModifyAlertDialog()
 
 void ModifyAlertDialog::accept()
 {
-    if ( alertEmail() == m_oldAlertEmail ) {
+    if ( !validateSummary() )
+        return;
+
+    if ( alertEmail() == m_oldAlertEmail && summaryDays() == m_oldSummaryDays && summaryHours() == m_oldSummaryHours ) {
         QDialog::accept();
         return;
     }
 
     AlertsBatch* batch = new AlertsBatch();
-    batch->modifyAlert( m_alertId, alertEmail() );
+    batch->modifyAlert( m_alertId, alertEmail(), summaryDays(), summaryHours() );
 
     executeBatch( batch );
 }

@@ -29,7 +29,6 @@ class InputLineEdit;
 
 class QTabWidget;
 class QCheckBox;
-class QButtonGroup;
 
 /**
 * Dialog for modifying user preferences using <tt>SET PREFERENCE</tt> commands.
@@ -52,12 +51,6 @@ public:
 
 public: // overrides
     void accept();
-
-private slots:
-    void allDaysActivated();
-    void noDaysActivated();
-    void allHoursActivated();
-    void noHoursActivated();
 
 private:
     int m_userId;
@@ -85,8 +78,6 @@ private:
     InputLineEdit* m_emailEdit;
     QCheckBox* m_detailsCheckBox;
     QCheckBox* m_noReadCheckBox;
-    QButtonGroup* m_daysGroup;
-    QButtonGroup* m_hoursGroup;
 };
 
 #endif

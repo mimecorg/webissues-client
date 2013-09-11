@@ -249,6 +249,8 @@ public:
     int id() const;
     int viewId() const;
     AlertEmail alertEmail() const;
+    const QString& summaryDays() const;
+    const QString& summaryHours() const;
     bool isPublic() const;
 
     FolderEntity folder() const;

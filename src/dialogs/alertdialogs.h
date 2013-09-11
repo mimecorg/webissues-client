@@ -24,6 +24,7 @@
 #include "data/datamanager.h"
 
 class SeparatorComboBox;
+class ScheduleWidget;
 
 class QButtonGroup;
 
@@ -62,9 +63,21 @@ protected:
     void setAlertEmail( AlertEmail email );
     AlertEmail alertEmail() const;
 
+    void setSummaryDays( const QString& days );
+    QString summaryDays() const;
+
+    void setSummaryHours( const QString& hours );
+    QString summaryHours() const;
+
+    bool validateSummary();
+
+private slots:
+    void emailButtonClicked();
+
 private:
     SeparatorComboBox* m_viewCombo;
     QButtonGroup* m_emailGroup;
+    ScheduleWidget* m_scheduleWidget;
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS( AlertDialog::Flags )
@@ -148,6 +161,8 @@ public: // overrides
 private:
     int m_alertId;
     AlertEmail m_oldAlertEmail;
+    QString m_oldSummaryDays;
+    QString m_oldSummaryHours;
 };
 
 /**

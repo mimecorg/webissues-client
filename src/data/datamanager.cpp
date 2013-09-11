@@ -202,7 +202,7 @@ bool DataManager::installSchema( QSqlDatabase& database )
 
     if ( currentVersion == 0 ) {
         const char* schema[] = {
-            "CREATE TABLE alerts ( alert_id integer UNIQUE, folder_id integer, view_id integer, alert_email integer, type_id integer, is_public integer )",
+            "CREATE TABLE alerts ( alert_id integer UNIQUE, folder_id integer, view_id integer, alert_email integer, type_id integer, summary_days text, summary_hours text, is_public integer )",
             "CREATE TABLE alerts_cache ( alert_id integer UNIQUE, total_count integer, modified_count integer, new_count integer )",
             "CREATE TABLE attr_types ( attr_id integer UNIQUE, type_id integer, attr_name text, attr_def text )",
             "CREATE TABLE attr_values ( attr_id integer, issue_id integer, attr_value text, UNIQUE ( attr_id, issue_id ) )",
@@ -250,6 +250,10 @@ bool DataManager::installSchema( QSqlDatabase& database )
 
     if ( currentVersion < 5 ) {
         if ( !query.execQuery( "ALTER TABLE alerts ADD type_id integer" ) )
+            return false;
+        if ( !query.execQuery( "ALTER TABLE alerts ADD summary_days text" ) )
+            return false;
+        if ( !query.execQuery( "ALTER TABLE alerts ADD summary_hours text" ) )
             return false;
         if ( !query.execQuery( "ALTER TABLE alerts ADD is_public integer" ) )
             return false;
@@ -663,7 +667,7 @@ Command* DataManager::updateProjects()
     command->setReportNullReply( true );
     command->addRule( "P isi", ReplyRule::ZeroOrMore );
     command->addRule( "F iisii", ReplyRule::ZeroOrMore );
-    command->addRule( "A iiiiii", ReplyRule::ZeroOrMore );
+    command->addRule( "A iiiiissi", ReplyRule::ZeroOrMore );
 
     connect( command, SIGNAL( commandReply( const Reply& ) ), this, SLOT( updateProjectsReply( const Reply& ) ) );
 
@@ -715,7 +719,7 @@ bool DataManager::updateProjectsReply( const Reply& reply, const QSqlDatabase& d
     if ( !query.execQuery( "DELETE FROM alerts" ) )
         return false;
 
-    query.setQuery( "INSERT INTO alerts ( alert_id, folder_id, type_id, view_id, alert_email, is_public ) VALUES ( ?, ?, ?, ?, ?, ? )" );
+    query.setQuery( "INSERT INTO alerts ( alert_id, folder_id, type_id, view_id, alert_email, summary_days, summary_hours, is_public ) VALUES ( ?, ?, ?, ?, ?, ?, ?, ? )" );
 
     for ( ; i < reply.count() && reply.at( i ).keyword() == QLatin1String( "A" ); i++ ) {
         if ( !query.exec( reply.at( i ).args() ) )

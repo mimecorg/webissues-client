@@ -717,6 +717,16 @@ AlertEmail AlertEntity::alertEmail() const
     return d->m_alertEmail;
 }
 
+const QString& AlertEntity::summaryDays() const
+{
+    return d->m_summaryDays;
+}
+
+const QString& AlertEntity::summaryHours() const
+{
+    return d->m_summaryHours;
+}
+
 bool AlertEntity::isPublic() const
 {
     return d->m_isPublic;
@@ -742,7 +752,7 @@ AlertEntity AlertEntity::find( int id )
     AlertEntity entity;
 
     if ( id != 0 ) {
-        Query query( "SELECT alert_id, folder_id, type_id, view_id, alert_email, is_public"
+        Query query( "SELECT alert_id, folder_id, type_id, view_id, alert_email, summary_days, summary_hours, is_public"
             " FROM alerts"
             " WHERE alert_id = ?" );
         query.exec( id );
@@ -759,7 +769,7 @@ QList<AlertEntity> FolderEntity::alerts() const
     QList<AlertEntity> result;
 
     if ( d->m_id != 0 ) {
-        Query query( "SELECT alert_id, folder_id, type_id, view_id, alert_email, is_public"
+        Query query( "SELECT alert_id, folder_id, type_id, view_id, alert_email, summary_days, summary_hours, is_public"
             " FROM alerts"
             " WHERE folder_id = ?" );
         query.exec( d->m_id );
@@ -779,7 +789,7 @@ QList<AlertEntity> TypeEntity::alerts() const
     QList<AlertEntity> result;
 
     if ( d->m_id != 0 ) {
-        Query query( "SELECT alert_id, folder_id, type_id, view_id, alert_email, is_public"
+        Query query( "SELECT alert_id, folder_id, type_id, view_id, alert_email, summary_days, summary_hours, is_public"
             " FROM alerts"
             " WHERE type_id = ?" );
         query.exec( d->m_id );
@@ -801,7 +811,9 @@ void AlertEntityData::read( const Query& query )
     m_typeId = query.value( 2 ).toInt();
     m_viewId = query.value( 3 ).toInt();
     m_alertEmail = (AlertEmail)query.value( 4 ).toInt();
-    m_isPublic = query.value( 5 ).toBool();
+    m_summaryDays = query.value( 5 ).toString();
+    m_summaryHours = query.value( 6 ).toString();
+    m_isPublic = query.value( 7 ).toBool();
 }
 
 UserEntity::UserEntity() :
