@@ -495,6 +495,7 @@ QStringList QueryGenerator::sortColumns() const
                     break;
                 case Column_Location:
                     result.append( "p.project_name COLLATE LOCALE, f.folder_name COLLATE LOCALE" );
+                    break;
                 default:
                     if ( column > Column_UserDefined ) {
                         DefinitionInfo info = cache->attributeDefinition( column - Column_UserDefined );
