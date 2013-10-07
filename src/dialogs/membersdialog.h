@@ -46,7 +46,12 @@ public:
     */
     ~MembersDialog();
 
+protected: // overrides
+    void customEvent( QEvent* e );
+
 private slots:
+    void changeGlobalAccess();
+
     void addMember();
     void changeAccess();
     void removeMember();
@@ -57,7 +62,12 @@ private slots:
     void listContextMenu( const QPoint& pos );
 
 private:
+    void updateGlobalAccess();
+
+private:
     int m_projectId;
+
+    QLineEdit* m_globalEdit;
 
     QTreeView* m_list;
     MembersModel* m_model;

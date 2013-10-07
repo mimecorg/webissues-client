@@ -57,10 +57,10 @@ ProjectsView::ProjectsView( QObject* parent, QWidget* parentWidget ) : View( par
     connect( action, SIGNAL( triggered() ), this, SLOT( updateProjects() ), Qt::QueuedConnection );
     setAction( "updateProjects", action );
 
-    action = new QAction( IconLoader::icon( "view-members" ), tr( "Project &Members..." ), this );
-    action->setIconText( tr( "Members" ) );
-    connect( action, SIGNAL( triggered() ), this, SLOT( showMembers() ), Qt::QueuedConnection );
-    setAction( "showMembers", action );
+    action = new QAction( IconLoader::icon( "edit-access" ), tr( "&Manage Permissions..." ), this );
+    action->setIconText( tr( "Permissions" ) );
+    connect( action, SIGNAL( triggered() ), this, SLOT( managePermissions() ), Qt::QueuedConnection );
+    setAction( "managePermissions", action );
 
     if ( m_systemAdmin ) {
         action = new QAction( IconLoader::icon( "project-new" ), tr( "Add &Project..." ), this );
@@ -182,7 +182,7 @@ Access ProjectsView::checkDataAccess()
 
 void ProjectsView::updateAccess( Access /*access*/ )
 {
-    action( "showMembers" )->setVisible( m_anyProjectAdmin );
+    action( "managePermissions" )->setVisible( m_anyProjectAdmin );
     action( "addFolder" )->setVisible( m_anyProjectAdmin );
     action( "editRename" )->setVisible( m_systemAdmin || m_anyProjectAdmin );
     action( "editDelete" )->setVisible( m_systemAdmin || m_anyProjectAdmin );
@@ -308,7 +308,7 @@ void ProjectsView::updateActions()
 
     m_currentProjectAdmin = ProjectEntity::isAdmin( m_currentProjectId );
 
-    action( "showMembers" )->setEnabled( m_selectedProjectId && m_currentProjectAdmin );
+    action( "managePermissions" )->setEnabled( m_selectedProjectId && m_currentProjectAdmin );
     action( "openProject" )->setEnabled( m_selectedProjectId != 0 );
     action( "openFolder" )->setEnabled( m_selectedFolderId != 0 );
     action( "openGlobalList" )->setEnabled( m_selectedTypeId != 0 );
@@ -409,7 +409,7 @@ void ProjectsView::updateProjects()
     }
 }
 
-void ProjectsView::showMembers()
+void ProjectsView::managePermissions()
 {
     if ( m_selectedProjectId != 0 && m_currentProjectAdmin ) {
         if ( dialogManager->activateDialog( "MembersDialog", m_selectedProjectId ) )

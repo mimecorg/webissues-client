@@ -547,3 +547,59 @@ void DeleteProjectDescriptionDialog::accept()
 
     executeBatch( batch );
 }
+
+ChangeProjectAccessDialog::ChangeProjectAccessDialog( int projectId, QWidget* parent ) : CommandDialog( parent ),
+    m_projectId( projectId )
+{
+    ProjectEntity project = ProjectEntity::find( projectId );
+    m_oldAccess = project.isPublic() ? 1 : 0;
+
+    setWindowTitle( tr( "Global Access" ) );
+    setPrompt( tr( "Change global access for project <b>%1</b>:" ).arg( project.name() ) );
+    setPromptPixmap( IconLoader::pixmap( "edit-access", 22 ) );
+
+    QHBoxLayout* layout = new QHBoxLayout();
+
+    QLabel* label = new QLabel( tr( "Access:" ), this );
+    layout->addWidget( label );
+
+    QHBoxLayout* buttonsLayout = new QHBoxLayout();
+    layout->addLayout( buttonsLayout );
+
+    m_accessGroup = new QButtonGroup( this );
+
+    QRadioButton* normalButton = new QRadioButton( tr( "&Regular project" ), this );
+    m_accessGroup->addButton( normalButton, 0 );
+    buttonsLayout->addWidget( normalButton );
+
+    QRadioButton* publicButton = new QRadioButton( tr( "&Public project" ), this );
+    m_accessGroup->addButton( publicButton, 1 );
+    buttonsLayout->addWidget( publicButton );
+
+    buttonsLayout->addStretch( 1 );
+
+    m_accessGroup->button( m_oldAccess )->setChecked( true );
+
+    setContentLayout( layout, true );
+
+    m_accessGroup->checkedButton()->setFocus();
+}
+
+ChangeProjectAccessDialog::~ChangeProjectAccessDialog()
+{
+}
+
+void ChangeProjectAccessDialog::accept()
+{
+    int access = m_accessGroup->checkedId();
+
+    if ( access == m_oldAccess ) {
+        QDialog::accept();
+        return;
+    }
+
+    ProjectsBatch* batch = new ProjectsBatch();
+    batch->setProjectAccess( m_projectId, access == 1 );
+
+    executeBatch( batch );
+}

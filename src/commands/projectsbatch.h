@@ -125,6 +125,13 @@ public:
     */
     void deleteProjectDescription( int projectId );
 
+    /**
+    * Add the <tt>SET PROJECT ACCESS</tt> command to the batch.
+    * @param projectId Identifier of the project.
+    * @param isPublic @c true if the project is public.
+    */
+    void setProjectAccess( int projectId, bool isPublic );
+
 public: // overrides
     Command* fetchNext();
 
@@ -146,6 +153,8 @@ private:
     Command* addProjectDescriptionJob( const Job& job );
     Command* editProjectDescriptionJob( const Job& job );
     Command* deleteProjectDescriptionJob( const Job& job );
+
+    Command* setProjectAccessJob( const Job& job );
 
 private slots:
     void addProjectReply( const Reply& reply );

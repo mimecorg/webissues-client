@@ -120,6 +120,14 @@ void ProjectsBatch::deleteProjectDescription( int projectId )
     m_queue.addJob( job );
 }
 
+void ProjectsBatch::setProjectAccess( int projectId, bool isPublic )
+{
+    Job job( &ProjectsBatch::setProjectAccessJob );
+    job.addArg( projectId );
+    job.addArg( isPublic ? 1 : 0 );
+    m_queue.addJob( job );
+}
+
 Command* ProjectsBatch::fetchNext()
 {
     if ( m_queue.moreJobs() )
@@ -287,6 +295,21 @@ Command* ProjectsBatch::deleteProjectDescriptionJob( const Job& job )
     command->setArgs( job.args() );
 
     command->addRule( "ID i", ReplyRule::One );
+
+    connect( command, SIGNAL( commandReply( const Reply& ) ), this, SLOT( setUpdate() ) );
+
+    return command;
+}
+
+Command* ProjectsBatch::setProjectAccessJob( const Job& job )
+{
+    Command* command = new Command();
+
+    command->setKeyword( "SET PROJECT ACCESS" );
+    command->setArgs( job.args() );
+
+    command->setAcceptNullReply( true );
+    command->addRule( "OK", ReplyRule::One );
 
     connect( command, SIGNAL( commandReply( const Reply& ) ), this, SLOT( setUpdate() ) );
 

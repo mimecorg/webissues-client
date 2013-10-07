@@ -316,4 +316,33 @@ private:
     int m_projectId;
 };
 
+/**
+* Dialog for executing the <tt>SET PROJECT ACCESS</tt> command.
+*/
+class ChangeProjectAccessDialog : public CommandDialog
+{
+    Q_OBJECT
+public:
+    /**
+    * Constructor.
+    * @param projectId Identifier of the project.
+    * @param parent The parent widget.
+    */
+    ChangeProjectAccessDialog( int projectId, QWidget* parent );
+
+    /**
+    * Destructor.
+    */
+    ~ChangeProjectAccessDialog();
+
+public: // overrides
+    void accept();
+
+private:
+    int m_projectId;
+    int m_oldAccess;
+
+    QButtonGroup* m_accessGroup;
+};
+
 #endif

@@ -21,6 +21,7 @@
 
 #include "data/datamanager.h"
 #include "data/entities.h"
+#include "dialogs/projectdialogs.h"
 #include "dialogs/userdialogs.h"
 #include "models/membersmodel.h"
 #include "utils/treeviewhelper.h"
@@ -62,19 +63,40 @@ MembersDialog::MembersDialog( int projectId ) : InformationDialog( NULL, Qt::Win
     XmlUi::Builder* builder = new XmlUi::Builder( this );
     builder->addClient( this );
 
-    setWindowTitle( tr( "Project Members" ) );
-    setPromptPixmap( IconLoader::pixmap( "view-members", 22 ) );
-    setPrompt( tr( "Members of project <b>%1</b>:" ).arg( project.name() ) );
+    setWindowTitle( tr( "Manage Permissions" ) );
+    setPromptPixmap( IconLoader::pixmap( "edit-access", 22 ) );
+    setPrompt( tr( "Edit permissions of project <b>%1</b>:" ).arg( project.name() ) );
 
     QVBoxLayout* layout = new QVBoxLayout();
-    layout->setSpacing( 4 );
+
+    QGroupBox* globalGroup = new QGroupBox( tr( "Global Access" ), this );
+    layout->addWidget( globalGroup );
+
+    QHBoxLayout* globalLayout = new QHBoxLayout( globalGroup );
+
+    m_globalEdit = new QLineEdit( globalGroup );
+    m_globalEdit->setReadOnly( true );
+    globalLayout->addWidget( m_globalEdit );
+
+    QPushButton* globalButton = new QPushButton( tr( "Change..." ), globalGroup );
+    globalButton->setIcon( IconLoader::icon( "edit-modify" ) );
+    globalButton->setIconSize( QSize( 16, 16 ) );
+    globalLayout->addWidget( globalButton );
+
+    connect( globalButton, SIGNAL( clicked() ), this, SLOT( changeGlobalAccess() ) );
+
+    layout->addSpacing( 5 );
+
+    QVBoxLayout* membersLayout = new QVBoxLayout();
+    membersLayout->setSpacing( 4 );
+    layout->addLayout( membersLayout );
 
     XmlUi::ToolStrip* strip = new XmlUi::ToolStrip( this );
     builder->registerToolStrip( "stripMembers", strip );
-    layout->addWidget( strip );
+    membersLayout->addWidget( strip );
 
     m_list = new QTreeView( this );
-    layout->addWidget( m_list );
+    membersLayout->addWidget( m_list );
 
     TreeViewHelper helper( m_list );
     helper.initializeView( TreeViewHelper::MultiSelect );
@@ -100,6 +122,9 @@ MembersDialog::MembersDialog( int projectId ) : InformationDialog( NULL, Qt::Win
 
     resize( 350, 450 );
 
+    dataManager->addObserver( this );
+
+    updateGlobalAccess();
     updateActions();
 }
 
@@ -107,6 +132,14 @@ MembersDialog::~MembersDialog()
 {
     TreeViewHelper helper( m_list );
     helper.saveColumnWidths( "MembersDialogWidths" );
+
+    dataManager->removeObserver( this );
+}
+
+void MembersDialog::changeGlobalAccess()
+{
+    ChangeProjectAccessDialog dialog( m_projectId, this );
+    dialog.exec();
 }
 
 void MembersDialog::addMember()
@@ -125,6 +158,25 @@ void MembersDialog::removeMember()
 {
     RemoveMemberDialog dialog( m_selectedUsers, m_projectId, this );
     dialog.exec();
+}
+
+void MembersDialog::customEvent( QEvent* e )
+{
+    if ( e->type() == UpdateEvent::Type ) {
+        UpdateEvent* updateEvent = (UpdateEvent*)e;
+        if ( updateEvent->unit() == UpdateEvent::Projects )
+            updateGlobalAccess();
+    }
+}
+
+void MembersDialog::updateGlobalAccess()
+{
+    ProjectEntity project = ProjectEntity::find( m_projectId );
+
+    if ( project.isPublic() )
+        m_globalEdit->setText( tr( "Public project" ) );
+    else
+        m_globalEdit->setText( tr( "Regular project" ) );
 }
 
 void MembersDialog::updateActions()

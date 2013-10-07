@@ -80,7 +80,7 @@ private slots:
     void updateTimeout();
 
     void updateProjects();
-    void showMembers();
+    void managePermissions();
     void addProject();
     void addFolder();
     void editRename();

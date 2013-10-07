@@ -10,7 +10,7 @@
         <action id="editRename"/>
         <action id="moveFolder"/>
         <action id="editDelete"/>
-        <action id="showMembers"/>
+        <action id="managePermissions"/>
       </grid>
       <action id="manageAlerts"/>
     </section>
@@ -25,7 +25,7 @@
     <separator/>
     <action id="addFolder"/>
     <separator/>
-    <action id="showMembers"/>
+    <action id="managePermissions"/>
     <separator/>
     <action id="updateProjects"/>
   </menu>
@@ -37,7 +37,7 @@
     <action id="editRename"/>
     <action id="editDelete"/>
     <separator/>
-    <action id="showMembers"/>
+    <action id="managePermissions"/>
     <separator/>
     <action id="updateProjects"/>
   </menu>
