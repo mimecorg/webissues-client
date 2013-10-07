@@ -77,6 +77,7 @@ public:
 
     int id() const;
     const QString& name() const;
+    bool isPublic() const;
 
     DescriptionEntity description() const;
 

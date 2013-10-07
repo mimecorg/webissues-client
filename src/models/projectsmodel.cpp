@@ -83,10 +83,13 @@ QVariant ProjectsModel::data( const QModelIndex& index, int role ) const
         } else if ( level == Types ) {
             return IconLoader::pixmap( "folder-type" );
         } else if ( level == Projects ) {
-            if ( dataManager->currentUserAccess() == AdminAccess )
-                return IconLoader::overlayedPixmap( "project", "overlay-admin" );
-            int access = rawData( level, row, 2 ).toInt();
-            if ( access == AdminAccess )
+            bool isPublic = rawData( level, row, 3 ).toBool();
+            bool isAdmin = dataManager->currentUserAccess() == AdminAccess || rawData( level, row, 2 ).toInt() == AdminAccess;
+            if ( isPublic && isAdmin )
+                return IconLoader::overlayedPixmap( "project", "overlay-public", "overlay-admin" );
+            if ( isPublic )
+                return IconLoader::overlayedPixmap( "project", "overlay-public" );
+            if ( isAdmin )
                 return IconLoader::overlayedPixmap( "project", "overlay-admin" );
             return IconLoader::pixmap( "project" );
         } else if ( level == Folders ) {
@@ -155,7 +158,7 @@ void ProjectsModel::refresh()
         " LEFT OUTER JOIN views AS v ON v.view_id = a.view_id"
         " LEFT OUTER JOIN alerts_cache AS ac ON ac.alert_id = a.alert_id";
 
-    QString projectsQuery = "SELECT p.project_id, p.project_name, r.project_access"
+    QString projectsQuery = "SELECT p.project_id, p.project_name, r.project_access, p.is_public"
         " FROM projects AS p"
         " LEFT OUTER JOIN rights AS r ON r.project_id = p.project_id AND r.user_id = ?";
 

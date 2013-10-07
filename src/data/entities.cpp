@@ -46,7 +46,8 @@ ProjectEntity& ProjectEntity::operator =( const ProjectEntity& other )
 }
 
 ProjectEntityData::ProjectEntityData() :
-    m_id( 0 )
+    m_id( 0 ),
+    m_isPublic( false )
 {
 }
 
@@ -69,12 +70,17 @@ const QString& ProjectEntity::name() const
     return d->m_name;
 }
 
+bool ProjectEntity::isPublic() const
+{
+    return d->m_isPublic;
+}
+
 ProjectEntity ProjectEntity::find( int id )
 {
     ProjectEntity entity;
 
     if ( id != 0 ) {
-        Query query( "SELECT project_id, project_name FROM projects WHERE project_id = ?" );
+        Query query( "SELECT project_id, project_name, is_public FROM projects WHERE project_id = ?" );
         query.exec( id );
 
         if ( query.next() )
@@ -88,7 +94,7 @@ QList<ProjectEntity> ProjectEntity::list()
 {
     QList<ProjectEntity> result;
 
-    Query query( "SELECT project_id, project_name FROM projects ORDER BY project_name COLLATE LOCALE" );
+    Query query( "SELECT project_id, project_name, is_public FROM projects ORDER BY project_name COLLATE LOCALE" );
     query.exec();
 
     while ( query.next() ) {
@@ -105,7 +111,7 @@ QList<ProjectEntity> UserEntity::projects() const
     QList<ProjectEntity> result;
 
     if ( d->m_id != 0 ) {
-        Query query( "SELECT p.project_id, p.project_name"
+        Query query( "SELECT p.project_id, p.project_name, p.is_public"
             " FROM projects AS p"
             " JOIN rights AS r ON r.project_id = p.project_id"
             " WHERE r.user_id = ?"
@@ -126,6 +132,7 @@ void ProjectEntityData::read( const Query& query )
 {
     m_id = query.value( 0 ).toInt();
     m_name = query.value( 1 ).toString();
+    m_isPublic = query.value( 2 ).toBool();
 }
 
 bool ProjectEntity::isAdmin( int id )

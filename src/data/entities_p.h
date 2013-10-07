@@ -36,6 +36,7 @@ public:
 public:
     int m_id;
     QString m_name;
+    bool m_isPublic;
 };
 
 class FolderEntityData : public QSharedData

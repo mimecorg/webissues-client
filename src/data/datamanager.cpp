@@ -172,7 +172,7 @@ bool DataManager::lockDatabase( const QSqlDatabase& database )
 
 bool DataManager::installSchema( QSqlDatabase& database )
 {
-    const int schemaVersion = 5;
+    const int schemaVersion = 6;
     const int minSchemaVersion = 3;
 
     Query query( database );
@@ -257,6 +257,9 @@ bool DataManager::installSchema( QSqlDatabase& database )
             return false;
         if ( !query.execQuery( "ALTER TABLE alerts ADD is_public integer" ) )
             return false;
+    }
+
+    if ( currentVersion < 6 ) {
         if ( !query.execQuery( "ALTER TABLE projects ADD is_public integer" ) )
             return false;
     }
@@ -665,7 +668,7 @@ Command* DataManager::updateProjects()
 
     command->setAcceptNullReply( true );
     command->setReportNullReply( true );
-    command->addRule( "P isi", ReplyRule::ZeroOrMore );
+    command->addRule( "P isii", ReplyRule::ZeroOrMore );
     command->addRule( "F iisii", ReplyRule::ZeroOrMore );
     command->addRule( "A iiiiissi", ReplyRule::ZeroOrMore );
 
@@ -699,7 +702,7 @@ bool DataManager::updateProjectsReply( const Reply& reply, const QSqlDatabase& d
 
     int i = 0;
 
-    query.setQuery( "INSERT INTO projects ( project_id, project_name, stamp_id, is_public ) VALUES ( ?, ?, ?, 0 )" );
+    query.setQuery( "INSERT INTO projects ( project_id, project_name, stamp_id, is_public ) VALUES ( ?, ?, ?, ? )" );
 
     for ( ; i < reply.count() && reply.at( i ).keyword() == QLatin1String( "P" ); i++ ) {
         if ( !query.exec( reply.at( i ).args() ) )
