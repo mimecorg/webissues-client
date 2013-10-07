@@ -56,9 +56,8 @@ private slots:
     void updateUsers();
     void addUser();
     void editRename();
-    void changeAccess();
     void changePassword();
-    void userProjects();
+    void managePermissions();
     void userPreferences();
 
     void filterChanged( int index );

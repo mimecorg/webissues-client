@@ -46,7 +46,12 @@ public:
     */
     ~UserProjectsDialog();
 
+protected: // overrides
+    void customEvent( QEvent* e );
+
 private slots:
+    void changeGlobalAccess();
+
     void addProjects();
     void changeAccess();
     void removeProjects();
@@ -57,7 +62,12 @@ private slots:
     void listContextMenu( const QPoint& pos );
 
 private:
+    void updateGlobalAccess();
+
+private:
     int m_userId;
+
+    QLineEdit* m_globalEdit;
 
     QTreeView* m_list;
     UserProjectsModel* m_model;

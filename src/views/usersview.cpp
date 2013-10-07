@@ -56,29 +56,23 @@ UsersView::UsersView( QObject* parent, QWidget* parentWidget ) : View( parent )
     connect( action, SIGNAL( triggered() ), this, SLOT( editRename() ), Qt::QueuedConnection );
     setAction( "editRename", action );
 
-    action = new QAction( IconLoader::icon( "edit-access" ), tr( "&Change Access..." ), this );
-    connect( action, SIGNAL( triggered() ), this, SLOT( changeAccess() ), Qt::QueuedConnection );
-    setAction( "changeAccess", action );
-
     action = new QAction( IconLoader::icon( "edit-password" ), tr( "Change &Password..." ), this );
     action->setIconText( tr( "Password" ) );
     connect( action, SIGNAL( triggered() ), this, SLOT( changePassword() ), Qt::QueuedConnection );
     setAction( "changePassword", action );
 
-    action = new QAction( IconLoader::icon( "view-members" ), tr( "User Pr&ojects..." ), this );
-    action->setIconText( tr( "Projects" ) );
-    connect( action, SIGNAL( triggered() ), this, SLOT( userProjects() ), Qt::QueuedConnection );
-    setAction( "userProjects", action );
+    action = new QAction( IconLoader::icon( "edit-access" ), tr( "&Manage Permissions..." ), this );
+    connect( action, SIGNAL( triggered() ), this, SLOT( managePermissions() ), Qt::QueuedConnection );
+    setAction( "managePermissions", action );
 
     action = new QAction( IconLoader::icon( "preferences" ), tr( "User P&references..." ), this );
-    action->setIconText( tr( "Preferences" ) );
     connect( action, SIGNAL( triggered() ), this, SLOT( userPreferences() ), Qt::QueuedConnection );
     setAction( "userPreferences", action );
 
     setTitle( "sectionAdd", tr( "Add" ) );
     setTitle( "sectionUsers", tr( "User Accounts" ) );
 
-    setDefaultMenuAction( "menuUser", "changeAccess" );
+    setDefaultMenuAction( "menuUser", "managePermissions" );
 
     loadXmlUiFile( ":/resources/usersview.xml" );
 
@@ -158,9 +152,8 @@ void UsersView::updateActions()
         m_selectedUserId = m_model->rowId( index );
 
     action( "editRename" )->setEnabled( m_selectedUserId != 0 );
-    action( "changeAccess" )->setEnabled( m_selectedUserId != 0 && m_selectedUserId != dataManager->currentUserId() );
     action( "changePassword" )->setEnabled( m_selectedUserId != 0 );
-    action( "userProjects" )->setEnabled( m_selectedUserId != 0 );
+    action( "managePermissions" )->setEnabled( m_selectedUserId != 0 );
     action( "userPreferences" )->setEnabled( m_selectedUserId != 0 );
 }
 
@@ -188,14 +181,6 @@ void UsersView::editRename()
     }
 }
 
-void UsersView::changeAccess()
-{
-    if ( m_selectedUserId != 0 && m_selectedUserId != dataManager->currentUserId() ) {
-        ChangeUserAccessDialog dialog( m_selectedUserId, mainWidget() );
-        dialog.exec();
-    }
-}
-
 void UsersView::changePassword()
 {
     if ( m_selectedUserId != 0 ) {
@@ -204,7 +189,7 @@ void UsersView::changePassword()
     }
 }
 
-void UsersView::userProjects()
+void UsersView::managePermissions()
 {
     if ( m_selectedUserId != 0 ) {
         if ( dialogManager->activateDialog( "UserProjectsDialog", m_selectedUserId ) )
@@ -254,9 +239,10 @@ void UsersView::doubleClicked( const QModelIndex& index )
     if ( index.isValid() && m_systemAdmin ) {
         int userId = m_model->rowId( index );
 
-        if ( userId != dataManager->currentUserId() ) {
-            ChangeUserAccessDialog dialog( userId, mainWidget() );
-            dialog.exec();
-        }
+        if ( dialogManager->activateDialog( "UserProjectsDialog", userId ) )
+            return;
+        UserProjectsDialog* dialog = new UserProjectsDialog( userId );
+        dialogManager->addDialog( dialog, userId );
+        dialog->show();
     }
 }

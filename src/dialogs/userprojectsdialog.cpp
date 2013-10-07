@@ -64,19 +64,43 @@ UserProjectsDialog::UserProjectsDialog( int userId ) : InformationDialog( NULL, 
     XmlUi::Builder* builder = new XmlUi::Builder( this );
     builder->addClient( this );
 
-    setWindowTitle( tr( "User Projects" ) );
-    setPromptPixmap( IconLoader::pixmap( "view-members", 22 ) );
-    setPrompt( tr( "Projects of user <b>%1</b>:" ).arg( user.name() ) );
+    setWindowTitle( tr( "Manage Permissions" ) );
+    setPromptPixmap( IconLoader::pixmap( "edit-access", 22 ) );
+    setPrompt( tr( "Edit permissions of user <b>%1</b>:" ).arg( user.name() ) );
 
     QVBoxLayout* layout = new QVBoxLayout();
-    layout->setSpacing( 4 );
+
+    QGroupBox* globalGroup = new QGroupBox( tr( "Global Access" ), this );
+    layout->addWidget( globalGroup );
+
+    QHBoxLayout* globalLayout = new QHBoxLayout( globalGroup );
+
+    m_globalEdit = new QLineEdit( globalGroup );
+    m_globalEdit->setReadOnly( true );
+    globalLayout->addWidget( m_globalEdit );
+
+    QPushButton* globalButton = new QPushButton( tr( "Change..." ), globalGroup );
+    globalButton->setIcon( IconLoader::icon( "edit-modify" ) );
+    globalButton->setIconSize( QSize( 16, 16 ) );
+    globalLayout->addWidget( globalButton );
+
+    if ( m_userId == dataManager->currentUserId() )
+        globalButton->setEnabled( false );
+
+    connect( globalButton, SIGNAL( clicked() ), this, SLOT( changeGlobalAccess() ) );
+
+    layout->addSpacing( 5 );
+
+    QVBoxLayout* projectsLayout = new QVBoxLayout();
+    projectsLayout->setSpacing( 4 );
+    layout->addLayout( projectsLayout );
 
     XmlUi::ToolStrip* strip = new XmlUi::ToolStrip( this );
     builder->registerToolStrip( "stripMemberProjects", strip );
-    layout->addWidget( strip );
+    projectsLayout->addWidget( strip );
 
     m_list = new QTreeView( this );
-    layout->addWidget( m_list );
+    projectsLayout->addWidget( m_list );
 
     TreeViewHelper helper( m_list );
     helper.initializeView( TreeViewHelper::MultiSelect );
@@ -102,6 +126,9 @@ UserProjectsDialog::UserProjectsDialog( int userId ) : InformationDialog( NULL, 
 
     resize( 350, 450 );
 
+    dataManager->addObserver( this );
+
+    updateGlobalAccess();
     updateActions();
 }
 
@@ -109,6 +136,14 @@ UserProjectsDialog::~UserProjectsDialog()
 {
     TreeViewHelper helper( m_list );
     helper.saveColumnWidths( "UserProjectsDialogWidths" );
+
+    dataManager->removeObserver( this );
+}
+
+void UserProjectsDialog::changeGlobalAccess()
+{
+    ChangeUserAccessDialog dialog( m_userId, this );
+    dialog.exec();
 }
 
 void UserProjectsDialog::addProjects()
@@ -127,6 +162,32 @@ void UserProjectsDialog::removeProjects()
 {
     RemoveUserProjectsDialog dialog( m_userId, m_selectedProjects, this );
     dialog.exec();
+}
+
+void UserProjectsDialog::customEvent( QEvent* e )
+{
+    if ( e->type() == UpdateEvent::Type ) {
+        UpdateEvent* updateEvent = (UpdateEvent*)e;
+        if ( updateEvent->unit() == UpdateEvent::Users )
+            updateGlobalAccess();
+    }
+}
+
+void UserProjectsDialog::updateGlobalAccess()
+{
+    UserEntity user = UserEntity::find( m_userId );
+
+    switch ( user.access() ) {
+    case NoAccess:
+        m_globalEdit->setText( tr( "Disabled" ) );
+        break;
+    case NormalAccess:
+        m_globalEdit->setText( tr( "Regular user" ) );
+        break;
+    case AdminAccess:
+        m_globalEdit->setText( tr( "System administrator" ) );
+        break;
+    }
 }
 
 void UserProjectsDialog::updateActions()

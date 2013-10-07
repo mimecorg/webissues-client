@@ -231,8 +231,8 @@ ChangeUserAccessDialog::ChangeUserAccessDialog( int userId, QWidget* parent ) : 
     UserEntity user = UserEntity::find( userId );
     m_oldAccess = user.access();
 
-    setWindowTitle( tr( "Change Access" ) );
-    setPrompt( tr( "Set new access level for user <b>%1</b>:" ).arg( user.name() ) );
+    setWindowTitle( tr( "Global Access" ) );
+    setPrompt( tr( "Change global access for user <b>%1</b>:" ).arg( user.name() ) );
     setPromptPixmap( IconLoader::pixmap( "edit-access", 22 ) );
 
     QHBoxLayout* layout = new QHBoxLayout();
@@ -711,11 +711,11 @@ ChangeUserProjectsAccessDialog::ChangeUserProjectsAccessDialog( int userId, cons
     ProjectEntity project = ProjectEntity::find( projects.first() );
     MemberEntity member = MemberEntity::find( projects.first(), userId );
 
-    setWindowTitle( tr( "Change Access" ) );
+    setWindowTitle( tr( "Project Access" ) );
     if ( projects.count() == 1 )
-        setPrompt( tr( "Set new access level to project <b>%1</b> for user <b>%2</b>:" ).arg( project.name(), user.name() ) );
+        setPrompt( tr( "Change access to project <b>%1</b> for user <b>%2</b>:" ).arg( project.name(), user.name() ) );
     else
-        setPrompt( tr( "Set new access level to %1 selected projects for user <b>%2</b>:" ).arg( projects.count() ).arg( user.name() ) );
+        setPrompt( tr( "Change access to %1 selected projects for user <b>%2</b>:" ).arg( projects.count() ).arg( user.name() ) );
     setPromptPixmap( IconLoader::pixmap( "edit-access", 22 ) );
 
     QHBoxLayout* layout = new QHBoxLayout();
