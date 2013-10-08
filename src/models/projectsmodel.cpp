@@ -150,7 +150,7 @@ void ProjectsModel::refresh()
     QString typesQuery = "SELECT t.type_id, 0, t.type_name"
         " FROM issue_types AS t";
     if ( dataManager->currentUserAccess() != AdminAccess )
-        typesQuery += " WHERE t.type_id IN ( SELECT f.type_id FROM folders AS f JOIN rights AS r ON r.project_id = f.project_id AND r.user_id = ? )";
+        typesQuery += " WHERE t.type_id IN ( SELECT f.type_id FROM folders AS f JOIN effective_rights AS r ON r.project_id = f.project_id AND r.user_id = ? )";
 
     QString globalAlertsQuery = "SELECT a.alert_id, t.type_id, a.view_id, v.view_name, ac.total_count, ac.modified_count, ac.new_count, a.is_public"
         " FROM alerts AS a"
@@ -160,7 +160,7 @@ void ProjectsModel::refresh()
 
     QString projectsQuery = "SELECT p.project_id, p.project_name, r.project_access, p.is_public"
         " FROM projects AS p"
-        " LEFT OUTER JOIN rights AS r ON r.project_id = p.project_id AND r.user_id = ?";
+        " LEFT OUTER JOIN effective_rights AS r ON r.project_id = p.project_id AND r.user_id = ?";
 
     QString foldersQuery = "SELECT f.folder_id, f.project_id, f.folder_name, t.type_name"
         " FROM folders AS f"

@@ -321,6 +321,8 @@ public:
 public:
     static MemberEntity find( int projectId, int userId );
 
+    static MemberEntity findEffective( int projectId, int userId );
+
     static QList<MemberEntity> list( int userId );
 
 private:

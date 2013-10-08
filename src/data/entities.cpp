@@ -1033,6 +1033,24 @@ MemberEntity MemberEntity::find( int projectId, int userId )
     return entity;
 }
 
+MemberEntity MemberEntity::findEffective( int projectId, int userId )
+{
+    MemberEntity entity;
+
+    if ( projectId != 0 && userId != 0 ) {
+        Query query( "SELECT r.user_id, r.project_id, u.user_login, u.user_name, r.project_access"
+            " FROM users AS u"
+            " JOIN effective_rights AS r ON r.user_id = u.user_id"
+            " WHERE u.user_id = ? AND r.project_id = ?" );
+        query.exec( userId, projectId );
+
+        if ( query.next() )
+            entity.d->read( query );
+    }
+
+    return entity;
+}
+
 QList<MemberEntity> MemberEntity::list( int userId )
 {
     QList<MemberEntity> result;

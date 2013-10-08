@@ -232,7 +232,13 @@ bool DataManager::installSchema( QSqlDatabase& database )
             "CREATE TABLE users ( user_id integer UNIQUE, user_login text, user_name text, user_access integer )",
             "CREATE TABLE users_cache ( user_id integer UNIQUE, state_id integer )",
             "CREATE TABLE view_settings ( type_id integer, set_key text, set_value text, UNIQUE ( type_id, set_key ) )",
-            "CREATE TABLE views ( view_id integer UNIQUE, type_id integer, view_name text, view_def text, is_public integer )"
+            "CREATE TABLE views ( view_id integer UNIQUE, type_id integer, view_name text, view_def text, is_public integer )",
+            "CREATE VIEW effective_rights AS"
+                " SELECT p.project_id, u.user_id, COALESCE( r.project_access, 1 ) AS project_access "
+                " FROM projects AS p"
+                " CROSS JOIN users AS u"
+                " LEFT OUTER JOIN rights AS r ON r.project_id = p.project_id AND r.user_id = u.user_id"
+                " WHERE r.project_access IS NOT NULL OR p.is_public = 1"
         };
 
         for ( int i = 0; i < (int)( sizeof( schema ) / sizeof( schema[ 0 ] ) ); i++ ) {
@@ -261,6 +267,13 @@ bool DataManager::installSchema( QSqlDatabase& database )
 
     if ( currentVersion < 6 ) {
         if ( !query.execQuery( "ALTER TABLE projects ADD is_public integer" ) )
+            return false;
+        if ( !query.execQuery( "CREATE VIEW effective_rights AS"
+            " SELECT p.project_id, u.user_id, COALESCE( r.project_access, 1 ) AS project_access "
+            " FROM projects AS p"
+            " CROSS JOIN users AS u"
+            " LEFT OUTER JOIN rights AS r ON r.project_id = p.project_id AND r.user_id = u.user_id"
+            " WHERE r.project_access IS NOT NULL OR p.is_public = 1" ) )
             return false;
     }
 

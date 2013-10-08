@@ -57,7 +57,7 @@ Access FolderView::checkDataAccess()
     m_typeId = folder.typeId();
 
     if ( dataManager->currentUserAccess() != AdminAccess ) {
-        MemberEntity member = MemberEntity::find( folder.projectId(), dataManager->currentUserId() );
+        MemberEntity member = MemberEntity::findEffective( folder.projectId(), dataManager->currentUserId() );
         if ( !member.isValid() )
             return NoAccess;
     }

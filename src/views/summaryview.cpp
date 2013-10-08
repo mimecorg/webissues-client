@@ -202,7 +202,7 @@ Access SummaryView::checkDataAccess()
         return UnknownAccess;
 
     if ( dataManager->currentUserAccess() != AdminAccess ) {
-        MemberEntity member = MemberEntity::find( id(), dataManager->currentUserId() );
+        MemberEntity member = MemberEntity::findEffective( id(), dataManager->currentUserId() );
         if ( !member.isValid() )
             return NoAccess;
     }
