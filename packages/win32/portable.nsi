@@ -175,6 +175,7 @@ Section
 
     File "${SRCDIR}\translations\locale.ini"
 
+    File "${SRCDIR}\translations\webissues_cs.qm"
     File "${SRCDIR}\translations\webissues_de.qm"
     File "${SRCDIR}\translations\webissues_es.qm"
     File "${SRCDIR}\translations\webissues_fr.qm"
@@ -183,6 +184,7 @@ Section
     File "${SRCDIR}\translations\webissues_pt_BR.qm"
     File "${SRCDIR}\translations\webissues_zh_CN.qm"
 
+    File "${QTDIR}\translations\qt_cs.qm"
     File "${QTDIR}\translations\qt_de.qm"
     File "${QTDIR}\translations\qt_es.qm"
     File "${QTDIR}\translations\qt_fr.qm"
