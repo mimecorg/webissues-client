@@ -214,6 +214,10 @@ void FolderModel::updateQueries()
         foreach ( const QString& part, column.split( ", " ) )
             parts.append( QString( "%1 %2" ).arg( part, order ) );
 
+        int id = m_columns.value( sortColumn() );
+        if ( id != Column_ID && id != Column_CreatedDate )
+            parts.append( "i.issue_id ASC" );
+
         m_order = parts.join( ", " );
 
         refresh();
