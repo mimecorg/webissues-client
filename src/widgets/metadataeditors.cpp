@@ -106,7 +106,7 @@ EnumMetadataEditor::EnumMetadataEditor( QObject* parent, QWidget* parentWidget )
 
     connect( m_editableCheckBox, SIGNAL( toggled( bool ) ), this, SLOT( checkBoxToggled() ) );
 
-    m_multiSelectCheckBox = new QCheckBox( tr( "Allow &selecting multiple itmes" ), widget );
+    m_multiSelectCheckBox = new QCheckBox( tr( "Allow &selecting multiple items" ), widget );
     layout->addWidget( m_multiSelectCheckBox, 1, 0, 1, 2 );
 
     connect( m_multiSelectCheckBox, SIGNAL( toggled( bool ) ), this, SLOT( checkBoxToggled() ) );
@@ -339,7 +339,7 @@ UserMetadataEditor::UserMetadataEditor( QObject* parent, QWidget* parentWidget )
 
     m_membersCheckBox = new QCheckBox( tr( "&Allow selecting only project members" ), widget );
     layout->addWidget( m_membersCheckBox );
-    m_multiSelectCheckBox = new QCheckBox( tr( "Allow &selecting multiple itmes" ), widget );
+    m_multiSelectCheckBox = new QCheckBox( tr( "Allow &selecting multiple items" ), widget );
     layout->addWidget( m_multiSelectCheckBox );
 
     setWidget( widget );
