@@ -82,6 +82,11 @@ QString DataManager::preferenceOrSetting( const QString& key ) const
     return m_settings.value( key );
 }
 
+QString DataManager::preference( const QString& key ) const
+{
+    return m_preferences.value( key );
+}
+
 QString DataManager::localeSetting( const QString& key ) const
 {
     QString value = preferenceOrSetting( key );

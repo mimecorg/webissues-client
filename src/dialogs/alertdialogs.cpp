@@ -149,6 +149,22 @@ bool AlertDialog::initialize( Flags flags, int typeId, const QList<int>& used )
         m_emailGroup->addButton( reportButton, SummaryReportEmail );
         emailLayout->addWidget( reportButton );
 
+        if ( flags.testFlag( CheckEmail ) && dataManager->preference( "email" ).isEmpty() ) {
+            emailLayout->addSpacing( 5 );
+
+            QHBoxLayout* warningLayout = new QHBoxLayout();
+
+            QLabel* warningIcon = new QLabel( emailBox );
+            warningIcon->setPixmap( IconLoader::pixmap( "status-warning" ) );
+            warningLayout->addWidget( warningIcon );
+
+            QLabel* warningLabel = new QLabel( tr( "You will not receive any emails until you enter an email address in your preferences." ), emailBox );
+            warningLabel->setWordWrap( true );
+            warningLayout->addWidget( warningLabel, 1 );
+
+            emailLayout->addLayout( warningLayout );
+        }
+
         layout->addWidget( emailBox );
 
         QGroupBox* scheduleBox = new QGroupBox( tr( "Summary Schedule" ), this );
@@ -269,7 +285,7 @@ AddAlertDialog::AddAlertDialog( int folderId, bool isPublic, QWidget* parent ) :
             used.append( alert.viewId() );
     }
 
-    if ( !initialize( WithView | ( isPublic ? OnlyPublic : (Flags)0 ), folder.typeId(), used ) )
+    if ( !initialize( WithView | ( isPublic ? OnlyPublic : CheckEmail ), folder.typeId(), used ) )
         return;
 
     setAlertEmail( NoEmail );
@@ -312,7 +328,7 @@ AddGlobalAlertDialog::AddGlobalAlertDialog( int typeId, bool isPublic, QWidget* 
             used.append( alert.viewId() );
     }
 
-    if ( !initialize( WithView | ( isPublic ? OnlyPublic : (Flags)0 ), typeId, used ) )
+    if ( !initialize( WithView | ( isPublic ? OnlyPublic : CheckEmail ), typeId, used ) )
         return;
 
     setAlertEmail( NoEmail );
@@ -349,7 +365,7 @@ ModifyAlertDialog::ModifyAlertDialog( int alertId, QWidget* parent ) : AlertDial
         setPrompt( tr( "Modify your personal alert <b>%1</b>:" ).arg( name ) );
     setPromptPixmap( IconLoader::pixmap( "edit-modify", 22 ) );
 
-    initialize();
+    initialize( alert.isPublic() ? (Flags)0 : CheckEmail );
 
     setAlertEmail( m_oldAlertEmail );
     setSummaryDays( m_oldSummaryDays );

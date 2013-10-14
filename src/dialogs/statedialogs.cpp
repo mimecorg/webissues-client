@@ -147,6 +147,22 @@ AddSubscriptionDialog::AddSubscriptionDialog( int issueId, QWidget* parent ) : C
 
     layout->addWidget( label );
 
+    if ( dataManager->preference( "email" ).isEmpty() ) {
+        layout->addSpacing( 5 );
+
+        QHBoxLayout* warningLayout = new QHBoxLayout();
+
+        QLabel* warningIcon = new QLabel( this );
+        warningIcon->setPixmap( IconLoader::pixmap( "status-warning" ) );
+        warningLayout->addWidget( warningIcon );
+
+        QLabel* warningLabel = new QLabel( tr( "You will not receive any emails until you enter an email address in your preferences." ), this );
+        warningLabel->setWordWrap( true );
+        warningLayout->addWidget( warningLabel, 1 );
+
+        layout->addLayout( warningLayout );
+    }
+
     setContentLayout( layout, true );
 }
 

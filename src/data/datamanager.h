@@ -224,11 +224,18 @@ public:
     QString setting( const QString& key ) const;
 
     /**
-    * Return the value of a user preference or server settings.
+    * Return the value of a user preference or server setting.
     * @param key The key of the setting.
     * @return The value of the setting or an empty string if it doesn't exist.
     */
     QString preferenceOrSetting( const QString& key ) const;
+
+    /**
+    * Return the value of a user preference.
+    * @param key The key of the setting.
+    * @return The value of the setting or an empty string if it doesn't exist.
+    */
+    QString preference( const QString& key ) const;
 
     /**
     * Return the value of a user preference, server setting or locale setting.

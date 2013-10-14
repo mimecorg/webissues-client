@@ -51,6 +51,7 @@ public:
     {
         WithView = 1,
         OnlyPublic = 2,
+        CheckEmail = 4,
     };
 
     Q_DECLARE_FLAGS( Flags, Flag )
