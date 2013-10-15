@@ -37,7 +37,7 @@ RequestExecutionLevel user
 
 Name "$(NAME)"
 
-!define MUI_ICON "${NSISDIR}\Contrib\Graphics\Icons\modern-install-blue.ico"
+!define MUI_ICON "${SRCDIR}\src\webissues.ico"
 
 !define MUI_WELCOMEFINISHPAGE_BITMAP "images\wizard.bmp"
 
