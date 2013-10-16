@@ -218,7 +218,10 @@ QString CommandManager::networkError()
             case QNetworkReply::ContentNotFoundError:
                 return tr( "The requested URL was not found" );
             default:
-                return tr( "Server returned an invalid response" );
+                if ( m_statusCode == 406 )
+                    return tr( "The request was not accepted by the server" );
+                else
+                    return tr( "Server returned an invalid response" );
         }
     }
 
