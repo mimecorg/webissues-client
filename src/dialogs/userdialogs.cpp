@@ -477,9 +477,9 @@ ChangeMemberAccessDialog::ChangeMemberAccessDialog( const QList<int>& users, int
 
     setWindowTitle( tr( "Change Access" ) );
     if ( users.count() == 1 )
-        setPrompt( tr( "Set new access level to project <b>%1</b> for user <b>%2</b>:" ).arg( project.name(), member.name() ) );
+        setPrompt( tr( "Change access to project <b>%1</b> for user <b>%2</b>:" ).arg( project.name(), member.name() ) );
     else
-        setPrompt( tr( "Set new access level to project <b>%1</b> for %2 selected users:" ).arg( project.name() ).arg( users.count() ) );
+        setPrompt( tr( "Change access to project <b>%1</b> for %2 selected users:" ).arg( project.name() ).arg( users.count() ) );
     setPromptPixmap( IconLoader::pixmap( "edit-access", 22 ) );
 
     QHBoxLayout* layout = new QHBoxLayout();
