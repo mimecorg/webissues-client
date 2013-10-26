@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Email notifications</title>
+    <title>Sending emails</title>
     <link rel="stylesheet" type="text/css" href="common/style.css" />
     <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
     <link rel="home" href="index.html" title="WebIssues Manual" />
@@ -19,7 +19,7 @@
             <h1><img src="common/webissues.png" alt="WebIssues" id="logo" />WebIssues Manual</h1>
           </div>
           <div id="header-right">
-            <h2 class="subtitle">Version 1.1-beta2</h2>
+            <h2 class="subtitle">Version 1.1-rc1</h2>
           </div>
         </div>
         <div id="infobar">
@@ -36,22 +36,22 @@
           <div class="titlepage">
             <div>
               <div>
-                <h2 class="title" style="clear: both"><a id="webissues.prep.notifications"></a>Email notifications</h2>
+                <h2 class="title" style="clear: both"><a id="webissues.prep.notifications"></a>Sending emails</h2>
               </div>
             </div>
           </div>
-          <p>The WebIssues system has the ability to send emails informing about new and changed issues in selected views. This is optional, because the configuration of your computer or hosting service doesn't always allow this, and it's not needed in all cases. If you want to use email notifications, you must perform two additional configuration steps.</p>
+          <p>The WebIssues system has the ability to send emails associated with alerts or subscriptions. This is optional, because the configuration of your computer or hosting service doesn't always allow this, and it's not needed in all cases. If you want to use alerts with email notifications or other features which require sending emails, you must perform two additional configuration steps.</p>
           <div class="sect2">
             <div class="titlepage">
               <div>
                 <div>
-                  <h3 class="title"><a id="webissues.prep.nofitications.email"></a>Sending emails</h3>
+                  <h3 class="title"><a id="webissues.prep.nofitications.email"></a>Email settings</h3>
                 </div>
               </div>
             </div>
             <p>First, go to the Administration Panel and click <span class="guilabel">Email Settings</span> to configure sending emails.</p>
             <div class="figure">
-              <a id="id531574"></a>
+              <a id="id517802"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch02-fig10.png" alt="Email settings" />
@@ -68,7 +68,7 @@
             <p>Click <span class="guibutton">Test Connection</span> to check whether the SMTP configuration is correct. The WebIssues system will send a test message to its own address. If you receive it, it means that the configuration is correct. Don't forget to save the configuration by clicking <span class="guibutton">OK</span>.</p>
             <p>Since emails are sent in HTML format, it is possible to include hyperlinks to the folder related to the notification, as well as to individual issues. To enable hyperlinks, you need to enter the base URL at which the WebIssues server is installed. The URL should include the protocol and the trailing slash, for instance <code class="literal">http://www.example.com/</code>. Click <span class="guibutton">Detect</span> to automatically enter the address of the current page. Note that the URL should contain the fully qualified domain name of the server to make it available to all users. If the URL is left blank, emails will be sent without links.</p>
             <div class="figure">
-              <a id="id531682"></a>
+              <a id="id517882"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch02-fig10-01.png" alt="Hyperlinks" />
@@ -94,10 +94,10 @@
             </div>
             <p>If the job is executed locally, it should run the <code class="literal">cron/job.php</code> script using the PHP interpreter. For more information about running PHP from the command line, see <a class="ulink" href="http://www.php.net/manual/en/features.commandline.options.php" target="_top">http://www.php.net/manual/en/features.commandline.options.php</a>.</p>
             <p>If you use an external cron service or run the task from another computer, the script should be run remotely through its full URL, for example <code class="literal">http://www.example.com/cron/job.php</code>. To do this, you can for example use a program like <code class="literal">wget</code> or <code class="literal">curl</code>.</p>
-            <p>To check whether the cron job is being executed, go to the Administration Panel and click <span class="guilabel">General Information</span>. In the <span class="guilabel">Cron Job</span> section, the date and time when the job was last run should be displayed. Each execution of the job is also logged in the Event Log of the WebIssues system.</p>
+            <p>To check whether the cron job is being executed, go to the Administration Panel and click <span class="guilabel">General Information</span>. In the <span class="guilabel">Server Configuration</span> section, the time when the job was last run is displayed. Each execution of the job is also logged in the Event Log of the WebIssues system.</p>
             <div class="tip">
               <h3 class="title">Tip</h3>
-              <p>You can find more information about using email notifications in <a class="xref" href="webissues.track.alerts.html" title="Managing alerts">the section called “Managing alerts”</a>.</p>
+              <p>Configuring email settings and cron job doesn't mean that any notifications are actually sent. In order to configure email notifications, you must create alerts for selected folders or global lists and set the appropriate email type. Also make sure that a valid email address is entered in your user preferences. For more information about using email notifications please refer to <a class="xref" href="webissues.track.alerts.html" title="Managing alerts">the section called “Managing alerts”</a>.</p>
             </div>
           </div>
         </div>

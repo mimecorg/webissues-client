@@ -19,7 +19,7 @@
             <h1><img src="common/webissues.png" alt="WebIssues" id="logo" />Podręcznik WebIssues</h1>
           </div>
           <div id="header-right">
-            <h2 class="subtitle">Wersja 1.1-beta2</h2>
+            <h2 class="subtitle">Wersja 1.1-rc1</h2>
           </div>
         </div>
         <div id="infobar">
@@ -41,10 +41,10 @@
             </div>
           </div>
           <p>Nawet jeśli korzystasz z widoków i automatycznego oznaczania stanu spraw, nie zawsze na pierwszy rzut oka widać, że pojawiła się nowa lub zmieniona sprawa, która wymaga twojej uwagi. Dlatego system WebIssues posiada mechanizm alertów, czyli automatycznych powiadomień o nieprzeczytanych sprawach spełniających określone kryteria.</p>
-          <p>Alert można utworzyć korzystając z dowolnego widoku publicznego lub prywatnego, a także z wbudowanego widoku <span class="quote">„<span class="quote">Wszystkie sprawy</span>”</span>. Każdy alert jest przypisany do określonego folderu.</p>
-          <p>Załóżmy, że chcesz na bieżąco obserwować przypisane do ciebie aktywne błędy oraz zadania. Otwórz folder Błędy i wybierz polecenie <span class="guilabel">Zarządzaj alertami</span>. Lista alertów jest początkowo pusta, zatem wybierz <span class="guilabel">Dodaj alert</span>, aby zdefiniować nowy alert dla tego folderu.</p>
+          <p>Alert można utworzyć korzystając z dowolnego widoku publicznego lub prywatnego, a także z wbudowanego widoku <span class="quote">„<span class="quote">Wszystkie sprawy</span>”</span>. Każdy alert jest przypisany do określonego folderu lub do globalnej listy spraw danego typu.</p>
+          <p>Załóżmy, że chcesz na bieżąco obserwować wszystkie aktywne błędy oraz zadania. Otwórz folder Błędy i wybierz polecenie <span class="guilabel">Zarządzaj alertami</span>. Lista alertów jest początkowo pusta, zatem wybierz <span class="guilabel">Dodaj alert</span>, aby zdefiniować nowy alert dla tego folderu.</p>
           <div class="figure">
-            <a id="id523908"></a>
+            <a id="id526378"></a>
             <div class="figure-contents">
               <div class="mediaobject">
                 <img src="images/ch04-fig03.png" alt="Dodawanie alertu" />
@@ -54,7 +54,7 @@
           </div>
           <p>Wybierz widok <span class="quote">„<span class="quote">Aktywne błędy</span>”</span> i kliknij <span class="guibutton">OK</span>. Lista zawiera teraz nowy alert, a także wyświetla łączną liczbę wszystkich spraw spełniających kryteria danego widoku oraz liczbę spraw nieprzeczytanych i zmienionych.</p>
           <div class="figure">
-            <a id="id523929"></a>
+            <a id="id526428"></a>
             <div class="figure-contents">
               <div class="mediaobject">
                 <img src="images/ch04-fig04.png" alt="Lista alertów" />
@@ -65,7 +65,7 @@
           <p>Jeśli alert zawiera nieprzeczytane sprawy, jego ikona zmieni się na zamkniętą, żółtą kopertę. Podobnie jeśli zawiera on zmienione sprawy, zostanie wyświetlona koperta w kolorze zielonym. Otwierając okno alertów, możesz więc szybko sprawdzić, czy jakieś sprawy wymagają twojej uwagi.</p>
           <p>Powtórz teraz te same czynności, aby utworzyć alert <span class="quote">„<span class="quote">Aktywne zadania</span>”</span> w folderze Zadania. Jeśli używasz programu Desktop Client, zauważysz że alerty są widoczne w drzewie projektów i folderów:</p>
           <div class="figure">
-            <a id="id523991"></a>
+            <a id="id526458"></a>
             <div class="figure-contents">
               <div class="mediaobject">
                 <img src="images/ch04-fig05.png" alt="Drzewo z alertami" />
@@ -75,7 +75,7 @@
           </div>
           <p>Program okresowo aktualizuje zawartość wszystkich folderów, dla których zdefiniowałeś alerty, zatem możesz śledzić ich stan niemal w czasie rzeczywistym. Jeśli w którymś z widoków pojawią się nieprzeczytane sprawy, zmieni się ikona alertu, jego nazwa zostanie pogrubiona, a liczba nowych i zmienionych spraw zostanie wyświetlona w nawiasie:</p>
           <div class="figure">
-            <a id="id523993"></a>
+            <a id="id526440"></a>
             <div class="figure-contents">
               <div class="mediaobject">
                 <img src="images/ch04-fig06.png" alt="Drzewo z aktywnymi alertami" />
@@ -84,79 +84,122 @@
             <div class="figure-title">Rysunek 4.6. Drzewo z aktywnymi alertami</div>
           </div>
           <p>Jeśli klikniesz na alercie w drzewie, nie tylko zostanie otwarty folder, do którego należy wybrany alert, ale także zostanie automatycznie wybrany widok związany z tym alertem. Mechanizm ten jest więc bardzo pomocny w codziennej pracy.</p>
-          <div class="tip">
-            <h3 class="title">Wskazówka</h3>
-            <p>Twórz alerty tylko jeśli są ci naprawdę potrzebne. Duża liczba alertów będzie odwracać twoją uwagę, a dodatkowo zwiększy ilość czasu potrzebną na odświeżenie wszystkich folderów.</p>
-          </div>
-          <p>Jeśli w systemie WebIssues została włączona funkcja wysyłania powiadomień e-mailowych, możesz dla każdego alertu skonfigurować sposób wysyłania powiadomień.</p>
-          <div class="note">
-            <h3 class="title">Notatka</h3>
-            <p>Aby uzyskać więcej informacji o konfigurowaniu powiadomień e-mailowych przeczytaj sekcję <a class="xref" href="webissues.prep.notifications.html" title="Powiadomienia mailowe">„Powiadomienia mailowe”</a>.</p>
-          </div>
-          <p>W systemie WebIssues dostępne są trzy rodzaje powiadomień:</p>
-          <div class="variablelist">
-            <dl class="variablelist">
-              <dt>
-                <span class="term">Natychmiastowe powiadomienia</span>
-              </dt>
-              <dd>
-                <p>Wysyłane od razu, gdy ktoś doda lub zmieni sprawę spełniającą kryteria danego alertu.</p>
-              </dd>
-              <dt>
-                <span class="term">Podsumowanie powiadomień</span>
-              </dt>
-              <dd>
-                <p>Wysyłane w zadanych dniach i godzinach, jeśli ktoś doda lub zmieni sprawy związane z alertem.</p>
-              </dd>
-              <dt>
-                <span class="term">Raporty podsumowujące</span>
-              </dt>
-              <dd>
-                <p>Wysyłane zawsze w zadanych dniach i godzinach, niezależnie od tego, czy zaszły jakieś zmiany.</p>
-              </dd>
-            </dl>
-          </div>
-          <p>To jak często wysyłane są powiadomienia natychmiastowe, zależy od konfiguracji zadania cyklicznego na serwerze. Możesz je zatem otrzymywać co kilka minut lub co godzinę.</p>
-          <p>Aby otrzymywać powiadomienia, musisz zmienić swoje ustawienia użytkownika. Jeśli korzystasz z przeglądarki, kliknij <span class="guilabel">Narzędzia</span>, a następnie <span class="guilabel">Ustawienia użytkownika</span>. Aby zmienić je w programie Desktop Client, wybierz polecenie <span class="guilabel">Ustawienia użytkownika</span> z paska narzędzi okna głównego.</p>
-          <div class="figure">
-            <a id="id524130"></a>
-            <div class="figure-contents">
-              <div class="mediaobject">
-                <img src="images/ch04-fig07.png" alt="Ustawienia powiadomień" />
+          <div class="sect2">
+            <div class="titlepage">
+              <div>
+                <div>
+                  <h3 class="title"><a id="webissues.track.alerts.notifications"></a>Powiadomienia e-mailowe</h3>
+                </div>
               </div>
             </div>
-            <div class="figure-title">Rysunek 4.7. Ustawienia powiadomień</div>
+            <p>Jeśli w systemie WebIssues została włączona funkcja wysyłania e-maili, możesz dla każdego alertu skonfigurować sposób wysyłania powiadomień.</p>
+            <div class="note">
+              <h3 class="title">Notatka</h3>
+              <p>Aby uzyskać więcej informacji o konfigurowaniu wysyłania e-maili, przeczytaj sekcję <a class="xref" href="webissues.prep.notifications.html" title="Wysyłanie e-maili">„Wysyłanie e-maili”</a>.</p>
+            </div>
+            <p>W systemie WebIssues dostępne są trzy rodzaje powiadomień:</p>
+            <div class="variablelist">
+              <dl class="variablelist">
+                <dt>
+                  <span class="term">Natychmiastowe powiadomienia</span>
+                </dt>
+                <dd>
+                  <p>Wysyłane od razu, gdy ktoś doda lub zmieni sprawę spełniającą kryteria danego alertu.</p>
+                </dd>
+                <dt>
+                  <span class="term">Podsumowanie powiadomień</span>
+                </dt>
+                <dd>
+                  <p>Wysyłane w zadanych dniach i godzinach, jeśli ktoś doda lub zmieni sprawy związane z alertem.</p>
+                </dd>
+                <dt>
+                  <span class="term">Raporty podsumowujące</span>
+                </dt>
+                <dd>
+                  <p>Wysyłane zawsze w zadanych dniach i godzinach, niezależnie od tego, czy zaszły jakieś zmiany.</p>
+                </dd>
+              </dl>
+            </div>
+            <p>Rodzaj powiadomień możesz określić w momencie tworzenia alertu, pod warunkiem że wysyłanie e-maili zostało włączone. Możesz go także w dowolnej chwili zmienić dla istniejącego alertu. W tym celu wybierz alert w oknie zarządzania alertami i wybierz polecenie <span class="guilabel">Zmień alert</span>.</p>
+            <div class="figure">
+              <a id="id526552"></a>
+              <div class="figure-contents">
+                <div class="mediaobject">
+                  <img src="images/ch04-fig08.png" alt="Zmiana alertu" />
+                </div>
+              </div>
+              <div class="figure-title">Rysunek 4.7. Zmiana alertu</div>
+            </div>
+            <p>Natychmiastowe powiadomienia są przydatne, jeśli chcesz być informowany na bieżąco o wszystkich zmianach, a nie korzystasz przez cały czas z systemu WebIssues. Częstotliwość, z jaką są wysyłane te powiadomienia, zależy od konfiguracji zadania cyklicznego na serwerze, może to być raz na kilka minut lub co godzinę. Jeśli jakiś alert generuje zbyt dużo takich powiadomień lub jeśli nie są one zbyt pilne, możesz wybrać podsumowania powiadomień, aby dostawać zbiorcze informacje o ostatnich zmianach, na przykład raz dziennie.</p>
+            <p>Raporty podsumowujące zawierają listę wszystkich spraw, niezależnie od tego czy zostały one zmienione od ostatniego powiadomienia i czy były przez ciebie przeczytane. Są one więc przydatne, jeśli chcesz śledzić stan wszystkich spraw spełniających określone kryteria, na przykład aby kontrolować, czy aktywne błędy są rozwiązywane na bieżąco.</p>
+            <p>Podsumowania powiadomień i raporty podsumowujące są wysyłane w wybranych dniach i godzinach. W zależności od potrzeb, możesz otrzymywać takie powiadomienia raz na tydzień, kilka razy w tygodniu, raz dziennie lub kilka razy dziennie. Musisz wybrać przynajmniej jeden dzień i jedną godzinę, jeśli wybrałeś podsumowanie powiadomień lub raporty podsumowujące.</p>
+            <div class="note">
+              <h3 class="title">Notatka</h3>
+              <p>W wersji 1.0 harmonogram podsumowań był konfigurowany globalnie w ustawieniach użytkownika. Podczas aktualizacji do wersji 1.1, ustawienia harmonogramu są automatycznie przenoszone do poszczególnych alertów podsumowujących.</p>
+            </div>
+            <p>Aby otrzymywać powiadomienia, musisz zmienić swoje ustawienia użytkownika. Jeśli korzystasz z przeglądarki, kliknij <span class="guilabel">Narzędzia</span>, a następnie <span class="guilabel">Ustawienia użytkownika</span>. Aby zmienić je w programie Desktop Client, wybierz polecenie <span class="guilabel">Ustawienia użytkownika</span> z paska narzędzi okna głównego.</p>
+            <div class="figure">
+              <a id="id526586"></a>
+              <div class="figure-contents">
+                <div class="mediaobject">
+                  <img src="images/ch04-fig07.png" alt="Ustawienia powiadomień" />
+                </div>
+              </div>
+              <div class="figure-title">Rysunek 4.8. Ustawienia powiadomień</div>
+            </div>
+            <p>Podaj poprawny adres e-mail, na który będą wysyłane twoje powiadomienia. Wybierz opcję <span class="guilabel">Załącz szczegóły spraw w powiadomieniach i raportach podsumowujących</span>, jeśli chcesz, aby e-maile zawierały szczegóły spraw oraz historię zmian oraz ostatio dodanych komentarzy i załączników. W przeciwnym wypadku wysyłane będzie tylko podsumowanie spraw.</p>
+            <p>Wybierz opcję <span class="guilabel">Nie powiadamiaj o sprawach, które przeczytałem</span>, jeśli nie chcesz otrzymywać powiadomień o tych sprawach, które już przeczytałeś (np. jeśli sam je utworzyłeś lub zmieniłeś). Również szczegóły spraw, które już przeczytałeś, będą wtedy pomijane. Opcja ta nie ma wpływu na raporty podsumowujące, które zawsze zawierają wszystkie sprawy i zmiany.</p>
+            <div class="warning">
+              <h3 class="title">Uwaga</h3>
+              <p>Nie będziesz otrzymywać żadnych powiadomień, jeśli nie ustawisz prawidłowego adresu e-mail w ustawieniach użytkownika.</p>
+            </div>
+            <p>Wszystkie powiadomienia mailowe zawierają w nagłówku nazwę projektu oraz folderu i alertu, których dotyczą, a także listę spraw. Lista zawiera takie same kolumny, jak widok, z którym jest powiązany dany alert.</p>
+            <div class="figure">
+              <a id="id526696"></a>
+              <div class="figure-contents">
+                <div class="mediaobject">
+                  <img src="images/ch04-fig09.png" alt="Powiadomienie mailowe" />
+                </div>
+              </div>
+              <div class="figure-title">Rysunek 4.9. Powiadomienie mailowe</div>
+            </div>
+            <p>Jeśli wybrałeś odpowiednią opcję, powiadomienia mailowe będą również zawierać szczegóły każdej ze spraw, podobnie jak w widoku szczegółów sprawy w głównym oknie programu.</p>
+            <div class="tip">
+              <h3 class="title">Wskazówka</h3>
+              <p>Zamiast konfigurować odzielne alerty dla każdego folderu określonego typu, wygodniejsze może być utworzenie pojedynczego alertu związanego z globalną listą spraw. Aby utworzyć lub zarządzać globalnymi alertami, otwórz globalną listę odpowiedniego typu i wybierz polecenie <span class="guilabel">Zarządzaj alertami</span>. Dodatkową zaletą jest to, że wysyłany jest tylko jeden e-mail zawierający wszystkie nowe i zmienione sprawy, zamiast osobnych e-maili dla każdego folderu.</p>
+            </div>
           </div>
-          <p>Podaj poprawny adres e-mail, na który będą wysyłane twoje powiadomienia. Wybierz opcję <span class="guilabel">Załącz szczegóły spraw w powiadomieniach i raportach podsumowujących</span>, jeśli chcesz, aby e-maile zawierały szczegóły spraw oraz historię zmian oraz ostatio dodanych komentarzy i załączników. W przeciwnym wypadku wysyłane będzie tylko podsumowanie spraw.</p>
-          <p>Wybierz opcję <span class="guilabel">Nie powiadamiaj o sprawach, które przeczytałem</span>, jeśli nie chcesz otrzymywać powiadomień o tych sprawach, które już przeczytałeś (np. jeśli sam je utworzyłeś lub zmieniłeś). Również szczegóły spraw, które już przeczytałeś, będą wtedy pomijane. Opcja ta nie ma wpływu na raporty podsumowujące, które zawsze zawierają wszystkie sprawy i zmiany.</p>
-          <p>Skonfiguruj również harmonogram powiadomień, wybierając dni i godziny, w jakich będą wysyłane podsumowania powiadomień oraz raporty podsumowujące. W zależności od potrzeb, możesz otrzymywać podsumowania raz w tygodniu lub kilka razy w tygodniu, codziennie o określonej godzinie lub kilka razy dziennie.</p>
-          <div class="warning">
-            <h3 class="title">Uwaga</h3>
-            <p>Nie będziesz otrzymywać żadnych powiadomień, jeśli nie ustawisz prawidłowego adresu e-mail w ustawieniach użytkownika. Nie będziesz otrzymywać podsumowań, jeśli nie zaznaczysz żadnego dnia ani godziny.</p>
-          </div>
-          <p>Rodzaj powiadomień możesz określić w momencie tworzenia alertu. Możesz go także w dowolnej chwili zmienić dla istniejącego alertu. W tym celu wybierz alert w oknie zarządzania alertami i wybierz polecenie <span class="guilabel">Zmień alert</span>.</p>
-          <div class="figure">
-            <a id="id524182"></a>
-            <div class="figure-contents">
-              <div class="mediaobject">
-                <img src="images/ch04-fig08.png" alt="Zmiana alertu" />
+          <div class="sect2">
+            <div class="titlepage">
+              <div>
+                <div>
+                  <h3 class="title"><a id="webissues.track.alerts.public"></a>Publiczne alerty</h3>
+                </div>
               </div>
             </div>
-            <div class="figure-title">Rysunek 4.8. Zmiana alertu</div>
-          </div>
-          <p>Natychmiastowe powiadomienia są przydatne, jeśli chcesz być informowany na bieżąco o wszystkich zmianach, a nie korzystasz przez cały czas z systemu WebIssues. Jeśli jakiś alert generuje zbyt dużo takich powiadomień lub jeśli nie są one zbyt pilne, możesz wybrać podsumowania powiadomień, aby dostawać zbiorcze informacje o ostatnich zmianach, na przykład raz dziennie.</p>
-          <p>Raporty podsumowujące zawierają listę wszystkich spraw, niezależnie od tego czy zostały one zmienione od ostatniego powiadomienia i czy były przez ciebie przeczytane. Są one więc przydatne, jeśli chcesz śledzić stan wszystkich spraw spełniających określone kryteria, na przykład aby kontrolować, czy aktywne błędy są rozwiązywane na bieżąco.</p>
-          <p>Wszystkie powiadomienia mailowe zawierają w nagłówku nazwę projektu oraz folderu i alertu, których dotyczą, a także listę spraw. Lista zawiera takie same kolumny, jak widok, z którym jest powiązany dany alert.</p>
-          <div class="figure">
-            <a id="id524206"></a>
-            <div class="figure-contents">
-              <div class="mediaobject">
-                <img src="images/ch04-fig09.png" alt="Powiadomienie mailowe" />
+            <p>Administratorzy projektów oraz administratorzy systemu mogą tworzyć publiczne alerty wspólne dla wszystkich użytkowników. Na przykład, aby wszyscy użytkownicy mogli śledzić aktywne błedy przypisane do nich w określonym folderze, otwórz ten folder, wybierz polecenie <span class="guilabel">Zarządzaj alertami</span>, a następnie wybierz <span class="guilabel">Dodaj publiczny alert</span>. Wybierz widok <span class="quote">„<span class="quote">Moje aktywne błędy</span>”</span> z listy i naciśnij <span class="guibutton">OK</span>.</p>
+            <div class="figure">
+              <a id="id526772"></a>
+              <div class="figure-contents">
+                <div class="mediaobject">
+                  <img src="images/ch04-fig09-01.png" alt="Lista alertów z publicznym alertem" />
+                </div>
               </div>
+              <div class="figure-title">Rysunek 4.10. Lista alertów z publicznym alertem</div>
             </div>
-            <div class="figure-title">Rysunek 4.9. Powiadomienie mailowe</div>
+            <p>Wszyscy użytkownicy będą teraz widzieć ten alert w drzewie projektów w programie Desktop Client. Publiczne alerty można odróżnić od prywatnych alertów za pomocą małego symbolu użytkownika w rogu ikony.</p>
+            <p>Możesz wybrać typ i harmonogram e-maili dla publicznego alertu, aby włączyć wysyłanie powiadomień e-mailowych. Powiadomienia dla publicznych alertów związanych z folderami są wysyłane do wszystkich użytkowników mających dostęp do tego folderu, niezależnie od tego, czy są jawnie przypisani jako członkowie projektu. Jeśli folder należy do publicznego projektu, powiadomienia są wysyłane do wszystkich aktywnych użytkowników. Powiadomienia dla publicznych alertów związanych z globalnymi listami spraw są wysyłane do wszystkich aktywnych użytkowników, którzy mają dostęp do przynajmniej jednego folderu danego typu. Tylko użytkownicy mający skonfigurowany poprawny adres e-mail w ustawieniach użytkownika będą otrzymywać powiadomenia e-mailowe.</p>
+            <div class="note">
+              <h3 class="title">Notatka</h3>
+              <p>Powiadomenia podsumowujące dla publicznych alertów są zawsze wysyłane zgodnie ze strefą czasową serwera, a ustawienia strefy czasowej poszczególnych użytkowników są ignorowane. Jednak inne ustawienia użytkowników, takie jak załączanie szczegółów spraw w powiadomieniach i raportach podsumowujących oraz nie powiadamianie o sprawach, które użytkownik przeczytał, są przestrzegane dla poszczególnych użytkowników.</p>
+            </div>
+            <p>Publiczny alert może być związany z publicznym widokiem lub z widokiem <span class="quote">„<span class="quote">Wszystkie sprawy</span>”</span>. Nie może być powiązany z prywatnym widokiem; musisz najpier opublikować taki widok, aby był on dostępny dla wszystkich użytkowników.</p>
+            <p>Zwykli użytkownicy nie mogą usuwać ani zmieniać ustawień publicznych alertów. Nie mogą rówież tworzyć prywatnych alertów związanych z tym samym widokiem, co już instniejący alert publiczny. Kiedy publiczny alert jest tworzony, wszystkie prywatne alerty związane z tym samym widokiem zostają usunięte.</p>
+            <div class="tip">
+              <h3 class="title">Wskazówka</h3>
+              <p>Skonfigurowanie wielu publicznych alertów może spowodować wysyłanie dużej liczby e-maili. Możesz ograniczyć liczbę e-maili stosując odpowiednie warunki widoków; na przykład, użytkownicy mogą otrzymywać powiadomienia jedynie o tych sprawach, które są aktualnie do nich przypisane. Używaj globalnych alertów, jeśli to możliwe, zamiast tworzyć osobne alerty dla każdego folderu. Rozważ również możliwość użycia powiadomień podsumowujących zamiast natychmiastowych.</p>
+            </div>
           </div>
-          <p>Jeśli wybrałeś odpowiednią opcję, powiadomienia mailowe będą również zawierać szczegóły każdej ze spraw, podobnie jak w widoku szczegółów sprawy w głównym oknie programu.</p>
         </div>
         <div class="navlinks">
           <div class="navleft">&laquo; <a accesskey="p" href="webissues.track.html">Śledzenie spraw</a></div>

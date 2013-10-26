@@ -19,7 +19,7 @@
             <h1><img src="common/webissues.png" alt="WebIssues" id="logo" />Podręcznik WebIssues</h1>
           </div>
           <div id="header-right">
-            <h2 class="subtitle">Wersja 1.1-beta2</h2>
+            <h2 class="subtitle">Wersja 1.1-rc1</h2>
           </div>
         </div>
         <div id="infobar">
@@ -51,7 +51,7 @@
             </div>
             <p>Aby zarządzać użytkownikami systemu WebIssues, przejdź do Panelu administracyjnego i kliknij <span class="guilabel">Konta użytkowników</span>. W przypadku programu Desktop Client, użyj polecenia <span class="guilabel">Użytkownicy</span> z paska narzędzi głównego okna.</p>
             <div class="figure">
-              <a id="id529504"></a>
+              <a id="id531026"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch05-fig04.png" alt="Konta użytkowników" />
@@ -60,32 +60,9 @@
               <div class="figure-title">Rysunek 5.4. Konta użytkowników</div>
             </div>
             <p>Każdy użytkownik posiada unikalny, niezmienny login, używany wraz z hasłem podczas logowania do systemu. Posiada również nazwę, widoczną dla innych użytkowników, którą administrator może w razie potrzeby zmieniać. W zależności od przyjętej konwencji może to być imię i nazwisko, adres e-mail lub dowolna inna nazwa.</p>
-            <p>Zarządzanie uprawnieniami w systemie WebIssues jest stosunkowo proste. Istnieją trzy globalne poziomy dostępu:</p>
-            <div class="variablelist">
-              <dl class="variablelist">
-                <dt>
-                  <span class="term">Administrator systemu</span>
-                </dt>
-                <dd>
-                  <p>Użytkownik o tym poziomie ma dostęp do wszystkich funkcji Panelu administracyjnego. Może więc zarządzać kontami użytkowników i dostosowywać typy spraw i publiczne widoki. Jest również członkiem i administratorem wszystkich istniejących w systemie projektów, nawet jeśli nie zostały mu jawnie nadane odpowiednie uprawnienia. Pierwsze takie konto jest tworzone w momencie instalacji.</p>
-                </dd>
-                <dt>
-                  <span class="term">Zwykły użytkownik</span>
-                </dt>
-                <dd>
-                  <p>Użytkownik o tym poziomie dostępu może zalogować się do systemu i zmieniać swoje personalne ustawienia. Ma dostęp jedynie do tych projektów, do których zostały mu nadane określone uprawnienia. Może być administratorem wybranych projektów, ale nie może tworzyć nowych projektów.</p>
-                </dd>
-                <dt>
-                  <span class="term">Wyłączony</span>
-                </dt>
-                <dd>
-                  <p>Użytkownik o tym poziomie dostępu nie może zalogować się do systemu i nie ma dostępu do żadnej jego części.</p>
-                </dd>
-              </dl>
-            </div>
             <p>Aby utworzyć nowe konto użytkownika, wybierz polecenie <span class="guilabel">Dodaj użytkownika</span>.</p>
             <div class="figure">
-              <a id="id529570"></a>
+              <a id="id531076"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch05-fig05.png" alt="Tworzenie konta użytkownika" />
@@ -96,7 +73,7 @@
             <p>Podaj nazwę użytkownika oraz login i początkowe hasło. Aby uniknąć pomyłek, hasło musisz wpisać dwukrotnie. Możesz zaznaczyć opcję <span class="guilabel">Użytkownik musi zmienić hasło przy następnym logowaniu</span>, aby wymusić ustawienie własnego hasła przez użytkownika w momencie pierwszego logowania do systemu.</p>
             <p>Jeśli użytkownik nie pamięta swojego hasła, możesz je zresetować, wybierając użytkownika z listy i klikając <span class="guilabel">Zmień hasło</span>. Zostaniesz poproszony o dwukrotne wpisanie nowego hasła. Również w tym wypadku możesz zaznaczyć opcję <span class="guilabel">Użytkownik musi zmienić hasło przy następnym logowaniu</span>.</p>
             <div class="figure">
-              <a id="id529586"></a>
+              <a id="id531132"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch05-fig06.png" alt="Zmiana hasła użytkownika" />
@@ -109,96 +86,73 @@
               <h3 class="title">Notatka</h3>
               <p>Jeśli zapomniałeś hasła administratora systemu, nie możesz w prosty sposób go odzyskać. Wszystkie hasła są przechowywane w bazie danych w postaci bezpiecznych hashów, które praktycznie uniemożliwiają odtworzenie oryginalnego hasła. Mając dostęp do bazy danych możesz jednak zresetować hasło administratora, generując nowy hash i wpisując go do kolumny <code class="literal">user_passwd</code> dla odpowiedniego użytkownika w tabeli <code class="literal">users</code>. System WebIssues używa algorytmu <span class="quote">„<span class="quote">Portable PHP password hashing framework</span>”</span>, zgodnego z takimi programami jak Wordpress czy Drupal, możesz więc użyć jednego z dostępnych dla tych programów <a class="ulink" href="http://scriptserver.mainframe8.com/wordpress_password_hasher.php" target="_top">generatorów hashów</a>.</p>
             </div>
-            <p>Aby zmienić globalny poziom dostępu użytkownika, wybierz go z listy i kliknij <span class="guilabel">Zmień dostęp</span>. Następnie wybierz nowy poziom dostępu i kliknij <span class="guibutton">OK</span>. Nie możesz sam pozbawić się prawa administratora systemu, ponieważ w systemie musi istnieć przynajmniej jedno aktywne konto administratora.</p>
-            <div class="figure">
-              <a id="id529673"></a>
-              <div class="figure-contents">
-                <div class="mediaobject">
-                  <img src="images/ch05-fig07.png" alt="Zmiana dostępu użytkownika" />
-                </div>
-              </div>
-              <div class="figure-title">Rysunek 5.7. Zmiana dostępu użytkownika</div>
-            </div>
             <p>Aby zmienić nazwę użytkownika, wybierz go z listy i kliknij <span class="guilabel">Zmień nazwę użytkownika</span>. Podaj nową nazwę i kliknij <span class="guibutton">OK</span>.</p>
             <div class="tip">
               <h3 class="title">Wskazówka</h3>
               <p>Unikaj zmieniania nazwy użytkowników, którzy mają przypisane do siebie sprawy. Wartości atrybutów są przechowywane jako tekst, więc zmiana nazwy użytkownika nie spowoduje automatycznej zmiany wartości atrybutów <span class="quote">„<span class="quote">Przypisany do</span>”</span>. Może to spowodować, że użytkownik przestanie widzieć przypisane do siebie sprawy.</p>
             </div>
-            <p>Aby zarządzać listą projektów dostępnych dla wybranego użytkownika, użyj polecenia <span class="guilabel">Projekty użytkownika</span>. Możesz również zarządzać listą użytkowników, którzy mają dostęp do wybranego projektu. Więcej informacji na ten temat znajdziesz w sekcji <a class="xref" href="webissues.admin.users.html#webissues.admin.users.members" title="Członkowie projektu">„Członkowie projektu”</a>.</p>
+            <p>Nowo utworzony użytkownik nie ma dostępu do żadnego projektu, chyba że jest administratorem systemu. Aby zmienić globalny dostęp i zarządzać listą projektów dostępnych dla wybranego użytkownika, użyj polecenia <span class="guilabel">Zarządzaj uprawnieniami</span>. Więcej informacji na ten temat znajdziesz w sekcji <a class="xref" href="webissues.admin.users.html#webissues.admin.users.permissions" title="Uprawnienia użytkownika">„Uprawnienia użytkownika”</a> poniżej.</p>
             <p>Możesz również zmienić ustawienia dowolnego użytkownika za pomocą polecenia <span class="guilabel">Ustawienia użytkownika</span>. Każdy użytkownik może również zmienić własne ustawienia, korzystając z opcji <span class="guilabel">Ustawienia użytkownika</span> w oknie <span class="guilabel">Narzędzia</span> lub na pasku narzędzi głównego okna progamu Desktop Client. Więcej informacji na temat ustawień użytkownika znajdziesz w sekcjach <a class="xref" href="webissues.work.personal.html" title="Personalizacja">„Personalizacja”</a>.</p>
             <p>System WebIssues nie pozwala na usuwanie istniejących użytkowników, ponieważ przechowuje on wszystkie informacje historyczne, na przykład zmiany dokonane przez poszczególnych użytkowników. Zamiast tego możesz zmienić poziom uprawnień użytkowników, którzy nie powinni już mieć dostępu do systemu, na wyłączony. Użyj opcji filtrowania w prawym górnym rogu listy, aby ukryć wyłączone konta użytkowników.</p>
-            <p>System WebIssues umożliwia użytkownikom samodzielnie dokonywać rejestracji nowych kont. W takim wypadku niezbędna jest akceptacja zgłoszeń rejestracji przez administratora systemu. Więcej informacji na ten temat znajdziesz w sekcjach <a class="xref" href="webissues.admin.register.html" title="Zgłoszenia rejestracji">„Zgłoszenia rejestracji”</a> oraz <a class="xref" href="webissues.custom.settings.html" title="Ustawienia zaawansowane">„Ustawienia zaawansowane”</a>.</p>
+            <p>System WebIssues umożliwia użytkownikom samodzielnie dokonywać rejestracji nowych kont. Więcej informacji na ten konfigurowania rejestracji użytkowników znajdziesz w sekcji <a class="xref" href="webissues.custom.settings.html" title="Ustawienia zaawansowane">„Ustawienia zaawansowane”</a>.</p>
           </div>
           <div class="sect2">
             <div class="titlepage">
               <div>
                 <div>
-                  <h3 class="title"><a id="webissues.admin.users.members"></a>Członkowie projektu</h3>
+                  <h3 class="title"><a id="webissues.admin.users.permissions"></a>Uprawnienia użytkownika</h3>
                 </div>
               </div>
             </div>
-            <p>Nowo utworzony użytkownik nie ma dostępu do żadnego projektu, chyba że jest administratorem systemu. Aby zarządzać uprawnieniami użytkowników do poszczególnych projektów, kliknij <span class="guilabel">Zarządzaj projektami</span> w oknie głównym, wybierz projekt, a następnie użyj polecenia <span class="guilabel">Członkowie projektu</span>. W przypadku programu Desktop Client, polecenie to jest dostępne bezpośrednio w oknie głównym, jeśli uaktywnisz drzewo projektów.</p>
+            <p>Aby zmienić globalny dostęp i zarządzać projektami użytkownika, przejdź do Panelu administracyjnego i kliknij <span class="guilabel">Konta użytkowników</span>. W przypadku programu Desktop Client, użyj polecenia <span class="guilabel">Użytkownicy</span> z paska narzędzi głównego okna. Następnie wybierz użytkownika z listy i kliknij <span class="guilabel">Projekty użytkownika</span>. Lista projektów użytkownika jest analogiczna do listy członków projektu.</p>
             <div class="figure">
-              <a id="id529784"></a>
+              <a id="id531274"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
-                  <img src="images/ch05-fig08.png" alt="Lista członków projektu" />
+                  <img src="images/ch05-fig10-01.png" alt="Uprawnienia użytkownika" />
                 </div>
               </div>
-              <div class="figure-title">Rysunek 5.8. Lista członków projektu</div>
+              <div class="figure-title">Rysunek 5.7. Uprawnienia użytkownika</div>
             </div>
-            <p>Istnieją dwa poziomy dostępu użytkowników do projektów:</p>
+            <p>Zarządzanie uprawnieniami w systemie WebIssues jest stosunkowo proste. Istnieją trzy globalne poziomy dostępu:</p>
             <div class="variablelist">
               <dl class="variablelist">
                 <dt>
-                  <span class="term">Administrator projektu</span>
+                  <span class="term">Administrator systemu</span>
                 </dt>
                 <dd>
-                  <p>Użytkownik o tym poziomie dostępu może zarządzać członkami i folderami danego projektu. Może również usuwać i przenosić sprawy oraz edytować i usuwać wszystkie komentarze i załączniki w ramach tego projektu.</p>
+                  <p>Administrator systemu ma dostęp do wszystkich funkcji Panelu administracyjnego. Może więc zarządzać kontami użytkowników i dostosowywać typy spraw i publiczne widoki. Jest również członkiem i administratorem wszystkich istniejących w systemie projektów, nawet jeśli nie zostały mu jawnie nadane odpowiednie uprawnienia. Pierwsze takie konto jest tworzone w momencie instalacji.</p>
                 </dd>
                 <dt>
-                  <span class="term">Zwykły członek</span>
+                  <span class="term">Zwykły użytkownik</span>
                 </dt>
                 <dd>
-                  <p>Użytkownik o tym poziomie dostępu może przeglądać sprawy we wszystkich folderach, zarządzać swoimi alertami, a także tworzyć nowe sprawy i edytować istniejące. Może również dodawać komentarze i załączniki oraz edytować i usuwać własne komentarze i załączniki.</p>
+                  <p>Zwykły użytkownik może zalogować się do systemu i zmieniać swoje personalne ustawienia. Ma dostęp jedynie do publicznych projektów oraz do tych projektów, do których zostały mu nadane określone uprawnienia. Może być administratorem wybranych projektów, ale nie może tworzyć nowych projektów. Każdy nowy użytkownik domyślnie jest zwykłym użytkownikiem.</p>
+                </dd>
+                <dt>
+                  <span class="term">Wyłączony</span>
+                </dt>
+                <dd>
+                  <p>Wyłączony użytkownik nie może zalogować się do systemu i nie ma dostępu do żadnej jego części.</p>
                 </dd>
               </dl>
             </div>
-            <p>Globalny poziom uprawnień użytkownika jest zawsze ważniejszy, niż uprawnienia dla danego projektu. Administrator systemu automatycznie staje się administratorem wszystkich projektów, a użytkownik wyłączony traci dostęp do wszystkich projektów. Natomiast zwykły użytkownik ma dostęp tylko do tych projektów, których jest członkiem, zgodnie z nadanymi mu uprawnieniami.</p>
-            <p>Aby dodać członków projektu, wybierz polecenie <span class="guilabel">Dodaj członków</span>.</p>
+            <p>Aby zmienić globalny poziom dostępu użytkownika, wybierz kliknij polecenie <span class="guilabel">Zmień</span> w ramce <span class="guilabel">Dostęp globalny</span>. Następnie wybierz nowy poziom dostępu i kliknij <span class="guibutton">OK</span>. Nie możesz sam pozbawić się prawa administratora systemu, ponieważ w systemie musi istnieć przynajmniej jedno aktywne konto administratora.</p>
             <div class="figure">
-              <a id="id529836"></a>
+              <a id="id531353"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
-                  <img src="images/ch05-fig09.png" alt="Dodawanie członków projektu" />
+                  <img src="images/ch05-fig07.png" alt="Zmiana dostępu użytkownika" />
                 </div>
               </div>
-              <div class="figure-title">Rysunek 5.9. Dodawanie członków projektu</div>
+              <div class="figure-title">Rysunek 5.8. Zmiana dostępu użytkownika</div>
             </div>
-            <p>Zaznacz jednego lub więcej użytkowników, którzy nie są jeszcze członkami projektu. Następnie wybierz odpowiedni poziom dostępu i kliknij <span class="guibutton">OK</span>.</p>
-            <p>Aby zmienić poziom dostępu członka, wybierz go z listy i kliknij <span class="guilabel">Zmień dostęp</span>. Następnie wybierz nowy poziom dostępu i kliknij <span class="guibutton">OK</span>. Nie możesz sam pozbawić się prawa administratora projektu, chyba że jesteś administratorem systemu.</p>
-            <div class="figure">
-              <a id="id529881"></a>
-              <div class="figure-contents">
-                <div class="mediaobject">
-                  <img src="images/ch05-fig10.png" alt="Zmiana dostępu członka" />
-                </div>
-              </div>
-              <div class="figure-title">Rysunek 5.10. Zmiana dostępu członka</div>
+            <p>Aby dodać użytkownika do projektów, wybierz polecenie <span class="guilabel">Dodaj projekty</span>. Zaznacz jeden lub więcej projektów, a następnie wybierz odpowiedni poziom dostępu i kliknij <span class="guibutton">OK</span>. Aby zmienić poziom dostępu do projektu, wybierz projekt z listy i kliknij <span class="guilabel">Zmień dostęp</span>. Następnie wybierz nowy poziom dostępu i kliknij <span class="guibutton">OK</span>. Więcej informacji na temat konfigurowania dostępu do projektów znajdziesz w sekcji <a class="xref" href="webissues.admin.projects.html#webissues.admin.projects.permissions" title="Uprawnienia projektu">„Uprawnienia projektu”</a>.</p>
+            <p>Aby usunąć użytkownika z projektu, wybierz go z listy i kliknij <span class="guilabel">Usuń projekt</span>. W przypadku programu Desktop Client, możesz wybrać kilka projektów naraz, by zmienić lub usunąć dostęp do nich.</p>
+            <div class="tip">
+              <h3 class="title">Wskazówka</h3>
+              <p>Istnieje również możliwość przypisania użytkowników do projektów za pomocą polecenia <span class="guilabel">Zarządzaj uprawnieniami</span> w liście projektów. Jest to szczególnie użyteczne w trakcie tworzenia nowego projektu. Poza tym, w przeciwieństwie do zarządzania uprawnieniami użytkowników, ta funkcja jest dostępna również dla administratorów projektów. Więcej informacji na ten temat znajdziesz w sekcji <a class="xref" href="webissues.admin.projects.html#webissues.admin.projects.permissions" title="Uprawnienia projektu">„Uprawnienia projektu”</a>.</p>
             </div>
-            <p>Aby usunąć członka projektu, wybierz go z listy i kliknij <span class="guilabel">Usuń członka</span>. W przypadku programu Desktop Client, możesz wybrać kilku członków z listy i zmienić ich poziom dostępu lub usunąć z projektu jednocześnie.</p>
-            <p>Istnieje również możliwość wyświetlenia listy dostępnych projektów dla wybranego użytkownika, a także dodanie użytkownika do wybranych projektów oraz usunięcie i zmiana poziomu dostępu. Jest ona szczególnie przydatna podczas tworzenia nowych kont użytkowników. Jednak w odróżnieniu od funkcji zarządzania członkami projektu, jest ona dostępna tylko dla administratorów systemu.</p>
-            <p>Aby zarządzać projektami użytkownika, przejdź do Panelu administracyjnego i kliknij <span class="guilabel">Konta użytkowników</span>. W przypadku programu Desktop Client, użyj polecenia <span class="guilabel">Użytkownicy</span> z paska narzędzi głównego okna. Następnie wybierz użytkownika z listy i kliknij <span class="guilabel">Projekty użytkownika</span>. Lista projektów użytkownika jest analogiczna do listy członków projektu.</p>
-            <div class="figure">
-              <a id="id529932"></a>
-              <div class="figure-contents">
-                <div class="mediaobject">
-                  <img src="images/ch05-fig10-01.png" alt="Lista projektów użytkownika" />
-                </div>
-              </div>
-              <div class="figure-title">Rysunek 5.11. Lista projektów użytkownika</div>
-            </div>
-            <p>Aby dodać użytkownika do projektów, wybierz polecenie <span class="guilabel">Dodaj projekty</span>. Zaznacz jeden lub więcej projektów, a następnie wybierz odpowiedni poziom dostępu i kliknij <span class="guibutton">OK</span>. Aby zmienić poziom dostępu do projektu, wybierz projekt z listy i kliknij <span class="guilabel">Zmień dostęp</span>. Następnie wybierz nowy poziom dostępu i kliknij <span class="guibutton">OK</span>. Aby usunąć użytkownika z projektu, wybierz go z listy i kliknij <span class="guilabel">Usuń projekt</span>. W przypadku programu Desktop Client, możesz wybrać kilka projektów naraz, by zmienić lub usunąć dostęp do nich.</p>
           </div>
         </div>
         <div class="navlinks">

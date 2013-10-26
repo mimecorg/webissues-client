@@ -3,13 +3,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Powiadomienia mailowe</title>
+    <title>Wysyłanie e-maili</title>
     <link rel="stylesheet" type="text/css" href="common/style.css" />
     <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
     <link rel="home" href="index.html" title="Podręcznik WebIssues" />
     <link rel="up" href="webissues.prep.html" title="Rozdział 2. Przygotowanie systemu" />
     <link rel="prev" href="webissues.prep.setup.html" title="Konfiguracja początkowa" />
-    <link rel="next" href="webissues.prep.inbox.html" title="Ustawienia skrzynki odbiorczej" />
+    <link rel="next" href="webissues.prep.inbox.html" title="Skrzynka odbiorcza" />
   </head>
   <body>
     <div id="wrapper">
@@ -19,7 +19,7 @@
             <h1><img src="common/webissues.png" alt="WebIssues" id="logo" />Podręcznik WebIssues</h1>
           </div>
           <div id="header-right">
-            <h2 class="subtitle">Wersja 1.1-beta2</h2>
+            <h2 class="subtitle">Wersja 1.1-rc1</h2>
           </div>
         </div>
         <div id="infobar">
@@ -30,28 +30,28 @@
       <div id="body">
         <div class="navlinks">
           <div class="navleft">&laquo; <a accesskey="p" href="webissues.prep.setup.html">Konfiguracja początkowa</a></div>
-          <div class="navright"><a accesskey="n" href="webissues.prep.inbox.html">Ustawienia skrzynki odbiorczej</a> &raquo;</div>
+          <div class="navright"><a accesskey="n" href="webissues.prep.inbox.html">Skrzynka odbiorcza</a> &raquo;</div>
         </div>
         <div class="sect1">
           <div class="titlepage">
             <div>
               <div>
-                <h2 class="title" style="clear: both"><a id="webissues.prep.notifications"></a>Powiadomienia mailowe</h2>
+                <h2 class="title" style="clear: both"><a id="webissues.prep.notifications"></a>Wysyłanie e-maili</h2>
               </div>
             </div>
           </div>
-          <p>System WebIssues ma możliwość wysyłania e-maili informujących o nowych i zmienionych sprawach w wybranych widokach. Jest to opcjonalne, ponieważ nie zawsze pozwala na to konfiguracja komputera lub usługi hostingowej i nie w każdym przypadku jest to potrzebne. Jeśli chcesz włączyć wysyłanie powiadomień mailowych, musisz wykonać dwa dodatkowe kroki konfiguracyjne.</p>
+          <p>System WebIssues ma możliwość wysyłania e-maili związanych z alertami bądź subskrypcjami. Jest to opcjonalne, ponieważ nie zawsze pozwala na to konfiguracja komputera lub usługi hostingowej i nie w każdym przypadku jest to potrzebne. Jeśli chcesz używać powiadomień mailowych dla alertów, albo innych funkcji wymagających wysyłania e-maili, musisz wykonać dwa dodatkowe kroki konfiguracyjne.</p>
           <div class="sect2">
             <div class="titlepage">
               <div>
                 <div>
-                  <h3 class="title"><a id="webissues.prep.nofitications.email"></a>Wysyłanie poczty</h3>
+                  <h3 class="title"><a id="webissues.prep.nofitications.email"></a>Ustawienia e-maili</h3>
                 </div>
               </div>
             </div>
             <p>Najpierw przejdź do Panelu administracyjnego i kliknij <span class="guilabel">Ustawienia e-maili</span>, aby skonfigurować wysyłanie poczty.</p>
             <div class="figure">
-              <a id="id512231"></a>
+              <a id="id517019"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch02-fig10.png" alt="Ustawienia e-maili" />
@@ -68,7 +68,7 @@
             <p>Kliknij <span class="guibutton">Testuj połączenie</span> aby sprawdzić, czy konfiguracja SMTP jest poprawna. System WebIssues wyśle testową wiadomość na swój własny adres. Jeśli ją otrzymasz, oznacza to, że konfiguracja jest poprawna. Nie zapomnij również zapisać konfigurację klikając <span class="guibutton">OK</span>.</p>
             <p>Ponieważ e-maile są wysyłane w formacie HTML, możliwe jest umieszczenie w nich odnośników do folderu, którego dotyczy powiadomienie, a także do poszczególnych spraw. Aby włączyć odnośniki, musisz wpisać bazowy adres URL, pod jakim zainstalowany jest serwer WebIssues. Adres powinien zawierać protokół oraz końcowy znak <span class="quote">„<span class="quote">/</span>”</span>, na przykład <code class="literal">http://www.example.com/</code>. Kliknij <span class="guibutton">Wykryj</span>, aby automatycznie wprowadzić adres bieżącej strony. Pamiętaj, że adres powinien zawierać pełną, jednoznaczną nazwę domenową serwera, aby był on dostępny dla wszystkich użytkowników. Jeśli adres URL będzie pozostawiony pusty, e-maile będą wysyłane bez odnośników.</p>
             <div class="figure">
-              <a id="id512356"></a>
+              <a id="id517116"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch02-fig10-01.png" alt="Odnośniki" />
@@ -94,16 +94,16 @@
             </div>
             <p>Jeśli zadanie cyklicznie jest wykonywane lokalnie, powinno ono uruchamiać skrypt <code class="literal">cron/job.php</code> przy użyciu interpretera PHP. Więcej informacji na temat uruchamiania PHP z wiersza poleceń znajdziesz na stronie <a class="ulink" href="http://www.php.net/manual/en/features.commandline.options.php" target="_top">http://www.php.net/manual/en/features.commandline.options.php</a>.</p>
             <p>Jeśli korzystasz z zewnętrznej usługi cron lub uruchamiasz zadanie na innym komputerze, skrypt powinien być uruchamiany zdalnie, poprzez pełny adres URL, na przykład <code class="literal">http://www.example.com/cron/job.php</code>. Możesz w tym celu na przykład skorzystać z programu <code class="literal">wget</code> lub <code class="literal">curl</code>.</p>
-            <p>Aby sprawdzić, czy cykliczne zadanie się uruchamia, przejdź do Panelu administracyjnego i kliknij <span class="guilabel">Ogólne informacje</span>. W ramce <span class="guilabel">Zadanie cykliczne</span> powinna być wyświetlona data i czas ostatniego uruchomienia zadania. Każde uruchomienie zadania jest także zalogowane w Dzienniku zdarzeń systemu WebIssues.</p>
+            <p>Aby sprawdzić, czy cykliczne zadanie się uruchamia, przejdź do Panelu administracyjnego i kliknij <span class="guilabel">Ogólne informacje</span>. W ramce <span class="guilabel">Konfiguracja serwera</span> jest wyświetlany czas, jaki upłynął od ostatniego uruchomienia zadania. Każde uruchomienie zadania jest także zalogowane w Dzienniku zdarzeń systemu WebIssues.</p>
             <div class="tip">
               <h3 class="title">Wskazówka</h3>
-              <p>Więcej informacji na temat używania powiadomień e-mailowych znajdziesz w sekcji <a class="xref" href="webissues.track.alerts.html" title="Zarządzanie alertami">„Zarządzanie alertami”</a>.</p>
+              <p>Skonfigurowanie wysyłania e-maili i zadania cyklicznego nie oznacza jeszcze, że będą wysyłane powiadomienia. Aby skonfigurować powiadomienia mailowe, musisz utworzyć alerty dla wybranych folderów lub globalnych list i ustawić odpowiedni typ e-maili. Upewnij się także, że w twoich ustawieniach użytkownika jest podany poprawny adres e-mail. Więcej informacji na temat używania powiadomień e-mailowych znajdziesz w sekcji <a class="xref" href="webissues.track.alerts.html" title="Zarządzanie alertami">„Zarządzanie alertami”</a>.</p>
             </div>
           </div>
         </div>
         <div class="navlinks">
           <div class="navleft">&laquo; <a accesskey="p" href="webissues.prep.setup.html">Konfiguracja początkowa</a></div>
-          <div class="navright"><a accesskey="n" href="webissues.prep.inbox.html">Ustawienia skrzynki odbiorczej</a> &raquo;</div>
+          <div class="navright"><a accesskey="n" href="webissues.prep.inbox.html">Skrzynka odbiorcza</a> &raquo;</div>
         </div>
         <div id="footer">
           <p class="copyright">Copyright © 2007-2013 Zespół WebIssues</p>

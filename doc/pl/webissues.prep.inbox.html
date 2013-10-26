@@ -3,12 +3,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Ustawienia skrzynki odbiorczej</title>
+    <title>Skrzynka odbiorcza</title>
     <link rel="stylesheet" type="text/css" href="common/style.css" />
     <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
     <link rel="home" href="index.html" title="Podręcznik WebIssues" />
     <link rel="up" href="webissues.prep.html" title="Rozdział 2. Przygotowanie systemu" />
-    <link rel="prev" href="webissues.prep.notifications.html" title="Powiadomienia mailowe" />
+    <link rel="prev" href="webissues.prep.notifications.html" title="Wysyłanie e-maili" />
     <link rel="next" href="webissues.work.html" title="Rozdział 3. Praca ze sprawami" />
   </head>
   <body>
@@ -19,7 +19,7 @@
             <h1><img src="common/webissues.png" alt="WebIssues" id="logo" />Podręcznik WebIssues</h1>
           </div>
           <div id="header-right">
-            <h2 class="subtitle">Wersja 1.1-beta2</h2>
+            <h2 class="subtitle">Wersja 1.1-rc1</h2>
           </div>
         </div>
         <div id="infobar">
@@ -29,50 +29,59 @@
       </div>
       <div id="body">
         <div class="navlinks">
-          <div class="navleft">&laquo; <a accesskey="p" href="webissues.prep.notifications.html">Powiadomienia mailowe</a></div>
+          <div class="navleft">&laquo; <a accesskey="p" href="webissues.prep.notifications.html">Wysyłanie e-maili</a></div>
           <div class="navright"><a accesskey="n" href="webissues.work.html">Praca ze sprawami</a> &raquo;</div>
         </div>
         <div class="sect1">
           <div class="titlepage">
             <div>
               <div>
-                <h2 class="title" style="clear: both"><a id="webissues.prep.inbox"></a>Ustawienia skrzynki odbiorczej</h2>
+                <h2 class="title" style="clear: both"><a id="webissues.prep.inbox"></a>Skrzynka odbiorcza</h2>
               </div>
             </div>
           </div>
           <p>System WebIssues może również odbierać e-maile używając wybranego konta pocztowego i tworzyć sprawy na podstawie tych e-maili, a także tworzyć komentarze i załączniki do istniejących spraw. W połączeniu z subskrypcjami mailowymi, pozwala to skonfigurować dwustronną komunikację mailową z systemem WebIssues. Jest nawet możliwość, by zewnętrzny użytkownicy, nie posiadający konta w systemie WebIssues, komunikowali się w ten sposób z systemem, co jest bardzo użyteczne w przypadku różnego rodzaju usług wsparcia.</p>
-          <p>Choć skrzynka odbiorcza może być używana bez wysyłania e-maili, w takim wypadku nie będziesz mógł skorzysać z automatycznych odpowiedzi i subskrypcji. Poza tym, jeśli wysyłanie e-maili nie jest skonfigurowane, to użytkownicy systemu WebIssues nie posiadają przypisanego adresu mailowego, a więc wszsytkie e-maile są traktowane, jakby były wysłane przez zewnętrznych użytkowników. Więcej informacji o konfigurowaniu wysyłania poczty znajdziesz w sekcji <a class="xref" href="webissues.prep.notifications.html#webissues.prep.nofitications.email" title="Wysyłanie poczty">„Wysyłanie poczty”</a>. Musisz równiesz upewnić się, że zadanie cykliczne jest prawidłowo skonfigurowane. Więcej informacji na ten temat znajdziesz w sekcji <a class="xref" href="webissues.prep.notifications.html#webissues.prep.nofitications.cron" title="Zadania cykliczne">„Zadania cykliczne”</a>.</p>
-          <p>Jeśli chcesz, by system WebIssues odbierał wiadomości e-mail, przejdź do Panelu Administracyjnego i kliknij <span class="guilabel">Ustawienia skrzynki odbiorczej</span>.</p>
-          <div class="figure">
-            <a id="id512514"></a>
-            <div class="figure-contents">
-              <div class="mediaobject">
-                <img src="images/ch02-fig11.png" alt="Ustawienia skrzynki odbiorczej" />
-              </div>
-            </div>
-            <div class="figure-title">Rysunek 2.12. Ustawienia skrzynki odbiorczej</div>
-          </div>
-          <p>Wybierz protokół komunikacji z serwerem poczty. Zalecane jest wybranie opcji <span class="guilabel">Serwer IMAP</span>, jeśli jest to możliwe, jednak <span class="guilabel">Serwer POP3</span> również jest wspierany. Podaj również adres e-mail skrzynki odbiorczej. W sekcji <span class="guilabel">Serwer skrzynki odbiorczej</span> podaj adres serwera poczty i numer portu. Wybierz odpowiedni tryb szyfrowania, jeśli twój serwer go obsługuje. Podaj również nazwę użytkownika i hasło używane do uwierzytelnienia połączenia. Możesz podać nazwę skrzynki pocztowej z której będą pobierane wiadomości do przetworzenia. Jeśli zostawisz to pole puste, zostanie użyta osobista skrzynka odbiorcza bieżącego użytkownika.</p>
-          <div class="note">
-            <h3 class="title">Notatka</h3>
-            <p>Choć ten sam adres e-mail może być użyty do wysyłania poczty i dla skrzynki odbiorczej, zalecane jest użycie dwóch osobnych adresów. Ograniczy to ryzyko powstawania pętli, gdy e-mail powiadomienia zostanie odbity przez serwer poczty odbiorcy, a odbita wiadomość zostanie przetworzona przez skrzynkę odbiorczą.</p>
-          </div>
-          <p>Zaznacz opcję <span class="guilabel">Nie sprawdzaj certyfikatu serwera</span> jeśli używasz szyfrowanego połączenia z lokalnym serwerem, który używa samopodpisanego certyfikatu. Używając serwera IMAP, możesz również zaznaczyć opcję <span class="guilabel">Pozostaw przetworzone wiadomości na serwerze</span>. Domyślnie system WebIssues automatycznie usunie przetworzone wiadomości z serwera. Po włączeniu tej opcji, wiadomości będą jedynie oznaczane jako przeczytane i zostaną pozostawione na serwerze. W takim wypadku upewnij się, że zasady przechowywania wiadomości na serwerze usuwają stare e-maile, aby uniknąć zapełnienia skrzynki odbiorczej. Ta opcja nie jest dostępna, jeśli używasz serwera POP3.</p>
-          <p>Naciśnij przycisk <span class="guibutton">Testuj połączenie</span> by potwierdzić, że system WebIssues może połączyć się z podanym serwerem. Nie spowoduje to przetworzenia żadnych wiadomości, a jedynie wyświetlenie komunikatu o powodzeniu lub błędzie.</p>
-          <p>Gdy do skrzynki odbiorczej systemu WebIssues jest wysłana wiadomość e-mail, zostaje ona zarejestrowana jako nowa sprawa w wybranym folderze. Temat wiadomości staje się nazwą sprawy. Wszystkie atrybuty są ustawiona na domyślne, początkowe wartości. Tekstowa treść e-maila jest automatycznie dodana jako opis sprawy, wraz z najważniejszymi nagłówkami, takimi jak adres nadawcy i odbiorców wiadomości. Jeśli e-mail posiada treść w formacie HTML, zostaje ona dodana jako załącznik, który można łatwo otworzyć i wyświetlić w przeglądarce. Wszystkie pliki załączone do e-maila są również dodawane jako załączniki sprawy.</p>
-          <p>Jeśli temat e-maila zawiera identyfikator w nawiasach kwadratowych, na przykład <code class="literal">[#123]</code>, treść e-maila jest dodawana jako nowy komentarz do sprawy o podanym identyfikatorze. Treść w formacie HTML i załączone pliki są również dodawane jego załączniki tej sprawy. Najłatwiej dodasz komentarz do istniejącej sprawy, odpowiadając na wiadomość potwierdzającą jej utworzenie, albo na powiadomienie subskrypcji, ponieważ zawierają one już identyfikator sprawy w temacie. Pamiętaj, by zamieścić swój komentarz na początku e-maila. Treść cytowanego powiadomienia nie zostanie zamieszczone w twoim komentarzu, ponieważ jest ona automatycznie odcinana na pierwszej linii zawierającej kreski.</p>
+          <p>Choć skrzynka odbiorcza może być używana bez wysyłania e-maili, w takim wypadku nie będziesz mógł skorzysać z automatycznych odpowiedzi i subskrypcji. Poza tym, jeśli wysyłanie e-maili nie jest skonfigurowane, to użytkownicy systemu WebIssues nie posiadają przypisanego adresu mailowego, a więc wszsytkie e-maile są traktowane, jakby były wysłane przez zewnętrznych użytkowników. Więcej informacji o konfigurowaniu wysyłania poczty znajdziesz w sekcji <a class="xref" href="webissues.prep.notifications.html#webissues.prep.nofitications.email" title="Ustawienia e-maili">„Ustawienia e-maili”</a>. Musisz równiesz upewnić się, że zadanie cykliczne jest prawidłowo skonfigurowane. Więcej informacji na ten temat znajdziesz w sekcji <a class="xref" href="webissues.prep.notifications.html#webissues.prep.nofitications.cron" title="Zadania cykliczne">„Zadania cykliczne”</a>.</p>
           <div class="sect2">
             <div class="titlepage">
               <div>
                 <div>
-                  <h3 class="title"><a id="webissues.prep.inbox.advanced"></a>Ustawienia zaawansowane</h3>
+                  <h3 class="title"><a id="webissues.prep.inbox.settings"></a>Ustawienia skrzynki odbiorczej</h3>
+                </div>
+              </div>
+            </div>
+            <p>Jeśli chcesz, by system WebIssues odbierał wiadomości e-mail, przejdź do Panelu Administracyjnego i kliknij <span class="guilabel">Ustawienia skrzynki odbiorczej</span>.</p>
+            <div class="figure">
+              <a id="id517301"></a>
+              <div class="figure-contents">
+                <div class="mediaobject">
+                  <img src="images/ch02-fig11.png" alt="Ustawienia skrzynki odbiorczej" />
+                </div>
+              </div>
+              <div class="figure-title">Rysunek 2.12. Ustawienia skrzynki odbiorczej</div>
+            </div>
+            <p>Wybierz protokół komunikacji z serwerem poczty. Zalecane jest wybranie opcji <span class="guilabel">Serwer IMAP</span>, jeśli jest to możliwe, jednak <span class="guilabel">Serwer POP3</span> również jest wspierany. Podaj również adres e-mail skrzynki odbiorczej. W sekcji <span class="guilabel">Serwer skrzynki odbiorczej</span> podaj adres serwera poczty i numer portu. Wybierz odpowiedni tryb szyfrowania, jeśli twój serwer go obsługuje. Podaj również nazwę użytkownika i hasło używane do uwierzytelnienia połączenia. Możesz podać nazwę skrzynki pocztowej z której będą pobierane wiadomości do przetworzenia. Jeśli zostawisz to pole puste, zostanie użyta osobista skrzynka odbiorcza bieżącego użytkownika.</p>
+            <div class="note">
+              <h3 class="title">Notatka</h3>
+              <p>Choć ten sam adres e-mail może być użyty do wysyłania poczty i dla skrzynki odbiorczej, zalecane jest użycie dwóch osobnych adresów. Ograniczy to ryzyko powstawania pętli, gdy e-mail powiadomienia zostanie odbity przez serwer poczty odbiorcy, a odbita wiadomość zostanie przetworzona przez skrzynkę odbiorczą.</p>
+            </div>
+            <p>Zaznacz opcję <span class="guilabel">Nie sprawdzaj certyfikatu serwera</span> jeśli używasz szyfrowanego połączenia z lokalnym serwerem, który używa samopodpisanego certyfikatu. Używając serwera IMAP, możesz również zaznaczyć opcję <span class="guilabel">Pozostaw przetworzone wiadomości na serwerze</span>. Domyślnie system WebIssues automatycznie usunie przetworzone wiadomości z serwera. Po włączeniu tej opcji, wiadomości będą jedynie oznaczane jako przeczytane i zostaną pozostawione na serwerze. W takim wypadku upewnij się, że zasady przechowywania wiadomości na serwerze usuwają stare e-maile, aby uniknąć zapełnienia skrzynki odbiorczej. Ta opcja nie jest dostępna, jeśli używasz serwera POP3.</p>
+            <p>Naciśnij przycisk <span class="guibutton">Testuj połączenie</span> by potwierdzić, że system WebIssues może połączyć się z podanym serwerem. Nie spowoduje to przetworzenia żadnych wiadomości, a jedynie wyświetlenie komunikatu o powodzeniu lub błędzie.</p>
+            <p>Gdy do skrzynki odbiorczej systemu WebIssues jest wysłana wiadomość e-mail, zostaje ona zarejestrowana jako nowa sprawa w wybranym folderze. Temat wiadomości staje się nazwą sprawy. Wszystkie atrybuty są ustawiona na domyślne, początkowe wartości. Tekstowa treść e-maila jest automatycznie dodana jako opis sprawy, wraz z najważniejszymi nagłówkami, takimi jak adres nadawcy i odbiorców wiadomości. Jeśli e-mail posiada treść w formacie HTML, zostaje ona dodana jako załącznik, który można łatwo otworzyć i wyświetlić w przeglądarce. Wszystkie pliki załączone do e-maila są również dodawane jako załączniki sprawy.</p>
+            <p>Jeśli temat e-maila zawiera identyfikator w nawiasach kwadratowych, na przykład <code class="literal">[#123]</code>, treść e-maila jest dodawana jako nowy komentarz do sprawy o podanym identyfikatorze. Treść w formacie HTML i załączone pliki są również dodawane jego załączniki tej sprawy. Najłatwiej dodasz komentarz do istniejącej sprawy, odpowiadając na wiadomość potwierdzającą jej utworzenie, albo na powiadomienie subskrypcji, ponieważ zawierają one już identyfikator sprawy w temacie. Pamiętaj, by zamieścić swój komentarz na początku e-maila. Treść cytowanego powiadomienia nie zostanie zamieszczone w twoim komentarzu, ponieważ jest ona automatycznie odcinana na pierwszej linii zawierającej kreski.</p>
+          </div>
+          <div class="sect2">
+            <div class="titlepage">
+              <div>
+                <div>
+                  <h3 class="title"><a id="webissues.prep.inbox.external"></a>Zewnętrzni użytkownicy</h3>
                 </div>
               </div>
             </div>
             <p>Domyślnie akceptowane są tylko wiadomości wysłane przez użytkowników systemu WebIssues. Adres nadawcy jest porównywany z adresami e-mail skonfigurowanymi w preferencjach użytkowników. E-maile wysłane z adresów, które nie mają odpowiadających użytkowników w systemie WebIssues, są ignorowane. Pamiętaj, że sprawy są tworzone i modyfikowane w imieniu użytkownika skojarzonego z adresem nadawcy, a więc użytkownik ten musi mieć dostęp do projektu i folderu zawierającego sprawę. W przeciwnym wypadku wiadomość jest ignorowana, a do Dziennika zdarzeń jest dodawane ostrzeżenie.</p>
             <p>Jeśli włączysz opcję <span class="guilabel">Akceptuj wiadomości od zewnętrznych użytkowników</span>, wiadomości wysłane z adresów nie mających odpowiadającego użytkownika w systemie WebIssues będą również akceptowane. W tym wypadku musisz również wybrać <span class="guilabel">Konto użytkownika robota</span>, w którego imieniu będą tworzone i modyfikowane takie sprawy. Konto użytkownika robota również musi mieć dostęp do projektu zawierającego sprawę, a zatem zmieniając uprawnienia tego konta użytkownika, możesz kontrolować, jakie obszary systemu mają być dostępne dla zewnętrznych użytkowników. Choć sprawa jest tworzona i modyfikowana przez użytownika robota, rzeczywisty nadawca wiadomości jest widoczny w nagłówkach na początku opisu lub komentarza.</p>
             <div class="figure">
-              <a id="id512598"></a>
+              <a id="id517388"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch02-fig12.png" alt="Zewnętrzni użytkownicy" />
@@ -85,9 +94,18 @@
               <p>Jeśli wiadomości od zewnętrznych użytkowników są akceptowane, serwer WebIssues w żaden sposób nie filtruje otrzymywanych wiadomości. Jeśli chcesz określić akceptowane lub blokowane adresy albo filtrować spam i inne niechciane wiadomości, powinieneś skonfigurować filtrowanie na serwerze poczty.</p>
               <p>Możesz na przykład utworzyć odrębną skrzynkę pocztową, z której serwer WebIssues będzie pobierał wiadomości, a następnie skonfigurować regułę, która przenosi jedynie wiadomości spełniające określone kryteria do tej skrzynki. Więcej informacji znajdziesz w dokumentacji swojego serwera poczty.</p>
             </div>
+          </div>
+          <div class="sect2">
+            <div class="titlepage">
+              <div>
+                <div>
+                  <h3 class="title"><a id="webissues.prep.inbox.mapping"></a>Mapowanie folderów</h3>
+                </div>
+              </div>
+            </div>
             <p>W najprostszym scenariuszu, wszystkie sprawy są tworzone w jednym folderze, który możesz wybrać za pomocą opcji <span class="guilabel">Domyślny folder</span>. Możesz jednak również włączyć opcję <span class="guilabel">Mapuj rozszerzenia adresu do projektu i folderu</span>, która umożliwia określanie projektu i folderu, w którym sprawy są tworzone, na podstawie adresu, na który jest wysłana wiadomość do skrzynki odbiorczej systemu WebIssues.</p>
             <div class="figure">
-              <a id="id512667"></a>
+              <a id="id517450"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch02-fig13.png" alt="Mapowanie folderów" />
@@ -115,7 +133,7 @@
             <p>Jeśli włączysz opcję <span class="guilabel">Wysyłaj odpowiedź gdy sprawa jest utworzona</span>, wiadomość z potwiedzeniem jest wysyłana do nadawcy, jeśli została utworzona nowa sprawa przez skrzynkę odbiorczą. Automatyczna odpowiedź zawiera identyfikator i nazwę sprawy. Odpowiadając na tą wiadomość, można utworzyć dodatkowe komentarze i załączniki, na przykład aby dostarczyć więcej informacji lub zapytać o status sprawy.</p>
             <p>Jeśli włączysz opcję <span class="guilabel">Subskrybuj nadawcę do utworzonych spraw</span>, nadawca wiadomości automatycznie subskrybuje sprawę utworzoną przez skrzynkę odbiorczą. W tym wypadku wszystkie zmiany dokonane przez innych użytkowników, w tym edycja atrybutów, zmiany opisu oraz dodawanie komentarzy i załączników, są automatycznie wysyłane jako powiadomienia mailowe. Przeczytaj sekcję <a class="xref" href="webissues.track.subscriptions.html" title="Subskrypcje">„Subskrypcje”</a> aby uzyskać więcej informacji.</p>
             <div class="figure">
-              <a id="id510556"></a>
+              <a id="id515364"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch02-fig14.png" alt="Wysyłanie e-maili" />
@@ -125,11 +143,12 @@
             </div>
             <p>Odpowiadając na powiadomienie subskrypcji, jeśli skrzynka odbiorcza jest włączona, możesz dodawać komentarze i załączniki do sprawy. W ten sposób możesz śledzić stan spraw i dodawać komentarze używając tylko poczty, bez konieczności logowania się do systemu WebIssues.</p>
             <p>Automatyczne subskrypcje działają również dla zewnętrznych użytkowników. Umożliwia to osobom nie posiadającym konta w systemie WebIssues otrzymywać powiadomienia i odpowiadać na sprawy, które utworzyli. W typowym scenariuszu systemu wsparcia, kiedy ktoś wysyła wiadomość do skrzynki odbiorczej, tworzona jest sprawa, a nadawca automatycznie ją subskrybuje. Gdy osoba udzielająca wsparcia zmienia sprawę lub dodaje komentarz za pośrednictwem systemu WebIssues, powiadomienie subskrypcji jest automatycznie wysyłane do twórcy sprawy. Może on wtedy odpowiedzieć na powiadomienie, aby dostarczyć więcej informacji. W ten sposób zewnętrzni użytkownicy mogą komunikować się z systemem WebIssues przy pomocy e-maili, a cała komunikacja zostaje zapisana w historii sprawy.</p>
+            <p>Możesz również włączyć dostęp anonimowy, aby umożliwić zewnętrznym użytkownikom przeglądanie wszystkich spraw z publicznych projektów za pomocą programu Web Client, bez konieczności logowania się. Pamiętaj jednak, że w tym wypadku wszyscy będą mieli dostęp do wszystkich spraw, nie tylko do tych, które sami utworzyli. Więcej informacji o konfigurowaniu dostępu anonimowego znajdziesz w sekcji <a class="xref" href="webissues.custom.settings.html" title="Ustawienia zaawansowane">„Ustawienia zaawansowane”</a>.</p>
             <p>Pamiętaj, że nadawca wiadmości nie subskrybuje istniejących spraw przy dodawaniu komentarza. W tym wypadku nie jest również wysyłana automatyczna odpowiedź. Pozostali odbiorcy wiadomości nie subskrybują automatycznie dodanej sprawy.</p>
           </div>
         </div>
         <div class="navlinks">
-          <div class="navleft">&laquo; <a accesskey="p" href="webissues.prep.notifications.html">Powiadomienia mailowe</a></div>
+          <div class="navleft">&laquo; <a accesskey="p" href="webissues.prep.notifications.html">Wysyłanie e-maili</a></div>
           <div class="navright"><a accesskey="n" href="webissues.work.html">Praca ze sprawami</a> &raquo;</div>
         </div>
         <div id="footer">

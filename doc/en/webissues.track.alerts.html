@@ -19,7 +19,7 @@
             <h1><img src="common/webissues.png" alt="WebIssues" id="logo" />WebIssues Manual</h1>
           </div>
           <div id="header-right">
-            <h2 class="subtitle">Version 1.1-beta2</h2>
+            <h2 class="subtitle">Version 1.1-rc1</h2>
           </div>
         </div>
         <div id="infobar">
@@ -40,11 +40,11 @@
               </div>
             </div>
           </div>
-          <p>Even if you are using views and automatic statuses of issues, it's not always visible at the first glance that there is a new or modified issue that requires your attention. Because of that, the WebIssues system has a mechanism of alerts, which are automatic notifications about unread issues that meet certain criteria.</p>
-          <p>You can create an alert using any public or personal view, as well as the built-in <span class="quote">“<span class="quote">All Issues</span>”</span> view. Each alert is assigned to a specific folder.</p>
-          <p>Suppose you want to keep an eye on active bugs and tasks which are assigned to you. Open the Bugs folder and select <span class="guilabel">Manage Alerts</span>. The list of alerts is initially empty, so choose <span class="guilabel">Add Alert</span> to define a new alert for this folder.</p>
+          <p>Even if you are using views and unread statuses of issues, it's not always visible at the first glance that there is a new or modified issue that requires your attention. Because of that, the WebIssues system has a mechanism of alerts, which are automatic notifications about unread issues that meet certain criteria.</p>
+          <p>You can create an alert using any public or personal view, as well as the built-in <span class="quote">“<span class="quote">All Issues</span>”</span> view. Each alert is assigned either to a specific folder or a global list of issues of a given type.</p>
+          <p>Suppose you want to keep an eye on all active bugs and tasks. Open the Bugs folder and select <span class="guilabel">Manage Alerts</span>. The list of alerts is initially empty, so choose <span class="guilabel">Add Alert</span> to define a new alert for this folder.</p>
           <div class="figure">
-            <a id="id542565"></a>
+            <a id="id526395"></a>
             <div class="figure-contents">
               <div class="mediaobject">
                 <img src="images/ch04-fig03.png" alt="Adding an alert" />
@@ -54,7 +54,7 @@
           </div>
           <p>Select the <span class="quote">“<span class="quote">Active Bugs</span>”</span> view and click <span class="guibutton">OK</span>. The list now contains a new alert, and also displays the total number of all issues that meet the criteria of the view, and the number of unread and modified issues.</p>
           <div class="figure">
-            <a id="id540426"></a>
+            <a id="id526433"></a>
             <div class="figure-contents">
               <div class="mediaobject">
                 <img src="images/ch04-fig04.png" alt="List of alerts" />
@@ -65,7 +65,7 @@
           <p>If the alert contains unread issues, its icon will change to a closed, yellow envelope. Similarly, if it contains a modified issue, a green envelope will be displayed. So by opening the alerts window, you can quickly see if there are any issues which require your attention.</p>
           <p>Now repeat the same steps to create an <span class="quote">“<span class="quote">Active Tasks</span>”</span> alert in the Tasks folder. If you are using the Desktop Client, you will notice that the alerts are visible in the projects and folders tree:</p>
           <div class="figure">
-            <a id="id540453"></a>
+            <a id="id526431"></a>
             <div class="figure-contents">
               <div class="mediaobject">
                 <img src="images/ch04-fig05.png" alt="Tree with alerts" />
@@ -75,7 +75,7 @@
           </div>
           <p>The program periodically updates the contents of all folders for which you've defined alerts, so you can track their status almost in real time. If in any of the views there are some unread issues, the icon of the alert will be changed, its name will become bold, and the number of new and modified issues will appear in parentheses:</p>
           <div class="figure">
-            <a id="id540455"></a>
+            <a id="id526450"></a>
             <div class="figure-contents">
               <div class="mediaobject">
                 <img src="images/ch04-fig06.png" alt="Tree with active alerts" />
@@ -84,79 +84,122 @@
             <div class="figure-title">Figure 4.6. Tree with active alerts</div>
           </div>
           <p>If you click on an alert in the tree, not only the folder, to which the selected alert belongs, will be opened, but also the view associated with this alert will be automatically selected. This mechanism is therefore very helpful in everyday work.</p>
-          <div class="tip">
-            <h3 class="title">Tip</h3>
-            <p>Create alerts only if you really needed them. A large number of alerts will distract your attention, and in addition will increase the time required to refresh all folders.</p>
-          </div>
-          <p>If sending email notifications was enabled in the WebIssues system, you can configure the way of sending notifications for each alert.</p>
-          <div class="note">
-            <h3 class="title">Note</h3>
-            <p>For more information about setting up email notifications read the <a class="xref" href="webissues.prep.notifications.html" title="Email notifications">the section called “Email notifications”</a> section.</p>
-          </div>
-          <p>There are three types of notifications available in the WebIssues system:</p>
-          <div class="variablelist">
-            <dl class="variablelist">
-              <dt>
-                <span class="term">Immediate notifications</span>
-              </dt>
-              <dd>
-                <p>Sent immediately when someone adds or changes an issue which meets the criteria of the alert.</p>
-              </dd>
-              <dt>
-                <span class="term">Summary of notifications</span>
-              </dt>
-              <dd>
-                <p>Sent at specified days and hours, if someone adds or changes issues related to the alert.</p>
-              </dd>
-              <dt>
-                <span class="term">Summary reports</span>
-              </dt>
-              <dd>
-                <p>Always sent at specified days and hours, regardless of whether any changes have occurred.</p>
-              </dd>
-            </dl>
-          </div>
-          <p>How often immediate notifications are sent, depends on the configuration of cron job on the server. You can therefore receive them every few minutes or every hour.</p>
-          <p>In order to receive notifications, you must change your user preferences. If you are using a browser, click <span class="guilabel">Tools</span> and then <span class="guilabel">User Preferences</span>. To change them in the Desktop Client, select <span class="guilabel">User Preferences</span> from the main window toolbar.</p>
-          <div class="figure">
-            <a id="id540576"></a>
-            <div class="figure-contents">
-              <div class="mediaobject">
-                <img src="images/ch04-fig07.png" alt="Notifications settings" />
+          <div class="sect2">
+            <div class="titlepage">
+              <div>
+                <div>
+                  <h3 class="title"><a id="webissues.track.alerts.notifications"></a>Email notifications</h3>
+                </div>
               </div>
             </div>
-            <div class="figure-title">Figure 4.7. Notifications settings</div>
+            <p>If sending emails was enabled in the WebIssues system, you can configure the way of sending notifications for each alert.</p>
+            <div class="note">
+              <h3 class="title">Note</h3>
+              <p>For more information about configuring sending emails read the <a class="xref" href="webissues.prep.notifications.html" title="Sending emails">the section called “Sending emails”</a>.</p>
+            </div>
+            <p>There are three types of notifications available in the WebIssues system:</p>
+            <div class="variablelist">
+              <dl class="variablelist">
+                <dt>
+                  <span class="term">Immediate notifications</span>
+                </dt>
+                <dd>
+                  <p>Sent immediately when someone adds or changes an issue which meets the criteria of the alert.</p>
+                </dd>
+                <dt>
+                  <span class="term">Summary of notifications</span>
+                </dt>
+                <dd>
+                  <p>Sent at specified days and hours, if someone adds or changes issues related to the alert.</p>
+                </dd>
+                <dt>
+                  <span class="term">Summary reports</span>
+                </dt>
+                <dd>
+                  <p>Always sent at specified days and hours, regardless of whether any changes have occurred.</p>
+                </dd>
+              </dl>
+            </div>
+            <p>The type of notification can be specified when you create an alert, as long as sending emails is enabled on the server. You can also change it at any time for an existing alert. To do this, select the alert in the alert management window and select <span class="guilabel">Modify Alert</span>.</p>
+            <div class="figure">
+              <a id="id526589"></a>
+              <div class="figure-contents">
+                <div class="mediaobject">
+                  <img src="images/ch04-fig08.png" alt="Changing an alert" />
+                </div>
+              </div>
+              <div class="figure-title">Figure 4.7. Changing an alert</div>
+            </div>
+            <p>Immediate notifications are useful if you want to be kept informed of any changes, and you don't use the WebIssues system all the time. The frequency of sending immediate notifications depends on the configuration of cron job on the server. It can vary from once in a few minutes to once an hour. If an alert generates too many notifications, or if they are not very urgent, you can choose a summary of notifications instead, to receive aggregated information about recent changes, for example, once a day.</p>
+            <p>Summary reports contain a list of all issues, regardless of whether they have been changed since the last notification, and whether they were read by you. They are useful if you want to track the status of all issues that meet specific criteria, for example, to check whether the active bugs are being solved continuously.</p>
+            <p>Summary notifications and reports are sent at the selected days and hours. Depending on your needs, you can receive a summary email once a week, several times a week, once a day, or several times a day. You must select at least one day and one hours when configuring a summary email.</p>
+            <div class="note">
+              <h3 class="title">Note</h3>
+              <p>In version 1.0 the summary schedule was configured globally in the user preferences. When updating to version 1.1, the schedule settings are automatically migrated to individual summary alerts.</p>
+            </div>
+            <p>In order to receive notifications, you must change your user preferences. If you are using a browser, click <span class="guilabel">Tools</span> and then <span class="guilabel">User Preferences</span>. To change them in the Desktop Client, select <span class="guilabel">User Preferences</span> from the main window toolbar.</p>
+            <div class="figure">
+              <a id="id526601"></a>
+              <div class="figure-contents">
+                <div class="mediaobject">
+                  <img src="images/ch04-fig07.png" alt="Notifications settings" />
+                </div>
+              </div>
+              <div class="figure-title">Figure 4.8. Notifications settings</div>
+            </div>
+            <p>Enter a valid email to which the notifications will be sent. Select <span class="guilabel">Include issue details in notifications and summary reports</span>, if you want the emails to contain also issue details and the history of changes and recently added comments and attachments. Otherwise only a summary of issues will be sent.</p>
+            <p>Select <span class="guilabel">Do not notify about issues that I have already read</span> if you don't want to receive notifications about issues that you've read (for example, if you created or modified them by yourself). Also issue details, that you've read, will not be included in that case. This option doesn't affect summary reports, which always contain all issues and changes.</p>
+            <div class="warning">
+              <h3 class="title">Warning</h3>
+              <p>You won't receive any notifications if you don't set the correct email address in your user preferences.</p>
+            </div>
+            <p>All email notifications include the name of the associated project, folder and alert in the header, and also the list of issues. The list contains the same columns as the view which is associated with the alert.</p>
+            <div class="figure">
+              <a id="id526651"></a>
+              <div class="figure-contents">
+                <div class="mediaobject">
+                  <img src="images/ch04-fig09.png" alt="An email notification" />
+                </div>
+              </div>
+              <div class="figure-title">Figure 4.9. An email notification</div>
+            </div>
+            <p>If you selected the appropriate option, email notifications will also include details of each issue, similar to the issue details view in the main window of the program.</p>
+            <div class="tip">
+              <h3 class="title">Tip</h3>
+              <p>Instead of configuring a separate alert for each folder of a given type, it may be more convenient to create a single alert associated with a global list of issues. To create and manage global alerts, open the global list of the appropriate type and select the <span class="guilabel">Manage Alerts</span> command. An additional advantage is that only a single email notification is sent containing all new and modified issues, instead of separate emails for each folder.</p>
+            </div>
           </div>
-          <p>Enter a valid email to which the notifications will be sent. Select <span class="guilabel">Include issue details in notifications and summary reports</span>, if you want the emails to contain also issue details and the history of changes and recently added comments and attachments. Otherwise only a summary of issues will be sent.</p>
-          <p>Select <span class="guilabel">Do not notify about issues that I have already read</span> if you don't want to receive notifications about issues that you've read (for example, if you created or modified them by yourself). Also issue details, that you've read, will not be included in that case. This option doesn't affect summary reports, which always contain all issues and changes.</p>
-          <p>Also set up the notifications schedule, by selecting days and hours at which the summary notification and summary reports will be sent. Depending on your needs, you can receive a summary once a week, several times a week, at a specified time every day, or several times a day.</p>
-          <div class="warning">
-            <h3 class="title">Warning</h3>
-            <p>You won't receive any notifications if you don't set the correct email address in your user preferences. You won't receive the summary emails, if you don't select any day or hour.</p>
-          </div>
-          <p>The type of notification can be specified when you create an alert. You can also change it at any time for an existing alert. To do this, select the alert in the alert management window and select <span class="guilabel">Edit Alert</span>.</p>
-          <div class="figure">
-            <a id="id540652"></a>
-            <div class="figure-contents">
-              <div class="mediaobject">
-                <img src="images/ch04-fig08.png" alt="Changing an alert" />
+          <div class="sect2">
+            <div class="titlepage">
+              <div>
+                <div>
+                  <h3 class="title"><a id="webissues.track.alerts.public"></a>Public alerts</h3>
+                </div>
               </div>
             </div>
-            <div class="figure-title">Figure 4.8. Changing an alert</div>
-          </div>
-          <p>Immediate notifications are useful if you want to be kept informed of any changes, and you don't use the WebIssues system all the time. If an alert generates too many notifications, or if they are not very urgent, you can choose a summary of notifications instead, to receive aggregated information about recent changes, for example, once a day.</p>
-          <p>Summary reports contain a list of all issues, regardless of whether they have been changed since the last notification, and whether they were read by you. They are useful if you want to track the status of all issues that meet specific criteria, for example, to check whether the active bugs are being solved continuously.</p>
-          <p>All email notifications include the name of the associated project, folder and alert in the header, and also the list of issues. The list contains the same columns as the view which is associated with the alert.</p>
-          <div class="figure">
-            <a id="id540684"></a>
-            <div class="figure-contents">
-              <div class="mediaobject">
-                <img src="images/ch04-fig09.png" alt="An email notification" />
+            <p>Project administrators and system administrators have the ability to create public alerts which are shared by all users. For example, if you want all users to keep track of active bugs assigned to them in a specified folder, open the folder, select <span class="guilabel">Manage Alerts</span> and then select <span class="guilabel">Add Public Alert</span>. Choose the <span class="quote">“<span class="quote">My Active Bugs</span>”</span> view from the list and click <span class="guibutton">OK</span>.</p>
+            <div class="figure">
+              <a id="id526750"></a>
+              <div class="figure-contents">
+                <div class="mediaobject">
+                  <img src="images/ch04-fig09-01.png" alt="List of alerts with a public alert" />
+                </div>
               </div>
+              <div class="figure-title">Figure 4.10. List of alerts with a public alert</div>
             </div>
-            <div class="figure-title">Figure 4.9. An email notification</div>
+            <p>All users will now see the alert in their project tree in the Desktop Client. Public alerts can be distinguished from personal alerts by a small user symbol in the corer of the icon.</p>
+            <p>You can configure email type and schedule for a public alert in order to enable sending email notifications. Notifications for public alerts associated with a folder are sent to all users who can access the folder, regardless of whether or not they are explicitly listed as project memebers. If the folder belongs to a public project, notifications are sent to all active users. Notifications for public alerts associated with a global list of issues are sent to all active users who have access to at least one folder of the given type. Only users who have a valid email address configured in their user preferences will receive email notifications.</p>
+            <div class="note">
+              <h3 class="title">Note</h3>
+              <p>Summary notifications for public alerts are always sent according to the server's time zone, and the time zone preferences of individual users are ignored. However, other preferences, such as including issue details in notifications and summary reports and ignoring notifications notify about issues that the user has already read, are respected for each individual user.</p>
+            </div>
+            <p>A public alert can be associated either with a public view or the <span class="quote">“<span class="quote">All Issues</span>”</span> view. It cannot be associated with a personal view; you have to publish the view first to make it available to all users.</p>
+            <p>Regular users are not allowed to delete or modify settings of a public alert. Also they cannot create a personal alert associated with the same view as the already existing public alert. When a public alert is created, all personal alerts associated with the same view are deleted.</p>
+            <div class="tip">
+              <h3 class="title">Tip</h3>
+              <p>Setting up a large number of public alerts may cause a lot of emails to be generated. You can restrict the number of emails by using appropriate view conditions; for example users can only receive notifications about issues which are currently assigned to them. Use global alerts when possible, instead of creating separate alerts for each folder. Also consider using summary notifications instead of immediate notifications.</p>
+            </div>
           </div>
-          <p>If you selected the appropriate option, email notifications will also include details of each issue, similar to the issue details view in the main window of the program.</p>
         </div>
         <div class="navlinks">
           <div class="navleft">&laquo; <a accesskey="p" href="webissues.track.html">Tracking issues</a></div>

@@ -19,7 +19,7 @@
             <h1><img src="common/webissues.png" alt="WebIssues" id="logo" />WebIssues Manual</h1>
           </div>
           <div id="header-right">
-            <h2 class="subtitle">Version 1.1-beta2</h2>
+            <h2 class="subtitle">Version 1.1-rc1</h2>
           </div>
         </div>
         <div id="infobar">
@@ -44,33 +44,127 @@
           <p>If you are a system administrator, you can manage all projects and create new projects. If you are the administrator of a project, you can manage its members and folders.</p>
           <p>To add a new project, select <span class="guilabel">Add Project</span>, enter the name and optional description of the project and click <span class="guibutton">OK</span>.</p>
           <div class="figure">
-            <a id="id546436"></a>
+            <a id="id531115"></a>
             <div class="figure-contents">
               <div class="mediaobject">
                 <img src="images/ch05-fig11.png" alt="Creating a project" />
               </div>
             </div>
-            <div class="figure-title">Figure 5.13. Creating a project</div>
+            <div class="figure-title">Figure 5.10. Creating a project</div>
           </div>
-          <p>After creating a new project, no regular user has access to it. For more information on granting users access to projects, see <a class="xref" href="webissues.admin.users.html#webissues.admin.users.members" title="Project members">the section called “Project members”</a>.</p>
           <p>The system administrator can change the name of any project. To do this, select the project and click <span class="guilabel">Rename Project</span>. You can also delete projects using the <span class="guilabel">Delete Project</span> command. If the project is not empty, a warning will be displayed.</p>
           <div class="warning">
             <h3 class="title">Warning</h3>
             <p>When deleting projects or folders, pay special attention whether you are not mistakenly deleting the wrong data. All issues contained in them are permanently and irreversibly removed from the system, and it's not possible to restore them.</p>
           </div>
           <p>The project description is displayed when the project is selected in the projects tree in both the Web Client and the Desktop Client. It can be used to provide information about the project, including links to important issues or external resources. Both system administrators and project administrators can add a description to an existing project, edit the description and delete it. Project descriptions use the same format as issue descriptions and comments; see <a class="xref" href="webissues.work.issues.html#webissues.work.issues.comments" title="Comments and descriptions">the section called “Comments and descriptions”</a> for more information.</p>
-          <p>To add a new folder, select a project and click <span class="guilabel">Add Folder</span>.</p>
-          <div class="figure">
-            <a id="id546494"></a>
-            <div class="figure-contents">
-              <div class="mediaobject">
-                <img src="images/ch05-fig12.png" alt="Creating a folder" />
+          <div class="sect2">
+            <div class="titlepage">
+              <div>
+                <div>
+                  <h3 class="title"><a id="webissues.admin.projects.folders"></a>Managing folders</h3>
+                </div>
               </div>
             </div>
-            <div class="figure-title">Figure 5.14. Creating a folder</div>
+            <p>To add a new folder, select a project and click <span class="guilabel">Add Folder</span>.</p>
+            <div class="figure">
+              <a id="id531199"></a>
+              <div class="figure-contents">
+                <div class="mediaobject">
+                  <img src="images/ch05-fig12.png" alt="Creating a folder" />
+                </div>
+              </div>
+              <div class="figure-title">Figure 5.11. Creating a folder</div>
+            </div>
+            <p>When creating a folder, you have to give it a name that is unique within the project and select the type of issues that will be stored in it. After creating a folder its type can't be changed. However, you can rename a folder using the <span class="guilabel">Rename Folder</span> command and delete it using the <span class="guilabel">Delete Folder</span> command.</p>
+            <p>You can also move a folder from one project to another. In order to do this, you must be the administrator of the system or of both projects — the source one and destination one. Select the folder you want to move and click <span class="guilabel">Move Folder</span>. Then select the destination project from the list and click <span class="guibutton">OK</span>.</p>
           </div>
-          <p>When creating a folder, you have to give it a name that is unique within the project and select the type of issues that will be stored in it. After creating a folder its type can't be changed. However, you can rename a folder using the <span class="guilabel">Rename Folder</span> command and delete it using the <span class="guilabel">Delete Folder</span> command.</p>
-          <p>You can also move a folder from one project to another. In order to do this, you must be the administrator of the system or of both projects — the source one and destination one. Select the folder you want to move and click <span class="guilabel">Move Folder</span>. Then select the destination project from the list and click <span class="guibutton">OK</span>.</p>
+          <div class="sect2">
+            <div class="titlepage">
+              <div>
+                <div>
+                  <h3 class="title"><a id="webissues.admin.projects.permissions"></a>Project permissions</h3>
+                </div>
+              </div>
+            </div>
+            <p>After creating a new project, no regular users have access to it. To manage user privileges for specific projects, go to <span class="guilabel">Manage Projects</span> from the main window, select the project, and then click <span class="guilabel">Manage Permissions</span>. In case of the Desktop Client, this command is available directly from the main window if you activate the projects tree.</p>
+            <div class="figure">
+              <a id="id531283"></a>
+              <div class="figure-contents">
+                <div class="mediaobject">
+                  <img src="images/ch05-fig08.png" alt="Project permissions" />
+                </div>
+              </div>
+              <div class="figure-title">Figure 5.12. Project permissions</div>
+            </div>
+            <p>There are two global levels of access for projects:</p>
+            <div class="variablelist">
+              <dl class="variablelist">
+                <dt>
+                  <span class="term">Regular project</span>
+                </dt>
+                <dd>
+                  <p>Regular projects are only visible to system administrators and regular users who are members of the project. All new projects are regular projects by default.</p>
+                </dd>
+                <dt>
+                  <span class="term">Public project</span>
+                </dt>
+                <dd>
+                  <p>Public projects are visible to all users in the system, including both system administrators and regular users. There is no need to explicitly grant access to individual members, except for project administrators. This is useful for projects containing common data, such as discussion boards, and also when it's not necessary to restrict user permissions for individual projects. Also, when anonymous access is enabled, the project can be accessed in read only mode without logging in to the system.</p>
+                </dd>
+              </dl>
+            </div>
+            <p>To change the global access of a project, click the <span class="guilabel">Change</span> command in the <span class="guilabel">Global Access</span> section. Then choose the new level of access and click <span class="guibutton">OK</span>.</p>
+            <div class="figure">
+              <a id="id531355"></a>
+              <div class="figure-contents">
+                <div class="mediaobject">
+                  <img src="images/ch05-fig08-01.png" alt="Project global access" />
+                </div>
+              </div>
+              <div class="figure-title">Figure 5.13. Project global access</div>
+            </div>
+            <p>You can also assign specific access for the project to individual users. There are two levels of access for project members:</p>
+            <div class="variablelist">
+              <dl class="variablelist">
+                <dt>
+                  <span class="term">Project administrator</span>
+                </dt>
+                <dd>
+                  <p>Project administrators can manage permissions and folders of the project. They can also delete or move issues and edit and delete all comments and attachments within the project. Finally, they can manage public alerts and modify the project description.</p>
+                </dd>
+                <dt>
+                  <span class="term">Regular member</span>
+                </dt>
+                <dd>
+                  <p>Regular members can view issues in all folders, manage their own alerts, and create new issues and edit existing ones. They can also add comments and attachments, and edit and delete their own comments and attachments.</p>
+                </dd>
+              </dl>
+            </div>
+            <p>The global permissions of the user are always more important than permissions for a given project. A system administrator automatically becomes the administrator of all projects, and a disabled user has no access to any project. Regular users only have access to public projects and regular projects that they are members of, according to the permissions that were assigned to them.</p>
+            <p>To add new members to the project, select <span class="guilabel">Add Members</span>.</p>
+            <div class="figure">
+              <a id="id531421"></a>
+              <div class="figure-contents">
+                <div class="mediaobject">
+                  <img src="images/ch05-fig09.png" alt="Adding project members" />
+                </div>
+              </div>
+              <div class="figure-title">Figure 5.14. Adding project members</div>
+            </div>
+            <p>Select one or more users who are not yet members of the project. Then select the appropriate level of access and click <span class="guibutton">OK</span>.</p>
+            <p>To change the access for an existing member, select the member on the list and click <span class="guilabel">Change Access</span>. Then select the new level of access and click <span class="guibutton">OK </span>. You can't deprive your own project administrator rights, unless you are a system administrator.</p>
+            <div class="figure">
+              <a id="id531463"></a>
+              <div class="figure-contents">
+                <div class="mediaobject">
+                  <img src="images/ch05-fig10.png" alt="Changing member's access" />
+                </div>
+              </div>
+              <div class="figure-title">Figure 5.15. Changing member's access</div>
+            </div>
+            <p>To remove a member of the project, select the member on the list and click <span class="guilabel">Remove Member</span>. In case of the Desktop Client, you can choose several members on the list, and change their access or remove them from the project simultaneously.</p>
+          </div>
         </div>
         <div class="navlinks">
           <div class="navleft">&laquo; <a accesskey="p" href="webissues.admin.register.html">Registration requests</a></div>

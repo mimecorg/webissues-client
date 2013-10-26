@@ -19,7 +19,7 @@
             <h1><img src="common/webissues.png" alt="WebIssues" id="logo" />Podręcznik WebIssues</h1>
           </div>
           <div id="header-right">
-            <h2 class="subtitle">Wersja 1.1-beta2</h2>
+            <h2 class="subtitle">Wersja 1.1-rc1</h2>
           </div>
         </div>
         <div id="infobar">
@@ -44,33 +44,127 @@
           <p>Jeśli jesteś administratorem systemu, możesz zarządzać wszystkimi projektami oraz tworzyć nowe projekty. Jeśli jesteś administratorem projektu, możesz zarządzać jego członkami i folderami.</p>
           <p>Aby dodać nowy projekt, wybierz polecenie <span class="guilabel">Dodaj projekt</span>, a następnie podaj nazwę i opcjonalny opis projektu i naciśnij <span class="guibutton">OK</span>.</p>
           <div class="figure">
-            <a id="id530097"></a>
+            <a id="id531539"></a>
             <div class="figure-contents">
               <div class="mediaobject">
                 <img src="images/ch05-fig11.png" alt="Tworzenie projektu" />
               </div>
             </div>
-            <div class="figure-title">Rysunek 5.13. Tworzenie projektu</div>
+            <div class="figure-title">Rysunek 5.10. Tworzenie projektu</div>
           </div>
-          <p>Po utworzeniu nowego projektu, żaden zwykły użytkownik nie ma do niego dostępu. Więcej informacji na temat udzielania użytkownikom dostępu do projektów znajdziesz w sekcji <a class="xref" href="webissues.admin.users.html#webissues.admin.users.members" title="Członkowie projektu">„Członkowie projektu”</a>.</p>
           <p>Administrator systemu może zmienić nazwę dowolnego projektu. W tym celu wybierz projekt i kliknij <span class="guilabel">Zmień nazwę projektu</span>. Możesz również usuwać projekty używając polecenia <span class="guilabel">Usuń projekt</span>. Jeśli projekt nie jest pusty, zostanie wyświetlone odpowiednie ostrzeżenie.</p>
           <div class="warning">
             <h3 class="title">Uwaga</h3>
             <p>Usuwając projekty lub foldery zwracaj szczególną uwagę, czy omyłkowo nie kasujesz niewłaściwych danych. Wszystkie zawarte w nich sprawy są trwale i nieodwracalnie usuwane z systemu i nie ma możliwości ich przywrócenia.</p>
           </div>
           <p>Opis projektu jest wyświetlany, gdy projekt zostanie wybrany w drzewie projektów, zarówno w programie Web Client, jak i Desktop Client. Możesz go użyć, by przekazać informacje o projekcie, w tym odnośniki do ważnych spraw lub zasobów zewnętrznych. Administratorzy systemu oraz projektu mogą dodać opis do istniejącego projektu, edytować opis i usunąć go. Opisy projektów używają tego samego formatu, co opisy spraw i komentarze. Aby uzyskać więcej informacji, patrz sekcja <a class="xref" href="webissues.work.issues.html#webissues.work.issues.comments" title="Komentarze i opisy">„Komentarze i opisy”</a>.</p>
-          <p>Aby dodać nowy folder, wybierz projekt i kliknij <span class="guilabel">Dodaj folder</span>.</p>
-          <div class="figure">
-            <a id="id530198"></a>
-            <div class="figure-contents">
-              <div class="mediaobject">
-                <img src="images/ch05-fig12.png" alt="Tworzenie folderu" />
+          <div class="sect2">
+            <div class="titlepage">
+              <div>
+                <div>
+                  <h3 class="title"><a id="webissues.admin.projects.folders"></a>Zarządzanie folderami</h3>
+                </div>
               </div>
             </div>
-            <div class="figure-title">Rysunek 5.14. Tworzenie folderu</div>
+            <p>Aby dodać nowy folder, wybierz projekt i kliknij <span class="guilabel">Dodaj folder</span>.</p>
+            <div class="figure">
+              <a id="id531611"></a>
+              <div class="figure-contents">
+                <div class="mediaobject">
+                  <img src="images/ch05-fig12.png" alt="Tworzenie folderu" />
+                </div>
+              </div>
+              <div class="figure-title">Rysunek 5.11. Tworzenie folderu</div>
+            </div>
+            <p>Tworząc folder, musisz nadać mu nazwę, która jest unikalna w ramach danego projektu, a także wybrać typ spraw, które będą w nim przechowywane. Po utworzeniu folderu nie możesz zmienić jego typu. Możesz natomiast zmienić nazwę folderu, używając polecenia <span class="guilabel">Zmień nazwę folderu</span> oraz usunąć go za pomocą polecenia <span class="guilabel">Usuń folder</span>.</p>
+            <p>Możesz również przenieść folder z jednego projektu do drugiego. Aby to zrobić, musisz być administratorem systemu lub obu projektów — źródłowego i docelowego. Wybierz folder, który chcesz przenieść i kliknij <span class="guilabel">Przenieś folder</span>. Następnie wybierz z listy docelowy projekt i kliknij <span class="guibutton">OK</span>.</p>
           </div>
-          <p>Tworząc folder, musisz nadać mu nazwę, która jest unikalna w ramach danego projektu, a także wybrać typ spraw, które będą w nim przechowywane. Po utworzeniu folderu nie możesz zmienić jego typu. Możesz natomiast zmienić nazwę folderu, używając polecenia <span class="guilabel">Zmień nazwę folderu</span> oraz usunąć go za pomocą polecenia <span class="guilabel">Usuń folder</span>.</p>
-          <p>Możesz również przenieść folder z jednego projektu do drugiego. Aby to zrobić, musisz być administratorem systemu lub obu projektów — źródłowego i docelowego. Wybierz folder, który chcesz przenieść i kliknij <span class="guilabel">Przenieś folder</span>. Następnie wybierz z listy docelowy projekt i kliknij <span class="guibutton">OK</span>.</p>
+          <div class="sect2">
+            <div class="titlepage">
+              <div>
+                <div>
+                  <h3 class="title"><a id="webissues.admin.projects.permissions"></a>Uprawnienia projektu</h3>
+                </div>
+              </div>
+            </div>
+            <p>Po utworzeniu nowego projektu, żaden zwykły użytkownik nie ma do niego dostępu. Aby zarządzać uprawnieniami użytkowników do poszczególnych projektów, kliknij <span class="guilabel">Zarządzaj projektami</span> w oknie głównym, wybierz projekt, a następnie użyj polecenia <span class="guilabel">Zarządzaj uprawnieniami</span>. W przypadku programu Desktop Client, polecenie to jest dostępne bezpośrednio w oknie głównym, jeśli uaktywnisz drzewo projektów.</p>
+            <div class="figure">
+              <a id="id531702"></a>
+              <div class="figure-contents">
+                <div class="mediaobject">
+                  <img src="images/ch05-fig08.png" alt="Uprawnienia projektu" />
+                </div>
+              </div>
+              <div class="figure-title">Rysunek 5.12. Uprawnienia projektu</div>
+            </div>
+            <p>Istnieją dwa globalne poziomy dostępu do projektów:</p>
+            <div class="variablelist">
+              <dl class="variablelist">
+                <dt>
+                  <span class="term">Zwykły projekt</span>
+                </dt>
+                <dd>
+                  <p>Zwykłe projekty są widoczne tylko dla administratorów systemu i zwykłych użytkowników, którzy są członkami danego projektu. Wszystkie nowe projekty są domyślnie zwykłymi projektami.</p>
+                </dd>
+                <dt>
+                  <span class="term">Publiczny projekt</span>
+                </dt>
+                <dd>
+                  <p>Publiczne projekty są widoczne dla wszystkich użytkowników systemu, zarówno administratorów, jak i zwykłych użytkowników. Nie ma potrzeby jawnego nadawania uprawnień poszczególnym członkom, z wyjątkiem administratorów projektu. Jest to przydatne w przypadku projektów zawierających wspólne dane, takie jak fora dyskusyjne, a także w przypadku, gdy nie jest konieczne ograniczanie dostępu użytkowników do poszczególnych projektów. Dodatkowo, jeśli został włączony dostęp anonimowy, projekt jest dostępny w trybie tylko do odczytu bez konieczności logowania się do systemu.</p>
+                </dd>
+              </dl>
+            </div>
+            <p>Aby zmienić globalny dostęp dla projektu, kliknij polecenie <span class="guilabel">Zmień</span> w ramce <span class="guilabel">Globalny dostęp</span>. Następnie wybierz nowy poziom dostępu i kliknij <span class="guibutton">OK</span>.</p>
+            <div class="figure">
+              <a id="id531792"></a>
+              <div class="figure-contents">
+                <div class="mediaobject">
+                  <img src="images/ch05-fig08-01.png" alt="Globalny dostęp do projektu" />
+                </div>
+              </div>
+              <div class="figure-title">Rysunek 5.13. Globalny dostęp do projektu</div>
+            </div>
+            <p>Możesz również przypisać określony dostęp do projektu poszczególnym użytkownikom. Istnieją dwa poziomy dostępu użytkowników do projektów:</p>
+            <div class="variablelist">
+              <dl class="variablelist">
+                <dt>
+                  <span class="term">Administrator projektu</span>
+                </dt>
+                <dd>
+                  <p>Administrator projektu może zarządzać uprawnieniami i folderami danego projektu. Może również usuwać i przenosić sprawy oraz edytować i usuwać wszystkie komentarze i załączniki w ramach tego projektu. Może także zarządzać publicznymi alertami oraz zmieniać opis projektu.</p>
+                </dd>
+                <dt>
+                  <span class="term">Zwykły członek</span>
+                </dt>
+                <dd>
+                  <p>Zwykły członek może przeglądać sprawy we wszystkich folderach, zarządzać swoimi alertami, a także tworzyć nowe sprawy i edytować istniejące. Może również dodawać komentarze i załączniki oraz edytować i usuwać własne komentarze i załączniki.</p>
+                </dd>
+              </dl>
+            </div>
+            <p>Globalne uprawnienia użytkownika są zawsze ważniejsze, niż uprawnienia dla danego projektu. Administrator systemu automatycznie staje się administratorem wszystkich projektów, a użytkownik wyłączony traci dostęp do wszystkich projektów. Natomiast zwykły użytkownik ma dostęp tylko do publicznych projektów oraz do tych projektów, których jest członkiem, zgodnie z nadanymi mu uprawnieniami.</p>
+            <p>Aby dodać członków projektu, wybierz polecenie <span class="guilabel">Dodaj członków</span>.</p>
+            <div class="figure">
+              <a id="id531794"></a>
+              <div class="figure-contents">
+                <div class="mediaobject">
+                  <img src="images/ch05-fig09.png" alt="Dodawanie członków projektu" />
+                </div>
+              </div>
+              <div class="figure-title">Rysunek 5.14. Dodawanie członków projektu</div>
+            </div>
+            <p>Zaznacz jednego lub więcej użytkowników, którzy nie są jeszcze członkami projektu. Następnie wybierz odpowiedni poziom dostępu i kliknij <span class="guibutton">OK</span>.</p>
+            <p>Aby zmienić poziom dostępu członka, wybierz go z listy i kliknij <span class="guilabel">Zmień dostęp</span>. Następnie wybierz nowy poziom dostępu i kliknij <span class="guibutton">OK</span>. Nie możesz sam pozbawić się prawa administratora projektu, chyba że jesteś administratorem systemu.</p>
+            <div class="figure">
+              <a id="id529662"></a>
+              <div class="figure-contents">
+                <div class="mediaobject">
+                  <img src="images/ch05-fig10.png" alt="Zmiana dostępu członka" />
+                </div>
+              </div>
+              <div class="figure-title">Rysunek 5.15. Zmiana dostępu członka</div>
+            </div>
+            <p>Aby usunąć członka projektu, wybierz go z listy i kliknij <span class="guilabel">Usuń członka</span>. W przypadku programu Desktop Client, możesz wybrać kilku członków z listy i zmienić ich poziom dostępu lub usunąć z projektu jednocześnie.</p>
+          </div>
         </div>
         <div class="navlinks">
           <div class="navleft">&laquo; <a accesskey="p" href="webissues.admin.register.html">Zgłoszenia rejestracji</a></div>
