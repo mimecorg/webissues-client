@@ -31,6 +31,8 @@
 #include "models/foldermodel.h"
 #include "views/viewmanager.h"
 
+#include <QAction>
+
 GlobalListView::GlobalListView( QObject* parent, QWidget* parentWidget ) : ListView( parent, parentWidget )
 {
     action( "updateFolder" )->setText( tr( "&Update All Issues" ) );

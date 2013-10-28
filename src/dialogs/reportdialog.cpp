@@ -45,6 +45,7 @@
 #include <QPrintPreviewDialog>
 #include <QApplication>
 #include <QDesktopWidget>
+#include <QAction>
 
 ReportDialog::ReportDialog( SourceType source, ReportMode mode, QWidget* parent ) : CommandDialog( parent ),
     m_source( source ),

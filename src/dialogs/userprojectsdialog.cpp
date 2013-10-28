@@ -190,6 +190,8 @@ void UserProjectsDialog::updateGlobalAccess()
     case AdminAccess:
         m_globalEdit->setText( tr( "System administrator" ) );
         break;
+    default:
+	break;
     }
 }
 
