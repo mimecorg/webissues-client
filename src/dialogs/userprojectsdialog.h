@@ -27,6 +27,7 @@ class UserProjectsModel;
 
 class QTreeView;
 class QModelIndex;
+class QLineEdit;
 
 /**
 * Dialog for managing user projects.

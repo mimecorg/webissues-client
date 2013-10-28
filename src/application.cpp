@@ -45,6 +45,7 @@
 #include <QPushButton>
 #include <QPrinter>
 #include <QTimer>
+#include <QSettings>
 
 #if defined( Q_WS_WIN )
 #define _WIN32_IE 0x0400
@@ -304,12 +305,12 @@ void Application::openDownloads()
 
 QString Application::version() const
 {
-    return QString( "1.1-beta2" );
+    return QString( "1.1-rc1" );
 }
 
 QString Application::protocolVersion() const
 {
-    return QString( "1.1-beta2" );
+    return QString( "1.1" );
 }
 
 void Application::initializeLanguage()

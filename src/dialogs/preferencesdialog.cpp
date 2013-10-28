@@ -40,6 +40,7 @@
 #include <QButtonGroup>
 #include <QTimer>
 #include <QDateTime>
+#include <QGroupBox>
 
 static QString formatTimeZone( const QString& zone )
 {

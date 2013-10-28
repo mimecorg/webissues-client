@@ -20,6 +20,7 @@
 #include "linklabel.h"
 
 #include <QEvent>
+#include <QTextDocument>
 
 LinkLabel::LinkLabel( const QString& caption, QWidget* parent ) : QLabel( parent ),
     m_linkUrl( "#" ),

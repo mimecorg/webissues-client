@@ -28,6 +28,7 @@
 #include <QCheckBox>
 #include <QButtonGroup>
 #include <QDateTime>
+#include <QLocale>
 
 ScheduleWidget::ScheduleWidget( QWidget* parent ) : QWidget( parent )
 {

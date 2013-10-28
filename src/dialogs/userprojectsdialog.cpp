@@ -34,6 +34,9 @@
 #include <QAction>
 #include <QTreeView>
 #include <QDialogButtonBox>
+#include <QPushButton>
+#include <QLineEdit>
+#include <QGroupBox>
 #include <QMenu>
 
 UserProjectsDialog::UserProjectsDialog( int userId ) : InformationDialog( NULL, Qt::Window ),

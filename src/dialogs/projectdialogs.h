@@ -27,6 +27,7 @@ class InputLineEdit;
 class MarkupTextEdit;
 
 class QComboBox;
+class QButtonGroup;
 
 /**
 * Dialog for executing the <tt>ADD PROJECT</tt> command.

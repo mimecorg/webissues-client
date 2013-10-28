@@ -30,6 +30,8 @@
 #include <QLayout>
 #include <QLabel>
 #include <QComboBox>
+#include <QRadioButton>
+#include <QButtonGroup>
 
 AddProjectDialog::AddProjectDialog() : CommandDialog( NULL, Qt::Window )
 {

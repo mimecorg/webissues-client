@@ -30,6 +30,7 @@
 #include <QLabel>
 #include <QRadioButton>
 #include <QButtonGroup>
+#include <QGroupBox>
 
 AlertDialog::AlertDialog( QWidget* parent ) : CommandDialog( parent ),
     m_viewCombo( NULL ),

@@ -27,6 +27,7 @@ class MembersModel;
 
 class QTreeView;
 class QModelIndex;
+class QLineEdit;
 
 /**
 * Dialog for managing project members.
