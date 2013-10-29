@@ -1,5 +1,5 @@
 WebIssues Desktop Client
-Version 1.1-beta2 (2013-07-18)
+Version 1.1-rc1 (2013-10-29)
 
 Desktop Client for the WebIssues team collaboration system.
 
@@ -76,28 +76,22 @@ Contributors:
  * Filipe Azevedo (pasnox at gmail com)
     - OS X packaging, patches
 
+ * Yvan Rodrigues (yvan at redcell ca)
+    - prototype of the email inbox
+
 Translators:
 
  * Flávio Veras (flaviove at gmail com)
     - Portuguese (Brazil) translation
-
- * Dara Sarnirand (dara at sarnirand fr)
-    - French translation
-
- * Torsten Bielen (torsten.bielen at datex de)
-    - German translation
-
- * Liu Jian (kenven328 at 126 com)
-    - Chinese translation
-
- * Rob Hiddinga (rob at robhiddinga nl)
-    - Dutch translation
 
  * René Villegas (renevillegasr at gmail com)
     - Spanish translation
 
  * Petr Stasiak (info at pestasoft com)
     - Czech translation
+
+ * Alexey Mokrov (almk at mail ru)
+    - Russian translation
 
 
 Resources
