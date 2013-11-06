@@ -466,35 +466,37 @@ QString QueryGenerator::makeDateCondition( const QString& expression, const QStr
     return QString();
 }
 
-QStringList QueryGenerator::sortColumns() const
+QList<QStringList> QueryGenerator::sortColumns() const
 {
-    QStringList result;
+    QList<QStringList> result;
 
     IssueTypeCache* cache = dataManager->issueTypeCache( m_typeId );
 
     if ( m_valid ) {
         foreach ( int column, m_columns ) {
+            QStringList columns;
             switch ( column ) {
                 case Column_ID:
-                    result.append( "i.issue_id" );
+                    columns.append( "i.issue_id" );
                     break;
                 case Column_Name:
-                    result.append( "i.issue_name COLLATE LOCALE" );
+                    columns.append( "i.issue_name COLLATE LOCALE" );
                     break;
                 case Column_CreatedDate:
-                    result.append( "i.issue_id" );
+                    columns.append( "i.issue_id" );
                     break;
                 case Column_ModifiedDate:
-                    result.append( "i.stamp_id" );
+                    columns.append( "i.stamp_id" );
                     break;
                 case Column_CreatedBy:
-                    result.append( "uc.user_name COLLATE LOCALE" );
+                    columns.append( "uc.user_name COLLATE LOCALE" );
                     break;
                 case Column_ModifiedBy:
-                    result.append( "um.user_name COLLATE LOCALE" );
+                    columns.append( "um.user_name COLLATE LOCALE" );
                     break;
                 case Column_Location:
-                    result.append( "p.project_name COLLATE LOCALE, f.folder_name COLLATE LOCALE" );
+                    columns.append( "p.project_name COLLATE LOCALE" );
+                    columns.append( "f.folder_name COLLATE LOCALE" );
                     break;
                 default:
                     if ( column > Column_UserDefined ) {
@@ -503,13 +505,13 @@ QStringList QueryGenerator::sortColumns() const
                             case TextAttribute:
                             case EnumAttribute:
                             case UserAttribute:
-                                result.append( QString( "a%1.attr_value COLLATE LOCALE" ).arg( column - Column_UserDefined ) );
+                                columns.append( QString( "a%1.attr_value COLLATE LOCALE" ).arg( column - Column_UserDefined ) );
                                 break;
                             case NumericAttribute:
-                                result.append( QString( "CAST( a%1.attr_value AS REAL )" ).arg( column - Column_UserDefined ) );
+                                columns.append( QString( "CAST( a%1.attr_value AS REAL )" ).arg( column - Column_UserDefined ) );
                                 break;
                             case DateTimeAttribute:
-                                result.append( QString( "CAST( STRFTIME( '%s', a%1.attr_value ) AS INTEGER )" ).arg( column - Column_UserDefined ) );
+                                columns.append( QString( "CAST( STRFTIME( '%s', a%1.attr_value ) AS INTEGER )" ).arg( column - Column_UserDefined ) );
                                 break;
                             default:
                                 break;
@@ -517,6 +519,7 @@ QStringList QueryGenerator::sortColumns() const
                     }
                     break;
             }
+            result.append( columns );
         }
     }
 

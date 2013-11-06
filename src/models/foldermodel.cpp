@@ -207,11 +207,11 @@ void FolderModel::generateQueries( bool resort )
 void FolderModel::updateQueries()
 {
     if ( !m_query.isEmpty() ) {
-        QString column = m_sortColumns.value( sortColumn() );
+        QStringList columns = m_sortColumns.value( sortColumn() );
         QString order = ( sortOrder() == Qt::AscendingOrder ) ? "ASC" : "DESC";
 
         QStringList parts;
-        foreach ( const QString& part, column.split( ", " ) )
+        foreach ( const QString& part, columns )
             parts.append( QString( "%1 %2" ).arg( part, order ) );
 
         int id = m_columns.value( sortColumn() );

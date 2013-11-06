@@ -121,7 +121,7 @@ private:
     QList<QVariant> m_arguments;
 
     QList<int> m_columns;
-    QStringList m_sortColumns;
+    QList<QStringList> m_sortColumns;
 };
 
 #endif

@@ -89,7 +89,7 @@ public:
     /**
     * Return the list of sort expressions for each column.
     */
-    QStringList sortColumns() const;
+    QList<QStringList> sortColumns() const;
 
     /**
     * Return the column mapping for the view.
