@@ -19,7 +19,7 @@
             <h1><img src="common/webissues.png" alt="WebIssues" id="logo" />WebIssues Manual</h1>
           </div>
           <div id="header-right">
-            <h2 class="subtitle">Version 1.1-rc1</h2>
+            <h2 class="subtitle">Version 1.1</h2>
           </div>
         </div>
         <div id="infobar">
@@ -52,7 +52,7 @@
             </div>
             <p>If you want the WebIssues system to receive emails, go to the Administration Panel and click <span class="guilabel">Inbox Settings</span>.</p>
             <div class="figure">
-              <a id="id518046"></a>
+              <a id="id516354"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch02-fig11.png" alt="Inbox settings" />
@@ -81,7 +81,7 @@
             <p>By default only messages sent by WebIssues users are accepted. The sender's email address is compared with the email address configured in the user's preferences. Emails sent from addresses which do not match any WebIssues users are ignored. Note that the issue is created or modified on behalf of the user associated with the email address, so that user must have access to the project and folder containing the issue. Otherwise the message is ignored and a warning is added to the Event Log.</p>
             <p>If you enable the <span class="guilabel">Accept messages from external users</span> option, messages sent from addresses which don't have a matching WebIssues user will also be accepted. In that case you must also select the <span class="guilabel">Robot user account</span> on whose behalf such issues will be created or modified. The robot user account also must have access to the project containing the issue, unless it is a public project. By changing the permissions of the robot user account, you can control which parts of the system are accessible to external users. Although the issue appears to be created or modified by the robot user, the actual sender of the message can be seen in the headers in the beginning of the description or comment.</p>
             <div class="figure">
-              <a id="id518156"></a>
+              <a id="id516465"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch02-fig12.png" alt="External users" />
@@ -105,7 +105,7 @@
             </div>
             <p>In the simplest scenario, all issues are created in a single folder, which can be selected using the <span class="guilabel">Default folder</span> option. However, you can also enable the <span class="guilabel">Map address extensions to project and folder</span> option, which makes it possible to determine the project and folder where the issue is created based on the address used to send the message to the WebIssues inbox.</p>
             <div class="figure">
-              <a id="id518206"></a>
+              <a id="id516499"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch02-fig13.png" alt="Folder mapping" />
@@ -116,11 +116,11 @@
             <p>There are two ways to set up mapping the email address to project and folder. The first way is to enable email address extensions in the email server. For example, when the inbox address is <code class="literal">service@example.com</code>, an email sent to <code class="literal">service+myproject-bugs@example.com</code> will be registered as an issue in the <span class="quote">“<span class="quote">My project</span>”</span> project, in the <span class="quote">“<span class="quote">Bugs</span>”</span> folder. Another solution is to set up an alias, for example <code class="literal">service-myproject-bugs@example.com</code>, which maps to the <code class="literal">service@example.com</code> address. Refer to the email server's documentation for more information about setting up address extensions and aliases.</p>
             <div class="note">
               <h3 class="title">Note</h3>
-              <p>In order for the folder mapping to work, the email address must contain the account name, as defined in the inbox email address, followed by a <code class="literal">+</code> or <code class="literal">-</code> character, part of the project name, a <code class="literal">-</code> and part of the folder name. The domain part must match the inbox email address. The address must be explicitly specified in either To or CC field of the email. Spaces and other non-alphanumeric characters in project and folder names are igored. Only a part of the project or folder name must match, but the mapping must be unambiguous.</p>
+              <p>In order for the folder mapping to work, the email address must contain the account name, as defined in the inbox email address, followed by a <code class="literal">+</code> or <code class="literal">-</code> character, part of the project name, a <code class="literal">-</code> and part of the folder name. The domain part must match the inbox email address. The address must be explicitly specified in either To or CC field of the email. Spaces and other non-alphanumeric characters in project and folder names are ignored. Only a part of the project or folder name must match, but the mapping must be unambiguous.</p>
               <p>For example, when a project is named <span class="quote">“<span class="quote">My first project</span>”</span>, both <code class="literal">service+first-bugs@example.com</code> and <code class="literal">service+firstproject-bugs@example.com</code> will match. However, if there are more projects containing <span class="quote">“<span class="quote">first</span>”</span> in their name, the former example will not be successfully mapped, because it's ambiguous.</p>
-              <p>Be careful when using accented or non-latin characters in project and folder names, because not all email servers will accept email addresses containing such characters. In such case you can add latin-only words to project and folder names which can be used for mapping email addresses.</p>
+              <p>Be careful when using accented or non-Latin characters in project and folder names, because not all email servers will accept email addresses containing such characters. In such case you can add Latin-only words to project and folder names which can be used for mapping email addresses.</p>
             </div>
-            <p>When the folder cannot be automatically determined from the email address, the issue is created in the selected default folder. However, when folder mapping is enabled, it is possible not to specify a default folder. In that case any email which cannot be successfully mapped will be igored and a warning will be added to the Event Log. Also note that the actual user or the robot user must have access to the folder, whether it's a mapped folder or the default one.</p>
+            <p>When the folder cannot be automatically determined from the email address, the issue is created in the selected default folder. However, when folder mapping is enabled, it is possible not to specify a default folder. In that case any email which cannot be successfully mapped will be ignored and a warning will be added to the Event Log. Also note that the actual user or the robot user must have access to the folder, whether it's a mapped folder or the default one.</p>
           </div>
           <div class="sect2">
             <div class="titlepage">
@@ -133,7 +133,7 @@
             <p>When the <span class="guilabel">Send responses when issues are created</span> option is enabled, a confirmation message is sent back to the sender when a new issue is created through the inbox. The automatic reply contains the identifier and the name of the issue. By responding to this message, additional comments and attachments can be created, for example in order to provide more information or ask about the status of the issue.</p>
             <p>When the <span class="guilabel">Subscribe senders to created issues</span> option is enabled, the sender of the message is automatically subscribed to the issue created through the inbox. In that case any changes made by other users, including editing attributes, modifying the description, adding comments and attachments, are automatically sent as notification emails. See <a class="xref" href="webissues.track.subscriptions.html" title="Subscriptions">the section called “Subscriptions”</a> for more information.</p>
             <div class="figure">
-              <a id="id518337"></a>
+              <a id="id516651"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch02-fig14.png" alt="Sending emails" />

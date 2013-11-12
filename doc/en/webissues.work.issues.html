@@ -19,7 +19,7 @@
             <h1><img src="common/webissues.png" alt="WebIssues" id="logo" />WebIssues Manual</h1>
           </div>
           <div id="header-right">
-            <h2 class="subtitle">Version 1.1-rc1</h2>
+            <h2 class="subtitle">Version 1.1</h2>
           </div>
         </div>
         <div id="infobar">
@@ -43,7 +43,7 @@
           <p>Click on the folder named Bugs to open it. If you have just created a new server, the folder will be empty, so let's start with creating the first issue.</p>
           <p>Select the <span class="guilabel">Add Issue</span> command (if you are using the Desktop Client, you must click on the list of issues for the command to appear). The first part of the window will display a number of fields:</p>
           <div class="figure">
-            <a id="id519885"></a>
+            <a id="id519534"></a>
             <div class="figure-contents">
               <div class="mediaobject">
                 <img src="images/ch03-fig06.png" alt="Adding an issue" />
@@ -55,7 +55,7 @@
           <p>For starters, assign the bug to yourself and change its severity to 1 — after all, it's the first bug recorded in the system.</p>
           <p>Then type the text explaining the issue in the description field. The description is optional and can be left empty; in that case it can be added later. However, in most cases it's most convenient to provide the description directly when adding the issue to the system.</p>
           <div class="figure">
-            <a id="id519929"></a>
+            <a id="id519590"></a>
             <div class="figure-contents">
               <div class="mediaobject">
                 <img src="images/ch03-fig06-01.png" alt="Issue description" />
@@ -70,7 +70,7 @@
           </div>
           <p>Press <span class="guibutton">OK</span> to confirm adding the issue. If the value of one of the attributes is incorrect, you will receive an error. Otherwise, the new issue will appear in the list and its details will be displayed below:</p>
           <div class="figure">
-            <a id="id519993"></a>
+            <a id="id519610"></a>
             <div class="figure-contents">
               <div class="mediaobject">
                 <img src="images/ch03-fig07.png" alt="Details of the new issue" />
@@ -88,7 +88,7 @@
             </div>
             <p>The description is useful to provide information about the issue, but sometimes additional information or questions are necessary. Comments can be used for that purpose. To write a comment, choose <span class="guilabel">Add Comment</span> (make sure that the history of the issue is the active panel, if you are using the Desktop Client). The new window consists almost entirely of a text edit box:</p>
             <div class="figure">
-              <a id="id520023"></a>
+              <a id="id519649"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch03-fig08.png" alt="Issue comment" />
@@ -104,7 +104,7 @@
             <p>When the <span class="guilabel">Text with Markup</span> option is selected, you can also use some special markup to change the font style, create links, bullet lists, etc. Note that this option is usually enabled by default, but you can change it in your preferences. By selecting the <span class="guilabel">Plain Text</span> option, you can disable all special formatting, except for web and email addresses and identifiers, which will still be converted to links automatically.</p>
             <p>The toolbar above the text field will automatically enter appropriate markup tags for you so that you don't have to remember them. Simply place the text cursor where you want the markup inserted or select a fragment of text to surround it with formatting tags. The following tags are recognized when markup is enabled:</p>
             <div class="table">
-              <a id="id520064"></a>
+              <a id="id519690"></a>
               <div class="table-contents">
                 <table summary="Markup summary" border="1">
                   <colgroup>
@@ -192,11 +192,11 @@ for ( int i = 0; i &lt; 10; i++ )
             <p>Links in square brackets are similar to the automatic links, but they allow the text of the link to be customized. If the text is not given, the address is displayed instead. You can wrap all addresses in square brackets to ensure that they are correctly recognized.</p>
             <p>Items of a bullet lists can be nested up to six levels by using the appropriate number of asterisks. There can be any number of spaces before the asterisks and at least one space between the asterisks and the text of the item. List items can consists of any number of lines, they may even contain nested quotes or code blocks.</p>
             <p>Quotes are displayed in a dashed frame and they may have an optional title. You can easily quote existing comments or the description of the issue by using the <span class="guibutton">Reply</span> command. This will open a new comment window with the original comment or description automatically included and marked with the quote tags. Quoted text may contain other markup, including nested quotes, lists and code blocks.</p>
-            <p>Code blocks are useful for pasting fragments of code, log files, etc. The are displayed verbatim, with all markup is ignored, and using a monospace font. However, unlike the monospace font tags, a comment block may contain multiple lines. In addition, the language of the code block can be specified, enabling syntax highlighting. Supported languages include: HTML, XML, C, C++, C#, Java, Bash (equivalent to SH), Python, Perl, Ruby, JavaScript (equivalent to JS), CSS, SQL, VB and PHP.</p>
+            <p>Code blocks are useful for pasting fragments of code, log files, etc. They are displayed verbatim, with all markup is ignored, and using a monospace font. However, unlike the monospace font tags, a comment block may contain multiple lines. In addition, the language of the code block can be specified, enabling syntax highlighting. Supported languages include: HTML, XML, C, C++, C#, Java, Bash (equivalent to SH), Python, Perl, Ruby, JavaScript (equivalent to JS), CSS, SQL, VB and PHP.</p>
             <p>You can use the <span class="guibutton">Preview</span> button in the toolbar above the text field to see a preview of the text with all formatting applied, to verify that it looks correctly.</p>
             <p>Comments are displayed in the issue history together with other changes in chronological order. Using the filter links on the right side, you can choose to display only the specific information. You can change the default filter and the order of changes (oldest first or newest first) in your user preferences.</p>
             <div class="figure">
-              <a id="id520307"></a>
+              <a id="id519922"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch03-fig09.png" alt="Issue history with a comment" />
@@ -220,7 +220,7 @@ for ( int i = 0; i &lt; 10; i++ )
             <p>You can create links to other issues and to comments or attachments. To demonstrate this, let's create another issue called <span class="quote">“<span class="quote">Second issue</span>”</span>, leaving the default values ​​of attributes. Let's assume that the identifier of the first issue is #1, and the second is #6.</p>
             <p>If you add a comment to the first issue, and type <span class="quote">“<span class="quote">#6</span>”</span>, it will be replaced with a link to the other issue. Similarly, if you now add a comment to the second issue, writing <span class="quote">“<span class="quote">#1</span>”</span>, it will become a link to the first issue. In this way, you can create links between issues, refer to other comments in your own comments, etc. When markup is enabled, identifiers can also be used in square brackets to create links with custom text. Just like external addresses, identifiers are also converted to links in descriptions, attribute values, etc.</p>
             <div class="figure">
-              <a id="id520353"></a>
+              <a id="id520022"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch03-fig10.png" alt="Link to an issue" />
@@ -232,9 +232,9 @@ for ( int i = 0; i &lt; 10; i++ )
               <h3 class="title">Note</h3>
               <p>Identifiers of issues are unique and increasing, but not necessarily in consecutive numerical order. In our example, the ID of the second issue is #6, not #2, because the identifiers are also assigned to comments, attachments and other changes, making them easier to manage by the system.</p>
             </div>
-            <p>To quickly go to the issue, comment or attachment with the given identifier, you can also use the Go To Item command. In the Web Client, click <span class="guilabel">Tools</span> in the the upper right corner of the window, then click <span class="guilabel">Go To Item</span>. In the Desktop Client this command is always available in the the main window toolbar, you can also press <span class="shortcut"><strong><span class="keycap"><strong>Ctrl</strong></span>+<span class="keycap"><strong>G</strong></span></strong></span>.</p>
+            <p>To quickly go to the issue, comment or attachment with the given identifier, you can also use the Go To Item command. In the Web Client, click <span class="guilabel">Tools</span> in the upper right corner of the window, then click <span class="guilabel">Go To Item</span>. In the Desktop Client this command is always available in the main window toolbar, you can also press <span class="shortcut"><strong><span class="keycap"><strong>Ctrl</strong></span>+<span class="keycap"><strong>G</strong></span></strong></span>.</p>
             <div class="figure">
-              <a id="id520418"></a>
+              <a id="id517880"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch03-fig11.png" alt="Going to an item" />
@@ -254,7 +254,7 @@ for ( int i = 0; i &lt; 10; i++ )
             </div>
             <p>The <span class="guilabel">Edit Attributes</span> command allows you to edit issue, i.e., change the value of each attribute and the name of the issue. Select the first issue and select that command. You will see the same window as in case of adding a new issue, containing current values ​​of attributes.</p>
             <div class="figure">
-              <a id="id520476"></a>
+              <a id="id517918"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch03-fig12.png" alt="Changing attributes of an issue" />
@@ -275,13 +275,13 @@ for ( int i = 0; i &lt; 10; i++ )
                   <span class="term">Dropdown list</span>
                 </dt>
                 <dd>
-                  <p>This attribute accepts one of the specific values​​, just like the Status field, where you have to choose one of Active, Resolved or Closed. There is also a variant of this attribute that accepts any value, and the list is merely auxiliary, and another variant where you can enter mutliple values separated with commas.</p>
+                  <p>This attribute accepts one of the specific values​​, just like the Status field, where you have to choose one of Active, Resolved or Closed. There is also a variant of this attribute that accepts any value, and the list is merely auxiliary, and another variant where you can enter multiple values separated with commas.</p>
                 </dd>
                 <dt>
                   <span class="term">User</span>
                 </dt>
                 <dd>
-                  <p>The value of this attribute can be the name of any user of the WebIssues system or a member of the project. The Assigned To field is an example of such attribute. There is also a variant where you can select mutliple users separated with commas.</p>
+                  <p>The value of this attribute can be the name of any user of the WebIssues system or a member of the project. The Assigned To field is an example of such attribute. There is also a variant where you can select multiple users separated with commas.</p>
                 </dd>
                 <dt>
                   <span class="term">Numeric</span>
@@ -303,7 +303,7 @@ for ( int i = 0; i &lt; 10; i++ )
             </div>
             <p>Change the status of issue to Resolved, and select Fixed in the Resolution field. Then press <span class="guibutton">OK</span> to save your changes. Note that the WebIssues system automatically remembers your changes and displays them in the history of the issue. This allows you to track the entire life cycle of the issue, changes of its status and all operations performed with the issue.</p>
             <div class="figure">
-              <a id="id520584"></a>
+              <a id="id518065"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch03-fig13.png" alt="Issue history after the change" />
@@ -324,7 +324,7 @@ for ( int i = 0; i &lt; 10; i++ )
             <p>You already know how to add a comment to describe the issue or discuss it. However it's better to add long passages of text (such as error logs) as separate attachments. This way you can also attach image files, documents and other types of files to the issue, just like attachments to email messages.</p>
             <p>To attach a file, select <span class="guilabel">Add Attachment</span>. Then select the file you want to add, and optionally enter a brief description of the attachment.</p>
             <div class="figure">
-              <a id="id522220"></a>
+              <a id="id521533"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch03-fig14.png" alt="Adding an attachment" />
@@ -334,7 +334,7 @@ for ( int i = 0; i &lt; 10; i++ )
             </div>
             <p>The new attachment is visible in the history of the issue:</p>
             <div class="figure">
-              <a id="id522241"></a>
+              <a id="id521525"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch03-fig15.png" alt="Issue history with an attachment" />

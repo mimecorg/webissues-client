@@ -19,7 +19,7 @@
             <h1><img src="common/webissues.png" alt="WebIssues" id="logo" />Podręcznik WebIssues</h1>
           </div>
           <div id="header-right">
-            <h2 class="subtitle">Wersja 1.1-rc1</h2>
+            <h2 class="subtitle">Wersja 1.1</h2>
           </div>
         </div>
         <div id="infobar">
@@ -51,7 +51,7 @@
             </div>
             <p>Aby zarządzać użytkownikami systemu WebIssues, przejdź do Panelu administracyjnego i kliknij <span class="guilabel">Konta użytkowników</span>. W przypadku programu Desktop Client, użyj polecenia <span class="guilabel">Użytkownicy</span> z paska narzędzi głównego okna.</p>
             <div class="figure">
-              <a id="id531026"></a>
+              <a id="id535251"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch05-fig04.png" alt="Konta użytkowników" />
@@ -62,7 +62,7 @@
             <p>Każdy użytkownik posiada unikalny, niezmienny login, używany wraz z hasłem podczas logowania do systemu. Posiada również nazwę, widoczną dla innych użytkowników, którą administrator może w razie potrzeby zmieniać. W zależności od przyjętej konwencji może to być imię i nazwisko, adres e-mail lub dowolna inna nazwa.</p>
             <p>Aby utworzyć nowe konto użytkownika, wybierz polecenie <span class="guilabel">Dodaj użytkownika</span>.</p>
             <div class="figure">
-              <a id="id531076"></a>
+              <a id="id535275"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch05-fig05.png" alt="Tworzenie konta użytkownika" />
@@ -73,7 +73,7 @@
             <p>Podaj nazwę użytkownika oraz login i początkowe hasło. Aby uniknąć pomyłek, hasło musisz wpisać dwukrotnie. Możesz zaznaczyć opcję <span class="guilabel">Użytkownik musi zmienić hasło przy następnym logowaniu</span>, aby wymusić ustawienie własnego hasła przez użytkownika w momencie pierwszego logowania do systemu.</p>
             <p>Jeśli użytkownik nie pamięta swojego hasła, możesz je zresetować, wybierając użytkownika z listy i klikając <span class="guilabel">Zmień hasło</span>. Zostaniesz poproszony o dwukrotne wpisanie nowego hasła. Również w tym wypadku możesz zaznaczyć opcję <span class="guilabel">Użytkownik musi zmienić hasło przy następnym logowaniu</span>.</p>
             <div class="figure">
-              <a id="id531132"></a>
+              <a id="id539072"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch05-fig06.png" alt="Zmiana hasła użytkownika" />
@@ -81,10 +81,10 @@
               </div>
               <div class="figure-title">Rysunek 5.6. Zmiana hasła użytkownika</div>
             </div>
-            <p>Jeśli zmieniasz swoje własne hasło, dla większego bezpieczeństwa musisz dodatkowo wpisać swoje aktualne hasło. Każdy użytkownik może w dowolnej chwili zmienić swoje własne hasło, korzystając z opcji <span class="guilabel">Zmień hasło</span> dostępnej w oknie <span class="guilabel">Narzędzia</span> lub na pasku narzędzi głównego okna progamu Desktop Client.</p>
+            <p>Jeśli zmieniasz swoje własne hasło, dla większego bezpieczeństwa musisz dodatkowo wpisać swoje aktualne hasło. Każdy użytkownik może w dowolnej chwili zmienić swoje własne hasło, korzystając z opcji <span class="guilabel">Zmień hasło</span> dostępnej w oknie <span class="guilabel">Narzędzia</span> lub na pasku narzędzi głównego okna programu Desktop Client.</p>
             <div class="note">
               <h3 class="title">Notatka</h3>
-              <p>Jeśli zapomniałeś hasła administratora systemu, nie możesz w prosty sposób go odzyskać. Wszystkie hasła są przechowywane w bazie danych w postaci bezpiecznych hashów, które praktycznie uniemożliwiają odtworzenie oryginalnego hasła. Mając dostęp do bazy danych możesz jednak zresetować hasło administratora, generując nowy hash i wpisując go do kolumny <code class="literal">user_passwd</code> dla odpowiedniego użytkownika w tabeli <code class="literal">users</code>. System WebIssues używa algorytmu <span class="quote">„<span class="quote">Portable PHP password hashing framework</span>”</span>, zgodnego z takimi programami jak Wordpress czy Drupal, możesz więc użyć jednego z dostępnych dla tych programów <a class="ulink" href="http://scriptserver.mainframe8.com/wordpress_password_hasher.php" target="_top">generatorów hashów</a>.</p>
+              <p>Jeśli zapomniałeś hasła administratora systemu, nie możesz w prosty sposób go odzyskać. Wszystkie hasła są przechowywane w bazie danych w postaci bezpiecznych hashów, które praktycznie uniemożliwiają odtworzenie oryginalnego hasła. Mając dostęp do bazy danych możesz jednak zresetować hasło administratora, generując nowy hash i wpisując go do kolumny <code class="literal">user_passwd</code> dla odpowiedniego użytkownika w tabeli <code class="literal">users</code>. System WebIssues używa algorytmu <span class="quote">„<span class="quote">Portable PHP password hashing framework</span>”</span>, zgodnego z takimi programami jak WordPress czy Drupal, możesz więc użyć jednego z dostępnych dla tych programów <a class="ulink" href="http://scriptserver.mainframe8.com/wordpress_password_hasher.php" target="_top">generatorów hashów</a>.</p>
             </div>
             <p>Aby zmienić nazwę użytkownika, wybierz go z listy i kliknij <span class="guilabel">Zmień nazwę użytkownika</span>. Podaj nową nazwę i kliknij <span class="guibutton">OK</span>.</p>
             <div class="tip">
@@ -92,7 +92,7 @@
               <p>Unikaj zmieniania nazwy użytkowników, którzy mają przypisane do siebie sprawy. Wartości atrybutów są przechowywane jako tekst, więc zmiana nazwy użytkownika nie spowoduje automatycznej zmiany wartości atrybutów <span class="quote">„<span class="quote">Przypisany do</span>”</span>. Może to spowodować, że użytkownik przestanie widzieć przypisane do siebie sprawy.</p>
             </div>
             <p>Nowo utworzony użytkownik nie ma dostępu do żadnego projektu, chyba że jest administratorem systemu. Aby zmienić globalny dostęp i zarządzać listą projektów dostępnych dla wybranego użytkownika, użyj polecenia <span class="guilabel">Zarządzaj uprawnieniami</span>. Więcej informacji na ten temat znajdziesz w sekcji <a class="xref" href="webissues.admin.users.html#webissues.admin.users.permissions" title="Uprawnienia użytkownika">„Uprawnienia użytkownika”</a> poniżej.</p>
-            <p>Możesz również zmienić ustawienia dowolnego użytkownika za pomocą polecenia <span class="guilabel">Ustawienia użytkownika</span>. Każdy użytkownik może również zmienić własne ustawienia, korzystając z opcji <span class="guilabel">Ustawienia użytkownika</span> w oknie <span class="guilabel">Narzędzia</span> lub na pasku narzędzi głównego okna progamu Desktop Client. Więcej informacji na temat ustawień użytkownika znajdziesz w sekcjach <a class="xref" href="webissues.work.personal.html" title="Personalizacja">„Personalizacja”</a>.</p>
+            <p>Możesz również zmienić ustawienia dowolnego użytkownika za pomocą polecenia <span class="guilabel">Ustawienia użytkownika</span>. Każdy użytkownik może również zmienić własne ustawienia, korzystając z opcji <span class="guilabel">Ustawienia użytkownika</span> w oknie <span class="guilabel">Narzędzia</span> lub na pasku narzędzi głównego okna programu Desktop Client. Więcej informacji na temat ustawień użytkownika znajdziesz w sekcjach <a class="xref" href="webissues.work.personal.html" title="Personalizacja">„Personalizacja”</a>.</p>
             <p>System WebIssues nie pozwala na usuwanie istniejących użytkowników, ponieważ przechowuje on wszystkie informacje historyczne, na przykład zmiany dokonane przez poszczególnych użytkowników. Zamiast tego możesz zmienić poziom uprawnień użytkowników, którzy nie powinni już mieć dostępu do systemu, na wyłączony. Użyj opcji filtrowania w prawym górnym rogu listy, aby ukryć wyłączone konta użytkowników.</p>
             <p>System WebIssues umożliwia użytkownikom samodzielnie dokonywać rejestracji nowych kont. Więcej informacji na ten konfigurowania rejestracji użytkowników znajdziesz w sekcji <a class="xref" href="webissues.custom.settings.html" title="Ustawienia zaawansowane">„Ustawienia zaawansowane”</a>.</p>
           </div>
@@ -106,7 +106,7 @@
             </div>
             <p>Aby zmienić globalny dostęp i zarządzać projektami użytkownika, przejdź do Panelu administracyjnego i kliknij <span class="guilabel">Konta użytkowników</span>. W przypadku programu Desktop Client, użyj polecenia <span class="guilabel">Użytkownicy</span> z paska narzędzi głównego okna. Następnie wybierz użytkownika z listy i kliknij <span class="guilabel">Projekty użytkownika</span>. Lista projektów użytkownika jest analogiczna do listy członków projektu.</p>
             <div class="figure">
-              <a id="id531274"></a>
+              <a id="id539220"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch05-fig10-01.png" alt="Uprawnienia użytkownika" />
@@ -139,7 +139,7 @@
             </div>
             <p>Aby zmienić globalny poziom dostępu użytkownika, wybierz kliknij polecenie <span class="guilabel">Zmień</span> w ramce <span class="guilabel">Dostęp globalny</span>. Następnie wybierz nowy poziom dostępu i kliknij <span class="guibutton">OK</span>. Nie możesz sam pozbawić się prawa administratora systemu, ponieważ w systemie musi istnieć przynajmniej jedno aktywne konto administratora.</p>
             <div class="figure">
-              <a id="id531353"></a>
+              <a id="id539286"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch05-fig07.png" alt="Zmiana dostępu użytkownika" />
