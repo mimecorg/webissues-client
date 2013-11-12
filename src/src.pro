@@ -35,7 +35,9 @@ PRECOMPILED_SOURCE = precompiled.cpp
 TRANSLATIONS += \
            ../translations/webissues_untranslated.ts \
            ../translations/webissues_cs.ts \
+           ../translations/webissues_de.ts \
            ../translations/webissues_es.ts \
+           ../translations/webissues_nl.ts \
            ../translations/webissues_pl.ts \
            ../translations/webissues_pt_BR.ts \
            ../translations/webissues_ru.ts
