@@ -86,7 +86,8 @@ void ReportGenerator::setSummaryMode( bool description, IssueDetailsGenerator::H
 
 void ReportGenerator::write( HtmlWriter* writer )
 {
-    writer->writeBlock( m_title, HtmlWriter::Header2Block );
+    if ( m_folderId != 0 || m_typeId != 0 )
+        writer->writeBlock( m_title, HtmlWriter::Header2Block );
 
     if ( !m_summary ) {
         FolderModel model( NULL );
