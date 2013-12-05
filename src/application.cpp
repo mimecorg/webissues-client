@@ -93,7 +93,7 @@ Application::Application( int& argc, char** argv ) : QApplication( argc, argv ),
     m_mainWindow = new MainWindow();
 
     m_editorFont.setFamily( "Verdana, DejaVu Sans" );
-    m_editorFont.setPointSize( 8 );
+    m_editorFont.setPointSizeF( font().pointSizeF() );
     m_editorFont.setStyleHint( QFont::SansSerif );
 
     m_manager = new QNetworkAccessManager();
@@ -566,6 +566,11 @@ void Application::restoreState()
         m_settings->setValue( "LastVersion", version() );
         QTimer::singleShot( 100, this, SLOT( about() ) );
     }
+}
+
+double Application::textSizeMultiplier() const
+{
+    return QFontMetrics( m_editorFont ).height() / 13.0;
 }
 
 QPrinter* Application::printer()

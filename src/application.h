@@ -154,6 +154,11 @@ public:
     const QFont editorFont() const { return m_editorFont; }
 
     /**
+    * Return the text size multiplier for the web view.
+    */
+    double textSizeMultiplier() const;
+
+    /**
     * Return the network access manager.
     */
     QNetworkAccessManager* networkAccessManager() const { return m_manager; }

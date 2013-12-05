@@ -295,6 +295,8 @@ void MarkupTextEdit::showPreview()
         m_preview->setContextMenuPolicy( Qt::NoContextMenu );
         m_preview->page()->setLinkDelegationPolicy( QWebPage::DelegateAllLinks );
 
+        m_preview->setTextSizeMultiplier( application->textSizeMultiplier() );
+
         LocalSettings* settings = application->applicationSettings();
         if ( settings->contains( "PreviewWindowGeometry" ) ) {
             m_previewWindow->restoreGeometry( settings->value( "PreviewWindowGeometry" ).toByteArray() );

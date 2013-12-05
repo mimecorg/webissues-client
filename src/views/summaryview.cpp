@@ -152,6 +152,8 @@ SummaryView::SummaryView( QObject* parent, QWidget* parentWidget ) : View( paren
     palette.setBrush( QPalette::Inactive, QPalette::HighlightedText, palette.brush( QPalette::Active, QPalette::HighlightedText ) );
     m_browser->setPalette( palette );
 
+    m_browser->setTextSizeMultiplier( application->textSizeMultiplier() );
+
     mainLayout->addWidget( m_browser, 1 );
 
     connect( m_browser, SIGNAL( customContextMenuRequested( const QPoint& ) ),
