@@ -1,3 +1,8 @@
+1.1.1 (2013-12-05)
+    * fixed updating project descriptions
+    * fixed font size in issue details and comment editor
+    * fixed double header in issue details report
+
 1.1 (2013-11-12)
     * added Dutch and German translation
     * fixed sorting by date attribute

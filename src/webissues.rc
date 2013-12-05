@@ -3,8 +3,8 @@
 1 ICON "webissues.ico"
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,1,0,5065
- PRODUCTVERSION 1,1,0,5065
+ FILEVERSION 1,1,1,5088
+ PRODUCTVERSION 1,1,1,5088
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -21,11 +21,11 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "WebIssues Team"
             VALUE "FileDescription", "WebIssues Desktop Client"
-            VALUE "FileVersion", "1.1"
+            VALUE "FileVersion", "1.1.1"
             VALUE "LegalCopyright", "Copyright (C) 2007-2013 WebIssues Team"
             VALUE "OriginalFilename", "webissues.exe"
             VALUE "ProductName", "WebIssues Desktop Client"
-            VALUE "ProductVersion", "1.1"
+            VALUE "ProductVersion", "1.1.1"
         END
     END
     BLOCK "VarFileInfo"

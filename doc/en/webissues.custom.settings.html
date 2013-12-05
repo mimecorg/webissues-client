@@ -19,7 +19,7 @@
             <h1><img src="common/webissues.png" alt="WebIssues" id="logo" />WebIssues Manual</h1>
           </div>
           <div id="header-right">
-            <h2 class="subtitle">Version 1.1</h2>
+            <h2 class="subtitle">Version 1.1.1</h2>
           </div>
         </div>
         <div id="infobar">
@@ -44,7 +44,7 @@
           <p>The <span class="guilabel">Regional Options</span> and <span class="guilabel">Formats</span> groups of options are described in <a class="xref" href="webissues.custom.locale.html" title="Regional settings">the section called “Regional settings”</a>.</p>
           <p>The <span class="guilabel">Page Size</span> groups of options allows you to specify the default number of issues displayed on a single page in the list of issues, and the default number of elements per page in the issue history. Each user can choose their own preferred settings using the <span class="guilabel">User Preferences</span> command. These options only affect the Web Client, because the Desktop Client always displays all issues and complete history without pagination.</p>
           <div class="figure">
-            <a id="id532344"></a>
+            <a id="id539799"></a>
             <div class="figure-contents">
               <div class="mediaobject">
                 <img src="images/ch06-fig18.png" alt="Page Size" />
@@ -55,7 +55,7 @@
           <p>Options from the <span class="guilabel">View Settings</span> group affect all users and all types of issues. When the <span class="guilabel">Hide the ID column</span> option is enabled, the ID column will not be displayed in the list of issues. When you hide the ID column, issues can still be sorted by this column, and the identifier of the selected issue will still be displayed in the <span class="guilabel">Properties</span> group in issue details view. When the <span class="guilabel">Hide attributes with empty values</span> option is enabled, attributes that don't have any value are not included in the issue details view. This option is useful when issue types contain a lot of attributes, which are not always used.</p>
           <p>You can select the order in which changes are displayed in the issue history view. Also it is possible to select the default filter in the issue history; you can display all history or just comments and attachments. Individual users may change these settings using the <span class="guilabel">User Preferences</span> command.</p>
           <div class="figure">
-            <a id="id532406"></a>
+            <a id="id539820"></a>
             <div class="figure-contents">
               <div class="mediaobject">
                 <img src="images/ch06-fig18-01.png" alt="View Settings" />
@@ -65,7 +65,7 @@
           </div>
           <p>You can select the default format of text used for new descriptions and comments. By default <span class="guilabel">Text with Markup</span> is used. You can switch to <span class="guilabel">Plain Text</span> if you prefer text without any formatting like in older versions of WebIssues. Note that individual users may override this setting in their personal preferences, as well as for individual descriptions and comments.</p>
           <div class="figure">
-            <a id="id532416"></a>
+            <a id="id539855"></a>
             <div class="figure-contents">
               <div class="mediaobject">
                 <img src="images/ch06-fig18-03.png" alt="Editing" />
@@ -76,7 +76,7 @@
           <p>The <span class="guilabel">Enable anonymous access</span> option enables read-only access to public projects without logging in to the Web Client. Note that when you enable anonymous access, all issues, comments and attachments from the public projects become accessible to everyone. The public content can also be indexed by web search engines if the server is accessible from the Internet. Anonymous users can use public views, but they cannot create their own views, use alerts or subscribe to issues. In addition, only registered and logged in users are allowed to add new issues and edit existing issues. Because of this, anonymous access is often used in combination with user self-registration (see below).</p>
           <p>Anonymous users won't be able to access anything unless there is at least one public project in the system. For more information about changing project access, see <a class="xref" href="webissues.admin.projects.html#webissues.admin.projects.permissions" title="Project permissions">the section called “Project permissions”</a>. For more information about accessing the system in anonymous mode, see <a class="xref" href="webissues.work.login.html" title="Logging into the system">the section called “Logging into the system”</a>.</p>
           <div class="figure">
-            <a id="id532454"></a>
+            <a id="id539911"></a>
             <div class="figure-contents">
               <div class="mediaobject">
                 <img src="images/ch06-fig18-04.png" alt="Anonymous access" />
@@ -87,7 +87,7 @@
           <p>The <span class="guilabel">Enable user registration</span> option allows new users to register themselves in the system. By default, administrator's approval is required before new users can access the system. You can enter an optional e-mail address to which notifications are sent when there are new requests awaiting approval, not more often than once an hour. During the approval, the administrator can assign user's permissions to selected projects. See <a class="xref" href="webissues.admin.register.html" title="Registration requests">the section called “Registration requests”</a> for more information about approving registration requests.</p>
           <p>If you select the <span class="guilabel">Enable automatic approval</span> option, registered users can log in to the system immediately after their email address is verified, without administrator's approval. In this case, new users do not become members of any projects, so they only have access to public projects. Because of this, automatic approval is only useful if there is at least one public project in the system. For more information about changing project access, see <a class="xref" href="webissues.admin.projects.html#webissues.admin.projects.permissions" title="Project permissions">the section called “Project permissions”</a>. For more information about user registration, see <a class="xref" href="webissues.work.login.html" title="Logging into the system">the section called “Logging into the system”</a>.</p>
           <div class="figure">
-            <a id="id532490"></a>
+            <a id="id539924"></a>
             <div class="figure-contents">
               <div class="mediaobject">
                 <img src="images/ch06-fig18-02.png" alt="User Registration" />
@@ -101,7 +101,7 @@
           </div>
           <p>Options from the <span class="guilabel">Limits</span> group allow the system administrator to specify the maximum length of comments and the maximum size of attachments that can be added by users.</p>
           <div class="figure">
-            <a id="id532560"></a>
+            <a id="id539985"></a>
             <div class="figure-contents">
               <div class="mediaobject">
                 <img src="images/ch06-fig19.png" alt="Limits" />
@@ -115,7 +115,7 @@
           </div>
           <p>By default, small attachments are stored in the database, and large ones directly in the file system. Depending on your needs, you can change the threshold value or force storing all attachments only in the database or file system. The maximum size of attachments stored in the database can be specified in the <span class="guilabel">Attachment Storage</span> group.</p>
           <div class="figure">
-            <a id="id537422"></a>
+            <a id="id540025"></a>
             <div class="figure-contents">
               <div class="mediaobject">
                 <img src="images/ch06-fig20.png" alt="Attachment Storage" />
@@ -129,7 +129,7 @@
           </div>
           <p>Options from the <span class="guilabel">Maximum Lifetime</span> group allow you to define the time after which inactive user sessions are removed, and the maximum amount of time the entries in the Event Log and the user registration requests that are waiting for email address confirmation are stored by the system. The <span class="guilabel">Garbage Collection</span> setting determines the probability of running the cleanup process, which removes inactive sessions, old entries in the Event Log and unconfirmed requests. Reduce the probability if the server is heavily loaded, or select <span class="quote">“<span class="quote">Use cron job</span>”</span> if the mechanism of sending email notifications is active (see <a class="xref" href="webissues.prep.notifications.html#webissues.prep.nofitications.cron" title="Cron jobs">the section called “Cron jobs”</a>).</p>
           <div class="figure">
-            <a id="id537504"></a>
+            <a id="id540085"></a>
             <div class="figure-contents">
               <div class="mediaobject">
                 <img src="images/ch06-fig21.png" alt="Maximum Lifetime &amp; Garbage Collection" />
