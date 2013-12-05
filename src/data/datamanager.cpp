@@ -836,7 +836,7 @@ Command* DataManager::updateSummary( int projectId )
     command->addArg( lastStampId );
 
     command->setAcceptNullReply( true );
-    command->addRule( "P isi", ReplyRule::One );
+    command->addRule( "P isii", ReplyRule::One );
     command->addRule( "D isiii", ReplyRule::ZeroOrOne );
     command->addRule( "DX i", ReplyRule::ZeroOrOne );
 
@@ -871,7 +871,7 @@ bool DataManager::updateSummaryReply( const Reply& reply, const QSqlDatabase& da
 
     Query query( database );
 
-    if ( !query.execQuery( "INSERT OR REPLACE INTO projects ( project_id, project_name, stamp_id, is_public ) VALUES ( ?, ?, ?, 0 )", reply.at( 0 ).args() ) )
+    if ( !query.execQuery( "INSERT OR REPLACE INTO projects ( project_id, project_name, stamp_id, is_public ) VALUES ( ?, ?, ?, ? )", reply.at( 0 ).args() ) )
         return false;
 
     if ( !query.execQuery( "INSERT OR REPLACE INTO projects_cache VALUES ( ?, ? )", projectId, lastStampId ) )
