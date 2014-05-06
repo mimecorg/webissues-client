@@ -53,6 +53,7 @@ static QString formatTimeZone( const QString& zone )
 
 PreferencesDialog::PreferencesDialog( int userId, QWidget* parent ) : CommandDialog( parent ),
     m_userId( userId ),
+    m_projectPageComboBox( NULL ),
     m_emailEdit( NULL ),
     m_detailsCheckBox( NULL ),
     m_noReadCheckBox( NULL )
@@ -161,24 +162,41 @@ PreferencesDialog::PreferencesDialog( int userId, QWidget* parent ) : CommandDia
     QLabel* notePageLabel = new QLabel( tr( "The following settings only affect the Web Client." ), pageGroup );
     pageLayout->addWidget( notePageLabel, 0, 0, 1, 3 );
 
+    int row = 1;
+
+    if ( dataManager->checkServerVersion( "1.1.2" ) ) {
+        QLabel* projectPageLabel = new QLabel( tr( "Projects tree:" ), pageGroup );
+        pageLayout->addWidget( projectPageLabel, row, 0 );
+
+        m_projectPageComboBox = new SeparatorComboBox( pageGroup );
+        pageLayout->addWidget( m_projectPageComboBox, row++, 1 );
+
+        projectPageLabel->setBuddy( m_projectPageComboBox );
+
+        m_projectPageComboBox->addItem( tr( "Default (%1)", "page size" ).arg( dataManager->setting( "project_page_size" ) ) );
+        m_projectPageComboBox->addSeparator();
+        for ( int i = 5; i <= 30; i += 5 )
+            m_projectPageComboBox->addItem( QString::number( i ), i );
+    }
+
     QLabel* folderPageLabel = new QLabel( tr( "List of issues:" ), pageGroup );
-    pageLayout->addWidget( folderPageLabel, 1, 0 );
+    pageLayout->addWidget( folderPageLabel, row, 0 );
 
     m_folderPageComboBox = new SeparatorComboBox( pageGroup );
-    pageLayout->addWidget( m_folderPageComboBox, 1, 1 );
+    pageLayout->addWidget( m_folderPageComboBox, row++, 1 );
 
     folderPageLabel->setBuddy( m_folderPageComboBox );
 
     m_folderPageComboBox->addItem( tr( "Default (%1)", "page size" ).arg( dataManager->setting( "folder_page_size" ) ) );
     m_folderPageComboBox->addSeparator();
-    for ( int i = 5; i <= 25; i += 5 )
+    for ( int i = 5; i <= 30; i += 5 )
         m_folderPageComboBox->addItem( QString::number( i ), i );
 
     QLabel* historyPageLabel = new QLabel( tr( "Issue history:" ), pageGroup );
-    pageLayout->addWidget( historyPageLabel, 2, 0 );
+    pageLayout->addWidget( historyPageLabel, row, 0 );
 
     m_historyPageComboBox = new SeparatorComboBox( pageGroup );
-    pageLayout->addWidget( m_historyPageComboBox, 2, 1 );
+    pageLayout->addWidget( m_historyPageComboBox, row++, 1 );
 
     m_historyPageComboBox->addItem( tr( "Default (%1)", "page size" ).arg( dataManager->setting( "history_page_size" ) ) );
     m_historyPageComboBox->addSeparator();
@@ -416,6 +434,10 @@ PreferencesDialog::PreferencesDialog( int userId, QWidget* parent ) : CommandDia
     m_timeComboBox->setCurrentIndex( index >= 2 ? index : 0 );
     index = m_firstDayComboBox->findData( m_preferences.value( "first_day_of_week" ) );
     m_firstDayComboBox->setCurrentIndex( index >= 2 ? index : 0 );
+    if ( m_projectPageComboBox ) {
+        index = m_projectPageComboBox->findData( m_preferences.value( "project_page_size" ) );
+        m_projectPageComboBox->setCurrentIndex( index >= 2 ? index : 0 );
+    }
     index = m_folderPageComboBox->findData( m_preferences.value( "folder_page_size" ) );
     m_folderPageComboBox->setCurrentIndex( index >= 2 ? index : 0 );
     index = m_historyPageComboBox->findData( m_preferences.value( "history_page_size" ) );
@@ -456,6 +478,8 @@ void PreferencesDialog::accept()
     preferences.insert( "time_format", m_timeComboBox->itemData( m_timeComboBox->currentIndex() ).toString() );
     preferences.insert( "first_day_of_week", m_firstDayComboBox->itemData( m_firstDayComboBox->currentIndex() ).toString() );
     preferences.insert( "time_zone", m_timeZoneComboBox->itemData( m_timeZoneComboBox->currentIndex() ).toString() );
+    if ( m_projectPageComboBox )
+        preferences.insert( "project_page_size", m_projectPageComboBox->itemData( m_projectPageComboBox->currentIndex() ).toString() );
     preferences.insert( "folder_page_size", m_folderPageComboBox->itemData( m_folderPageComboBox->currentIndex() ).toString() );
     preferences.insert( "history_page_size", m_historyPageComboBox->itemData( m_historyPageComboBox->currentIndex() ).toString() );
     preferences.insert( "history_order", m_orderComboBox->itemData( m_orderComboBox->currentIndex() ).toString() );

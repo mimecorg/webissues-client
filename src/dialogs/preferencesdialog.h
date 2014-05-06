@@ -67,6 +67,7 @@ private:
     SeparatorComboBox* m_timeComboBox;
     SeparatorComboBox* m_firstDayComboBox;
 
+    SeparatorComboBox* m_projectPageComboBox;
     SeparatorComboBox* m_folderPageComboBox;
     SeparatorComboBox* m_historyPageComboBox;
 
