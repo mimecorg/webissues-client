@@ -249,7 +249,7 @@ QString QueryGenerator::generateConditions()
 
     if ( !m_searchText.isEmpty() ) {
         DefinitionInfo info;
-        info.setType( "CON" );
+        info.setType( m_searchColumn == Column_ID ? "EQ" : "CON" );
         info.setMetadata( "column", m_searchColumn );
         info.setMetadata( "value", m_searchText );
         allFilters.append( info );

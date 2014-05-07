@@ -600,7 +600,7 @@ void ListView::updateSearchOptions()
 
     QList<int> columns;
     foreach ( int column, allColumns ) {
-        if ( cache->availableOperators( column ).contains( "CON" ) )
+        if ( column == Column_ID || cache->availableOperators( column ).contains( "CON" ) )
             columns.append( column );
     }
 
