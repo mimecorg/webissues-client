@@ -257,7 +257,6 @@ void ListView::cleanUp()
         helper.saveColumnWidths( "FolderViewWidths", m_model->columns() );
     }
 
-    m_searchBox->clear();
     m_currentViewId = 0;
 
     delete m_model;
@@ -267,6 +266,8 @@ void ListView::cleanUp()
 void ListView::initialUpdate()
 {
     cleanUp();
+
+    m_searchBox->clear();
 
     m_model = new FolderModel( this );
 
@@ -629,7 +630,8 @@ void ListView::updateSearchOptions()
 
 void ListView::quickSearchChanged( const QString& text )
 {
-    m_model->setSearchText( m_searchColumn, text );
+    if ( m_model )
+        m_model->setSearchText( m_searchColumn, text );
 }
 
 void ListView::searchActionTriggered( QAction* action )
