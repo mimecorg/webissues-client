@@ -184,6 +184,8 @@ SummaryView::SummaryView( QObject* parent, QWidget* parentWidget ) : View( paren
     m_populateTimer->setSingleShot( true );
 
     connect( m_populateTimer, SIGNAL( timeout() ), this, SLOT( populateSummary() ) );
+
+    connect( application->applicationSettings(), SIGNAL( settingsChanged() ), this, SLOT( settingsChanged() ) );
 }
 
 SummaryView::~SummaryView()
@@ -563,4 +565,9 @@ void SummaryView::findItem( int itemId )
         viewManager->openIssueView( issueId, itemId );
     else
         emit issueActivated( issueId, itemId );
+}
+
+void SummaryView::settingsChanged()
+{
+    m_browser->setTextSizeMultiplier( application->textSizeMultiplier() );
 }

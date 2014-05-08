@@ -94,6 +94,8 @@ private slots:
 
     void populateSummary();
 
+    void settingsChanged();
+
 private:
     Access checkDataAccess();
 

@@ -126,6 +126,8 @@ private slots:
 
     void issueAdded( int issueId );
 
+    void settingsChanged();
+
 private:
     void cleanUp();
 

@@ -518,6 +518,7 @@ void Application::initializeSettings()
         { "ConnectAtStartup", (int)RestoreNever },
         { "AutoStart", false },
         { "AutoUpdate", true },
+        { "TextSizeMultiplier", 100 },
         { "DefaultAttachmentAction", (int)ActionAsk },
         { "FolderUpdateInterval", 1 },
         { "UpdateInterval", 5 },
@@ -570,7 +571,7 @@ void Application::restoreState()
 
 double Application::textSizeMultiplier() const
 {
-    return QFontMetrics( m_editorFont ).height() / 13.0;
+    return QFontMetrics( m_editorFont ).height() * m_settings->value( "TextSizeMultiplier" ).toInt() / 1300.0;
 }
 
 QPrinter* Application::printer()

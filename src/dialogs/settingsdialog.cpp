@@ -54,6 +54,9 @@ SettingsDialog::SettingsDialog( QWidget* parent ) : CommandDialog( parent )
     for ( QMap<QString, QString>::iterator it = languages.begin(); it != languages.end(); it++ )
         m_ui.languageComboBox->addItem( it.value(), it.key() );
 
+    for ( int i = 100; i <= 150; i += 25 )
+        m_ui.textSizeComboBox->addItem( QString( "%1%" ).arg( i ), i );
+
 #if defined( Q_WS_WIN )
     if ( application->isPortableMode() )
         m_ui.autoStartCheckBox->hide();
@@ -75,13 +78,15 @@ SettingsDialog::SettingsDialog( QWidget* parent ) : CommandDialog( parent )
 
     LocalSettings* settings = application->applicationSettings();
 
-    int index = m_ui.languageComboBox->findData( settings->value( "Language" ).toString() );
-    if ( index >= 2 )
-        m_ui.languageComboBox->setCurrentIndex( index );
+    int index = m_ui.languageComboBox->findData( settings->value( "Language" ) );
+    m_ui.languageComboBox->setCurrentIndex( index >= 2 ? index : 0 );
 
     m_ui.dockCheckBox->setChecked( settings->value( "Docked" ).toBool() );
     m_ui.showComboBox->setCurrentIndex( settings->value( "ShowAtStartup" ).toInt() );
     m_ui.reconnectComboBox->setCurrentIndex( settings->value( "ConnectAtStartup" ).toInt() );
+
+    index = m_ui.textSizeComboBox->findData( settings->value( "TextSizeMultiplier" ) );
+    m_ui.textSizeComboBox->setCurrentIndex( index > 0 ? index : 0 );
 
 #if defined( Q_WS_WIN )
     if ( !application->isPortableMode() )
@@ -134,6 +139,8 @@ bool SettingsDialog::apply()
     settings->setValue( "Docked", m_ui.dockCheckBox->isChecked() );
     settings->setValue( "ShowAtStartup", m_ui.showComboBox->currentIndex() );
     settings->setValue( "ConnectAtStartup", m_ui.reconnectComboBox->currentIndex() );
+
+    settings->setValue( "TextSizeMultiplier", m_ui.textSizeComboBox->itemData( m_ui.textSizeComboBox->currentIndex() ) );
 
 #if defined( Q_WS_WIN )
     if ( !application->isPortableMode() )

@@ -249,6 +249,8 @@ IssueView::IssueView( QObject* parent, QWidget* parentWidget ) : View( parent ),
     m_populateTimer->setSingleShot( true );
 
     connect( m_populateTimer, SIGNAL( timeout() ), this, SLOT( populateDetails() ) );
+
+    connect( application->applicationSettings(), SIGNAL( settingsChanged() ), this, SLOT( settingsChanged() ) );
 }
 
 IssueView::~IssueView()
@@ -992,4 +994,9 @@ void IssueView::handleAttachment( int fileId, AttachmentAction action )
         if ( !QFile::copy( cachePath, path ) )
             MessageBox::warning( mainWidget(), tr( "Error" ), tr( "File could not be saved." ) );
     }
+}
+
+void IssueView::settingsChanged()
+{
+    m_browser->setTextSizeMultiplier( application->textSizeMultiplier() );
 }
