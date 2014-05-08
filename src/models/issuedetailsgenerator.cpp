@@ -336,7 +336,10 @@ HtmlText IssueDetailsGenerator::formatFile( const FileEntity& file, HtmlText::Fl
 {
     HtmlText result( flags );
 
-    result.appendLink( file.name(), QString( "attachment://%1" ).arg( file.id() ) );
+    if ( !flags.testFlag( HtmlText::NoInternalLinks ) )
+        result.appendLink( file.name(), QString( "attachment://%1" ).arg( file.id() ) );
+    else
+        result.appendText( file.name() );
     result.appendText( " (" );
 
     Formatter formatter;
