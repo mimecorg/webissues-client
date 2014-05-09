@@ -222,7 +222,8 @@ IssueView::IssueView( QObject* parent, QWidget* parentWidget ) : View( parent ),
     connect( m_browser, SIGNAL( customContextMenuRequested( const QPoint& ) ),
         this, SLOT( historyContextMenu( const QPoint& ) ) );
     connect( m_browser, SIGNAL( linkClicked( const QUrl& ) ), this, SLOT( linkClicked( const QUrl& ) ) );
-    connect( m_browser, SIGNAL( selectionChanged() ), this, SLOT( updateActions() ) );
+
+    connect( m_browser->pageAction( QWebPage::Copy ), SIGNAL( changed() ), this, SLOT( updateActions() ) );
 
     connect( m_browser->page()->mainFrame(), SIGNAL( loadFinished( bool ) ), this, SLOT( scrollToAnchor() ) );
 

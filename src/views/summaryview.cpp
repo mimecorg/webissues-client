@@ -159,7 +159,8 @@ SummaryView::SummaryView( QObject* parent, QWidget* parentWidget ) : View( paren
     connect( m_browser, SIGNAL( customContextMenuRequested( const QPoint& ) ),
         this, SLOT( summaryContextMenu( const QPoint& ) ) );
     connect( m_browser, SIGNAL( linkClicked( const QUrl& ) ), this, SLOT( linkClicked( const QUrl& ) ) );
-    connect( m_browser, SIGNAL( selectionChanged() ), this, SLOT( updateActions() ) );
+
+    connect( m_browser->pageAction( QWebPage::Copy ), SIGNAL( changed() ), this, SLOT( updateActions() ) );
 
     m_findBar = new FindBar( main );
     m_findBar->setBoundWidget( m_browser );
