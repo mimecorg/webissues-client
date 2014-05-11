@@ -202,6 +202,11 @@ public:
     const QString& currentUserLogin() const { return m_currentUserLogin; }
 
     /**
+    * Return the password of the current user.
+    */
+    const QString& currentUserPassword() const { return m_currentUserPassword; }
+
+    /**
     * Return the name of the current user.
     */
     const QString& currentUserName() const { return m_currentUserName; }
@@ -474,6 +479,7 @@ private:
 
     int m_currentUserId;
     QString m_currentUserLogin;
+    QString m_currentUserPassword;
     QString m_currentUserName;
     Access m_currentUserAccess;
 

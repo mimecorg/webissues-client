@@ -402,6 +402,7 @@ void DataManager::helloReply( const Reply& reply )
 Command* DataManager::login( const QString& login, const QString& password )
 {
     m_currentUserLogin = login;
+    m_currentUserPassword = password;
 
     Command* command = new Command();
 
@@ -419,6 +420,7 @@ Command* DataManager::login( const QString& login, const QString& password )
 Command* DataManager::loginNew( const QString& login, const QString& password, const QString& newPassword )
 {
     m_currentUserLogin = login;
+    m_currentUserPassword = newPassword;
 
     Command* command = new Command();
 
@@ -439,6 +441,8 @@ void DataManager::loginReply( const Reply& reply )
     m_currentUserId = reply.at( 0 ).argInt( 0 );
     m_currentUserName = reply.at( 0 ).argString( 1 );
     m_currentUserAccess = (Access)reply.at( 0 ).argInt( 2 );
+
+    notifyObservers( UpdateEvent::GlobalAccess );
 }
 
 Command* DataManager::updateSettings()

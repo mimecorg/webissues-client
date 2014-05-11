@@ -36,6 +36,8 @@ public:
     */
     enum Unit
     {
+        /** Update user's global access. */
+        GlobalAccess,
         /** Update server settings. */
         Settings,
         /** Update users and their membership. */

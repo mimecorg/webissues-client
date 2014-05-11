@@ -72,6 +72,8 @@ public: // overrides
 protected: // overrides
     void closeEvent( QCloseEvent* e );
 
+    void customEvent( QEvent* e );
+
     bool eventFilter( QObject* object, QEvent* e );
 
 private slots:

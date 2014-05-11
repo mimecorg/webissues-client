@@ -458,6 +458,8 @@ void MainWindow::connectionOpened()
     m_userLabel->setText( dataManager->currentUserName() );
     m_userLabel->show();
 
+    dataManager->addObserver( this );
+
     m_activeView = m_view;
 
     builder()->addClient( m_view );
@@ -504,6 +506,20 @@ void MainWindow::connectionOpened()
     m_issueView->initialUpdate();
 
     m_view->mainWidget()->setFocus();
+}
+
+void MainWindow::customEvent( QEvent* e )
+{
+    if ( e->type() == UpdateEvent::Type ) {
+        UpdateEvent* ue = (UpdateEvent*)e;
+        if ( ue->unit() == UpdateEvent::GlobalAccess ) {
+            QPixmap userPixmap = ( dataManager->currentUserAccess() == AdminAccess ) ? IconLoader::overlayedPixmap( "user", "overlay-admin" ) : IconLoader::pixmap( "user" );
+            m_userLabel->setPixmap( userPixmap );
+            m_userLabel->setText( dataManager->currentUserName() );
+
+            updateActions( true );
+        }
+    }
 }
 
 void MainWindow::restoreViewState()

@@ -21,6 +21,7 @@
 
 #include "application.h"
 #include "commands/updatebatch.h"
+#include "commands/loginbatch.h"
 #include "commands/commandmanager.h"
 #include "data/datamanager.h"
 #include "data/entities.h"
@@ -256,8 +257,14 @@ void ProjectsView::cascadeUpdateFolders()
 
 void ProjectsView::updateFailed()
 {
-    if ( commandManager->error() == CommandManager::WebIssuesError && commandManager->errorCode() == ErrorHelper::LoginRequired )
+    if ( commandManager->error() == CommandManager::WebIssuesError && commandManager->errorCode() == ErrorHelper::LoginRequired && !m_sessionExpired ) {
         m_sessionExpired = true;
+
+        LoginBatch* batch = new LoginBatch();
+        batch->login( dataManager->currentUserLogin(), dataManager->currentUserPassword() );
+
+        executeUpdate( batch );
+    }
 }
 
 void ProjectsView::updateActions()
@@ -513,6 +520,11 @@ void ProjectsView::updateEvent( UpdateEvent* e )
 
     if ( e->unit() == UpdateEvent::Projects )
         cascadeUpdateFolders();
+
+    if ( e->unit() == UpdateEvent::GlobalAccess && m_sessionExpired ) {
+        m_sessionExpired = false;
+        initialUpdateData();
+    }
 }
 
 void ProjectsView::contextMenu( const QPoint& pos )
