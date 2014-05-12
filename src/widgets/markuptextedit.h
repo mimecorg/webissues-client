@@ -68,6 +68,7 @@ private slots:
     void markupList();
     void markupQuote();
     void markupCode();
+    void markupRtl();
 
     void showPreview();
 

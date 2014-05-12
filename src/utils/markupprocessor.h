@@ -44,9 +44,11 @@ private:
         T_START_CODE,
         T_START_LIST,
         T_START_QUOTE,
+        T_START_RTL,
         T_END_CODE,
         T_END_LIST,
         T_END_QUOTE,
+        T_END_RTL,
         T_LINK,
         T_BACKTICK,
         T_NEWLINE
@@ -61,6 +63,7 @@ private:
     void parseCode();
     void parseList();
     void parseQuote();
+    void parseRtl();
 
     int itemLevel();
 

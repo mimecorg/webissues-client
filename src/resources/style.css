@@ -198,6 +198,10 @@ code, .code {
 .atn { color: #ff0000; }
 .atv { color: #0000ff; }
 
+.rtl {
+  direction: rtl;
+}
+
 .multi-line {
   white-space: pre-wrap;
   word-wrap: break-word;

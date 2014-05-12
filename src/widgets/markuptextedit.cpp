@@ -95,6 +95,8 @@ MarkupTextEdit::MarkupTextEdit( QWidget* parent ) : QWidget( parent ),
     createButton( IconLoader::icon( "markup-list" ), tr( "Bullet List" ), m_toolBar, this, SLOT( markupList() ) );
     createButton( IconLoader::icon( "comment" ), tr( "Quote Block" ), m_toolBar, this, SLOT( markupQuote() ) );
     createButton( IconLoader::icon( "markup-code" ), tr( "Code Block" ), m_toolBar, this, SLOT( markupCode() ) );
+    if ( dataManager->checkServerVersion( "1.1.2" ) )
+        createButton( IconLoader::icon( "markup-rtl" ), tr( "Right-To-Left Text" ), m_toolBar, this, SLOT( markupRtl() ) );
     createSeparator( m_toolBar );
     createButton( IconLoader::icon( "print-preview" ), tr( "Preview" ), m_toolBar, this, SLOT( showPreview() ) );
 
@@ -216,6 +218,11 @@ void MarkupTextEdit::markupQuote()
 void MarkupTextEdit::markupCode()
 {
     markup( "[code]\n", "\n[/code]", QString() );
+}
+
+void MarkupTextEdit::markupRtl()
+{
+    markup( "[rtl]\n", "\n[/rtl]", QString() );
 }
 
 void MarkupTextEdit::markup( const QString& openBlockWith, const QString& closeBlockWith, const QString& placeholder )

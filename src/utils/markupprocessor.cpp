@@ -42,7 +42,7 @@ MarkupProcessor::MarkupProcessor( const QString& text, HtmlText::Flags flags ) :
     m_token( 0 )
 {
     m_regExp.setPattern( "\\n|`[^`\\n]+`"
-        "|\\[\\/?(?:list|code|quote)(?:[ \\t][^]\\n]*)?\\](?:[ \\t]*\\n)?"
+        "|\\[\\/?(?:list|code|quote|rtl)(?:[ \\t][^]\\n]*)?\\](?:[ \\t]*\\n)?"
         "|\\[(?:(?:mailto:)?[\\w.%+-]+@[\\w.-]+\\.[a-z]{2,4}|(?:(?:https?|ftp|file):\\/\\/|www\\.|ftp\\.|\\\\\\\\)[\\w+&@#\\/\\\\%=~|$?!:,.()-]+|#\\d+)(?:[ \\t][^]\\n]*)?\\]");
     m_regExp.setCaseSensitivity( Qt::CaseInsensitive );
 }
@@ -106,12 +106,16 @@ void MarkupProcessor::next()
             m_token = T_START_LIST;
         else if ( tag == QLatin1String( "quote" ) )
             m_token = T_START_QUOTE;
+        else if ( tag == QLatin1String( "rtl" ) )
+            m_token = T_START_RTL;
         else if ( tag == QLatin1String( "/code" ) )
             m_token = T_END_CODE;
         else if ( tag == QLatin1String( "/list" ) )
             m_token = T_END_LIST;
         else if ( tag == QLatin1String( "/quote" ) )
             m_token = T_END_QUOTE;
+        else if ( tag == QLatin1String( "/rtl" ) )
+            m_token = T_END_RTL;
         else
             m_token = T_LINK;
     } else if ( m_rawValue.at( 0 ) == QLatin1Char( '`' ) ) {
@@ -173,6 +177,15 @@ void MarkupProcessor::parseBlock()
             next();
             parseQuote();
             if ( m_token == T_END_QUOTE )
+                next();
+            m_result += QLatin1String( "</div>" );
+            break;
+
+        case T_START_RTL:
+            m_result += QLatin1String( "<div class=\"rtl\">" );
+            next();
+            parseRtl();
+            if ( m_token == T_END_RTL )
                 next();
             m_result += QLatin1String( "</div>" );
             break;
@@ -334,5 +347,11 @@ int MarkupProcessor::itemLevel()
 void MarkupProcessor::parseQuote()
 {
     while ( m_token != T_END && m_token != T_END_QUOTE )
+        parseBlock();
+}
+
+void MarkupProcessor::parseRtl()
+{
+    while ( m_token != T_END && m_token != T_END_RTL )
         parseBlock();
 }
