@@ -1,7 +1,7 @@
 /**************************************************************************
 * This file is part of the WebIssues Desktop Client program
 * Copyright (C) 2006 Michał Męciński
-* Copyright (C) 2007-2013 WebIssues Team
+* Copyright (C) 2007-2014 WebIssues Team
 *
 * Inspired by code written by John T. Haller of PortableApps.com
 *
