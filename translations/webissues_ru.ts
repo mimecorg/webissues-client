@@ -6,7 +6,7 @@
     <message>
         <location filename="../src/dialogs/aboutbox.cpp" line="86"/>
         <source>&amp;OK</source>
-        <translation>О&amp;к</translation>
+        <translation>&amp;Ок</translation>
     </message>
 </context>
 <context>
@@ -43,16 +43,6 @@
 <context>
     <name>AddAttachmentDialog</name>
     <message>
-        <location filename="../src/dialogs/issuedialogs.cpp" line="805"/>
-        <source>Warning</source>
-        <translation>Внимание</translation>
-    </message>
-    <message>
-        <location filename="../src/dialogs/issuedialogs.cpp" line="806"/>
-        <source>The name of the selected file is longer than %1 characters and will be truncated.</source>
-        <translation>Имя выбранного файла длиннее чем %1 символов и будет обрезано.</translation>
-    </message>
-    <message>
         <location filename="../src/dialogs/issuedialogs.cpp" line="811"/>
         <source>Add Attachment</source>
         <translation>Добавить вложение</translation>
@@ -86,6 +76,16 @@
         <location filename="../src/dialogs/issuedialogs.cpp" line="886"/>
         <source>File could not be read.</source>
         <translation>Не удалось прочитать файл.</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/issuedialogs.cpp" line="805"/>
+        <source>Warning</source>
+        <translation>Внимание</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/issuedialogs.cpp" line="806"/>
+        <source>The name of the selected file is longer than %1 characters and will be truncated.</source>
+        <translation>Имя выбранного файла длиннее чем %1 символов и будет обрезано.</translation>
     </message>
 </context>
 <context>
@@ -607,14 +607,14 @@
 <context>
     <name>Application</name>
     <message>
-        <location filename="../src/application.cpp" line="162"/>
-        <source>WebIssues Desktop Client %1</source>
-        <translation>WebIssues Desktop клиент %1</translation>
-    </message>
-    <message>
         <location filename="../src/application.cpp" line="163"/>
         <source>Desktop Client for the WebIssues team collaboration system.</source>
         <translation>Desktop Client for the WebIssues team collaboration system.</translation>
+    </message>
+    <message>
+        <location filename="../src/application.cpp" line="162"/>
+        <source>WebIssues Desktop Client %1</source>
+        <translation>WebIssues Desktop клиент %1</translation>
     </message>
     <message>
         <location filename="../src/application.cpp" line="164"/>
@@ -627,11 +627,6 @@
         <translation>Copyright &amp;copy; 2006 Michał Męciński</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="168"/>
-        <source>Copyright &amp;copy; 2007-2013 WebIssues Team</source>
-        <translation>Copyright &amp;copy; 2007-2013 WebIssues Team</translation>
-    </message>
-    <message>
         <location filename="../src/application.cpp" line="173"/>
         <source>Help</source>
         <translation>Помощь</translation>
@@ -640,11 +635,6 @@
         <location filename="../src/application.cpp" line="174"/>
         <source>Open the WebIssues Manual for help.</source>
         <translation>Открыть руководство пользователя WebIssues.</translation>
-    </message>
-    <message>
-        <location filename="../src/application.cpp" line="177"/>
-        <source>Website</source>
-        <translation>Веб сайт</translation>
     </message>
     <message>
         <location filename="../src/application.cpp" line="178"/>
@@ -673,11 +663,6 @@
         <translation>Автоматическая проверка обновлений отключена. Вы можете включить ее в настройках программы.</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="188"/>
-        <source>About WebIssues</source>
-        <translation>О WebIssues</translation>
-    </message>
-    <message>
         <location filename="../src/application.cpp" line="192"/>
         <source>&amp;Manual</source>
         <translation>&amp;Руководство</translation>
@@ -700,7 +685,7 @@
     <message>
         <location filename="../src/application.cpp" line="238"/>
         <source>Checking for latest version failed.</source>
-        <translation>Не удалось проверить актуальную версию.</translation>
+        <translation>Сбой проверки актуальной версии.</translation>
     </message>
     <message>
         <location filename="../src/application.cpp" line="240"/>
@@ -726,6 +711,21 @@
         <location filename="../src/application.cpp" line="258"/>
         <source>Do&amp;wnload</source>
         <translation>&amp;Загрузить</translation>
+    </message>
+    <message>
+        <location filename="../src/application.cpp" line="177"/>
+        <source>Website</source>
+        <translation>Веб сайт</translation>
+    </message>
+    <message>
+        <location filename="../src/application.cpp" line="168"/>
+        <source>Copyright &amp;copy; 2007-2014 WebIssues Team</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/application.cpp" line="188"/>
+        <source>About WebIssues</source>
+        <translation>О WebIssues</translation>
     </message>
 </context>
 <context>
@@ -753,7 +753,7 @@
     <message>
         <location filename="../src/dialogs/typedialogs.cpp" line="243"/>
         <source>&amp;Attribute is required</source>
-        <translation>&amp;Обязательный атрибут</translation>
+        <translation>&amp;Требуется атрибут</translation>
     </message>
     <message>
         <location filename="../src/dialogs/typedialogs.cpp" line="246"/>
@@ -764,6 +764,21 @@
 <context>
     <name>AttributeHelper</name>
     <message>
+        <location filename="../src/utils/attributehelper.cpp" line="122"/>
+        <source>Text</source>
+        <translation>Текст</translation>
+    </message>
+    <message>
+        <location filename="../src/utils/attributehelper.cpp" line="126"/>
+        <source>Numeric</source>
+        <translation>Число</translation>
+    </message>
+    <message>
+        <location filename="../src/utils/attributehelper.cpp" line="124"/>
+        <source>Dropdown list</source>
+        <translation>Выпадающий список</translation>
+    </message>
+    <message>
         <location filename="../src/utils/attributehelper.cpp" line="109"/>
         <source>Me</source>
         <translation>Я</translation>
@@ -772,21 +787,6 @@
         <location filename="../src/utils/attributehelper.cpp" line="112"/>
         <source>Today</source>
         <translation>Сегодня</translation>
-    </message>
-    <message>
-        <location filename="../src/utils/attributehelper.cpp" line="122"/>
-        <source>Text</source>
-        <translation>Текст</translation>
-    </message>
-    <message>
-        <location filename="../src/utils/attributehelper.cpp" line="124"/>
-        <source>Dropdown list</source>
-        <translation>Выпадающий список</translation>
-    </message>
-    <message>
-        <location filename="../src/utils/attributehelper.cpp" line="126"/>
-        <source>Numeric</source>
-        <translation>Число</translation>
     </message>
     <message>
         <location filename="../src/utils/attributehelper.cpp" line="128"/>
@@ -1071,7 +1071,7 @@
     <message>
         <location filename="../src/dialogs/commanddialog.cpp" line="90"/>
         <source>&amp;OK</source>
-        <translation>О&amp;к</translation>
+        <translation>&amp;Ок</translation>
     </message>
     <message>
         <location filename="../src/dialogs/commanddialog.cpp" line="91"/>
@@ -1082,7 +1082,7 @@
     <message>
         <location filename="../src/dialogs/commanddialog.cpp" line="132"/>
         <source>Please enter values.</source>
-        <translation>Пожалуйста введите значения.</translation>
+        <translation>Пожалуйства введите значения.</translation>
     </message>
     <message>
         <location filename="../src/dialogs/commanddialog.cpp" line="132"/>
@@ -1090,24 +1090,9 @@
         <translation>Пожалуйста подтвердите.</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/commanddialog.cpp" line="204"/>
-        <source>&amp;Close</source>
-        <translation>&amp;Закрыть</translation>
-    </message>
-    <message>
         <location filename="../src/dialogs/commanddialog.cpp" line="233"/>
         <source>Some of the values you entered are incorrect.</source>
         <translation>Некоторые из введенных значений некорректны.</translation>
-    </message>
-    <message>
-        <location filename="../src/dialogs/commanddialog.cpp" line="270"/>
-        <source>&amp;Abort</source>
-        <translation>&amp;Прервать</translation>
-    </message>
-    <message>
-        <location filename="../src/dialogs/commanddialog.cpp" line="273"/>
-        <source>Executing command...</source>
-        <translation>Выполнение команды...</translation>
     </message>
     <message>
         <location filename="../src/dialogs/commanddialog.cpp" line="323"/>
@@ -1125,6 +1110,21 @@ Are you sure you want to continue?</source>
         <location filename="../src/dialogs/commanddialog.cpp" line="341"/>
         <source>Command failed: %1.</source>
         <translation>Ошибка команды: %1.</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/commanddialog.cpp" line="270"/>
+        <source>&amp;Abort</source>
+        <translation>&amp;Прервать</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/commanddialog.cpp" line="273"/>
+        <source>Executing command...</source>
+        <translation>Выполнение команды...</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/commanddialog.cpp" line="204"/>
+        <source>&amp;Close</source>
+        <translation>&amp;Закрыть</translation>
     </message>
 </context>
 <context>
@@ -1275,20 +1275,9 @@ Are you sure you want to continue?</source>
         <translation>Информация о текущем соединении:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/connectioninfodialog.cpp" line="42"/>
-        <source>Server Information</source>
-        <translation>Информация о сервере</translation>
-    </message>
-    <message>
         <location filename="../src/dialogs/connectioninfodialog.cpp" line="49"/>
         <source>URL:</source>
         <translation>URL:</translation>
-    </message>
-    <message>
-        <location filename="../src/dialogs/connectioninfodialog.cpp" line="50"/>
-        <location filename="../src/dialogs/connectioninfodialog.cpp" line="76"/>
-        <source>Name:</source>
-        <translation>Имя:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/connectioninfodialog.cpp" line="51"/>
@@ -1304,11 +1293,6 @@ Are you sure you want to continue?</source>
         <location filename="../src/dialogs/connectioninfodialog.cpp" line="59"/>
         <source>&amp;View Certificate...</source>
         <translation>&amp;Просмотр сертификата...</translation>
-    </message>
-    <message>
-        <location filename="../src/dialogs/connectioninfodialog.cpp" line="68"/>
-        <source>User Information</source>
-        <translation>Информация о пользователе</translation>
     </message>
     <message>
         <location filename="../src/dialogs/connectioninfodialog.cpp" line="75"/>
@@ -1335,6 +1319,22 @@ Are you sure you want to continue?</source>
         <location filename="../src/dialogs/connectioninfodialog.cpp" line="114"/>
         <source>Regular</source>
         <translation>Обычный</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/connectioninfodialog.cpp" line="42"/>
+        <source>Server Information</source>
+        <translation>Информация о сервере</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/connectioninfodialog.cpp" line="50"/>
+        <location filename="../src/dialogs/connectioninfodialog.cpp" line="76"/>
+        <source>Name:</source>
+        <translation>Имя:</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/connectioninfodialog.cpp" line="68"/>
+        <source>User Information</source>
+        <translation>Информация о пользователе</translation>
     </message>
 </context>
 <context>
@@ -2233,7 +2233,7 @@ Are you sure you want to continue?</source>
     <message>
         <location filename="../src/dialogs/informationdialog.cpp" line="61"/>
         <source>&amp;OK</source>
-        <translation>О&amp;к</translation>
+        <translation>&amp;Ок</translation>
     </message>
 </context>
 <context>
@@ -2302,11 +2302,6 @@ Are you sure you want to continue?</source>
 <context>
     <name>IssueDetailsGenerator</name>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="89"/>
-        <source>Description</source>
-        <translation>Описание</translation>
-    </message>
-    <message>
         <location filename="../src/models/issuedetailsgenerator.cpp" line="101"/>
         <source>Issue History</source>
         <translation>История задачи</translation>
@@ -2320,6 +2315,34 @@ Are you sure you want to continue?</source>
         <location filename="../src/models/issuedetailsgenerator.cpp" line="120"/>
         <source>Type:</source>
         <translation>Тип:</translation>
+    </message>
+    <message>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="144"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="275"/>
+        <source>:</source>
+        <translation>:</translation>
+    </message>
+    <message>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="427"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="432"/>
+        <source>Comment #%1</source>
+        <translation>Комментарий #%1</translation>
+    </message>
+    <message>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="429"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="434"/>
+        <source>Attachment #%1</source>
+        <translation>Вложение #%1</translation>
+    </message>
+    <message>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="238"/>
+        <source>There are no comments.</source>
+        <translation>Нет комментариев.</translation>
+    </message>
+    <message>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="89"/>
+        <source>Description</source>
+        <translation>Описание</translation>
     </message>
     <message>
         <location filename="../src/models/issuedetailsgenerator.cpp" line="122"/>
@@ -2337,17 +2360,6 @@ Are you sure you want to continue?</source>
         <translation>Изменено:</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="144"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="275"/>
-        <source>:</source>
-        <translation>:</translation>
-    </message>
-    <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="238"/>
-        <source>There are no comments.</source>
-        <translation>Нет комментариев.</translation>
-    </message>
-    <message>
         <location filename="../src/models/issuedetailsgenerator.cpp" line="240"/>
         <source>There are no attachments.</source>
         <translation>Нет вложений.</translation>
@@ -2356,6 +2368,47 @@ Are you sure you want to continue?</source>
         <location filename="../src/models/issuedetailsgenerator.cpp" line="242"/>
         <source>There are no comments or attachments.</source>
         <translation>Нет комментариев или вложений.</translation>
+    </message>
+    <message>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="304"/>
+        <source>Issue moved from</source>
+        <translation>Задача перемещена из</translation>
+    </message>
+    <message>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="316"/>
+        <source>to</source>
+        <translation>в</translation>
+    </message>
+    <message>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="378"/>
+        <source>Comments &amp; Attachments</source>
+        <translation>Комментарии и вложения</translation>
+    </message>
+    <message>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="396"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="419"/>
+        <source>Last Edited:</source>
+        <translation>Последняя редакция:</translation>
+    </message>
+    <message>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="401"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="441"/>
+        <source>Reply</source>
+        <translation>Ответить</translation>
+    </message>
+    <message>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="404"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="447"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="449"/>
+        <source>Edit</source>
+        <translation>Редактировать</translation>
+    </message>
+    <message>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="406"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="453"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="455"/>
+        <source>Delete</source>
+        <translation>Удалить</translation>
     </message>
     <message>
         <location filename="../src/models/issuedetailsgenerator.cpp" line="258"/>
@@ -2370,78 +2423,25 @@ Are you sure you want to continue?</source>
         <translation>пусто</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="304"/>
-        <source>Issue moved from</source>
-        <translation>Задача перемещена из</translation>
-    </message>
-    <message>
         <location filename="../src/models/issuedetailsgenerator.cpp" line="308"/>
         <location filename="../src/models/issuedetailsgenerator.cpp" line="320"/>
         <source>Unknown Folder</source>
         <translation>Неизвестная папка</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="316"/>
-        <source>to</source>
-        <translation>в</translation>
-    </message>
-    <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="366"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="369"/>
         <source>All History</source>
         <translation>Вся история</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="369"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="372"/>
         <source>Only Comments</source>
         <translation>Только комментарии</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="372"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="375"/>
         <source>Only Attachments</source>
         <translation>Только вложения</translation>
-    </message>
-    <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="375"/>
-        <source>Comments &amp; Attachments</source>
-        <translation>Комментарии и вложения</translation>
-    </message>
-    <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="393"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="416"/>
-        <source>Last Edited:</source>
-        <translation>Последняя редакция:</translation>
-    </message>
-    <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="398"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="438"/>
-        <source>Reply</source>
-        <translation>Ответить</translation>
-    </message>
-    <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="401"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="444"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="446"/>
-        <source>Edit</source>
-        <translation>Редактировать</translation>
-    </message>
-    <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="403"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="450"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="452"/>
-        <source>Delete</source>
-        <translation>Удалить</translation>
-    </message>
-    <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="424"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="429"/>
-        <source>Comment #%1</source>
-        <translation>Комментарий #%1</translation>
-    </message>
-    <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="426"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="431"/>
-        <source>Attachment #%1</source>
-        <translation>Вложение #%1</translation>
     </message>
 </context>
 <context>
@@ -2528,24 +2528,9 @@ Are you sure you want to continue?</source>
         <translation>Добавить &amp;вложение...</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="87"/>
-        <source>Add &amp;Description...</source>
-        <translation>Добавить &amp;описание...</translation>
-    </message>
-    <message>
-        <location filename="../src/views/issueview.cpp" line="91"/>
-        <source>&amp;Edit Attributes...</source>
-        <translation>&amp;Редактировать атрибуты...</translation>
-    </message>
-    <message>
         <location filename="../src/views/issueview.cpp" line="92"/>
         <source>F2</source>
         <translation>F2</translation>
-    </message>
-    <message>
-        <location filename="../src/views/issueview.cpp" line="96"/>
-        <source>Clone Issue...</source>
-        <translation>Клонировать задачу...</translation>
     </message>
     <message>
         <location filename="../src/views/issueview.cpp" line="100"/>
@@ -2583,9 +2568,31 @@ Are you sure you want to continue?</source>
         <translation>Найти &amp;предыдущее</translation>
     </message>
     <message>
+        <location filename="../src/views/issueview.cpp" line="153"/>
+        <source>&amp;Copy</source>
+        <translation>&amp;Копировать</translation>
+    </message>
+    <message>
+        <location filename="../src/views/issueview.cpp" line="158"/>
+        <source>Select &amp;All</source>
+        <translation>Выбрать &amp;все</translation>
+    </message>
+    <message>
+        <location filename="../src/views/issueview.cpp" line="481"/>
+        <source>The selected file is bigger than the maximum allowed file size
+on this server which is %1.</source>
+        <translation>Выбранный файл превышает максимально допустимый
+на сервере размер равный %1.</translation>
+    </message>
+    <message>
         <location filename="../src/views/issueview.cpp" line="125"/>
         <source>&amp;Go To Item...</source>
         <translation>Перейти к &amp;элементу...</translation>
+    </message>
+    <message>
+        <location filename="../src/views/issueview.cpp" line="91"/>
+        <source>&amp;Edit Attributes...</source>
+        <translation>&amp;Редактировать атрибуты...</translation>
     </message>
     <message>
         <location filename="../src/views/issueview.cpp" line="129"/>
@@ -2618,14 +2625,9 @@ Are you sure you want to continue?</source>
         <translation>&amp;Копировать адрес ссылки</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="153"/>
-        <source>&amp;Copy</source>
-        <translation>&amp;Копировать</translation>
-    </message>
-    <message>
-        <location filename="../src/views/issueview.cpp" line="158"/>
-        <source>Select &amp;All</source>
-        <translation>Выбрать &amp;все</translation>
+        <location filename="../src/views/issueview.cpp" line="164"/>
+        <source>Print</source>
+        <translation>Печать</translation>
     </message>
     <message>
         <location filename="../src/views/issueview.cpp" line="163"/>
@@ -2633,9 +2635,9 @@ Are you sure you want to continue?</source>
         <translation>Распечатать задачу</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="164"/>
-        <source>Print</source>
-        <translation>Печать</translation>
+        <location filename="../src/views/issueview.cpp" line="170"/>
+        <source>Export</source>
+        <translation>Экспорт</translation>
     </message>
     <message>
         <location filename="../src/views/issueview.cpp" line="169"/>
@@ -2643,9 +2645,14 @@ Are you sure you want to continue?</source>
         <translation>Экспортировать задачу</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="170"/>
-        <source>Export</source>
-        <translation>Экспорт</translation>
+        <location filename="../src/views/issueview.cpp" line="87"/>
+        <source>Add &amp;Description...</source>
+        <translation>Добавить &amp;описание...</translation>
+    </message>
+    <message>
+        <location filename="../src/views/issueview.cpp" line="96"/>
+        <source>Clone Issue...</source>
+        <translation>Клонировать задачу...</translation>
     </message>
     <message>
         <location filename="../src/views/issueview.cpp" line="173"/>
@@ -2659,13 +2666,13 @@ Are you sure you want to continue?</source>
     </message>
     <message>
         <location filename="../src/views/issueview.cpp" line="181"/>
-        <location filename="../src/views/issueview.cpp" line="389"/>
+        <location filename="../src/views/issueview.cpp" line="394"/>
         <source>Mark As Read</source>
         <translation>Пометить как прочитанное</translation>
     </message>
     <message>
         <location filename="../src/views/issueview.cpp" line="185"/>
-        <location filename="../src/views/issueview.cpp" line="392"/>
+        <location filename="../src/views/issueview.cpp" line="397"/>
         <source>Subscribe</source>
         <translation>Подписаться</translation>
     </message>
@@ -2690,100 +2697,93 @@ Are you sure you want to continue?</source>
         <translation>Отчет</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="355"/>
+        <location filename="../src/views/issueview.cpp" line="360"/>
         <source>Unknown Issue</source>
         <translation>Неизвестная задача</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="389"/>
+        <location filename="../src/views/issueview.cpp" line="394"/>
         <source>Mark As Unread</source>
         <translation>Пометить как непрочитанное</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="392"/>
+        <location filename="../src/views/issueview.cpp" line="397"/>
         <source>Unsubscribe</source>
         <translation>Отписаться</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="465"/>
+        <location filename="../src/views/issueview.cpp" line="470"/>
         <source>Add Attachment</source>
         <translation>Добавить вложение</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="475"/>
+        <location filename="../src/views/issueview.cpp" line="480"/>
         <source>Warning</source>
         <translation>Внимание</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="476"/>
-        <source>The selected file is bigger than the maximum allowed file size
-on this server which is %1.</source>
-        <translation>Выбранный файл превышает максимально допустимый
-на сервере размер равный %1.</translation>
-    </message>
-    <message>
-        <location filename="../src/views/issueview.cpp" line="770"/>
+        <location filename="../src/views/issueview.cpp" line="775"/>
         <source>%1 comments</source>
         <translation>%1 комментариев</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="772"/>
+        <location filename="../src/views/issueview.cpp" line="777"/>
         <source>%1 attachments</source>
         <translation>%1 вложений</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="885"/>
+        <location filename="../src/views/issueview.cpp" line="890"/>
         <source>Description</source>
         <translation>Описание</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="887"/>
+        <location filename="../src/views/issueview.cpp" line="892"/>
         <source>Comment #%1</source>
         <translation>Комментарий #%1</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="920"/>
+        <location filename="../src/views/issueview.cpp" line="925"/>
         <source>Attachment</source>
         <translation>Вложение</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="921"/>
+        <location filename="../src/views/issueview.cpp" line="926"/>
         <source>Do you want to save or open attachment &lt;b&gt;%1&lt;/b&gt;?</source>
         <translation>Вы хотите сохранить или открыть вложение &lt;b&gt;%1&lt;/b&gt;?</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="923"/>
+        <location filename="../src/views/issueview.cpp" line="928"/>
         <source>Do this automatically for all attachments</source>
         <translation>Делать это автоматически для всех вложений</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="926"/>
+        <location filename="../src/views/issueview.cpp" line="931"/>
         <source>&amp;Save As...</source>
         <translation>&amp;Сохранить как...</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="928"/>
+        <location filename="../src/views/issueview.cpp" line="933"/>
         <source>&amp;Open</source>
         <translation>&amp;Открыть</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="955"/>
+        <location filename="../src/views/issueview.cpp" line="960"/>
         <source>Save Attachment</source>
         <translation>Сохранить вложение</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="985"/>
-        <location filename="../src/views/issueview.cpp" line="991"/>
+        <location filename="../src/views/issueview.cpp" line="990"/>
+        <location filename="../src/views/issueview.cpp" line="996"/>
         <source>Error</source>
         <translation>Ошибка</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="985"/>
+        <location filename="../src/views/issueview.cpp" line="990"/>
         <source>File could not be overwritten.</source>
         <translation>Не удалось переписать файл.</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="991"/>
+        <location filename="../src/views/issueview.cpp" line="996"/>
         <source>File could not be saved.</source>
         <translation>Не удалось сохранить файл.</translation>
     </message>
@@ -2842,7 +2842,7 @@ on this server which is %1.</source>
     </message>
     <message>
         <location filename="../src/views/listview.cpp" line="98"/>
-        <location filename="../src/views/listview.cpp" line="340"/>
+        <location filename="../src/views/listview.cpp" line="341"/>
         <source>Mark As Read</source>
         <translation>Пометить как прочитанное</translation>
     </message>
@@ -2865,7 +2865,7 @@ on this server which is %1.</source>
     </message>
     <message>
         <location filename="../src/views/listview.cpp" line="114"/>
-        <location filename="../src/views/listview.cpp" line="348"/>
+        <location filename="../src/views/listview.cpp" line="349"/>
         <source>Subscribe</source>
         <translation>Подписаться</translation>
     </message>
@@ -2912,22 +2912,22 @@ on this server which is %1.</source>
     <message>
         <location filename="../src/views/listview.cpp" line="144"/>
         <source>Add View</source>
-        <translation>Добавить</translation>
+        <translation>Добавить представление</translation>
     </message>
     <message>
         <location filename="../src/views/listview.cpp" line="147"/>
         <source>&amp;Add View</source>
-        <translation>&amp;Добавить</translation>
+        <translation>&amp;Добавить представление</translation>
     </message>
     <message>
         <location filename="../src/views/listview.cpp" line="151"/>
         <source>&amp;Clone View</source>
-        <translation>&amp;Клонировать</translation>
+        <translation>&amp;Клонировать представление</translation>
     </message>
     <message>
         <location filename="../src/views/listview.cpp" line="155"/>
         <source>M&amp;odify View</source>
-        <translation>&amp;Изменить</translation>
+        <translation>&amp;Изменить представление</translation>
     </message>
     <message>
         <location filename="../src/views/listview.cpp" line="159"/>
@@ -2965,32 +2965,32 @@ on this server which is %1.</source>
         <translation>&amp;Поиск:</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="340"/>
+        <location filename="../src/views/listview.cpp" line="341"/>
         <source>Mark As Unread</source>
         <translation>Пометить как непрочитанное</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="348"/>
+        <location filename="../src/views/listview.cpp" line="349"/>
         <source>Unsubscribe</source>
         <translation>Отписаться</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="369"/>
+        <location filename="../src/views/listview.cpp" line="370"/>
         <source>%1 issues</source>
         <translation>%1 задач</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="667"/>
+        <location filename="../src/views/listview.cpp" line="669"/>
         <source>All Issues</source>
         <translation>Все задачи</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="683"/>
+        <location filename="../src/views/listview.cpp" line="685"/>
         <source>Personal Views</source>
         <translation>Приватные представления</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="693"/>
+        <location filename="../src/views/listview.cpp" line="695"/>
         <source>Public Views</source>
         <translation>Публичные представления</translation>
     </message>
@@ -3079,11 +3079,24 @@ on this server which is %1.</source>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../src/mainwindow.cpp" line="86"/>
-        <location filename="../src/mainwindow.cpp" line="319"/>
-        <location filename="../src/mainwindow.cpp" line="355"/>
-        <source>WebIssues Desktop Client</source>
-        <translation>WebIssues Desktop клиент</translation>
+        <location filename="../src/mainwindow.cpp" line="92"/>
+        <source>Ctrl+Q</source>
+        <translation>Ctrl+Q</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="119"/>
+        <source>Ctrl+G</source>
+        <translation>Ctrl+G</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="405"/>
+        <source>No folder selected</source>
+        <translation>Не выбрана папка</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="421"/>
+        <source>No issue selected</source>
+        <translation>Задача не выбрана</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="90"/>
@@ -3091,9 +3104,11 @@ on this server which is %1.</source>
         <translation>Выйти</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="92"/>
-        <source>Ctrl+Q</source>
-        <translation>Ctrl+Q</translation>
+        <location filename="../src/mainwindow.cpp" line="86"/>
+        <location filename="../src/mainwindow.cpp" line="319"/>
+        <location filename="../src/mainwindow.cpp" line="355"/>
+        <source>WebIssues Desktop Client</source>
+        <translation>WebIssues Desktop клиент</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="96"/>
@@ -3116,19 +3131,14 @@ on this server which is %1.</source>
         <translation>Подробности</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="108"/>
-        <source>User Accounts</source>
-        <translation>Учетные записи пользователей</translation>
-    </message>
-    <message>
         <location filename="../src/mainwindow.cpp" line="109"/>
         <source>Users</source>
         <translation>Пользователи</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="113"/>
-        <source>Issue Types</source>
-        <translation>Типы задач</translation>
+        <location filename="../src/mainwindow.cpp" line="108"/>
+        <source>User Accounts</source>
+        <translation>Учетные записи пользователей</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="114"/>
@@ -3136,19 +3146,14 @@ on this server which is %1.</source>
         <translation>Типы</translation>
     </message>
     <message>
+        <location filename="../src/mainwindow.cpp" line="113"/>
+        <source>Issue Types</source>
+        <translation>Типы задач</translation>
+    </message>
+    <message>
         <location filename="../src/mainwindow.cpp" line="118"/>
         <source>Go To Item</source>
         <translation>Перейти к элементу</translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="119"/>
-        <source>Ctrl+G</source>
-        <translation>Ctrl+G</translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="123"/>
-        <source>Change Password</source>
-        <translation>Изменить пароль</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="124"/>
@@ -3156,14 +3161,19 @@ on this server which is %1.</source>
         <translation>Пароль</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="128"/>
-        <source>User Preferences</source>
-        <translation>Пользовательские предпочтения</translation>
+        <location filename="../src/mainwindow.cpp" line="123"/>
+        <source>Change Password</source>
+        <translation>Изменить пароль</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="129"/>
         <source>Preferences</source>
         <translation>Настройки</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="128"/>
+        <source>User Preferences</source>
+        <translation>Пользовательские предпочтения</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="133"/>
@@ -3181,14 +3191,14 @@ on this server which is %1.</source>
         <translation>Инструменты</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="144"/>
-        <source>Manage</source>
-        <translation>Управление</translation>
-    </message>
-    <message>
         <location filename="../src/mainwindow.cpp" line="145"/>
         <source>Connection</source>
         <translation>Соединение</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="144"/>
+        <source>Manage</source>
+        <translation>Управление</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="187"/>
@@ -3221,29 +3231,19 @@ Please wait until these commands are completed.</source>
 Пожалуйста, подождите пока команды будут выполнены.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="405"/>
-        <source>No folder selected</source>
-        <translation>Не выбрана папка</translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="421"/>
-        <source>No issue selected</source>
-        <translation>Задача не выбрана</translation>
-    </message>
-    <message>
         <location filename="../src/mainwindow.cpp" line="451"/>
         <source>Encrypted</source>
         <translation>Зашифровано</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="470"/>
+        <location filename="../src/mainwindow.cpp" line="472"/>
         <source>WebIssues Desktop Client
 Connected to %1</source>
         <translation>Desktop клиент WebIssues
 Подключен к %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="899"/>
+        <location filename="../src/mainwindow.cpp" line="915"/>
         <source>%1 - WebIssues Desktop Client</source>
         <translation>%1 - Desktop клиент WebIssues</translation>
     </message>
@@ -3311,7 +3311,7 @@ Connected to %1</source>
     </message>
     <message>
         <location filename="../src/widgets/markuptextedit.cpp" line="93"/>
-        <location filename="../src/widgets/markuptextedit.cpp" line="201"/>
+        <location filename="../src/widgets/markuptextedit.cpp" line="203"/>
         <source>Hyperlink</source>
         <translation>Гиперссылка</translation>
     </message>
@@ -3332,32 +3332,37 @@ Connected to %1</source>
     </message>
     <message>
         <location filename="../src/widgets/markuptextedit.cpp" line="99"/>
-        <location filename="../src/widgets/markuptextedit.cpp" line="287"/>
+        <source>Right-To-Left Text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/widgets/markuptextedit.cpp" line="101"/>
+        <location filename="../src/widgets/markuptextedit.cpp" line="294"/>
         <source>Preview</source>
         <translation>Просмотр</translation>
     </message>
     <message>
-        <location filename="../src/widgets/markuptextedit.cpp" line="117"/>
+        <location filename="../src/widgets/markuptextedit.cpp" line="119"/>
         <source>&amp;Text format:</source>
         <translation>&amp;Формат текста:</translation>
     </message>
     <message>
-        <location filename="../src/widgets/markuptextedit.cpp" line="123"/>
+        <location filename="../src/widgets/markuptextedit.cpp" line="125"/>
         <source>Plain Text</source>
         <translation>Простой текст</translation>
     </message>
     <message>
-        <location filename="../src/widgets/markuptextedit.cpp" line="124"/>
+        <location filename="../src/widgets/markuptextedit.cpp" line="126"/>
         <source>Text with Markup</source>
         <translation>Текст с разметкой</translation>
     </message>
     <message>
-        <location filename="../src/widgets/markuptextedit.cpp" line="201"/>
+        <location filename="../src/widgets/markuptextedit.cpp" line="203"/>
         <source>Enter link URL:</source>
         <translation>Введите URL ссылки:</translation>
     </message>
     <message>
-        <location filename="../src/widgets/markuptextedit.cpp" line="203"/>
+        <location filename="../src/widgets/markuptextedit.cpp" line="205"/>
         <source>Link text</source>
         <translation>Текст ссылки</translation>
     </message>
@@ -3580,252 +3585,258 @@ Connected to %1</source>
 <context>
     <name>PreferencesDialog</name>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="62"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="63"/>
         <source>User Preferences</source>
         <translation>Пользовательские предпочтения</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="64"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="65"/>
         <source>Configure your user preferences:</source>
         <translation>Настройте свои предпочтения:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="66"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="67"/>
         <source>Configure preferences for user &lt;b&gt;%1&lt;/b&gt;:</source>
         <translation>Настройте предпочтения для пользователя &lt;b&gt;%1&lt;/b&gt;:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="69"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="90"/>
+        <source>&amp;Language:</source>
+        <translation>&amp;Язык:</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="118"/>
+        <source>&amp;Number format:</source>
+        <translation>&amp;Числовой формат:</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="70"/>
         <source>Edit user preferences.</source>
         <translation>Редактировать пользовательские предпочтения.</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="77"/>
-        <source>Regional</source>
-        <translation>Региональные установки</translation>
-    </message>
-    <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="81"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="82"/>
         <source>Regional Options</source>
         <translation>Региональные установки</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="85"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="86"/>
         <source>The following settings only affect the Web Client and email notifications.
 The Desktop Client will always use the language configured in program settings and the local time zone.</source>
         <translation>Следующие настройки затронут только Web клиент и оповещения.
 Desktop клиент будет всегда использовать язык, указанный в настройках программы, и местную зону времени.</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="89"/>
-        <source>&amp;Language:</source>
-        <translation>&amp;Язык:</translation>
-    </message>
-    <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="97"/>
-        <source>Time &amp;zone:</source>
-        <translation>&amp;Дата и время:</translation>
-    </message>
-    <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="108"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="110"/>
         <source>Formats</source>
         <translation>Форматы</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="112"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="114"/>
         <source>Customize the format of numbers, date and time. Default formats depend on the selected language.</source>
         <translation>Настроить форматы чисел, даты и времени. Форматы по умолчанию зависят от выбранного языка.</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="116"/>
-        <source>&amp;Number format:</source>
-        <translation>&amp;Числовой формат:</translation>
-    </message>
-    <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="124"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="126"/>
         <source>&amp;Date format:</source>
         <translation>&amp;Формат даты:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="132"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="134"/>
         <source>&amp;Time format:</source>
-        <translation>Формат &amp;времени:</translation>
+        <translation>&amp;Формат времени:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="140"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="142"/>
         <source>&amp;First day of week:</source>
         <translation>&amp;Первый день недели:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="153"/>
-        <source>View</source>
-        <translation>Вид</translation>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="99"/>
+        <source>Time &amp;zone:</source>
+        <translation>&amp;Дата и время:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="157"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="78"/>
+        <source>Regional</source>
+        <translation>Региональные установки</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="155"/>
+        <source>View</source>
+        <translation>Представление</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="159"/>
         <source>Page Size</source>
         <translation>Размер страницы</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="161"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="163"/>
         <source>The following settings only affect the Web Client.</source>
         <translation>Следующие настройки затронут только Web клиент.</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="164"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="183"/>
         <source>List of issues:</source>
         <translation>Список задач:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="172"/>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="183"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="196"/>
+        <source>Issue history:</source>
+        <translation>История задачи:</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="211"/>
+        <source>View Settings</source>
+        <translation>Настройки представлений</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="215"/>
+        <source>Global view settings that affect all issue types.</source>
+        <translation>Глобальные настройки представлений для всех типов задач.</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="218"/>
+        <source>Order of issue history:</source>
+        <translation>Порядок записей в истории задач:</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="227"/>
+        <source>Oldest First</source>
+        <translation>Сначала старейший</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="228"/>
+        <source>Newest First</source>
+        <translation>Сначала новейший</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="237"/>
+        <source>Default filter in issue history:</source>
+        <translation>Фильтр по умолчанию для истории задач:</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="177"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="191"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="202"/>
         <source>Default (%1)</source>
         <comment>page size</comment>
         <translation>Умолчания (%1)</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="177"/>
-        <source>Issue history:</source>
-        <translation>История задачи:</translation>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="169"/>
+        <source>Projects tree:</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="192"/>
-        <source>View Settings</source>
-        <translation>Настройки представлений</translation>
-    </message>
-    <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="196"/>
-        <source>Global view settings that affect all issue types.</source>
-        <translation>Глобальные настройки представлений для всех типов задач.</translation>
-    </message>
-    <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="199"/>
-        <source>Order of issue history:</source>
-        <translation>Порядок записей в истории задач:</translation>
-    </message>
-    <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="208"/>
-        <source>Oldest First</source>
-        <translation>Сначала старейший</translation>
-    </message>
-    <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="209"/>
-        <source>Newest First</source>
-        <translation>Сначала новейший</translation>
-    </message>
-    <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="213"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="232"/>
         <source>Default (%1)</source>
         <comment>order</comment>
         <translation>Умолчания (%1)</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="218"/>
-        <source>Default filter in issue history:</source>
-        <translation>Фильтр по умолчанию для истории задач:</translation>
-    </message>
-    <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="227"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="246"/>
         <source>All History</source>
         <translation>Вся история</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="228"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="247"/>
         <source>Comments &amp; Attachments</source>
         <translation>Комментарии и вложения</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="232"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="251"/>
         <source>Default (%1)</source>
         <comment>filter</comment>
         <translation>Умолчания (%1)</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="239"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="258"/>
         <source>Editing</source>
         <translation>Редактирование</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="243"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="262"/>
         <source>The default format used for new comments and descriptions.</source>
         <translation>Формат по умолчанию для комментариев и описаний.</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="246"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="265"/>
         <source>Default text format:</source>
         <translation>Текстовый формат по умолчанию:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="255"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="274"/>
         <source>Plain Text</source>
         <translation>Простой текст</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="256"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="275"/>
         <source>Text with Markup</source>
         <translation>Текст с разметкой</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="260"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="279"/>
         <source>Default (%1)</source>
         <comment>format</comment>
         <translation>Умолчания (%1)</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="273"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="292"/>
         <source>Notifications</source>
         <translation>Уведомления</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="277"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="296"/>
         <source>&amp;Email address:</source>
         <translation>&amp;Адрес e-mail:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="287"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="306"/>
         <source>This address will only be visible to the system administrator. You will not receive notifications if you leave this field empty.</source>
         <translation>Этот адрес будет доступен только администратору. Вы не сможете получать оповещения если оставите это поле пустым.</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="293"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="312"/>
         <source>Settings</source>
         <translation>Настройки</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="297"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="316"/>
         <source>I&amp;nclude issue details in notificatons and summary reports</source>
         <translation>&amp;Включить детали задачи в оповещения и отчеты сводок</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="300"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="319"/>
         <source>&amp;Do not notify about issues that I have already read</source>
         <translation>&amp;Не оповещать о задачах, которые я уже прочитал</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="308"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="327"/>
         <source>Default (%1)</source>
         <comment>language</comment>
         <translation>Умолчания (%1)</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="314"/>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="328"/>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="348"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="393"/>
+        <source>Default (%1)</source>
+        <comment>time zone</comment>
+        <translation>Умолчания (%1)</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="333"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="347"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="367"/>
         <source>Default</source>
         <comment>format</comment>
         <translation>По умолчанию</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="365"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="384"/>
         <source>Default</source>
         <comment>day of week</comment>
         <translation>По умолчанию</translation>
-    </message>
-    <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="374"/>
-        <source>Default (%1)</source>
-        <comment>time zone</comment>
-        <translation>Умолчания (%1)</translation>
     </message>
 </context>
 <context>
@@ -3877,106 +3888,106 @@ Desktop клиент будет всегда использовать язык, 
 <context>
     <name>ProjectsView</name>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="55"/>
+        <location filename="../src/views/projectsview.cpp" line="56"/>
         <source>&amp;Update Projects</source>
         <translation>&amp;Обновить проекты</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="60"/>
-        <source>&amp;Manage Permissions...</source>
-        <translation>&amp;Управление разрешениями...</translation>
-    </message>
-    <message>
-        <location filename="../src/views/projectsview.cpp" line="61"/>
-        <source>Permissions</source>
-        <translation>Разрешения</translation>
-    </message>
-    <message>
-        <location filename="../src/views/projectsview.cpp" line="66"/>
+        <location filename="../src/views/projectsview.cpp" line="67"/>
         <source>Add &amp;Project...</source>
         <translation>Добавить &amp;проект...</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="71"/>
+        <location filename="../src/views/projectsview.cpp" line="72"/>
         <source>Add &amp;Folder...</source>
         <translation>Добавить &amp;папку...</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="76"/>
-        <location filename="../src/views/projectsview.cpp" line="321"/>
+        <location filename="../src/views/projectsview.cpp" line="77"/>
+        <location filename="../src/views/projectsview.cpp" line="328"/>
         <source>&amp;Rename Folder...</source>
         <translation>&amp;Переименовать папку...</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="77"/>
+        <location filename="../src/views/projectsview.cpp" line="78"/>
         <source>Rename</source>
         <translation>Переименовать</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="78"/>
-        <source>F2</source>
-        <translation>F2</translation>
-    </message>
-    <message>
-        <location filename="../src/views/projectsview.cpp" line="82"/>
-        <location filename="../src/views/projectsview.cpp" line="322"/>
+        <location filename="../src/views/projectsview.cpp" line="83"/>
+        <location filename="../src/views/projectsview.cpp" line="329"/>
         <source>&amp;Delete Folder</source>
         <translation>&amp;Удалить папку</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="83"/>
+        <location filename="../src/views/projectsview.cpp" line="84"/>
         <source>Delete</source>
         <translation>Удалить</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="88"/>
+        <location filename="../src/views/projectsview.cpp" line="89"/>
         <source>&amp;Move Folder...</source>
         <translation>&amp;Переместить папку...</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="89"/>
+        <location filename="../src/views/projectsview.cpp" line="90"/>
         <source>Move</source>
         <translation>Переместить</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="93"/>
+        <location filename="../src/views/projectsview.cpp" line="94"/>
         <source>&amp;Open Project</source>
         <translation>&amp;Открыть проект</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="98"/>
-        <source>&amp;Open Folder</source>
-        <translation>&amp;Открыть папку</translation>
-    </message>
-    <message>
-        <location filename="../src/views/projectsview.cpp" line="103"/>
+        <location filename="../src/views/projectsview.cpp" line="104"/>
         <source>&amp;Open List</source>
         <translation>&amp;Открыть список</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="108"/>
-        <source>&amp;Manage Alerts...</source>
-        <translation>&amp;Управление оповещениями...</translation>
-    </message>
-    <message>
-        <location filename="../src/views/projectsview.cpp" line="112"/>
-        <source>Add</source>
-        <translation>Добавить</translation>
-    </message>
-    <message>
-        <location filename="../src/views/projectsview.cpp" line="113"/>
+        <location filename="../src/views/projectsview.cpp" line="114"/>
         <source>Projects</source>
         <translation>Проекты</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="321"/>
+        <location filename="../src/views/projectsview.cpp" line="328"/>
         <source>&amp;Rename Project...</source>
         <translation>&amp;Переименовать проект...</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="322"/>
+        <location filename="../src/views/projectsview.cpp" line="329"/>
         <source>&amp;Delete Project</source>
         <translation>&amp;Удалить проект</translation>
+    </message>
+    <message>
+        <location filename="../src/views/projectsview.cpp" line="79"/>
+        <source>F2</source>
+        <translation>F2</translation>
+    </message>
+    <message>
+        <location filename="../src/views/projectsview.cpp" line="61"/>
+        <source>&amp;Manage Permissions...</source>
+        <translation>&amp;Управление разрешениями...</translation>
+    </message>
+    <message>
+        <location filename="../src/views/projectsview.cpp" line="62"/>
+        <source>Permissions</source>
+        <translation>Разрешения</translation>
+    </message>
+    <message>
+        <location filename="../src/views/projectsview.cpp" line="99"/>
+        <source>&amp;Open Folder</source>
+        <translation>&amp;Открыть папку</translation>
+    </message>
+    <message>
+        <location filename="../src/views/projectsview.cpp" line="109"/>
+        <source>&amp;Manage Alerts...</source>
+        <translation>&amp;Управление оповещениями...</translation>
+    </message>
+    <message>
+        <location filename="../src/views/projectsview.cpp" line="113"/>
+        <source>Add</source>
+        <translation>Добавить</translation>
     </message>
 </context>
 <context>
@@ -4187,21 +4198,6 @@ Desktop клиент будет всегда использовать язык, 
         <translation>Сводки включая детали задач</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/reportdialog.cpp" line="73"/>
-        <source>Summary report without issue history</source>
-        <translation>Сводки без истории задач</translation>
-    </message>
-    <message>
-        <location filename="../src/dialogs/reportdialog.cpp" line="74"/>
-        <source>Full report including issue history</source>
-        <translation>Полный отчет включая историю</translation>
-    </message>
-    <message>
-        <location filename="../src/dialogs/reportdialog.cpp" line="99"/>
-        <source>&amp;Print Preview...</source>
-        <translation>&amp;Предварительный просмотр...</translation>
-    </message>
-    <message>
         <location filename="../src/dialogs/reportdialog.cpp" line="118"/>
         <source>list of issues</source>
         <translation>список задач</translation>
@@ -4212,19 +4208,9 @@ Desktop клиент будет всегда использовать язык, 
         <translation>детали задач</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/reportdialog.cpp" line="124"/>
-        <source>project summary</source>
-        <translation>сводка проекта</translation>
-    </message>
-    <message>
         <location filename="../src/dialogs/reportdialog.cpp" line="130"/>
         <source>Print</source>
         <translation>Печать</translation>
-    </message>
-    <message>
-        <location filename="../src/dialogs/reportdialog.cpp" line="132"/>
-        <source>Print %1:</source>
-        <translation>Печать %1:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/reportdialog.cpp" line="135"/>
@@ -4232,24 +4218,55 @@ Desktop клиент будет всегда использовать язык, 
         <translation>Экспорт в CSV</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/reportdialog.cpp" line="137"/>
-        <source>Export %1 to CSV file:</source>
-        <translation>Экспортировать %1 в CSV файл:</translation>
-    </message>
-    <message>
         <location filename="../src/dialogs/reportdialog.cpp" line="140"/>
         <source>Export To HTML</source>
         <translation>Экспорт в HTML</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/reportdialog.cpp" line="142"/>
-        <source>Export %1 to HTML file:</source>
-        <translation>Экспортировать %1 в HTML файл:</translation>
-    </message>
-    <message>
         <location filename="../src/dialogs/reportdialog.cpp" line="145"/>
         <source>Export To PDF</source>
         <translation>Экспорт в PDF</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/reportdialog.cpp" line="264"/>
+        <location filename="../src/dialogs/reportdialog.cpp" line="286"/>
+        <source>File could not be saved.</source>
+        <translation>Не удалось сохранить файл.</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/reportdialog.cpp" line="99"/>
+        <source>&amp;Print Preview...</source>
+        <translation>&amp;Предварительный просмотр...</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/reportdialog.cpp" line="73"/>
+        <source>Summary report without issue history</source>
+        <translation>Сводки без истории задач</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/reportdialog.cpp" line="74"/>
+        <source>Full report including issue history</source>
+        <translation>Полный отчет включая историю</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/reportdialog.cpp" line="124"/>
+        <source>project summary</source>
+        <translation>сводка проекта</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/reportdialog.cpp" line="132"/>
+        <source>Print %1:</source>
+        <translation>Печать %1:</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/reportdialog.cpp" line="137"/>
+        <source>Export %1 to CSV file:</source>
+        <translation>Экспортировать %1 в CSV файл:</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/reportdialog.cpp" line="142"/>
+        <source>Export %1 to HTML file:</source>
+        <translation>Экспортировать %1 в HTML файл:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/reportdialog.cpp" line="147"/>
@@ -4271,12 +4288,6 @@ Desktop клиент будет всегда использовать язык, 
         <location filename="../src/dialogs/reportdialog.cpp" line="286"/>
         <source>Warning</source>
         <translation>Внимание</translation>
-    </message>
-    <message>
-        <location filename="../src/dialogs/reportdialog.cpp" line="264"/>
-        <location filename="../src/dialogs/reportdialog.cpp" line="286"/>
-        <source>File could not be saved.</source>
-        <translation>Не удалось сохранить файл.</translation>
     </message>
     <message>
         <location filename="../src/dialogs/reportdialog.cpp" line="279"/>
@@ -4433,18 +4444,38 @@ Desktop клиент будет всегда использовать язык, 
         <translation>&amp;Новый пароль:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/userdialogs.cpp" line="167"/>
-        <source>Con&amp;firm:</source>
-        <translation>Под&amp;твердить:</translation>
-    </message>
-    <message>
         <location filename="../src/dialogs/userdialogs.cpp" line="179"/>
         <source>&amp;User must change password at next logon</source>
         <translation>&amp;Пользователь должен изменить пароль при следующем входе</translation>
     </message>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="167"/>
+        <source>Con&amp;firm:</source>
+        <translation>Под&amp;твердить:</translation>
+    </message>
 </context>
 <context>
     <name>SettingsDialog</name>
+    <message>
+        <location filename="../src/dialogs/settingsdialog.ui" line="44"/>
+        <source>System Default</source>
+        <translation>Системные умолчания</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/settingsdialog.ui" line="77"/>
+        <source>&amp;Dock main window in system tray</source>
+        <translation>&amp;Закрепить главное окно в панели задач</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/settingsdialog.cpp" line="34"/>
+        <source>WebIssues Settings</source>
+        <translation>Настройки WebIssues</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/settingsdialog.cpp" line="38"/>
+        <source>Edit program settings.</source>
+        <translation>Редактировать настройки программы.</translation>
+    </message>
     <message>
         <location filename="../src/dialogs/settingsdialog.ui" line="21"/>
         <source>Basic</source>
@@ -4461,203 +4492,177 @@ Desktop клиент будет всегда использовать язык, 
         <translation>&amp;Язык пользовательского интерфейса:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="44"/>
-        <source>System Default</source>
-        <translation>Системные умолчания</translation>
-    </message>
-    <message>
         <location filename="../src/dialogs/settingsdialog.ui" line="71"/>
         <source>User Interface</source>
         <translation>Интерфейс пользователя</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="77"/>
-        <source>&amp;Dock main window in system tray</source>
-        <translation>&amp;Закрепить главное окно в панели задач</translation>
+        <location filename="../src/dialogs/settingsdialog.ui" line="84"/>
+        <source>&amp;Text size in issue details and project summary:</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="87"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="113"/>
         <source>Startup Options</source>
         <translation>Настройки запуска</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="93"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="119"/>
         <source>&amp;Show main window at startup:</source>
         <translation>&amp;Показывать главное окно при запуске:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="110"/>
-        <location filename="../src/dialogs/settingsdialog.ui" line="155"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="136"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="181"/>
         <source>Never</source>
         <translation>Никогда</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="115"/>
-        <location filename="../src/dialogs/settingsdialog.ui" line="160"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="141"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="186"/>
         <source>Automatically</source>
         <translation>Автоматически</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="120"/>
-        <location filename="../src/dialogs/settingsdialog.ui" line="165"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="146"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="191"/>
         <source>Always</source>
         <translation>Всегда</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="144"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="170"/>
         <source>&amp;Restore last connection at startup:</source>
         <translation>&amp;Восстановить последнее соединение при запуске:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="189"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="215"/>
         <source>Start WebIssues when I start &amp;Windows</source>
-        <translation>Запустить WebIssues при &amp;старте Windows</translation>
+        <translation>Запустить WebIssues при старте &amp;Windows</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="199"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="225"/>
         <source>Automatic Update</source>
         <translation>Автоматическое обновление</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="205"/>
-        <source>&amp;Enable automatic checking for latest version of WebIssues</source>
-        <translation>Включить &amp;автоматическую проверку обновлений WebIssues</translation>
-    </message>
-    <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="232"/>
-        <source>Advanced</source>
-        <translation>Дополнительно</translation>
-    </message>
-    <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="238"/>
-        <source>Behavior</source>
-        <translation>Поведение</translation>
-    </message>
-    <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="244"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="270"/>
         <source>&amp;Default action for attachments:</source>
         <translation>&amp;Действие по умолчанию для вложений:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="255"/>
-        <source>Ask what to do</source>
-        <translation>Спросить что делать</translation>
-    </message>
-    <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="260"/>
-        <source>Open</source>
-        <translation>Открыть</translation>
-    </message>
-    <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="265"/>
-        <source>Save As...</source>
-        <translation>Сохранить как...</translation>
-    </message>
-    <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="289"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="315"/>
         <source>Update Intervals</source>
         <translation>Периодичность обновления</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="295"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="321"/>
         <source>&amp;Update folders every:</source>
         <translation>&amp;Обновлять папки каждые:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="305"/>
-        <location filename="../src/dialogs/settingsdialog.ui" line="341"/>
-        <source> min</source>
-        <translation>мин</translation>
-    </message>
-    <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="331"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="357"/>
         <source>Update all data e&amp;very:</source>
         <translation>Обновлять все данные &amp;каждые:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="373"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="399"/>
         <source>Proxy Settings</source>
         <translation>Настройки прокси</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="379"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="405"/>
         <source>Use custom pro&amp;xy settings:</source>
-        <translation>&amp;Использовать пользовательские настройки прокси:</translation>
+        <translation>Использовать пользовательские настройки &amp;прокси:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="388"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="414"/>
         <source>&amp;Host:</source>
         <translation>&amp;Хост:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="405"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="431"/>
         <source>&amp;Port:</source>
         <translation>&amp;Порт:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="431"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="457"/>
         <source>&amp;Type:</source>
         <translation>&amp;Тип:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="445"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="471"/>
         <source>HTTP</source>
         <translation>HTTP</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="450"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="476"/>
         <source>Socks</source>
         <translation>Сокеты</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="460"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="486"/>
         <source>Do not use a proxy for the following addresses:</source>
         <translation>Не использовать прокси для следующих адресов:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.cpp" line="34"/>
-        <source>WebIssues Settings</source>
-        <translation>Настройки WebIssues</translation>
+        <location filename="../src/dialogs/settingsdialog.ui" line="231"/>
+        <source>&amp;Enable automatic checking for latest version of WebIssues</source>
+        <translation>&amp;Включить автоматическую проверку обновлений WebIssues</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/settingsdialog.ui" line="331"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="367"/>
+        <source> min</source>
+        <translation>мин</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/settingsdialog.ui" line="281"/>
+        <source>Ask what to do</source>
+        <translation>Спросить что делать</translation>
     </message>
     <message>
         <location filename="../src/dialogs/settingsdialog.cpp" line="35"/>
         <source>Configure settings of the WebIssues Desktop Client:</source>
-        <translation>Настроить Desktop клиент WebIssues:</translation>
+        <translation>Установить параметры Desktop клиента WebIssues:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.cpp" line="38"/>
-        <source>Edit program settings.</source>
-        <translation>Редактировать настройки программы.</translation>
+        <location filename="../src/dialogs/settingsdialog.ui" line="286"/>
+        <source>Open</source>
+        <translation>Открыть</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.cpp" line="73"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="291"/>
+        <source>Save As...</source>
+        <translation>Сохранить как...</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/settingsdialog.ui" line="264"/>
+        <source>Behavior</source>
+        <translation>Поведение</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/settingsdialog.ui" line="258"/>
+        <source>Advanced</source>
+        <translation>Дополнительно</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/settingsdialog.cpp" line="76"/>
         <source>&amp;Apply</source>
         <translation>&amp;Применить</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.cpp" line="131"/>
+        <location filename="../src/dialogs/settingsdialog.cpp" line="136"/>
         <source>Warning</source>
         <translation>Внимание</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.cpp" line="131"/>
+        <location filename="../src/dialogs/settingsdialog.cpp" line="136"/>
         <source>Language settings will be applied when the application is restarted.</source>
         <translation>Языковые настройки вступят в силу после перезапуска программы.</translation>
     </message>
 </context>
 <context>
     <name>SslCertificatesDialog</name>
-    <message>
-        <location filename="../src/dialogs/ssldialogs.cpp" line="36"/>
-        <location filename="../src/dialogs/ssldialogs.cpp" line="76"/>
-        <source>Certificate Details</source>
-        <translation>Параметры сертификатов</translation>
-    </message>
-    <message>
-        <location filename="../src/dialogs/ssldialogs.cpp" line="38"/>
-        <source>Information about the certificate of the server:</source>
-        <translation>Информация о сертификате сервера:</translation>
-    </message>
     <message>
         <location filename="../src/dialogs/ssldialogs.cpp" line="42"/>
         <source>Certification Path</source>
@@ -4690,6 +4695,17 @@ Desktop клиент будет всегда использовать язык, 
         <location filename="../src/dialogs/ssldialogs.cpp" line="64"/>
         <source>Issued By</source>
         <translation>Кем выдано</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/ssldialogs.cpp" line="36"/>
+        <location filename="../src/dialogs/ssldialogs.cpp" line="76"/>
+        <source>Certificate Details</source>
+        <translation>Параметры сертификатов</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/ssldialogs.cpp" line="38"/>
+        <source>Information about the certificate of the server:</source>
+        <translation>Информация о сертификате сервера:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/ssldialogs.cpp" line="81"/>
@@ -4789,16 +4805,6 @@ Desktop клиент будет всегда использовать язык, 
         <translation>Введенный адрес не действителен.</translation>
     </message>
     <message>
-        <location filename="../src/views/startview.cpp" line="217"/>
-        <source>Connecting to server...</source>
-        <translation>Подключение к серверу...</translation>
-    </message>
-    <message>
-        <location filename="../src/views/startview.cpp" line="229"/>
-        <source>Abort</source>
-        <translation>Прервать</translation>
-    </message>
-    <message>
         <location filename="../src/views/startview.cpp" line="275"/>
         <source>Local cache database cannot be opened.</source>
         <translation>Ошибка открытия базы данных локального кэша.</translation>
@@ -4813,6 +4819,16 @@ Desktop клиент будет всегда использовать язык, 
         <location filename="../src/views/startview.cpp" line="335"/>
         <source>Connection was cancelled.</source>
         <translation>Подключение отменено.</translation>
+    </message>
+    <message>
+        <location filename="../src/views/startview.cpp" line="217"/>
+        <source>Connecting to server...</source>
+        <translation>Подключение к серверу...</translation>
+    </message>
+    <message>
+        <location filename="../src/views/startview.cpp" line="229"/>
+        <source>Abort</source>
+        <translation>Прервать</translation>
     </message>
     <message>
         <location filename="../src/views/startview.cpp" line="343"/>
@@ -4943,7 +4959,7 @@ Desktop клиент будет всегда использовать язык, 
         <translation>Отчет</translation>
     </message>
     <message>
-        <location filename="../src/views/summaryview.cpp" line="239"/>
+        <location filename="../src/views/summaryview.cpp" line="244"/>
         <source>Unknown Project</source>
         <translation>Неизвестный проект</translation>
     </message>
@@ -5041,16 +5057,6 @@ Desktop клиент будет всегда использовать язык, 
         <translation>Переименовать</translation>
     </message>
     <message>
-        <location filename="../src/views/typesview.cpp" line="58"/>
-        <source>F2</source>
-        <translation>F2</translation>
-    </message>
-    <message>
-        <location filename="../src/views/typesview.cpp" line="62"/>
-        <source>&amp;Modify Attribute...</source>
-        <translation>&amp;Изменить атрибут...</translation>
-    </message>
-    <message>
         <location filename="../src/views/typesview.cpp" line="66"/>
         <location filename="../src/views/typesview.cpp" line="154"/>
         <source>&amp;Delete Attribute</source>
@@ -5060,6 +5066,26 @@ Desktop клиент будет всегда использовать язык, 
         <location filename="../src/views/typesview.cpp" line="67"/>
         <source>Delete</source>
         <translation>Удалить</translation>
+    </message>
+    <message>
+        <location filename="../src/views/typesview.cpp" line="153"/>
+        <source>&amp;Rename Type...</source>
+        <translation>&amp;Переименовать тип...</translation>
+    </message>
+    <message>
+        <location filename="../src/views/typesview.cpp" line="154"/>
+        <source>&amp;Delete Type</source>
+        <translation>&amp;Удалить тип</translation>
+    </message>
+    <message>
+        <location filename="../src/views/typesview.cpp" line="58"/>
+        <source>F2</source>
+        <translation>F2</translation>
+    </message>
+    <message>
+        <location filename="../src/views/typesview.cpp" line="62"/>
+        <source>&amp;Modify Attribute...</source>
+        <translation>&amp;Изменить атрибут...</translation>
     </message>
     <message>
         <location filename="../src/views/typesview.cpp" line="72"/>
@@ -5076,16 +5102,6 @@ Desktop клиент будет всегда использовать язык, 
         <location filename="../src/views/typesview.cpp" line="116"/>
         <source>Issue Types</source>
         <translation>Типы задач</translation>
-    </message>
-    <message>
-        <location filename="../src/views/typesview.cpp" line="153"/>
-        <source>&amp;Rename Type...</source>
-        <translation>&amp;Переименовать тип...</translation>
-    </message>
-    <message>
-        <location filename="../src/views/typesview.cpp" line="154"/>
-        <source>&amp;Delete Type</source>
-        <translation>&amp;Удалить тип</translation>
     </message>
 </context>
 <context>
@@ -5243,6 +5259,11 @@ Desktop клиент будет всегда использовать язык, 
         <translation>F2</translation>
     </message>
     <message>
+        <location filename="../src/views/usersview.cpp" line="64"/>
+        <source>&amp;Manage Permissions...</source>
+        <translation>&amp;Управление разрешениями...</translation>
+    </message>
+    <message>
         <location filename="../src/views/usersview.cpp" line="59"/>
         <source>Change &amp;Password...</source>
         <translation>Изменить &amp;пароль...</translation>
@@ -5251,16 +5272,6 @@ Desktop клиент будет всегда использовать язык, 
         <location filename="../src/views/usersview.cpp" line="60"/>
         <source>Password</source>
         <translation>Пароль</translation>
-    </message>
-    <message>
-        <location filename="../src/views/usersview.cpp" line="64"/>
-        <source>&amp;Manage Permissions...</source>
-        <translation>&amp;Управление разрешениями...</translation>
-    </message>
-    <message>
-        <location filename="../src/views/usersview.cpp" line="68"/>
-        <source>User P&amp;references...</source>
-        <translation>&amp;Пользовательские предпочтения...</translation>
     </message>
     <message>
         <location filename="../src/views/usersview.cpp" line="72"/>
@@ -5287,6 +5298,11 @@ Desktop клиент будет всегда использовать язык, 
         <location filename="../src/views/usersview.cpp" line="95"/>
         <source>Disabled</source>
         <translation>Отключено</translation>
+    </message>
+    <message>
+        <location filename="../src/views/usersview.cpp" line="68"/>
+        <source>User P&amp;references...</source>
+        <translation>&amp;Пользовательские предпочтения...</translation>
     </message>
 </context>
 <context>
@@ -5423,6 +5439,16 @@ Desktop клиент будет всегда использовать язык, 
 <context>
     <name>ViewSettingsDialog</name>
     <message>
+        <location filename="../src/dialogs/viewsettingsdialog.cpp" line="70"/>
+        <source>F2</source>
+        <translation>F2</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/viewsettingsdialog.cpp" line="74"/>
+        <source>&amp;Delete View</source>
+        <translation>&amp;Удалить представление</translation>
+    </message>
+    <message>
         <location filename="../src/dialogs/viewsettingsdialog.cpp" line="58"/>
         <source>&amp;Add Public View...</source>
         <translation>&amp;Добавить публичное представление...</translation>
@@ -5435,37 +5461,27 @@ Desktop клиент будет всегда использовать язык, 
     <message>
         <location filename="../src/dialogs/viewsettingsdialog.cpp" line="65"/>
         <source>&amp;Clone View...</source>
-        <translation>&amp;Клонировать...</translation>
+        <translation>&amp;Клонировать представление...</translation>
     </message>
     <message>
         <location filename="../src/dialogs/viewsettingsdialog.cpp" line="69"/>
         <source>&amp;Rename View...</source>
-        <translation>&amp;Переименовать...</translation>
-    </message>
-    <message>
-        <location filename="../src/dialogs/viewsettingsdialog.cpp" line="70"/>
-        <source>F2</source>
-        <translation>F2</translation>
-    </message>
-    <message>
-        <location filename="../src/dialogs/viewsettingsdialog.cpp" line="74"/>
-        <source>&amp;Delete View</source>
-        <translation>&amp;Удалить</translation>
+        <translation>&amp;Переименовать представление...</translation>
     </message>
     <message>
         <location filename="../src/dialogs/viewsettingsdialog.cpp" line="79"/>
         <source>&amp;Modify View...</source>
-        <translation>&amp;Изменить...</translation>
+        <translation>&amp;Изменить представление...</translation>
     </message>
     <message>
         <location filename="../src/dialogs/viewsettingsdialog.cpp" line="85"/>
         <source>&amp;Unpublish View</source>
-        <translation>&amp;Сделать приватным</translation>
+        <translation>&amp;Сделать представление приватным</translation>
     </message>
     <message>
         <location filename="../src/dialogs/viewsettingsdialog.cpp" line="87"/>
         <source>&amp;Publish View</source>
-        <translation>Сделать &amp;публичным</translation>
+        <translation>Сделать представление &amp;публичным</translation>
     </message>
     <message>
         <location filename="../src/dialogs/viewsettingsdialog.cpp" line="104"/>
@@ -5475,7 +5491,7 @@ Desktop клиент будет всегда использовать язык, 
     <message>
         <location filename="../src/dialogs/viewsettingsdialog.cpp" line="105"/>
         <source>Edit public view settings for type &lt;b&gt;%1&lt;/b&gt;:</source>
-        <translation>Редактировать настройки публичных представлений для типа &lt;b&gt;%1&lt;/b&gt;:</translation>
+        <translation>Редактировать настройки публичных оповещений для типа &lt;b&gt;%1&lt;/b&gt;:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/viewsettingsdialog.cpp" line="107"/>
@@ -5485,7 +5501,7 @@ Desktop клиент будет всегда использовать язык, 
     <message>
         <location filename="../src/dialogs/viewsettingsdialog.cpp" line="108"/>
         <source>Edit personal view settings for type &lt;b&gt;%1&lt;/b&gt;:</source>
-        <translation>Редактировать настройки приватных представлений для типа &lt;b&gt;%1&lt;/b&gt;:</translation>
+        <translation>Редактировать настройки приватных оповещений для типа &lt;b&gt;%1&lt;/b&gt;:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/viewsettingsdialog.cpp" line="115"/>

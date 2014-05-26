@@ -43,16 +43,6 @@
 <context>
     <name>AddAttachmentDialog</name>
     <message>
-        <location filename="../src/dialogs/issuedialogs.cpp" line="805"/>
-        <source>Warning</source>
-        <translation>Varování</translation>
-    </message>
-    <message>
-        <location filename="../src/dialogs/issuedialogs.cpp" line="806"/>
-        <source>The name of the selected file is longer than %1 characters and will be truncated.</source>
-        <translation>Název vybraného souboru je větší, než %1 znaků a bude oříznut.</translation>
-    </message>
-    <message>
         <location filename="../src/dialogs/issuedialogs.cpp" line="811"/>
         <source>Add Attachment</source>
         <translation>Přidat přílohu</translation>
@@ -86,6 +76,16 @@
         <location filename="../src/dialogs/issuedialogs.cpp" line="886"/>
         <source>File could not be read.</source>
         <translation>Soubor nelze číst.</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/issuedialogs.cpp" line="805"/>
+        <source>Warning</source>
+        <translation>Varování</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/issuedialogs.cpp" line="806"/>
+        <source>The name of the selected file is longer than %1 characters and will be truncated.</source>
+        <translation>Název vybraného souboru je větší, než %1 znaků a bude oříznut.</translation>
     </message>
 </context>
 <context>
@@ -607,14 +607,14 @@
 <context>
     <name>Application</name>
     <message>
-        <location filename="../src/application.cpp" line="162"/>
-        <source>WebIssues Desktop Client %1</source>
-        <translation>WebIssues dekstopový klient %1</translation>
-    </message>
-    <message>
         <location filename="../src/application.cpp" line="163"/>
         <source>Desktop Client for the WebIssues team collaboration system.</source>
         <translation>Desktopový klient pro systém týmové spolupráce WebIssues.</translation>
+    </message>
+    <message>
+        <location filename="../src/application.cpp" line="162"/>
+        <source>WebIssues Desktop Client %1</source>
+        <translation>WebIssues dekstopový klient %1</translation>
     </message>
     <message>
         <location filename="../src/application.cpp" line="164"/>
@@ -627,11 +627,6 @@
         <translation>Copyright &amp;copy; 2006 Michał Męciński</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="168"/>
-        <source>Copyright &amp;copy; 2007-2013 WebIssues Team</source>
-        <translation>Copyright &amp;copy; 2007-2013 WebIssues Team</translation>
-    </message>
-    <message>
         <location filename="../src/application.cpp" line="173"/>
         <source>Help</source>
         <translation>Pomoc</translation>
@@ -640,11 +635,6 @@
         <location filename="../src/application.cpp" line="174"/>
         <source>Open the WebIssues Manual for help.</source>
         <translation>Otevřít návod systému WebIssues.</translation>
-    </message>
-    <message>
-        <location filename="../src/application.cpp" line="177"/>
-        <source>Website</source>
-        <translation>Webová stránka</translation>
     </message>
     <message>
         <location filename="../src/application.cpp" line="178"/>
@@ -671,11 +661,6 @@
         <location filename="../src/application.cpp" line="186"/>
         <source>Automatic checking for latest version is disabled. You can enable it in program settings.</source>
         <translation>Automatická kontrola aktualizací je zakázána, povolte ji prosím v nastavení aplikace.</translation>
-    </message>
-    <message>
-        <location filename="../src/application.cpp" line="188"/>
-        <source>About WebIssues</source>
-        <translation>O systému WebIssues</translation>
     </message>
     <message>
         <location filename="../src/application.cpp" line="192"/>
@@ -727,6 +712,21 @@
         <source>Do&amp;wnload</source>
         <translation>&amp;Stáhnout</translation>
     </message>
+    <message>
+        <location filename="../src/application.cpp" line="177"/>
+        <source>Website</source>
+        <translation>Webová stránka</translation>
+    </message>
+    <message>
+        <location filename="../src/application.cpp" line="168"/>
+        <source>Copyright &amp;copy; 2007-2014 WebIssues Team</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/application.cpp" line="188"/>
+        <source>About WebIssues</source>
+        <translation>O systému WebIssues</translation>
+    </message>
 </context>
 <context>
     <name>AttributeDialog</name>
@@ -764,6 +764,21 @@
 <context>
     <name>AttributeHelper</name>
     <message>
+        <location filename="../src/utils/attributehelper.cpp" line="122"/>
+        <source>Text</source>
+        <translation>Text</translation>
+    </message>
+    <message>
+        <location filename="../src/utils/attributehelper.cpp" line="126"/>
+        <source>Numeric</source>
+        <translation>Číslo</translation>
+    </message>
+    <message>
+        <location filename="../src/utils/attributehelper.cpp" line="124"/>
+        <source>Dropdown list</source>
+        <translation>Vybírací seznam</translation>
+    </message>
+    <message>
         <location filename="../src/utils/attributehelper.cpp" line="109"/>
         <source>Me</source>
         <translation>Já</translation>
@@ -772,21 +787,6 @@
         <location filename="../src/utils/attributehelper.cpp" line="112"/>
         <source>Today</source>
         <translation>Dnes</translation>
-    </message>
-    <message>
-        <location filename="../src/utils/attributehelper.cpp" line="122"/>
-        <source>Text</source>
-        <translation>Text</translation>
-    </message>
-    <message>
-        <location filename="../src/utils/attributehelper.cpp" line="124"/>
-        <source>Dropdown list</source>
-        <translation>Vybírací seznam</translation>
-    </message>
-    <message>
-        <location filename="../src/utils/attributehelper.cpp" line="126"/>
-        <source>Numeric</source>
-        <translation>Číslo</translation>
     </message>
     <message>
         <location filename="../src/utils/attributehelper.cpp" line="128"/>
@@ -1090,24 +1090,9 @@
         <translation>Prosím potvrďte.</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/commanddialog.cpp" line="204"/>
-        <source>&amp;Close</source>
-        <translation>&amp;Zavřít</translation>
-    </message>
-    <message>
         <location filename="../src/dialogs/commanddialog.cpp" line="233"/>
         <source>Some of the values you entered are incorrect.</source>
         <translation>Některé zadané hodnoty jsou nesprávné.</translation>
-    </message>
-    <message>
-        <location filename="../src/dialogs/commanddialog.cpp" line="270"/>
-        <source>&amp;Abort</source>
-        <translation>&amp;Přerušit</translation>
-    </message>
-    <message>
-        <location filename="../src/dialogs/commanddialog.cpp" line="273"/>
-        <source>Executing command...</source>
-        <translation>Spouštím příkaz...</translation>
     </message>
     <message>
         <location filename="../src/dialogs/commanddialog.cpp" line="323"/>
@@ -1125,6 +1110,21 @@ Opravdu chcete pokračovat?</translation>
         <location filename="../src/dialogs/commanddialog.cpp" line="341"/>
         <source>Command failed: %1.</source>
         <translation>Příkaz selhal: %1.</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/commanddialog.cpp" line="270"/>
+        <source>&amp;Abort</source>
+        <translation>&amp;Přerušit</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/commanddialog.cpp" line="273"/>
+        <source>Executing command...</source>
+        <translation>Spouštím příkaz...</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/commanddialog.cpp" line="204"/>
+        <source>&amp;Close</source>
+        <translation>&amp;Zavřít</translation>
     </message>
 </context>
 <context>
@@ -1275,20 +1275,9 @@ Opravdu chcete pokračovat?</translation>
         <translation>Informace o aktuálním spojení:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/connectioninfodialog.cpp" line="42"/>
-        <source>Server Information</source>
-        <translation>Informace o serveru</translation>
-    </message>
-    <message>
         <location filename="../src/dialogs/connectioninfodialog.cpp" line="49"/>
         <source>URL:</source>
         <translation>URL:</translation>
-    </message>
-    <message>
-        <location filename="../src/dialogs/connectioninfodialog.cpp" line="50"/>
-        <location filename="../src/dialogs/connectioninfodialog.cpp" line="76"/>
-        <source>Name:</source>
-        <translation>Jméno:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/connectioninfodialog.cpp" line="51"/>
@@ -1304,11 +1293,6 @@ Opravdu chcete pokračovat?</translation>
         <location filename="../src/dialogs/connectioninfodialog.cpp" line="59"/>
         <source>&amp;View Certificate...</source>
         <translation>&amp;Zobrazit certifikát...</translation>
-    </message>
-    <message>
-        <location filename="../src/dialogs/connectioninfodialog.cpp" line="68"/>
-        <source>User Information</source>
-        <translation>O uživateli</translation>
     </message>
     <message>
         <location filename="../src/dialogs/connectioninfodialog.cpp" line="75"/>
@@ -1335,6 +1319,22 @@ Opravdu chcete pokračovat?</translation>
         <location filename="../src/dialogs/connectioninfodialog.cpp" line="114"/>
         <source>Regular</source>
         <translation>Běžný</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/connectioninfodialog.cpp" line="42"/>
+        <source>Server Information</source>
+        <translation>Informace o serveru</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/connectioninfodialog.cpp" line="50"/>
+        <location filename="../src/dialogs/connectioninfodialog.cpp" line="76"/>
+        <source>Name:</source>
+        <translation>Jméno:</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/connectioninfodialog.cpp" line="68"/>
+        <source>User Information</source>
+        <translation>O uživateli</translation>
     </message>
 </context>
 <context>
@@ -2317,6 +2317,34 @@ Opravdu chcete pokračovat?</translation>
         <translation>Typ:</translation>
     </message>
     <message>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="144"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="275"/>
+        <source>:</source>
+        <translation>:</translation>
+    </message>
+    <message>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="427"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="432"/>
+        <source>Comment #%1</source>
+        <translation>Komentář #%1</translation>
+    </message>
+    <message>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="429"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="434"/>
+        <source>Attachment #%1</source>
+        <translation>Příloha #%1</translation>
+    </message>
+    <message>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="238"/>
+        <source>There are no comments.</source>
+        <translation>Nejsou žádné komentáře.</translation>
+    </message>
+    <message>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="89"/>
+        <source>Description</source>
+        <translation>Popis</translation>
+    </message>
+    <message>
         <location filename="../src/models/issuedetailsgenerator.cpp" line="122"/>
         <source>Location:</source>
         <translation>Umístění:</translation>
@@ -2332,17 +2360,6 @@ Opravdu chcete pokračovat?</translation>
         <translation>Poslední změna:</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="144"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="275"/>
-        <source>:</source>
-        <translation>:</translation>
-    </message>
-    <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="238"/>
-        <source>There are no comments.</source>
-        <translation>Nejsou žádné komentáře.</translation>
-    </message>
-    <message>
         <location filename="../src/models/issuedetailsgenerator.cpp" line="240"/>
         <source>There are no attachments.</source>
         <translation>Nejsou žádné přílohy.</translation>
@@ -2351,6 +2368,47 @@ Opravdu chcete pokračovat?</translation>
         <location filename="../src/models/issuedetailsgenerator.cpp" line="242"/>
         <source>There are no comments or attachments.</source>
         <translation>Nejsou žádné přílohy ani komentáře.</translation>
+    </message>
+    <message>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="304"/>
+        <source>Issue moved from</source>
+        <translation>Problém přesunut z</translation>
+    </message>
+    <message>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="316"/>
+        <source>to</source>
+        <translation>do</translation>
+    </message>
+    <message>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="378"/>
+        <source>Comments &amp; Attachments</source>
+        <translation>Komentáře a přílohy</translation>
+    </message>
+    <message>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="396"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="419"/>
+        <source>Last Edited:</source>
+        <translation>Poslední úprava:</translation>
+    </message>
+    <message>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="401"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="441"/>
+        <source>Reply</source>
+        <translation>Odpověď</translation>
+    </message>
+    <message>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="404"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="447"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="449"/>
+        <source>Edit</source>
+        <translation>Upravit</translation>
+    </message>
+    <message>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="406"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="453"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="455"/>
+        <source>Delete</source>
+        <translation>Vymazat</translation>
     </message>
     <message>
         <location filename="../src/models/issuedetailsgenerator.cpp" line="258"/>
@@ -2365,83 +2423,25 @@ Opravdu chcete pokračovat?</translation>
         <translation>prázdné</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="304"/>
-        <source>Issue moved from</source>
-        <translation>Problém přesunut z</translation>
-    </message>
-    <message>
         <location filename="../src/models/issuedetailsgenerator.cpp" line="308"/>
         <location filename="../src/models/issuedetailsgenerator.cpp" line="320"/>
         <source>Unknown Folder</source>
         <translation>Neznámá složka</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="316"/>
-        <source>to</source>
-        <translation>do</translation>
-    </message>
-    <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="366"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="369"/>
         <source>All History</source>
         <translation>Celá hystorie</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="369"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="372"/>
         <source>Only Comments</source>
         <translation>Pouze komentáře</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="372"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="375"/>
         <source>Only Attachments</source>
         <translation>Pouze přílohy</translation>
-    </message>
-    <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="375"/>
-        <source>Comments &amp; Attachments</source>
-        <translation>Komentáře a přílohy</translation>
-    </message>
-    <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="393"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="416"/>
-        <source>Last Edited:</source>
-        <translation>Poslední úprava:</translation>
-    </message>
-    <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="398"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="438"/>
-        <source>Reply</source>
-        <translation>Odpověď</translation>
-    </message>
-    <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="424"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="429"/>
-        <source>Comment #%1</source>
-        <translation>Komentář #%1</translation>
-    </message>
-    <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="426"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="431"/>
-        <source>Attachment #%1</source>
-        <translation>Příloha #%1</translation>
-    </message>
-    <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="401"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="444"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="446"/>
-        <source>Edit</source>
-        <translation>Upravit</translation>
-    </message>
-    <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="89"/>
-        <source>Description</source>
-        <translation>Popis</translation>
-    </message>
-    <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="403"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="450"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="452"/>
-        <source>Delete</source>
-        <translation>Vymazat</translation>
     </message>
 </context>
 <context>
@@ -2528,24 +2528,9 @@ Opravdu chcete pokračovat?</translation>
         <translation>Přidat &amp;přílohu...</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="87"/>
-        <source>Add &amp;Description...</source>
-        <translation>Přidat P&amp;opis...</translation>
-    </message>
-    <message>
-        <location filename="../src/views/issueview.cpp" line="91"/>
-        <source>&amp;Edit Attributes...</source>
-        <translation>&amp;Upravit atributy...</translation>
-    </message>
-    <message>
         <location filename="../src/views/issueview.cpp" line="92"/>
         <source>F2</source>
         <translation>F2</translation>
-    </message>
-    <message>
-        <location filename="../src/views/issueview.cpp" line="96"/>
-        <source>Clone Issue...</source>
-        <translation>Klonovat problém...</translation>
     </message>
     <message>
         <location filename="../src/views/issueview.cpp" line="100"/>
@@ -2583,9 +2568,31 @@ Opravdu chcete pokračovat?</translation>
         <translation>&amp;Předešlý</translation>
     </message>
     <message>
+        <location filename="../src/views/issueview.cpp" line="153"/>
+        <source>&amp;Copy</source>
+        <translation>&amp;Kopírovat</translation>
+    </message>
+    <message>
+        <location filename="../src/views/issueview.cpp" line="158"/>
+        <source>Select &amp;All</source>
+        <translation>Vybrat &amp;vše</translation>
+    </message>
+    <message>
+        <location filename="../src/views/issueview.cpp" line="481"/>
+        <source>The selected file is bigger than the maximum allowed file size
+on this server which is %1.</source>
+        <translation>Vybraný soubor je větší, než maximální povolená velikost souboru.
+Maximální velikost je %1.</translation>
+    </message>
+    <message>
         <location filename="../src/views/issueview.cpp" line="125"/>
         <source>&amp;Go To Item...</source>
         <translation>&amp;Jdi na ...</translation>
+    </message>
+    <message>
+        <location filename="../src/views/issueview.cpp" line="91"/>
+        <source>&amp;Edit Attributes...</source>
+        <translation>&amp;Upravit atributy...</translation>
     </message>
     <message>
         <location filename="../src/views/issueview.cpp" line="129"/>
@@ -2618,14 +2625,9 @@ Opravdu chcete pokračovat?</translation>
         <translation>Kopírovat a&amp;dresu odkazu</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="153"/>
-        <source>&amp;Copy</source>
-        <translation>&amp;Kopírovat</translation>
-    </message>
-    <message>
-        <location filename="../src/views/issueview.cpp" line="158"/>
-        <source>Select &amp;All</source>
-        <translation>Vybrat &amp;vše</translation>
+        <location filename="../src/views/issueview.cpp" line="164"/>
+        <source>Print</source>
+        <translation>Tisk</translation>
     </message>
     <message>
         <location filename="../src/views/issueview.cpp" line="163"/>
@@ -2633,9 +2635,9 @@ Opravdu chcete pokračovat?</translation>
         <translation>Tisk problému</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="164"/>
-        <source>Print</source>
-        <translation>Tisk</translation>
+        <location filename="../src/views/issueview.cpp" line="170"/>
+        <source>Export</source>
+        <translation>Export</translation>
     </message>
     <message>
         <location filename="../src/views/issueview.cpp" line="169"/>
@@ -2643,9 +2645,14 @@ Opravdu chcete pokračovat?</translation>
         <translation>Exportovat problém</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="170"/>
-        <source>Export</source>
-        <translation>Export</translation>
+        <location filename="../src/views/issueview.cpp" line="87"/>
+        <source>Add &amp;Description...</source>
+        <translation>Přidat P&amp;opis...</translation>
+    </message>
+    <message>
+        <location filename="../src/views/issueview.cpp" line="96"/>
+        <source>Clone Issue...</source>
+        <translation>Klonovat problém...</translation>
     </message>
     <message>
         <location filename="../src/views/issueview.cpp" line="173"/>
@@ -2659,13 +2666,13 @@ Opravdu chcete pokračovat?</translation>
     </message>
     <message>
         <location filename="../src/views/issueview.cpp" line="181"/>
-        <location filename="../src/views/issueview.cpp" line="389"/>
+        <location filename="../src/views/issueview.cpp" line="394"/>
         <source>Mark As Read</source>
         <translation>Označit jako přečtené</translation>
     </message>
     <message>
         <location filename="../src/views/issueview.cpp" line="185"/>
-        <location filename="../src/views/issueview.cpp" line="392"/>
+        <location filename="../src/views/issueview.cpp" line="397"/>
         <source>Subscribe</source>
         <translation>Přihlásit</translation>
     </message>
@@ -2690,100 +2697,93 @@ Opravdu chcete pokračovat?</translation>
         <translation>Report</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="355"/>
+        <location filename="../src/views/issueview.cpp" line="360"/>
         <source>Unknown Issue</source>
         <translation>Neznámý problém</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="389"/>
+        <location filename="../src/views/issueview.cpp" line="394"/>
         <source>Mark As Unread</source>
         <translation>Označit jako nepřečtené</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="392"/>
+        <location filename="../src/views/issueview.cpp" line="397"/>
         <source>Unsubscribe</source>
         <translation>Odhlásit</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="465"/>
+        <location filename="../src/views/issueview.cpp" line="470"/>
         <source>Add Attachment</source>
         <translation>Přidat přílohu</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="475"/>
+        <location filename="../src/views/issueview.cpp" line="480"/>
         <source>Warning</source>
         <translation>Varování</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="476"/>
-        <source>The selected file is bigger than the maximum allowed file size
-on this server which is %1.</source>
-        <translation>Vybraný soubor je větší, než maximální povolená velikost souboru.
-Maximální velikost je %1.</translation>
-    </message>
-    <message>
-        <location filename="../src/views/issueview.cpp" line="770"/>
+        <location filename="../src/views/issueview.cpp" line="775"/>
         <source>%1 comments</source>
         <translation>%1 komentářů</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="772"/>
+        <location filename="../src/views/issueview.cpp" line="777"/>
         <source>%1 attachments</source>
         <translation>%1 příloh</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="885"/>
+        <location filename="../src/views/issueview.cpp" line="890"/>
         <source>Description</source>
         <translation>Popis</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="887"/>
+        <location filename="../src/views/issueview.cpp" line="892"/>
         <source>Comment #%1</source>
         <translation>Komentář #%1</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="920"/>
+        <location filename="../src/views/issueview.cpp" line="925"/>
         <source>Attachment</source>
         <translation>Příloha</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="921"/>
+        <location filename="../src/views/issueview.cpp" line="926"/>
         <source>Do you want to save or open attachment &lt;b&gt;%1&lt;/b&gt;?</source>
         <translation>Chcete otevřít, nebo uložit přílohu &lt;b&gt;%1&lt;/b&gt;?</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="923"/>
+        <location filename="../src/views/issueview.cpp" line="928"/>
         <source>Do this automatically for all attachments</source>
         <translation>Provést automaticky pro všechny přílohy</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="926"/>
+        <location filename="../src/views/issueview.cpp" line="931"/>
         <source>&amp;Save As...</source>
         <translation>&amp;Uložit jako...</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="928"/>
+        <location filename="../src/views/issueview.cpp" line="933"/>
         <source>&amp;Open</source>
         <translation>&amp;Otevřít</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="955"/>
+        <location filename="../src/views/issueview.cpp" line="960"/>
         <source>Save Attachment</source>
         <translation>Uložit přílohu</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="985"/>
-        <location filename="../src/views/issueview.cpp" line="991"/>
+        <location filename="../src/views/issueview.cpp" line="990"/>
+        <location filename="../src/views/issueview.cpp" line="996"/>
         <source>Error</source>
         <translation>Chyba</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="985"/>
+        <location filename="../src/views/issueview.cpp" line="990"/>
         <source>File could not be overwritten.</source>
         <translation>Soubor nelze přepsat.</translation>
     </message>
     <message>
-        <location filename="../src/views/issueview.cpp" line="991"/>
+        <location filename="../src/views/issueview.cpp" line="996"/>
         <source>File could not be saved.</source>
         <translation>Soubor nebyl uložen.</translation>
     </message>
@@ -2842,7 +2842,7 @@ Maximální velikost je %1.</translation>
     </message>
     <message>
         <location filename="../src/views/listview.cpp" line="98"/>
-        <location filename="../src/views/listview.cpp" line="340"/>
+        <location filename="../src/views/listview.cpp" line="341"/>
         <source>Mark As Read</source>
         <translation>Označit jako přečtené</translation>
     </message>
@@ -2865,7 +2865,7 @@ Maximální velikost je %1.</translation>
     </message>
     <message>
         <location filename="../src/views/listview.cpp" line="114"/>
-        <location filename="../src/views/listview.cpp" line="348"/>
+        <location filename="../src/views/listview.cpp" line="349"/>
         <source>Subscribe</source>
         <translation>Přihlásit</translation>
     </message>
@@ -2965,32 +2965,32 @@ Maximální velikost je %1.</translation>
         <translation>H&amp;ledat:</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="340"/>
+        <location filename="../src/views/listview.cpp" line="341"/>
         <source>Mark As Unread</source>
         <translation>Označit jako nepřečtené</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="348"/>
+        <location filename="../src/views/listview.cpp" line="349"/>
         <source>Unsubscribe</source>
         <translation>Odhlásit</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="369"/>
+        <location filename="../src/views/listview.cpp" line="370"/>
         <source>%1 issues</source>
         <translation>%1 problémů</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="667"/>
+        <location filename="../src/views/listview.cpp" line="669"/>
         <source>All Issues</source>
         <translation>Všechny problémy</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="683"/>
+        <location filename="../src/views/listview.cpp" line="685"/>
         <source>Personal Views</source>
         <translation>Soukromé pohledy</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="693"/>
+        <location filename="../src/views/listview.cpp" line="695"/>
         <source>Public Views</source>
         <translation>Veřejné pohledy</translation>
     </message>
@@ -3079,11 +3079,24 @@ Maximální velikost je %1.</translation>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../src/mainwindow.cpp" line="86"/>
-        <location filename="../src/mainwindow.cpp" line="319"/>
-        <location filename="../src/mainwindow.cpp" line="355"/>
-        <source>WebIssues Desktop Client</source>
-        <translation>Desktopový klient WebIssues</translation>
+        <location filename="../src/mainwindow.cpp" line="92"/>
+        <source>Ctrl+Q</source>
+        <translation>Ctrl+Q</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="119"/>
+        <source>Ctrl+G</source>
+        <translation>Ctrl+G</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="405"/>
+        <source>No folder selected</source>
+        <translation>Není vybrána složka</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="421"/>
+        <source>No issue selected</source>
+        <translation>Není vynrán problém</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="90"/>
@@ -3091,9 +3104,11 @@ Maximální velikost je %1.</translation>
         <translation>Konec</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="92"/>
-        <source>Ctrl+Q</source>
-        <translation>Ctrl+Q</translation>
+        <location filename="../src/mainwindow.cpp" line="86"/>
+        <location filename="../src/mainwindow.cpp" line="319"/>
+        <location filename="../src/mainwindow.cpp" line="355"/>
+        <source>WebIssues Desktop Client</source>
+        <translation>Desktopový klient WebIssues</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="96"/>
@@ -3116,19 +3131,14 @@ Maximální velikost je %1.</translation>
         <translation>Detaily</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="108"/>
-        <source>User Accounts</source>
-        <translation>Uživatelské účty</translation>
-    </message>
-    <message>
         <location filename="../src/mainwindow.cpp" line="109"/>
         <source>Users</source>
         <translation>Uživatelé</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="113"/>
-        <source>Issue Types</source>
-        <translation>Typy problémů</translation>
+        <location filename="../src/mainwindow.cpp" line="108"/>
+        <source>User Accounts</source>
+        <translation>Uživatelské účty</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="114"/>
@@ -3136,19 +3146,14 @@ Maximální velikost je %1.</translation>
         <translation>Typy</translation>
     </message>
     <message>
+        <location filename="../src/mainwindow.cpp" line="113"/>
+        <source>Issue Types</source>
+        <translation>Typy problémů</translation>
+    </message>
+    <message>
         <location filename="../src/mainwindow.cpp" line="118"/>
         <source>Go To Item</source>
         <translation>Jít na problém</translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="119"/>
-        <source>Ctrl+G</source>
-        <translation>Ctrl+G</translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="123"/>
-        <source>Change Password</source>
-        <translation>Změna hesla</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="124"/>
@@ -3156,14 +3161,19 @@ Maximální velikost je %1.</translation>
         <translation>Heslo</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="128"/>
-        <source>User Preferences</source>
-        <translation>Uživatelské nastavení</translation>
+        <location filename="../src/mainwindow.cpp" line="123"/>
+        <source>Change Password</source>
+        <translation>Změna hesla</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="129"/>
         <source>Preferences</source>
         <translation>Nastavení</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="128"/>
+        <source>User Preferences</source>
+        <translation>Uživatelské nastavení</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="133"/>
@@ -3181,14 +3191,14 @@ Maximální velikost je %1.</translation>
         <translation>Nástroje</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="144"/>
-        <source>Manage</source>
-        <translation>Zpráva</translation>
-    </message>
-    <message>
         <location filename="../src/mainwindow.cpp" line="145"/>
         <source>Connection</source>
         <translation>Spojení</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="144"/>
+        <source>Manage</source>
+        <translation>Zpráva</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="187"/>
@@ -3221,29 +3231,19 @@ Please wait until these commands are completed.</source>
 Prosím počkejte na dokončení práce.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="405"/>
-        <source>No folder selected</source>
-        <translation>Není vybrána složka</translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="421"/>
-        <source>No issue selected</source>
-        <translation>Není vynrán problém</translation>
-    </message>
-    <message>
         <location filename="../src/mainwindow.cpp" line="451"/>
         <source>Encrypted</source>
         <translation>Kódováno</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="470"/>
+        <location filename="../src/mainwindow.cpp" line="472"/>
         <source>WebIssues Desktop Client
 Connected to %1</source>
         <translation>Desktopový klient WebIssues
 Připojeno k %1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="899"/>
+        <location filename="../src/mainwindow.cpp" line="915"/>
         <source>%1 - WebIssues Desktop Client</source>
         <translation>%1 - desktopový klient WebIssues</translation>
     </message>
@@ -3311,7 +3311,7 @@ Připojeno k %1</translation>
     </message>
     <message>
         <location filename="../src/widgets/markuptextedit.cpp" line="93"/>
-        <location filename="../src/widgets/markuptextedit.cpp" line="201"/>
+        <location filename="../src/widgets/markuptextedit.cpp" line="203"/>
         <source>Hyperlink</source>
         <translation>Odkaz</translation>
     </message>
@@ -3332,32 +3332,37 @@ Připojeno k %1</translation>
     </message>
     <message>
         <location filename="../src/widgets/markuptextedit.cpp" line="99"/>
-        <location filename="../src/widgets/markuptextedit.cpp" line="287"/>
+        <source>Right-To-Left Text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/widgets/markuptextedit.cpp" line="101"/>
+        <location filename="../src/widgets/markuptextedit.cpp" line="294"/>
         <source>Preview</source>
         <translation>Náhled</translation>
     </message>
     <message>
-        <location filename="../src/widgets/markuptextedit.cpp" line="117"/>
+        <location filename="../src/widgets/markuptextedit.cpp" line="119"/>
         <source>&amp;Text format:</source>
         <translation>&amp;Formát textu:</translation>
     </message>
     <message>
-        <location filename="../src/widgets/markuptextedit.cpp" line="123"/>
+        <location filename="../src/widgets/markuptextedit.cpp" line="125"/>
         <source>Plain Text</source>
         <translation>Prostý text</translation>
     </message>
     <message>
-        <location filename="../src/widgets/markuptextedit.cpp" line="124"/>
+        <location filename="../src/widgets/markuptextedit.cpp" line="126"/>
         <source>Text with Markup</source>
         <translation>Formátovaný text</translation>
     </message>
     <message>
-        <location filename="../src/widgets/markuptextedit.cpp" line="201"/>
+        <location filename="../src/widgets/markuptextedit.cpp" line="203"/>
         <source>Enter link URL:</source>
         <translation>Zadejte URL:</translation>
     </message>
     <message>
-        <location filename="../src/widgets/markuptextedit.cpp" line="203"/>
+        <location filename="../src/widgets/markuptextedit.cpp" line="205"/>
         <source>Link text</source>
         <translation>Text odkazu</translation>
     </message>
@@ -3580,249 +3585,255 @@ Připojeno k %1</translation>
 <context>
     <name>PreferencesDialog</name>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="62"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="63"/>
         <source>User Preferences</source>
         <translation>Nastavení uživatele</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="64"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="65"/>
         <source>Configure your user preferences:</source>
         <translation>Nastavte si Vaše předvolby:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="66"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="67"/>
         <source>Configure preferences for user &lt;b&gt;%1&lt;/b&gt;:</source>
         <translation>Nastavení předvoleb uživatele &lt;b&gt;%1&lt;/b&gt;:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="69"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="90"/>
+        <source>&amp;Language:</source>
+        <translation>&amp;Jazyk:</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="118"/>
+        <source>&amp;Number format:</source>
+        <translation>Formát čí&amp;sel:</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="70"/>
         <source>Edit user preferences.</source>
         <translation>Úprava předvoleb.</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="77"/>
-        <source>Regional</source>
-        <translation>Regionální</translation>
-    </message>
-    <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="81"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="82"/>
         <source>Regional Options</source>
         <translation>Regionální nastavení</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="85"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="86"/>
         <source>The following settings only affect the Web Client and email notifications.
 The Desktop Client will always use the language configured in program settings and the local time zone.</source>
         <translation>Následující volby jsou pouze pro webového klienta a e-mailové upozornění.
 Desktopový klient vždy používá jazyk nastavený v nastavení programu a lokální časové pásmo.</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="89"/>
-        <source>&amp;Language:</source>
-        <translation>&amp;Jazyk:</translation>
-    </message>
-    <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="97"/>
-        <source>Time &amp;zone:</source>
-        <translation>Časové &amp;pásmo:</translation>
-    </message>
-    <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="108"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="110"/>
         <source>Formats</source>
         <translation>Formáty</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="112"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="114"/>
         <source>Customize the format of numbers, date and time. Default formats depend on the selected language.</source>
         <translation>Nastavení formátu čísel, dat aa času. Výchozí formát bude nastaven podle zvoleného jazyka.</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="116"/>
-        <source>&amp;Number format:</source>
-        <translation>Formát čí&amp;sel:</translation>
-    </message>
-    <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="124"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="126"/>
         <source>&amp;Date format:</source>
         <translation>Formát &amp;data:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="132"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="134"/>
         <source>&amp;Time format:</source>
         <translation>Formát čas&amp;u:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="140"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="142"/>
         <source>&amp;First day of week:</source>
         <translation>1. den týdn&amp;e:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="153"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="99"/>
+        <source>Time &amp;zone:</source>
+        <translation>Časové &amp;pásmo:</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="78"/>
+        <source>Regional</source>
+        <translation>Regionální</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="155"/>
         <source>View</source>
         <translation>Pohled</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="157"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="159"/>
         <source>Page Size</source>
         <translation>Délka stránky</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="161"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="163"/>
         <source>The following settings only affect the Web Client.</source>
         <translation>Toto nastavení ovlivní pouze webového klienta.</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="164"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="183"/>
         <source>List of issues:</source>
         <translation>Seznam problémů:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="172"/>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="183"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="196"/>
+        <source>Issue history:</source>
+        <translation>Hystorie problému:</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="211"/>
+        <source>View Settings</source>
+        <translation>Zobrazit nastavení</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="215"/>
+        <source>Global view settings that affect all issue types.</source>
+        <translation>Globální nastavení pohledu má vliv na všechny typy problémů.</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="218"/>
+        <source>Order of issue history:</source>
+        <translation>Třídění hystorie problému:</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="227"/>
+        <source>Oldest First</source>
+        <translation>Nejstarší nejdříve</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="228"/>
+        <source>Newest First</source>
+        <translation>Nejnovější nejdříve</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="237"/>
+        <source>Default filter in issue history:</source>
+        <translation>Výchozí filtr v hystorii problému:</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="177"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="191"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="202"/>
         <source>Default (%1)</source>
         <comment>page size</comment>
         <translation>Výchozí (%1)</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="308"/>
-        <source>Default (%1)</source>
-        <comment>language</comment>
-        <translation>Výchozí (%1)</translation>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="169"/>
+        <source>Projects tree:</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="374"/>
-        <source>Default (%1)</source>
-        <comment>time zone</comment>
-        <translation>Výchozí (%1)</translation>
-    </message>
-    <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="177"/>
-        <source>Issue history:</source>
-        <translation>Hystorie problému:</translation>
-    </message>
-    <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="192"/>
-        <source>View Settings</source>
-        <translation>Zobrazit nastavení</translation>
-    </message>
-    <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="196"/>
-        <source>Global view settings that affect all issue types.</source>
-        <translation>Globální nastavení pohledu má vliv na všechny typy problémů.</translation>
-    </message>
-    <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="199"/>
-        <source>Order of issue history:</source>
-        <translation>Třídění hystorie problému:</translation>
-    </message>
-    <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="208"/>
-        <source>Oldest First</source>
-        <translation>Nejstarší nejdříve</translation>
-    </message>
-    <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="209"/>
-        <source>Newest First</source>
-        <translation>Nejnovější nejdříve</translation>
-    </message>
-    <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="213"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="232"/>
         <source>Default (%1)</source>
         <comment>order</comment>
         <translation>Výchozí (%1)</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="218"/>
-        <source>Default filter in issue history:</source>
-        <translation>Výchozí filtr v hystorii problému:</translation>
-    </message>
-    <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="227"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="246"/>
         <source>All History</source>
         <translation>Celá hystorie</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="228"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="247"/>
         <source>Comments &amp; Attachments</source>
         <translation>Komentáře a přílohy</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="232"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="251"/>
         <source>Default (%1)</source>
         <comment>filter</comment>
         <translation>Výchozí (%1)</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="239"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="258"/>
         <source>Editing</source>
         <translation>Úprava</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="243"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="262"/>
         <source>The default format used for new comments and descriptions.</source>
         <translation>Výchozí formát pro komentáře a popisy.</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="246"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="265"/>
         <source>Default text format:</source>
         <translation>Výchozí formát textu:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="255"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="274"/>
         <source>Plain Text</source>
         <translation>Prostý text</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="256"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="275"/>
         <source>Text with Markup</source>
         <translation>Formátovaný text</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="260"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="279"/>
         <source>Default (%1)</source>
         <comment>format</comment>
         <translation>Výchozí (%1)</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="273"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="292"/>
         <source>Notifications</source>
         <translation>Upozornění</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="277"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="296"/>
         <source>&amp;Email address:</source>
         <translation>&amp;E-mailová adresa:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="287"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="306"/>
         <source>This address will only be visible to the system administrator. You will not receive notifications if you leave this field empty.</source>
         <translation>Tato adresa bude zobrazena pouze administrátorovi systému. Pokud ji nevyplníte nebudete dostávat upozornění.</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="293"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="312"/>
         <source>Settings</source>
         <translation>Nastavení</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="297"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="316"/>
         <source>I&amp;nclude issue details in notificatons and summary reports</source>
         <translation>Přidat &amp;detaily problému v upozorněních a souhrných reportech</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="300"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="319"/>
         <source>&amp;Do not notify about issues that I have already read</source>
         <translation>Neupozorňovat na p&amp;roblémy, které jsem již četl</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="314"/>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="328"/>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="348"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="327"/>
+        <source>Default (%1)</source>
+        <comment>language</comment>
+        <translation>Výchozí (%1)</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="393"/>
+        <source>Default (%1)</source>
+        <comment>time zone</comment>
+        <translation>Výchozí (%1)</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="333"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="347"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="367"/>
         <source>Default</source>
         <comment>format</comment>
         <translation>Výchozí</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/preferencesdialog.cpp" line="365"/>
+        <location filename="../src/dialogs/preferencesdialog.cpp" line="384"/>
         <source>Default</source>
         <comment>day of week</comment>
         <translation>Výchozí</translation>
@@ -3877,106 +3888,106 @@ Desktopový klient vždy používá jazyk nastavený v nastavení programu a lok
 <context>
     <name>ProjectsView</name>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="55"/>
+        <location filename="../src/views/projectsview.cpp" line="56"/>
         <source>&amp;Update Projects</source>
         <translation>&amp;Aktualizovat projekty</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="60"/>
-        <source>&amp;Manage Permissions...</source>
-        <translation>&amp;Nastavení práv...</translation>
-    </message>
-    <message>
-        <location filename="../src/views/projectsview.cpp" line="61"/>
-        <source>Permissions</source>
-        <translation>Práva</translation>
-    </message>
-    <message>
-        <location filename="../src/views/projectsview.cpp" line="66"/>
+        <location filename="../src/views/projectsview.cpp" line="67"/>
         <source>Add &amp;Project...</source>
         <translation>Přidat p&amp;rojekt...</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="71"/>
+        <location filename="../src/views/projectsview.cpp" line="72"/>
         <source>Add &amp;Folder...</source>
         <translation>Přidat &amp;složku...</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="76"/>
-        <location filename="../src/views/projectsview.cpp" line="321"/>
+        <location filename="../src/views/projectsview.cpp" line="77"/>
+        <location filename="../src/views/projectsview.cpp" line="328"/>
         <source>&amp;Rename Folder...</source>
         <translation>Pře&amp;jmenovat složku...</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="77"/>
+        <location filename="../src/views/projectsview.cpp" line="78"/>
         <source>Rename</source>
         <translation>Přejmenovat</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="78"/>
-        <source>F2</source>
-        <translation>F2</translation>
-    </message>
-    <message>
-        <location filename="../src/views/projectsview.cpp" line="82"/>
-        <location filename="../src/views/projectsview.cpp" line="322"/>
+        <location filename="../src/views/projectsview.cpp" line="83"/>
+        <location filename="../src/views/projectsview.cpp" line="329"/>
         <source>&amp;Delete Folder</source>
         <translation>Vy&amp;mazat složku</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="83"/>
+        <location filename="../src/views/projectsview.cpp" line="84"/>
         <source>Delete</source>
         <translation>Vymazat</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="88"/>
+        <location filename="../src/views/projectsview.cpp" line="89"/>
         <source>&amp;Move Folder...</source>
         <translation>Pře&amp;sunout složku...</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="89"/>
+        <location filename="../src/views/projectsview.cpp" line="90"/>
         <source>Move</source>
         <translation>Přesunout</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="93"/>
+        <location filename="../src/views/projectsview.cpp" line="94"/>
         <source>&amp;Open Project</source>
         <translation>&amp;Otevřít projekt</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="98"/>
-        <source>&amp;Open Folder</source>
-        <translation>&amp;Otevřít složku</translation>
-    </message>
-    <message>
-        <location filename="../src/views/projectsview.cpp" line="103"/>
+        <location filename="../src/views/projectsview.cpp" line="104"/>
         <source>&amp;Open List</source>
         <translation>&amp;Otevřít seznam</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="108"/>
-        <source>&amp;Manage Alerts...</source>
-        <translation>Spra&amp;vovat upozornění...</translation>
-    </message>
-    <message>
-        <location filename="../src/views/projectsview.cpp" line="112"/>
-        <source>Add</source>
-        <translation>přidat</translation>
-    </message>
-    <message>
-        <location filename="../src/views/projectsview.cpp" line="113"/>
+        <location filename="../src/views/projectsview.cpp" line="114"/>
         <source>Projects</source>
         <translation>Projekty</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="321"/>
+        <location filename="../src/views/projectsview.cpp" line="328"/>
         <source>&amp;Rename Project...</source>
         <translation>Pře&amp;jmenovat projekt...</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="322"/>
+        <location filename="../src/views/projectsview.cpp" line="329"/>
         <source>&amp;Delete Project</source>
         <translation>Vy&amp;mazat projekt</translation>
+    </message>
+    <message>
+        <location filename="../src/views/projectsview.cpp" line="79"/>
+        <source>F2</source>
+        <translation>F2</translation>
+    </message>
+    <message>
+        <location filename="../src/views/projectsview.cpp" line="61"/>
+        <source>&amp;Manage Permissions...</source>
+        <translation>&amp;Nastavení práv...</translation>
+    </message>
+    <message>
+        <location filename="../src/views/projectsview.cpp" line="62"/>
+        <source>Permissions</source>
+        <translation>Práva</translation>
+    </message>
+    <message>
+        <location filename="../src/views/projectsview.cpp" line="99"/>
+        <source>&amp;Open Folder</source>
+        <translation>&amp;Otevřít složku</translation>
+    </message>
+    <message>
+        <location filename="../src/views/projectsview.cpp" line="109"/>
+        <source>&amp;Manage Alerts...</source>
+        <translation>Spra&amp;vovat upozornění...</translation>
+    </message>
+    <message>
+        <location filename="../src/views/projectsview.cpp" line="113"/>
+        <source>Add</source>
+        <translation>přidat</translation>
     </message>
 </context>
 <context>
@@ -4187,21 +4198,6 @@ Desktopový klient vždy používá jazyk nastavený v nastavení programu a lok
         <translation>Souhrný report včetně detailů problémů</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/reportdialog.cpp" line="73"/>
-        <source>Summary report without issue history</source>
-        <translation>Souhrný report bez hystorie problému</translation>
-    </message>
-    <message>
-        <location filename="../src/dialogs/reportdialog.cpp" line="74"/>
-        <source>Full report including issue history</source>
-        <translation>Plný report včetně hystorie problému</translation>
-    </message>
-    <message>
-        <location filename="../src/dialogs/reportdialog.cpp" line="99"/>
-        <source>&amp;Print Preview...</source>
-        <translation>Ná&amp;hled tisku...</translation>
-    </message>
-    <message>
         <location filename="../src/dialogs/reportdialog.cpp" line="118"/>
         <source>list of issues</source>
         <translation>seznam problémů</translation>
@@ -4212,19 +4208,9 @@ Desktopový klient vždy používá jazyk nastavený v nastavení programu a lok
         <translation>detail problému</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/reportdialog.cpp" line="124"/>
-        <source>project summary</source>
-        <translation>souhrn projektu</translation>
-    </message>
-    <message>
         <location filename="../src/dialogs/reportdialog.cpp" line="130"/>
         <source>Print</source>
         <translation>Tisk</translation>
-    </message>
-    <message>
-        <location filename="../src/dialogs/reportdialog.cpp" line="132"/>
-        <source>Print %1:</source>
-        <translation>Tisk %1:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/reportdialog.cpp" line="135"/>
@@ -4232,24 +4218,55 @@ Desktopový klient vždy používá jazyk nastavený v nastavení programu a lok
         <translation>Export do CSV</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/reportdialog.cpp" line="137"/>
-        <source>Export %1 to CSV file:</source>
-        <translation>Export %1 do CSV souboru:</translation>
-    </message>
-    <message>
         <location filename="../src/dialogs/reportdialog.cpp" line="140"/>
         <source>Export To HTML</source>
         <translation>Export do HTML</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/reportdialog.cpp" line="142"/>
-        <source>Export %1 to HTML file:</source>
-        <translation>Export %1 do HTML souboru:</translation>
-    </message>
-    <message>
         <location filename="../src/dialogs/reportdialog.cpp" line="145"/>
         <source>Export To PDF</source>
         <translation>Export do PDF</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/reportdialog.cpp" line="264"/>
+        <location filename="../src/dialogs/reportdialog.cpp" line="286"/>
+        <source>File could not be saved.</source>
+        <translation>Soubor nebyl uložen.</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/reportdialog.cpp" line="99"/>
+        <source>&amp;Print Preview...</source>
+        <translation>Ná&amp;hled tisku...</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/reportdialog.cpp" line="73"/>
+        <source>Summary report without issue history</source>
+        <translation>Souhrný report bez hystorie problému</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/reportdialog.cpp" line="74"/>
+        <source>Full report including issue history</source>
+        <translation>Plný report včetně hystorie problému</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/reportdialog.cpp" line="124"/>
+        <source>project summary</source>
+        <translation>souhrn projektu</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/reportdialog.cpp" line="132"/>
+        <source>Print %1:</source>
+        <translation>Tisk %1:</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/reportdialog.cpp" line="137"/>
+        <source>Export %1 to CSV file:</source>
+        <translation>Export %1 do CSV souboru:</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/reportdialog.cpp" line="142"/>
+        <source>Export %1 to HTML file:</source>
+        <translation>Export %1 do HTML souboru:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/reportdialog.cpp" line="147"/>
@@ -4271,12 +4288,6 @@ Desktopový klient vždy používá jazyk nastavený v nastavení programu a lok
         <location filename="../src/dialogs/reportdialog.cpp" line="286"/>
         <source>Warning</source>
         <translation>Varování</translation>
-    </message>
-    <message>
-        <location filename="../src/dialogs/reportdialog.cpp" line="264"/>
-        <location filename="../src/dialogs/reportdialog.cpp" line="286"/>
-        <source>File could not be saved.</source>
-        <translation>Soubor nebyl uložen.</translation>
     </message>
     <message>
         <location filename="../src/dialogs/reportdialog.cpp" line="279"/>
@@ -4433,18 +4444,38 @@ Desktopový klient vždy používá jazyk nastavený v nastavení programu a lok
         <translation>&amp;Nové heslo:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/userdialogs.cpp" line="167"/>
-        <source>Con&amp;firm:</source>
-        <translation>&amp;Potvrdit:</translation>
-    </message>
-    <message>
         <location filename="../src/dialogs/userdialogs.cpp" line="179"/>
         <source>&amp;User must change password at next logon</source>
         <translation>&amp;Uživatel musí změnit heslo při příštím přihlášení</translation>
     </message>
+    <message>
+        <location filename="../src/dialogs/userdialogs.cpp" line="167"/>
+        <source>Con&amp;firm:</source>
+        <translation>&amp;Potvrdit:</translation>
+    </message>
 </context>
 <context>
     <name>SettingsDialog</name>
+    <message>
+        <location filename="../src/dialogs/settingsdialog.ui" line="44"/>
+        <source>System Default</source>
+        <translation>Výchozí jazyk systému</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/settingsdialog.ui" line="77"/>
+        <source>&amp;Dock main window in system tray</source>
+        <translation>Zavírat do sys&amp;témové oblasti</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/settingsdialog.cpp" line="34"/>
+        <source>WebIssues Settings</source>
+        <translation>NAstavení WebIssues</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/settingsdialog.cpp" line="38"/>
+        <source>Edit program settings.</source>
+        <translation>Upravit nastavení programu.</translation>
+    </message>
     <message>
         <location filename="../src/dialogs/settingsdialog.ui" line="21"/>
         <source>Basic</source>
@@ -4461,163 +4492,133 @@ Desktopový klient vždy používá jazyk nastavený v nastavení programu a lok
         <translation>&amp;Jazyk uživatelského rozhraní:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="44"/>
-        <source>System Default</source>
-        <translation>Výchozí jazyk systému</translation>
-    </message>
-    <message>
         <location filename="../src/dialogs/settingsdialog.ui" line="71"/>
         <source>User Interface</source>
         <translation>Uživatelské rozhraní</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="77"/>
-        <source>&amp;Dock main window in system tray</source>
-        <translation>Zavírat do sys&amp;témové oblasti</translation>
+        <location filename="../src/dialogs/settingsdialog.ui" line="84"/>
+        <source>&amp;Text size in issue details and project summary:</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="87"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="113"/>
         <source>Startup Options</source>
         <translation>Předvolby spouštění</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="93"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="119"/>
         <source>&amp;Show main window at startup:</source>
         <translation>Při spuštění zobrazit &amp;hlavní okno:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="110"/>
-        <location filename="../src/dialogs/settingsdialog.ui" line="155"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="136"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="181"/>
         <source>Never</source>
         <translation>Nikdy</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="115"/>
-        <location filename="../src/dialogs/settingsdialog.ui" line="160"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="141"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="186"/>
         <source>Automatically</source>
         <translation>Automaticky</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="120"/>
-        <location filename="../src/dialogs/settingsdialog.ui" line="165"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="146"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="191"/>
         <source>Always</source>
         <translation>Vždy</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="144"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="170"/>
         <source>&amp;Restore last connection at startup:</source>
         <translation>&amp;Obnovit poslední spojení při startu:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="189"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="215"/>
         <source>Start WebIssues when I start &amp;Windows</source>
         <translation>Spustit klienta &amp;WebIssues při startu Windows</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="199"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="225"/>
         <source>Automatic Update</source>
         <translation>Automatická aktualizace</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="205"/>
-        <source>&amp;Enable automatic checking for latest version of WebIssues</source>
-        <translation>Po&amp;volit kontrolu aktualizací WebIssues</translation>
-    </message>
-    <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="232"/>
-        <source>Advanced</source>
-        <translation>Rozšířené</translation>
-    </message>
-    <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="238"/>
-        <source>Behavior</source>
-        <translation>Chování</translation>
-    </message>
-    <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="244"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="270"/>
         <source>&amp;Default action for attachments:</source>
         <translation>Vý&amp;chozí akce pro přílohy:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="255"/>
-        <source>Ask what to do</source>
-        <translation>Zeptat se</translation>
-    </message>
-    <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="260"/>
-        <source>Open</source>
-        <translation>Otevřít</translation>
-    </message>
-    <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="265"/>
-        <source>Save As...</source>
-        <translation>Uložit jako...</translation>
-    </message>
-    <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="289"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="315"/>
         <source>Update Intervals</source>
         <translation>Interval aktualizace</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="295"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="321"/>
         <source>&amp;Update folders every:</source>
         <translation>&amp;Aktualizovat složky každých:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="305"/>
-        <location filename="../src/dialogs/settingsdialog.ui" line="341"/>
-        <source> min</source>
-        <translation>min</translation>
-    </message>
-    <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="331"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="357"/>
         <source>Update all data e&amp;very:</source>
         <translation>Akt&amp;ualizovat veškerá data každých:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="373"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="399"/>
         <source>Proxy Settings</source>
         <translation>Nastavení proxy</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="379"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="405"/>
         <source>Use custom pro&amp;xy settings:</source>
         <translation>Použít vla&amp;stní nastavení proxy:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="388"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="414"/>
         <source>&amp;Host:</source>
         <translation>&amp;Host:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="405"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="431"/>
         <source>&amp;Port:</source>
         <translation>&amp;Port:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="431"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="457"/>
         <source>&amp;Type:</source>
         <translation>&amp;Typ:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="445"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="471"/>
         <source>HTTP</source>
         <translation>HTTP</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="450"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="476"/>
         <source>Socks</source>
         <translation>Sockety</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="460"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="486"/>
         <source>Do not use a proxy for the following addresses:</source>
         <translation>Nepoužívat proxy pro následující adresy:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.cpp" line="34"/>
-        <source>WebIssues Settings</source>
-        <translation>NAstavení WebIssues</translation>
+        <location filename="../src/dialogs/settingsdialog.ui" line="231"/>
+        <source>&amp;Enable automatic checking for latest version of WebIssues</source>
+        <translation>Po&amp;volit kontrolu aktualizací WebIssues</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/settingsdialog.ui" line="331"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="367"/>
+        <source> min</source>
+        <translation>min</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/settingsdialog.ui" line="281"/>
+        <source>Ask what to do</source>
+        <translation>Zeptat se</translation>
     </message>
     <message>
         <location filename="../src/dialogs/settingsdialog.cpp" line="35"/>
@@ -4625,39 +4626,43 @@ Desktopový klient vždy používá jazyk nastavený v nastavení programu a lok
         <translation>Nastavit vlastnosti desktopového klienta WebIssues:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.cpp" line="38"/>
-        <source>Edit program settings.</source>
-        <translation>Upravit nastavení programu.</translation>
+        <location filename="../src/dialogs/settingsdialog.ui" line="286"/>
+        <source>Open</source>
+        <translation>Otevřít</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.cpp" line="73"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="291"/>
+        <source>Save As...</source>
+        <translation>Uložit jako...</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/settingsdialog.ui" line="264"/>
+        <source>Behavior</source>
+        <translation>Chování</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/settingsdialog.ui" line="258"/>
+        <source>Advanced</source>
+        <translation>Rozšířené</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/settingsdialog.cpp" line="76"/>
         <source>&amp;Apply</source>
         <translation>&amp;Použít</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.cpp" line="131"/>
+        <location filename="../src/dialogs/settingsdialog.cpp" line="136"/>
         <source>Warning</source>
         <translation>Varování</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.cpp" line="131"/>
+        <location filename="../src/dialogs/settingsdialog.cpp" line="136"/>
         <source>Language settings will be applied when the application is restarted.</source>
         <translation>Nastavení jazyka se projeví po restartu programu.</translation>
     </message>
 </context>
 <context>
     <name>SslCertificatesDialog</name>
-    <message>
-        <location filename="../src/dialogs/ssldialogs.cpp" line="36"/>
-        <location filename="../src/dialogs/ssldialogs.cpp" line="76"/>
-        <source>Certificate Details</source>
-        <translation>Detaily certifikátu</translation>
-    </message>
-    <message>
-        <location filename="../src/dialogs/ssldialogs.cpp" line="38"/>
-        <source>Information about the certificate of the server:</source>
-        <translation>Informace o serverovém certifikátu:</translation>
-    </message>
     <message>
         <location filename="../src/dialogs/ssldialogs.cpp" line="42"/>
         <source>Certification Path</source>
@@ -4690,6 +4695,17 @@ Desktopový klient vždy používá jazyk nastavený v nastavení programu a lok
         <location filename="../src/dialogs/ssldialogs.cpp" line="64"/>
         <source>Issued By</source>
         <translation>Vydáno kým</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/ssldialogs.cpp" line="36"/>
+        <location filename="../src/dialogs/ssldialogs.cpp" line="76"/>
+        <source>Certificate Details</source>
+        <translation>Detaily certifikátu</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/ssldialogs.cpp" line="38"/>
+        <source>Information about the certificate of the server:</source>
+        <translation>Informace o serverovém certifikátu:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/ssldialogs.cpp" line="81"/>
@@ -4789,16 +4805,6 @@ Desktopový klient vždy používá jazyk nastavený v nastavení programu a lok
         <translation>Zadaná adresa serveru není správná.</translation>
     </message>
     <message>
-        <location filename="../src/views/startview.cpp" line="217"/>
-        <source>Connecting to server...</source>
-        <translation>Připojuji se k serveru...</translation>
-    </message>
-    <message>
-        <location filename="../src/views/startview.cpp" line="229"/>
-        <source>Abort</source>
-        <translation>Zrušit</translation>
-    </message>
-    <message>
         <location filename="../src/views/startview.cpp" line="275"/>
         <source>Local cache database cannot be opened.</source>
         <translation>Lokální vyrovnávací paměť nelze otevřít.</translation>
@@ -4813,6 +4819,16 @@ Desktopový klient vždy používá jazyk nastavený v nastavení programu a lok
         <location filename="../src/views/startview.cpp" line="335"/>
         <source>Connection was cancelled.</source>
         <translation>Spojení bylo zrušeno.</translation>
+    </message>
+    <message>
+        <location filename="../src/views/startview.cpp" line="217"/>
+        <source>Connecting to server...</source>
+        <translation>Připojuji se k serveru...</translation>
+    </message>
+    <message>
+        <location filename="../src/views/startview.cpp" line="229"/>
+        <source>Abort</source>
+        <translation>Zrušit</translation>
     </message>
     <message>
         <location filename="../src/views/startview.cpp" line="343"/>
@@ -4943,7 +4959,7 @@ Desktopový klient vždy používá jazyk nastavený v nastavení programu a lok
         <translation>Report</translation>
     </message>
     <message>
-        <location filename="../src/views/summaryview.cpp" line="239"/>
+        <location filename="../src/views/summaryview.cpp" line="244"/>
         <source>Unknown Project</source>
         <translation>Neznámý projekt</translation>
     </message>
@@ -5041,16 +5057,6 @@ Desktopový klient vždy používá jazyk nastavený v nastavení programu a lok
         <translation>Přejmenovat</translation>
     </message>
     <message>
-        <location filename="../src/views/typesview.cpp" line="58"/>
-        <source>F2</source>
-        <translation>F2</translation>
-    </message>
-    <message>
-        <location filename="../src/views/typesview.cpp" line="62"/>
-        <source>&amp;Modify Attribute...</source>
-        <translation>&amp;Upravit atribut...</translation>
-    </message>
-    <message>
         <location filename="../src/views/typesview.cpp" line="66"/>
         <location filename="../src/views/typesview.cpp" line="154"/>
         <source>&amp;Delete Attribute</source>
@@ -5060,6 +5066,26 @@ Desktopový klient vždy používá jazyk nastavený v nastavení programu a lok
         <location filename="../src/views/typesview.cpp" line="67"/>
         <source>Delete</source>
         <translation>Vymazat</translation>
+    </message>
+    <message>
+        <location filename="../src/views/typesview.cpp" line="153"/>
+        <source>&amp;Rename Type...</source>
+        <translation>Pře&amp;jmenovat typ...</translation>
+    </message>
+    <message>
+        <location filename="../src/views/typesview.cpp" line="154"/>
+        <source>&amp;Delete Type</source>
+        <translation>&amp;Vymazat typ</translation>
+    </message>
+    <message>
+        <location filename="../src/views/typesview.cpp" line="58"/>
+        <source>F2</source>
+        <translation>F2</translation>
+    </message>
+    <message>
+        <location filename="../src/views/typesview.cpp" line="62"/>
+        <source>&amp;Modify Attribute...</source>
+        <translation>&amp;Upravit atribut...</translation>
     </message>
     <message>
         <location filename="../src/views/typesview.cpp" line="72"/>
@@ -5076,16 +5102,6 @@ Desktopový klient vždy používá jazyk nastavený v nastavení programu a lok
         <location filename="../src/views/typesview.cpp" line="116"/>
         <source>Issue Types</source>
         <translation>Typy problémů</translation>
-    </message>
-    <message>
-        <location filename="../src/views/typesview.cpp" line="153"/>
-        <source>&amp;Rename Type...</source>
-        <translation>Pře&amp;jmenovat typ...</translation>
-    </message>
-    <message>
-        <location filename="../src/views/typesview.cpp" line="154"/>
-        <source>&amp;Delete Type</source>
-        <translation>&amp;Vymazat typ</translation>
     </message>
 </context>
 <context>
@@ -5258,11 +5274,6 @@ Desktopový klient vždy používá jazyk nastavený v nastavení programu a lok
         <translation>Heslo</translation>
     </message>
     <message>
-        <location filename="../src/views/usersview.cpp" line="68"/>
-        <source>User P&amp;references...</source>
-        <translation>Nasta&amp;vení uživatele...</translation>
-    </message>
-    <message>
         <location filename="../src/views/usersview.cpp" line="72"/>
         <source>Add</source>
         <translation>Přidat</translation>
@@ -5287,6 +5298,11 @@ Desktopový klient vždy používá jazyk nastavený v nastavení programu a lok
         <location filename="../src/views/usersview.cpp" line="95"/>
         <source>Disabled</source>
         <translation>Blokovaní</translation>
+    </message>
+    <message>
+        <location filename="../src/views/usersview.cpp" line="68"/>
+        <source>User P&amp;references...</source>
+        <translation>Nasta&amp;vení uživatele...</translation>
     </message>
 </context>
 <context>
@@ -5423,6 +5439,16 @@ Desktopový klient vždy používá jazyk nastavený v nastavení programu a lok
 <context>
     <name>ViewSettingsDialog</name>
     <message>
+        <location filename="../src/dialogs/viewsettingsdialog.cpp" line="70"/>
+        <source>F2</source>
+        <translation>F2</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/viewsettingsdialog.cpp" line="74"/>
+        <source>&amp;Delete View</source>
+        <translation>&amp;Vymazat pohled</translation>
+    </message>
+    <message>
         <location filename="../src/dialogs/viewsettingsdialog.cpp" line="58"/>
         <source>&amp;Add Public View...</source>
         <translation>Přidat &amp;veřejný pohled...</translation>
@@ -5441,16 +5467,6 @@ Desktopový klient vždy používá jazyk nastavený v nastavení programu a lok
         <location filename="../src/dialogs/viewsettingsdialog.cpp" line="69"/>
         <source>&amp;Rename View...</source>
         <translation>&amp;Přejmenovat pohled...</translation>
-    </message>
-    <message>
-        <location filename="../src/dialogs/viewsettingsdialog.cpp" line="70"/>
-        <source>F2</source>
-        <translation>F2</translation>
-    </message>
-    <message>
-        <location filename="../src/dialogs/viewsettingsdialog.cpp" line="74"/>
-        <source>&amp;Delete View</source>
-        <translation>&amp;Vymazat pohled</translation>
     </message>
     <message>
         <location filename="../src/dialogs/viewsettingsdialog.cpp" line="79"/>
