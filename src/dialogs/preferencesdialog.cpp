@@ -91,6 +91,7 @@ PreferencesDialog::PreferencesDialog( int userId, QWidget* parent ) : CommandDia
     regionalLayout->addWidget( languageLabel, 1, 0 );
 
     m_languageComboBox = new SeparatorComboBox( regionalGroup );
+    m_languageComboBox->setMaxVisibleItems( 20 );
     regionalLayout->addWidget( m_languageComboBox, 1, 1 );
 
     languageLabel->setBuddy( m_languageComboBox );
