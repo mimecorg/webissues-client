@@ -19,7 +19,7 @@
             <h1><img src="common/webissues.png" alt="WebIssues" id="logo" />WebIssues Manual</h1>
           </div>
           <div id="header-right">
-            <h2 class="subtitle">Version 1.1.1</h2>
+            <h2 class="subtitle">Version 1.1.2</h2>
           </div>
         </div>
         <div id="infobar">
@@ -40,7 +40,7 @@
               </div>
             </div>
           </div>
-          <p>Individual users of the WebIssues system can customize the regional settings — the language, time zone and format or numbers, date and time. Users of the Web Client can change the preferred number of issues displayed on a page of the list of issues and the number of elements on a page of the issue history. In the Desktop Client, you can change the user interface settings, fonts, intervals of updates, etc.</p>
+          <p>Individual users of the WebIssues system can customize the regional settings — the language, time zone and format or numbers, date and time. Users of the Web Client can change the preferred number of projects displayed on a page of the projects tree, number of issues displayed on a page of the list of issues and number of elements on a page of the issue history. In the Desktop Client, you can change the user interface settings, fonts, intervals of updates, etc.</p>
           <div class="tip">
             <h3 class="title">Tip</h3>
             <p>For more information about changing the default WebIssues system settings for all users, as well as other possibilities of customizing and configuring the system by the administrator, see <a class="xref" href="webissues.custom.html" title="Chapter 6. Customizing the system">Chapter 6, <em>Customizing the system</em></a>.</p>
@@ -57,7 +57,7 @@
             <p>The <span class="guilabel">Regional Options</span> allow you to select the language for the Web Client (after logging into the system), and the language in which you will receive email notifications. In case of the Desktop Client, the language of the user interface depends on the program settings and do not change when you connect to a server. Use the WebIssues Settings command (see below) to change these settings.</p>
             <p>You can also select your preferred time zone. This setting determines the time zone for dates displayed in the Web Client, and for email notifications. However the Desktop Client always displays dates according to local time zone the computer on which it is running, and it does not take into account server settings or user preferences.</p>
             <div class="figure">
-              <a id="id525664"></a>
+              <a id="id538419"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch03-fig25.png" alt="Regional options" />
@@ -67,7 +67,7 @@
             </div>
             <p>The format in which numbers, dates and times are displayed, and the first day of the week in the calendar, depend on the current language of the user interface. You can change these settings using the <span class="guilabel">Formats</span> group of options. These changes will impact both the Web Client and the Desktop Client (after connecting to the specific server).</p>
             <div class="figure">
-              <a id="id525647"></a>
+              <a id="id538465"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch03-fig26.png" alt="Formats" />
@@ -75,9 +75,9 @@
               </div>
               <div class="figure-title">Figure 3.27. Formats</div>
             </div>
-            <p>Using the <span class="guilabel">Page Size</span> options, you can specify the number of issues to be displayed on a single page in the list of issues, and the number of elements per page in the issue history. These options only affect the Web Client, because the Desktop Client always displays all issues and the entire history without pagination.</p>
+            <p>Using the <span class="guilabel">Page Size</span> options, you can specify the number of issues to be displayed on a single page in the projects tree and list of issues, and the number of elements per page in the issue history. These options only affect the Web Client, because the Desktop Client always displays all projects, all issues and the entire history without pagination.</p>
             <div class="figure">
-              <a id="id525691"></a>
+              <a id="id538436"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch03-fig27.png" alt="Page size" />
@@ -87,7 +87,7 @@
             </div>
             <p>Options in the <span class="guilabel">View Settings</span> group make it possible to select the order in which changes are displayed in the issue history view. Also it is possible to select the default filter in the issue history; you can display all history or just comments and attachments. The default values of these options depend on server settings.</p>
             <div class="figure">
-              <a id="id525718"></a>
+              <a id="id538485"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch03-fig27-01.png" alt="View settings" />
@@ -97,7 +97,7 @@
             </div>
             <p>You can select the default format of text used for new descriptions and comments. Use <span class="guilabel">Plain Text</span> if you don't want any formatting or <span class="guilabel">Text with Markup</span> if you want to use simple formatting tags. Note that when editing existing comments and descriptions, the original format will be preserved by default. The default value depends on the global server setting.</p>
             <div class="figure">
-              <a id="id525769"></a>
+              <a id="id538521"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch03-fig27-02.png" alt="Editing" />
@@ -119,7 +119,7 @@
             <p>To change the Desktop Client settings, click the little wrench icon in the right upper corner of the window. These settings do not depend on which WebIssues server you are connected to; they are stored on the local computer. You can change them even if you are not connected to any server.</p>
             <p>The first tab contains basic program settings:</p>
             <div class="figure">
-              <a id="id525800"></a>
+              <a id="id538554"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch03-fig28.png" alt="Basic settings" />
@@ -129,12 +129,13 @@
             </div>
             <p>The <span class="guilabel">Regional Settings</span> allow you to select the language of the user interface for the Desktop Client. By default, it depends on the operating system settings. After changing the language you must close and restart the program.</p>
             <p>If you enable the <span class="guilabel">Dock main window in system tray</span> option, the program keeps running in the background even when you close the main window. You can always re-open this window by clicking on the icon in the system notifications area. To exit the program, instead of closing the window, click the <span class="guibutton">Quit</span> button, available in the upper right corner of the window when you enable this option.</p>
+            <p>You can use the <span class="guilabel">Text size in issue details and project summary</span> to change the font size in the issue details view and the project summary view. If the font is too small, you can set it to 125% or 150% depending on your needs.</p>
             <p>The <span class="guilabel">Startup Options</span> allow you to specify the behavior of the program when it is started. If the main window is docked, you can specify whether it is always visible at startup, always hidden, or either visible or hidden depending on its state when the program was closed. You can also specify whether the program should automatically connect to the last used server, display the server selection window, or connect only if it was connected when closing.</p>
             <p>In case of the Windows system, you can also specify whether the Desktop Client should be automatically run whenever you log into the system. This allows you to configure the program to be always running, connected to the server and instantly available.</p>
             <p>If the <span class="guilabel">Enable automatic checking for latest version</span> option is active, the program will notify you if a newer version available. If you disable this option, you can still manually check if an update is available. To do this, open the window with information about the program. In the Web Client, click <span class="guilabel">Tools</span> and then <span class="guilabel">About WebIssues</span> if you are the system administrator. In the Desktop Client, click the question mark icon in the upper right corner of the window or press <span class="shortcut"><strong><span class="keycap"><strong>F1</strong></span></strong></span>. Then click the <span class="guibutton">Check Now</span> button. If an update is available, you can open a page containing information about it, and also a page that allows you to download it.</p>
             <p>The second tab allows you to change more advanced settings of the Desktop Client:</p>
             <div class="figure">
-              <a id="id525874"></a>
+              <a id="id538636"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch03-fig29.png" alt="Advanced settings" />
@@ -152,7 +153,7 @@
           <div class="navright"><a accesskey="n" href="webissues.track.html">Tracking issues</a> &raquo;</div>
         </div>
         <div id="footer">
-          <p class="copyright">Copyright © 2007-2013 WebIssues Team</p>
+          <p class="copyright">Copyright © 2007-2014 WebIssues Team</p>
         </div>
       </div>
     </div>
