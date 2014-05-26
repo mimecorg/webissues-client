@@ -1,5 +1,5 @@
 WebIssues Desktop Client
-Version 1.1.1 (2013-12-05)
+Version 1.1.2 (2014-05-26)
 
 Desktop Client for the WebIssues team collaboration system.
 
@@ -81,25 +81,34 @@ Contributors:
 
 Translators:
 
- * Flávio Veras (flaviove at gmail com)
+ * Flávio Veras
     - Portuguese (Brazil) translation
 
- * Torsten Bielen (torsten.bielen at datex de)
+ * Dara Sarnirand
+ * Ashwin Vekaria
+ * BourdonGrognon
+    - French translation
+
+ * Torsten Bielen
  * David Keller
+ * Patrick Kindler
     - German translation
 
- * Rob Hiddinga (rob at robhiddinga nl)
- * Steven Heyse (heyse.s at gmail com)
+ * Rob Hiddinga
+ * Steven Heyse
     - Dutch translation
 
- * René Villegas (renevillegasr at gmail com)
+ * René Villegas
     - Spanish translation
 
- * Petr Stasiak (info at pestasoft com)
+ * Petr Stasiak
     - Czech translation
 
- * Alexey Mokrov (almk at mail ru)
+ * Alexey Mokrov
     - Russian translation
+
+ * Giovanni Petrella
+    - Italian translation
 
 
 Resources

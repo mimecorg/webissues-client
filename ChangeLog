@@ -1,3 +1,12 @@
+1.1.2 (2014-05-26)
+    * added French and Italian translations
+    * quick search by issue ID
+    * added [rtl] markup tag
+    * configuring font size in issue details
+    * logging in automatically when session expires
+    * fixed copying from issue details on Mac OS X
+    * fixed crash when closing application and search box is not empty
+
 1.1.1 (2013-12-05)
     * fixed updating project descriptions
     * fixed font size in issue details and comment editor
