@@ -59,7 +59,6 @@ ProjectsView::ProjectsView( QObject* parent, QWidget* parentWidget ) : View( par
     setAction( "updateProjects", action );
 
     action = new QAction( IconLoader::icon( "edit-access" ), tr( "&Manage Permissions..." ), this );
-    action->setIconText( tr( "Permissions" ) );
     connect( action, SIGNAL( triggered() ), this, SLOT( managePermissions() ), Qt::QueuedConnection );
     setAction( "managePermissions", action );
 
@@ -79,6 +78,13 @@ ProjectsView::ProjectsView( QObject* parent, QWidget* parentWidget ) : View( par
     action->setShortcut( tr( "F2" ) );
     connect( action, SIGNAL( triggered() ), this, SLOT( editRename() ), Qt::QueuedConnection );
     setAction( "editRename", action );
+
+    if ( m_systemAdmin && dataManager->checkServerVersion( "1.1.3" ) ) {
+        action = new QAction( IconLoader::icon( "archive" ), tr( "&Archive Project" ), this );
+        action->setIconText( tr( "Archive" ) );
+        connect( action, SIGNAL( triggered() ), this, SLOT( editArchive() ), Qt::QueuedConnection );
+        setAction( "editArchive", action );
+    }
 
     action = new QAction( IconLoader::icon( "edit-delete" ), tr( "&Delete Folder" ), this );
     action->setIconText( tr( "Delete" ) );
@@ -321,6 +327,8 @@ void ProjectsView::updateActions()
     action( "openGlobalList" )->setEnabled( m_selectedTypeId != 0 );
     action( "addFolder" )->setEnabled( m_currentProjectId != 0 && m_currentProjectAdmin );
     action( "editRename" )->setEnabled( ( m_selectedProjectId != 0 && m_systemAdmin ) || ( m_selectedFolderId != 0 && m_currentProjectAdmin ) );
+    if ( m_systemAdmin && dataManager->checkServerVersion( "1.1.3" ) )
+        action( "editArchive" )->setEnabled( m_selectedProjectId != 0 );
     action( "editDelete" )->setEnabled( ( m_selectedProjectId != 0 && m_systemAdmin ) || ( m_selectedFolderId != 0 && m_currentProjectAdmin ) );
     action( "moveFolder" )->setEnabled( m_selectedFolderId != 0 && m_currentProjectAdmin );
     action( "manageAlerts" )->setEnabled( m_currentFolderId != 0 || m_currentTypeId != 0 );
@@ -446,6 +454,14 @@ void ProjectsView::addFolder()
             TreeViewHelper helper( m_list );
             m_list->expand( helper.selectedIndex() );
         }
+    }
+}
+
+void ProjectsView::editArchive()
+{
+    if ( m_selectedProjectId != 0 && m_systemAdmin ) {
+        ArchiveProjectDialog dialog( m_selectedProjectId, mainWidget() );
+        dialog.exec();
     }
 }
 

@@ -151,6 +151,32 @@ void RenameProjectDialog::accept()
     executeBatch( batch );
 }
 
+ArchiveProjectDialog::ArchiveProjectDialog( int projectId, QWidget* parent ) : CommandDialog( parent ),
+    m_projectId( projectId )
+{
+    ProjectEntity project = ProjectEntity::find( projectId );
+
+    setWindowTitle( tr( "Archive Project" ) );
+    setPrompt( tr( "Are you sure you want to move project <b>%1</b> to the archive?" ).arg( project.name() ) );
+    setPromptPixmap( IconLoader::pixmap( "archive", 22 ) );
+
+    showInfo( tr( "You can unarchive the project later by going to the Projects Archive in the Administration Panel." ) );
+
+    setContentLayout( NULL, true );
+}
+
+ArchiveProjectDialog::~ArchiveProjectDialog()
+{
+}
+
+void ArchiveProjectDialog::accept()
+{
+    ProjectsBatch* batch = new ProjectsBatch();
+    batch->archiveProject( m_projectId );
+
+    executeBatch( batch );
+}
+
 DeleteProjectDialog::DeleteProjectDialog( int projectId, QWidget* parent ) : CommandDialog( parent ),
     m_projectId( projectId ),
     m_force( false )

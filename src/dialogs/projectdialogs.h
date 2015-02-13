@@ -85,6 +85,32 @@ private:
 };
 
 /**
+* Dialog for executing the <tt>ARCHIVE PROJECT</tt> command.
+*/
+class ArchiveProjectDialog : public CommandDialog
+{
+    Q_OBJECT
+public:
+    /**
+    * Constructor.
+    * @param projectId Identifier of the project to archive.
+    * @param parent The parent widget.
+    */
+    ArchiveProjectDialog( int projectId, QWidget* parent );
+
+    /**
+    * Destructor.
+    */
+    ~ArchiveProjectDialog();
+
+public: // overrides
+    void accept();
+
+private:
+    int m_projectId;
+};
+
+/**
 * Dialog for executing the <tt>DELETE PROJECT</tt> command.
 */
 class DeleteProjectDialog : public CommandDialog

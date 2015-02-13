@@ -46,6 +46,13 @@ void ProjectsBatch::renameProject( int projectId, const QString& newName )
     m_queue.addJob( job );
 }
 
+void ProjectsBatch::archiveProject( int projectId )
+{
+    Job job( &ProjectsBatch::archiveProjectJob );
+    job.addArg( projectId );
+    m_queue.addJob( job );
+}
+
 void ProjectsBatch::deleteProject( int projectId, bool force )
 {
     Job job( &ProjectsBatch::deleteProjectJob );
@@ -163,6 +170,20 @@ Command* ProjectsBatch::renameProjectJob( const Job& job )
     command->setArgs( job.args() );
 
     command->setAcceptNullReply( true );
+    command->addRule( "OK", ReplyRule::One );
+
+    connect( command, SIGNAL( commandReply( const Reply& ) ), this, SLOT( setUpdate() ) );
+
+    return command;
+}
+
+Command* ProjectsBatch::archiveProjectJob( const Job& job )
+{
+    Command* command = new Command();
+
+    command->setKeyword( "ARCHIVE PROJECT" );
+    command->setArgs( job.args() );
+
     command->addRule( "OK", ReplyRule::One );
 
     connect( command, SIGNAL( commandReply( const Reply& ) ), this, SLOT( setUpdate() ) );

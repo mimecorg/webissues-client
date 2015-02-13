@@ -60,6 +60,12 @@ public:
     void renameProject( int projectId, const QString& newName );
 
     /**
+    * Add the <tt>ARCHIVE PROJECT</tt> command to the batch. 
+    * @param projectId Identifier of the project to archive.
+    */
+    void archiveProject( int projectId );
+
+    /**
     * Add the <tt>DELETE PROJECT</tt> command to the batch. 
     * @param projectId Identifier of the project to delete.
     * @param force Force deleting non empty project.
@@ -142,6 +148,7 @@ private:
 private:
     Command* addProjectJob( const Job& job );
     Command* renameProjectJob( const Job& job );
+    Command* archiveProjectJob( const Job& job );
     Command* deleteProjectJob( const Job& job );
 
     Command* addFolderJob( const Job& job );

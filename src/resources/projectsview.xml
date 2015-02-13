@@ -9,9 +9,10 @@
       <grid>
         <action id="editRename"/>
         <action id="moveFolder"/>
+        <action id="editArchive"/>
         <action id="editDelete"/>
-        <action id="managePermissions"/>
       </grid>
+      <action id="managePermissions"/>
       <action id="manageAlerts"/>
     </section>
   </strip>
@@ -35,6 +36,7 @@
     <action id="addFolder"/>
     <separator/>
     <action id="editRename"/>
+    <action id="editArchive"/>
     <action id="editDelete"/>
     <separator/>
     <action id="managePermissions"/>

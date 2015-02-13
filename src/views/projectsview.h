@@ -84,6 +84,7 @@ private slots:
     void addProject();
     void addFolder();
     void editRename();
+    void editArchive();
     void editDelete();
     void moveFolder();
     void openProject();
