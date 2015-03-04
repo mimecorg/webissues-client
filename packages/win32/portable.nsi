@@ -1,7 +1,7 @@
 /**************************************************************************
 * This file is part of the WebIssues Desktop Client program
 * Copyright (C) 2006 Michał Męciński
-* Copyright (C) 2007-2014 WebIssues Team
+* Copyright (C) 2007-2015 WebIssues Team
 *
 * Inspired by code written by John T. Haller of PortableApps.com
 *
@@ -70,7 +70,7 @@ VIProductVersion "${BUILDVERSION}"
 VIAddVersionKey /LANG=${LANG_ENGLISH} "CompanyName" "WebIssues Team"
 VIAddVersionKey /LANG=${LANG_ENGLISH} "FileDescription" "WebIssues Portable Client Setup"
 VIAddVersionKey /LANG=${LANG_ENGLISH} "FileVersion" "${VERSION}"
-VIAddVersionKey /LANG=${LANG_ENGLISH} "LegalCopyright" "Copyright (C) 2007-2014 WebIssues Team"
+VIAddVersionKey /LANG=${LANG_ENGLISH} "LegalCopyright" "Copyright (C) 2007-2015 WebIssues Team"
 VIAddVersionKey /LANG=${LANG_ENGLISH} "OriginalFilename" "webissues-portable-${VERSION}.paf.exe"
 VIAddVersionKey /LANG=${LANG_ENGLISH} "ProductName" "WebIssues Portable Client"
 VIAddVersionKey /LANG=${LANG_ENGLISH} "ProductVersion" "${VERSION}"
