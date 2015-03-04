@@ -130,27 +130,27 @@
 <context>
     <name>AddFolderDialog</name>
     <message>
-        <location filename="../src/dialogs/projectdialogs.cpp" line="201"/>
+        <location filename="../src/dialogs/projectdialogs.cpp" line="227"/>
         <source>Add Folder</source>
         <translation>Ordner hinzufügen</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/projectdialogs.cpp" line="202"/>
+        <location filename="../src/dialogs/projectdialogs.cpp" line="228"/>
         <source>Create a new folder in project &lt;b&gt;%1&lt;/b&gt;:</source>
         <translation>Neuen Ordner im Projekt &lt;b&gt;%1&lt;/b&gt; erstellen:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/projectdialogs.cpp" line="208"/>
+        <location filename="../src/dialogs/projectdialogs.cpp" line="234"/>
         <source>There are no available issue types to use.</source>
         <translation>Es sind keine Aufgabentypen verfügbar.</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/projectdialogs.cpp" line="216"/>
+        <location filename="../src/dialogs/projectdialogs.cpp" line="242"/>
         <source>&amp;Name:</source>
         <translation>&amp;Name:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/projectdialogs.cpp" line="226"/>
+        <location filename="../src/dialogs/projectdialogs.cpp" line="252"/>
         <source>&amp;Type:</source>
         <translation>&amp;Typ:</translation>
     </message>
@@ -265,12 +265,12 @@
 <context>
     <name>AddProjectDescriptionDialog</name>
     <message>
-        <location filename="../src/dialogs/projectdialogs.cpp" line="448"/>
+        <location filename="../src/dialogs/projectdialogs.cpp" line="474"/>
         <source>Add Description</source>
         <translation>Beschreibung hinzufügen</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/projectdialogs.cpp" line="449"/>
+        <location filename="../src/dialogs/projectdialogs.cpp" line="475"/>
         <source>Add description to project &lt;b&gt;%1&lt;/b&gt;:</source>
         <translation>Neue Beschreibung zum Projekt &lt;b&gt;%1&lt;/b&gt; hinzufügen:</translation>
     </message>
@@ -719,13 +719,31 @@
     </message>
     <message>
         <location filename="../src/application.cpp" line="168"/>
-        <source>Copyright &amp;copy; 2007-2014 WebIssues Team</source>
-        <translation>Copyright &amp;copy; 2007-2014 WebIssues Team</translation>
+        <source>Copyright &amp;copy; 2007-2015 WebIssues Team</source>
+        <translation>Copyright &amp;copy; 2007-2015 WebIssues Team</translation>
     </message>
     <message>
         <location filename="../src/application.cpp" line="188"/>
         <source>About WebIssues</source>
         <translation>Über WebIssues</translation>
+    </message>
+</context>
+<context>
+    <name>ArchiveProjectDialog</name>
+    <message>
+        <location filename="../src/dialogs/projectdialogs.cpp" line="159"/>
+        <source>Archive Project</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/projectdialogs.cpp" line="160"/>
+        <source>Are you sure you want to move project &lt;b&gt;%1&lt;/b&gt; to the archive?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/projectdialogs.cpp" line="163"/>
+        <source>You can unarchive the project later by going to the Projects Archive in the Administration Panel.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -931,27 +949,27 @@
 <context>
     <name>ChangeProjectAccessDialog</name>
     <message>
-        <location filename="../src/dialogs/projectdialogs.cpp" line="559"/>
+        <location filename="../src/dialogs/projectdialogs.cpp" line="585"/>
         <source>Global Access</source>
         <translation>Globaler Zugriff</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/projectdialogs.cpp" line="560"/>
+        <location filename="../src/dialogs/projectdialogs.cpp" line="586"/>
         <source>Change global access for project &lt;b&gt;%1&lt;/b&gt;:</source>
         <translation>Globalen Zugriff für Projekt &lt;b&gt;%1&lt;/b&gt; ändern:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/projectdialogs.cpp" line="565"/>
+        <location filename="../src/dialogs/projectdialogs.cpp" line="591"/>
         <source>Access:</source>
         <translation>Zugriff:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/projectdialogs.cpp" line="573"/>
+        <location filename="../src/dialogs/projectdialogs.cpp" line="599"/>
         <source>&amp;Regular project</source>
         <translation>&amp;Normales Projekt</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/projectdialogs.cpp" line="577"/>
+        <location filename="../src/dialogs/projectdialogs.cpp" line="603"/>
         <source>&amp;Public project</source>
         <translation>Ö&amp;ffentliches Projekt</translation>
     </message>
@@ -1467,18 +1485,18 @@ Möchten Sie wirklich fortfahren?</translation>
 <context>
     <name>DeleteFolderDialog</name>
     <message>
-        <location filename="../src/dialogs/projectdialogs.cpp" line="409"/>
+        <location filename="../src/dialogs/projectdialogs.cpp" line="435"/>
         <source>Delete Folder</source>
         <translation>Ordner löschen</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/projectdialogs.cpp" line="410"/>
+        <location filename="../src/dialogs/projectdialogs.cpp" line="436"/>
         <source>Are you sure you want to delete folder &lt;b&gt;%1&lt;/b&gt;?</source>
         <translation>Wollen Sie wirklich den Ordner &lt;b&gt;%1&lt;/b&gt; löschen?</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/projectdialogs.cpp" line="414"/>
-        <location filename="../src/dialogs/projectdialogs.cpp" line="436"/>
+        <location filename="../src/dialogs/projectdialogs.cpp" line="440"/>
+        <location filename="../src/dialogs/projectdialogs.cpp" line="462"/>
         <source>All issues in this folder will be permanently deleted.</source>
         <translation>Alle Aufgaben in diesem Ordner werden dauerhaft gelöscht.</translation>
     </message>
@@ -1504,12 +1522,12 @@ Möchten Sie wirklich fortfahren?</translation>
 <context>
     <name>DeleteProjectDescriptionDialog</name>
     <message>
-        <location filename="../src/dialogs/projectdialogs.cpp" line="534"/>
+        <location filename="../src/dialogs/projectdialogs.cpp" line="560"/>
         <source>Delete Description</source>
         <translation>Beschreibung löschen</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/projectdialogs.cpp" line="535"/>
+        <location filename="../src/dialogs/projectdialogs.cpp" line="561"/>
         <source>Are you sure you want to delete description of project &lt;b&gt;%1&lt;/b&gt;?</source>
         <translation>Wollen Sie wirklich die Beschreibung zum Projekt &lt;b&gt;%1&lt;/b&gt; löschen?</translation>
     </message>
@@ -1517,18 +1535,18 @@ Möchten Sie wirklich fortfahren?</translation>
 <context>
     <name>DeleteProjectDialog</name>
     <message>
-        <location filename="../src/dialogs/projectdialogs.cpp" line="160"/>
+        <location filename="../src/dialogs/projectdialogs.cpp" line="186"/>
         <source>Delete Project</source>
         <translation>Projekt löschen</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/projectdialogs.cpp" line="161"/>
+        <location filename="../src/dialogs/projectdialogs.cpp" line="187"/>
         <source>Are you sure you want to delete project &lt;b&gt;%1&lt;/b&gt;?</source>
         <translation>Wollen Sie wirklich das Projekt &lt;b&gt;%1&lt;/b&gt; löschen?</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/projectdialogs.cpp" line="165"/>
-        <location filename="../src/dialogs/projectdialogs.cpp" line="187"/>
+        <location filename="../src/dialogs/projectdialogs.cpp" line="191"/>
+        <location filename="../src/dialogs/projectdialogs.cpp" line="213"/>
         <source>All folders and issues in this project will be permanently deleted.</source>
         <translation>Alle Ordner und Aufgaben in diesem Projekt werden dauerhaft gelöscht.</translation>
     </message>
@@ -1658,12 +1676,12 @@ Möchten Sie wirklich fortfahren?</translation>
 <context>
     <name>EditProjectDescriptionDialog</name>
     <message>
-        <location filename="../src/dialogs/projectdialogs.cpp" line="487"/>
+        <location filename="../src/dialogs/projectdialogs.cpp" line="513"/>
         <source>Edit Description</source>
         <translation>Beschreibung bearbeiten</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/projectdialogs.cpp" line="488"/>
+        <location filename="../src/dialogs/projectdialogs.cpp" line="514"/>
         <source>Edit description of project &lt;b&gt;%1&lt;/b&gt;:</source>
         <translation>Beschreibung von Projekt &lt;b&gt;%1&lt;/b&gt; bearbeiten:</translation>
     </message>
@@ -3521,22 +3539,22 @@ Verbunden mit %1</translation>
 <context>
     <name>MoveFolderDialog</name>
     <message>
-        <location filename="../src/dialogs/projectdialogs.cpp" line="329"/>
+        <location filename="../src/dialogs/projectdialogs.cpp" line="355"/>
         <source>Move Folder</source>
         <translation>Ordner verschieben</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/projectdialogs.cpp" line="330"/>
+        <location filename="../src/dialogs/projectdialogs.cpp" line="356"/>
         <source>Move folder &lt;b&gt;%1&lt;/b&gt; to another project:</source>
         <translation>Ordner &lt;b&gt;%1&lt;/b&gt; in ein anderes Projekt verschieben:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/projectdialogs.cpp" line="345"/>
+        <location filename="../src/dialogs/projectdialogs.cpp" line="371"/>
         <source>There are no available destination projects.</source>
         <translation>Es sind keine Zielprojekte vorhanden.</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/projectdialogs.cpp" line="353"/>
+        <location filename="../src/dialogs/projectdialogs.cpp" line="379"/>
         <source>&amp;Project:</source>
         <translation>&amp;Projekt:</translation>
     </message>
@@ -3893,74 +3911,84 @@ Der Desktop-Client benutzt immer die im Programm eingestellte Sprache und die lo
         <translation>Projekte akt&amp;ualisieren</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="67"/>
+        <location filename="../src/views/projectsview.cpp" line="66"/>
         <source>Add &amp;Project...</source>
         <translation>&amp;Projekt hinzufügen...</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="72"/>
+        <location filename="../src/views/projectsview.cpp" line="71"/>
         <source>Add &amp;Folder...</source>
         <translation>&amp;Ordner hinzufügen...</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="77"/>
-        <location filename="../src/views/projectsview.cpp" line="328"/>
+        <location filename="../src/views/projectsview.cpp" line="76"/>
+        <location filename="../src/views/projectsview.cpp" line="336"/>
         <source>&amp;Rename Folder...</source>
         <translation>Ordner &amp;umbenennen...</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="78"/>
+        <location filename="../src/views/projectsview.cpp" line="77"/>
         <source>Rename</source>
         <translation>Umbenennen</translation>
     </message>
     <message>
         <location filename="../src/views/projectsview.cpp" line="83"/>
-        <location filename="../src/views/projectsview.cpp" line="329"/>
+        <source>&amp;Archive Project</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/projectsview.cpp" line="84"/>
+        <source>Archive</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/projectsview.cpp" line="89"/>
+        <location filename="../src/views/projectsview.cpp" line="337"/>
         <source>&amp;Delete Folder</source>
         <translation>Ordner &amp;löschen</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="84"/>
+        <location filename="../src/views/projectsview.cpp" line="90"/>
         <source>Delete</source>
         <translation>Löschen</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="89"/>
+        <location filename="../src/views/projectsview.cpp" line="95"/>
         <source>&amp;Move Folder...</source>
         <translation>Ordner &amp;verschieben...</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="90"/>
+        <location filename="../src/views/projectsview.cpp" line="96"/>
         <source>Move</source>
         <translation>Verschieben</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="94"/>
+        <location filename="../src/views/projectsview.cpp" line="100"/>
         <source>&amp;Open Project</source>
         <translation>Projekt &amp;öffnen</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="104"/>
+        <location filename="../src/views/projectsview.cpp" line="110"/>
         <source>&amp;Open List</source>
         <translation>Liste &amp;öffnen</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="114"/>
+        <location filename="../src/views/projectsview.cpp" line="120"/>
         <source>Projects</source>
         <translation>Projekte</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="328"/>
+        <location filename="../src/views/projectsview.cpp" line="336"/>
         <source>&amp;Rename Project...</source>
         <translation>Projekt u&amp;mbenennen...</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="329"/>
+        <location filename="../src/views/projectsview.cpp" line="337"/>
         <source>&amp;Delete Project</source>
         <translation>Projekt &amp;löschen</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="79"/>
+        <location filename="../src/views/projectsview.cpp" line="78"/>
         <source>F2</source>
         <translation>F2</translation>
     </message>
@@ -3970,22 +3998,17 @@ Der Desktop-Client benutzt immer die im Programm eingestellte Sprache und die lo
         <translation>Rechte &amp;verwalten</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="62"/>
-        <source>Permissions</source>
-        <translation>Rechte</translation>
-    </message>
-    <message>
-        <location filename="../src/views/projectsview.cpp" line="99"/>
+        <location filename="../src/views/projectsview.cpp" line="105"/>
         <source>&amp;Open Folder</source>
         <translation>Ordner &amp;öffnen</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="109"/>
+        <location filename="../src/views/projectsview.cpp" line="115"/>
         <source>&amp;Manage Alerts...</source>
         <translation>Alarm &amp;verwalten...</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="113"/>
+        <location filename="../src/views/projectsview.cpp" line="119"/>
         <source>Add</source>
         <translation>Hinzufügen</translation>
     </message>
@@ -4093,17 +4116,17 @@ Der Desktop-Client benutzt immer die im Programm eingestellte Sprache und die lo
 <context>
     <name>RenameFolderDialog</name>
     <message>
-        <location filename="../src/dialogs/projectdialogs.cpp" line="272"/>
+        <location filename="../src/dialogs/projectdialogs.cpp" line="298"/>
         <source>Rename Folder</source>
         <translation>Ordner umbenennen</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/projectdialogs.cpp" line="273"/>
+        <location filename="../src/dialogs/projectdialogs.cpp" line="299"/>
         <source>Enter the new name of folder &lt;b&gt;%1&lt;/b&gt;:</source>
         <translation>Neuen Namen für den Ordner &lt;b&gt;%1&lt;/b&gt; eingeben:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/projectdialogs.cpp" line="278"/>
+        <location filename="../src/dialogs/projectdialogs.cpp" line="304"/>
         <source>&amp;Name:</source>
         <translation>&amp;Name:</translation>
     </message>
@@ -4457,12 +4480,12 @@ Der Desktop-Client benutzt immer die im Programm eingestellte Sprache und die lo
 <context>
     <name>SettingsDialog</name>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="44"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="47"/>
         <source>System Default</source>
         <translation>Systemstandard</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="77"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="80"/>
         <source>&amp;Dock main window in system tray</source>
         <translation>Symbol in Symbolleiste &amp;anzeigen</translation>
     </message>
@@ -4492,131 +4515,131 @@ Der Desktop-Client benutzt immer die im Programm eingestellte Sprache und die lo
         <translation>&amp;Sprache der Benutzeroberfläche:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="71"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="74"/>
         <source>User Interface</source>
         <translation>Benutzeroberfläche</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="84"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="87"/>
         <source>&amp;Text size in issue details and project summary:</source>
         <translation>&amp;Textgröße in Falldetails und Projektzusammenfassung</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="113"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="116"/>
         <source>Startup Options</source>
         <translation>Startoptionen</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="119"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="122"/>
         <source>&amp;Show main window at startup:</source>
         <translation>WebIssues beim &amp;Start anzeigen:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="136"/>
-        <location filename="../src/dialogs/settingsdialog.ui" line="181"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="139"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="184"/>
         <source>Never</source>
         <translation>Nie</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="141"/>
-        <location filename="../src/dialogs/settingsdialog.ui" line="186"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="144"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="189"/>
         <source>Automatically</source>
         <translation>Automatisch</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="146"/>
-        <location filename="../src/dialogs/settingsdialog.ui" line="191"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="149"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="194"/>
         <source>Always</source>
         <translation>Immer</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="170"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="173"/>
         <source>&amp;Restore last connection at startup:</source>
         <translation>Letzte Verbindung beim Sta&amp;rt wiederherstellen:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="215"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="218"/>
         <source>Start WebIssues when I start &amp;Windows</source>
         <translation>WebIssues beim Start von &amp;Windows starten</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="225"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="228"/>
         <source>Automatic Update</source>
         <translation>Automatische Aktualisierung</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="270"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="273"/>
         <source>&amp;Default action for attachments:</source>
         <translation>&amp;Standardaktion für Anhänge:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="315"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="318"/>
         <source>Update Intervals</source>
         <translation>Aktualisierungsintervall</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="321"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="324"/>
         <source>&amp;Update folders every:</source>
         <translation>Ordner akt&amp;ualisieren alle:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="357"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="360"/>
         <source>Update all data e&amp;very:</source>
         <translation>&amp;Alle Daten aktualisieren alle:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="399"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="402"/>
         <source>Proxy Settings</source>
         <translation>Proxy-Einstellungen</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="405"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="408"/>
         <source>Use custom pro&amp;xy settings:</source>
         <translation>Spezifische Pro&amp;xy-Einstellungen benutzen:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="414"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="417"/>
         <source>&amp;Host:</source>
         <translation>&amp;Host:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="431"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="434"/>
         <source>&amp;Port:</source>
         <translation>&amp;Port:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="457"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="460"/>
         <source>&amp;Type:</source>
         <translation>&amp;Typ:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="471"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="474"/>
         <source>HTTP</source>
         <translation>HTTP</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="476"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="479"/>
         <source>Socks</source>
         <translation>Socks</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="486"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="489"/>
         <source>Do not use a proxy for the following addresses:</source>
         <translation>Keinen Proxy für nachfolgende Adressen benutzen:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="231"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="234"/>
         <source>&amp;Enable automatic checking for latest version of WebIssues</source>
         <translation>Automatische Such nach der letzten Version von WebIssues &amp;einschalten</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="331"/>
-        <location filename="../src/dialogs/settingsdialog.ui" line="367"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="334"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="370"/>
         <source> min</source>
         <translation> min</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="281"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="284"/>
         <source>Ask what to do</source>
         <translation>Nachfragen</translation>
     </message>
@@ -4626,22 +4649,22 @@ Der Desktop-Client benutzt immer die im Programm eingestellte Sprache und die lo
         <translation>Einstellungen für den WebIssues Desktop Client konfigurieren:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="286"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="289"/>
         <source>Open</source>
         <translation>Öffnen</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="291"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="294"/>
         <source>Save As...</source>
         <translation>Speichern unter...</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="264"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="267"/>
         <source>Behavior</source>
         <translation>Verhalten</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="258"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="261"/>
         <source>Advanced</source>
         <translation>Erweitert</translation>
     </message>

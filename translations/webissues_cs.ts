@@ -130,27 +130,27 @@
 <context>
     <name>AddFolderDialog</name>
     <message>
-        <location filename="../src/dialogs/projectdialogs.cpp" line="201"/>
+        <location filename="../src/dialogs/projectdialogs.cpp" line="227"/>
         <source>Add Folder</source>
         <translation>Přidat složku</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/projectdialogs.cpp" line="202"/>
+        <location filename="../src/dialogs/projectdialogs.cpp" line="228"/>
         <source>Create a new folder in project &lt;b&gt;%1&lt;/b&gt;:</source>
         <translation>Vytvořit novou složku v projektu &lt;b&gt;%1&lt;/b&gt;:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/projectdialogs.cpp" line="208"/>
+        <location filename="../src/dialogs/projectdialogs.cpp" line="234"/>
         <source>There are no available issue types to use.</source>
         <translation>Nejsou žádné dostupné problémy tohoto typu.</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/projectdialogs.cpp" line="216"/>
+        <location filename="../src/dialogs/projectdialogs.cpp" line="242"/>
         <source>&amp;Name:</source>
         <translation>&amp;Název:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/projectdialogs.cpp" line="226"/>
+        <location filename="../src/dialogs/projectdialogs.cpp" line="252"/>
         <source>&amp;Type:</source>
         <translation>&amp;Typ:</translation>
     </message>
@@ -265,12 +265,12 @@
 <context>
     <name>AddProjectDescriptionDialog</name>
     <message>
-        <location filename="../src/dialogs/projectdialogs.cpp" line="448"/>
+        <location filename="../src/dialogs/projectdialogs.cpp" line="474"/>
         <source>Add Description</source>
         <translation>Přidat popis</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/projectdialogs.cpp" line="449"/>
+        <location filename="../src/dialogs/projectdialogs.cpp" line="475"/>
         <source>Add description to project &lt;b&gt;%1&lt;/b&gt;:</source>
         <translation>Přidat popis k projektu &lt;b&gt;%1&lt;/b&gt;:</translation>
     </message>
@@ -719,13 +719,31 @@
     </message>
     <message>
         <location filename="../src/application.cpp" line="168"/>
-        <source>Copyright &amp;copy; 2007-2014 WebIssues Team</source>
-        <translation type="unfinished"></translation>
+        <source>Copyright &amp;copy; 2007-2015 WebIssues Team</source>
+        <translation>Copyright &amp;copy; 2007-2015 WebIssues Team</translation>
     </message>
     <message>
         <location filename="../src/application.cpp" line="188"/>
         <source>About WebIssues</source>
         <translation>O systému WebIssues</translation>
+    </message>
+</context>
+<context>
+    <name>ArchiveProjectDialog</name>
+    <message>
+        <location filename="../src/dialogs/projectdialogs.cpp" line="159"/>
+        <source>Archive Project</source>
+        <translation>Archivovat projekt</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/projectdialogs.cpp" line="160"/>
+        <source>Are you sure you want to move project &lt;b&gt;%1&lt;/b&gt; to the archive?</source>
+        <translation>Opravdu chcete přesunout projekt &lt;b&gt;%1&lt;/b&gt; do archívu?</translation>
+    </message>
+    <message>
+        <location filename="../src/dialogs/projectdialogs.cpp" line="163"/>
+        <source>You can unarchive the project later by going to the Projects Archive in the Administration Panel.</source>
+        <translation>Později můžete zrušit archivaci projektu v administrativním panelu.</translation>
     </message>
 </context>
 <context>
@@ -931,27 +949,27 @@
 <context>
     <name>ChangeProjectAccessDialog</name>
     <message>
-        <location filename="../src/dialogs/projectdialogs.cpp" line="559"/>
+        <location filename="../src/dialogs/projectdialogs.cpp" line="585"/>
         <source>Global Access</source>
         <translation>Globální přístup</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/projectdialogs.cpp" line="560"/>
+        <location filename="../src/dialogs/projectdialogs.cpp" line="586"/>
         <source>Change global access for project &lt;b&gt;%1&lt;/b&gt;:</source>
         <translation>Změnit globální přístup k projektu &lt;b&gt;%1&lt;/b&gt;:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/projectdialogs.cpp" line="565"/>
+        <location filename="../src/dialogs/projectdialogs.cpp" line="591"/>
         <source>Access:</source>
         <translation>Přístup:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/projectdialogs.cpp" line="573"/>
+        <location filename="../src/dialogs/projectdialogs.cpp" line="599"/>
         <source>&amp;Regular project</source>
         <translation>&amp;Běžný projekt</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/projectdialogs.cpp" line="577"/>
+        <location filename="../src/dialogs/projectdialogs.cpp" line="603"/>
         <source>&amp;Public project</source>
         <translation>&amp;Veřejný projekt</translation>
     </message>
@@ -1467,18 +1485,18 @@ Opravdu chcete pokračovat?</translation>
 <context>
     <name>DeleteFolderDialog</name>
     <message>
-        <location filename="../src/dialogs/projectdialogs.cpp" line="409"/>
+        <location filename="../src/dialogs/projectdialogs.cpp" line="435"/>
         <source>Delete Folder</source>
         <translation>Vymazat složku</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/projectdialogs.cpp" line="410"/>
+        <location filename="../src/dialogs/projectdialogs.cpp" line="436"/>
         <source>Are you sure you want to delete folder &lt;b&gt;%1&lt;/b&gt;?</source>
         <translation>opravdu chcete vymazat složku &lt;b&gt;%1&lt;/b&gt;?</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/projectdialogs.cpp" line="414"/>
-        <location filename="../src/dialogs/projectdialogs.cpp" line="436"/>
+        <location filename="../src/dialogs/projectdialogs.cpp" line="440"/>
+        <location filename="../src/dialogs/projectdialogs.cpp" line="462"/>
         <source>All issues in this folder will be permanently deleted.</source>
         <translation>Všechny problémy ve složce budou nenávratně dstraněny.</translation>
     </message>
@@ -1504,12 +1522,12 @@ Opravdu chcete pokračovat?</translation>
 <context>
     <name>DeleteProjectDescriptionDialog</name>
     <message>
-        <location filename="../src/dialogs/projectdialogs.cpp" line="534"/>
+        <location filename="../src/dialogs/projectdialogs.cpp" line="560"/>
         <source>Delete Description</source>
         <translation>Vymazat popis</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/projectdialogs.cpp" line="535"/>
+        <location filename="../src/dialogs/projectdialogs.cpp" line="561"/>
         <source>Are you sure you want to delete description of project &lt;b&gt;%1&lt;/b&gt;?</source>
         <translation>Opravdu chcete vymazat popis projektu &lt;b&gt;%1&lt;/b&gt;?</translation>
     </message>
@@ -1517,18 +1535,18 @@ Opravdu chcete pokračovat?</translation>
 <context>
     <name>DeleteProjectDialog</name>
     <message>
-        <location filename="../src/dialogs/projectdialogs.cpp" line="160"/>
+        <location filename="../src/dialogs/projectdialogs.cpp" line="186"/>
         <source>Delete Project</source>
         <translation>Vymazat projekt</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/projectdialogs.cpp" line="161"/>
+        <location filename="../src/dialogs/projectdialogs.cpp" line="187"/>
         <source>Are you sure you want to delete project &lt;b&gt;%1&lt;/b&gt;?</source>
         <translation>Opravdu chcete vymazat projekt &lt;b&gt;%1&lt;/b&gt;?</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/projectdialogs.cpp" line="165"/>
-        <location filename="../src/dialogs/projectdialogs.cpp" line="187"/>
+        <location filename="../src/dialogs/projectdialogs.cpp" line="191"/>
+        <location filename="../src/dialogs/projectdialogs.cpp" line="213"/>
         <source>All folders and issues in this project will be permanently deleted.</source>
         <translation>Všechny složky a problémy projektu budou nenávratně vymazány.</translation>
     </message>
@@ -1658,12 +1676,12 @@ Opravdu chcete pokračovat?</translation>
 <context>
     <name>EditProjectDescriptionDialog</name>
     <message>
-        <location filename="../src/dialogs/projectdialogs.cpp" line="487"/>
+        <location filename="../src/dialogs/projectdialogs.cpp" line="513"/>
         <source>Edit Description</source>
         <translation>Upravit popis</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/projectdialogs.cpp" line="488"/>
+        <location filename="../src/dialogs/projectdialogs.cpp" line="514"/>
         <source>Edit description of project &lt;b&gt;%1&lt;/b&gt;:</source>
         <translation>Upravit popis projektu &lt;b&gt;%1&lt;/b&gt;:</translation>
     </message>
@@ -3333,7 +3351,7 @@ Připojeno k %1</translation>
     <message>
         <location filename="../src/widgets/markuptextedit.cpp" line="99"/>
         <source>Right-To-Left Text</source>
-        <translation type="unfinished"></translation>
+        <translation>Text z prava do leva</translation>
     </message>
     <message>
         <location filename="../src/widgets/markuptextedit.cpp" line="101"/>
@@ -3521,22 +3539,22 @@ Připojeno k %1</translation>
 <context>
     <name>MoveFolderDialog</name>
     <message>
-        <location filename="../src/dialogs/projectdialogs.cpp" line="329"/>
+        <location filename="../src/dialogs/projectdialogs.cpp" line="355"/>
         <source>Move Folder</source>
         <translation>Přesunout složku</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/projectdialogs.cpp" line="330"/>
+        <location filename="../src/dialogs/projectdialogs.cpp" line="356"/>
         <source>Move folder &lt;b&gt;%1&lt;/b&gt; to another project:</source>
         <translation>Přesunout složku &lt;b&gt;%1&lt;/b&gt; do jiného projektu:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/projectdialogs.cpp" line="345"/>
+        <location filename="../src/dialogs/projectdialogs.cpp" line="371"/>
         <source>There are no available destination projects.</source>
         <translation>Žádné cílové projekty nejsou k dispozici.</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/projectdialogs.cpp" line="353"/>
+        <location filename="../src/dialogs/projectdialogs.cpp" line="379"/>
         <source>&amp;Project:</source>
         <translation>&amp;Projekt:</translation>
     </message>
@@ -3727,7 +3745,7 @@ Desktopový klient vždy používá jazyk nastavený v nastavení programu a lok
     <message>
         <location filename="../src/dialogs/preferencesdialog.cpp" line="169"/>
         <source>Projects tree:</source>
-        <translation type="unfinished"></translation>
+        <translation>Strom projektů:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/preferencesdialog.cpp" line="232"/>
@@ -3893,74 +3911,84 @@ Desktopový klient vždy používá jazyk nastavený v nastavení programu a lok
         <translation>&amp;Aktualizovat projekty</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="67"/>
+        <location filename="../src/views/projectsview.cpp" line="66"/>
         <source>Add &amp;Project...</source>
         <translation>Přidat p&amp;rojekt...</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="72"/>
+        <location filename="../src/views/projectsview.cpp" line="71"/>
         <source>Add &amp;Folder...</source>
         <translation>Přidat &amp;složku...</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="77"/>
-        <location filename="../src/views/projectsview.cpp" line="328"/>
+        <location filename="../src/views/projectsview.cpp" line="76"/>
+        <location filename="../src/views/projectsview.cpp" line="336"/>
         <source>&amp;Rename Folder...</source>
         <translation>Pře&amp;jmenovat složku...</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="78"/>
+        <location filename="../src/views/projectsview.cpp" line="77"/>
         <source>Rename</source>
         <translation>Přejmenovat</translation>
     </message>
     <message>
         <location filename="../src/views/projectsview.cpp" line="83"/>
-        <location filename="../src/views/projectsview.cpp" line="329"/>
+        <source>&amp;Archive Project</source>
+        <translation>&amp;Archivovat projekt</translation>
+    </message>
+    <message>
+        <location filename="../src/views/projectsview.cpp" line="84"/>
+        <source>Archive</source>
+        <translation>Archív</translation>
+    </message>
+    <message>
+        <location filename="../src/views/projectsview.cpp" line="89"/>
+        <location filename="../src/views/projectsview.cpp" line="337"/>
         <source>&amp;Delete Folder</source>
         <translation>Vy&amp;mazat složku</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="84"/>
+        <location filename="../src/views/projectsview.cpp" line="90"/>
         <source>Delete</source>
         <translation>Vymazat</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="89"/>
+        <location filename="../src/views/projectsview.cpp" line="95"/>
         <source>&amp;Move Folder...</source>
         <translation>Pře&amp;sunout složku...</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="90"/>
+        <location filename="../src/views/projectsview.cpp" line="96"/>
         <source>Move</source>
         <translation>Přesunout</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="94"/>
+        <location filename="../src/views/projectsview.cpp" line="100"/>
         <source>&amp;Open Project</source>
         <translation>&amp;Otevřít projekt</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="104"/>
+        <location filename="../src/views/projectsview.cpp" line="110"/>
         <source>&amp;Open List</source>
         <translation>&amp;Otevřít seznam</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="114"/>
+        <location filename="../src/views/projectsview.cpp" line="120"/>
         <source>Projects</source>
         <translation>Projekty</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="328"/>
+        <location filename="../src/views/projectsview.cpp" line="336"/>
         <source>&amp;Rename Project...</source>
         <translation>Pře&amp;jmenovat projekt...</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="329"/>
+        <location filename="../src/views/projectsview.cpp" line="337"/>
         <source>&amp;Delete Project</source>
         <translation>Vy&amp;mazat projekt</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="79"/>
+        <location filename="../src/views/projectsview.cpp" line="78"/>
         <source>F2</source>
         <translation>F2</translation>
     </message>
@@ -3970,22 +3998,17 @@ Desktopový klient vždy používá jazyk nastavený v nastavení programu a lok
         <translation>&amp;Nastavení práv...</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="62"/>
-        <source>Permissions</source>
-        <translation>Práva</translation>
-    </message>
-    <message>
-        <location filename="../src/views/projectsview.cpp" line="99"/>
+        <location filename="../src/views/projectsview.cpp" line="105"/>
         <source>&amp;Open Folder</source>
         <translation>&amp;Otevřít složku</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="109"/>
+        <location filename="../src/views/projectsview.cpp" line="115"/>
         <source>&amp;Manage Alerts...</source>
         <translation>Spra&amp;vovat upozornění...</translation>
     </message>
     <message>
-        <location filename="../src/views/projectsview.cpp" line="113"/>
+        <location filename="../src/views/projectsview.cpp" line="119"/>
         <source>Add</source>
         <translation>přidat</translation>
     </message>
@@ -4093,17 +4116,17 @@ Desktopový klient vždy používá jazyk nastavený v nastavení programu a lok
 <context>
     <name>RenameFolderDialog</name>
     <message>
-        <location filename="../src/dialogs/projectdialogs.cpp" line="272"/>
+        <location filename="../src/dialogs/projectdialogs.cpp" line="298"/>
         <source>Rename Folder</source>
         <translation>Přejmenovat složku</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/projectdialogs.cpp" line="273"/>
+        <location filename="../src/dialogs/projectdialogs.cpp" line="299"/>
         <source>Enter the new name of folder &lt;b&gt;%1&lt;/b&gt;:</source>
         <translation>Zadejte nový název složky &lt;b&gt;%1&lt;/b&gt;:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/projectdialogs.cpp" line="278"/>
+        <location filename="../src/dialogs/projectdialogs.cpp" line="304"/>
         <source>&amp;Name:</source>
         <translation>&amp;Název:</translation>
     </message>
@@ -4457,12 +4480,12 @@ Desktopový klient vždy používá jazyk nastavený v nastavení programu a lok
 <context>
     <name>SettingsDialog</name>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="44"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="47"/>
         <source>System Default</source>
         <translation>Výchozí jazyk systému</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="77"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="80"/>
         <source>&amp;Dock main window in system tray</source>
         <translation>Zavírat do sys&amp;témové oblasti</translation>
     </message>
@@ -4492,131 +4515,131 @@ Desktopový klient vždy používá jazyk nastavený v nastavení programu a lok
         <translation>&amp;Jazyk uživatelského rozhraní:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="71"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="74"/>
         <source>User Interface</source>
         <translation>Uživatelské rozhraní</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="84"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="87"/>
         <source>&amp;Text size in issue details and project summary:</source>
-        <translation type="unfinished"></translation>
+        <translation>Velikost &amp;textu v detailech požadavku a souhrnu projektu:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="113"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="116"/>
         <source>Startup Options</source>
         <translation>Předvolby spouštění</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="119"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="122"/>
         <source>&amp;Show main window at startup:</source>
         <translation>Při spuštění zobrazit &amp;hlavní okno:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="136"/>
-        <location filename="../src/dialogs/settingsdialog.ui" line="181"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="139"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="184"/>
         <source>Never</source>
         <translation>Nikdy</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="141"/>
-        <location filename="../src/dialogs/settingsdialog.ui" line="186"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="144"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="189"/>
         <source>Automatically</source>
         <translation>Automaticky</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="146"/>
-        <location filename="../src/dialogs/settingsdialog.ui" line="191"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="149"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="194"/>
         <source>Always</source>
         <translation>Vždy</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="170"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="173"/>
         <source>&amp;Restore last connection at startup:</source>
         <translation>&amp;Obnovit poslední spojení při startu:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="215"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="218"/>
         <source>Start WebIssues when I start &amp;Windows</source>
         <translation>Spustit klienta &amp;WebIssues při startu Windows</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="225"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="228"/>
         <source>Automatic Update</source>
         <translation>Automatická aktualizace</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="270"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="273"/>
         <source>&amp;Default action for attachments:</source>
         <translation>Vý&amp;chozí akce pro přílohy:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="315"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="318"/>
         <source>Update Intervals</source>
         <translation>Interval aktualizace</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="321"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="324"/>
         <source>&amp;Update folders every:</source>
         <translation>&amp;Aktualizovat složky každých:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="357"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="360"/>
         <source>Update all data e&amp;very:</source>
         <translation>Akt&amp;ualizovat veškerá data každých:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="399"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="402"/>
         <source>Proxy Settings</source>
         <translation>Nastavení proxy</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="405"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="408"/>
         <source>Use custom pro&amp;xy settings:</source>
         <translation>Použít vla&amp;stní nastavení proxy:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="414"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="417"/>
         <source>&amp;Host:</source>
         <translation>&amp;Host:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="431"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="434"/>
         <source>&amp;Port:</source>
         <translation>&amp;Port:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="457"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="460"/>
         <source>&amp;Type:</source>
         <translation>&amp;Typ:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="471"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="474"/>
         <source>HTTP</source>
         <translation>HTTP</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="476"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="479"/>
         <source>Socks</source>
         <translation>Sockety</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="486"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="489"/>
         <source>Do not use a proxy for the following addresses:</source>
         <translation>Nepoužívat proxy pro následující adresy:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="231"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="234"/>
         <source>&amp;Enable automatic checking for latest version of WebIssues</source>
         <translation>Po&amp;volit kontrolu aktualizací WebIssues</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="331"/>
-        <location filename="../src/dialogs/settingsdialog.ui" line="367"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="334"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="370"/>
         <source> min</source>
         <translation>min</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="281"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="284"/>
         <source>Ask what to do</source>
         <translation>Zeptat se</translation>
     </message>
@@ -4626,22 +4649,22 @@ Desktopový klient vždy používá jazyk nastavený v nastavení programu a lok
         <translation>Nastavit vlastnosti desktopového klienta WebIssues:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="286"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="289"/>
         <source>Open</source>
         <translation>Otevřít</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="291"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="294"/>
         <source>Save As...</source>
         <translation>Uložit jako...</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="264"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="267"/>
         <source>Behavior</source>
         <translation>Chování</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/settingsdialog.ui" line="258"/>
+        <location filename="../src/dialogs/settingsdialog.ui" line="261"/>
         <source>Advanced</source>
         <translation>Rozšířené</translation>
     </message>

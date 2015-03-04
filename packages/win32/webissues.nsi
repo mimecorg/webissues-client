@@ -171,6 +171,7 @@ Section
     File "${SRCDIR}\translations\webissues_pl.qm"
     File "${SRCDIR}\translations\webissues_pt_BR.qm"
     File "${SRCDIR}\translations\webissues_ru.qm"
+    File "${SRCDIR}\translations\webissues_zh_CN.qm"
 
     File "${QTDIR}\translations\qt_cs.qm"
     File "${QTDIR}\translations\qt_de.qm"
@@ -181,6 +182,7 @@ Section
     File "${QTDIR}\translations\qt_pl.qm"
     File "${QTDIR}\translations\qt_pt.qm"
     File "${QTDIR}\translations\qt_ru.qm"
+    File "${QTDIR}\translations\qt_zh_CN.qm"
 
     SetOutPath "$INSTDIR\bin"
 
