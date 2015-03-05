@@ -19,7 +19,7 @@
             <h1><img src="common/webissues.png" alt="WebIssues" id="logo" />WebIssues Manual</h1>
           </div>
           <div id="header-right">
-            <h2 class="subtitle">Version 1.1.2</h2>
+            <h2 class="subtitle">Version 1.1.3</h2>
           </div>
         </div>
         <div id="infobar">
@@ -44,7 +44,7 @@
           <p>If you are a system administrator, you can manage all projects and create new projects. If you are the administrator of a project, you can manage its members and folders.</p>
           <p>To add a new project, select <span class="guilabel">Add Project</span>, enter the name and optional description of the project and click <span class="guibutton">OK</span>.</p>
           <div class="figure">
-            <a id="id545436"></a>
+            <a id="id543617"></a>
             <div class="figure-contents">
               <div class="mediaobject">
                 <img src="images/ch05-fig11.png" alt="Creating a project" />
@@ -55,7 +55,7 @@
           <p>The system administrator can change the name of any project. To do this, select the project and click <span class="guilabel">Rename Project</span>. You can also delete projects using the <span class="guilabel">Delete Project</span> command. If the project is not empty, a warning will be displayed.</p>
           <div class="warning">
             <h3 class="title">Warning</h3>
-            <p>When deleting projects or folders, pay special attention whether you are not mistakenly deleting the wrong data. All issues contained in them are permanently and irreversibly removed from the system, and it's not possible to restore them.</p>
+            <p>When deleting projects or folders, pay special attention whether you are not mistakenly deleting the wrong data. All issues contained in them are permanently and irreversibly removed from the system, and it's not possible to restore them. You can archive a project instead of deleting it to make it possible to restore it later if necessary.</p>
           </div>
           <p>The project description is displayed when the project is selected in the projects tree in both the Web Client and the Desktop Client. It can be used to provide information about the project, including links to important issues or external resources. Both system administrators and project administrators can add a description to an existing project, edit the description and delete it. Project descriptions use the same format as issue descriptions and comments; see <a class="xref" href="webissues.work.issues.html#webissues.work.issues.comments" title="Comments and descriptions">the section called “Comments and descriptions”</a> for more information.</p>
           <div class="sect2">
@@ -68,7 +68,7 @@
             </div>
             <p>To add a new folder, select a project and click <span class="guilabel">Add Folder</span>.</p>
             <div class="figure">
-              <a id="id545478"></a>
+              <a id="id543709"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch05-fig12.png" alt="Creating a folder" />
@@ -89,7 +89,7 @@
             </div>
             <p>After creating a new project, no regular users have access to it. To manage user privileges for specific projects, go to <span class="guilabel">Manage Projects</span> from the main window, select the project, and then click <span class="guilabel">Manage Permissions</span>. In case of the Desktop Client, this command is available directly from the main window if you activate the projects tree.</p>
             <div class="figure">
-              <a id="id545563"></a>
+              <a id="id543791"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch05-fig08.png" alt="Project permissions" />
@@ -116,7 +116,7 @@
             </div>
             <p>To change the global access of a project, click the <span class="guilabel">Change</span> command in the <span class="guilabel">Global Access</span> section. Then choose the new level of access and click <span class="guibutton">OK</span>.</p>
             <div class="figure">
-              <a id="id545619"></a>
+              <a id="id543872"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch05-fig08-01.png" alt="Project global access" />
@@ -144,7 +144,7 @@
             <p>The global permissions of the user are always more important than permissions for a given project. A system administrator automatically becomes the administrator of all projects, and a disabled user has no access to any project. Regular users only have access to public projects and regular projects that they are members of, according to the permissions that were assigned to them.</p>
             <p>To add new members to the project, select <span class="guilabel">Add Members</span>.</p>
             <div class="figure">
-              <a id="id545703"></a>
+              <a id="id543887"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch05-fig09.png" alt="Adding project members" />
@@ -155,7 +155,7 @@
             <p>Select one or more users who are not yet members of the project. Then select the appropriate level of access and click <span class="guibutton">OK</span>.</p>
             <p>To change the access for an existing member, select the member on the list and click <span class="guilabel">Change Access</span>. Then select the new level of access and click <span class="guibutton">OK</span>. You can't deprive your own project administrator rights, unless you are a system administrator.</p>
             <div class="figure">
-              <a id="id545755"></a>
+              <a id="id543927"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch05-fig10.png" alt="Changing member's access" />
@@ -165,13 +165,31 @@
             </div>
             <p>To remove a member of the project, select the member on the list and click <span class="guilabel">Remove Member</span>. In case of the Desktop Client, you can choose several members on the list, and change their access or remove them from the project simultaneously.</p>
           </div>
+          <div class="sect2">
+            <div class="titlepage">
+              <div>
+                <div>
+                  <h3 class="title"><a id="webissues.admin.projects.archive"></a>Archiving projects</h3>
+                </div>
+              </div>
+            </div>
+            <p>When a project is no longer needed, it is possible to remove it without permanently deleting it. When a project is archived, it is removed from the projects tree and no one can access any folders and issues in that project. However, unlike deleted projects, archived projects can be restored at any time. Only system administrators can archive and restore projects.</p>
+            <p>To archive a project, go to <span class="guilabel">Manage Projects</span> from the main window, select the project, and then click <span class="guilabel">Archive Project</span>. In case of the Desktop Client, this command is available directly from the main window if you activate the projects tree.</p>
+            <div class="tip">
+              <h3 class="title">Tip</h3>
+              <p>It is not possible to archive individual folders, but you can create a new project, move the folder or folders that you want to archive to that project, and then archive the project.</p>
+            </div>
+            <p>To open a list of archived projects, go to the Administration Panel and click <span class="guilabel">Projects Archive</span>. This function is not available in the Desktop Client.</p>
+            <p>To restore an archived project, select the project and click <span class="guilabel">Restore Project</span>. The project will be removed from the list of archived projects and will appear in the projects tree. The folders, issues, permissions, alerts and other information related to the project will be preserved.</p>
+            <p>To permanently delete an archived project, select the project and click <span class="guilabel">Delete Project</span>. In that case it will no longer be possible to restore any information associated with the project. You can also use the <span class="guilabel">Rename Project</span> command to rename an archived project and the <span class="guilabel">View Description</span> command to view the description of the project, if available. Note that it is not possible to access any folders and issues or to modify the project while it's archived.</p>
+          </div>
         </div>
         <div class="navlinks">
           <div class="navleft">&laquo; <a accesskey="p" href="webissues.admin.register.html">Registration requests</a></div>
           <div class="navright"><a accesskey="n" href="webissues.admin.updating.html">Updating the system</a> &raquo;</div>
         </div>
         <div id="footer">
-          <p class="copyright">Copyright © 2007-2014 WebIssues Team</p>
+          <p class="copyright">Copyright © 2007-2015 WebIssues Team</p>
         </div>
       </div>
     </div>
