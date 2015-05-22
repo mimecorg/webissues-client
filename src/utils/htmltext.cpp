@@ -54,7 +54,7 @@ void HtmlText::appendLink( const QString& text, const QString& url )
 
 void HtmlText::appendParsed( const QString& text )
 {
-    QRegExp linkExp( "\\b(?:mailto:)?[\\w.%+-]+@[\\w.-]+\\.[a-z]{2,4}\\b"
+    QRegExp linkExp( "\\b(?:mailto:)?[\\w.%+-]+@[\\w.-]+\\.[a-z]{2,}\\b"
         "|(?:\\b(?:(?:https?|ftp|file):\\/\\/|www\\.|ftp\\.)|\\\\\\\\)(?:\\([\\w+&@#\\/\\\\%=~|$?!:,.-]*\\)|[\\w+&@#\\/\\\\%=~|$?!:,.-])*(?:\\([\\w+&@#\\/\\\\%=~|$?!:,.-]*\\)|[\\w+&@#\\/\\\\%=~|$])"
         "|#\\d+\\b", Qt::CaseInsensitive );
 

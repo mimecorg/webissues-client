@@ -43,7 +43,7 @@ MarkupProcessor::MarkupProcessor( const QString& text, HtmlText::Flags flags ) :
 {
     m_regExp.setPattern( "\\n|`[^`\\n]+`"
         "|\\[\\/?(?:list|code|quote|rtl)(?:[ \\t][^]\\n]*)?\\](?:[ \\t]*\\n)?"
-        "|\\[(?:(?:mailto:)?[\\w.%+-]+@[\\w.-]+\\.[a-z]{2,4}|(?:(?:https?|ftp|file):\\/\\/|www\\.|ftp\\.|\\\\\\\\)[\\w+&@#\\/\\\\%=~|$?!:,.()-]+|#\\d+)(?:[ \\t][^]\\n]*)?\\]");
+        "|\\[(?:(?:mailto:)?[\\w.%+-]+@[\\w.-]+\\.[a-z]{2,}|(?:(?:https?|ftp|file):\\/\\/|www\\.|ftp\\.|\\\\\\\\)[\\w+&@#\\/\\\\%=~|$?!:,.()-]+|#\\d+)(?:[ \\t][^]\\n]*)?\\]");
     m_regExp.setCaseSensitivity( Qt::CaseInsensitive );
 }
 

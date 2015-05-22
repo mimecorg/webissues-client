@@ -95,7 +95,7 @@ QStringList Validator::normalizeStringList( const QStringList& list, int maxLeng
 
 bool Validator::checkEmail( const QString& email )
 {
-    QRegExp emailRegExp( "[\\w.%+-]+@[\\w.-]+\\.[a-z]{2,4}", Qt::CaseInsensitive );
+    QRegExp emailRegExp( "[\\w.%+-]+@[\\w.-]+\\.[a-z]{2,}", Qt::CaseInsensitive );
 
     if ( !emailRegExp.exactMatch( email ) ) {
         appendError( ErrorHelper::InvalidEmail );
