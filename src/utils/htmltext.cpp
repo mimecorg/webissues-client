@@ -120,7 +120,7 @@ void HtmlText::endAnchor()
 QString HtmlText::convertUrl( const QString& url, Flags flags )
 {
     if ( url.at( 0 ) == QLatin1Char( '#' ) )
-        return ( ( flags & NoInternalLinks ) ? "#id" : "id:" ) + url.mid( 1 );
+        return ( ( flags & NoInternalLinks ) ? "#item" : "id:" ) + url.mid( 1 );
     else if ( url.startsWith( QLatin1String( "www." ), Qt::CaseInsensitive ) )
         return "http://" + url;
     else if ( url.startsWith( QLatin1String( "ftp." ), Qt::CaseInsensitive ) )
