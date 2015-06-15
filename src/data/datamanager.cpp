@@ -26,6 +26,7 @@
 #include "data/issuetypecache.h"
 #include "data/filecache.h"
 #include "data/query.h"
+#include "data/sqliteextension.h"
 #include "models/querygenerator.h"
 
 #include <QSqlDatabase>
@@ -135,12 +136,14 @@ void DataManager::notifyObservers( UpdateEvent::Unit unit, int id )
 
 bool DataManager::openDatabase()
 {
-    QSqlDatabase database = QSqlDatabase::addDatabase( "SQLITEX" );
+    QSqlDatabase database = QSqlDatabase::addDatabase( "QSQLITE" );
 
     database.setDatabaseName( locateCacheFile( "cache.db" ) );
 
     if ( !database.open() )
         return false;
+
+    installSQLiteExtension( database );
 
     if ( !lockDatabase( database ) ) {
         database.close();

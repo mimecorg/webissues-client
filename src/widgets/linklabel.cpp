@@ -61,5 +61,5 @@ void LinkLabel::updateLink()
         QColor color = palette().color( QPalette::Disabled, QPalette::WindowText );
         style = QString( " style=\"color: %1; text-decoration: none;\"" ).arg( color.name() );
     }
-    setText( QString( "<a href=\"%1\"%2>%3</a>" ).arg( Qt::escape( m_linkUrl ), style, Qt::escape( m_linkCaption ) ) );
+    setText( QString( "<a href=\"%1\"%2>%3</a>" ).arg( m_linkUrl.toHtmlEscaped(), style, m_linkCaption.toHtmlEscaped() ) );
 }

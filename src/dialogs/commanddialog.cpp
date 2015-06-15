@@ -179,7 +179,8 @@ void CommandDialog::showWarning( const QString& text )
 
     QMessageBox box;
     box.setIcon( QMessageBox::Warning );
-    QAccessible::updateAccessibility( &box, 0, QAccessible::Alert );
+    QAccessibleEvent event( &box, QAccessible::Alert );
+    QAccessible::updateAccessibility( &event );
 }
 
 void CommandDialog::showWarning( int code )
@@ -196,7 +197,8 @@ void CommandDialog::showError( const QString& text )
 
     QMessageBox box;
     box.setIcon( QMessageBox::Critical );
-    QAccessible::updateAccessibility( &box, 0, QAccessible::Alert );
+    QAccessibleEvent event( &box, QAccessible::Alert );
+    QAccessible::updateAccessibility( &event );
 }
 
 void CommandDialog::showCloseButton()

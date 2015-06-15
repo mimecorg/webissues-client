@@ -77,7 +77,7 @@ StartView::StartView( QObject* parent, QWidget* parentWidget ) : View( parent ),
     topLayout->addWidget( separator );
 
     QWidget* mainWidget = new QWidget( topWidget );
-#if defined( Q_WS_WIN )
+#if defined( Q_OS_WIN )
     mainWidget->setAutoFillBackground( true );
 #endif
     topLayout->addWidget( mainWidget );

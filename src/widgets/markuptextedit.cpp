@@ -341,7 +341,7 @@ void MarkupTextEdit::linkClicked( const QUrl& url )
     QString scheme = url.scheme().toLower();
 
     if ( scheme == QLatin1String( "id" ) ) {
-        int itemId = url.host().toInt();
+        int itemId = url.path().toInt();
         findItem( itemId );
     } else {
         Application::openUrl( m_previewWindow, url );

@@ -192,7 +192,8 @@ void ViewerWindow::showStatus( const QPixmap& pixmap, const QString& text, int i
     if ( icon != 0 && topLevelWidget()->isActiveWindow() ) {
         QMessageBox box;
         box.setIcon( (QMessageBox::Icon)icon );
-        QAccessible::updateAccessibility( &box, 0, QAccessible::Alert );
+        QAccessibleEvent event( &box, QAccessible::Alert );
+        QAccessible::updateAccessibility( &event );
     }
 }
 

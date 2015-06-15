@@ -21,6 +21,7 @@
 
 #include "application.h"
 #include "data/query.h"
+#include "data/sqliteextension.h"
 
 #include <QFileInfo>
 #include <QFile>
@@ -29,12 +30,14 @@
 FileCache::FileCache( const QString& uuid, const QString& path, QObject* parent ) : QObject( parent ),
     m_uuid( uuid )
 {
-    QSqlDatabase database = QSqlDatabase::addDatabase( "SQLITEX", "FileCache" );
+    QSqlDatabase database = QSqlDatabase::addDatabase( "QSQLITE", "FileCache" );
 
     database.setDatabaseName( path );
 
     if ( !database.open() )
         return;
+
+    installSQLiteExtension( database );
 
     database.transaction();
 

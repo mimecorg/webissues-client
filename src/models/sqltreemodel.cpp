@@ -171,6 +171,8 @@ void SqlTreeModel::updateData()
             oldLevels.append( levelOf( oldIndexes.at( i ) ) );
             oldIds.append( rowId( oldIndexes.at( i ) ) );
         }
+    } else {
+        beginResetModel();
     }
 
     foreach ( SqlTreeModelLevel* levelData, d->m_levelData )
@@ -231,7 +233,7 @@ void SqlTreeModel::updateData()
 
         emit layoutChanged();
     } else {
-        reset();
+        endResetModel();
     }
 }
 

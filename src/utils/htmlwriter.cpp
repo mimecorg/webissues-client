@@ -161,7 +161,7 @@ void HtmlWriter::writeInfoList( const QStringList& headers, const QList<HtmlText
         pushTag( "tr" );
 
         pushTag( "td" );
-        m_body += Qt::escape( headers.at( i ) );
+        m_body += headers.at( i ).toHtmlEscaped();
         popTag( "td" );
 
         pushTag( "td", multiLine ? "class=\"multi-line\"" : QString() );
@@ -181,7 +181,7 @@ void HtmlWriter::createTable( const QStringList& headers )
 
     foreach ( const QString& header, headers ) {
         pushTag( "th" );
-        m_body += Qt::escape( header );
+        m_body += header.toHtmlEscaped();
         popTag( "th" );
     }
 
@@ -224,7 +224,7 @@ QString HtmlWriter::toHtml()
     html += QLatin1String( "<html>\n" );
     html += QLatin1String( "<head>\n" );
     html += QLatin1String( "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\n" );
-    html += QString( "<title>%1</title>\n" ).arg( Qt::escape( m_title ) );
+    html += QString( "<title>%1</title>\n" ).arg( m_title.toHtmlEscaped() );
     if ( m_embedded ) {
         html += QLatin1String( "<style type=\"text/css\">\n" );
         html += readFile( ":/resources/style.css" );

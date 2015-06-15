@@ -54,7 +54,7 @@ void FilterLabel::itemActivated( const QString& link )
 {
     QUrl url( link );
     if ( url.scheme() == QLatin1String( "link" ) )
-        setCurrentIndex( url.host().toInt() );
+        setCurrentIndex( url.path().toInt() );
 }
 
 void FilterLabel::updateText()
@@ -67,7 +67,7 @@ void FilterLabel::updateText()
         if ( i == m_currentIndex )
             text += m_items.at( i );
         else
-            text += QString( "<a href=\"link://%1\">%2</a>" ).arg( i ).arg( m_items.at( i ) );
+            text += QString( "<a href=\"link:%1\">%2</a>" ).arg( i ).arg( m_items.at( i ) );
     }
 
     setText( text );

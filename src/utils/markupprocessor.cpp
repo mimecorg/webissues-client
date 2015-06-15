@@ -256,7 +256,7 @@ void MarkupProcessor::parseText()
                     }
 
                     text = HtmlText::convertTabsToSpaces( subtoken, column );
-                    m_result += Qt::escape( text );
+                    m_result += text.toHtmlEscaped();
                 }
                 next();
                 break;
@@ -264,13 +264,13 @@ void MarkupProcessor::parseText()
 
             case T_BACKTICK:
                 text = HtmlText::convertTabsToSpaces( m_value, column );
-                m_result += QString( "<code>%1</code>" ).arg( Qt::escape( text ) );
+                m_result += QString( "<code>%1</code>" ).arg( text.toHtmlEscaped() );
                 next();
                 break;
 
             case T_LINK:
                 text = HtmlText::convertTabsToSpaces( m_extra.isEmpty() ? m_value : m_extra, column );
-                m_result += QString( "<a href=\"%1\">%2</a>" ).arg( Qt::escape( HtmlText::convertUrl( m_value, m_flags ) ), Qt::escape( text ) );
+                m_result += QString( "<a href=\"%1\">%2</a>" ).arg( HtmlText::convertUrl( m_value, m_flags ).toHtmlEscaped(), text.toHtmlEscaped() );
                 next();
                 break;
 
@@ -296,7 +296,7 @@ void MarkupProcessor::parseCode()
         }
 
         QString text = HtmlText::convertTabsToSpaces( m_rawValue, column );
-        m_result += Qt::escape( text );
+        m_result += text.toHtmlEscaped();
         next();
     }
 }

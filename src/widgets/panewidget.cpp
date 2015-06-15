@@ -35,7 +35,7 @@ PaneWidget::PaneWidget( QWidget* parent ) : QStackedWidget( parent )
     m_label->setSizePolicy( QSizePolicy::Ignored, QSizePolicy::Ignored );
     m_label->setForegroundRole( QPalette::Shadow );
     m_label->setFrameStyle( QFrame::StyledPanel | QFrame::Sunken );
-#if defined( Q_WS_WIN )
+#if defined( Q_OS_WIN )
     m_label->setAutoFillBackground( true );
 #endif
 

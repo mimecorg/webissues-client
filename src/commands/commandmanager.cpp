@@ -293,17 +293,12 @@ static QString userAgent()
 {
     QString agent = "Mozilla/5.0 (";
 
-#if defined( Q_WS_WIN )
+#if defined( Q_OS_WIN )
     agent += QLatin1String( "Windows" );
-#elif defined( Q_WS_MAC )
+#elif defined( Q_OS_MAC )
     agent += QLatin1String( "Mac OS X" );
-#elif defined( Q_WS_X11 )
-    agent += QLatin1String( "X11; " );
-#if defined( Q_OS_LINUX )
-    agent += QLatin1String( "Linux" );
-#else
-    agent += QLatin1String( "Unknown" );
-#endif
+#elif defined( Q_OS_LINUX )
+    agent += QLatin1String( "X11; Linux" );
 #else
     agent += QLatin1String( "Unknown" );
 #endif

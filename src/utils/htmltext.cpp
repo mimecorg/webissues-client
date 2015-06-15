@@ -29,7 +29,7 @@ HtmlText::HtmlText( Flags flags ) :
 
 HtmlText::HtmlText( const QString& text ) :
     m_flags( 0 ),
-    m_html( Qt::escape( text ) )
+    m_html( text.toHtmlEscaped() )
 {
 }
 
@@ -44,12 +44,12 @@ void HtmlText::clear()
 
 void HtmlText::appendText( const QString& text )
 {
-    m_html += Qt::escape( text );
+    m_html += text.toHtmlEscaped();
 }
 
 void HtmlText::appendLink( const QString& text, const QString& url )
 {
-    m_html += QString( "<a href=\"%1\">%2</a>" ).arg( Qt::escape( url ), Qt::escape( text ) );
+    m_html += QString( "<a href=\"%1\">%2</a>" ).arg( url.toHtmlEscaped(), text.toHtmlEscaped() );
 }
 
 void HtmlText::appendParsed( const QString& text )
@@ -89,7 +89,7 @@ HtmlText HtmlText::parse( const QString& text, Flags flags )
 
 void HtmlText::appendImage( const QString& image, const QString& text )
 {
-    m_html += QString( "<img src=\"qrc:/icons/%1-16.png\" alt=\"%2\" title=\"%2\" width=\"16\" height=\"16\" class=\"icon\" />" ).arg( image, Qt::escape( text ) );
+    m_html += QString( "<img src=\"qrc:/icons/%1-16.png\" alt=\"%2\" title=\"%2\" width=\"16\" height=\"16\" class=\"icon\" />" ).arg( image, text.toHtmlEscaped() );
 }
 
 void HtmlText::appendImageAndText( const QString& image, const QString& text )
@@ -101,7 +101,7 @@ void HtmlText::appendImageAndText( const QString& image, const QString& text )
 
 void HtmlText::appendImageAndTextLink( const QString& image, const QString& text, const QString& url )
 {
-    m_html += QString( "<a href=\"%1\">" ).arg( Qt::escape( url ) );
+    m_html += QString( "<a href=\"%1\">" ).arg( url.toHtmlEscaped() );
     appendImage( image, text );
     m_html += QLatin1String( "</a>\n" );
     appendLink( text, url );
@@ -109,7 +109,7 @@ void HtmlText::appendImageAndTextLink( const QString& image, const QString& text
 
 void HtmlText::createAnchor( const QString& name )
 {
-    m_html += QString( "<a class=\"anchor\" name=\"%1\">" ).arg( Qt::escape( name ) );
+    m_html += QString( "<a class=\"anchor\" name=\"%1\">" ).arg( name.toHtmlEscaped() );
 }
 
 void HtmlText::endAnchor()
@@ -120,7 +120,7 @@ void HtmlText::endAnchor()
 QString HtmlText::convertUrl( const QString& url, Flags flags )
 {
     if ( url.at( 0 ) == QLatin1Char( '#' ) )
-        return ( ( flags & NoInternalLinks ) ? "#id" : "id://" ) + url.mid( 1 );
+        return ( ( flags & NoInternalLinks ) ? "#id" : "id:" ) + url.mid( 1 );
     else if ( url.startsWith( QLatin1String( "www." ), Qt::CaseInsensitive ) )
         return "http://" + url;
     else if ( url.startsWith( QLatin1String( "ftp." ), Qt::CaseInsensitive ) )

@@ -532,7 +532,7 @@ void SummaryView::linkClicked( const QUrl& url )
     QString scheme = url.scheme().toLower();
 
     if ( scheme == QLatin1String( "id" ) ) {
-        int itemId = url.host().toInt();
+        int itemId = url.path().toInt();
         findItem( itemId );
     } else if ( scheme == QLatin1String( "command" ) ) {
         handleCommand( url.host() );

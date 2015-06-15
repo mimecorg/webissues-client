@@ -88,7 +88,7 @@ void TreeViewHelper::initializeView( ViewFlags flags )
     m_view->setUniformRowHeights( true );
 
     m_view->header()->setStretchLastSection( false );
-    m_view->header()->setMovable( false );
+    m_view->header()->setSectionsMovable( false );
 
     m_view->setContextMenuPolicy( Qt::CustomContextMenu );
     m_view->header()->setContextMenuPolicy( Qt::CustomContextMenu );
@@ -219,7 +219,7 @@ bool AutoToolTipDelegate::helpEvent( QHelpEvent* e, QAbstractItemView* view, con
         if ( rect.width() < size.width() ) {
             QVariant tooltip = index.data( Qt::DisplayRole );
             if ( tooltip.canConvert<QString>() ) {
-                QToolTip::showText( e->globalPos(), QString( "<div>%1</div>" ).arg( Qt::escape( tooltip.toString() ) ), view );
+                QToolTip::showText( e->globalPos(), QString( "<div>%1</div>" ).arg( tooltip.toString().toHtmlEscaped() ), view );
                 return true;
             }
         }

@@ -21,7 +21,7 @@
 
 #include <QDataStream>
 
-#if defined( Q_WS_WIN ) && !defined( Q_CC_MINGW )
+#if defined( Q_OS_WIN ) && !defined( Q_CC_MINGW )
 #define HAVE_WINCRYPT
 #include <qt_windows.h>
 #include <wincrypt.h>

@@ -34,6 +34,12 @@
 #include "utils/iconloader.h"
 #include "views/viewmanager.h"
 
+#if defined( Q_OS_WIN )
+#include "xmlui/windowsstyle.h"
+#elif defined( Q_OS_MAC )
+#include "xmlui/macstyle.h"
+#endif
+
 #include <QSessionManager>
 #include <QMessageBox>
 #include <QDir>
@@ -47,8 +53,7 @@
 #include <QTimer>
 #include <QSettings>
 
-#if defined( Q_WS_WIN )
-#define _WIN32_IE 0x0400
+#if defined( Q_OS_WIN )
 #include <shlobj.h>
 #endif
 
@@ -78,10 +83,10 @@ Application::Application( int& argc, char** argv ) : QApplication( argc, argv ),
     initializeSettings();
     initializeLanguage();
 
-#if defined( Q_WS_WIN )
-    setStyle( "XmlUi::WindowsStyle" );
-#elif defined( Q_WS_MAC )
-    setStyle( "XmlUi::MacStyle" );
+#if defined( Q_OS_WIN ) && !defined( XMLUI_NO_STYLE_WINDOWS )
+    setStyle( new XmlUi::WindowsStyle() );
+#elif defined( Q_OS_MAC ) && !defined( XMLUI_NO_STYLE_MAC )
+    setStyle( new XmlUi::MacStyle() );
 #endif
 
     setWindowIcon( IconLoader::icon( "webissues" ) );
@@ -396,10 +401,10 @@ void Application::initializeDefaultPaths()
 
     QString appPath = applicationDirPath();
 
-#if defined( Q_WS_WIN )
+#if defined( Q_OS_WIN )
     m_manualPath = QDir::cleanPath( appPath + "/../doc" );
     m_translationsPath = QDir::cleanPath( appPath + "/../translations" );
-#elif defined( Q_WS_MAC )
+#elif defined( Q_OS_MAC )
     m_manualPath = QDir::cleanPath( appPath + "/../Resources/doc" );
     m_translationsPath = QDir::cleanPath( appPath + "/../Resources/translations" );
 #else
@@ -410,7 +415,7 @@ void Application::initializeDefaultPaths()
     QString dataPath;
     QString cachePath;
 
-#if defined( Q_WS_WIN )
+#if defined( Q_OS_WIN )
     wchar_t appDataPath[ MAX_PATH ];
     if ( SHGetSpecialFolderPath( 0, appDataPath, CSIDL_APPDATA, FALSE ) )
         dataPath = QDir::fromNativeSeparators( QString::fromWCharArray( appDataPath ) );
@@ -429,11 +434,11 @@ void Application::initializeDefaultPaths()
     m_cachePath = cachePath + QLatin1String( "/WebIssues Client/1.1/cache" );
     m_sharedCachePath = cachePath + QLatin1String( "/WebIssues Client/shared/cache" );
 #else
-    dataPath = QDesktopServices::storageLocation( QDesktopServices::DataLocation );
+    dataPath = QStandardPaths::writableLocation( QStandardPaths::DataLocation );
     m_dataPath = dataPath + QLatin1String( "/webissues-1.1" );
     m_oldDataPath = dataPath + QLatin1String( "/webissues-1.0" );
 
-    cachePath = QDesktopServices::storageLocation( QDesktopServices::CacheLocation );
+    cachePath = QStandardPaths::writableLocation( QStandardPaths::CacheLocation );
     m_cachePath = cachePath + QLatin1String( "/webissues-1.1" );
     m_sharedCachePath = cachePath + QLatin1String( "/webissues-shared" );
 #endif
@@ -535,7 +540,7 @@ void Application::settingsChanged()
 {
     m_updateClient->setAutoUpdate( m_settings->value( "AutoUpdate" ).toBool() );
 
-#if defined( Q_WS_WIN )
+#if defined( Q_OS_WIN )
     if ( !m_portable ) {
         bool autoStart = m_settings->value( "AutoStart" ).toBool();
 
@@ -585,7 +590,7 @@ QPrinter* Application::printer()
 
 void Application::openUrl( QWidget* parent, const QUrl& url )
 {
-#if defined( Q_WS_WIN )
+#if defined( Q_OS_WIN )
     if ( url.isValid() && url.scheme().toLower() == QLatin1String( "file" ) ) {
         QString path = url.path();
         if ( path.startsWith( QLatin1Char( '/' ) ) )
@@ -595,7 +600,7 @@ void Application::openUrl( QWidget* parent, const QUrl& url )
         if ( !host.isEmpty() )
             path = QLatin1String( "\\\\" ) + host + QLatin1String( "\\" ) + path;
         if ( !path.isEmpty() )
-            ShellExecute( parent->effectiveWinId(), NULL, (LPCTSTR)path.utf16(), NULL, NULL, SW_NORMAL );
+            ShellExecute( (HWND)parent->effectiveWinId(), NULL, (LPCTSTR)path.utf16(), NULL, NULL, SW_NORMAL );
     } else
 #else
     Q_UNUSED( parent )

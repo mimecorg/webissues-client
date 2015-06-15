@@ -72,7 +72,8 @@ QMessageBox::StandardButton MessageBox::warning( QWidget* parent, const QString&
 
     QMessageBox helper;
     helper.setIcon( QMessageBox::Warning );
-    QAccessible::updateAccessibility( &helper, 0, QAccessible::Alert );
+    QAccessibleEvent event( &helper, QAccessible::Alert );
+    QAccessible::updateAccessibility( &event );
 
     return (QMessageBox::StandardButton)box.exec();
 }

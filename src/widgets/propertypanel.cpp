@@ -76,7 +76,7 @@ void PropertyPanel::addProperty( const QString& key, const QString& name )
     browser->setPalette( palette );
 
     int height = browser->fontMetrics().lineSpacing() + 4;
-#if !defined( Q_WS_WIN )
+#if !defined( Q_OS_WIN )
     height += 1;
 #endif
     browser->setFixedHeight( height );

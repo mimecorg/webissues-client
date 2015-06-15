@@ -60,7 +60,7 @@
 #include <QDesktopWidget>
 #include <QSslCipher>
 
-#if defined( Q_WS_WIN )
+#if defined( Q_OS_WIN )
 static const int TrayIconSize = 16;
 #else
 static const int TrayIconSize = 22;
@@ -880,7 +880,7 @@ void MainWindow::trayIconActivated( QSystemTrayIcon::ActivationReason reason )
 void MainWindow::showFromTray( bool toggle )
 {
     if ( isMinimized() ) {
-#if defined( Q_WS_WIN )
+#if defined( Q_OS_WIN )
         setWindowState( windowState() & ~Qt::WindowMinimized );
 #else
         // hide needed when changing desktop
@@ -928,7 +928,8 @@ void MainWindow::showStatus( const QPixmap& pixmap, const QString& text, int ico
     if ( icon != 0 && topLevelWidget()->isActiveWindow() ) {
         QMessageBox box;
         box.setIcon( (QMessageBox::Icon)icon );
-        QAccessible::updateAccessibility( &box, 0, QAccessible::Alert );
+        QAccessibleEvent event( &box, QAccessible::Alert );
+        QAccessible::updateAccessibility( &event );
     }
 }
 

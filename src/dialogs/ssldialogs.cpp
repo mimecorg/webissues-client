@@ -103,7 +103,7 @@ void SslCertificatesDialog::setCertificates( const QList<QSslCertificate>& certi
 
     for ( int i = 0; i < certificates.count(); i++ ) {
         QListWidgetItem* item = new QListWidgetItem( m_list );
-        item->setText( certificates.at( i ).subjectInfo( QSslCertificate::CommonName ) );
+        item->setText( certificates.at( i ).subjectInfo( QSslCertificate::CommonName ).first() );
     }
 
     m_list->setCurrentRow( 0 );
@@ -114,13 +114,13 @@ void SslCertificatesDialog::showCertificate( int index )
     if ( index >= 0 && index < m_certificates.count() ) {
         QSslCertificate certificate = m_certificates.at( index );
 
-        m_subjectPanel->setValue( "CN", certificate.subjectInfo( QSslCertificate::CommonName ) );
-        m_subjectPanel->setValue( "O", certificate.subjectInfo( QSslCertificate::Organization ) );
-        m_subjectPanel->setValue( "OU", certificate.subjectInfo( QSslCertificate::OrganizationalUnitName ) );
+        m_subjectPanel->setValue( "CN", certificate.subjectInfo( QSslCertificate::CommonName ).join( "; " ) );
+        m_subjectPanel->setValue( "O", certificate.subjectInfo( QSslCertificate::Organization ).join( "; " ) );
+        m_subjectPanel->setValue( "OU", certificate.subjectInfo( QSslCertificate::OrganizationalUnitName ).join( "; " ) );
 
-        m_issuerPanel->setValue( "CN", certificate.issuerInfo( QSslCertificate::CommonName ) );
-        m_issuerPanel->setValue( "O", certificate.issuerInfo( QSslCertificate::Organization ) );
-        m_issuerPanel->setValue( "OU", certificate.issuerInfo( QSslCertificate::OrganizationalUnitName ) );
+        m_issuerPanel->setValue( "CN", certificate.issuerInfo( QSslCertificate::CommonName ).join( "; " ) );
+        m_issuerPanel->setValue( "O", certificate.issuerInfo( QSslCertificate::Organization ).join( "; " ) );
+        m_issuerPanel->setValue( "OU", certificate.issuerInfo( QSslCertificate::OrganizationalUnitName ).join( "; " ) );
 
         m_detailsPanel->setValue( "effectiveDate", formatDate( certificate.effectiveDate() ) );
         m_detailsPanel->setValue( "expiryDate", formatDate( certificate.expiryDate() ) );

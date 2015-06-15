@@ -57,7 +57,7 @@ SettingsDialog::SettingsDialog( QWidget* parent ) : CommandDialog( parent )
     for ( int i = 100; i <= 150; i += 25 )
         m_ui.textSizeComboBox->addItem( QString( "%1%" ).arg( i ), i );
 
-#if defined( Q_WS_WIN )
+#if defined( Q_OS_WIN )
     if ( application->isPortableMode() )
         m_ui.autoStartCheckBox->hide();
 #else
@@ -88,7 +88,7 @@ SettingsDialog::SettingsDialog( QWidget* parent ) : CommandDialog( parent )
     index = m_ui.textSizeComboBox->findData( settings->value( "TextSizeMultiplier" ) );
     m_ui.textSizeComboBox->setCurrentIndex( index > 0 ? index : 0 );
 
-#if defined( Q_WS_WIN )
+#if defined( Q_OS_WIN )
     if ( !application->isPortableMode() )
         m_ui.autoStartCheckBox->setChecked( settings->value( "AutoStart" ).toBool() );
 #endif
@@ -142,7 +142,7 @@ bool SettingsDialog::apply()
 
     settings->setValue( "TextSizeMultiplier", m_ui.textSizeComboBox->itemData( m_ui.textSizeComboBox->currentIndex() ) );
 
-#if defined( Q_WS_WIN )
+#if defined( Q_OS_WIN )
     if ( !application->isPortableMode() )
         settings->setValue( "AutoStart", m_ui.autoStartCheckBox->isChecked() );
 #endif

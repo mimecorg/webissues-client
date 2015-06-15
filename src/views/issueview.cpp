@@ -658,13 +658,13 @@ bool IssueView::eventFilter( QObject* obj, QEvent* e )
 void IssueView::openAttachment()
 {
     if ( isEnabled() && !m_actionLink.isEmpty() )
-        handleAttachment( m_actionLink.host().toInt(), ActionOpen );
+        handleAttachment( m_actionLink.path().toInt(), ActionOpen );
 }
 
 void IssueView::saveAttachment()
 {
     if ( isEnabled() && !m_actionLink.isEmpty() )
-        handleAttachment( m_actionLink.host().toInt(), ActionSaveAs );
+        handleAttachment( m_actionLink.path().toInt(), ActionSaveAs );
 }
 
 void IssueView::openLink()
@@ -844,10 +844,10 @@ void IssueView::linkClicked( const QUrl& url )
     QString scheme = url.scheme().toLower();
 
     if ( scheme == QLatin1String( "id" ) ) {
-        int itemId = url.host().toInt();
+        int itemId = url.path().toInt();
         findItem( itemId );
     } else if ( scheme == QLatin1String( "attachment" ) ) {
-        int attachmentId = url.host().toInt();
+        int attachmentId = url.path().toInt();
         handleAttachment( attachmentId );
     } else if ( scheme == QLatin1String( "command" ) ) {
         int argument = url.path().mid( 1 ).toInt();

@@ -3,6 +3,8 @@
 set prefix="C:\Program Files\WebIssues Client\1.0"
 set config=release
 set msvc=no
+set incdir=
+set libdir=
 
 if exist .\webissues.pro goto arg_loop
 
@@ -14,6 +16,8 @@ if "%1" == "" goto arg_done
 if "%1" == "-prefix" goto arg_prefix
 if "%1" == "-debug" goto arg_debug
 if "%1" == "-msvc" goto arg_msvc
+if "%1" == "-I" goto arg_incdir
+if "%1" == "-L" goto arg_libdir
 if "%1" == "-help" goto show_usage
 if "%1" == "--help" goto show_usage
 if "%1" == "/?" goto show_usage
@@ -38,8 +42,18 @@ goto arg_next
 shift
 goto arg_loop
 
+:arg_incdir
+set incdir="QMAKE_INCDIR += %2"
+shift
+goto arg_next
+
+:arg_libdir
+set libdir="QMAKE_LIBDIR += %2"
+shift
+goto arg_next
+
 :show_usage
-echo Usage: configure [-prefix DIR] [-debug] [-msvc]
+echo Usage: configure [-prefix DIR] [-debug] [-msvc] [-I DIRS] [-L DIRS]
 echo.
 echo Options:
 echo.
@@ -47,6 +61,8 @@ echo   -prefix DIR   Set the instalation directory to DIR
 echo                   (default: C:\Program Files\WebIssues Client\1.0)
 echo   -debug        Build with debugging symbols
 echo   -msvc         Generate Visual Studio solution
+echo   -I DIRS       Specify additional include directories
+echo   -L DIRS       Specify additional library directories
 goto end
 
 :arg_done
@@ -83,7 +99,7 @@ if "%msvc%" == "yes" goto gen_msvc
 
 echo Generating Makefiles...
 
-"%QMAKE%" -recursive
+"%QMAKE%" -recursive %incdir% %libdir%
 if errorlevel 1 goto qmake_failed
 echo.
 echo Configure finished. Run 'make' or 'nmake' now.
@@ -93,7 +109,7 @@ goto end
 
 echo Generating Visual Studio solution...
 
-"%QMAKE%" -tp vc -recursive
+"%QMAKE%" -tp vc -recursive %incdir% %libdir%
 if errorlevel 1 goto qmake_failed
 echo.
 echo Configure finished.
