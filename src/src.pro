@@ -21,6 +21,7 @@ include( commands/commands.pri )
 include( data/data.pri )
 include( dialogs/dialogs.pri )
 include( models/models.pri )
+include( sqlite/sqlite.pri )
 include( utils/utils.pri )
 include( views/views.pri )
 include( widgets/widgets.pri )
@@ -40,8 +41,6 @@ TRANSLATIONS += \
            ../translations/webissues_pl.ts \
            ../translations/webissues_pt_BR.ts \
            ../translations/webissues_ru.ts
-
-LIBS += -lsqlite3
 
 win32 {
     RC_FILE = webissues.rc

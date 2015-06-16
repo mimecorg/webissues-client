@@ -9,7 +9,6 @@ HEADERS += data/bookmark.h \
            data/issuetypecache.h \
            data/localsettings.h \
            data/query.h \
-           data/sqliteextension.h \
            data/updateevent.h
 
 SOURCES += data/bookmark.cpp \
@@ -22,7 +21,6 @@ SOURCES += data/bookmark.cpp \
            data/issuetypecache.cpp \
            data/localsettings.cpp \
            data/query.cpp \
-           data/sqliteextension.cpp \
            data/updateevent.cpp
 
 contains( QT_CONFIG, openssl ) | contains( QT_CONFIG, openssl-linked ) {
