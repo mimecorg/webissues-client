@@ -24,6 +24,7 @@
 #include <QNetworkReply>
 #include <QTimer>
 #include <QDomDocument>
+#include <QUrlQuery>
 
 UpdateClient::UpdateClient( const QString& application, const QString& version, QNetworkAccessManager* manager ) : QObject( manager ),
     m_manager( manager ),

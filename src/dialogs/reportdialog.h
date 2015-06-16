@@ -25,6 +25,7 @@
 
 class QRadioButton;
 class QWebPage;
+class QPrinter;
 
 /**
 * Dialog for printing or exporting a report.
