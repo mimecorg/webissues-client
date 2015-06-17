@@ -20,12 +20,6 @@
 #ifndef PRECOMPILED_H
 #define PRECOMPILED_H
 
-#include <QtGlobal>
-
-#if defined( Q_OS_WIN )
-#include <shlobj.h>
-#endif
-
 #include <QtCore>
 #include <QtGui>
 #include <QtWidgets>

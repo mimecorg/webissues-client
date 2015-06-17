@@ -54,7 +54,7 @@
 #include <QSettings>
 
 #if defined( Q_OS_WIN )
-#include <shlobj.h>
+#include <qt_windows.h>
 #endif
 
 #include <cstdlib>
@@ -416,29 +416,21 @@ void Application::initializeDefaultPaths()
     QString cachePath;
 
 #if defined( Q_OS_WIN )
-    wchar_t appDataPath[ MAX_PATH ];
-    if ( SHGetSpecialFolderPath( 0, appDataPath, CSIDL_APPDATA, FALSE ) )
-        dataPath = QDir::fromNativeSeparators( QString::fromWCharArray( appDataPath ) );
-    else
-        dataPath = QDir::homePath();
+    setApplicationName( "WebIssues Client" );
 
-    m_dataPath = dataPath + QLatin1String( "/WebIssues Client/1.1" );
-    m_oldDataPath = dataPath + QLatin1String( "/WebIssues Client/1.0" );
+    dataPath = QStandardPaths::writableLocation( QStandardPaths::AppDataLocation );
+    m_dataPath = dataPath + QLatin1String( "/1.1" );
+    m_oldDataPath = dataPath + QLatin1String( "/1.0" );
 
-    wchar_t localAppDataPath[ MAX_PATH ];
-    if ( SHGetSpecialFolderPath( 0, localAppDataPath, CSIDL_LOCAL_APPDATA, FALSE ) )
-        cachePath = QDir::fromNativeSeparators( QString::fromWCharArray( localAppDataPath ) );
-    else
-        cachePath = QDir::homePath();
-
-    m_cachePath = cachePath + QLatin1String( "/WebIssues Client/1.1/cache" );
-    m_sharedCachePath = cachePath + QLatin1String( "/WebIssues Client/shared/cache" );
+    cachePath = QStandardPaths::writableLocation( QStandardPaths::AppLocalDataLocation );
+    m_cachePath = cachePath + QLatin1String( "/1.1/cache" );
+    m_sharedCachePath = cachePath + QLatin1String( "/shared/cache" );
 #else
-    dataPath = QStandardPaths::writableLocation( QStandardPaths::DataLocation );
-    m_dataPath = dataPath + QLatin1String( "/webissues-1.1" );
-    m_oldDataPath = dataPath + QLatin1String( "/webissues-1.0" );
+    dataPath = QStandardPaths::writableLocation( QStandardPaths::GenericDataLocation );
+    m_dataPath = dataPath + QLatin1String( "/data/webissues-1.1" );
+    m_oldDataPath = dataPath + QLatin1String( "/data/webissues-1.0" );
 
-    cachePath = QStandardPaths::writableLocation( QStandardPaths::CacheLocation );
+    cachePath = QStandardPaths::writableLocation( QStandardPaths::GenericCacheLocation );
     m_cachePath = cachePath + QLatin1String( "/webissues-1.1" );
     m_sharedCachePath = cachePath + QLatin1String( "/webissues-shared" );
 #endif
