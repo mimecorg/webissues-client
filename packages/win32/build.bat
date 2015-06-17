@@ -11,7 +11,7 @@ if not %1 == x86 goto elsex64
 
 set BUILDDIR=D:\Release\webissues-x86
 
-set QTDIR=D:\Qt\4.8-x86
+set QTDIR=D:\Qt5\x86
 set OPENSSLDIR=D:\OpenSSL\x86
 set VCRTDIR=C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\redist\x86\Microsoft.VC100.CRT
 
@@ -25,7 +25,7 @@ if not %1 == x64 goto usage
 
 set BUILDDIR=D:\Release\webissues-x64
 
-set QTDIR=D:\Qt\4.8-x64
+set QTDIR=D:\Qt5\x64
 set OPENSSLDIR=D:\OpenSSL\x64
 set VCRTDIR=C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\redist\x64\Microsoft.VC100.CRT
 

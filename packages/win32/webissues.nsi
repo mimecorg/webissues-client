@@ -137,18 +137,38 @@ Section
 
     File "${BUILDDIR}\webissues.exe"
 
-    File "${QTDIR}\bin\QtCore4.dll"
-    File "${QTDIR}\bin\QtGui4.dll"
-    File "${QTDIR}\bin\QtNetwork4.dll"
-    File "${QTDIR}\bin\QtSql4.dll"
-    File "${QTDIR}\bin\QtWebKit4.dll"
-    File "${QTDIR}\bin\QtXml4.dll"
+    File "qt.conf"
+
+    File "${QTDIR}\bin\Qt5Core.dll"
+    File "${QTDIR}\bin\Qt5Gui.dll"
+    File "${QTDIR}\bin\Qt5Network.dll"
+    File "${QTDIR}\bin\Qt5OpenGL.dll"
+    File "${QTDIR}\bin\Qt5PrintSupport.dll"
+    File "${QTDIR}\bin\Qt5Qml.dll"
+    File "${QTDIR}\bin\Qt5Quick.dll"
+    File "${QTDIR}\bin\Qt5Sql.dll"
+    File "${QTDIR}\bin\Qt5WebKit.dll"
+    File "${QTDIR}\bin\Qt5WebKitWidgets.dll"
+    File "${QTDIR}\bin\Qt5Widgets.dll"
+    File "${QTDIR}\bin\Qt5Xml.dll"
+
+    File "${QTDIR}\bin\icudt55.dll"
+    File "${QTDIR}\bin\icuin55.dll"
+    File "${QTDIR}\bin\icuuc55.dll"
 
     File "${OPENSSLDIR}\bin\libeay32.dll"
     File "${OPENSSLDIR}\bin\ssleay32.dll"
 
     File "${VCRTDIR}\msvcp100.dll"
     File "${VCRTDIR}\msvcr100.dll"
+
+    SetOutPath "$INSTDIR\plugins\platforms"
+
+    File "${QTDIR}\plugins\platforms\qwindows.dll"
+
+    SetOutPath "$INSTDIR\plugins\printsupport"
+
+    File "${QTDIR}\plugins\printsupport\windowsprintersupport.dll"
 
     SetOutPath "$INSTDIR\doc"
 
@@ -177,7 +197,7 @@ Section
     File "${QTDIR}\translations\qt_de.qm"
     File "${QTDIR}\translations\qt_es.qm"
     File "${QTDIR}\translations\qt_fr.qm"
-    ;File "${QTDIR}\translations\qt_it.qm"
+    File "${QTDIR}\translations\qt_it.qm"
     ;File "${QTDIR}\translations\qt_nl.qm"
     File "${QTDIR}\translations\qt_pl.qm"
     File "${QTDIR}\translations\qt_pt.qm"
@@ -231,6 +251,7 @@ Section "Uninstall"
     Delete "$INSTDIR\COPYING"
     Delete "$INSTDIR\README"
     RMDir /r "$INSTDIR\bin"
+    RMDir /r "$INSTDIR\plugins"
     RMDir /r "$INSTDIR\doc"
     RMDir /r "$INSTDIR\translations"
     Delete "$INSTDIR\uninstall.exe"
