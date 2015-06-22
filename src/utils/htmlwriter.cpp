@@ -98,45 +98,76 @@ void HtmlWriter::endHistoryItem()
     popTag( "div" );
 }
 
+void HtmlWriter::getTagAndAttributes( HtmlWriter::BlockStyle style, QString& tag, QString& attributes )
+{
+    switch ( style ) {
+    case Header2Block:
+        tag = "h2";
+        break;
+    case Header3Block:
+        tag = "h3";
+        break;
+    case Header4Block:
+        tag = "h4";
+        break;
+    case FloatBlock:
+        tag = "div";
+        attributes = "style=\"float: right\"";
+        break;
+    case HistoryLinksBlock:
+        tag = "div";
+        attributes = "class=\"history-links\"";
+        break;
+    case HistoryInfoBlock:
+        tag = "div";
+        attributes = "class=\"history-info\"";
+        break;
+    case CommentBlock:
+        tag = "div";
+        attributes = "class=\"comment-text\"";
+        break;
+    case AttachmentBlock:
+        tag = "div";
+        attributes = "class=\"attachment\"";
+        break;
+    case NoItemsBlock:
+        tag = "div";
+        attributes = "class=\"noitems\"";
+        break;
+    case EditedBlock:
+        tag = "span";
+        attributes = "class=\"edited\"";
+        break;
+    }
+}
+
 void HtmlWriter::writeBlock( const HtmlText& text, BlockStyle style )
 {
     QString tag;
     QString attributes;
-
-    switch ( style ) {
-        case Header2Block:
-            tag = "h2";
-            break;
-        case Header3Block:
-            tag = "h3";
-            break;
-        case Header4Block:
-            tag = "h4";
-            break;
-        case FloatBlock:
-            tag = "div";
-            attributes = "style=\"float: right\"";
-            break;
-        case HistoryInfoBlock:
-            tag = "div";
-            attributes = "class=\"history-info\" style=\"float: right\"";
-            break;
-        case CommentBlock:
-            tag = "div";
-            attributes = "class=\"comment-text\"";
-            break;
-        case AttachmentBlock:
-            tag = "div";
-            attributes = "class=\"attachment\"";
-            break;
-        case NoItemsBlock:
-            tag = "div";
-            attributes = "class=\"noitems\"";
-            break;
-    }
+    getTagAndAttributes( style, tag, attributes );
 
     pushTag( tag, attributes );
     m_body += text.toString();
+    popTag( tag );
+}
+
+void HtmlWriter::writeNestedBlock( const HtmlText& text, BlockStyle style, const HtmlText& nestedText, BlockStyle nestedStyle )
+{
+    QString tag;
+    QString attributes;
+    getTagAndAttributes( style, tag, attributes );
+
+    QString nestedTag;
+    QString nestedAttributes;
+    getTagAndAttributes( nestedStyle, nestedTag, nestedAttributes );
+
+    pushTag( tag, attributes );
+    m_body += text.toString();
+    m_body += QLatin1String( "&nbsp; " );
+    pushTag( nestedTag, nestedAttributes );
+    m_body += nestedText.toString();
+    popTag( nestedTag );
     popTag( tag );
 }
 

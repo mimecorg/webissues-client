@@ -120,6 +120,11 @@ public:
     void endAnchor();
 
     /**
+    * Return @c true if the text is empty.
+    */
+    bool isEmpty() const { return m_html.isEmpty(); }
+
+    /**
     * Return the entire text as HTML.
     */
     QString toString() const { return m_html; }

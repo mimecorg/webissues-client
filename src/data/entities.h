@@ -354,6 +354,7 @@ public:
 
     const QDateTime& createdDate() const;
     const QString& createdUser() const;
+    int createdUserId() const;
 
     const QDateTime& modifiedDate() const;
     const QString& modifiedUser() const;
@@ -428,6 +429,7 @@ public:
 
     const QDateTime& modifiedDate() const;
     const QString& modifiedUser() const;
+    int modifiedUserId() const;
 
 private:
     QExplicitlySharedDataPointer<DescriptionEntityData> d;
@@ -505,6 +507,7 @@ public:
 
     const QDateTime& modifiedDate() const;
     const QString& modifiedUser() const;
+    int modifiedUserId() const;
 
     int attributeId() const;
     const QString& oldValue() const;

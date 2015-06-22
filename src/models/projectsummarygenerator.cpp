@@ -55,27 +55,36 @@ void ProjectSummaryGenerator::write( HtmlWriter* writer, HtmlText::Flags flags )
         DescriptionEntity description = project.description();
 
         if ( description.isValid() ) {
-            writer->writeBlock( descriptionLinks( description, flags ), HtmlWriter::FloatBlock );
-            writer->writeBlock( tr( "Description" ), HtmlWriter::Header3Block );
+            if ( !flags.testFlag( HtmlText::NoInternalLinks ) && m_isAdmin )
+                writer->writeBlock( descriptionLinks( flags ), HtmlWriter::FloatBlock );
+
+            writer->writeNestedBlock( tr( "Description" ), HtmlWriter::Header3Block, descriptionEdited( description, flags ), HtmlWriter::EditedBlock );
+
             writer->writeBlock( descriptionText( description, flags ), HtmlWriter::CommentBlock );
         }
     }
 }
 
-HtmlText ProjectSummaryGenerator::descriptionLinks( const DescriptionEntity& description, HtmlText::Flags flags )
+HtmlText ProjectSummaryGenerator::descriptionLinks( HtmlText::Flags flags )
+{
+    HtmlText result( flags );
+
+    result.appendImageAndTextLink( "edit-modify", tr( "Edit" ), "command://edit-description/" );
+    result.appendText( " | " );
+    result.appendImageAndTextLink( "edit-delete", tr( "Delete" ), "command://delete-description/" );
+
+    return result;
+}
+
+HtmlText ProjectSummaryGenerator::descriptionEdited( const DescriptionEntity& description, HtmlText::Flags flags )
 {
     HtmlText result( flags );
 
     Formatter formatter;
+    result.appendText( "(" );
     result.appendText( tr( "Last Edited:" ) );
     result.appendText( QString::fromUtf8( " %1 — %2" ).arg( formatter.formatDateTime( description.modifiedDate(), true ), description.modifiedUser() ) );
-
-    if ( !flags.testFlag( HtmlText::NoInternalLinks ) && m_isAdmin ) {
-        result.appendText( " | " );
-        result.appendImageAndTextLink( "edit-modify", tr( "Edit" ), "command://edit-description/" );
-        result.appendText( " | " );
-        result.appendImageAndTextLink( "edit-delete", tr( "Delete" ), "command://delete-description/" );
-    }
+    result.appendText( ")" );
 
     return result;
 }

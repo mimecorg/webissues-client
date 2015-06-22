@@ -1107,7 +1107,8 @@ IssueEntityData::IssueEntityData() :
     m_readId( 0 ),
     m_subscriptionId( 0 ),
     m_folderId( 0 ),
-    m_typeId( 0 )
+    m_typeId( 0 ),
+    m_createdUserId( 0 )
 {
 }
 
@@ -1165,6 +1166,11 @@ const QString& IssueEntity::createdUser() const
     return d->m_createdUser;
 }
 
+int IssueEntity::createdUserId() const
+{
+    return d->m_createdUserId;
+}
+
 const QDateTime& IssueEntity::modifiedDate() const
 {
     return d->m_modifiedDate;
@@ -1181,7 +1187,7 @@ IssueEntity IssueEntity::find( int id )
 
     if ( id != 0 ) {
         Query query( "SELECT i.issue_id, i.stamp_id, s.read_id, s.subscription_id, i.folder_id, f.type_id, i.issue_name,"
-            " i.created_time, uc.user_name AS created_user, i.modified_time, um.user_name AS modified_user"
+            " i.created_time, uc.user_name AS created_user, i.created_user_id, i.modified_time, um.user_name AS modified_user"
             " FROM issues AS i"
             " JOIN folders AS f ON f.folder_id = i.folder_id"
             " LEFT OUTER JOIN issue_states AS s ON s.issue_id = i.issue_id AND s.user_id = ?"
@@ -1203,7 +1209,7 @@ QList<IssueEntity> FolderEntity::issues() const
 
     if ( d->m_id != 0 ) {
         Query query( "SELECT i.issue_id, i.stamp_id, s.read_id, s.subscription_id, i.folder_id, f.type_id, i.issue_name,"
-            " i.created_time, uc.user_name AS created_user, i.modified_time, um.user_name AS modified_user"
+            " i.created_time, uc.user_name AS created_user, i.created_user_id, i.modified_time, um.user_name AS modified_user"
             " FROM issues AS i"
             " JOIN folders AS f ON f.folder_id = i.folder_id"
             " LEFT OUTER JOIN issue_states AS s ON s.issue_id = i.issue_id AND s.user_id = ?"
@@ -1233,8 +1239,9 @@ void IssueEntityData::read( const Query& query )
     m_name = query.value( 6 ).toString();
     m_createdDate.setTime_t( query.value( 7 ).toInt() );
     m_createdUser = query.value( 8 ).toString();
-    m_modifiedDate.setTime_t( query.value( 9 ).toInt() );
-    m_modifiedUser = query.value( 10 ).toString();
+    m_createdUserId = query.value( 9 ).toInt();
+    m_modifiedDate.setTime_t( query.value( 10 ).toInt() );
+    m_modifiedUser = query.value( 11 ).toString();
 }
 
 bool IssueEntity::isOwner( int id )
@@ -1479,7 +1486,8 @@ DescriptionEntity& DescriptionEntity::operator =( const DescriptionEntity& other
 
 DescriptionEntityData::DescriptionEntityData() :
     m_id( 0 ),
-    m_format( PlainText )
+    m_format( PlainText ),
+    m_modifiedUserId( 0 )
 {
 }
 
@@ -1517,12 +1525,17 @@ const QString& DescriptionEntity::modifiedUser() const
     return d->m_modifiedUser;
 }
 
+int DescriptionEntity::modifiedUserId() const
+{
+    return d->m_modifiedUserId;
+}
+
 DescriptionEntity ProjectEntity::description() const
 {
     DescriptionEntity result;
 
     if ( d->m_id != 0 ) {
-        Query query( "SELECT pd.project_id, pd.descr_text, pd.descr_format, pd.modified_time, um.user_name AS modified_user"
+        Query query( "SELECT pd.project_id, pd.descr_text, pd.descr_format, pd.modified_time, um.user_name AS modified_user, pd.modified_user_id"
             " FROM project_descriptions AS pd"
             " LEFT OUTER JOIN users AS um ON um.user_id = pd.modified_user_id"
             " WHERE pd.project_id = ?" );
@@ -1540,7 +1553,7 @@ DescriptionEntity IssueEntity::description() const
     DescriptionEntity result;
 
     if ( d->m_id != 0 ) {
-        Query query( "SELECT id.issue_id, id.descr_text, id.descr_format, id.modified_time, um.user_name AS modified_user"
+        Query query( "SELECT id.issue_id, id.descr_text, id.descr_format, id.modified_time, um.user_name AS modified_user, id.modified_user_id"
             " FROM issue_descriptions AS id"
             " LEFT OUTER JOIN users AS um ON um.user_id = id.modified_user_id"
             " WHERE id.issue_id = ?" );
@@ -1560,6 +1573,7 @@ void DescriptionEntityData::read( const Query& query )
     m_format = (TextFormat)query.value( 2 ).toInt();
     m_modifiedDate.setTime_t( query.value( 3 ).toInt() );
     m_modifiedUser = query.value( 4 ).toString();
+    m_modifiedUserId = query.value( 5 ).toInt();
 }
 
 CommentEntity::CommentEntity() :
@@ -1705,6 +1719,7 @@ ChangeEntityData::ChangeEntityData() :
     m_id( 0 ),
     m_type( IssueCreated ),
     m_createdUserId( 0 ),
+    m_modifiedUserId( 0 ),
     m_typeId( 0 ),
     m_attributeId( 0 ),
     m_fileSize( 0 )
@@ -1763,6 +1778,11 @@ const QDateTime& ChangeEntity::modifiedDate() const
 const QString& ChangeEntity::modifiedUser() const
 {
     return d->m_modifiedUser;
+}
+
+int ChangeEntity::modifiedUserId() const
+{
+    return d->m_modifiedUserId;
 }
 
 int ChangeEntity::attributeId() const
@@ -1852,7 +1872,7 @@ QList<ChangeEntity> IssueEntityData::changes( bool all, Qt::SortOrder order ) co
     if ( m_id != 0 && m_typeId != 0 ) {
         QString sql = "SELECT ch.change_id, ch.issue_id, ch.stamp_id, ch.change_type,"
             " ch.created_time, uc.user_name AS created_user, ch.created_user_id,"
-            " ch.modified_time, um.user_name AS modified_user,"
+            " ch.modified_time, um.user_name AS modified_user, ch.modified_user_id,"
             " a.attr_id, ch.old_value, ch.new_value, ff.folder_name AS from_folder, tf.folder_name AS to_folder,"
             " c.comment_text, c.comment_format, f.file_name, f.file_size, f.file_descr"
             " FROM changes AS ch"
@@ -1894,24 +1914,25 @@ void ChangeEntityData::read( const Query& query )
     m_createdUserId = query.value( 6 ).toInt();
     m_modifiedDate.setTime_t( query.value( 7 ).toInt() );
     m_modifiedUser = query.value( 8 ).toString();
+    m_modifiedUserId = query.value( 9 ).toInt();
     if ( m_type == ValueChanged )
-        m_attributeId = query.value( 9 ).toInt();
+        m_attributeId = query.value( 10 ).toInt();
     if ( m_type <= ValueChanged ) {
-        m_oldValue = query.value( 10 ).toString();
-        m_newValue = query.value( 11 ).toString();
+        m_oldValue = query.value( 11 ).toString();
+        m_newValue = query.value( 12 ).toString();
     }
     if ( m_type == IssueMoved ) {
-        m_fromFolder = query.value( 12 ).toString();
-        m_toFolder = query.value( 13 ).toString();
+        m_fromFolder = query.value( 13 ).toString();
+        m_toFolder = query.value( 14 ).toString();
     }
     if ( m_type == CommentAdded ) {
-        m_commentText = query.value( 14 ).toString();
-        m_commentFormat = (TextFormat)query.value( 15 ).toInt();
+        m_commentText = query.value( 15 ).toString();
+        m_commentFormat = (TextFormat)query.value( 16 ).toInt();
     }
     if ( m_type == FileAdded ) {
-        m_fileName = query.value( 16 ).toString();
-        m_fileSize = query.value( 17 ).toInt();
-        m_fileDescription = query.value( 18 ).toString();
+        m_fileName = query.value( 17 ).toString();
+        m_fileSize = query.value( 18 ).toInt();
+        m_fileDescription = query.value( 19 ).toString();
     }
 }
 

@@ -41,10 +41,12 @@ public:
         Header3Block,
         Header4Block,
         FloatBlock,
+        HistoryLinksBlock,
         HistoryInfoBlock,
         CommentBlock,
         AttachmentBlock,
-        NoItemsBlock
+        NoItemsBlock,
+        EditedBlock
     };
 
 public:
@@ -74,6 +76,7 @@ public:
     void endHistoryItem();
 
     void writeBlock( const HtmlText& text, BlockStyle style );
+    void writeNestedBlock( const HtmlText& text, BlockStyle style, const HtmlText& nestedText, BlockStyle nestedStyle );
 
     void writeBulletList( const QList<HtmlText>& items );
 
@@ -92,7 +95,9 @@ private:
     void pushTag( const QString& tag, const QString& attributes = QString() );
     void popTag( const QString& tag );
     void popAll();
-    
+
+    void getTagAndAttributes( HtmlWriter::BlockStyle style, QString& tag, QString& attributes );
+
 private:
     QString m_title;
     bool m_embedded;

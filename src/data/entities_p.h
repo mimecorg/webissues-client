@@ -176,6 +176,7 @@ public:
     QString m_name;
     QDateTime m_createdDate;
     QString m_createdUser;
+    int m_createdUserId;
     QDateTime m_modifiedDate;
     QString m_modifiedUser;
 };
@@ -210,6 +211,7 @@ public:
     TextFormat m_format;
     QDateTime m_modifiedDate;
     QString m_modifiedUser;
+    int m_modifiedUserId;
 };
 
 class CommentEntityData : public QSharedData
@@ -267,6 +269,7 @@ public:
 
     QDateTime m_modifiedDate;
     QString m_modifiedUser;
+    int m_modifiedUserId;
 
     QString m_oldValue;
     QString m_newValue;

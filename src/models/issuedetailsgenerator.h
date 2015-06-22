@@ -95,8 +95,11 @@ private:
 
     HtmlText historyLinks( HtmlText::Flags flags );
 
-    HtmlText descriptionLinks( const DescriptionEntity& description, HtmlText::Flags flags );
+    HtmlText descriptionLinks( HtmlText::Flags flags );
     HtmlText changeLinks( const ChangeEntity& change, HtmlText::Flags flags );
+
+    HtmlText descriptionEdited( const IssueEntity& issue, const DescriptionEntity& description, HtmlText::Flags flags );
+    HtmlText changeEdited( const ChangeEntity& change, HtmlText::Flags flags );
 
     HtmlText descriptionText( const DescriptionEntity& description, HtmlText::Flags flags );
     HtmlText commentText( const CommentEntity& comment, HtmlText::Flags flags );

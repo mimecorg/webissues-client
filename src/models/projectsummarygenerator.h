@@ -67,7 +67,9 @@ public:
     void write( HtmlWriter* writer, HtmlText::Flags flags = 0 );
 
 private:
-    HtmlText descriptionLinks( const DescriptionEntity& description, HtmlText::Flags flags );
+    HtmlText descriptionLinks( HtmlText::Flags flags );
+
+    HtmlText descriptionEdited( const DescriptionEntity& description, HtmlText::Flags flags );
 
     HtmlText descriptionText( const DescriptionEntity& description, HtmlText::Flags flags );
 
