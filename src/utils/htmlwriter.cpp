@@ -254,14 +254,14 @@ QString HtmlWriter::toHtml()
     html += QLatin1String( "<!DOCTYPE html>\n" );
     html += QLatin1String( "<html>\n" );
     html += QLatin1String( "<head>\n" );
-    html += QLatin1String( "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\n" );
+    html += QLatin1String( "<meta charset=\"utf-8\">\n" );
     html += QString( "<title>%1</title>\n" ).arg( m_title.toHtmlEscaped() );
     if ( m_embedded ) {
         html += QLatin1String( "<style type=\"text/css\">\n" );
         html += readFile( ":/resources/style.css" );
         html += QLatin1String( "</style>\n" );
     } else {
-        html += QLatin1String( "<link rel=\"stylesheet\" href=\"qrc:/resources/style.css\" type=\"text/css\" />\n" );
+        html += QLatin1String( "<link rel=\"stylesheet\" href=\"qrc:/resources/style.css\" type=\"text/css\">\n" );
         html += QLatin1String( "<script type=\"text/javascript\" src=\"qrc:/resources/prettify.js\"></script>\n" );
         html += QLatin1String( "<script type=\"text/javascript\">addEventListener( 'load', function () { prettyPrint(); }, false );</script>\n" );
     }

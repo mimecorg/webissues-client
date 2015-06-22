@@ -89,7 +89,7 @@ HtmlText HtmlText::parse( const QString& text, Flags flags )
 
 void HtmlText::appendImage( const QString& image, const QString& text )
 {
-    m_html += QString( "<img src=\"qrc:/icons/%1-16.png\" alt=\"%2\" title=\"%2\" width=\"16\" height=\"16\" class=\"icon\" />" ).arg( image, text.toHtmlEscaped() );
+    m_html += QString( "<img src=\"qrc:/icons/%1-16.png\" alt=\"%2\" title=\"%2\" width=\"16\" height=\"16\" class=\"icon\">" ).arg( image, text.toHtmlEscaped() );
 }
 
 void HtmlText::appendImageAndText( const QString& image, const QString& text )
