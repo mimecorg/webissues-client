@@ -96,14 +96,14 @@ DefinitionInfo DefinitionInfo::fromString( const QString& text )
     if ( text.isEmpty() )
         return DefinitionInfo();
 
-    static QCache<QString, DefinitionInfo> definitionsCache( 10000 );
+    static QCache<QString, DefinitionInfo> definitionsCache;
 
     DefinitionInfo* info = definitionsCache.object( text );
     if ( info )
         return *info;
 
     info = new DefinitionInfo();
-    definitionsCache.insert( text, info, text.length() );
+    definitionsCache.insert( text, info );
 
     QString patternNumber = "-?\\d+";
     QString patternString = "\"(?:\\\\[\"\\\\nt]|[^\"\\\\])*\"";
