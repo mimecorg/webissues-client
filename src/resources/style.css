@@ -207,12 +207,10 @@ code, .code {
   color: #000000;
 }
 
-.str { color: #880000; }
-.kwd { color: #0000ff; }
+.str, .tag { color: #880000; }
+.kwd, .typ, .atv { color: #0000ff; }
 .com { color: #008800; }
-.tag { color: #880000; }
 .atn { color: #ff0000; }
-.atv { color: #0000ff; }
 
 .rtl {
   direction: rtl;
