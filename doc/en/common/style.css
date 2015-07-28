@@ -105,44 +105,52 @@ dl dd dl {
 
 img, a img {
   border: none;
+  max-width: 100%;
 }
 
 /* Layout */
 
 #wrapper {
   margin: 0 auto 0 auto;
-  width: 1000px;
+  width: 99%;
+  max-width: 1000px;
 }
 
 #header {
-  width: 1000px;
   height: 100px;
 }
 
 #header-top {
-  width: 1000px;
+  position: relative;
   height: 55px;
 }
 
 #header-left {
-  margin: 20px 0 0 15px;
-  float: left;
+  position: absolute;
+  top: 13px;
+  left: 15px;
 }
 
 #header-left h1 {
-  line-height: 35px;
+  line-height: 33px;
   font-weight: bold;
+  font-size: 150%;
   color: #ffffff;
+  text-shadow: 1px 1px #444444;
 }
 
 #header-left h1 img {
-  margin-right: 5px;
+  margin-right: 8px;
   float: left;
 }
 
 #header-right {
-  margin: 20px 15px 0 0;
+  position: absolute;
+  top: 14px;
+  right: 17px;
   float: right;
+  color: #dddddd;
+  font-size: 110%;
 }
 
 #header-right h2 {
@@ -154,41 +162,59 @@ img, a img {
 }
 
 #infobar {
-  width: 1000px;
-  height: 38px;
+  position: relative;
+  height: 41px;
   background: #f3f3f3 url(bg-infobar.png) repeat-x;
+  font-weight: bold; color: #bbbbbb;
 }
 
 #infobar-left {
-  float: left;
+  position: absolute;
+  top: 0;
+  left: 0;
   min-width: 70px;
-  height: 26px;
+  height: 29px;
   background: transparent url(bg-infobar-left.png) no-repeat;
   padding: 12px 0 0 25px;
 }
 
 #infobar-right {
-  float: right;
+  position: absolute;
+  top: 0;
+  right: 0;
   min-width: 70px;
-  height: 26px;
+  height: 29px;
   background: transparent url(bg-infobar-right.png) no-repeat 100% 0;
   padding: 12px 25px 0 0;
   text-align: right;
 }
 
+#infobar a:link, #infobar a:visited {
+  color: #dddddd;
+}
+
+#infobar a:hover {
+  color: #cccccc;
+}
+
+#infobar a:active {
+  color: #eeeeee;
+}
+
 #body {
-  width: 945px;
   background: #ffffff url(bg-block.png) repeat-x;
   border: 1px solid #cccccc;
-  margin: 5px auto 20px auto;
-  padding: 15px;
+  box-shadow: 1px 1px 3px #bbbbbb;
+  margin: 15px 12px 0 11px;
+  padding: 15px 15px 5px 15px;
 }
 
 #footer {
   float: none;
   clear: both;
-  margin: 2em 0 0 0;
+  padding: 15px 0 20px 0;
   color: #898989;
+  font-size: 0.9em;
 }
 
 #footer p {
@@ -205,18 +231,28 @@ h2.subtitle {
 
 .navlinks {
   margin: 0 0 1em 0;
-  height: 1em;
 }
 
 .navleft {
   float: left;
+  margin-right: 0.5em;
 }
 
 .navright {
   float: right;
+  margin-left: 0.5em;
+}
+
+.clear {
+  clear: both;
 }
 
 .toc .preface, .toc .chapter, .toc .appendix {
+  font-weight: bold;
+}
+
+.toc-title {
+  margin-top: 1em;
   font-weight: bold;
 }
 
@@ -278,6 +314,7 @@ code {
 pre {
   margin: 0;
   font: 10pt/150% Consolas, 'DejaVu Sans Mono', 'Lucida Console', Monospace;
+  white-space: pre-wrap;
 }
 
 table {
@@ -316,4 +353,33 @@ blockquote {
 
 .literallayout p {
   margin: 0;
+}
+
+@media only screen and (max-width: 600px) {
+  .tip, .warning, .note {
+    margin: 1em 0;
+  }
+
+  dl {
+    margin-left: 0;
+  }
+  
+  dl dd {
+    margin-left: 1em;
+  }
+
+  ul {
+    margin-left: 2em;
+  }
+
+  p {
+    text-align: left;
+    word-wrap: break-word;
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  #header-right {
+    display: none;
+  }
 }

@@ -19,7 +19,7 @@
             <h1><img src="common/webissues.png" alt="WebIssues" id="logo" />WebIssues Manual</h1>
           </div>
           <div id="header-right">
-            <h2 class="subtitle">Version 1.1.3</h2>
+            <h2 class="subtitle">Version 1.1.4</h2>
           </div>
         </div>
         <div id="infobar">
@@ -31,6 +31,7 @@
         <div class="navlinks">
           <div class="navleft">&laquo; <a accesskey="p" href="webissues.prep.setup.html">Initial setup</a></div>
           <div class="navright"><a accesskey="n" href="webissues.prep.inbox.html">Email inbox</a> &raquo;</div>
+          <div class="clear"></div>
         </div>
         <div class="sect1">
           <div class="titlepage">
@@ -51,7 +52,7 @@
             </div>
             <p>First, go to the Administration Panel and click <span class="guilabel">Email Settings</span> to configure sending emails.</p>
             <div class="figure">
-              <a id="id530021"></a>
+              <a id="id547487"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch02-fig10.png" alt="Email settings" />
@@ -64,11 +65,11 @@
               <h3 class="title">Note</h3>
               <p>For more information on setting up the standard mechanism for sending emails which is built into PHP, please visit <a class="ulink" href="http://php.net/manual/en/mail.configuration.php" target="_top">http://php.net/manual/en/mail.configuration.php</a>.</p>
             </div>
-            <p>You can also send emails using an external SMTP server. You can either use your company or organization's mail server, or any public email service (e.g. gmail). Select <span class="guilabel">Custom SMTP server</span> and enter the address of the sender. In the <span class="guilabel">SMTP Server</span> section, type the address of the server and the port number of the email service (usually 25 or 465 for encrypted connections). Select the encryption mode, if the SMTP server supports encrypted communication. Also enter the user name and password required to access the SMTP server.</p>
+            <p>You can also send emails using an external SMTP server. You can either use your company or organization's mail server, or any public email service (e.g. gmail). Select <span class="guilabel">Custom SMTP server</span> and enter the address of the sender. In the <span class="guilabel">SMTP Server</span> section, type the address of the server and the port number of the email service (usually 25 or 587 for encrypted connections). Select the encryption mode, if the SMTP server supports encrypted communication. Also enter the user name and password required to access the SMTP server.</p>
             <p>Click <span class="guibutton">Test Connection</span> to check whether the SMTP configuration is correct. The WebIssues system will send a test message to its own address. If you receive it, it means that the configuration is correct. Don't forget to save the configuration by clicking <span class="guibutton">OK</span>.</p>
             <p>Since emails are sent in HTML format, it is possible to include hyperlinks to the folder related to the notification, as well as to individual issues. To enable hyperlinks, you need to enter the base URL at which the WebIssues server is installed. The URL should include the protocol and the trailing slash, for instance <code class="literal">http://www.example.com/</code>. Click <span class="guibutton">Detect</span> to automatically enter the address of the current page. Note that the URL should contain the fully qualified domain name of the server to make it available to all users. If the URL is left blank, emails will be sent without links.</p>
             <div class="figure">
-              <a id="id530094"></a>
+              <a id="id547566"></a>
               <div class="figure-contents">
                 <div class="mediaobject">
                   <img src="images/ch02-fig10-01.png" alt="Hyperlinks" />
@@ -104,10 +105,11 @@
         <div class="navlinks">
           <div class="navleft">&laquo; <a accesskey="p" href="webissues.prep.setup.html">Initial setup</a></div>
           <div class="navright"><a accesskey="n" href="webissues.prep.inbox.html">Email inbox</a> &raquo;</div>
+          <div class="clear"></div>
         </div>
-        <div id="footer">
-          <p class="copyright">Copyright © 2007-2015 WebIssues Team</p>
-        </div>
+      </div>
+      <div id="footer">
+        <p class="copyright">Copyright © 2007-2015 WebIssues Team</p>
       </div>
     </div>
   </body>

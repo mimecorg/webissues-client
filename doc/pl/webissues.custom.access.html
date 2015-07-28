@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Ustawienia dostępu</title>
+    <link rel="stylesheet" type="text/css" href="common/style.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="home" href="index.html" title="Podręcznik WebIssues" />
+    <link rel="up" href="webissues.custom.html" title="Rozdział 6. Dostosowywanie systemu" />
+    <link rel="prev" href="webissues.custom.locale.html" title="Ustawienia serwera" />
+    <link rel="next" href="webissues.custom.settings.html" title="Ustawienia zaawansowane" />
+  </head>
+  <body>
+    <div id="wrapper">
+      <div id="header">
+        <div id="header-top">
+          <div id="header-left">
+            <h1><img src="common/webissues.png" alt="WebIssues" id="logo" />Podręcznik WebIssues</h1>
+          </div>
+          <div id="header-right">
+            <h2 class="subtitle">Wersja 1.1.4</h2>
+          </div>
+        </div>
+        <div id="infobar">
+          <div id="infobar-left"><a accesskey="h" href="index.html">Spis treści</a> &raquo; <a accesskey="u" href="webissues.custom.html">Dostosowywanie systemu</a></div>
+          <div id="infobar-right"></div>
+        </div>
+      </div>
+      <div id="body">
+        <div class="navlinks">
+          <div class="navleft">&laquo; <a accesskey="p" href="webissues.custom.locale.html">Ustawienia serwera</a></div>
+          <div class="navright"><a accesskey="n" href="webissues.custom.settings.html">Ustawienia zaawansowane</a> &raquo;</div>
+          <div class="clear"></div>
+        </div>
+        <div class="sect1">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h2 class="title" style="clear: both"><a id="webissues.custom.access"></a>Ustawienia dostępu</h2>
+              </div>
+            </div>
+          </div>
+          <p>Aby zmienić ustawienia dostępu, przejdź do Panelu administracyjnego i kliknij <span class="guilabel">Ustawienia dostępu</span>. Opcja ta nie jest dostępna w programie Desktop Client. Zmiany ustawień może dokonać jedynie administrator systemu.</p>
+          <p>Opcja <span class="guilabel">Włącz dostęp anonimowy</span> umożliwia dostęp tylko do odczytu do publicznych projektów bez logowania się do programu Web Client. Pamiętaj, że jeśli włączysz dostęp anonimowy, wszystkie sprawy, komentarze i załączniki w publicznych projektach będą dostępne dla wszystkich. Publiczna zawartość może być również indeksowana przez wyszukiwarki, jeśli serwer jest dostępny w Internecie. Anonimowi użytkownicy mogą używać publicznych widoków, ale nie mogą tworzyć własnych widoków, używać alertów ani subskrybować spraw. Dodatkowo, tylko zarejestrowani i zalogowani użytkownicy mają prawo dodawać nowe sprawy i edytować istniejące. Dlatego dostęp anonimowy jest często używany w połączeniu z rejestracją użytkowników (patrz niżej).</p>
+          <p>Anonimowi użytkownicy nie będą mieli dostępu do żadnych informacji, jeśli w systemie nie istnieje przynajmniej jeden publiczny projekt. Więcej informacji na temat zmiany dostępu do projektu znajdziesz w sekcji <a class="xref" href="webissues.admin.projects.html#webissues.admin.projects.permissions" title="Uprawnienia projektu">„Uprawnienia projektu”</a>. Więcej informacji o anonimowym dostępie do systemu znajdziesz w sekcji <a class="xref" href="webissues.work.login.html" title="Logowanie do systemu">„Logowanie do systemu”</a>.</p>
+          <div class="figure">
+            <a id="id549201"></a>
+            <div class="figure-contents">
+              <div class="mediaobject">
+                <img src="images/ch06-fig18-04.png" alt="Dostęp anonimowy" />
+              </div>
+            </div>
+            <div class="figure-title">Rysunek 6.21. Dostęp anonimowy</div>
+          </div>
+          <p>Opcja <span class="guilabel">Włącz rejestrację użytkowników</span> umożliwia użytkownikom rejestrację nowego konta. Domyślnie, wymagane jest zatwierdzenie przez administratora, zanim nowi użytkownicy mogą się zalogować. Możesz podać adres e-mail, na który będą wysyłane powiadomienia o zgłoszeniach, które oczekują na zatwierdzenie, nie częściej, niż co godzinę. Podczas zatwierdzania administrator może przypisać użytkownika do określonych projektów. Więcej informacji na temat zatwierdzania zgłoszeń rejestracji znajdziesz w sekcji <a class="xref" href="webissues.admin.register.html" title="Zgłoszenia rejestracji">„Zgłoszenia rejestracji”</a>.</p>
+          <p>Jeśli wybierzesz opcję <span class="guilabel">Włącz automatyczne zatwierdzanie</span>, zarejestrowani użytkownicy będą mogli zalogować się do systemu od razu po weryfikacji adresu e-mail, bez zatwierdzania przez administratora. W tym wypadku nowi użytkownicy nie stają się członkami żadnych projektów, więc mają dostęp jedynie do publicznych projektów. Z tego powodu automatyczne zatwierdzanie jest użyteczne tylko w przypadku, gdy w systemie istnieje przynajmniej jeden publiczny projekt. Więcej informacji na temat zmiany dostępu do projektu znajdziesz w sekcji <a class="xref" href="webissues.admin.projects.html#webissues.admin.projects.permissions" title="Uprawnienia projektu">„Uprawnienia projektu”</a>. Więcej informacji o rejestracji użytkowników znajdziesz w sekcji <a class="xref" href="webissues.work.login.html" title="Logowanie do systemu">„Logowanie do systemu”</a>.</p>
+          <div class="figure">
+            <a id="id549240"></a>
+            <div class="figure-contents">
+              <div class="mediaobject">
+                <img src="images/ch06-fig18-02.png" alt="Rejestracja użytkowników" />
+              </div>
+            </div>
+            <div class="figure-title">Rysunek 6.22. Rejestracja użytkowników</div>
+          </div>
+          <div class="note">
+            <h3 class="title">Notatka</h3>
+            <p>Aby rejestracja użytkowników działała, musisz prawidłowo skonfigurować ustawienia e-maili. Wysyłanie powiadomień o nowych zgłoszeniach rejestracji wymaga również działającego zadania cyklicznego. Więcej informacji na ten temat znajdziesz w sekcji <a class="xref" href="webissues.prep.notifications.html" title="Wysyłanie e-maili">„Wysyłanie e-maili”</a>.</p>
+          </div>
+        </div>
+        <div class="navlinks">
+          <div class="navleft">&laquo; <a accesskey="p" href="webissues.custom.locale.html">Ustawienia serwera</a></div>
+          <div class="navright"><a accesskey="n" href="webissues.custom.settings.html">Ustawienia zaawansowane</a> &raquo;</div>
+          <div class="clear"></div>
+        </div>
+      </div>
+      <div id="footer">
+        <p class="copyright">Copyright © 2007-2015 Zespół WebIssues</p>
+      </div>
+    </div>
+  </body>
+</html>
