@@ -808,9 +808,12 @@ void ActionButton::adjustText()
                 text.replace( after, 1, '\n' );
             else
                 text.replace( before, 1, '\n' );
-            setText( text );
+            defaultAction()->setIconText( text );
         }
     }
+
+    // workaround for QTBUG-46914
+    setText( defaultAction()->iconText() );
 
     QKeySequence shortcut = defaultAction()->shortcut();
     if ( !shortcut.isEmpty() ) {
