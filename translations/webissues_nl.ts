@@ -22,7 +22,7 @@
     <message>
         <location filename="../src/dialogs/alertdialogs.cpp" line="274"/>
         <source>Add Public Alert</source>
-        <translation>Openbare Notificatie Toevoegen</translation>
+        <translation>Openbare notificatie toevoegen</translation>
     </message>
     <message>
         <location filename="../src/dialogs/alertdialogs.cpp" line="275"/>
@@ -32,7 +32,7 @@
     <message>
         <location filename="../src/dialogs/alertdialogs.cpp" line="278"/>
         <source>Add Personal Alert</source>
-        <translation>Voeg Persoonlijke Notificatie Toe</translation>
+        <translation>Persoonlijke notificatie toevoegen</translation>
     </message>
     <message>
         <location filename="../src/dialogs/alertdialogs.cpp" line="279"/>
@@ -75,7 +75,7 @@
     <message>
         <location filename="../src/dialogs/issuedialogs.cpp" line="886"/>
         <source>File could not be read.</source>
-        <translation>Bestand kon niet worden gelezen.</translation>
+        <translation>Bestand kan niet worden gelezen.</translation>
     </message>
     <message>
         <location filename="../src/dialogs/issuedialogs.cpp" line="805"/>
@@ -106,7 +106,7 @@
     <message>
         <location filename="../src/dialogs/issuedialogs.cpp" line="668"/>
         <source>Add Comment</source>
-        <translation>Opmerking Toevoegen</translation>
+        <translation>Opmerking toevoegen</translation>
     </message>
     <message>
         <location filename="../src/dialogs/issuedialogs.cpp" line="669"/>
@@ -142,7 +142,7 @@
     <message>
         <location filename="../src/dialogs/projectdialogs.cpp" line="234"/>
         <source>There are no available issue types to use.</source>
-        <translation>Er zijn geen issue soorten beschikbaar om te gebruiken.</translation>
+        <translation>Er zijn geen issue-soorten beschikbaar om te gebruiken.</translation>
     </message>
     <message>
         <location filename="../src/dialogs/projectdialogs.cpp" line="242"/>
@@ -160,7 +160,7 @@
     <message>
         <location filename="../src/dialogs/alertdialogs.cpp" line="317"/>
         <source>Add Public Alert</source>
-        <translation>Openbare Notificatie Toevoegen</translation>
+        <translation>Openbare notificatie toevoegen</translation>
     </message>
     <message>
         <location filename="../src/dialogs/alertdialogs.cpp" line="318"/>
@@ -170,7 +170,7 @@
     <message>
         <location filename="../src/dialogs/alertdialogs.cpp" line="321"/>
         <source>Add Personal Alert</source>
-        <translation>Voeg Persoonlijke Notificatie Toe</translation>
+        <translation>Persoonlijke notificatie toevoegen</translation>
     </message>
     <message>
         <location filename="../src/dialogs/alertdialogs.cpp" line="322"/>
@@ -219,7 +219,7 @@
     <message>
         <location filename="../src/dialogs/userdialogs.cpp" line="351"/>
         <source>Add new members to project &lt;b&gt;%1&lt;/b&gt;:</source>
-        <translation>Voeg nieuwe leden toe aan project &lt;b&gt;%1&lt;/b&gt;:</translation>
+        <translation>Nieuwe leden aan project &lt;b&gt;%1&lt;/b&gt; toevoegen:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/userdialogs.cpp" line="367"/>
@@ -359,7 +359,7 @@
     <message>
         <location filename="../src/dialogs/userdialogs.cpp" line="44"/>
         <source>&amp;Login:</source>
-        <translation>In&amp;loggen:</translation>
+        <translation>&amp;Inloggen:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/userdialogs.cpp" line="54"/>
@@ -533,7 +533,7 @@
     <message>
         <location filename="../src/dialogs/alertdialogs.cpp" line="252"/>
         <source>No hours selected</source>
-        <translation>Geen uren gelselecteerd</translation>
+        <translation>Geen uren geselecteerd</translation>
     </message>
 </context>
 <context>
@@ -607,123 +607,123 @@
 <context>
     <name>Application</name>
     <message>
-        <location filename="../src/application.cpp" line="163"/>
+        <location filename="../src/application.cpp" line="168"/>
         <source>Desktop Client for the WebIssues team collaboration system.</source>
         <translation>Desktop Client voor het WebIssues team collaboration systeem.</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="162"/>
+        <location filename="../src/application.cpp" line="167"/>
         <source>WebIssues Desktop Client %1</source>
         <translation>WebIssues Desktop Client %1</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="164"/>
+        <location filename="../src/application.cpp" line="169"/>
         <source>This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.</source>
         <translation>Dit programma is vrije software: je kunt het herdistribueren en / of wijzigen onder de voorwaarden van de GNU Affero General Public License zoals gepubliceerd door de Free Software Foundation, versie 3 van de Licentie, of (naar keuze) een latere versie.</translation>
     </message>
-    <message>
-        <location filename="../src/application.cpp" line="168"/>
+    <message utf8="true">
+        <location filename="../src/application.cpp" line="173"/>
         <source>Copyright &amp;copy; 2006 Michał Męciński</source>
         <translation>Copyright &amp;copy; 2006 Michał Męciński</translation>
     </message>
     <message>
         <location filename="../src/application.cpp" line="173"/>
-        <source>Help</source>
-        <translation>Help</translation>
-    </message>
-    <message>
-        <location filename="../src/application.cpp" line="174"/>
-        <source>Open the WebIssues Manual for help.</source>
-        <translation>Open het WebIssues handboek voor hulp.</translation>
-    </message>
-    <message>
-        <location filename="../src/application.cpp" line="178"/>
-        <source>Visit %1 for more information about WebIssues.</source>
-        <translation>Bezoek %1 voor meer informatie over WebIssues.</translation>
-    </message>
-    <message>
-        <location filename="../src/application.cpp" line="181"/>
-        <source>Donations</source>
-        <translation>Donaties</translation>
-    </message>
-    <message>
-        <location filename="../src/application.cpp" line="182"/>
-        <source>If you like this program, your donation will help us dedicate more time for it, support it and implement new features.</source>
-        <translation>Als dit programma je bevalt, dan zal je donatie ons helpen er meer tijd aan te besteden, het te ondersteunen en nieuwe functies te  implementeren.</translation>
-    </message>
-    <message>
-        <location filename="../src/application.cpp" line="185"/>
-        <location filename="../src/application.cpp" line="227"/>
-        <source>Latest Version</source>
-        <translation>Laatste versie</translation>
-    </message>
-    <message>
-        <location filename="../src/application.cpp" line="186"/>
-        <source>Automatic checking for latest version is disabled. You can enable it in program settings.</source>
-        <translation>Automaistch controleren op de laatste versie is uitgeschakeld. Je kan het activeren in de programma instellingen.</translation>
-    </message>
-    <message>
-        <location filename="../src/application.cpp" line="192"/>
-        <source>&amp;Manual</source>
-        <translation>&amp;Handboek</translation>
-    </message>
-    <message>
-        <location filename="../src/application.cpp" line="199"/>
-        <source>&amp;Donate</source>
-        <translation>&amp;Doneer</translation>
-    </message>
-    <message>
-        <location filename="../src/application.cpp" line="209"/>
-        <source>&amp;Check Now</source>
-        <translation>Nu &amp;Controleren</translation>
-    </message>
-    <message>
-        <location filename="../src/application.cpp" line="232"/>
-        <source>Checking for latest version...</source>
-        <translation>Controleren op recente versie...</translation>
-    </message>
-    <message>
-        <location filename="../src/application.cpp" line="238"/>
-        <source>Checking for latest version failed.</source>
-        <translation>Controleren op recente versie mislukt.</translation>
-    </message>
-    <message>
-        <location filename="../src/application.cpp" line="240"/>
-        <source>&amp;Retry</source>
-        <translation>&amp;Nogmaals</translation>
-    </message>
-    <message>
-        <location filename="../src/application.cpp" line="247"/>
-        <source>Your version of WebIssues is up to date.</source>
-        <translation>Jouw versie van WebIssues is up-to-date.</translation>
-    </message>
-    <message>
-        <location filename="../src/application.cpp" line="253"/>
-        <source>The latest version of WebIssues is %1.</source>
-        <translation>De meest recente versie van WebIssues is %1.</translation>
-    </message>
-    <message>
-        <location filename="../src/application.cpp" line="255"/>
-        <source>&amp;Release Notes</source>
-        <translation>&amp;Release notes</translation>
-    </message>
-    <message>
-        <location filename="../src/application.cpp" line="258"/>
-        <source>Do&amp;wnload</source>
-        <translation>Do&amp;wnload</translation>
-    </message>
-    <message>
-        <location filename="../src/application.cpp" line="177"/>
-        <source>Website</source>
-        <translation>Website</translation>
-    </message>
-    <message>
-        <location filename="../src/application.cpp" line="168"/>
         <source>Copyright &amp;copy; 2007-2015 WebIssues Team</source>
         <translation>Copyright &amp;copy; 2007-2015 WebIssues Team</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="188"/>
+        <location filename="../src/application.cpp" line="178"/>
+        <source>Help</source>
+        <translation>Help</translation>
+    </message>
+    <message>
+        <location filename="../src/application.cpp" line="179"/>
+        <source>Open the WebIssues Manual for help.</source>
+        <translation>Open het WebIssues handboek voor hulp.</translation>
+    </message>
+    <message>
+        <location filename="../src/application.cpp" line="183"/>
+        <source>Visit %1 for more information about WebIssues.</source>
+        <translation>Bezoek %1 voor meer informatie over WebIssues.</translation>
+    </message>
+    <message>
+        <location filename="../src/application.cpp" line="186"/>
+        <source>Donations</source>
+        <translation>Donaties</translation>
+    </message>
+    <message>
+        <location filename="../src/application.cpp" line="187"/>
+        <source>If you like this program, your donation will help us dedicate more time for it, support it and implement new features.</source>
+        <translation>Als dit programma je bevalt, dan zal je donatie ons helpen er meer tijd aan te besteden, het te ondersteunen en nieuwe functies te  implementeren.</translation>
+    </message>
+    <message>
+        <location filename="../src/application.cpp" line="190"/>
+        <location filename="../src/application.cpp" line="232"/>
+        <source>Latest Version</source>
+        <translation>Laatste versie</translation>
+    </message>
+    <message>
+        <location filename="../src/application.cpp" line="191"/>
+        <source>Automatic checking for latest version is disabled. You can enable it in program settings.</source>
+        <translation>Automaistch controleren op de laatste versie is uitgeschakeld. Je kan het activeren in de programma instellingen.</translation>
+    </message>
+    <message>
+        <location filename="../src/application.cpp" line="197"/>
+        <source>&amp;Manual</source>
+        <translation>&amp;Handboek</translation>
+    </message>
+    <message>
+        <location filename="../src/application.cpp" line="204"/>
+        <source>&amp;Donate</source>
+        <translation>&amp;Doneer</translation>
+    </message>
+    <message>
+        <location filename="../src/application.cpp" line="214"/>
+        <source>&amp;Check Now</source>
+        <translation>&amp;Nu controleren</translation>
+    </message>
+    <message>
+        <location filename="../src/application.cpp" line="237"/>
+        <source>Checking for latest version...</source>
+        <translation>Controleren op recente versie...</translation>
+    </message>
+    <message>
+        <location filename="../src/application.cpp" line="243"/>
+        <source>Checking for latest version failed.</source>
+        <translation>Controleren op recente versie mislukt.</translation>
+    </message>
+    <message>
+        <location filename="../src/application.cpp" line="245"/>
+        <source>&amp;Retry</source>
+        <translation>&amp;Nogmaals</translation>
+    </message>
+    <message>
+        <location filename="../src/application.cpp" line="252"/>
+        <source>Your version of WebIssues is up to date.</source>
+        <translation>Jouw versie van WebIssues is up-to-date.</translation>
+    </message>
+    <message>
+        <location filename="../src/application.cpp" line="258"/>
+        <source>The latest version of WebIssues is %1.</source>
+        <translation>De meest recente versie van WebIssues is %1.</translation>
+    </message>
+    <message>
+        <location filename="../src/application.cpp" line="260"/>
+        <source>&amp;Release Notes</source>
+        <translation>&amp;Release notes</translation>
+    </message>
+    <message>
+        <location filename="../src/application.cpp" line="263"/>
+        <source>Do&amp;wnload</source>
+        <translation>Do&amp;wnload</translation>
+    </message>
+    <message>
+        <location filename="../src/application.cpp" line="182"/>
+        <source>Website</source>
+        <translation>Website</translation>
+    </message>
+    <message>
+        <location filename="../src/application.cpp" line="193"/>
         <source>About WebIssues</source>
         <translation>Over WebIssues</translation>
     </message>
@@ -733,7 +733,7 @@
     <message>
         <location filename="../src/dialogs/projectdialogs.cpp" line="159"/>
         <source>Archive Project</source>
-        <translation>Archiveer Project</translation>
+        <translation>Project archiveren</translation>
     </message>
     <message>
         <location filename="../src/dialogs/projectdialogs.cpp" line="160"/>
@@ -923,12 +923,12 @@
     <message>
         <location filename="../src/dialogs/userdialogs.cpp" line="480"/>
         <source>Change access to project &lt;b&gt;%1&lt;/b&gt; for user &lt;b&gt;%2&lt;/b&gt;:</source>
-        <translation>Wijzig toegang tot project &lt;b&gt;%1&lt;/b&gt; voor gebruiker &lt;b&gt;%2&lt;/b&gt;:</translation>
+        <translation>Toegang tot project &lt;b&gt;%1&lt;/b&gt; voor gebruiker &lt;b&gt;%2&lt;/b&gt; wijzigen:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/userdialogs.cpp" line="482"/>
         <source>Change access to project &lt;b&gt;%1&lt;/b&gt; for %2 selected users:</source>
-        <translation>Wijzig toegang tot project &lt;b&gt;%1&lt;/b&gt; voor %2 geselecteerde gebruikers:</translation>
+        <translation>Toegang tot project &lt;b&gt;%1&lt;/b&gt; voor %2 geselecteerde gebruikers wijzigen:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/userdialogs.cpp" line="487"/>
@@ -951,12 +951,12 @@
     <message>
         <location filename="../src/dialogs/projectdialogs.cpp" line="585"/>
         <source>Global Access</source>
-        <translation>Algemene Toegang</translation>
+        <translation>Algemene toegang</translation>
     </message>
     <message>
         <location filename="../src/dialogs/projectdialogs.cpp" line="586"/>
         <source>Change global access for project &lt;b&gt;%1&lt;/b&gt;:</source>
-        <translation>Wijzig algemene toegang voor project  &lt;b&gt;%1&lt;/b&gt;:</translation>
+        <translation>Algemene toegang voor project  &lt;b&gt;%1&lt;/b&gt; wijzigen:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/projectdialogs.cpp" line="591"/>
@@ -979,12 +979,12 @@
     <message>
         <location filename="../src/dialogs/userdialogs.cpp" line="234"/>
         <source>Global Access</source>
-        <translation>Algemene Toegang</translation>
+        <translation>Algemene toegang</translation>
     </message>
     <message>
         <location filename="../src/dialogs/userdialogs.cpp" line="235"/>
         <source>Change global access for user &lt;b&gt;%1&lt;/b&gt;:</source>
-        <translation>Wijzig algemene toegang voor gebruiker  &lt;b&gt;%1&lt;/b&gt;:</translation>
+        <translation>Algemene toegang voor gebruiker  &lt;b&gt;%1&lt;/b&gt; wijzigen:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/userdialogs.cpp" line="240"/>
@@ -1017,12 +1017,12 @@
     <message>
         <location filename="../src/dialogs/userdialogs.cpp" line="716"/>
         <source>Change access to project &lt;b&gt;%1&lt;/b&gt; for user &lt;b&gt;%2&lt;/b&gt;:</source>
-        <translation>Wijzing toegang tot project &lt;b&gt;%1&lt;/b&gt; voor gebruiker &lt;b&gt;%2&lt;/b&gt;:</translation>
+        <translation>Toegang tot project &lt;b&gt;%1&lt;/b&gt; voor gebruiker &lt;b&gt;%2&lt;/b&gt; wijzigen:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/userdialogs.cpp" line="718"/>
         <source>Change access to %1 selected projects for user &lt;b&gt;%2&lt;/b&gt;:</source>
-        <translation>Wijzigen toegang tot %1 geselecteerde projecten voor gebruiker &lt;b&gt;%2&lt;/b&gt;:</translation>
+        <translation>Toegang tot %1 geselecteerde projecten voor gebruiker &lt;b&gt;%2&lt;/b&gt; wijzigen:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/userdialogs.cpp" line="723"/>
@@ -1058,7 +1058,7 @@
     <message>
         <location filename="../src/dialogs/issuedialogs.cpp" line="416"/>
         <source>Clone issue &lt;b&gt;%1&lt;/b&gt; as a new issue in the selected folder:</source>
-        <translation>Kopieer issue &lt;b&gt;%1&lt;/b&gt; als nieuw issue in geselecteerde map:</translation>
+        <translation>Issue &lt;b&gt;%1&lt;/b&gt; als nieuw issue in geselecteerde map kopiëren:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/issuedialogs.cpp" line="449"/>
@@ -1071,17 +1071,17 @@
     <message>
         <location filename="../src/dialogs/viewdialogs.cpp" line="752"/>
         <source>Clone View</source>
-        <translation>Kopieer view</translation>
+        <translation>View kopiëren</translation>
     </message>
     <message>
         <location filename="../src/dialogs/viewdialogs.cpp" line="754"/>
         <source>Clone view &lt;b&gt;%1&lt;/b&gt; as a new public view:</source>
-        <translation>Kopi&amp;euml;eer view &lt;b&gt;%1&lt;/b&gt; als een nieuwe openbare view:</translation>
+        <translation>View &lt;b&gt;%1&lt;/b&gt; als een nieuwe openbare view kopiëren:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/viewdialogs.cpp" line="756"/>
         <source>Clone view &lt;b&gt;%1&lt;/b&gt; as a new personal  view:</source>
-        <translation>Kopi&amp;euml;eer view &lt;b&gt;%1&lt;/b&gt; als een nieuwe persoonlijke view:</translation>
+        <translation>View &lt;b&gt;%1&lt;/b&gt; als een nieuwe persoonlijke view kopiëren:</translation>
     </message>
 </context>
 <context>
@@ -1093,7 +1093,7 @@
     </message>
     <message>
         <location filename="../src/dialogs/commanddialog.cpp" line="91"/>
-        <location filename="../src/dialogs/commanddialog.cpp" line="358"/>
+        <location filename="../src/dialogs/commanddialog.cpp" line="360"/>
         <source>&amp;Cancel</source>
         <translation>&amp;Afbreken</translation>
     </message>
@@ -1108,41 +1108,41 @@
         <translation>Graag bevestigen.</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/commanddialog.cpp" line="233"/>
+        <location filename="../src/dialogs/commanddialog.cpp" line="235"/>
         <source>Some of the values you entered are incorrect.</source>
         <translation>Een aantal waarden die je hebt ingevuld kloppen niet.</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/commanddialog.cpp" line="323"/>
+        <location filename="../src/dialogs/commanddialog.cpp" line="325"/>
         <source>Warning</source>
         <translation>Waarschuwing</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/commanddialog.cpp" line="323"/>
+        <location filename="../src/dialogs/commanddialog.cpp" line="325"/>
         <source>The changes have not been submitted and will be lost.
 Are you sure you want to continue?</source>
-        <translation>De wijzigen werden niet doorgevoerd en gaan verloren.
-Ben je zeker dat je wil verdergaan?</translation>
+        <translation>De wijzigen zijn niet doorgevoerd en zullen verloren gaan.
+Weet u zeker dat u verder wilt gaan?</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/commanddialog.cpp" line="341"/>
+        <location filename="../src/dialogs/commanddialog.cpp" line="343"/>
         <source>Command failed: %1.</source>
         <translation>Commando mislukt: %1.</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/commanddialog.cpp" line="270"/>
+        <location filename="../src/dialogs/commanddialog.cpp" line="272"/>
         <source>&amp;Abort</source>
-        <translation>Af&amp;breken</translation>
+        <translation>&amp;Afbreken</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/commanddialog.cpp" line="273"/>
+        <location filename="../src/dialogs/commanddialog.cpp" line="275"/>
         <source>Executing command...</source>
         <translation>Commando uitvoeren...</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/commanddialog.cpp" line="204"/>
+        <location filename="../src/dialogs/commanddialog.cpp" line="206"/>
         <source>&amp;Close</source>
-        <translation>Af&amp;sluiten</translation>
+        <translation>&amp;Afsluiten</translation>
     </message>
 </context>
 <context>
@@ -1285,7 +1285,7 @@ Ben je zeker dat je wil verdergaan?</translation>
     <message>
         <location filename="../src/dialogs/connectioninfodialog.cpp" line="36"/>
         <source>Connection Details</source>
-        <translation>Details verbinding</translation>
+        <translation>Verbindingdetails</translation>
     </message>
     <message>
         <location filename="../src/dialogs/connectioninfodialog.cpp" line="38"/>
@@ -1474,7 +1474,7 @@ Ben je zeker dat je wil verdergaan?</translation>
     <message>
         <location filename="../src/dialogs/issuedialogs.cpp" line="1166"/>
         <source>Delete Description</source>
-        <translation>Verwijder omschrijving</translation>
+        <translation>Omschrijving verwijderen</translation>
     </message>
     <message>
         <location filename="../src/dialogs/issuedialogs.cpp" line="1167"/>
@@ -1524,7 +1524,7 @@ Ben je zeker dat je wil verdergaan?</translation>
     <message>
         <location filename="../src/dialogs/projectdialogs.cpp" line="560"/>
         <source>Delete Description</source>
-        <translation>Verwijder omschrijving</translation>
+        <translation>Omschrijving verwijderen</translation>
     </message>
     <message>
         <location filename="../src/dialogs/projectdialogs.cpp" line="561"/>
@@ -2210,22 +2210,22 @@ Ben je zeker dat je wil verdergaan?</translation>
     <message>
         <location filename="../src/dialogs/statedialogs.cpp" line="96"/>
         <source>Mark All As Read</source>
-        <translation>Alles markeren als gelezen</translation>
+        <translation>Alles als gelezen markeren</translation>
     </message>
     <message>
         <location filename="../src/dialogs/statedialogs.cpp" line="97"/>
         <source>Are you sure you want to mark all issues of type &lt;b&gt;%1&lt;/b&gt; as read?</source>
-        <translation>Weet je zeker dat je alle issues van het type &lt;b&gt;%1&lt;/b&gt; wil markeren als gelezen?</translation>
+        <translation>Weet u zeker dat u alle issues van het type &lt;b&gt;%1&lt;/b&gt; als gelezen wilt markeren?</translation>
     </message>
     <message>
         <location filename="../src/dialogs/statedialogs.cpp" line="100"/>
         <source>Mark All As Unread</source>
-        <translation>Alles markeren als ongelezen</translation>
+        <translation>Alles als ongelezen markeren</translation>
     </message>
     <message>
         <location filename="../src/dialogs/statedialogs.cpp" line="101"/>
         <source>Are you sure you want to mark all issues of type &lt;b&gt;%1&lt;/b&gt; as unread?</source>
-        <translation>Weet je zeker dat je alle issues van het type &lt;b&gt;%1&lt;/b&gt; wil markeren als ongelezen?</translation>
+        <translation>Weet u zeker dat u alle issues van het type &lt;b&gt;%1&lt;/b&gt; als ongelezen wilt markeren?</translation>
     </message>
 </context>
 <context>
@@ -2264,7 +2264,7 @@ Ben je zeker dat je wil verdergaan?</translation>
     <message>
         <location filename="../src/dialogs/viewdialogs.cpp" line="1128"/>
         <source>Select initial view for type &lt;b&gt;%1&lt;/b&gt;:</source>
-        <translation>Selecteer de initiele view voor type &lt;b&gt;%1&lt;/b&gt;:</translation>
+        <translation>De initiële view voor type &lt;b&gt;%1&lt;/b&gt; selecteren:</translation>
     </message>
     <message>
         <location filename="../src/dialogs/viewdialogs.cpp" line="1133"/>
@@ -2320,144 +2320,145 @@ Ben je zeker dat je wil verdergaan?</translation>
 <context>
     <name>IssueDetailsGenerator</name>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="101"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="108"/>
         <source>Issue History</source>
         <translation>Issue historie</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="115"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="122"/>
         <source>ID:</source>
         <translation>ID:</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="120"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="127"/>
         <source>Type:</source>
         <translation>Soort:</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="144"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="275"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="151"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="292"/>
         <source>:</source>
         <translation>:</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="427"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="432"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="430"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="435"/>
         <source>Comment #%1</source>
         <translation>Opmerking #%1</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="429"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="434"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="432"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="437"/>
         <source>Attachment #%1</source>
         <translation>Bijlage #%1</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="238"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="255"/>
         <source>There are no comments.</source>
         <translation>Er zijn geen opmerkingen.</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="89"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="93"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="95"/>
         <source>Description</source>
         <translation>Omschrijving</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="122"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="129"/>
         <source>Location:</source>
         <translation>Locatie:</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="127"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="134"/>
         <source>Created:</source>
         <translation>Aangemaakt:</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="129"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="136"/>
         <source>Last Modified:</source>
         <translation>Laatst aangepast:</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="240"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="257"/>
         <source>There are no attachments.</source>
         <translation>Er zijn geen bijlagen.</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="242"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="259"/>
         <source>There are no comments or attachments.</source>
         <translation>Er zijn geen opmerkingen of bijlagen.</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="304"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="321"/>
         <source>Issue moved from</source>
         <translation>Issue verplaatst van </translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="316"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="333"/>
         <source>to</source>
         <translation>naar</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="378"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="395"/>
         <source>Comments &amp; Attachments</source>
         <translation>Opmerkingen en bijlagen</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="396"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="419"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="472"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="487"/>
         <source>Last Edited:</source>
         <translation>Laatst bewerkt:</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="401"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="441"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="412"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="444"/>
         <source>Reply</source>
         <translation>Antwoorden</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="404"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="447"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="449"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="415"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="450"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="452"/>
         <source>Edit</source>
         <translation>Bewerk</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="406"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="453"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="455"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="417"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="456"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="458"/>
         <source>Delete</source>
         <translation>Verwijder</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="258"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="265"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="275"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="282"/>
         <source>Name:</source>
         <translation>Naam:</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="284"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="294"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="301"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="311"/>
         <source>empty</source>
         <translation>leeg</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="308"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="320"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="325"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="337"/>
         <source>Unknown Folder</source>
         <translation>Onbekende folder</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="369"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="386"/>
         <source>All History</source>
         <translation>Alle historie</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="372"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="389"/>
         <source>Only Comments</source>
         <translation>Alleen opmerkingen</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="375"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="392"/>
         <source>Only Attachments</source>
         <translation>Alleen bijlagen</translation>
     </message>
@@ -2515,12 +2516,12 @@ Ben je zeker dat je wil verdergaan?</translation>
     <message>
         <location filename="../src/dialogs/statedialogs.cpp" line="37"/>
         <source>Mark As Read</source>
-        <translation>Markeren als gelezen</translation>
+        <translation>Als gelezen markeren</translation>
     </message>
     <message>
         <location filename="../src/dialogs/statedialogs.cpp" line="39"/>
         <source>Mark As Unread</source>
-        <translation>Markeren als ongelezen</translation>
+        <translation>Als ongelezen markeren</translation>
     </message>
     <message>
         <location filename="../src/dialogs/statedialogs.cpp" line="40"/>
@@ -2533,7 +2534,7 @@ Ben je zeker dat je wil verdergaan?</translation>
     <message>
         <location filename="../src/views/issueview.cpp" line="73"/>
         <source>&amp;Update Issue</source>
-        <translation>&amp;Update issue</translation>
+        <translation>&amp;Issue bijwerken</translation>
     </message>
     <message>
         <location filename="../src/views/issueview.cpp" line="78"/>
@@ -2543,7 +2544,7 @@ Ben je zeker dat je wil verdergaan?</translation>
     <message>
         <location filename="../src/views/issueview.cpp" line="83"/>
         <source>Add &amp;Attachment...</source>
-        <translation>Bijlage &amp;toevoegen...</translation>
+        <translation>&amp;Bijlage toevoegen...</translation>
     </message>
     <message>
         <location filename="../src/views/issueview.cpp" line="92"/>
@@ -2553,22 +2554,22 @@ Ben je zeker dat je wil verdergaan?</translation>
     <message>
         <location filename="../src/views/issueview.cpp" line="100"/>
         <source>&amp;Move Issue...</source>
-        <translation>&amp;Verplaats issue...</translation>
+        <translation>Issue &amp;verplaatsen...</translation>
     </message>
     <message>
         <location filename="../src/views/issueview.cpp" line="101"/>
         <source>Move</source>
-        <translation>Verplaats</translation>
+        <translation>Verplaatsen</translation>
     </message>
     <message>
         <location filename="../src/views/issueview.cpp" line="105"/>
         <source>&amp;Delete Issue</source>
-        <translation>&amp;Verwijder issue</translation>
+        <translation>Issue &amp;verwijderen</translation>
     </message>
     <message>
         <location filename="../src/views/issueview.cpp" line="106"/>
         <source>Delete</source>
-        <translation>Verwijder</translation>
+        <translation>Verwijderen</translation>
     </message>
     <message>
         <location filename="../src/views/issueview.cpp" line="110"/>
@@ -2578,12 +2579,12 @@ Ben je zeker dat je wil verdergaan?</translation>
     <message>
         <location filename="../src/views/issueview.cpp" line="115"/>
         <source>Find &amp;Next</source>
-        <translation>Zoek &amp;volgende</translation>
+        <translation>&amp;Volgende zoeken</translation>
     </message>
     <message>
         <location filename="../src/views/issueview.cpp" line="120"/>
         <source>Find &amp;Previous</source>
-        <translation>Zoek &amp;vorige</translation>
+        <translation>&amp;Vorige zoeken</translation>
     </message>
     <message>
         <location filename="../src/views/issueview.cpp" line="153"/>
@@ -2593,7 +2594,7 @@ Ben je zeker dat je wil verdergaan?</translation>
     <message>
         <location filename="../src/views/issueview.cpp" line="158"/>
         <source>Select &amp;All</source>
-        <translation>Alles &amp;selecteren</translation>
+        <translation>&amp;Alles selecteren</translation>
     </message>
     <message>
         <location filename="../src/views/issueview.cpp" line="481"/>
@@ -2685,7 +2686,7 @@ on this server which is %1.</source>
         <location filename="../src/views/issueview.cpp" line="181"/>
         <location filename="../src/views/issueview.cpp" line="394"/>
         <source>Mark As Read</source>
-        <translation>Markeren als gelezen</translation>
+        <translation>Als gelezen markeren</translation>
     </message>
     <message>
         <location filename="../src/views/issueview.cpp" line="185"/>
@@ -2721,7 +2722,7 @@ on this server which is %1.</source>
     <message>
         <location filename="../src/views/issueview.cpp" line="394"/>
         <source>Mark As Unread</source>
-        <translation>Markeren als ongelezen</translation>
+        <translation>Als ongelezen markeren</translation>
     </message>
     <message>
         <location filename="../src/views/issueview.cpp" line="397"/>
@@ -2766,17 +2767,17 @@ on this server which is %1.</source>
     <message>
         <location filename="../src/views/issueview.cpp" line="926"/>
         <source>Do you want to save or open attachment &lt;b&gt;%1&lt;/b&gt;?</source>
-        <translation>Wil je de bijlage &lt;b&gt;%1&lt;/b&gt;  openen of opslaan?</translation>
+        <translation>Wilt u de bijlage &lt;b&gt;%1&lt;/b&gt; openen of opslaan?</translation>
     </message>
     <message>
         <location filename="../src/views/issueview.cpp" line="928"/>
         <source>Do this automatically for all attachments</source>
-        <translation>Doe dit automatisch voor alle bijlagen</translation>
+        <translation>Dit automatisch voor alle bijlagen doen</translation>
     </message>
     <message>
         <location filename="../src/views/issueview.cpp" line="931"/>
         <source>&amp;Save As...</source>
-        <translation>Op&amp;slaan als...</translation>
+        <translation>&amp;Opslaan als...</translation>
     </message>
     <message>
         <location filename="../src/views/issueview.cpp" line="933"/>
@@ -2797,12 +2798,12 @@ on this server which is %1.</source>
     <message>
         <location filename="../src/views/issueview.cpp" line="990"/>
         <source>File could not be overwritten.</source>
-        <translation>Bestand kon worden overschreven.</translation>
+        <translation>Bestand kan overschreven worden.</translation>
     </message>
     <message>
         <location filename="../src/views/issueview.cpp" line="996"/>
         <source>File could not be saved.</source>
-        <translation>Bestand kon niet worden opgeslagen.</translation>
+        <translation>Bestand kan niet opgeslagen worden.</translation>
     </message>
 </context>
 <context>
@@ -2810,7 +2811,7 @@ on this server which is %1.</source>
     <message>
         <location filename="../src/views/listview.cpp" line="63"/>
         <source>&amp;Update Folder</source>
-        <translation>Map &amp;updaten</translation>
+        <translation>Map &amp;bijwerken</translation>
     </message>
     <message>
         <location filename="../src/views/listview.cpp" line="68"/>
@@ -2840,45 +2841,45 @@ on this server which is %1.</source>
     <message>
         <location filename="../src/views/listview.cpp" line="87"/>
         <source>&amp;Move Issue...</source>
-        <translation>&amp;Verplaats issue...</translation>
+        <translation>Issue &amp;verplaatsen...</translation>
     </message>
     <message>
         <location filename="../src/views/listview.cpp" line="88"/>
         <source>Move</source>
-        <translation>Verplaats</translation>
+        <translation>Verplaatsen</translation>
     </message>
     <message>
         <location filename="../src/views/listview.cpp" line="92"/>
         <source>&amp;Delete Issue</source>
-        <translation>&amp;Verwijder issue</translation>
+        <translation>&amp;Issue verwijderen</translation>
     </message>
     <message>
         <location filename="../src/views/listview.cpp" line="93"/>
         <source>Delete</source>
-        <translation>Verwijder</translation>
+        <translation>Verwijderen</translation>
     </message>
     <message>
         <location filename="../src/views/listview.cpp" line="98"/>
         <location filename="../src/views/listview.cpp" line="341"/>
         <source>Mark As Read</source>
-        <translation>Markeren als gelezen</translation>
+        <translation>Als gelezen markeren</translation>
     </message>
     <message>
         <location filename="../src/views/listview.cpp" line="102"/>
         <location filename="../src/views/listview.cpp" line="106"/>
         <source>Mark All As Read</source>
-        <translation>Alles markeren als gelezen</translation>
+        <translation>Alles als gelezen markeren</translation>
     </message>
     <message>
         <location filename="../src/views/listview.cpp" line="103"/>
         <source>Mark All As Read</source>
         <comment>icon text</comment>
-        <translation>Alles markeren als gelezen</translation>
+        <translation>Alles als gelezen markeren</translation>
     </message>
     <message>
         <location filename="../src/views/listview.cpp" line="110"/>
         <source>Mark All As Unread</source>
-        <translation>Alles markeren als ongelezen</translation>
+        <translation>Alles als ongelezen markeren</translation>
     </message>
     <message>
         <location filename="../src/views/listview.cpp" line="114"/>
@@ -2984,7 +2985,7 @@ on this server which is %1.</source>
     <message>
         <location filename="../src/views/listview.cpp" line="341"/>
         <source>Mark As Unread</source>
-        <translation>Markeren als ongelezen</translation>
+        <translation>Als ongelezen markeren</translation>
     </message>
     <message>
         <location filename="../src/views/listview.cpp" line="349"/>
@@ -3140,7 +3141,7 @@ on this server which is %1.</source>
     <message>
         <location filename="../src/mainwindow.cpp" line="102"/>
         <source>Connection Details</source>
-        <translation>Details verbinding</translation>
+        <translation>Verbindingdetails</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="103"/>
@@ -3676,7 +3677,7 @@ De Desktop Client zal altijd de taal en tijdzone instellingen gebruiken zoals op
     <message>
         <location filename="../src/dialogs/preferencesdialog.cpp" line="78"/>
         <source>Regional</source>
-        <translation>Regionale</translation>
+        <translation>Regionaal</translation>
     </message>
     <message>
         <location filename="../src/dialogs/preferencesdialog.cpp" line="155"/>
@@ -3859,22 +3860,22 @@ De Desktop Client zal altijd de taal en tijdzone instellingen gebruiken zoals op
 <context>
     <name>ProjectSummaryGenerator</name>
     <message>
-        <location filename="../src/models/projectsummarygenerator.cpp" line="59"/>
+        <location filename="../src/models/projectsummarygenerator.cpp" line="61"/>
         <source>Description</source>
         <translation>Omschrijving:</translation>
     </message>
     <message>
-        <location filename="../src/models/projectsummarygenerator.cpp" line="70"/>
+        <location filename="../src/models/projectsummarygenerator.cpp" line="85"/>
         <source>Last Edited:</source>
         <translation>Laatst bewerkt:</translation>
     </message>
     <message>
-        <location filename="../src/models/projectsummarygenerator.cpp" line="75"/>
+        <location filename="../src/models/projectsummarygenerator.cpp" line="72"/>
         <source>Edit</source>
         <translation>Bewerk</translation>
     </message>
     <message>
-        <location filename="../src/models/projectsummarygenerator.cpp" line="77"/>
+        <location filename="../src/models/projectsummarygenerator.cpp" line="74"/>
         <source>Delete</source>
         <translation>Verwijder</translation>
     </message>
@@ -4335,27 +4336,27 @@ De Desktop Client zal altijd de taal en tijdzone instellingen gebruiken zoals op
 <context>
     <name>SQLiteDriver</name>
     <message>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="554"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="622"/>
         <source>Error opening database</source>
         <translation>Fout bij het openen van de database</translation>
     </message>
     <message>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="565"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="637"/>
         <source>Error closing database</source>
         <translation>Fout bij het sluiten van de database</translation>
     </message>
     <message>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="585"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="657"/>
         <source>Unable to begin transaction</source>
         <translation>Niet in staat transactie te starten</translation>
     </message>
     <message>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="600"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="672"/>
         <source>Unable to commit transaction</source>
         <translation>Niet in staat transactie te committen</translation>
     </message>
     <message>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="615"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="687"/>
         <source>Unable to rollback transaction</source>
         <translation>Niet in staat transactie terug te draaien</translation>
     </message>
@@ -4363,39 +4364,39 @@ De Desktop Client zal altijd de taal en tijdzone instellingen gebruiken zoals op
 <context>
     <name>SQLiteResult</name>
     <message>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="209"/>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="276"/>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="284"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="257"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="320"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="328"/>
         <source>Unable to fetch row</source>
         <translation>Niet in staat om regel op te halen</translation>
     </message>
     <message>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="210"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="258"/>
         <source>No query</source>
         <translation>Geen query</translation>
     </message>
     <message>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="348"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="389"/>
         <source>Unable to execute statement</source>
         <translation>Niet in staat comando uit te voeren</translation>
     </message>
     <message>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="353"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="394"/>
         <source>Unable to execute multiple statements at a time</source>
         <translation>Niet in staat om meerdere statements tegelijk uit te voeren</translation>
     </message>
     <message>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="373"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="414"/>
         <source>Unable to reset statement</source>
         <translation>Niet in staat statement te resetten</translation>
     </message>
     <message>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="418"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="474"/>
         <source>Unable to bind parameters</source>
         <translation>Niet in staat parameters te binden</translation>
     </message>
     <message>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="425"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="481"/>
         <source>Parameter count mismatch</source>
         <translation>Parameter telling komt niet overeen</translation>
     </message>

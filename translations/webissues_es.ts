@@ -607,123 +607,123 @@
 <context>
     <name>Application</name>
     <message>
-        <location filename="../src/application.cpp" line="163"/>
+        <location filename="../src/application.cpp" line="168"/>
         <source>Desktop Client for the WebIssues team collaboration system.</source>
         <translation>Desktop Client para el sistema WebIssues team collaboration.</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="162"/>
+        <location filename="../src/application.cpp" line="167"/>
         <source>WebIssues Desktop Client %1</source>
         <translation>WebIssues Desktop Programm %1</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="164"/>
+        <location filename="../src/application.cpp" line="169"/>
         <source>This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.</source>
         <translation>Este programa es Opensource: Ud puede redistribuirlo y/o modificarlo bajor los terminos de la Licencia Pública General GNU como ha sido publicado por la Free Software Foundation, en la versión 3 de la Licencia o (en su opinión) cualquier versión posterior.</translation>
     </message>
-    <message>
-        <location filename="../src/application.cpp" line="168"/>
+    <message utf8="true">
+        <location filename="../src/application.cpp" line="173"/>
         <source>Copyright &amp;copy; 2006 Michał Męciński</source>
         <translation>Copyright &amp;copy; 2006 Michał Męciński</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="173"/>
+        <location filename="../src/application.cpp" line="178"/>
         <source>Help</source>
         <translation>Ayuda</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="174"/>
+        <location filename="../src/application.cpp" line="179"/>
         <source>Open the WebIssues Manual for help.</source>
         <translation>Abra el Manual de WebIssues para obtener ayuda.</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="178"/>
+        <location filename="../src/application.cpp" line="183"/>
         <source>Visit %1 for more information about WebIssues.</source>
         <translation>Visite %1 para mas información de WebIssues.</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="181"/>
+        <location filename="../src/application.cpp" line="186"/>
         <source>Donations</source>
         <translation>Donativos</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="182"/>
+        <location filename="../src/application.cpp" line="187"/>
         <source>If you like this program, your donation will help us dedicate more time for it, support it and implement new features.</source>
         <translation>Si le gusta este programa, su donativo nos ayudará a dedicar mas tiempo a el, soportarlo e implementar nuevas caracteristicas.</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="185"/>
-        <location filename="../src/application.cpp" line="227"/>
+        <location filename="../src/application.cpp" line="190"/>
+        <location filename="../src/application.cpp" line="232"/>
         <source>Latest Version</source>
         <translation>Última Versión</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="186"/>
+        <location filename="../src/application.cpp" line="191"/>
         <source>Automatic checking for latest version is disabled. You can enable it in program settings.</source>
         <translation>La revisión automática de la versión mas reciente esta deshabilitada. Ud la puede habilitar en los parametros del programa.</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="192"/>
+        <location filename="../src/application.cpp" line="197"/>
         <source>&amp;Manual</source>
         <translation>&amp;Manual</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="199"/>
+        <location filename="../src/application.cpp" line="204"/>
         <source>&amp;Donate</source>
         <translation>&amp;Donativo</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="209"/>
+        <location filename="../src/application.cpp" line="214"/>
         <source>&amp;Check Now</source>
         <translation>&amp;Revisar ahora</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="232"/>
+        <location filename="../src/application.cpp" line="237"/>
         <source>Checking for latest version...</source>
         <translation>Buscando la última versión...</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="238"/>
+        <location filename="../src/application.cpp" line="243"/>
         <source>Checking for latest version failed.</source>
         <translation>La busqueda de la última versión ha fallado.</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="240"/>
+        <location filename="../src/application.cpp" line="245"/>
         <source>&amp;Retry</source>
         <translation>&amp;Reintentar</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="247"/>
+        <location filename="../src/application.cpp" line="252"/>
         <source>Your version of WebIssues is up to date.</source>
         <translation>La versión de WebIssues esta al día.</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="253"/>
+        <location filename="../src/application.cpp" line="258"/>
         <source>The latest version of WebIssues is %1.</source>
         <translation>La versión mas reciente de WebIssues es %1.</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="255"/>
+        <location filename="../src/application.cpp" line="260"/>
         <source>&amp;Release Notes</source>
         <translation>&amp;Notas de la liberación</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="258"/>
+        <location filename="../src/application.cpp" line="263"/>
         <source>Do&amp;wnload</source>
         <translation>&amp;Descargar</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="177"/>
+        <location filename="../src/application.cpp" line="182"/>
         <source>Website</source>
         <translation>Webseite</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="168"/>
+        <location filename="../src/application.cpp" line="173"/>
         <source>Copyright &amp;copy; 2007-2015 WebIssues Team</source>
-        <translation type="unfinished"></translation>
+        <translation>Copyright &amp;copy; 2007-2015 WebIssues Team</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="188"/>
+        <location filename="../src/application.cpp" line="193"/>
         <source>About WebIssues</source>
         <translation>Acerca de WebIssues</translation>
     </message>
@@ -1093,7 +1093,7 @@
     </message>
     <message>
         <location filename="../src/dialogs/commanddialog.cpp" line="91"/>
-        <location filename="../src/dialogs/commanddialog.cpp" line="358"/>
+        <location filename="../src/dialogs/commanddialog.cpp" line="360"/>
         <source>&amp;Cancel</source>
         <translation>&amp;Cancelar</translation>
     </message>
@@ -1108,39 +1108,39 @@
         <translation>Por favor confirme.</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/commanddialog.cpp" line="233"/>
+        <location filename="../src/dialogs/commanddialog.cpp" line="235"/>
         <source>Some of the values you entered are incorrect.</source>
         <translation>Alguno de los valores introducidos son incorrectos.</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/commanddialog.cpp" line="323"/>
+        <location filename="../src/dialogs/commanddialog.cpp" line="325"/>
         <source>Warning</source>
         <translation>Alerta</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/commanddialog.cpp" line="323"/>
+        <location filename="../src/dialogs/commanddialog.cpp" line="325"/>
         <source>The changes have not been submitted and will be lost.
 Are you sure you want to continue?</source>
         <translation>Los cambios no han sido enviado y se perderán.
 Está seguro de continuar?</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/commanddialog.cpp" line="341"/>
+        <location filename="../src/dialogs/commanddialog.cpp" line="343"/>
         <source>Command failed: %1.</source>
         <translation>La instrucción falló: %1.</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/commanddialog.cpp" line="270"/>
+        <location filename="../src/dialogs/commanddialog.cpp" line="272"/>
         <source>&amp;Abort</source>
         <translation>&amp;Abortar</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/commanddialog.cpp" line="273"/>
+        <location filename="../src/dialogs/commanddialog.cpp" line="275"/>
         <source>Executing command...</source>
         <translation>Ejecutando instrucción...</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/commanddialog.cpp" line="204"/>
+        <location filename="../src/dialogs/commanddialog.cpp" line="206"/>
         <source>&amp;Close</source>
         <translation>&amp;Cerrar</translation>
     </message>
@@ -2320,144 +2320,145 @@ Está seguro de continuar?</translation>
 <context>
     <name>IssueDetailsGenerator</name>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="101"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="108"/>
         <source>Issue History</source>
         <translation>Historial del Asunto</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="115"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="122"/>
         <source>ID:</source>
         <translation>ID:</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="120"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="127"/>
         <source>Type:</source>
         <translation>Tipo:</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="144"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="275"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="151"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="292"/>
         <source>:</source>
         <translation>:</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="427"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="432"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="430"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="435"/>
         <source>Comment #%1</source>
         <translation>Comentario #%1</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="429"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="434"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="432"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="437"/>
         <source>Attachment #%1</source>
         <translation>Adjunto #%1</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="238"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="255"/>
         <source>There are no comments.</source>
         <translation>No hay comentarios.</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="89"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="93"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="95"/>
         <source>Description</source>
         <translation>Descripción</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="122"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="129"/>
         <source>Location:</source>
         <translation>Ubicación:</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="127"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="134"/>
         <source>Created:</source>
         <translation>Creado:</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="129"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="136"/>
         <source>Last Modified:</source>
         <translation>Última Modificación:</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="240"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="257"/>
         <source>There are no attachments.</source>
         <translation>No hay adjuntos.</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="242"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="259"/>
         <source>There are no comments or attachments.</source>
         <translation>No hay comentarios o adjuntos.</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="304"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="321"/>
         <source>Issue moved from</source>
         <translation>Asunto removido de</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="316"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="333"/>
         <source>to</source>
         <translation>para</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="378"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="395"/>
         <source>Comments &amp; Attachments</source>
         <translation>Comentarios y Adjuntos</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="396"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="419"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="472"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="487"/>
         <source>Last Edited:</source>
         <translation>Última Edición:</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="401"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="441"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="412"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="444"/>
         <source>Reply</source>
         <translation>Responder</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="404"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="447"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="449"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="415"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="450"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="452"/>
         <source>Edit</source>
         <translation>Editar</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="406"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="453"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="455"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="417"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="456"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="458"/>
         <source>Delete</source>
         <translation>Borrar</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="258"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="265"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="275"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="282"/>
         <source>Name:</source>
         <translation>Nombre:</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="284"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="294"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="301"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="311"/>
         <source>empty</source>
         <translation>vacio</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="308"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="320"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="325"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="337"/>
         <source>Unknown Folder</source>
         <translation>Folder desconocido</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="369"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="386"/>
         <source>All History</source>
         <translation>Toda la Historia</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="372"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="389"/>
         <source>Only Comments</source>
         <translation>Solo Comentarios</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="375"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="392"/>
         <source>Only Attachments</source>
         <translation>Solo Adjuntos</translation>
     </message>
@@ -3857,22 +3858,22 @@ El Cliente Desktop siempre usará el lenguaje configurado en los parametros del 
 <context>
     <name>ProjectSummaryGenerator</name>
     <message>
-        <location filename="../src/models/projectsummarygenerator.cpp" line="59"/>
+        <location filename="../src/models/projectsummarygenerator.cpp" line="61"/>
         <source>Description</source>
         <translation>Descripción</translation>
     </message>
     <message>
-        <location filename="../src/models/projectsummarygenerator.cpp" line="70"/>
+        <location filename="../src/models/projectsummarygenerator.cpp" line="85"/>
         <source>Last Edited:</source>
         <translation>Última Edición:</translation>
     </message>
     <message>
-        <location filename="../src/models/projectsummarygenerator.cpp" line="75"/>
+        <location filename="../src/models/projectsummarygenerator.cpp" line="72"/>
         <source>Edit</source>
         <translation>Editar</translation>
     </message>
     <message>
-        <location filename="../src/models/projectsummarygenerator.cpp" line="77"/>
+        <location filename="../src/models/projectsummarygenerator.cpp" line="74"/>
         <source>Delete</source>
         <translation>Borrar</translation>
     </message>
@@ -4333,27 +4334,27 @@ El Cliente Desktop siempre usará el lenguaje configurado en los parametros del 
 <context>
     <name>SQLiteDriver</name>
     <message>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="554"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="622"/>
         <source>Error opening database</source>
         <translation>Error al abrir la base de datos</translation>
     </message>
     <message>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="565"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="637"/>
         <source>Error closing database</source>
         <translation>Error al cerrar la base de datos</translation>
     </message>
     <message>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="585"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="657"/>
         <source>Unable to begin transaction</source>
         <translation>Incapaz de iniciar la transacción</translation>
     </message>
     <message>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="600"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="672"/>
         <source>Unable to commit transaction</source>
         <translation>Incapaz de procesar la transacción</translation>
     </message>
     <message>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="615"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="687"/>
         <source>Unable to rollback transaction</source>
         <translation>Incapaz de retroceder la transacción</translation>
     </message>
@@ -4361,39 +4362,39 @@ El Cliente Desktop siempre usará el lenguaje configurado en los parametros del 
 <context>
     <name>SQLiteResult</name>
     <message>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="209"/>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="276"/>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="284"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="257"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="320"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="328"/>
         <source>Unable to fetch row</source>
         <translation>Incapaz de traer el registro</translation>
     </message>
     <message>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="210"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="258"/>
         <source>No query</source>
         <translation>No hay consulta</translation>
     </message>
     <message>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="348"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="389"/>
         <source>Unable to execute statement</source>
         <translation>Incapaz de ejecutar sentencias</translation>
     </message>
     <message>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="353"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="394"/>
         <source>Unable to execute multiple statements at a time</source>
         <translation>Incapaz de ejecutar multiples sentencias al mismo tiempo</translation>
     </message>
     <message>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="373"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="414"/>
         <source>Unable to reset statement</source>
         <translation>Incapaz de reinicializar la sentencia</translation>
     </message>
     <message>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="418"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="474"/>
         <source>Unable to bind parameters</source>
         <translation>Incapaz de vicular los parámetros</translation>
     </message>
     <message>
-        <location filename="../src/sqlite/sqlitedriver.cpp" line="425"/>
+        <location filename="../src/sqlite/sqlitedriver.cpp" line="481"/>
         <source>Parameter count mismatch</source>
         <translation>El conteo de parámetros no coincide</translation>
     </message>
