@@ -26,6 +26,8 @@
 #include <QList>
 #include <QVariant>
 
+class QIODevice;
+
 /**
 * Class storing information about a command to execute.
 *
