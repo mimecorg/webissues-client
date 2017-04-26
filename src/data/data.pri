@@ -23,7 +23,7 @@ SOURCES += data/bookmark.cpp \
            data/query.cpp \
            data/updateevent.cpp
 
-contains( QT_CONFIG, openssl ) | contains( QT_CONFIG, openssl-linked ) {
+contains( QT_CONFIG, ssl ) {
     HEADERS += data/certificatesstore.h
     SOURCES += data/certificatesstore.cpp
 }
