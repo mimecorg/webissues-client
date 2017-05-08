@@ -321,10 +321,12 @@ HtmlText IssueDetailsGenerator::formatChange( const ChangeEntity& change, HtmlTe
             result.appendText( tr( "Issue moved from" ) );
             result.appendText( " " );
 
-            if ( change.fromFolder().isEmpty() ) {
+            if ( change.fromProject().isEmpty() ) {
                 result.appendText( tr( "Unknown Folder" ) );
             } else {
                 result.appendText( "\"" );
+                result.appendText( change.fromProject() );
+                result.appendText( QString::fromUtf8( " — " ) );
                 result.appendText( change.fromFolder() );
                 result.appendText( "\"" );
             }
@@ -333,10 +335,12 @@ HtmlText IssueDetailsGenerator::formatChange( const ChangeEntity& change, HtmlTe
             result.appendText( tr( "to" ) );
             result.appendText( " " );
 
-            if ( change.toFolder().isEmpty() ) {
+            if ( change.toProject().isEmpty() ) {
                 result.appendText( tr( "Unknown Folder" ) );
             } else {
                 result.appendText( "\"" );
+                result.appendText( change.toProject() );
+                result.appendText( QString::fromUtf8( " — " ) );
                 result.appendText( change.toFolder() );
                 result.appendText( "\"" );
             }

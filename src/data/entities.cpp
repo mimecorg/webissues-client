@@ -1818,9 +1818,19 @@ DefinitionInfo ChangeEntity::definition() const
     return DefinitionInfo();
 }
 
+const QString& ChangeEntity::fromProject() const
+{
+    return d->m_fromProject;
+}
+
 const QString& ChangeEntity::fromFolder() const
 {
     return d->m_fromFolder;
+}
+
+const QString& ChangeEntity::toProject() const
+{
+    return d->m_toProject;
 }
 
 const QString& ChangeEntity::toFolder() const
@@ -1873,14 +1883,17 @@ QList<ChangeEntity> IssueEntityData::changes( bool all, Qt::SortOrder order ) co
         QString sql = "SELECT ch.change_id, ch.issue_id, ch.stamp_id, ch.change_type,"
             " ch.created_time, uc.user_name AS created_user, ch.created_user_id,"
             " ch.modified_time, um.user_name AS modified_user, ch.modified_user_id,"
-            " a.attr_id, ch.old_value, ch.new_value, ff.folder_name AS from_folder, tf.folder_name AS to_folder,"
+            " a.attr_id, ch.old_value, ch.new_value, fp.project_name AS from_project, ff.folder_name AS from_folder,"
+            " tp.project_name AS to_project, tf.folder_name AS to_folder,"
             " c.comment_text, c.comment_format, f.file_name, f.file_size, f.file_descr"
             " FROM changes AS ch"
             " LEFT OUTER JOIN users AS uc ON uc.user_id = ch.created_user_id"
             " LEFT OUTER JOIN users AS um ON um.user_id = ch.modified_user_id"
             " LEFT OUTER JOIN attr_types AS a ON a.attr_id = ch.attr_id"
             " LEFT OUTER JOIN folders AS ff ON ff.folder_id = ch.from_folder_id"
+            " LEFT OUTER JOIN projects AS fp ON fp.project_id = ff.project_id"
             " LEFT OUTER JOIN folders AS tf ON tf.folder_id = ch.to_folder_id"
+            " LEFT OUTER JOIN projects AS tp ON tp.project_id = tf.project_id"
             " LEFT OUTER JOIN comments AS c ON c.comment_id = ch.change_id AND ch.change_type = ?"
             " LEFT OUTER JOIN files AS f ON f.file_id = ch.change_id AND ch.change_type = ?"
             " WHERE ch.issue_id = ?";
@@ -1922,17 +1935,19 @@ void ChangeEntityData::read( const Query& query )
         m_newValue = query.value( 12 ).toString();
     }
     if ( m_type == IssueMoved ) {
-        m_fromFolder = query.value( 13 ).toString();
-        m_toFolder = query.value( 14 ).toString();
+        m_fromProject = query.value( 13 ).toString();
+        m_fromFolder = query.value( 14 ).toString();
+        m_toProject = query.value( 15 ).toString();
+        m_toFolder = query.value( 16 ).toString();
     }
     if ( m_type == CommentAdded ) {
-        m_commentText = query.value( 15 ).toString();
-        m_commentFormat = (TextFormat)query.value( 16 ).toInt();
+        m_commentText = query.value( 17 ).toString();
+        m_commentFormat = (TextFormat)query.value( 18 ).toInt();
     }
     if ( m_type == FileAdded ) {
-        m_fileName = query.value( 17 ).toString();
-        m_fileSize = query.value( 18 ).toInt();
-        m_fileDescription = query.value( 19 ).toString();
+        m_fileName = query.value( 19 ).toString();
+        m_fileSize = query.value( 20 ).toInt();
+        m_fileDescription = query.value( 21 ).toString();
     }
 }
 

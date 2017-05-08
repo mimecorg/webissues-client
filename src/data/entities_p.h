@@ -277,7 +277,9 @@ public:
     int m_typeId;
     int m_attributeId;
 
+    QString m_fromProject;
     QString m_fromFolder;
+    QString m_toProject;
     QString m_toFolder;
 
     QString m_commentText;

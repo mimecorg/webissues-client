@@ -516,7 +516,9 @@ public:
     QString name() const;
     DefinitionInfo definition() const;
 
+    const QString& fromProject() const;
     const QString& fromFolder() const;
+    const QString& toProject() const;
     const QString& toFolder() const;
 
     CommentEntity comment() const;
