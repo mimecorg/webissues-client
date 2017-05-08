@@ -89,6 +89,11 @@ public:
     const QList<int>& columns() const { return m_columns; }
 
     /**
+    * Set the project filter.
+    */
+    void setProject( int projectId );
+
+    /**
     * Set the quick search text for the list.
     */
     void setSearchText( int column, const QString& text );
@@ -109,6 +114,7 @@ private:
     int m_folderId;
     int m_viewId;
     int m_typeId;
+    int m_projectId;
 
     bool m_forceColumns;
 

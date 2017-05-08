@@ -32,6 +32,7 @@ QueryGenerator::QueryGenerator() :
     m_folderId( 0 ),
     m_typeId( 0 ),
     m_viewId( 0 ),
+    m_projectId( 0 ),
     m_searchColumn( -1 ),
     m_sortColumn( -1 ),
     m_sortOrder( Qt::AscendingOrder ),
@@ -100,6 +101,11 @@ void QueryGenerator::initializeCommon( bool withLocation )
     QPair<int, Qt::SortOrder> order = cache->viewSortOrder( info );
     m_sortColumn = m_columns.indexOf( order.first );
     m_sortOrder = order.second;
+}
+
+void QueryGenerator::setProject( int projectId )
+{
+    m_projectId = projectId;
 }
 
 void QueryGenerator::setSearchText( int column, const QString& text )
@@ -241,6 +247,11 @@ QString QueryGenerator::generateConditions()
     } else {
         conditions.append( "f.type_id = ?" );
         m_arguments.append( m_typeId );
+    }
+
+    if ( m_folderId == 0 && m_projectId != 0 ) {
+        conditions.append( "f.project_id = ?" );
+        m_arguments.append( m_projectId );
     }
 
     IssueTypeCache* cache = dataManager->issueTypeCache( m_typeId );

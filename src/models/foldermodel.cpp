@@ -38,6 +38,7 @@ FolderModel::FolderModel( QObject* parent ) : BaseModel( parent ),
     m_folderId( 0 ),
     m_viewId( 0 ),
     m_typeId( 0 ),
+    m_projectId( 0 ),
     m_forceColumns( false ),
     m_searchColumn( -1 )
 {
@@ -77,6 +78,13 @@ void FolderModel::setColumns( const QList<int>& columns )
     m_forceColumns = true;
 
     generateQueries( true );
+}
+
+void FolderModel::setProject( int projectId )
+{
+    m_projectId = projectId;
+
+    generateQueries( false );
 }
 
 void FolderModel::setSearchText( int column, const QString& text )
@@ -177,6 +185,9 @@ void FolderModel::generateQueries( bool resort )
         generator.initializeFolder( m_folderId, m_viewId );
     else
         generator.initializeGlobalList( m_typeId, m_viewId );
+
+    if ( m_projectId != 0 )
+        generator.setProject( m_projectId );
 
     if ( !m_searchText.isEmpty() )
         generator.setSearchText( m_searchColumn, m_searchText );

@@ -94,6 +94,9 @@ signals:
     */
     void itemActivated( int itemId );
 
+protected:
+    void setProjectComboVisible( bool visible );
+
 protected: // overrides
     void enableView();
     void disableView();
@@ -151,10 +154,13 @@ private slots:
 
     void viewActivated( int index );
 
+    void projectActivated( int index );
+
 private:
     void cleanUp();
 
     void updateViews();
+    void updateProjects();
     void updateSearchOptions();
 
     void loadCurrentView( bool resort );
@@ -181,12 +187,16 @@ private:
 
     SeparatorComboBox* m_viewCombo;
 
+    QLabel* m_projectLabel;
+    SeparatorComboBox* m_projectCombo;
+
     SearchEditBox* m_searchBox;
 
     QMenu* m_searchMenu;
     QActionGroup* m_searchActionGroup;
 
     int m_currentViewId;
+    int m_currentProjectId;
 
     int m_searchColumn;
 };

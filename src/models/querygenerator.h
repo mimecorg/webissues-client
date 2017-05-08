@@ -55,6 +55,11 @@ public:
     void initializeGlobalList( int typeId, int viewId );
 
     /**
+    * Set the project filter.
+    */
+    void setProject( int projectId );
+
+    /**
     * Set the quick search text for the list.
     */
     void setSearchText( int column, const QString& text );
@@ -125,6 +130,7 @@ private:
     int m_folderId;
     int m_typeId;
     int m_viewId;
+    int m_projectId;
 
     QList<int> m_columns;
 

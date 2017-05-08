@@ -33,6 +33,7 @@
 
 FolderView::FolderView( QObject* parent, QWidget* parentWidget ) : ListView( parent, parentWidget )
 {
+    setProjectComboVisible( false );
 }
 
 FolderView::~FolderView()

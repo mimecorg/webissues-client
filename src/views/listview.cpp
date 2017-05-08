@@ -56,6 +56,7 @@ ListView::ListView( QObject* parent, QWidget* parentWidget ) : View( parent ),
     m_isAdmin( false ),
     m_hasIssues( false ),
     m_currentViewId( 0 ),
+    m_currentProjectId( 0 ),
     m_searchColumn( Column_Name )
 {
     QAction* action;
@@ -196,7 +197,24 @@ ListView::ListView( QObject* parent, QWidget* parentWidget ) : View( parent ),
 
     viewLabel->setBuddy( m_viewCombo );
 
+    viewLayout->addSpacing( 10 );
     viewLayout->addStretch( 0 );
+
+    m_projectLabel = new QLabel( tr( "&Project:" ), main );
+    viewLayout->addWidget( m_projectLabel );
+
+    m_projectCombo = new SeparatorComboBox( main );
+    m_projectCombo->setMaxVisibleItems( 15 );
+    m_projectCombo->setMaximumWidth( 200 );
+    m_projectCombo->setMinimumWidth( 100 );
+
+    connect( m_projectCombo, SIGNAL( activated( int ) ), this, SLOT( projectActivated( int ) ) );
+
+    viewLayout->addWidget( m_projectCombo, 1 );
+
+    m_projectLabel->setBuddy( m_projectCombo );
+
+    viewLayout->addSpacing( 10 );
 
     QLabel* searchLabel = new QLabel( tr( "&Search:" ), main );
     viewLayout->addWidget( searchLabel );
@@ -258,6 +276,7 @@ void ListView::cleanUp()
     }
 
     m_currentViewId = 0;
+    m_currentProjectId = 0;
 
     delete m_model;
     m_model = NULL;
@@ -291,6 +310,8 @@ void ListView::enableView()
 
     updateViews();
     loadCurrentView( true );
+
+    updateProjects();
 
     updateSearchOptions();
 }
@@ -528,6 +549,9 @@ void ListView::updateEvent( UpdateEvent* e )
             updateSearchOptions();
         }
 
+        if ( e->unit() == UpdateEvent::Projects )
+            updateProjects();
+
         if ( e->unit() == UpdateEvent::States )
             updateActions();
 
@@ -715,6 +739,31 @@ void ListView::viewActivated( int index )
     updateActions();
 }
 
+void ListView::updateProjects()
+{
+    m_projectCombo->clear();
+
+    m_projectCombo->addItem( tr( "All Projects" ), 0 );
+    m_projectCombo->addSeparator();
+
+    foreach ( const ProjectEntity& project, ProjectEntity::list() ) {
+        m_projectCombo->addItem( project.name(), project.id() );
+        if ( project.id() == m_currentProjectId )
+            m_projectCombo->setCurrentIndex( m_projectCombo->count() - 1 );
+    }
+
+    if ( m_projectCombo->currentIndex() == 0 )
+        m_currentProjectId = 0;
+}
+
+void ListView::projectActivated( int index )
+{
+    m_currentProjectId = m_projectCombo->itemData( index ).toInt();
+
+    if ( m_model )
+        m_model->setProject( m_currentProjectId );
+}
+
 void ListView::setCurrentViewId( int viewId )
 {
     if ( m_currentViewId == viewId || !isEnabled() )
@@ -774,4 +823,10 @@ QList<int> ListView::visibleColumns()
     }
 
     return list;
+}
+
+void ListView::setProjectComboVisible( bool visible )
+{
+    m_projectLabel->setVisible( visible );
+    m_projectCombo->setVisible( visible );
 }
