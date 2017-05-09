@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="zh_CN">
+<TS version="2.1" language="zh_CN">
 <context>
     <name>AboutBox</name>
     <message>
@@ -621,7 +621,7 @@
         <source>This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.</source>
         <translation>此程序是一个免费软件：你可以在GNU协议（版本3或更新）下使用，传播或者修改它。</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="../src/application.cpp" line="173"/>
         <source>Copyright &amp;copy; 2006 Michał Męciński</source>
         <translation>Michał Męciński版权所有 2006</translation>
@@ -733,17 +733,17 @@
     <message>
         <location filename="../src/dialogs/projectdialogs.cpp" line="159"/>
         <source>Archive Project</source>
-        <translation type="unfinished"></translation>
+        <translation>项目归档</translation>
     </message>
     <message>
         <location filename="../src/dialogs/projectdialogs.cpp" line="160"/>
         <source>Are you sure you want to move project &lt;b&gt;%1&lt;/b&gt; to the archive?</source>
-        <translation type="unfinished"></translation>
+        <translation>你确定要移动项目&lt;b&gt;%1&lt;/b&gt;到档案中吗？</translation>
     </message>
     <message>
         <location filename="../src/dialogs/projectdialogs.cpp" line="163"/>
         <source>You can unarchive the project later by going to the Projects Archive in the Administration Panel.</source>
-        <translation type="unfinished"></translation>
+        <translation>你可以在稍后到管理员面板中的项目归档中恢复本项目。</translation>
     </message>
 </context>
 <context>
@@ -2139,7 +2139,7 @@ Are you sure you want to continue?</source>
 <context>
     <name>FolderView</name>
     <message>
-        <location filename="../src/views/folderview.cpp" line="77"/>
+        <location filename="../src/views/folderview.cpp" line="78"/>
         <source>Unknown Folder</source>
         <translation>未知目录</translation>
     </message>
@@ -2341,14 +2341,14 @@ Are you sure you want to continue?</source>
         <translation>：</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="430"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="435"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="434"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="439"/>
         <source>Comment #%1</source>
         <translation>评论 #%1</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="432"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="437"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="436"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="441"/>
         <source>Attachment #%1</source>
         <translation>附件 #%1</translation>
     </message>
@@ -2394,38 +2394,38 @@ Are you sure you want to continue?</source>
         <translation>工作项迁移自</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="333"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="335"/>
         <source>to</source>
         <translation>到</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="395"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="399"/>
         <source>Comments &amp; Attachments</source>
         <translation>评论和附件</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="472"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="487"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="476"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="491"/>
         <source>Last Edited:</source>
         <translation>最后编辑：</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="412"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="444"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="416"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="448"/>
         <source>Reply</source>
         <translation>回复</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="415"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="450"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="452"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="419"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="454"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="456"/>
         <source>Edit</source>
         <translation>编辑</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="417"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="456"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="458"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="421"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="460"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="462"/>
         <source>Delete</source>
         <translation>删除</translation>
     </message>
@@ -2443,22 +2443,22 @@ Are you sure you want to continue?</source>
     </message>
     <message>
         <location filename="../src/models/issuedetailsgenerator.cpp" line="325"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="337"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="339"/>
         <source>Unknown Folder</source>
         <translation>未知目录</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="386"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="390"/>
         <source>All History</source>
         <translation>所有历史</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="389"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="393"/>
         <source>Only Comments</source>
         <translation>仅评论</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="392"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="396"/>
         <source>Only Attachments</source>
         <translation>仅附件</translation>
     </message>
@@ -2809,208 +2809,218 @@ on this server which is %1.</source>
 <context>
     <name>ListView</name>
     <message>
-        <location filename="../src/views/listview.cpp" line="63"/>
+        <location filename="../src/views/listview.cpp" line="64"/>
         <source>&amp;Update Folder</source>
         <translation>&amp;U更新目录</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="68"/>
+        <location filename="../src/views/listview.cpp" line="69"/>
         <source>&amp;Open Issue</source>
         <translation>&amp;O打开工作项</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="73"/>
+        <location filename="../src/views/listview.cpp" line="74"/>
         <source>&amp;Add Issue...</source>
         <translation>&amp;A添加工作项...</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="78"/>
+        <location filename="../src/views/listview.cpp" line="79"/>
         <source>&amp;Edit Attributes...</source>
         <translation>编辑属性(&amp;E)...</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="79"/>
+        <location filename="../src/views/listview.cpp" line="80"/>
         <source>F2</source>
         <translation>F2</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="83"/>
+        <location filename="../src/views/listview.cpp" line="84"/>
         <source>Clone Issue...</source>
         <translation>复制工作项...</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="87"/>
+        <location filename="../src/views/listview.cpp" line="88"/>
         <source>&amp;Move Issue...</source>
         <translation>移动工作项(&amp;M)...</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="88"/>
+        <location filename="../src/views/listview.cpp" line="89"/>
         <source>Move</source>
         <translation>移动</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="92"/>
+        <location filename="../src/views/listview.cpp" line="93"/>
         <source>&amp;Delete Issue</source>
         <translation>删除工作项(&amp;D)</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="93"/>
+        <location filename="../src/views/listview.cpp" line="94"/>
         <source>Delete</source>
         <translation>删除</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="98"/>
-        <location filename="../src/views/listview.cpp" line="341"/>
+        <location filename="../src/views/listview.cpp" line="99"/>
+        <location filename="../src/views/listview.cpp" line="362"/>
         <source>Mark As Read</source>
         <translation>标记为已读</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="102"/>
-        <location filename="../src/views/listview.cpp" line="106"/>
+        <location filename="../src/views/listview.cpp" line="103"/>
+        <location filename="../src/views/listview.cpp" line="107"/>
         <source>Mark All As Read</source>
         <translation>标记所有为已读</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="103"/>
+        <location filename="../src/views/listview.cpp" line="104"/>
         <source>Mark All As Read</source>
         <comment>icon text</comment>
         <translation>标记所有为已读</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="110"/>
+        <location filename="../src/views/listview.cpp" line="111"/>
         <source>Mark All As Unread</source>
         <translation>标记所有为未读</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="114"/>
-        <location filename="../src/views/listview.cpp" line="349"/>
+        <location filename="../src/views/listview.cpp" line="115"/>
+        <location filename="../src/views/listview.cpp" line="370"/>
         <source>Subscribe</source>
         <translation>提交</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="118"/>
+        <location filename="../src/views/listview.cpp" line="119"/>
         <source>Print List</source>
         <translation>打印列表</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="119"/>
+        <location filename="../src/views/listview.cpp" line="120"/>
         <source>Print</source>
         <translation>打印</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="124"/>
+        <location filename="../src/views/listview.cpp" line="125"/>
         <source>Export List</source>
         <translation>导出列表</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="125"/>
+        <location filename="../src/views/listview.cpp" line="126"/>
         <source>Export</source>
         <translation>导出</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="128"/>
+        <location filename="../src/views/listview.cpp" line="129"/>
         <source>Export To CSV</source>
         <translation>导出为CSV</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="132"/>
+        <location filename="../src/views/listview.cpp" line="133"/>
         <source>Export To HTML</source>
         <translation>导出为HTML</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="136"/>
+        <location filename="../src/views/listview.cpp" line="137"/>
         <source>Export To PDF</source>
         <translation>导出为PDF</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="140"/>
+        <location filename="../src/views/listview.cpp" line="141"/>
         <source>&amp;Manage Views...</source>
         <translation>&amp;M管理视图...</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="144"/>
+        <location filename="../src/views/listview.cpp" line="145"/>
         <source>Add View</source>
         <translation>管理视图</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="147"/>
+        <location filename="../src/views/listview.cpp" line="148"/>
         <source>&amp;Add View</source>
         <translation>&amp;A添加视图</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="151"/>
+        <location filename="../src/views/listview.cpp" line="152"/>
         <source>&amp;Clone View</source>
         <translation>&amp;C复制视图</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="155"/>
+        <location filename="../src/views/listview.cpp" line="156"/>
         <source>M&amp;odify View</source>
         <translation>修改视图(&amp;M)</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="159"/>
+        <location filename="../src/views/listview.cpp" line="160"/>
         <source>Add</source>
         <translation>添加</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="160"/>
+        <location filename="../src/views/listview.cpp" line="161"/>
         <source>Folder</source>
         <translation>目录</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="161"/>
+        <location filename="../src/views/listview.cpp" line="162"/>
         <source>Issue</source>
         <translation>工作项</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="162"/>
+        <location filename="../src/views/listview.cpp" line="163"/>
         <source>Views</source>
         <translation>视图</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="163"/>
+        <location filename="../src/views/listview.cpp" line="164"/>
         <source>Report</source>
         <translation>报告</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="185"/>
+        <location filename="../src/views/listview.cpp" line="186"/>
         <source>&amp;View:</source>
         <translation>视图(&amp;V)：</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="201"/>
+        <location filename="../src/views/listview.cpp" line="203"/>
+        <source>&amp;Project:</source>
+        <translation>项目(&amp;P)：</translation>
+    </message>
+    <message>
+        <location filename="../src/views/listview.cpp" line="219"/>
         <source>&amp;Search:</source>
         <translation>搜索(&amp;S)</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="341"/>
+        <location filename="../src/views/listview.cpp" line="362"/>
         <source>Mark As Unread</source>
         <translation>标记为未读</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="349"/>
+        <location filename="../src/views/listview.cpp" line="370"/>
         <source>Unsubscribe</source>
         <translation>未提交</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="370"/>
+        <location filename="../src/views/listview.cpp" line="391"/>
         <source>%1 issues</source>
         <translation>%1 工作项</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="669"/>
+        <location filename="../src/views/listview.cpp" line="693"/>
         <source>All Issues</source>
         <translation>所有工作项</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="685"/>
+        <location filename="../src/views/listview.cpp" line="709"/>
         <source>Personal Views</source>
         <translation>用户工作项</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="695"/>
+        <location filename="../src/views/listview.cpp" line="719"/>
         <source>Public Views</source>
         <translation>公开视图</translation>
+    </message>
+    <message>
+        <location filename="../src/views/listview.cpp" line="746"/>
+        <source>All Projects</source>
+        <translation>所有项目</translation>
     </message>
 </context>
 <context>
@@ -3932,12 +3942,12 @@ The Desktop Client will always use the language configured in program settings a
     <message>
         <location filename="../src/views/projectsview.cpp" line="83"/>
         <source>&amp;Archive Project</source>
-        <translation type="unfinished"></translation>
+        <translation>项目归档(&amp;A)</translation>
     </message>
     <message>
         <location filename="../src/views/projectsview.cpp" line="84"/>
         <source>Archive</source>
-        <translation type="unfinished"></translation>
+        <translation>档案</translation>
     </message>
     <message>
         <location filename="../src/views/projectsview.cpp" line="89"/>

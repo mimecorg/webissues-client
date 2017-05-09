@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="pt_BR">
+<TS version="2.1" language="pt_BR">
 <context>
     <name>AboutBox</name>
     <message>
@@ -621,7 +621,7 @@
         <source>This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.</source>
         <translation>Este programa é software livre: você pode redistribuí-lo e/ou modificá-lo sob os termos da Licença Pública Geral GNU conforme publicada pela Free Software Foundation, tanto a versão 3 da Licença, ou (a seu critério) qualquer versão posterior.</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="../src/application.cpp" line="173"/>
         <source>Copyright &amp;copy; 2006 Michał Męciński</source>
         <translation>Copyright &amp;copy; 2006 Michał Męciński</translation>
@@ -2139,7 +2139,7 @@ Você tem certeza que gostaria de continuar?</translation>
 <context>
     <name>FolderView</name>
     <message>
-        <location filename="../src/views/folderview.cpp" line="77"/>
+        <location filename="../src/views/folderview.cpp" line="78"/>
         <source>Unknown Folder</source>
         <translation>Pasta desconhecida</translation>
     </message>
@@ -2341,14 +2341,14 @@ Você tem certeza que gostaria de continuar?</translation>
         <translation>:</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="430"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="435"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="434"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="439"/>
         <source>Comment #%1</source>
         <translation>Comentário #%1</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="432"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="437"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="436"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="441"/>
         <source>Attachment #%1</source>
         <translation>Anexo #%1</translation>
     </message>
@@ -2394,38 +2394,38 @@ Você tem certeza que gostaria de continuar?</translation>
         <translation>Ocorrência movida de</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="333"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="335"/>
         <source>to</source>
         <translation>para</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="395"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="399"/>
         <source>Comments &amp; Attachments</source>
         <translation>Comentários &amp; Anexos</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="472"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="487"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="476"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="491"/>
         <source>Last Edited:</source>
         <translation>Última Edição:</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="412"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="444"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="416"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="448"/>
         <source>Reply</source>
         <translation>Resposta</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="415"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="450"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="452"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="419"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="454"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="456"/>
         <source>Edit</source>
         <translation>Editar</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="417"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="456"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="458"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="421"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="460"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="462"/>
         <source>Delete</source>
         <translation>Excluir</translation>
     </message>
@@ -2443,22 +2443,22 @@ Você tem certeza que gostaria de continuar?</translation>
     </message>
     <message>
         <location filename="../src/models/issuedetailsgenerator.cpp" line="325"/>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="337"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="339"/>
         <source>Unknown Folder</source>
         <translation>Pasta Desconhecida</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="386"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="390"/>
         <source>All History</source>
         <translation>Toda o Histórico</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="389"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="393"/>
         <source>Only Comments</source>
         <translation>Somente Comentários</translation>
     </message>
     <message>
-        <location filename="../src/models/issuedetailsgenerator.cpp" line="392"/>
+        <location filename="../src/models/issuedetailsgenerator.cpp" line="396"/>
         <source>Only Attachments</source>
         <translation>Somente Anexos</translation>
     </message>
@@ -2810,208 +2810,218 @@ neste servidor que é de %1.</translation>
 <context>
     <name>ListView</name>
     <message>
-        <location filename="../src/views/listview.cpp" line="63"/>
+        <location filename="../src/views/listview.cpp" line="64"/>
         <source>&amp;Update Folder</source>
         <translation>&amp;Atualizar pasta</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="68"/>
+        <location filename="../src/views/listview.cpp" line="69"/>
         <source>&amp;Open Issue</source>
         <translation>&amp;Abrir Ocorrência</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="73"/>
+        <location filename="../src/views/listview.cpp" line="74"/>
         <source>&amp;Add Issue...</source>
         <translation>&amp;Adicionar Ocorrência...</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="78"/>
+        <location filename="../src/views/listview.cpp" line="79"/>
         <source>&amp;Edit Attributes...</source>
         <translation>&amp;Editar Atributos...</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="79"/>
+        <location filename="../src/views/listview.cpp" line="80"/>
         <source>F2</source>
         <translation>F2</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="83"/>
+        <location filename="../src/views/listview.cpp" line="84"/>
         <source>Clone Issue...</source>
         <translation>Clonagem da Ocorrência...</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="87"/>
+        <location filename="../src/views/listview.cpp" line="88"/>
         <source>&amp;Move Issue...</source>
         <translation>&amp;Mover Ocorrência...</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="88"/>
+        <location filename="../src/views/listview.cpp" line="89"/>
         <source>Move</source>
         <translation>Mover</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="92"/>
+        <location filename="../src/views/listview.cpp" line="93"/>
         <source>&amp;Delete Issue</source>
         <translation>&amp;Excluir Ocorrência</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="93"/>
+        <location filename="../src/views/listview.cpp" line="94"/>
         <source>Delete</source>
         <translation>Excluir</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="98"/>
-        <location filename="../src/views/listview.cpp" line="341"/>
+        <location filename="../src/views/listview.cpp" line="99"/>
+        <location filename="../src/views/listview.cpp" line="362"/>
         <source>Mark As Read</source>
         <translation>Marcar como Lida</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="102"/>
-        <location filename="../src/views/listview.cpp" line="106"/>
+        <location filename="../src/views/listview.cpp" line="103"/>
+        <location filename="../src/views/listview.cpp" line="107"/>
         <source>Mark All As Read</source>
         <translation>Marcar Todas como Lidas</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="103"/>
+        <location filename="../src/views/listview.cpp" line="104"/>
         <source>Mark All As Read</source>
         <comment>icon text</comment>
         <translation>Marcar Todas como Lidas</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="110"/>
+        <location filename="../src/views/listview.cpp" line="111"/>
         <source>Mark All As Unread</source>
         <translation>Marcar Todas como Não Lidas</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="114"/>
-        <location filename="../src/views/listview.cpp" line="349"/>
+        <location filename="../src/views/listview.cpp" line="115"/>
+        <location filename="../src/views/listview.cpp" line="370"/>
         <source>Subscribe</source>
         <translation>Subscrever</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="118"/>
+        <location filename="../src/views/listview.cpp" line="119"/>
         <source>Print List</source>
         <translation>Imprimir Lista</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="119"/>
+        <location filename="../src/views/listview.cpp" line="120"/>
         <source>Print</source>
         <translation>Imprimir</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="124"/>
+        <location filename="../src/views/listview.cpp" line="125"/>
         <source>Export List</source>
         <translation>Exportar Lista</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="125"/>
+        <location filename="../src/views/listview.cpp" line="126"/>
         <source>Export</source>
         <translation>Exportar</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="128"/>
+        <location filename="../src/views/listview.cpp" line="129"/>
         <source>Export To CSV</source>
         <translation>Exportar para CSV</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="132"/>
+        <location filename="../src/views/listview.cpp" line="133"/>
         <source>Export To HTML</source>
         <translation>Exportar para HTML</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="136"/>
+        <location filename="../src/views/listview.cpp" line="137"/>
         <source>Export To PDF</source>
         <translation>Exportar para PDF</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="140"/>
+        <location filename="../src/views/listview.cpp" line="141"/>
         <source>&amp;Manage Views...</source>
         <translation>&amp;Gerenciar Visualizações...</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="144"/>
+        <location filename="../src/views/listview.cpp" line="145"/>
         <source>Add View</source>
         <translation>Adicionar Visualização</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="147"/>
+        <location filename="../src/views/listview.cpp" line="148"/>
         <source>&amp;Add View</source>
         <translation>&amp;Adicionar Visualização</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="151"/>
+        <location filename="../src/views/listview.cpp" line="152"/>
         <source>&amp;Clone View</source>
         <translation>&amp;Visualização do Clone</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="155"/>
+        <location filename="../src/views/listview.cpp" line="156"/>
         <source>M&amp;odify View</source>
         <translation>M&amp;odificar Visualização</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="159"/>
+        <location filename="../src/views/listview.cpp" line="160"/>
         <source>Add</source>
         <translation>Adicionar</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="160"/>
+        <location filename="../src/views/listview.cpp" line="161"/>
         <source>Folder</source>
         <translation>Pasta</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="161"/>
+        <location filename="../src/views/listview.cpp" line="162"/>
         <source>Issue</source>
         <translation>Ocorrência</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="162"/>
+        <location filename="../src/views/listview.cpp" line="163"/>
         <source>Views</source>
         <translation>Visualizações</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="163"/>
+        <location filename="../src/views/listview.cpp" line="164"/>
         <source>Report</source>
         <translation>Relatório</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="185"/>
+        <location filename="../src/views/listview.cpp" line="186"/>
         <source>&amp;View:</source>
         <translation>&amp;Visualizar:</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="201"/>
+        <location filename="../src/views/listview.cpp" line="203"/>
+        <source>&amp;Project:</source>
+        <translation>&amp;Projeto:</translation>
+    </message>
+    <message>
+        <location filename="../src/views/listview.cpp" line="219"/>
         <source>&amp;Search:</source>
         <translation>&amp;Pesquisar:</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="341"/>
+        <location filename="../src/views/listview.cpp" line="362"/>
         <source>Mark As Unread</source>
         <translation>Marcar como Não Lida</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="349"/>
+        <location filename="../src/views/listview.cpp" line="370"/>
         <source>Unsubscribe</source>
         <translation>Eliminar Subscrição</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="370"/>
+        <location filename="../src/views/listview.cpp" line="391"/>
         <source>%1 issues</source>
         <translation>%1 ocorrências</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="669"/>
+        <location filename="../src/views/listview.cpp" line="693"/>
         <source>All Issues</source>
         <translation>Todas as Ocorrências</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="685"/>
+        <location filename="../src/views/listview.cpp" line="709"/>
         <source>Personal Views</source>
         <translation>Visualizações Pessoais</translation>
     </message>
     <message>
-        <location filename="../src/views/listview.cpp" line="695"/>
+        <location filename="../src/views/listview.cpp" line="719"/>
         <source>Public Views</source>
         <translation>Visualizações Públicas</translation>
+    </message>
+    <message>
+        <location filename="../src/views/listview.cpp" line="746"/>
+        <source>All Projects</source>
+        <translation>Todos os Projetos</translation>
     </message>
 </context>
 <context>
