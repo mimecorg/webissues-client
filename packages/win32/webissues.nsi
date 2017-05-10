@@ -1,7 +1,7 @@
 /**************************************************************************
 * This file is part of the WebIssues Desktop Client program
 * Copyright (C) 2006 Michał Męciński
-* Copyright (C) 2007-2015 WebIssues Team
+* Copyright (C) 2007-2017 WebIssues Team
 *
 * This program is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -22,9 +22,9 @@
 
 !define UNINST_KEY "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\WebIssues Client 1.1"
 
-!include "MUI2.nsh"
+Unicode true
 
-!include "languages\webissues_en.nsh"
+!include "MUI2.nsh"
 
 !ifdef INNER
     SetCompress off
@@ -99,11 +99,13 @@ ShowInstDetails nevershow
 
 !insertmacro MUI_LANGUAGE "English"
 
+!include "languages\webissues_en.nsh"
+
 VIProductVersion "${BUILDVERSION}"
 VIAddVersionKey /LANG=${LANG_ENGLISH} "CompanyName" "WebIssues Team"
 VIAddVersionKey /LANG=${LANG_ENGLISH} "FileDescription" "WebIssues Desktop Client Setup"
 VIAddVersionKey /LANG=${LANG_ENGLISH} "FileVersion" "${VERSION}"
-VIAddVersionKey /LANG=${LANG_ENGLISH} "LegalCopyright" "Copyright (C) 2007-2015 WebIssues Team"
+VIAddVersionKey /LANG=${LANG_ENGLISH} "LegalCopyright" "Copyright (C) 2007-2017 WebIssues Team"
 VIAddVersionKey /LANG=${LANG_ENGLISH} "OriginalFilename" "webissues-${VERSION}-${ARCHITECTURE}.exe"
 VIAddVersionKey /LANG=${LANG_ENGLISH} "ProductName" "WebIssues Desktop Client"
 VIAddVersionKey /LANG=${LANG_ENGLISH} "ProductVersion" "${VERSION}"
@@ -152,15 +154,15 @@ Section
     File "${QTDIR}\bin\Qt5Widgets.dll"
     File "${QTDIR}\bin\Qt5Xml.dll"
 
-    File "${QTDIR}\bin\icudt55.dll"
-    File "${QTDIR}\bin\icuin55.dll"
-    File "${QTDIR}\bin\icuuc55.dll"
+    File "${QTDIR}\bin\icudt58.dll"
+    File "${QTDIR}\bin\icuin58.dll"
+    File "${QTDIR}\bin\icuuc58.dll"
 
     File "${OPENSSLDIR}\bin\libeay32.dll"
     File "${OPENSSLDIR}\bin\ssleay32.dll"
 
-    File "${VCRTDIR}\msvcp100.dll"
-    File "${VCRTDIR}\msvcr100.dll"
+    File "${VCRTDIR}\msvcp120.dll"
+    File "${VCRTDIR}\msvcr120.dll"
 
     SetOutPath "$INSTDIR\plugins\platforms"
 
@@ -186,6 +188,7 @@ Section
     File "${SRCDIR}\translations\webissues_de.qm"
     File "${SRCDIR}\translations\webissues_es.qm"
     File "${SRCDIR}\translations\webissues_fr.qm"
+    File "${SRCDIR}\translations\webissues_hu.qm"
     File "${SRCDIR}\translations\webissues_it.qm"
     File "${SRCDIR}\translations\webissues_nl.qm"
     File "${SRCDIR}\translations\webissues_pl.qm"
@@ -197,12 +200,25 @@ Section
     File "${QTDIR}\translations\qt_de.qm"
     File "${QTDIR}\translations\qt_es.qm"
     File "${QTDIR}\translations\qt_fr.qm"
+    File "${QTDIR}\translations\qt_hu.qm"
     File "${QTDIR}\translations\qt_it.qm"
     ;File "${QTDIR}\translations\qt_nl.qm"
     File "${QTDIR}\translations\qt_pl.qm"
     File "${QTDIR}\translations\qt_pt.qm"
     File "${QTDIR}\translations\qt_ru.qm"
     File "${QTDIR}\translations\qt_zh_CN.qm"
+
+    File "${QTDIR}\translations\qtbase_cs.qm"
+    File "${QTDIR}\translations\qtbase_de.qm"
+    ;File "${QTDIR}\translations\qtbase_es.qm"
+    File "${QTDIR}\translations\qtbase_fr.qm"
+    File "${QTDIR}\translations\qtbase_hu.qm"
+    File "${QTDIR}\translations\qtbase_it.qm"
+    ;File "${QTDIR}\translations\qtbase_nl.qm"
+    File "${QTDIR}\translations\qtbase_pl.qm"
+    ;File "${QTDIR}\translations\qtbase_pt.qm"
+    File "${QTDIR}\translations\qtbase_ru.qm"
+    ;File "${QTDIR}\translations\qtbase_zh_CN.qm"
 
     SetOutPath "$INSTDIR\bin"
 

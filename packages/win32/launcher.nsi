@@ -1,7 +1,7 @@
 /**************************************************************************
 * This file is part of the WebIssues Desktop Client program
 * Copyright (C) 2006 Michał Męciński
-* Copyright (C) 2007-2015 WebIssues Team
+* Copyright (C) 2007-2017 WebIssues Team
 *
 * Inspired by code written by John T. Haller of PortableApps.com
 *
@@ -21,10 +21,10 @@
 
 !define SRCDIR "..\.."
 
+Unicode true
+
 !include "MUI2.nsh"
 !include "FileFunc.nsh"
-
-!include "languages\launcher_en.nsh"
 
 SetCompressor lzma
 SetCompressorDictSize 1
@@ -51,11 +51,13 @@ AutoCloseWindow true
 
 !insertmacro MUI_LANGUAGE "English"
 
+!include "languages\launcher_en.nsh"
+
 VIProductVersion "${BUILDVERSION}"
 VIAddVersionKey /LANG=${LANG_ENGLISH} "CompanyName" "WebIssues Team"
 VIAddVersionKey /LANG=${LANG_ENGLISH} "FileDescription" "WebIssues Portable Client"
 VIAddVersionKey /LANG=${LANG_ENGLISH} "FileVersion" "${VERSION}"
-VIAddVersionKey /LANG=${LANG_ENGLISH} "LegalCopyright" "Copyright (C) 2007-2015 WebIssues Team"
+VIAddVersionKey /LANG=${LANG_ENGLISH} "LegalCopyright" "Copyright (C) 2007-2017 WebIssues Team"
 VIAddVersionKey /LANG=${LANG_ENGLISH} "OriginalFilename" "WebIssuesPortable.exe"
 VIAddVersionKey /LANG=${LANG_ENGLISH} "ProductName" "WebIssues Portable Client"
 VIAddVersionKey /LANG=${LANG_ENGLISH} "ProductVersion" "${VERSION}"
