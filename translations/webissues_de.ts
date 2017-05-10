@@ -719,8 +719,8 @@
     </message>
     <message>
         <location filename="../src/application.cpp" line="173"/>
-        <source>Copyright &amp;copy; 2007-2015 WebIssues Team</source>
-        <translation>Copyright &amp;copy; 2007-2015 WebIssues Team</translation>
+        <source>Copyright &amp;copy; 2007-2017 WebIssues Team</source>
+        <translation>Copyright &amp;copy; 2007-2017 WebIssues Team</translation>
     </message>
     <message>
         <location filename="../src/application.cpp" line="193"/>

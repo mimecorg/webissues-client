@@ -22,7 +22,7 @@ BEGIN
             VALUE "CompanyName", "WebIssues Team"
             VALUE "FileDescription", "WebIssues Desktop Client"
             VALUE "FileVersion", "1.1.4"
-            VALUE "LegalCopyright", "Copyright (C) 2007-2015 WebIssues Team"
+            VALUE "LegalCopyright", "Copyright (C) 2007-2017 WebIssues Team"
             VALUE "OriginalFilename", "webissues.exe"
             VALUE "ProductName", "WebIssues Desktop Client"
             VALUE "ProductVersion", "1.1.4"

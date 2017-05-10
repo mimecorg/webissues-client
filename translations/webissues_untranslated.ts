@@ -719,7 +719,7 @@
     </message>
     <message>
         <location filename="../src/application.cpp" line="173"/>
-        <source>Copyright &amp;copy; 2007-2015 WebIssues Team</source>
+        <source>Copyright &amp;copy; 2007-2017 WebIssues Team</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

@@ -719,8 +719,8 @@
     </message>
     <message>
         <location filename="../src/application.cpp" line="173"/>
-        <source>Copyright &amp;copy; 2007-2015 WebIssues Team</source>
-        <translation>版权所有2007-2015 Webissues 团队</translation>
+        <source>Copyright &amp;copy; 2007-2017 WebIssues Team</source>
+        <translation>版权所有2007-2017 Webissues 团队</translation>
     </message>
     <message>
         <location filename="../src/application.cpp" line="193"/>
