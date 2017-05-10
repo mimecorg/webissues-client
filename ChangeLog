@@ -1,3 +1,9 @@
+1.1.5-rc1 (2017-05-10)
+    * added Hungarian translation
+    * filtering by project in the global view
+    * displaying project names in history of move operations
+    * fixed compilation with Qt 5.8
+
 1.1.4 (2015-08-10)
     * ported to Qt5
     * fixed support for long TLDs in email addresses
