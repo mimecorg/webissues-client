@@ -32,6 +32,7 @@ class QTreeView;
 class QModelIndex;
 class QMenu;
 class QActionGroup;
+class QLabel;
 
 /**
 * Abstract view displaying a list of issues.
