@@ -291,6 +291,7 @@ public:
     static UserEntity find( int id );
 
     static QList<UserEntity> list();
+    static QList<UserEntity> visible();
 
     static bool exists( const QString& login, const QString& name );
 

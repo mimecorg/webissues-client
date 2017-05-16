@@ -913,6 +913,28 @@ QList<UserEntity> UserEntity::list()
     return result;
 }
 
+QList<UserEntity> UserEntity::visible()
+{
+    QList<UserEntity> result;
+
+    Query query( "SELECT u.user_id, u.user_login, u.user_name, u.user_access"
+        " FROM users AS u"
+        " WHERE u.user_id IN ("
+        " SELECT r1.user_id FROM rights AS r1"
+        " INNER JOIN effective_rights AS r2 ON r2.project_id = r1.project_id"
+        " WHERE r2.user_id = ? )"
+        " ORDER BY u.user_name COLLATE LOCALE" );
+    query.exec( dataManager->currentUserId() );
+
+    while ( query.next() ) {
+        UserEntity entity;
+        entity.d->read( query );
+        result.append( entity );
+    }
+
+    return result;
+}
+
 QList<UserEntity> ProjectEntity::members() const
 {
     QList<UserEntity> result;
