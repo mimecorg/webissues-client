@@ -1,7 +1,8 @@
-1.1.5-rc1 (2017-05-10)
+1.1.5 (2017-05-17)
     * added Hungarian translation
     * filtering by project in the global view
     * displaying project names in history of move operations
+    * filtering the list of users for non-administrators
     * fixed compilation with Qt 5.8
 
 1.1.4 (2015-08-10)

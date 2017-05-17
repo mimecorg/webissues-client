@@ -2,8 +2,8 @@
 
 if "%1" == "" goto usage
 
-set VERSION=1.1.5-rc1
-set BUILDVERSION=1.1.5.6340
+set VERSION=1.1.5
+set BUILDVERSION=1.1.5.6347
 
 set NSISDIR=C:\Program Files (x86)\NSIS
 
