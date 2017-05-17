@@ -438,22 +438,22 @@
 <context>
     <name>AddViewDialog</name>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="702"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="706"/>
         <source>Add Public View</source>
         <translation>添加公共视图</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="703"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="707"/>
         <source>Create a new public view for type &lt;b&gt;%1&lt;/b&gt;:</source>
         <translation>为类型〈b&gt;%1&lt;/b&gt;创建一个新的公共视图：</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="705"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="709"/>
         <source>Add Personal View</source>
         <translation>添加个人视图</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="706"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="710"/>
         <source>Create a new personal view for type &lt;b&gt;%1&lt;/b&gt;:</source>
         <translation>为类型〈b&gt;%1&lt;/b&gt;创建一个新的个人视图：</translation>
     </message>
@@ -888,27 +888,27 @@
 <context>
     <name>AttributeOrderDialog</name>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="993"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="997"/>
         <source>Order of Attributes</source>
         <translation>属性顺序</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="994"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="998"/>
         <source>Modify order of attributes for type &lt;b&gt;%1&lt;/b&gt;:</source>
         <translation>修改类型&lt;b&gt;%1&lt;/b&gt;属性的顺序：</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="1010"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="1014"/>
         <source>Name</source>
         <translation>名称</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="1011"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="1015"/>
         <source>Order</source>
         <translation>顺序</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="1041"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="1045"/>
         <source>Edit view settings.</source>
         <translation>编辑视图设置。</translation>
     </message>
@@ -1069,17 +1069,17 @@
 <context>
     <name>CloneViewDialog</name>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="752"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="756"/>
         <source>Clone View</source>
         <translation>复制视图</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="754"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="758"/>
         <source>Clone view &lt;b&gt;%1&lt;/b&gt; as a new public view:</source>
         <translation>复制视图&lt;b&gt;%1&lt;/b&gt;为一个公共视图：</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="756"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="760"/>
         <source>Clone view &lt;b&gt;%1&lt;/b&gt; as a new personal  view:</source>
         <translation>复制视图&lt;b&gt;%1&lt;/b&gt;为一个个人视图：</translation>
     </message>
@@ -1387,12 +1387,12 @@ Are you sure you want to continue?</source>
 <context>
     <name>DefaultViewDialog</name>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="835"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="839"/>
         <source>Default View</source>
         <translation>默认视图</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="836"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="840"/>
         <source>Modify the default view for type &lt;b&gt;%1&lt;/b&gt;:</source>
         <translation>修改类型&lt;b&gt;%1&lt;/b&gt;的默认视图：</translation>
     </message>
@@ -1596,17 +1596,17 @@ Are you sure you want to continue?</source>
 <context>
     <name>DeleteViewDialog</name>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="922"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="926"/>
         <source>Delete View</source>
         <translation>删除视图</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="924"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="928"/>
         <source>Are you sure you want to delete public view &lt;b&gt;%1&lt;/b&gt;?</source>
         <translation>您确定要删除公共视图&lt;b&gt;%1&lt;/b&gt;吗？</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="926"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="930"/>
         <source>Are you sure you want to delete your personal view &lt;b&gt;%1&lt;/b&gt;?</source>
         <translation>您确定要删除个人视图&lt;b&gt;%1&lt;/b&gt;吗？</translation>
     </message>
@@ -2257,22 +2257,22 @@ Are you sure you want to continue?</source>
 <context>
     <name>InitialViewDialog</name>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="1127"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="1131"/>
         <source>Initial View</source>
         <translation>初始化视图</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="1128"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="1132"/>
         <source>Select initial view for type &lt;b&gt;%1&lt;/b&gt;:</source>
         <translation>选择&lt;b&gt;%1&lt;/b&gt;类型初始化视图：</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="1133"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="1137"/>
         <source>&amp;View:</source>
         <translation>视图(&amp;V)：</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="1137"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="1141"/>
         <source>All Issues</source>
         <translation>所有工作项</translation>
     </message>
@@ -3524,22 +3524,22 @@ Connected to %1</source>
 <context>
     <name>ModifyViewDialog</name>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="802"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="806"/>
         <source>Modify Public View</source>
         <translation>修改公共视图</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="803"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="807"/>
         <source>Modify the public view &lt;b&gt;%1&lt;/b&gt;:</source>
         <translation>修改公共视图&lt;b&gt;%1&lt;/b&gt;：</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="805"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="809"/>
         <source>Modify Personal View</source>
         <translation>修改个人视图</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="806"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="810"/>
         <source>Modify your personal view &lt;b&gt;%1&lt;/b&gt;:</source>
         <translation>修改您的的个人视图&lt;b&gt;%1&lt;/b&gt;：</translation>
     </message>
@@ -4037,22 +4037,22 @@ The Desktop Client will always use the language configured in program settings a
 <context>
     <name>PublishViewDialog</name>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="951"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="955"/>
         <source>Publish View</source>
         <translation>发布视图</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="952"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="956"/>
         <source>Are you sure you want to convert your personal view &lt;b&gt;%1&lt;/b&gt; to a public view?</source>
         <translation>您确定要将您的个人视图&lt;b&gt;%1&lt;/b&gt;转换为公共视图吗？</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="955"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="959"/>
         <source>Unpublish View</source>
         <translation>取消发布视图</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="956"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="960"/>
         <source>Are you sure you want to convert public view &lt;b&gt;%1&lt;/b&gt; to your personal view?</source>
         <translation>您确定要将公共视图&lt;b&gt;%1&lt;/b&gt;转换为个人视图吗？</translation>
     </message>
@@ -4196,17 +4196,17 @@ The Desktop Client will always use the language configured in program settings a
 <context>
     <name>RenameViewDialog</name>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="867"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="871"/>
         <source>Rename View</source>
         <translation>重命名视图</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="868"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="872"/>
         <source>Enter the new name of view &lt;b&gt;%1&lt;/b&gt;:</source>
         <translation>请输入视图&lt;b&gt;%1&lt;/b&gt;的新名称：</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="873"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="877"/>
         <source>&amp;Name:</source>
         <translation>名称(&amp;N)：</translation>
     </message>

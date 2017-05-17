@@ -438,22 +438,22 @@
 <context>
     <name>AddViewDialog</name>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="702"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="706"/>
         <source>Add Public View</source>
         <translation>Adicionar Exibição Pública</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="703"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="707"/>
         <source>Create a new public view for type &lt;b&gt;%1&lt;/b&gt;:</source>
         <translation>Criar uma nova visão para o público tipo&lt;b&gt;%1&lt;/b&gt;:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="705"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="709"/>
         <source>Add Personal View</source>
         <translation>Adicionar Visão Pessoal</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="706"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="710"/>
         <source>Create a new personal view for type &lt;b&gt;%1&lt;/b&gt;:</source>
         <translation>Criar uma nova visão pessoal de tipo&lt;b&gt;%1&lt;/b&gt;:</translation>
     </message>
@@ -888,27 +888,27 @@
 <context>
     <name>AttributeOrderDialog</name>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="993"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="997"/>
         <source>Order of Attributes</source>
         <translation>Ordem dos Atributos</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="994"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="998"/>
         <source>Modify order of attributes for type &lt;b&gt;%1&lt;/b&gt;:</source>
         <translation>Modificar a ordem dos atributos do tipo &lt;b&gt;%1&lt;/b&gt;:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="1010"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="1014"/>
         <source>Name</source>
         <translation>Nome</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="1011"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="1015"/>
         <source>Order</source>
         <translation>Ordem</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="1041"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="1045"/>
         <source>Edit view settings.</source>
         <translation>Editar configurações de exibição.</translation>
     </message>
@@ -1069,17 +1069,17 @@
 <context>
     <name>CloneViewDialog</name>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="752"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="756"/>
         <source>Clone View</source>
         <translation>Visualizar Clonagem</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="754"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="758"/>
         <source>Clone view &lt;b&gt;%1&lt;/b&gt; as a new public view:</source>
         <translation>Visualizar clone &lt;b&gt;%1&lt;/b&gt; como uma nova visão pública:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="756"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="760"/>
         <source>Clone view &lt;b&gt;%1&lt;/b&gt; as a new personal  view:</source>
         <translation>Visualizar clone &lt;b&gt;%1&lt;/b&gt; como uma nova visão pessoal:</translation>
     </message>
@@ -1387,12 +1387,12 @@ Você tem certeza que gostaria de continuar?</translation>
 <context>
     <name>DefaultViewDialog</name>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="835"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="839"/>
         <source>Default View</source>
         <translation>Visualização Padrão</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="836"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="840"/>
         <source>Modify the default view for type &lt;b&gt;%1&lt;/b&gt;:</source>
         <translation>Modificar a visualização padrão para o tipo &lt;b&gt;%1&lt;/&gt;:</translation>
     </message>
@@ -1596,17 +1596,17 @@ Você tem certeza que gostaria de continuar?</translation>
 <context>
     <name>DeleteViewDialog</name>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="922"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="926"/>
         <source>Delete View</source>
         <translation>Deletar a Visualização</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="924"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="928"/>
         <source>Are you sure you want to delete public view &lt;b&gt;%1&lt;/b&gt;?</source>
         <translation>Você tem certeza que deseja deletar a visualização pública &lt;b&gt;%1&lt;/b&gt;?</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="926"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="930"/>
         <source>Are you sure you want to delete your personal view &lt;b&gt;%1&lt;/b&gt;?</source>
         <translation>Você tem certeza que deseja deletar a sua visualização pessoal &lt;b&gt;%1&lt;/b&gt;?</translation>
     </message>
@@ -2257,22 +2257,22 @@ Você tem certeza que gostaria de continuar?</translation>
 <context>
     <name>InitialViewDialog</name>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="1127"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="1131"/>
         <source>Initial View</source>
         <translation>Exibição inicial</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="1128"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="1132"/>
         <source>Select initial view for type &lt;b&gt;%1&lt;/b&gt;:</source>
         <translation>Selecione visão inicial para o tipo &lt;b&gt;%1&lt;/b&gt;:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="1133"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="1137"/>
         <source>&amp;View:</source>
         <translation>&amp;Visualizar:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="1137"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="1141"/>
         <source>All Issues</source>
         <translation>Todas as Ocorrências</translation>
     </message>
@@ -3527,22 +3527,22 @@ Connected to %1</source>
 <context>
     <name>ModifyViewDialog</name>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="802"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="806"/>
         <source>Modify Public View</source>
         <translation>Modificar Visualização Pública</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="803"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="807"/>
         <source>Modify the public view &lt;b&gt;%1&lt;/b&gt;:</source>
         <translation>Modificar a visualização pública &lt;b&gt;%1&lt;/b&gt;:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="805"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="809"/>
         <source>Modify Personal View</source>
         <translation>Modificar a Visualização Pessoal</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="806"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="810"/>
         <source>Modify your personal view &lt;b&gt;%1&lt;/b&gt;:</source>
         <translation>Modificar a sua visualização pessoal &lt;b&gt;%1&lt;/b&gt;:</translation>
     </message>
@@ -4040,22 +4040,22 @@ O Desktop Cliente usará sempre o idioma configurado em configurações do progr
 <context>
     <name>PublishViewDialog</name>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="951"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="955"/>
         <source>Publish View</source>
         <translation>Visualizar Publicação</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="952"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="956"/>
         <source>Are you sure you want to convert your personal view &lt;b&gt;%1&lt;/b&gt; to a public view?</source>
         <translation>Tem certeza que quer converter o sua visualização pessoal &lt;b&gt;%1&lt;/b&gt; para uma visualização pública?</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="955"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="959"/>
         <source>Unpublish View</source>
         <translation>Visualizar o Não Publicado</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="956"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="960"/>
         <source>Are you sure you want to convert public view &lt;b&gt;%1&lt;/b&gt; to your personal view?</source>
         <translation>Tem certeza que quer converter &lt;b&gt;%1&lt;/b&gt; visualização pública para visualização pessoal?</translation>
     </message>
@@ -4199,17 +4199,17 @@ O Desktop Cliente usará sempre o idioma configurado em configurações do progr
 <context>
     <name>RenameViewDialog</name>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="867"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="871"/>
         <source>Rename View</source>
         <translation>Renomear Visualização</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="868"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="872"/>
         <source>Enter the new name of view &lt;b&gt;%1&lt;/b&gt;:</source>
         <translation>Digite o novo nome de exibição para &lt;b&gt;%1&lt;/b&gt;:</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/viewdialogs.cpp" line="873"/>
+        <location filename="../src/dialogs/viewdialogs.cpp" line="877"/>
         <source>&amp;Name:</source>
         <translation>&amp;Nome:</translation>
     </message>
