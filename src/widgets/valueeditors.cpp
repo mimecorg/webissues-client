@@ -211,7 +211,7 @@ QStringList InputLineValueEditor::userItems()
     if ( m_members && m_projectId != 0 ) {
         ProjectEntity project = ProjectEntity::find( m_projectId );
         users = project.members();
-    } else if ( dataManager->currentUserAccess() == Access::AdminAccess ) {
+    } else if ( dataManager->currentUserAccess() == AdminAccess ) {
         users = UserEntity::list();
     } else {
         users = UserEntity::visible();

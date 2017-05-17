@@ -577,7 +577,7 @@ QStringList ViewDialog::userItems()
     items.append( QString( "[%1]" ).arg( tr( "Me" ) ) );
 
     QList<UserEntity> users;
-    if ( dataManager->currentUserAccess() == Access::AdminAccess )
+    if ( dataManager->currentUserAccess() == AdminAccess )
         users = UserEntity::list();
     else
         users = UserEntity::visible();
