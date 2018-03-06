@@ -1,0 +1,13 @@
+debug
+release
+src/webissues.vcxproj
+src/webissues.vcxproj.filters
+src/webissues.vcxproj.user
+tmp
+translations/call-lrelease.bat
+translations/call-lupdate.bat
+.qmake.stash
+config.pri
+configure-msvc.bat
+webissues.sln
+webissues.v12.suo
