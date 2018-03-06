@@ -1,7 +1,7 @@
 /**************************************************************************
 * This file is part of the WebIssues Desktop Client program
 * Copyright (C) 2006 Michał Męciński
-* Copyright (C) 2007-2012 WebIssues Team
+* Copyright (C) 2007-2013 WebIssues Team
 *
 * This program is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -427,7 +427,7 @@ bool SqlTreeModel::setHeaderData( int section, Qt::Orientation orientation, cons
         return false;
 
     if ( d->m_headers.size() <= section )
-        d->m_headers.resize( qMax( section, 16 ) );
+        d->m_headers.resize( qMax( section + 1, 16 ) );
 
     d->m_headers[ section ][ role ] = value;
 

@@ -1,7 +1,7 @@
 /**************************************************************************
 * This file is part of the WebIssues Desktop Client program
 * Copyright (C) 2006 Michał Męciński
-* Copyright (C) 2007-2012 WebIssues Team
+* Copyright (C) 2007-2013 WebIssues Team
 *
 * Inspired by code written by John T. Haller of PortableApps.com
 *
@@ -19,8 +19,8 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************/
 
-!define VERSION "1.0.4"
-!define BUILDVERSION "1.0.4.4714"
+!define VERSION "1.0.5"
+!define BUILDVERSION "1.0.5.4819"
 
 !define SRCDIR "..\.."
 !define BUILDDIR "bin"

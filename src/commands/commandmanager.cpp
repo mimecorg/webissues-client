@@ -1,7 +1,7 @@
 /**************************************************************************
 * This file is part of the WebIssues Desktop Client program
 * Copyright (C) 2006 Michał Męciński
-* Copyright (C) 2007-2012 WebIssues Team
+* Copyright (C) 2007-2013 WebIssues Team
 *
 * This program is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -302,6 +302,11 @@ void CommandManager::sendCommandRequest( Command* command )
     m_currentMessage->open( QIODevice::ReadOnly );
 
     request.setHeader( QNetworkRequest::ContentTypeHeader, m_currentMessage->contentType() );
+
+    if ( command->binaryResponseOutput() )
+        request.setRawHeader( "Accept", "application/octet-stream,*/*" );
+    else
+        request.setRawHeader( "Accept", "text/plain,*/*" );
 
     m_statusCode = 0;
     setError( NoError );

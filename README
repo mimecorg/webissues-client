@@ -1,5 +1,5 @@
 WebIssues Desktop Client
-Version 1.0.4 (2012-11-27)
+Version 1.0.5 (2013-03-12)
 
 Desktop Client for the WebIssues team collaboration system.
 
@@ -17,7 +17,7 @@ Copyrights
 ==========
 
 Copyright (C) 2006 Michał Męciński
-Copyright (C) 2007-2012 WebIssues Team
+Copyright (C) 2007-2013 WebIssues Team
 
 The WebIssues Manual is licensed under the terms of the GNU Free
 Documentation License, Version 1.3
@@ -95,6 +95,9 @@ Translators:
 
  * René Villegas (renevillegasr at gmail com)
     - Spanish translation
+
+ * Petr Stasiak (info at pestasoft com)
+    - Czech translation
 
 
 Resources
