@@ -159,10 +159,6 @@ bool IssueDialog::initialize( int typeId, int projectId, Flags flags )
         attributeScroll->setWidgetResizable( true );
         attributeLayout->addWidget( attributeScroll );
 
-        QPalette scrollPalette = palette();
-        scrollPalette.setColor( QPalette::Window, QColor::fromRgb( 255, 255, 255 ) );
-        attributeScroll->setPalette( scrollPalette );
-
         QWidget* attributePanel = new QWidget( attributeScroll );
         attributeScroll->setWidget( attributePanel );
 
